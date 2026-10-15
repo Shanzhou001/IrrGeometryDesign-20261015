@@ -35,37 +35,87 @@ int *UnOptiMiuSA(int N, float c, int *Phi, string samptype);//2023.5.16修改
  *	Note : 本函数为 UnOptiMiuSAEx 的简化包装（无统计输出）
  *-----------------------------------------------------*/
 
-struct SAStats
-/*-----------------------------------------------------
- *  优化过程统计信息（UnOptiMiuSAEx 输出，实验记录用）
- *-----------------------------------------------------*/
+enum SAAcceptanceStrategy // add by shanzhou in 2026/10/15
+
 {
-	float miu0;                      //初始μ值
-	float miu_sa_best;               //SA 结束时的历史最优μ值
-	float miu_final;                 //CG 精修后的最终μ值
-	double sa_time;                  //SA 耗时（秒）
-	double cg_time;                  //CG 耗时（秒）
-	int sa_steps;                    //SA 实际迭代步数
-	long mu_evals;                   //本阶段μ评估次数（效率对比用）
-	std::vector<float> mu_trace;     //逐步μ值（收敛曲线）
-	std::vector<long> eval_trace;    //逐步累计μ评估次数（收敛曲线的效率横轴）
-	SAStats() : miu0(0), miu_sa_best(0), miu_final(0), sa_time(0), cg_time(0),
-				sa_steps(0), mu_evals(0) {}
+
+	SA_ACCEPT_METROPOLIS = 0, // 经典 Metropolis 准则: p = exp(-delta / T)
+
+	SA_ACCEPT_PROGRESS   = 1  // 自定义迭代进度准则: p = exp(-20 * (t/Time)^5)
+
 };
 
-struct SAParams
+
+
+struct SAStats
+
 /*-----------------------------------------------------
- *  模拟退火超参数（2026.9.18 开放为可配置，供敏感性分析；
- *  默认值 = 原实现的经验固定值，行为完全一致）
+
+ *  优化过程统计信息（UnOptiMiuSAEx 输出，实验记录用）
+
  *-----------------------------------------------------*/
+
 {
-	double T0;        //初始温度（默认 100）
-	double Tmin;      //终止温度（默认 1.0）
-	double alpha;     //降温系数（默认 0.80）
-	int n_rapid;      //急速降温阶段步数（默认 10）
-	int iter;         //每温度内循环次数（默认 1）
-	SAParams() : T0(100), Tmin(1.0), alpha(0.80), n_rapid(10), iter(1) {}
+
+	float miu0;                      //初始μ值
+
+	float miu_sa_best;               //SA 结束时的历史最优μ值
+
+	float miu_final;                 //CG 精修后的最终μ值
+
+	double sa_time;                  //SA 耗时（秒）
+
+	double cg_time;                  //CG 耗时（秒）
+
+	int sa_steps;                    //SA 实际迭代步数
+
+	long mu_evals;                   //本阶段μ评估次数（效率对比用）
+
+	std::vector<float> mu_trace;     //当前解逐步μ值（探索轨迹）
+
+	std::vector<float> best_mu_trace;//历史最优逐步μ值（单调非增收敛曲线）
+
+	std::vector<long> eval_trace;    //逐步累计μ评估次数（收敛曲线的效率横轴）
+
+	SAStats() : miu0(0), miu_sa_best(0), miu_final(0), sa_time(0), cg_time(0),
+
+				sa_steps(0), mu_evals(0) {}
+
 };
+
+
+
+struct SAParams
+
+/*-----------------------------------------------------
+
+ *  模拟退火超参数配置
+
+ *-----------------------------------------------------*/
+
+{
+
+	double T0;        //初始温度（默认 100）
+
+	double Tmin;      //终止温度（默认 1.0）
+
+	double alpha;     //降温系数（默认 0.80）
+
+	int n_rapid;      //急速降温阶段步数（默认 10）
+
+	int iter;         //每温度内循环次数（默认 1）
+
+	SAAcceptanceStrategy strategy; //退火接受策略 (默认 Metropolis)
+
+	double temp_scale;             //温度标度系数（默认 1.0）
+
+	SAParams() : T0(100), Tmin(1.0), alpha(0.80), n_rapid(10), iter(1),
+
+	             strategy(SA_ACCEPT_METROPOLIS), temp_scale(1.0) {}
+
+};
+
+
 
 int *UnOptiMiuSAEx( // add by shanzhou in 2026/10/15
     int N, float c, int *Phi, string samptype,

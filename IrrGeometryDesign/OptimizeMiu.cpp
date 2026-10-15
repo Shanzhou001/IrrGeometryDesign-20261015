@@ -36,6 +36,7 @@ using namespace std;
 
 //*********** 候选解生成 - 前向声明 **********//
 static int* gen_candidate_regen(int N, float c, const string& samptype);
+
 static int* gen_candidate_neighbor(int N, const int* cur, const string& samptype);
 
 //*********** 常规模拟退火算法（旧版接口，GUI 历史保留，未被调用）**********//
@@ -78,15 +79,14 @@ int *OptiMiuSA(double T, double Tmin, int iter, double alpha, int N,float c, int
 
 //************ 候选解生成 ************//
 // 根据 samptype 生成一个全新候选解（原行为：整体重新采样）
-static int* gen_candidate_regen(int N, float c, const string& samptype)
+static int* gen_candidate_regen(int N, float c, const string& samptype) // add by shanzhou in 2026/10/15
 {
-	if (samptype == "F") return Sampling1F(N, c);
-	if (samptype == "J") return Sampling1J(N, c);
-	return Sampling1S(N, c);
+	int m = (int)floor((double)N * c + 0.5);
+	if (samptype == "F") return Sampling1F_Count(N, m);
+	if (samptype == "J") return Sampling1J_Count(N, m);
+	return Sampling1S_Count(N, m);
 }
 
-// 邻域扰动候选解（标准 SA 邻域搜索）：从当前解随机移动少量采样点
-// 移动点数 nm = max(1, 采样点数/20)，兼顾搜索步长与计算量
 static int* gen_candidate_neighbor(int N, const int* cur, const string& samptype)
 {
 	(void)samptype;
@@ -124,150 +124,352 @@ int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype,
 }
 
 int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype, // add by shanzhou in 2026/10/15
+
 				   bool neighbor_mode, SAStats *stats, int cg_max_iter,
+
 				   const SAParams &sap)
+
 {
-	// 参数检查
+
+	// 参数防御性校验与约束
+
 	if (Phi == NULL || N <= 0) return Phi;
 
-	//超参数由 SAParams 提供（默认值 = 原 2025.12.24 经验固定值）
-	double T = sap.T0; //初始温度
-	double Tmin = sap.Tmin; //终止温度
-	int iter = sap.iter; //内部循环次数
-	double alpha = sap.alpha; //降温系数
-	int n = sap.n_rapid; //急速降温阶段步数
-	double T0 = T; //退火函数改进时的初始温度
-	double T1 = T0*exp(-alpha*pow((double)n,0.5)); //通过急速降温后的温度，防止除0或log负数
-	int r2 = (int)(log(Tmin/T1)/log(alpha)); //常规降温次数
+
+
+	double T0 = sap.T0 > 0.0 ? sap.T0 : 100.0;
+
+	double Tmin = (sap.Tmin > 0.0 && sap.Tmin < T0) ? sap.Tmin : 1.0;
+
+	double alpha = (sap.alpha > 0.01 && sap.alpha < 0.999) ? sap.alpha : 0.80;
+
+	int n = sap.n_rapid >= 1 ? sap.n_rapid : 10;
+
+	int iter = sap.iter >= 1 ? sap.iter : 1;
+
+
+
+	double T = T0;
+
+	double T1 = T0 * exp(-alpha * pow((double)n, 0.5));
+
+	int r2 = (int)(log(Tmin / T1) / log(alpha));
+
 	if (r2 < 1) r2 = 1;
-	double Time=n+r2;//总迭代次数
 
-	float miu=0.0,miu_new=0.0;
+	double Time = n + r2;
 
-	// 申请大一点的空间，防止 record 数组越界 - 增加到100
+
+
+	float miu = 0.0f, miu_new = 0.0f;
+
 	int max_steps = n + r2 + 100;
+
 	float *record = new float[max_steps];
 
-	// ===== 修复核心：维护马尔可夫链的"当前解"与真正的"历史最优解" =====
-	int *cur  = new int[N];  //链当前状态
-	int *best = new int[N];  //历史最优（记忆功能）
-	for(int k=0; k<N; k++) {
+
+
+	// 维护马尔可夫链当前解与历史最优解
+
+	int *cur = new int[N];
+
+	int *best = new int[N];
+
+	for (int k = 0; k < N; k++)
+
+	{
+
 		cur[k] = Phi[k];
+
 		best[k] = Phi[k];
+
 	}
 
-	for(int k=0; k<max_steps; k++) {
-		record[k] = 0.0;
-	}
+	for (int k = 0; k < max_steps; k++) record[k] = 0.0f;
 
-	int t=0;
 
-	float miu_best = 1000000.0;
+
+	int t = 0;
+
+	float miu_best = 1e9f;
+
+
+
+	// 修复：清空所有统计容器，避免历史旧数据残留
 
 	if (stats)
+
 	{
-		stats->miu0 = 0; stats->miu_sa_best = 0; stats->miu_final = 0;
-		stats->sa_time = 0; stats->cg_time = 0; stats->sa_steps = 0;
+
+		stats->miu0 = 0.0f;
+
+		stats->miu_sa_best = 0.0f;
+
+		stats->miu_final = 0.0f;
+
+		stats->sa_time = 0.0;
+
+		stats->cg_time = 0.0;
+
+		stats->sa_steps = 0;
+
 		stats->mu_evals = 0;
+
 		stats->mu_trace.clear();
+
+		stats->best_mu_trace.clear();
+
+		stats->eval_trace.clear();
+
 	}
+
+
+
 	clock_t sa_begin = clock();
+
 	long evals_begin = miu_eval_count();
 
-	miu = TestCurveletMiu1D(N, Phi, "EigenReal");//初始μ值
-	if (stats) stats->miu0 = miu;
-	if (miu < miu_best) miu_best = miu; //初始解也参与最优记忆
-	if (stats) stats->mu_trace.push_back(miu);
 
-	// SA算法主循环（F/J/R 三种采样类型仅候选生成不同，流程一致）
-	while (T > Tmin && t < max_steps - 1)
+
+	miu = TestCurveletMiu1D(N, Phi, "EigenReal");
+
+	miu_best = miu;
+
+	if (stats)
+
 	{
+
+		stats->miu0 = miu;
+
+		stats->mu_trace.push_back(miu);
+
+		stats->best_mu_trace.push_back(miu_best);
+
+		stats->eval_trace.push_back(1);
+
+	}
+
+
+
+	// 根据初始 miu 标定 Metropolis 温度标度（目标量级自适应）
+
+	double scale = (sap.temp_scale > 0.0) ? sap.temp_scale : 1.0;
+
+	if (scale == 1.0 && miu > 0.0f && T0 > 10.0)
+
+	{
+
+		scale = (double)miu / T0;
+
+	}
+
+
+
+	// SA 算法主循环
+
+	while (T > Tmin && t < max_steps - 1)
+
+	{
+
 		for (int i = 0; i < iter; i++)
+
 		{
+
 			int *phi_new_i = neighbor_mode ? gen_candidate_neighbor(N, cur, samptype)
+
 										   : gen_candidate_regen(N, c, samptype);
-			if (phi_new_i == NULL) continue; // NULL检查
+
+			if (phi_new_i == NULL) continue;
+
+
 
 			miu_new = TestCurveletMiu1D(N, phi_new_i, "EigenReal");
+
 			float delta = miu_new - miu;
+
 			bool accept = false;
-			if (delta < 0)
+
+
+
+			if (delta <= 0.0f)
+
 			{
-				accept = true; // 新方案更优，直接接受
+
+				accept = true; // 新解更优或等优，直接接受
+
 			}
+
 			else
+
 			{
-				// 按改进概率函数接受次优解，增强全局搜索
-				float p = (float)exp(-20 * pow(t / Time, 5));
-				if (p >= (exprng::uniform()))
+
+				if (sap.strategy == SA_ACCEPT_METROPOLIS)
+
 				{
-					accept = true;
+
+					// 经典 Metropolis 准则: p = exp(-delta / (T * scale))
+
+					double eff_T = T * scale;
+
+					if (eff_T < 1e-12) eff_T = 1e-12;
+
+					double exponent = -(double)delta / eff_T;
+
+					if (exponent < -50.0) exponent = -50.0;
+
+					float p = (float)exp(exponent);
+
+					if (p >= exprng::uniform())
+
+					{
+
+						accept = true;
+
+					}
+
 				}
+
+				else
+
+				{
+
+					// 自定义迭代进度准则
+
+					float p = (float)exp(-20.0 * pow((double)t / Time, 5.0));
+
+					if (p >= exprng::uniform())
+
+					{
+
+						accept = true;
+
+					}
+
+				}
+
 			}
+
+
+
 			if (accept)
+
 			{
-				// 修复：接受时同步更新链状态（原实现只更新 μ 标量）
-				memcpy(cur, phi_new_i, sizeof(int)*N);
+
+				memcpy(cur, phi_new_i, sizeof(int) * N);
+
 				miu = miu_new;
+
 			}
+
 			delete[] phi_new_i;
+
 		}
+
+
 
 		record[t] = miu;
+
+		if (miu < miu_best)
+
+		{
+
+			miu_best = miu;
+
+			memcpy(best, cur, sizeof(int) * N);
+
+		}
+
+
+
 		if (stats)
+
 		{
+
 			stats->mu_trace.push_back(miu);
+
+			stats->best_mu_trace.push_back(miu_best);
+
 			stats->eval_trace.push_back(miu_eval_count() - evals_begin);
+
 		}
-		if (record[t] < miu_best)
-		{
-			// 修复：记忆的是当前链状态（最优μ对应的矩阵），
-			// 原实现存入的是最后一次候选解，与最优μ不对应
-			miu_best = record[t];
-			memcpy(best, cur, sizeof(int)*N);
-		}
+
+
 
 		t = t + 1;
+
 		if (t < n + 1)
+
 		{
-			T = T0 * exp(-alpha * pow((double)t, 0.5)); // 改进退火函数
+
+			T = T0 * exp(-alpha * pow((double)t, 0.5));
+
 		}
+
 		else
+
 		{
+
 			T = T * alpha;
+
 		}
+
 	}
 
+
+
 	if (stats)
+
 	{
+
 		stats->sa_steps = t;
+
 		stats->miu_sa_best = miu_best;
+
 		stats->sa_time = (double)(clock() - sa_begin) / CLOCKS_PER_SEC;
+
 		stats->mu_evals = miu_eval_count() - evals_begin;
+
 	}
 
-	// =======================================================
-	// 混合优化策略：SA 结束后，执行 CG 局部精修
-	// （cg_max_iter<=0 时跳过 CG，即纯 SA，供消融实验使用）
-	// =======================================================
+
+
+	// 混合优化策略：CG 局部精修（若 cg_max_iter <= 0 则跳过）
+
 	clock_t cg_begin = clock();
+
 	int *result = best;
+
 	if (cg_max_iter > 0)
+
 	{
-		result = OptiMiuCG(N, best, cg_max_iter); //原地精修 best 并返回
+
+		result = OptiMiuCG(N, best, cg_max_iter);
+
 	}
+
 	if (stats)
+
 	{
+
 		stats->cg_time = (double)(clock() - cg_begin) / CLOCKS_PER_SEC;
+
 		stats->miu_final = TestCurveletMiu1D(N, result, "EigenReal");
+
 	}
 
-	// 释放内存
-	if(record != NULL) delete []record;
-	if(cur != NULL) delete []cur;
 
-	return result; // new[] 分配，调用方 delete[]
+
+	if (record != NULL) delete[] record;
+
+	if (cur != NULL) delete[] cur;
+
+
+
+	return result;
+
 }
+
+
 
 // 兼容旧接口
 int *UnOptiMiuSA(int N, float c, int *Phi, string samptype)
