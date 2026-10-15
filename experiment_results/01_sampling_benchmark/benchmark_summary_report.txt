@@ -1,31 +1,35 @@
 ====================================================================================
   Irregular Seismic Geometry Non-Uniform Sampling Benchmark Report (Scientific Evaluation)
-  Generated: 2026-10-15 16:45:58
-  Base Random Seed: 42
+  Generated: 2026-10-15 17:28:27
+  Master Random Seed: 42
+  Repetition Runs per Rate: 3
+  Seed Derivation Formula: actual_seed = master_seed + int(c * 1000) + run_index * 179 + 1
 ====================================================================================
 
 [Sampling Protocol & Fairness Guarantees]
   1. Spatial Total Points N = 128; strictly synchronized actual sampling points m.
-  2. Regular Decimation covers full space: i_k = int(k * N / m), preventing boundary artifacts.
+  2. Regular Decimation covers full space: i_k = int(k * N / m) for k=0..m-1.
   3. Pure Random Sampling uses Fisher-Yates shuffle, exactly m points without duplicate.
   4. Jitter Initial Sampling uses grid-partitioned jitter, exactly m points.
   5. Jitter-SA uses Metropolis acceptance & local perturbation, strictly preserving sum(mask) == m.
-  6. Coherence Reduction Ratio definition: 20 * log10(mu_regular / mu_opt) dB.
+  6. Coherence Ratio Attenuation definition: 20 * log10(mu_regular / mu_opt) dB.
+     (Note: Measures peak mutual coherence ratio attenuation, not direct total field seismic aliasing energy).
 
-[Sampling Benchmark Comparison Table]
---------------------------------------------------------------------------------------------------------
-Rate	Sampled/Total	Regular_Mu	Random_Mu	Jitter_Init_Mu	Jitter_SA_Mu	Imprv_vs_Reg	Coherence_Red(dB)
---------------------------------------------------------------------------------------------------------
-30%	38/128		0.7892		0.4379		0.5737		0.3729		52.75%		6.51 dB
-50%	64/128		0.9601		0.3661		0.3472		0.2364		75.38%		12.17 dB
-70%	90/128		0.2609		0.1914		0.2355		0.1545		40.80%		4.55 dB
---------------------------------------------------------------------------------------------------------
+[Statistical Sampling Benchmark Summary Table (Averaged over 3 runs)]
+------------------------------------------------------------------------------------------------------------------------
+Rate	m/N	Regular_Mu	Random_Mu	SA_Mean_Mu	SA_StdDev	[Min, Max]	Imprv_vs_Reg	Coherence_Atten(dB)
+------------------------------------------------------------------------------------------------------------------------
+30%	38/128	0.7892		0.4595		0.3614		0.0247		[0.3338, 0.3938]	54.21%		6.80 dB
+50%	64/128	0.9601		0.3242		0.2240		0.0051		[0.2196, 0.2311]	76.67%		12.64 dB
+70%	90/128	0.2609		0.2356		0.1333		0.0079		[0.1245, 0.1438]	48.90%		5.85 dB
+------------------------------------------------------------------------------------------------------------------------
 
 [Statistical Metrics & Scientific Conclusions]
-  - Cross-Rate Average Improvement (vs Regular): 56.31%
-  - Cross-Rate Average Improvement (vs Random):  23.19%
-  - Cross-Rate Average Coherence Reduction:      7.75 dB
-  - 50% Benchmark Single-Row Result: Imprv vs Regular = 75.38%, Coherence Reduction = 12.17 dB
+  - Cross-Rate Average Improvement (vs Regular): 59.93%
+  - Cross-Rate Average Improvement (vs Random):  31.25%
+  - Cross-Rate Average Coherence Attenuation:    8.43 dB
+  - 50% Sampling Rate Benchmark: Mean Mu = 0.2240 (Std: 0.0051), Imprv vs Regular = 76.67%, Coherence Ratio Attenuation = 12.64 dB
 
-Conclusion: Jitter initialization with Metropolis Simulated Annealing suppresses curvelet coherence
-across all sampling rates, converting coherent aliasing energy into harmless pseudo-random noise.
+[Experiment Traceability Notes]
+  - Complete per-run raw measurements are logged in 'benchmark_runs_detail.csv'.
+  - All runs are 100% deterministic and reproducible under Master Random Seed 42.

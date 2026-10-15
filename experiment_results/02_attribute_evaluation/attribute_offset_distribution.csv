@@ -1,4 +1,4 @@
-# Mode: Synthetic Benchmark Mode (Simulated 3D Survey)
+# Mode: Synthetic Benchmark Mode (Simulated 3D Survey, 576 CMP Bins)
 Bin_Index,Offset_Min_m,Offset_Max_m,Trace_Count,Percentage
 1,50.0,246.9,82,2.87%
 2,246.9,443.8,102,3.57%

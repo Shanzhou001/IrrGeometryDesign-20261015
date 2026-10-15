@@ -19,14 +19,17 @@ public:
         float rate;               // 采样比例，如 0.30, 0.50, 0.70
         int N;                    // 空间道数/总检波点数
         int m;                    // 抽取后保留点数
-        unsigned long long seed;  // 随机种子
+        int run_index;            // 试验重复序号 (0, 1, ..., repeatRuns-1)
+        unsigned long long master_seed; // 实验主随机种子
+        unsigned long long actual_seed; // 本次实际使用的派生随机种子
+        unsigned long long seed;  // 兼容旧字段 (= actual_seed)
         float miu_regular;        // 规则减抽相干度
         float miu_random;         // 纯随机抽样相干度
         float miu_jitter_init;    // 初始抖动抽样相干度
         float miu_jitter_sa;      // 优化后 Jitter-SA 相干度
         float imprv_vs_regular;   // 相比规则减抽改善率(%)
         float imprv_vs_random;    // 相比随机抽样改善率(%)
-        float alias_suppress_db;  // 基于相干度比值的抑制指标 (20*log10(mu_reg/mu_opt) dB)
+        float alias_suppress_db;  // 相干度比值衰减指标 (20*log10(mu_reg/mu_opt) dB)
         std::vector<float> convergence_trace;      // SA 当前解探索轨迹
         std::vector<float> best_convergence_trace; // SA 历史最优收敛曲线 (单调非增)
         std::vector<long> eval_trace;              // 逐步累计评估次数
@@ -35,16 +38,20 @@ public:
     struct MultiSeedSummary
     {
         float rate;
-        int m;
         int N;
-        int seedCount;
+        int m;
+        int repeatRuns;
+        unsigned long long master_seed;
+        float miu_regular;
+        float miu_random_mean;
+        float miu_random_std;
         float sa_miu_mean;
         float sa_miu_std;
         float sa_miu_best;
         float sa_miu_worst;
         float imprv_vs_reg_mean;
         float imprv_vs_rand_mean;
-        float alias_db_mean;
+        float coherence_ratio_atten_db_mean;
     };
 
     // 执行多采样率对比试验（支持指定随机种子与多随机种子重复试验）
@@ -122,6 +129,12 @@ public:
         std::vector<float> residual_convergence; // 迭代残差收敛轨迹
     };
 
+    // 严格校验采样掩码文件合法性 (长度严格为 expectedN, 取值只能为 0 或 1, 无截断无多余)
+    static bool validateAndLoadMaskFile(const QString& maskFilePath,
+                                        int expectedN,
+                                        std::vector<int>& outMask,
+                                        QString& outErrorMsg);
+
     // 执行地震波场压缩感知重构试验（支持外部地震文件输入、真实掩码校验、基线对比与全分辨率导出）
     static bool runWavefieldReconstruction(const QString& maskFilePath,
                                           const QString& outputDir,
@@ -132,6 +145,12 @@ public:
                                           bool exportFullResolution);
 
     // 辅助工具：一键执行全部三个试验并导出完整成果（具备子试验状态核验与错误追溯）
+    static bool runFullExperimentSuite(GProject *pProject,
+                                       const QString& outputDir,
+                                       QString& fullReportSummary,
+                                       unsigned long long rngSeed,
+                                       int repeatRuns);
+
     static bool runFullExperimentSuite(GProject *pProject,
                                        const QString& outputDir,
                                        QString& fullReportSummary,
@@ -158,7 +177,6 @@ public:
     static bool runFullExperimentSuite(GProject *pProject,
                                        const QString& outputDir,
                                        QString& fullReportSummary);
-
 
     // 自动化单元测试与回归校验体系 (Task 11) (add by shanzhou in 2026/10/15)
     static bool runUnitTests();

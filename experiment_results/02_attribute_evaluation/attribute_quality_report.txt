@@ -1,11 +1,11 @@
 ========================================================================
   Seismic Acquisition Geometry Spatial Attribute Quality Evaluation Report
-  Evaluation Mode: Synthetic Benchmark Mode (Simulated 3D Survey)
-  Generated: 2026-10-15 16:45:58
+  Evaluation Mode: Synthetic Benchmark Mode (Simulated 3D Survey, 576 CMP Bins)
+  Generated: 2026-10-15 17:28:27
 ========================================================================
 
 [Synthetic Benchmark Mode]
-  Calculated on 24x24 CMP bin grid with 32 active channels across synthetic geometry.
+  Calculated on 24x24 CMP bin grid with simulated 3D geometry (576 bins).
 
 [Field Survey Cost & Channel Optimization]
   Full Coverage Receivers:   400
@@ -15,11 +15,11 @@
 
 [CMP Bin Fold Uniformity Analysis]
   Live CMP Bins:             576
-  Mean Fold:                 31.70
+  Mean Fold:                 32.07
   Fold Range (Min ~ Max):    24 ~ 40
-  Fold Standard Deviation:   4.94
-  Coefficient of Variation:  0.1558 (Cv = StdDev / Mean)
-  Fold Retention Score:      92.2%
+  Fold Standard Deviation:   5.06
+  Coefficient of Variation:  0.1577 (Cv = StdDev / Mean)
+  Fold Retention Score:      92.1%
 
 [Offset Distribution Analysis]
   Offset Range (Min ~ Max):  50.0 m ~ 3200.0 m

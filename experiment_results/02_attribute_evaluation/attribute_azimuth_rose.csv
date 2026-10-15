@@ -1,4 +1,4 @@
-# Mode: Synthetic Benchmark Mode (Simulated 3D Survey)
+# Mode: Synthetic Benchmark Mode (Simulated 3D Survey, 576 CMP Bins)
 Sector_Index,Azimuth_Start_Deg,Azimuth_End_Deg,Trace_Count,Percentage
 1,0,15,250,8.76%
 2,15,30,266,9.32%

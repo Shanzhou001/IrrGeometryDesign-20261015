@@ -433,40 +433,39 @@ int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype, // add by shanzhou
 
 
 
-	// 混合优化策略：CG 局部精修（若 cg_max_iter <= 0 则跳过）
-
+	// 混合优化策略：CG 局部精修（若 cg_max_iter <= 0 则跳过）(add by shanzhou in 2026/10/15)
 	clock_t cg_begin = clock();
-
-	int *result = best;
-
 	if (cg_max_iter > 0)
-
 	{
+		int *sa_best_copy = new int[N];
+		memcpy(sa_best_copy, best, sizeof(int) * N);
+		float sa_best_miu = miu_best;
 
-		result = OptiMiuCG(N, best, cg_max_iter);
+		OptiMiuCG(N, best, cg_max_iter);
+		float cg_miu = TestCurveletMiu1D(N, best, "EigenReal");
 
+		if (cg_miu <= sa_best_miu)
+		{
+			miu_best = cg_miu;
+		}
+		else
+		{
+			// 若 CG 精修导致相干度升高或变差，则严格回退保留模拟退火历史最优解
+			memcpy(best, sa_best_copy, sizeof(int) * N);
+		}
+		delete[] sa_best_copy;
 	}
 
 	if (stats)
-
 	{
-
 		stats->cg_time = (double)(clock() - cg_begin) / CLOCKS_PER_SEC;
-
-		stats->miu_final = TestCurveletMiu1D(N, result, "EigenReal");
-
+		stats->miu_final = miu_best;
 	}
 
-
-
 	if (record != NULL) delete[] record;
-
 	if (cur != NULL) delete[] cur;
 
-
-
-	return result;
-
+	return best;
 }
 
 

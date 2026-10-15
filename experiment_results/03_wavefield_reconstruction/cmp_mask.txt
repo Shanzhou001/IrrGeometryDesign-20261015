@@ -1,4 +1,5 @@
-# Reconstruction Mask (1=sampled, 0=missing) | Total=128, Sampled=64
+# Source: External File (cmp_mask.txt)
+# Sampled_Points: 64 / 128
 1
 0
 1
