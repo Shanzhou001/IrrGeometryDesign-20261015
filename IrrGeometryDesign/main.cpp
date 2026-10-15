@@ -28,14 +28,19 @@ int main(int argc, char *argv[])
 		}
 	}
 #endif
-	// 设置 Qt 4 全局 C 字符串与本地编码 (add by shanzhou in 2026/10/15)
-	QTextCodec *codec = QTextCodec::codecForName("UTF-8");
-	if (!codec) codec = QTextCodec::codecForLocale();
+	// 设置 Qt 4 全局 C 字符串与本地编码为系统本地编码 (GBK/GB18030) (add by shanzhou in 2026/10/15)
+	QTextCodec *codec = QTextCodec::codecForLocale();
+	if (!codec) codec = QTextCodec::codecForName("GBK");
 	QTextCodec::setCodecForCStrings(codec);
 	QTextCodec::setCodecForLocale(codec);
 	QTextCodec::setCodecForTr(codec);
 
 	QApplication a(argc, argv);
+
+	// 设置应用程序默认简体中文字体与反走样 (add by shanzhou in 2026/10/15)
+	QFont appFont("SimSun", 9);
+	appFont.setStyleStrategy(QFont::PreferAntialias);
+	a.setFont(appFont);
 
 	for (int i = 1; i < argc; i++)
 	{
@@ -85,12 +90,17 @@ int main(int argc, char *argv[])
 	}
 
 	QTranslator *qtTranslator = new QTranslator;
-	if(qtTranslator->load(QCoreApplication::applicationDirPath() + "/IrrGeometryDesign_zh.qm.qm")){
+	QString appDir = QCoreApplication::applicationDirPath();
+	if (qtTranslator->load(appDir + "/IrrGeometryDesign_zh.qm") ||
+	    qtTranslator->load("IrrGeometryDesign_zh.qm") ||
+	    qtTranslator->load("IrrGeometryDesign/IrrGeometryDesign_zh.qm") ||
+	    qtTranslator->load(appDir + "/IrrGeometryDesign_zh.qm.qm"))
+	{
 		a.installTranslator(qtTranslator);
 	}
-	else{
-		qDebug(QObject::tr("load failed!!\n"));
-		qDebug() << QCoreApplication::applicationDirPath();
+	else
+	{
+		qDebug("load translator IrrGeometryDesign_zh.qm failed!\n");
 	}
 
 	TSPSForm w;

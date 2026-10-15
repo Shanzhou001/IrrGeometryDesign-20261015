@@ -2,7 +2,7 @@
   Seismic Wavefield Compressive Sensing Reconstruction Research Report
   Dataset Mode: Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)
   Subsampling Mask: External File (cmp_mask.txt)
-  Generated: 2026-10-15 17:28:27
+  Generated: 2026-10-15 20:46:26
 ====================================================================================
 
 [Subsampling Geometry Configuration]
@@ -17,8 +17,8 @@
   3. Compressive Sensing (POCS Convex Projection):    SNR = 6.76 dB (Gain: +3.75 dB vs Zero-fill, -5.59 dB vs Linear)
   4. Full-Field Root Mean Square Error (RMSE):        0.072965
   5. Pearson Cross-Correlation Coefficient (r):       0.8923
-  6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
-  7. Reconstruction Execution Time:                   791.0 ms (40 iterations)
+  6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-4)
+  7. Reconstruction Execution Time:                   618.0 ms (40 iterations)
 
 [In-Depth Comparative Analysis: POCS vs Linear Interpolation]
   - Observation Summary:

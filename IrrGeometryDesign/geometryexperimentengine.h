@@ -129,11 +129,24 @@ public:
         std::vector<float> residual_convergence; // 迭代残差收敛轨迹
     };
 
-    // 严格校验采样掩码文件合法性 (长度严格为 expectedN, 取值只能为 0 或 1, 无截断无多余)
+    // 严格校验采样掩码文件合法性 (长度严格为 expectedN, 采样点数严格为 expectedSampledPoints, 取值只能严格为 0 或 1) // add by shanzhou in 2026/10/15
+    static bool validateAndLoadMaskFile(const QString& maskFilePath,
+                                        int expectedN,
+                                        int expectedSampledPoints,
+                                        std::vector<int>& outMask,
+                                        QString& outErrorMsg);
+
     static bool validateAndLoadMaskFile(const QString& maskFilePath,
                                         int expectedN,
                                         std::vector<int>& outMask,
                                         QString& outErrorMsg);
+
+    // 严格校验并读取外部地震数据 CSV 文件 (Nt x Nx 矩阵，杜绝静默回退) // add by shanzhou in 2026/10/15
+    static bool loadAndValidateSeismicCSV(const QString& filePath,
+                                         int expectedNt,
+                                         int expectedNx,
+                                         std::vector<std::vector<float> >& outGather,
+                                         QString& outErrorMsg);
 
     // 执行地震波场压缩感知重构试验（支持外部地震文件输入、真实掩码校验、基线对比与全分辨率导出）
     static bool runWavefieldReconstruction(const QString& maskFilePath,
@@ -142,7 +155,8 @@ public:
                                           ReconstructionMetrics& outMetrics,
                                           QString& outReportSummary,
                                           const QString& inputSeismicFilePath,
-                                          bool exportFullResolution);
+                                          bool exportFullResolution,
+                                          bool forceDataConsistencyFailure = false);
 
     // 辅助工具：一键执行全部三个试验并导出完整成果（具备子试验状态核验与错误追溯）
     static bool runFullExperimentSuite(GProject *pProject,

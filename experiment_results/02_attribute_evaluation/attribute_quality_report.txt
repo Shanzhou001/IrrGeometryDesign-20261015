@@ -1,7 +1,7 @@
 ========================================================================
   Seismic Acquisition Geometry Spatial Attribute Quality Evaluation Report
   Evaluation Mode: Synthetic Benchmark Mode (Simulated 3D Survey, 576 CMP Bins)
-  Generated: 2026-10-15 17:28:27
+  Generated: 2026-10-15 20:46:25
 ========================================================================
 
 [Synthetic Benchmark Mode]

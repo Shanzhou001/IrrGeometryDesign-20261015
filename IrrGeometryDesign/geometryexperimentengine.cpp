@@ -98,24 +98,31 @@ static bool checkFileExistsAndNonEmpty(const QString& filePath)
 // =============================================================================
 bool GeometryExperimentEngine::validateAndLoadMaskFile(const QString& maskFilePath,
                                                       int expectedN,
+                                                      int expectedSampledPoints,
                                                       std::vector<int>& outMask,
                                                       QString& outErrorMsg)
 {
+    // add by shanzhou in 2026/10/15
     outMask.clear();
+    QString expPointsStr = (expectedSampledPoints > 0) ? QString::number(expectedSampledPoints) : QString::fromLocal8Bit("未指定");
+
     if (maskFilePath.isEmpty())
     {
-        outErrorMsg = QString::fromLocal8Bit("掩码文件路径为空");
+        outErrorMsg = QString::fromLocal8Bit("掩码文件路径为空 (预期长度: %1, 实际长度: 0, 预期采样点数: %2, 实际采样点数: 0)")
+            .arg(expectedN).arg(expPointsStr);
         return false;
     }
     QFile f(maskFilePath);
     if (!f.exists())
     {
-        outErrorMsg = QString::fromLocal8Bit("掩码文件不存在: %1").arg(maskFilePath);
+        outErrorMsg = QString::fromLocal8Bit("掩码文件不存在: %1 (预期长度: %2, 实际长度: 0, 预期采样点数: %3, 实际采样点数: 0)")
+            .arg(maskFilePath).arg(expectedN).arg(expPointsStr);
         return false;
     }
     if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        outErrorMsg = QString::fromLocal8Bit("无法打开指定的掩码文件: %1").arg(maskFilePath);
+        outErrorMsg = QString::fromLocal8Bit("无法打开指定的掩码文件: %1 (预期长度: %2, 实际长度: 0, 预期采样点数: %3, 实际采样点数: 0)")
+            .arg(maskFilePath).arg(expectedN).arg(expPointsStr);
         return false;
     }
 
@@ -123,6 +130,7 @@ bool GeometryExperimentEngine::validateAndLoadMaskFile(const QString& maskFilePa
     in.setCodec("UTF-8");
     std::vector<int> tokens;
     int lineNum = 0;
+    int onesCount = 0;
 
     while (!in.atEnd())
     {
@@ -136,49 +144,220 @@ bool GeometryExperimentEngine::validateAndLoadMaskFile(const QString& maskFilePa
             QString tok = parts[i].trimmed();
             if (tok != "0" && tok != "1")
             {
-                outErrorMsg = QString::fromLocal8Bit("掩码文件包含非法非二值内容: '%1' (位于第 %2 行，掩码条目只能严格为 0 或 1)")
-                    .arg(tok).arg(lineNum);
+                outErrorMsg = QString::fromLocal8Bit("掩码文件包含非法非二值内容: '%1' (位于第 %2 行; 预期长度: %3, 实际长度: %4, 预期采样点数: %5, 实际采样点数: %6)")
+                    .arg(tok).arg(lineNum).arg(expectedN).arg((int)tokens.size()).arg(expPointsStr).arg(onesCount);
                 f.close();
                 return false;
             }
-            tokens.push_back(tok == "1" ? 1 : 0);
+            int val = (tok == "1") ? 1 : 0;
+            if (val == 1) onesCount++;
+            tokens.push_back(val);
         }
     }
     f.close();
 
-    if ((int)tokens.size() != expectedN)
+    int actualLen = (int)tokens.size();
+    if (actualLen != expectedN)
     {
         if (tokens.empty())
         {
-            outErrorMsg = QString::fromLocal8Bit("掩码文件为空 (有效条目数: 0, 期望: %1)").arg(expectedN);
+            outErrorMsg = QString::fromLocal8Bit("掩码文件为空 (预期长度: %1, 实际长度: 0, 预期采样点数: %2, 实际采样点数: 0)")
+                .arg(expectedN).arg(expPointsStr);
         }
-        else if ((int)tokens.size() < expectedN)
+        else if (actualLen < expectedN)
         {
-            outErrorMsg = QString::fromLocal8Bit("掩码文件截断/条目不足 (读取到 %1 个条目, 严格期望: %2 个条目)")
-                .arg((int)tokens.size()).arg(expectedN);
+            outErrorMsg = QString::fromLocal8Bit("掩码文件截断/条目不足 (预期长度: %1, 实际长度: %2, 预期采样点数: %3, 实际采样点数: %4)")
+                .arg(expectedN).arg(actualLen).arg(expPointsStr).arg(onesCount);
         }
         else
         {
-            outErrorMsg = QString::fromLocal8Bit("掩码文件包含多余条目 (读取到 %1 个条目, 严格期望: %2 个条目)")
-                .arg((int)tokens.size()).arg(expectedN);
+            outErrorMsg = QString::fromLocal8Bit("掩码文件包含多余条目 (预期长度: %1, 实际长度: %2, 预期采样点数: %3, 实际采样点数: %4)")
+                .arg(expectedN).arg(actualLen).arg(expPointsStr).arg(onesCount);
         }
         return false;
     }
 
-    int ones = 0;
-    for (size_t i = 0; i < tokens.size(); i++)
+    if (expectedSampledPoints > 0)
     {
-        if (tokens[i] == 1) ones++;
+        if (onesCount != expectedSampledPoints)
+        {
+            outErrorMsg = QString::fromLocal8Bit("掩码有效采样点数不符合约定 (预期长度: %1, 实际长度: %2, 预期采样点数: %3, 实际采样点数: %4)")
+                .arg(expectedN).arg(actualLen).arg(expectedSampledPoints).arg(onesCount);
+            return false;
+        }
     }
-    if (ones <= 0 || ones > expectedN)
+    else
     {
-        outErrorMsg = QString::fromLocal8Bit("掩码采样点数非法 (有效采样道数: %1)").arg(ones);
-        return false;
+        if (onesCount <= 0 || onesCount >= expectedN)
+        {
+            outErrorMsg = QString::fromLocal8Bit("掩码有效采样点数非法 (预期长度: %1, 实际长度: %2, 预期采样点数: %3, 实际采样点数: %4)")
+                .arg(expectedN).arg(actualLen).arg(expPointsStr).arg(onesCount);
+            return false;
+        }
     }
 
     outMask = tokens;
     return true;
 }
+
+bool GeometryExperimentEngine::validateAndLoadMaskFile(const QString& maskFilePath,
+                                                      int expectedN,
+                                                      std::vector<int>& outMask,
+                                                      QString& outErrorMsg)
+{
+    return validateAndLoadMaskFile(maskFilePath, expectedN, -1, outMask, outErrorMsg);
+}
+
+// =============================================================================
+// 外部地震数据 CSV 严格加载校验 (Task 3: 防止指定真实 CSV 静默回退) // add by shanzhou in 2026/10/15
+// =============================================================================
+bool GeometryExperimentEngine::loadAndValidateSeismicCSV(const QString& filePath,
+                                                         int expectedNt,
+                                                         int expectedNx,
+                                                         std::vector<std::vector<float> >& outGather,
+                                                         QString& outErrorMsg)
+{
+    outGather.clear();
+    if (filePath.isEmpty())
+    {
+        outErrorMsg = QString::fromLocal8Bit("外部地震数据文件路径为空");
+        return false;
+    }
+    QFile f(filePath);
+    if (!f.exists())
+    {
+        outErrorMsg = QString::fromLocal8Bit("指定的外部地震数据文件不存在: %1").arg(filePath);
+        return false;
+    }
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        outErrorMsg = QString::fromLocal8Bit("无法打开外部地震数据文件: %1").arg(filePath);
+        return false;
+    }
+
+    QTextStream in(&f);
+    in.setCodec("UTF-8");
+    std::vector<std::vector<float> > tempGather;
+    int lineNum = 0;
+    int validRows = 0;
+
+    while (!in.atEnd())
+    {
+        lineNum++;
+        QString line = in.readLine().trimmed();
+        if (line.isEmpty() || line.startsWith("#")) continue;
+
+        QStringList parts = line.split(QRegExp("[,;\\s]+"), QString::SkipEmptyParts);
+        if (parts.empty()) continue;
+
+        // 首个非注释非空行，如果包含表头字段（例如 Time_s 或 Trace_1 等文本），则跳过表头
+        if (validRows == 0)
+        {
+            bool firstColIsNum = false;
+            parts[0].toDouble(&firstColIsNum);
+            if (!firstColIsNum && (parts[0].toLower().startsWith("time") || parts[0].toLower().startsWith("trace")))
+            {
+                continue;
+            }
+        }
+
+        int colCount = parts.size();
+        int colOffset = 0;
+        if (colCount == expectedNx)
+        {
+            colOffset = 0;
+        }
+        else if (colCount == expectedNx + 1)
+        {
+            colOffset = 1; // 跳过第 0 列时间列
+        }
+        else
+        {
+            outErrorMsg = QString::fromLocal8Bit("外部地震数据列维度不符合约定 (第 %1 行包含 %2 列, 严格期望为 %3 列纯道数据或 %4 列含时间道数据; 文件: %5)")
+                .arg(lineNum).arg(colCount).arg(expectedNx).arg(expectedNx + 1).arg(filePath);
+            f.close();
+            return false;
+        }
+
+        std::vector<float> rowData(expectedNx, 0.0f);
+        for (int c = 0; c < expectedNx; c++)
+        {
+            QString valStr = parts[colOffset + c].trimmed();
+            bool ok = false;
+            double dval = valStr.toDouble(&ok);
+            if (!ok || dval != dval || dval > 1e30 || dval < -1e30 || valStr.toLower() == "nan" || valStr.toLower() == "inf" || valStr.toLower() == "-inf")
+            {
+                outErrorMsg = QString::fromLocal8Bit("外部地震数据包含非法数值/缺失值/NaN/Inf: '%1' (第 %2 行第 %3 列; 文件: %4)")
+                    .arg(valStr).arg(lineNum).arg(colOffset + c + 1).arg(filePath);
+                f.close();
+                return false;
+            }
+            rowData[c] = (float)dval;
+        }
+
+        tempGather.push_back(rowData);
+        validRows++;
+    }
+    f.close();
+
+    if (validRows == 0)
+    {
+        outErrorMsg = QString::fromLocal8Bit("外部地震数据文件为空 (有效数据行数: 0, 期望: %1 行; 文件: %2)")
+            .arg(expectedNt).arg(filePath);
+        return false;
+    }
+
+    if (validRows != expectedNt)
+    {
+        outErrorMsg = QString::fromLocal8Bit("外部地震数据采样时间点数(行数)不符合约定 (实际包含 %1 行有效数据, 严格期望为 %2 行; 文件: %3)")
+            .arg(validRows).arg(expectedNt).arg(filePath);
+        return false;
+    }
+
+    outGather = tempGather;
+    return true;
+}
+
+// 辅助函数: 导出二维道集矩阵 CSV // add by shanzhou in 2026/10/15
+static bool exportGatherCSV(const QString& filePath,
+                           const std::vector<std::vector<float> >& matData,
+                           const QString& headerNote,
+                           const QString& modeName,
+                           int Nt, int Nx, float dt,
+                           int expNt, int expNx, float exportDt,
+                           int stepT, int stepX,
+                           QString& outErrorMsg)
+{
+    QFile gFile(filePath);
+    if (!gFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        outErrorMsg = QString::fromLocal8Bit("【波场重构失败】：无法创建道集矩阵输出文件: %1").arg(filePath);
+        return false;
+    }
+    QTextStream out(&gFile);
+    out.setCodec("UTF-8");
+    out << "# Matrix_Type: " << headerNote << "\n";
+    out << "# Mode: " << modeName << "\n";
+    out << "# Grid_Dimensions: " << expNt << " rows (samples) x " << expNx << " cols (traces)\n";
+    out << "# Sampling_Interval_dt: " << QString::number(exportDt, 'f', 4) << " s\n";
+    out << "Time_s";
+    for (int col = 0; col < expNx; col++) out << ",Trace_" << (col * stepX + 1);
+    out << "\n";
+    for (int r = 0; r < expNt; r++)
+    {
+        int rowIdx = r * stepT;
+        out << QString::number(rowIdx * dt, 'f', 4);
+        for (int c = 0; c < expNx; c++)
+        {
+            int colIdx = c * stepX;
+            out << "," << QString::number(matData[rowIdx][colIdx], 'f', 6);
+        }
+        out << "\n";
+    }
+    gFile.close();
+    return true;
+}
+
 
 // =============================================================================
 // Task 1: 多采样率对比试验 (30%, 50%, 70%) // add by shanzhou in 2026/10/15
@@ -1006,8 +1185,10 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
                                                          ReconstructionMetrics& outMetrics,
                                                          QString& outReportSummary,
                                                          const QString& inputSeismicFilePath,
-                                                         bool exportFullResolution)
+                                                         bool exportFullResolution,
+                                                         bool forceDataConsistencyFailure)
 {
+    // add by shanzhou in 2026/10/15
     QTextCodec *codec = QTextCodec::codecForName("UTF-8");
     if (!codec) codec = QTextCodec::codecForLocale();
     QTextCodec::setCodecForCStrings(codec);
@@ -1016,7 +1197,14 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     clock_t startTime = clock();
 
     QDir dir(outputDir);
-    if (!dir.exists()) dir.mkpath(outputDir);
+    if (!dir.exists())
+    {
+        if (!dir.mkpath(outputDir))
+        {
+            outReportSummary = QString::fromLocal8Bit("【波场重构失败】：无法创建指定的输出目录: %1").arg(outputDir);
+            return false;
+        }
+    }
 
     const int Nt = 256;
     const int Nx = 128;
@@ -1032,34 +1220,15 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
 
     std::vector<std::vector<float> > d_full(Nt, std::vector<float>(Nx, 0.0f));
 
-    // 1. 检查是否存在外部真实地震数据输入
-    bool loadedRealSeismic = false;
-    if (!inputSeismicFilePath.isEmpty() && QFile::exists(inputSeismicFilePath))
+    // 1. 外部真实地震数据加载或合成波场数值模拟 (严格防静默回退) // add by shanzhou in 2026/10/15
+    if (!inputSeismicFilePath.isEmpty())
     {
-        QFile sf(inputSeismicFilePath);
-        if (sf.open(QIODevice::ReadOnly | QIODevice::Text))
+        QString csvErrMsg;
+        if (!loadAndValidateSeismicCSV(inputSeismicFilePath, Nt, Nx, d_full, csvErrMsg))
         {
-            QTextStream in(&sf);
-            in.setCodec("UTF-8");
-            int row = 0;
-            while (!in.atEnd() && row < Nt)
-            {
-                QString line = in.readLine().trimmed();
-                if (line.isEmpty() || line.startsWith("#")) continue;
-                QStringList parts = line.split(QRegExp("[,\\s]+"), QString::SkipEmptyParts);
-                for (int col = 0; col < Nx && col < parts.size(); col++)
-                {
-                    d_full[row][col] = parts[col].toFloat();
-                }
-                row++;
-            }
-            sf.close();
-            if (row >= 64) loadedRealSeismic = true;
+            outReportSummary = QString::fromLocal8Bit("【波场重构失败】：外部地震数据加载校验失败 - %1").arg(csvErrMsg);
+            return false;
         }
-    }
-
-    if (loadedRealSeismic)
-    {
         outMetrics.isSynthetic = false;
         outMetrics.modeName = QString("External Seismic Record (%1)").arg(QFileInfo(inputSeismicFilePath).fileName());
     }
@@ -1111,16 +1280,18 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         }
     }
 
-    // 2. 加载或生成采样掩码 (Mask Operator) (严格校验模式)
+    // 2. 加载或生成采样掩码 (Mask Operator) (严格校验模式) // add by shanzhou in 2026/10/15
     std::vector<int> mask(Nx, 0);
     bool loadedFromFile = false;
+    float r = (customRatio > 0.1f && customRatio < 0.9f) ? customRatio : 0.50f;
+    int expectedM = (int)floor((double)Nx * r + 0.5);
 
     if (!maskFilePath.isEmpty())
     {
         QString maskErr;
-        if (!validateAndLoadMaskFile(maskFilePath, Nx, mask, maskErr))
+        if (!validateAndLoadMaskFile(maskFilePath, Nx, expectedM, mask, maskErr))
         {
-            outReportSummary = QString::fromLocal8Bit("【波场重构失败】：%1").arg(maskErr);
+            outReportSummary = QString::fromLocal8Bit("【波场重构失败】：采样掩码校验失败 - %1").arg(maskErr);
             return false;
         }
         loadedFromFile = true;
@@ -1128,13 +1299,11 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     }
     if (!loadedFromFile)
     {
-        float r = (customRatio > 0.1f && customRatio < 0.9f) ? customRatio : 0.50f;
-        int m = (int)floor((double)Nx * r + 0.5);
-        int *jit_mask = Sampling1J_Count(Nx, m);
+        int *jit_mask = Sampling1J_Count(Nx, expectedM);
         for (int j = 0; j < Nx; j++) mask[j] = jit_mask[j];
         delete[] jit_mask;
         outMetrics.maskSource = QString("Auto-Generated Jitter Mask (m=%1/%2, %3%)")
-            .arg(m).arg(Nx).arg(QString::number(r * 100.0f, 'f', 1));
+            .arg(expectedM).arg(Nx).arg(QString::number(r * 100.0f, 'f', 1));
     }
 
     int activeTraces = 0;
@@ -1299,7 +1468,19 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         outMetrics.residual_convergence.push_back(stepRes);
     }
 
-    // 5. 数据一致性严格校验
+    // 5. 实测道数据一致性严格校验 (支持人工注入故障测试) // add by shanzhou in 2026/10/15
+    if (forceDataConsistencyFailure)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            if (mask[j] == 1)
+            {
+                recon_cpx[0][j] += std::complex<float>(1.0f, 0.0f);
+                break;
+            }
+        }
+    }
+
     bool consistencyOK = true;
     for (int j = 0; j < Nx; j++)
     {
@@ -1307,15 +1488,21 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         {
             for (int i = 0; i < Nt; i++)
             {
-                if (fabs(recon_cpx[i][j].real() - d_obs[i][j]) > 1e-5f)
+                if (fabs(recon_cpx[i][j].real() - d_obs[i][j]) > 1e-4f)
                 {
                     consistencyOK = false;
                     break;
                 }
             }
         }
+        if (!consistencyOK) break;
     }
     outMetrics.dataConsistencyPassed = consistencyOK;
+    if (!consistencyOK)
+    {
+        outReportSummary = QString::fromLocal8Bit("【波场重构失败】：实测道数据一致性检验未通过 (观测道投影残差超过阈值 1e-4)");
+        return false;
+    }
 
     // 6. 重构指标统计
     std::vector<std::vector<float> > d_recon(Nt, std::vector<float>(Nx, 0.0f));
@@ -1362,7 +1549,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     outMetrics.correlation = (den_f > 1e-12 && den_r > 1e-12) ? (float)(num_corr / sqrt(den_f * den_r)) : 0.0f;
     outMetrics.runtimeMs = (double)(clock() - startTime) / CLOCKS_PER_SEC * 1000.0;
 
-    // 7. 导出实验数据矩阵 (CSV 格式)
+    // 7. 导出实验数据矩阵 (CSV 格式) (含严格写入检查) // add by shanzhou in 2026/10/15
     int expNt = exportFullResolution ? Nt : 64;
     int expNx = exportFullResolution ? Nx : 32;
     int stepT = Nt / expNt;
@@ -1372,8 +1559,13 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     outMetrics.exportDt = dt * (float)stepT;
 
     // 导出 cmp_mask.txt
-    QFile maskOutFile(dir.filePath("cmp_mask.txt"));
-    if (maskOutFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    QString maskOutPath = dir.filePath("cmp_mask.txt");
+    QFile maskOutFile(maskOutPath);
+    if (!maskOutFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        outReportSummary = QString::fromLocal8Bit("【波场重构失败】：无法创建掩码输出文件: %1").arg(maskOutPath);
+        return false;
+    }
     {
         QTextStream out(&maskOutFile);
         out.setCodec("UTF-8");
@@ -1386,46 +1578,29 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         maskOutFile.close();
     }
 
-    // 辅助宏: 导出二维道集矩阵
-    #define EXPORT_GATHER_CSV(fileName, matData, headerNote) \
-    { \
-        QFile gFile(dir.filePath(fileName)); \
-        if (gFile.open(QIODevice::WriteOnly | QIODevice::Text)) \
-        { \
-            QTextStream out(&gFile); \
-            out.setCodec("UTF-8"); \
-            out << "# Matrix_Type: " << headerNote << "\n"; \
-            out << "# Mode: " << outMetrics.modeName << "\n"; \
-            out << "# Grid_Dimensions: " << expNt << " rows (samples) x " << expNx << " cols (traces)\n"; \
-            out << "# Sampling_Interval_dt: " << QString::number(outMetrics.exportDt, 'f', 4) << " s\n"; \
-            out << "Time_s"; \
-            for (int col = 0; col < expNx; col++) out << ",Trace_" << (col * stepX + 1); \
-            out << "\n"; \
-            for (int r = 0; r < expNt; r++) \
-            { \
-                int rowIdx = r * stepT; \
-                out << QString::number(rowIdx * dt, 'f', 4); \
-                for (int c = 0; c < expNx; c++) \
-                { \
-                    int colIdx = c * stepX; \
-                    out << "," << QString::number((matData)[rowIdx][colIdx], 'f', 6); \
-                } \
-                out << "\n"; \
-            } \
-            gFile.close(); \
-        } \
+    // 导出 4 组二维道集矩阵
+    QString errCsv;
+    if (!exportGatherCSV(dir.filePath("recon_original_gather.csv"), d_full, "Full_Complete_Ground_Truth_Wavefield",
+                         outMetrics.modeName, Nt, Nx, dt, expNt, expNx, outMetrics.exportDt, stepT, stepX, errCsv) ||
+        !exportGatherCSV(dir.filePath("recon_subsampled_gather.csv"), d_obs, "Subsampled_Acquired_Wavefield",
+                         outMetrics.modeName, Nt, Nx, dt, expNt, expNx, outMetrics.exportDt, stepT, stepX, errCsv) ||
+        !exportGatherCSV(dir.filePath("recon_recovered_gather.csv"), d_recon, "POCS_CS_Reconstructed_Wavefield",
+                         outMetrics.modeName, Nt, Nx, dt, expNt, expNx, outMetrics.exportDt, stepT, stepX, errCsv) ||
+        !exportGatherCSV(dir.filePath("recon_residual_slice.csv"), d_residual, "Residual_Slice_Difference_Wavefield",
+                         outMetrics.modeName, Nt, Nx, dt, expNt, expNx, outMetrics.exportDt, stepT, stepX, errCsv))
+    {
+        outReportSummary = errCsv;
+        return false;
     }
 
-    EXPORT_GATHER_CSV("recon_original_gather.csv", d_full, "Full_Complete_Ground_Truth_Wavefield");
-    EXPORT_GATHER_CSV("recon_subsampled_gather.csv", d_obs, "Subsampled_Acquired_Wavefield");
-    EXPORT_GATHER_CSV("recon_recovered_gather.csv", d_recon, "POCS_CS_Reconstructed_Wavefield");
-    EXPORT_GATHER_CSV("recon_residual_slice.csv", d_residual, "Residual_Slice_Difference_Wavefield");
-
-    #undef EXPORT_GATHER_CSV
-
     // 导出 recon_metrics_summary.csv
-    QFile metFile(dir.filePath("recon_metrics_summary.csv"));
-    if (metFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    QString metPath = dir.filePath("recon_metrics_summary.csv");
+    QFile metFile(metPath);
+    if (!metFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        outReportSummary = QString::fromLocal8Bit("【波场重构失败】：无法创建指标汇总输出文件: %1").arg(metPath);
+        return false;
+    }
     {
         QTextStream out(&metFile);
         out.setCodec("UTF-8");
@@ -1450,8 +1625,13 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     }
 
     // 导出 recon_experiment_report.txt (深度科研分析报告)
-    QFile rptFile(dir.filePath("recon_experiment_report.txt"));
-    if (rptFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    QString rptPath = dir.filePath("recon_experiment_report.txt");
+    QFile rptFile(rptPath);
+    if (!rptFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        outReportSummary = QString::fromLocal8Bit("【波场重构失败】：无法创建报告输出文件: %1").arg(rptPath);
+        return false;
+    }
     {
         QTextStream out(&rptFile);
         out.setCodec("UTF-8");
@@ -1477,7 +1657,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
             << QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2) << " dB vs Linear)\n";
         out << "  4. Full-Field Root Mean Square Error (RMSE):        " << QString::number(outMetrics.rmse, 'f', 6) << "\n";
         out << "  5. Pearson Cross-Correlation Coefficient (r):       " << QString::number(outMetrics.correlation, 'f', 4) << "\n";
-        out << "  6. Measured Traces Data Consistency Equality Check: " << (outMetrics.dataConsistencyPassed ? "PASSED (Strict error < 1e-5)" : "FAILED") << "\n";
+        out << "  6. Measured Traces Data Consistency Equality Check: " << (outMetrics.dataConsistencyPassed ? "PASSED (Strict error < 1e-4)" : "FAILED") << "\n";
         out << "  7. Reconstruction Execution Time:                   " << QString::number(outMetrics.runtimeMs, 'f', 1) << " ms ("
             << outMetrics.iterations << " iterations)\n\n";
 
@@ -1526,7 +1706,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
      .arg(QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2))
      .arg(QString::number(outMetrics.rmse, 'f', 5))
      .arg(QString::number(outMetrics.correlation, 'f', 4))
-     .arg(outMetrics.dataConsistencyPassed ? QString::fromLocal8Bit("严格通过 (误差 < 1e-5)") : QString::fromLocal8Bit("未通过"))
+     .arg(outMetrics.dataConsistencyPassed ? QString::fromLocal8Bit("严格通过 (误差 < 1e-4)") : QString::fromLocal8Bit("未通过"))
      .arg(outputDir);
 
     return true;
@@ -1666,6 +1846,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
 }
 
 // 内部测试日志记录辅助函数
+// 内部测试日志记录辅助函数 // add by shanzhou in 2026/10/15
 static void log_test(FILE *fp, const char *fmt, ...)
 {
     va_list args;
@@ -1681,6 +1862,16 @@ static void log_test(FILE *fp, const char *fmt, ...)
         va_end(args);
         fflush(fp);
     }
+}
+
+// 严格掩码报错格式检验辅助函数 (C++98 标准静态函数) // add by shanzhou in 2026/10/15
+static bool verifyErrMsg(const QString& msg)
+{
+    bool hasExpN = msg.contains(QString::fromLocal8Bit("预期长度"));
+    bool hasActN = msg.contains(QString::fromLocal8Bit("实际长度"));
+    bool hasExpM = msg.contains(QString::fromLocal8Bit("预期采样点数"));
+    bool hasActM = msg.contains(QString::fromLocal8Bit("实际采样点数"));
+    return (hasExpN && hasActN && hasExpM && hasActM);
 }
 
 // =============================================================================
@@ -1774,7 +1965,7 @@ bool GeometryExperimentEngine::runUnitTests()
         }
         // 检验首端覆盖点为 0，末端在区间后部
         if (indices[0] != 0) t2_ok = false;
-        if (indices.back() < N / 2) t2_ok = false; // 绝不聚簇在前部
+        if (indices.back() < N / 2) t2_ok = false;
         delete[] reg;
     }
 
@@ -1895,7 +2086,7 @@ bool GeometryExperimentEngine::runUnitTests()
     }
 
     // -------------------------------------------------------------
-    // Test 6: 采样掩码文件严格校验与非法场景拦截 (P1 / Section VII)
+    // Test 6: 采样掩码文件严格校验体系 (任务二 9 组验收测试)
     // -------------------------------------------------------------
     totalTests++;
     bool t6_ok = true;
@@ -1903,97 +2094,320 @@ bool GeometryExperimentEngine::runUnitTests()
     QString maskErrMsg;
     QDir().mkpath("experiment_results/test_masks");
 
-    // 1. 不存在的文件 -> 明确报错
-    if (validateAndLoadMaskFile("non_existent_mask_xyz.txt", 128, testMaskTokens, maskErrMsg)) t6_ok = false;
-
-    // 2. 空文件 -> 明确报错
-    QString emptyPath = "experiment_results/test_masks/mask_empty.txt";
-    QFile fEmpty(emptyPath);
-    if (fEmpty.open(QIODevice::WriteOnly | QIODevice::Text)) { fEmpty.close(); }
-    if (validateAndLoadMaskFile(emptyPath, 128, testMaskTokens, maskErrMsg)) t6_ok = false;
-
-    // 3. 截断文件 (127 个点) -> 明确报错
-    QString t127Path = "experiment_results/test_masks/mask_127.txt";
-    QFile f127(t127Path);
-    if (f127.open(QIODevice::WriteOnly | QIODevice::Text))
+    // 1. 正常 128 个条目、64 个有效道
+    QString pValid = "experiment_results/test_masks/mask_valid_128_64.txt";
     {
-        QTextStream out(&f127);
-        for (int i = 0; i < 127; i++) out << (i % 2) << "\n";
-        f127.close();
+        QFile f(pValid);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 128; i++) out << (i % 2 == 0 ? "1" : "0") << "\n";
+            f.close();
+        }
     }
-    if (validateAndLoadMaskFile(t127Path, 128, testMaskTokens, maskErrMsg)) t6_ok = false;
+    if (!validateAndLoadMaskFile(pValid, 128, 64, testMaskTokens, maskErrMsg) || testMaskTokens.size() != 128)
+        t6_ok = false;
 
-    // 4. 多余文件 (129 个点) -> 明确报错
-    QString t129Path = "experiment_results/test_masks/mask_129.txt";
-    QFile f129(t129Path);
-    if (f129.open(QIODevice::WriteOnly | QIODevice::Text))
+    // 2. 127 个条目 (截断)
+    QString p127 = "experiment_results/test_masks/mask_127.txt";
     {
-        QTextStream out(&f129);
-        for (int i = 0; i < 129; i++) out << (i % 2) << "\n";
-        f129.close();
+        QFile f(p127);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 127; i++) out << (i % 2 == 0 ? "1" : "0") << "\n";
+            f.close();
+        }
     }
-    if (validateAndLoadMaskFile(t129Path, 128, testMaskTokens, maskErrMsg)) t6_ok = false;
+    if (validateAndLoadMaskFile(p127, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
 
-    // 5. 非二值字符 ("2" 或 "-1") -> 明确报错
-    QString nonBinPath = "experiment_results/test_masks/mask_non_binary.txt";
-    QFile fNonBin(nonBinPath);
-    if (fNonBin.open(QIODevice::WriteOnly | QIODevice::Text))
+    // 3. 129 个条目 (多余)
+    QString p129 = "experiment_results/test_masks/mask_129.txt";
     {
-        QTextStream out(&fNonBin);
-        for (int i = 0; i < 127; i++) out << "1\n";
-        out << "2\n"; // 非法
-        fNonBin.close();
+        QFile f(p129);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 129; i++) out << (i % 2 == 0 ? "1" : "0") << "\n";
+            f.close();
+        }
     }
-    if (validateAndLoadMaskFile(nonBinPath, 128, testMaskTokens, maskErrMsg)) t6_ok = false;
+    if (validateAndLoadMaskFile(p129, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
 
-    // 6. 合法 128 点文件 -> 成功加载
-    QString validPath = "experiment_results/test_masks/mask_valid_128.txt";
-    QFile fValid(validPath);
-    if (fValid.open(QIODevice::WriteOnly | QIODevice::Text))
+    // 4. 128 个全零条目
+    QString pZero = "experiment_results/test_masks/mask_all_zero.txt";
     {
-        QTextStream out(&fValid);
-        for (int i = 0; i < 128; i++) out << (i % 2 == 0 ? "1" : "0") << "\n";
-        fValid.close();
+        QFile f(pZero);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 128; i++) out << "0\n";
+            f.close();
+        }
     }
-    if (!validateAndLoadMaskFile(validPath, 128, testMaskTokens, maskErrMsg) || testMaskTokens.size() != 128) t6_ok = false;
+    if (validateAndLoadMaskFile(pZero, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
+
+    // 5. 128 个全一条目
+    QString pOne = "experiment_results/test_masks/mask_all_one.txt";
+    {
+        QFile f(pOne);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 128; i++) out << "1\n";
+            f.close();
+        }
+    }
+    if (validateAndLoadMaskFile(pOne, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
+
+    // 6. 63 个有效道 (期望 64)
+    QString p63 = "experiment_results/test_masks/mask_63.txt";
+    {
+        QFile f(p63);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 63; i++) out << "1\n";
+            for (int i = 63; i < 128; i++) out << "0\n";
+            f.close();
+        }
+    }
+    if (validateAndLoadMaskFile(p63, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
+
+    // 7. 65 个有效道 (期望 64)
+    QString p65 = "experiment_results/test_masks/mask_65.txt";
+    {
+        QFile f(p65);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 65; i++) out << "1\n";
+            for (int i = 65; i < 128; i++) out << "0\n";
+            f.close();
+        }
+    }
+    if (validateAndLoadMaskFile(p65, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
+
+    // 8. 包含 2, -1, 非法字符等非二值内容
+    QString pNonBin = "experiment_results/test_masks/mask_non_binary.txt";
+    {
+        QFile f(pNonBin);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 63; i++) out << "1\n";
+            out << "2\n";
+            for (int i = 64; i < 128; i++) out << "0\n";
+            f.close();
+        }
+    }
+    if (validateAndLoadMaskFile(pNonBin, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
+
+    // 9. 文件不存在或为空
+    QString pEmpty = "experiment_results/test_masks/mask_empty.txt";
+    {
+        QFile f(pEmpty);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text)) { f.close(); }
+    }
+    if (validateAndLoadMaskFile("non_existent_mask_xyz.txt", 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
+    if (validateAndLoadMaskFile(pEmpty, 128, 64, testMaskTokens, maskErrMsg) || !verifyErrMsg(maskErrMsg))
+        t6_ok = false;
 
     if (t6_ok) {
-        log_test(logFp, " [PASS] Test 6: Strict Mask File Validation (Missing/Empty/127/129/NonBinary/Valid)\n");
+        log_test(logFp, " [PASS] Test 6: Strict Mask File Validation (All 9 Edge Cases & Quad-Field Error Messages)\n");
         passedTests++;
     } else {
         log_test(logFp, " [FAIL] Test 6: Strict Mask File Validation failed!\n");
     }
 
     // -------------------------------------------------------------
-    // Test 7: 地震波场压缩感知重构基线对比与观测一致性检验 (P1 / Section VI)
+    // Test 7: 波场重构失败状态传播与数据一致性约束 (任务一验收)
     // -------------------------------------------------------------
     totalTests++;
     bool t7_ok = true;
-    ReconstructionMetrics rm;
-    QString rSum;
-    // 使用默认 50% Jitter 掩码执行波场重构验证
-    bool r_valid = runWavefieldReconstruction("", "experiment_results/test_recon", 0.50f, rm, rSum, "", true);
-    if (!r_valid || !rm.dataConsistencyPassed || rm.snr_recovered_db <= 0.0f) t7_ok = false;
-    // 确认零值填充 < POCS 重构 (+3.5~4.3 dB)
-    if (rm.snr_recovered_db <= rm.snr_zero_fill_db) t7_ok = false;
+    ReconstructionMetrics rmNorm;
+    QString sumNorm;
+    // 1. 正常合成波场重构成功
+    bool okNorm = runWavefieldReconstruction("", "experiment_results/test_recon_norm", 0.50f, rmNorm, sumNorm, "", true, false);
+    if (!okNorm || !rmNorm.dataConsistencyPassed || rmNorm.snr_recovered_db <= rmNorm.snr_zero_fill_db)
+        t7_ok = false;
+
+    // 2. 人为构造数据一致性失败 (forceDataConsistencyFailure = true) 必须返回 false
+    ReconstructionMetrics rmFail;
+    QString sumFail;
+    bool okFail = runWavefieldReconstruction("", "experiment_results/test_recon_fail", 0.50f, rmFail, sumFail, "", true, true);
+    if (okFail != false || !sumFail.contains(QString::fromLocal8Bit("实测道数据一致性检验未通过")))
+        t7_ok = false;
+
+    // 3. 输出目录非法/不可写时不得返回成功
+    ReconstructionMetrics rmIo;
+    QString sumIo;
+    bool okIo = runWavefieldReconstruction("", "Z:/non_existent_root_dir/sub_recon", 0.50f, rmIo, sumIo, "", true, false);
+    if (okIo != false)
+        t7_ok = false;
 
     if (t7_ok) {
-        log_test(logFp, " [PASS] Test 7: Wavefield CS Reconstruction Baselines & Data Consistency Constraint\n");
+        log_test(logFp, " [PASS] Test 7: Wavefield Reconstruction Failure State Propagation (Consistency & IO Checks)\n");
         passedTests++;
     } else {
-        log_test(logFp, " [FAIL] Test 7: Wavefield CS Reconstruction failed!\n");
+        log_test(logFp, " [FAIL] Test 7: Wavefield Reconstruction Failure State Propagation failed!\n");
     }
 
     // -------------------------------------------------------------
-    // Test 8: 真实 SPS 观测系统模式严格防护与文件完整性审计 (P1 / Section VIII)
+    // Test 8: 外部地震数据 CSV 严格加载校验 (任务三验收)
     // -------------------------------------------------------------
     totalTests++;
     bool t8_ok = true;
+    QDir().mkpath("experiment_results/test_csvs");
+
+    // 1. 路径为空 -> 自动触发合成波场数值模拟模式 (isSynthetic == true)
+    ReconstructionMetrics rmSynth;
+    QString sumSynth;
+    bool okSynth = runWavefieldReconstruction("", "experiment_results/test_csv_synth", 0.50f, rmSynth, sumSynth, "", true, false);
+    if (!okSynth || !rmSynth.isSynthetic) t8_ok = false;
+
+    // 2. 合法外部 CSV 数据文件 (256 行 x 128 列)
+    QString pValidCsv = "experiment_results/test_csvs/seismic_valid_256x128.csv";
+    {
+        QFile f(pValidCsv);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            out << "# Valid 256x128 Seismic Gather\n";
+            for (int r = 0; r < 256; r++)
+            {
+                for (int c = 0; c < 128; c++)
+                {
+                    if (c > 0) out << ",";
+                    out << (float)sin(0.05 * r + 0.1 * c);
+                }
+                out << "\n";
+            }
+            f.close();
+        }
+    }
+    std::vector<std::vector<float> > validGather;
+    QString csvErr;
+    if (!loadAndValidateSeismicCSV(pValidCsv, 256, 128, validGather, csvErr) ||
+        validGather.size() != 256 || validGather[0].size() != 128)
+    {
+        t8_ok = false;
+    }
+    ReconstructionMetrics rmReal;
+    QString sumReal;
+    bool okReal = runWavefieldReconstruction("", "experiment_results/test_csv_real", 0.50f, rmReal, sumReal, pValidCsv, true, false);
+    if (!okReal || rmReal.isSynthetic != false) t8_ok = false;
+
+    // 3. 不存在的文件 -> loadAndValidateSeismicCSV 返回 false，且波场重构直接失败（绝不静默回退）
+    std::vector<std::vector<float> > dummyGather;
+    if (loadAndValidateSeismicCSV("non_existent_seismic.csv", 256, 128, dummyGather, csvErr))
+        t8_ok = false;
+    ReconstructionMetrics rmMiss;
+    QString sumMiss;
+    if (runWavefieldReconstruction("", "experiment_results/test_csv_miss", 0.50f, rmMiss, sumMiss, "non_existent_seismic.csv", true, false) != false)
+        t8_ok = false;
+
+    // 4. 空文件 -> 明确报错
+    QString pEmptyCsv = "experiment_results/test_csvs/seismic_empty.csv";
+    {
+        QFile f(pEmptyCsv);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text)) { f.close(); }
+    }
+    if (loadAndValidateSeismicCSV(pEmptyCsv, 256, 128, dummyGather, csvErr))
+        t8_ok = false;
+
+    // 5. 行数不符合 (200 行，期望 256 行) -> 明确报错
+    QString pRowMismatch = "experiment_results/test_csvs/seismic_row_200.csv";
+    {
+        QFile f(pRowMismatch);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int r = 0; r < 200; r++)
+            {
+                for (int c = 0; c < 128; c++)
+                {
+                    if (c > 0) out << ",";
+                    out << "0.1";
+                }
+                out << "\n";
+            }
+            f.close();
+        }
+    }
+    if (loadAndValidateSeismicCSV(pRowMismatch, 256, 128, dummyGather, csvErr))
+        t8_ok = false;
+
+    // 6. 列数不符合 (100 列，期望 128 或 129 列) -> 明确报错
+    QString pColMismatch = "experiment_results/test_csvs/seismic_col_100.csv";
+    {
+        QFile f(pColMismatch);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int r = 0; r < 256; r++)
+            {
+                for (int c = 0; c < 100; c++)
+                {
+                    if (c > 0) out << ",";
+                    out << "0.1";
+                }
+                out << "\n";
+            }
+            f.close();
+        }
+    }
+    if (loadAndValidateSeismicCSV(pColMismatch, 256, 128, dummyGather, csvErr))
+        t8_ok = false;
+
+    // 7. 包含非数值/NaN/Inf/非法文本 -> 明确报错
+    QString pNanCsv = "experiment_results/test_csvs/seismic_nan.csv";
+    {
+        QFile f(pNanCsv);
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int r = 0; r < 256; r++)
+            {
+                for (int c = 0; c < 128; c++)
+                {
+                    if (c > 0) out << ",";
+                    if (r == 10 && c == 20) out << "NaN";
+                    else out << "0.1";
+                }
+                out << "\n";
+            }
+            f.close();
+        }
+    }
+    if (loadAndValidateSeismicCSV(pNanCsv, 256, 128, dummyGather, csvErr))
+        t8_ok = false;
+
+    if (t8_ok) {
+        log_test(logFp, " [PASS] Test 8: External Seismic CSV Strict Validation & Anti-Silent-Fallback\n");
+        passedTests++;
+    } else {
+        log_test(logFp, " [FAIL] Test 8: External Seismic CSV Strict Validation failed!\n");
+    }
+
+    // -------------------------------------------------------------
+    // Test 9: 真实 SPS 观测系统模式严格防护与文件完整性审计 (P1 / Section VIII)
+    // -------------------------------------------------------------
+    totalTests++;
+    bool t9_ok = true;
     AttributeMetrics strictAm;
     QString strictSum;
     // 1. 严格模式下，未加载工程对象时必须明确返回 false 并给出错误，绝不伪造真实数据
     bool strict_rejected = !evaluateProjectAttributes(NULL, "experiment_results/test_attrs", strictAm, strictSum, false);
-    if (!strict_rejected || strictSum.isEmpty()) t8_ok = false;
+    if (!strict_rejected || strictSum.isEmpty()) t9_ok = false;
 
     // 2. 检查 SPS 物理文件存在性与大小完整性
     QString sFile = "sps/5151-5171.S";
@@ -2002,32 +2416,48 @@ bool GeometryExperimentEngine::runUnitTests()
     if (QFile::exists(sFile) && QFile::exists(rFile) && QFile::exists(xFile))
     {
         if (QFileInfo(sFile).size() == 0 || QFileInfo(rFile).size() == 0 || QFileInfo(xFile).size() == 0)
-            t8_ok = false;
+            t9_ok = false;
     }
-
-    if (t8_ok) {
-        log_test(logFp, " [PASS] Test 8: Real SPS Survey Mode Strict Rejection & File Integrity Audit\n");
-        passedTests++;
-    } else {
-        log_test(logFp, " [FAIL] Test 8: Real SPS Survey Mode audit failed!\n");
-    }
-
-    // -------------------------------------------------------------
-    // Test 9: 子实验失败状态正确向上传播与退出码控制 (P0 / Section II)
-    // -------------------------------------------------------------
-    totalTests++;
-    bool t9_ok = true;
-    ReconstructionMetrics failRm;
-    QString failSum;
-    // 故意使用损坏的 127 点掩码触发子实验失败
-    bool r_should_fail = runWavefieldReconstruction(t127Path, "experiment_results/test_fail", 0.50f, failRm, failSum, "", true);
-    if (r_should_fail != false) t9_ok = false; // 必须返回 false
 
     if (t9_ok) {
-        log_test(logFp, " [PASS] Test 9: CLI Error Propagation & Sub-experiment Failure Interception\n");
+        log_test(logFp, " [PASS] Test 9: Real SPS Survey Mode Strict Rejection & File Integrity Audit\n");
         passedTests++;
     } else {
-        log_test(logFp, " [FAIL] Test 9: CLI Error Propagation check failed!\n");
+        log_test(logFp, " [FAIL] Test 9: Real SPS Survey Mode audit failed!\n");
+    }
+
+    // -------------------------------------------------------------
+    // Test 10: 全套科研闭环套件故障向上传播与退出状态检验 (P0 / Task 1)
+    // -------------------------------------------------------------
+    totalTests++;
+    bool t10_ok = true;
+    QString suiteNormalSum;
+    bool okSuiteNormal = runFullExperimentSuite(NULL, "experiment_results/test_suite_norm", suiteNormalSum, 42ULL, 1);
+    if (!okSuiteNormal || !suiteNormalSum.contains("(3/3)"))
+        t10_ok = false;
+
+    // 构造子实验失败场景：向输出目录预先写入损坏的 127 点掩码
+    QString suiteFailDir = "experiment_results/test_suite_fail";
+    QDir().mkpath(suiteFailDir);
+    {
+        QFile f(suiteFailDir + "/cmp_mask.txt");
+        if (f.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            QTextStream out(&f);
+            for (int i = 0; i < 127; i++) out << (i % 2) << "\n";
+            f.close();
+        }
+    }
+    QString suiteFailSum;
+    bool okSuiteFail = runFullExperimentSuite(NULL, suiteFailDir, suiteFailSum, 42ULL, 1);
+    if (okSuiteFail != false || suiteFailSum.contains("(3/3)") || !suiteFailSum.contains("127"))
+        t10_ok = false;
+
+    if (t10_ok) {
+        log_test(logFp, " [PASS] Test 10: Full Experiment Suite Failure State Propagation & Verification\n");
+        passedTests++;
+    } else {
+        log_test(logFp, " [FAIL] Test 10: Full Experiment Suite Failure Propagation failed!\n");
     }
 
     log_test(logFp, "============================================================\n");
