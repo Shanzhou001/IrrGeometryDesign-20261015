@@ -52,6 +52,44 @@ class Q3PopupMenu;
 class QLabel;
 class QSpinBox;
 
+#include <QComboBox>
+#include <QLabel>
+#include <QScrollArea>
+#include <QPushButton>
+#include <QStringList>
+
+class ResearchFiguresDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    ResearchFiguresDialog(QWidget *parent = 0);
+    void selectFigure(int index);
+
+public slots:
+    void onSelectionChanged(int index);
+    void onPrev();
+    void onNext();
+    void onOpenInBrowser();
+    void onOpenFolder();
+
+private:
+    void loadFigure(int index);
+
+    QComboBox *mCombo;
+    QLabel *mImageLabel;
+    QScrollArea *mScrollArea;
+    QLabel *mConclusionLabel;
+    QPushButton *mBtnPrev;
+    QPushButton *mBtnNext;
+    QPushButton *mBtnBrowser;
+    QPushButton *mBtnFolder;
+
+    QStringList mFileNames;
+    QStringList mTitles;
+    QStringList mConclusions;
+    int mCurrentIndex;
+};
+
 class TSPSForm : public Q3MainWindow
 {
     Q_OBJECT
@@ -79,6 +117,11 @@ public slots:
     void on_actionRunWavefieldReconstruction_triggered();
     void on_actionRunFullExperimentSuite_triggered();
     void updateExperimentActionsState();
+    void quickLoadDemoSPS();
+    void on_actionViewDashboard_triggered();
+    void on_actionViewGallery_triggered();
+    void on_actionOpenFiguresDir_triggered();
+    bool ensureProjectLoaded(bool needGrid = false, bool needSampled = false);
     //virtual void editSPoint();
     //virtual void fillSPS();
 	// [3/14/2023 Liu Wei]--------------⼸ܺʱûʵ

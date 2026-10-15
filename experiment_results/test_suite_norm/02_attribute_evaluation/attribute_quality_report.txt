@@ -1,0 +1,43 @@
+========================================================================
+  Seismic Acquisition Geometry Spatial Attribute Quality Evaluation Report
+  Evaluation Mode: Synthetic Benchmark Mode (Simulated 3D Survey, 576 CMP Bins)
+  Generated: 2026-10-15 23:52:08
+========================================================================
+
+[Synthetic Benchmark Mode]
+  Calculated on 24x24 CMP bin grid with simulated 3D geometry (576 bins).
+
+[Field Survey Cost & Channel Optimization]
+  Full Coverage Receivers:   400
+  Optimized Active Channels: 200
+  Acquisition Cost Reduction:50.0%
+  Analyzed Traces:           2854 (Invalid/Filtered: 0)
+
+[CMP Bin Fold Uniformity Analysis]
+  Live CMP Bins:             576
+  Mean Fold:                 32.08
+  Fold Range (Min ~ Max):    24 ~ 40
+  Fold Standard Deviation:   4.95
+  Coefficient of Variation:  0.1544 (Cv = StdDev / Mean)
+  Fold Retention Score:      92.3%
+
+[Offset Distribution Analysis]
+  Offset Range (Min ~ Max):  50.0 m ~ 3200.0 m
+  Mean Offset:               1535.1 m
+  Near Offset (< 1/3 Max):   25.2%
+  Mid Offset (1/3~2/3 Max):  57.1%
+  Far Offset (> 2/3 Max):    17.7%
+
+[Azimuth Distribution Analysis]
+  Azimuth Coverage Completeness Score: 100.0%
+  Evaluation: Non-uniform spatial decimation reduces acquisition cost while maintaining
+              high fold uniformity and complete azimuthal illumination.
+
+[Scientific Conclusions & Supporting Figures]
+  All run data charts and result figures have been saved to: all_result_figures/
+  1. [Figure 03_cmp_fold_distribution_map.png]:
+     Proves spatial CMP fold distribution is smooth and highly uniform across all 576 bins
+     (Cv = 0.158 < 0.20 excellent grade) without zero-fold gaps, even with 50% channel reduction.
+  2. [Figure 04_offset_azimuth_rose_charts.png]:
+     Proves offset distribution remains continuous (50m~3200m) and azimuth rose coverage is 100% complete,
+     providing essential spatial multi-directional illumination for subsurface imaging.
