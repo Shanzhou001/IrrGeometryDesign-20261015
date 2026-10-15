@@ -32,6 +32,12 @@ unsigned long integer();
 // 返回 [0,1) 双精度均匀随机数（53 位精度）
 double uniform();
 
+// 返回满足 N(mean, stddev^2) 的正态分布高斯随机数 (Box-Muller) // add by shanzhou in 2026/10/15
+double gaussian(double mean = 0.0, double stddev = 1.0);
+
+// 获取最近一次显式播种的种子值
+unsigned long long current_seed();
+
 } // namespace exprng
 
 #endif // _EXPRNG_H_

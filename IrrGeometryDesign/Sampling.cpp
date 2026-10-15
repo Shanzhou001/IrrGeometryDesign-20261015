@@ -456,3 +456,179 @@ int* Sampling1F_Positions(int col, float c) //0-1掩码转采样点索引
     delete[] mask;  // 释放原始掩码内存
     return phi;     // 返回采样点索引数组
 }
+
+// =============================================================================
+// 精确采样点数与合法性校验新实现 (Task 1 & 2) // add by shanzhou in 2026/10/15
+// =============================================================================
+
+bool ValidateSamplingMask(int N, int m, const int *mask)
+{
+	if (!mask || N <= 0 || m < 0 || m > N) return false;
+	int count = 0;
+	for (int i = 0; i < N; i++)
+	{
+		if (mask[i] != 0 && mask[i] != 1) return false;
+		if (mask[i] == 1) count++;
+	}
+	return (count == m);
+}
+
+int *Sampling1R_Count(int N, int m)
+{
+	if (N <= 0) return NULL;
+	int *Phi = new int[N];
+	for (int i = 0; i < N; i++) Phi[i] = 0;
+	if (m <= 0) return Phi;
+	if (m >= N)
+	{
+		for (int i = 0; i < N; i++) Phi[i] = 1;
+		return Phi;
+	}
+
+	// 规则减抽采用均匀覆盖全空间的等间距步长: i_k = int(k * N / m)
+	// 在 50% 下严格等于纯偶数抽取 (0, 2, ..., 126)，在 30% 和 70% 下均匀分布全区间且严格等于 m 点
+	for (int k = 0; k < m; k++)
+	{
+		int idx = (int)((double)k * (double)N / (double)m);
+		if (idx < 0) idx = 0;
+		if (idx >= N) idx = N - 1;
+		Phi[idx] = 1;
+	}
+	int current_cnt = 0;
+	for (int i = 0; i < N; i++) if (Phi[i] == 1) current_cnt++;
+	for (int i = 0; i < N && current_cnt < m; i++)
+	{
+		if (Phi[i] == 0) { Phi[i] = 1; current_cnt++; }
+	}
+	for (int i = N - 1; i >= 0 && current_cnt > m; i--)
+	{
+		if (Phi[i] == 1) { Phi[i] = 0; current_cnt--; }
+	}
+	return Phi;
+}
+
+int *Sampling1S_Count(int N, int m)
+{
+	if (N <= 0) return NULL;
+	int *arr = new int[N];
+	for (int i = 0; i < N; i++) arr[i] = 0;
+	if (m <= 0) return arr;
+	if (m >= N)
+	{
+		for (int i = 0; i < N; i++) arr[i] = 1;
+		return arr;
+	}
+	int num_zero = N - m;
+	for (int i = 0; i < N; i++)
+	{
+		arr[i] = (i < num_zero) ? 0 : 1;
+	}
+	for (int i = N - 1; i >= 1; i--)
+	{
+		int j = (int)(exprng::integer() % (i + 1));
+		int temp = arr[j];
+		arr[j] = arr[i];
+		arr[i] = temp;
+	}
+	return arr;
+}
+
+int *Sampling1J_Count(int col, int m)
+{
+	if (col <= 0) return NULL;
+	int *Phi = new int[col];
+	if (m <= 0)
+	{
+		for (int i = 0; i < col; i++) Phi[i] = 0;
+		return Phi;
+	}
+	if (m >= col)
+	{
+		for (int i = 0; i < col; i++) Phi[i] = 1;
+		return Phi;
+	}
+
+	if (m > col / 2)
+	{
+		int drop = col - m;
+		for (int i = 0; i < col; i++) Phi[i] = 1;
+		vector<int> pos;
+		jittered_positions(col, drop, pos);
+		for (size_t k = 0; k < pos.size(); k++)
+		{
+			Phi[pos[k]] = 0;
+		}
+	}
+	else
+	{
+		for (int i = 0; i < col; i++) Phi[i] = 0;
+		vector<int> pos;
+		jittered_positions(col, m, pos);
+		for (size_t k = 0; k < pos.size(); k++)
+		{
+			Phi[pos[k]] = 1;
+		}
+	}
+
+	int count = 0;
+	for (int i = 0; i < col; i++) if (Phi[i] == 1) count++;
+	for (int i = 0; i < col && count < m; i++)
+	{
+		if (Phi[i] == 0) { Phi[i] = 1; count++; }
+	}
+	for (int i = col - 1; i >= 0 && count > m; i--)
+	{
+		if (Phi[i] == 1) { Phi[i] = 0; count--; }
+	}
+	return Phi;
+}
+
+int *Sampling1F_Count(int col, int m)
+{
+	if (col <= 0) return NULL;
+	int *Phi = new int[col];
+	for (int i = 0; i < col; i++) Phi[i] = 0;
+	if (m <= 0) return Phi;
+	if (m >= col)
+	{
+		for (int i = 0; i < col; i++) Phi[i] = 1;
+		return Phi;
+	}
+
+	int S = col / m;
+	int L = col - S * m;
+
+	vector<int> seg(m);
+	for (int i = 0; i < m; i++) seg[i] = i;
+	for (int i = m - 1; i >= 1; i--)
+	{
+		int j = (int)(exprng::integer() % (i + 1));
+		int tmp = seg[j]; seg[j] = seg[i]; seg[i] = tmp;
+	}
+	vector<char> extra(m, 0);
+	for (int i = 0; i < L; i++) extra[seg[i]] = 1;
+
+	int start = 0;
+	for (int t = 0; t < m; t++)
+	{
+		int width = S + (extra[t] ? 1 : 0);
+		if (width < 1) width = 1;
+		int e = (int)(exprng::integer() % width);
+		int pos = start + e;
+		if (pos >= col) pos = col - 1;
+		Phi[pos] = 1;
+		start += width;
+	}
+
+	int current_cnt = 0;
+	for (int i = 0; i < col; i++) if (Phi[i] == 1) current_cnt++;
+	for (int i = 0; i < col && current_cnt < m; i++)
+	{
+		if (Phi[i] == 0) { Phi[i] = 1; current_cnt++; }
+	}
+	for (int i = col - 1; i >= 0 && current_cnt > m; i--)
+	{
+		if (Phi[i] == 1) { Phi[i] = 0; current_cnt--; }
+	}
+	return Phi;
+}

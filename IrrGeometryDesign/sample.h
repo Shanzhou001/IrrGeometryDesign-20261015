@@ -57,6 +57,13 @@ int **Sampling2F(int row,int col,float c);//二维分段随机采样，分成M�
  *  col -- 每条线总采样点 c -- 采样率 row -- 矩阵行数
  *-----------------------------------------------------*/
 
+// 精确采样点数与区间全覆盖规则抽样接口 // add by shanzhou in 2026/10/15
+int *Sampling1S_Count(int N, int m);
+int *Sampling1J_Count(int col, int m);
+int *Sampling1F_Count(int col, int m);
+int *Sampling1R_Count(int N, int m);
+bool ValidateSamplingMask(int N, int m, const int *mask);
+
 int *X_coor(int col, float c,int d, int *phi);
 /*-----------------------------------------------------
  *	将一维0-1矩阵化为坐标形式

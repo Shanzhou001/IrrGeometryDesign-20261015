@@ -6,10 +6,13 @@
 #include "ExpRng.h"
 #include <time.h>
 
+#include <math.h>
+
 namespace {
 
 unsigned long long g_state = 0;      // 0 表示尚未播种
 unsigned long long g_saved = 0;
+unsigned long long g_initial_seed = 0;
 
 inline unsigned long long next_u64()
 {
@@ -28,6 +31,7 @@ namespace exprng {
 
 void seed(unsigned long long s)
 {
+	g_initial_seed = s;
 	// 避免种子 0（xorshift 不动点）
 	g_state = s == 0 ? 0x9E3779B97F4A7C15ULL : s;
 	// 预热，消除弱种子的相关性
@@ -57,6 +61,21 @@ double uniform()
 	if (g_state == 0) seed_auto();
 	// 53 位双精度，[0,1)
 	return (double)(next_u64() >> 11) * (1.0 / 9007199254740992.0);
+}
+
+// Box-Muller 变换生成高斯白噪声 // add by shanzhou in 2026/10/15
+double gaussian(double mean, double stddev)
+{
+	double u1 = uniform();
+	while (u1 <= 1e-15) u1 = uniform(); // 防止 log(0)
+	double u2 = uniform();
+	double z0 = sqrt(-2.0 * log(u1)) * cos(6.28318530717958647692 * u2);
+	return mean + stddev * z0;
+}
+
+unsigned long long current_seed()
+{
+	return g_initial_seed;
 }
 
 } // namespace exprng
