@@ -1,16 +1,30 @@
+Ôªø// add by shanzhou in 2026/10/15
 #include <QtGui/QApplication>
-#include "tspsform.h"
+#include <QTextCodec>
 #include <QTranslator>
 #include <QDebug>
-#include "geometryexperimentengine.h" // add by shanzhou in 2026/10/15
 #include <string.h>
+#include "tspsform.h"
+#include "geometryexperimentengine.h"
 
 int main(int argc, char *argv[])
 {
+	// ËÆæÁΩÆ Qt 4 ÂÖ®Â±Ä C Â≠óÁ¨¶‰∏≤‰∏éÊú¨Âú∞ÁºñÁ†Å (add by shanzhou in 2026/10/15)
+	QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+	if (!codec) codec = QTextCodec::codecForLocale();
+	QTextCodec::setCodecForCStrings(codec);
+	QTextCodec::setCodecForLocale(codec);
+	QTextCodec::setCodecForTr(codec);
+
 	QApplication a(argc, argv);
-	// add by shanzhou in 2026/10/15
+
 	for (int i = 1; i < argc; i++)
 	{
+		if (strcmp(argv[i], "--test") == 0 || strcmp(argv[i], "--run-tests") == 0 || strcmp(argv[i], "-t") == 0)
+		{
+			bool ok = GeometryExperimentEngine::runUnitTests();
+			return ok ? 0 : 1;
+		}
 		if (strcmp(argv[i], "--run-experiments") == 0 || strcmp(argv[i], "-e") == 0)
 		{
 			QString outDir = "experiment_results";
@@ -25,8 +39,8 @@ int main(int argc, char *argv[])
 			return 0;
 		}
 	}
+
 	QTranslator *qtTranslator = new QTranslator;
-	//ªÒ»°∑≠“ÎŒƒº˛¬∑æ∂≤¢º”‘ÿ
 	if(qtTranslator->load(QCoreApplication::applicationDirPath() + "/IrrGeometryDesign_zh.qm.qm")){
 		a.installTranslator(qtTranslator);
 	}
@@ -34,9 +48,6 @@ int main(int argc, char *argv[])
 		qDebug(QObject::tr("load failed!!\n"));
 		qDebug() << QCoreApplication::applicationDirPath();
 	}
-
-	//DataReconstruction w;
-	//w.show();
 
 	TSPSForm w;
 	w.show();
