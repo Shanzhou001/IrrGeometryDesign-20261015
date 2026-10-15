@@ -1,0 +1,84 @@
+<ui version="4.0" >
+ <class>TRoseDividedlgClass</class>
+ <widget class="QDialog" name="TRoseDividedlgClass" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>274</width>
+    <height>151</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>TRoseDividedlg</string>
+  </property>
+  <widget class="QGroupBox" name="Basic_parameter_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>251</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Divide parameter</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3" >
+    <item row="0" column="0" >
+     <widget class="QLabel" name="label_12" >
+      <property name="text" >
+       <string>Offset divide number</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" >
+     <widget class="QLineEdit" name="OffsetDivNumber" />
+    </item>
+    <item row="1" column="0" >
+     <widget class="QLabel" name="label_13" >
+      <property name="text" >
+       <string>Angle divide number</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" >
+     <widget class="QLineEdit" name="AngleDivNumber" >
+      <property name="readOnly" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="OK" >
+   <property name="geometry" >
+    <rect>
+     <x>40</x>
+     <y>120</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Cancel" >
+   <property name="geometry" >
+    <rect>
+     <x>150</x>
+     <y>120</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Cancel</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,11 @@
+Parameter,Value,Unit
+Total_Traces,128,Traces
+Sampled_Traces,64,Traces
+Actual_Sampling_Rate,50.0,%
+Initial_Zero_Fill_SNR,3.01,dB
+Recovered_Final_SNR,7.46,dB
+SNR_Improvement,4.45,dB
+Reconstruction_RMSE,0.067172,
+Pearson_Correlation_r,0.9097,
+Algorithm_Iterations,40,Steps
+Computation_Time,613.00,ms

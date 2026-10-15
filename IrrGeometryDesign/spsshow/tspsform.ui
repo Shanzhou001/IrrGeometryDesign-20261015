@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TSPSForm</class>
+ <widget class="Q3MainWindow" name="TSPSForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>666</width>
+    <height>490</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SPS Seismic geometry</string>
+  </property>
+  <widget class="Q3ToolBar" name="Toolbar" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>231</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="label" stdset="0">
+    <string>Toolbar</string>
+   </property>
+   <widget class="QLabel" name="textLabel3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>49</width>
+      <height>14</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string> Scale </string>
+    </property>
+    <property name="wordWrap">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="mScaleBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>60</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="suffix">
+     <string>%</string>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>10000</number>
+    </property>
+    <property name="value">
+     <number>100</number>
+    </property>
+   </widget>
+   <addaction name="saveAction"/>
+   <addaction name="separator"/>
+   <addaction name="editSPtAction"/>
+   <addaction name="fillSPSAction"/>
+   <addaction name="gridAction"/>
+   <addaction name="separator"/>
+   <addaction name="zoomAction"/>
+  </widget>
+  <widget class="QMenuBar" name="MenuBarEditor">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>361</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="newspsAction"/>
+    <addaction name="saveAction"/>
+    <addaction name="Load_SPS_Action"/>
+   </widget>
+   <widget class="QMenu" name="View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <addaction name="zoomAction"/>
+    <addaction name="actionGeometry_Attribute_Plotting"/>
+   </widget>
+   <widget class="QMenu" name="Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="gridAction"/>
+    <addaction name="ShowNewSPS"/>
+    <addaction name="ShowImportSPS"/>
+   </widget>
+   <widget class="QMenu" name="menuOVT_Attribute_Analysis">
+    <property name="title">
+     <string>OVT Attribute Analysis</string>
+    </property>
+    <addaction name="actionOVT_Volume_Attributes"/>
+    <addaction name="actionOVT_Patch_Attributes"/>
+   </widget>
+   <widget class="QMenu" name="menuOptimal">
+    <property name="title">
+     <string>Optimize</string>
+    </property>
+    <addaction name="actionRSample"/>
+    <addaction name="actionRAOptimizing"/>
+    <addaction name="actionSSample"/>
+    <addaction name="actionSAOptimizing"/>
+    <addaction name="separator"/>
+    <addaction name="actionCalculate_the_Miu_for_Loaded_Geometry"/>
+    <!-- add by shanzhou in 2026/10/15 -->
+    <addaction name="separator"/>
+    <addaction name="actionRunSamplingBenchmark"/>
+    <addaction name="actionExportAttributeReport"/>
+    <addaction name="actionRunWavefieldReconstruction"/>
+    <addaction name="actionRunFullExperimentSuite"/>
+   </widget>
+   <addaction name="File"/>
+   <addaction name="Edit"/>
+   <addaction name="menuOptimal"/>
+   <addaction name="View"/>
+   <addaction name="menuOVT_Attribute_Analysis"/>
+  </widget>
+  <action name="saveAction">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/filesave.png</normaloff>:/DataReconstruction/Resources/filesave.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+   <property name="iconText">
+    <string>Save</string>
+   </property>
+   <property name="name" stdset="0">
+    <string>saveAction</string>
+   </property>
+  </action>
+  <action name="zoomAction">
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/mouse_zoom.png</normaloff>:/DataReconstruction/Resources/mouse_zoom.png</iconset>
+   </property>
+   <property name="iconText">
+    <string>Zoom</string>
+   </property>
+   <property name="name" stdset="0">
+    <string>zoomAction</string>
+   </property>
+  </action>
+  <action name="editSPtAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/editshot.png</normaloff>:/DataReconstruction/Resources/editshot.png</iconset>
+   </property>
+   <property name="text">
+    <string>Edit Shot Point</string>
+   </property>
+   <property name="iconText">
+    <string>Edit Shot Point</string>
+   </property>
+   <property name="name" stdset="0">
+    <string>editSPtAction</string>
+   </property>
+  </action>
+  <action name="fillSPSAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/refresh.png</normaloff>:/DataReconstruction/Resources/refresh.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Fill SPS</string>
+   </property>
+   <property name="iconText">
+    <string>Fill SPS</string>
+   </property>
+   <property name="name" stdset="0">
+    <string>fillSPSAction</string>
+   </property>
+  </action>
+  <action name="gridAction">
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/griding.png</normaloff>:/DataReconstruction/Resources/griding.png</iconset>
+   </property>
+   <property name="iconText">
+    <string>Grid</string>
+   </property>
+   <property name="name" stdset="0">
+    <string>gridAction</string>
+   </property>
+  </action>
+  <action name="newspsAction">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/newsps.png</normaloff>:/DataReconstruction/Resources/newsps.png</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="ShowNewSPS">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show New SPS</string>
+   </property>
+  </action>
+  <action name="ShowImportSPS">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Import SPS</string>
+   </property>
+  </action>
+  <action name="actionGeometry_Attribute_Plotting">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/GeometryAT.png</normaloff>:/DataReconstruction/Resources/GeometryAT.png</iconset>
+   </property>
+   <property name="text">
+    <string>Geometry Attribute Plotting</string>
+   </property>
+  </action>
+  <action name="actionOVT_Volume_Attributes">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/OVTVL.png</normaloff>:/DataReconstruction/Resources/OVTVL.png</iconset>
+   </property>
+   <property name="text">
+    <string>OVT Volume Attributes</string>
+   </property>
+  </action>
+  <action name="actionOVT_Patch_Attributes">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/OVTPT.png</normaloff>:/DataReconstruction/Resources/OVTPT.png</iconset>
+   </property>
+   <property name="text">
+    <string>OVT Patch Attributes</string>
+   </property>
+   <property name="toolTip">
+    <string>OVT Patch Attributes</string>
+   </property>
+  </action>
+  <action name="Load_SPS_Action">
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </action>
+  <action name="actionRSample">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>RSample</string>
+   </property>
+  </action>
+  <action name="actionRAOptimizing">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Receiver Array Optimizing</string>
+   </property>
+  </action>
+  <action name="actionSSample">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>SSample</string>
+   </property>
+  </action>
+  <action name="actionSAOptimizing">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Shot Array Optimizing</string>
+   </property>
+  </action>
+  <action name="actionCalculate_the_Miu_for_Loaded_Geometry">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Calculate the Miu for Loaded Geometry</string>
+   </property>
+  </action>
+  <!-- add by shanzhou in 2026/10/15 -->
+  <action name="actionRunSamplingBenchmark">
+   <property name="text">
+    <string>多采样率对比试验 (30%/50%/70%)</string>
+   </property>
+  </action>
+  <action name="actionExportAttributeReport">
+   <property name="text">
+    <string>导出观测系统属性质量评估报告</string>
+   </property>
+  </action>
+  <action name="actionRunWavefieldReconstruction">
+   <property name="text">
+    <string>地震波场压缩感知重构试验</string>
+   </property>
+  </action>
+  <action name="actionRunFullExperimentSuite">
+   <property name="text">
+    <string>一键运行全套科研对比试验</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Q3MainWindow</class>
+   <extends>QWidget</extends>
+   <header>q3mainwindow.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3ToolBar</class>
+   <extends>QWidget</extends>
+   <header>q3listview.h</header>
+  </customwidget>
+ </customwidgets>
+ <includes>
+  <include location="local">gspsview.h</include>
+ </includes>
+ <resources>
+  <include location="../datareconstruction.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>saveAction</sender>
+   <!-- add by shanzhou in 2026/10/15 -->
+   <signal>triggered()</signal>
+   <receiver>TSPSForm</receiver>
+   <slot>saveSPS()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomAction</sender>
+   <signal>triggered()</signal>
+   <receiver>TSPSForm</receiver>
+   <slot>zoom()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mScaleBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>TSPSForm</receiver>
+   <slot>onZoomChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gridAction</sender>
+   <signal>triggered()</signal>
+   <receiver>TSPSForm</receiver>
+   <slot>grid()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

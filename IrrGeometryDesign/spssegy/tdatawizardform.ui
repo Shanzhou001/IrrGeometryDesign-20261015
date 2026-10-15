@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TDataWizardForm</class>
+ <widget class="QDialog" name="TDataWizardForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>664</width>
+    <height>576</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Data Input Wizard</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <item>
+    <widget class="QLabel" name="mStepLabel">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>32767</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Step %1</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Q3WidgetStack" name="mWidgetStack">
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
+     <widget class="QWidget" name="spsPage">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>1</y>
+        <width>621</width>
+        <height>334</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="Q3TextEdit" name="mSPSMemo">
+         <property name="font">
+          <font>
+           <family>Courier New</family>
+          </font>
+         </property>
+         <property name="readOnly" stdset="0">
+          <bool>true</bool>
+         </property>
+         <widget class="Q3GroupBox" name="groupBox1">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>619</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>SPS File Group</string>
+          </property>
+          <layout class="QGridLayout">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout">
+             <item>
+              <layout class="QVBoxLayout">
+               <item>
+                <widget class="QLabel" name="textLabel1">
+                 <property name="text">
+                  <string>Shot FileName(*.s)</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabel2">
+                 <property name="text">
+                  <string>Receive FileName(*.r)</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabel3">
+                 <property name="text">
+                  <string>Relationship FileName(*.x)</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="textLabel4_2">
+                 <property name="text">
+                  <string>SEG-Y FileName(*.sgy)</string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout">
+               <item>
+                <widget class="QLineEdit" name="mSFileNameEdit"/>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="mRFileNameEdit"/>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="mXFileNameEdit"/>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="mSEGYFileNameEdit_2"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QVBoxLayout">
+               <item>
+                <widget class="QToolButton" name="mSFileBtn">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="mRFileBtn">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="mXFileBtn">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="mSEGYFileBtn_2">
+                 <property name="text">
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="Q3ProgressBar" name="mSEGYProgressBar_2">
+         <zorder>groupBox1</zorder>
+         <zorder>groupBox1</zorder>
+         <zorder>groupBox1</zorder>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>1</y>
+        <width>591</width>
+        <height>59</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout">
+       <item row="1" column="0" colspan="2">
+        <widget class="Q3TextEdit" name="mSEGYMemo">
+         <property name="readOnly" stdset="0">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="Q3ProgressBar" name="mSEGYProgressBar"/>
+       </item>
+       <item row="0" column="0">
+        <layout class="QHBoxLayout">
+         <item>
+          <widget class="QLabel" name="textLabel4_3">
+           <property name="text">
+            <string>SEG-Y FileName(*.sgy)</string>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="mcopySEGYFileNameEdit">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout">
+     <item>
+      <widget class="QPushButton" name="mLoadBtn">
+       <property name="text">
+        <string>&amp;Load</string>
+       </property>
+       <property name="shortcut">
+        <string>Alt+L</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer1">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>170</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mNextBtn">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&amp;Next</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelBtn">
+       <property name="text">
+        <string>&amp;Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Q3GroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>Qt3Support/Q3GroupBox</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3Frame</class>
+   <extends>QFrame</extends>
+   <header>Qt3Support/Q3Frame</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3WidgetStack</class>
+   <extends>Q3Frame</extends>
+   <header>q3widgetstack.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3TextEdit</class>
+   <extends>Q3Frame</extends>
+   <header>q3textedit.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Q3ProgressBar</class>
+   <extends>QFrame</extends>
+   <header>Qt3Support/Q3ProgressBar</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <includes>
+  <include location="global">qfileinfo.h</include>
+  <include location="global">q3progressdialog.h</include>
+  <include location="global">qmessagebox.h</include>
+  <include location="global">qdatetime.h</include>
+  <include location="global">q3filedialog.h</include>
+  <include location="local">gproject.h</include>
+ </includes>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>mLoadBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TDataWizardForm</receiver>
+   <slot>loadBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TDataWizardForm</receiver>
+   <slot>cancelBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mNextBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TDataWizardForm</receiver>
+   <slot>nextBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mSEGYFileBtn_2</sender>
+   <signal>clicked()</signal>
+   <receiver>TDataWizardForm</receiver>
+   <slot>selSEGYFileBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mXFileBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TDataWizardForm</receiver>
+   <slot>selXFileBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mRFileBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TDataWizardForm</receiver>
+   <slot>selectRFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>mSFileBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TDataWizardForm</receiver>
+   <slot>selSFileBtnClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

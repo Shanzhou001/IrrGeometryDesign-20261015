@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/DataReconstruction" >
+        <file>Resources/AAVR.png</file>
+        <file>Resources/ADIS.png</file>
+        <file>Resources/AMAX.png</file>
+        <file>Resources/AMIN.png</file>
+        <file>Resources/ATOL.png</file>
+        <file>Resources/AzimuthNonfor.png</file>
+        <file>Resources/CSQF.png</file>
+        <file>Resources/GeometryAT.png</file>
+        <file>Resources/OAVR.png</file>
+        <file>Resources/ODIS.png</file>
+        <file>Resources/OMAX.png</file>
+        <file>Resources/OMIN.png</file>
+        <file>Resources/OTOL.png</file>
+        <file>Resources/OVTPT.png</file>
+        <file>Resources/OVTVL.png</file>
+        <file>Resources/Offset_Nonuniform.png</file>
+        <file>Resources/Surveyinfos.png</file>
+        <file>Resources/azimuthVStraces.PNG</file>
+        <file>Resources/binfold.png</file>
+        <file>Resources/editshot.png</file>
+        <file>Resources/filesave.png</file>
+        <file>Resources/foldVSBINS.PNG</file>
+        <file>Resources/foot_factor.png</file>
+        <file>Resources/griding.png</file>
+        <file>Resources/mouse_zoom.png</file>
+        <file>Resources/newsps.png</file>
+        <file>Resources/offsetVSfold-bins.PNG</file>
+        <file>Resources/offsetVStraces.PNG</file>
+        <file>Resources/refresh.png</file>
+        <file>Resources/rose.PNG</file>
+    </qresource>
+</RCC>

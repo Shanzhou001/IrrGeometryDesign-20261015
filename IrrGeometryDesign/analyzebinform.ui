@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>analyzebinformClass</class>
+ <widget class="QMainWindow" name="analyzebinformClass">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>analyzebinform</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1100</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuBin_analyze">
+    <property name="title">
+     <string>Bin analyze</string>
+    </property>
+    <addaction name="Fold_Bins"/>
+    <addaction name="Offset_Traces"/>
+    <addaction name="Azimuth_Traces"/>
+    <addaction name="Rose_Traces"/>
+    <addaction name="Offset_Fold_Bins"/>
+    <addaction name="Bin_Fold"/>
+    <addaction name="actionOffsetFactor"/>
+    <addaction name="actionAzimuthFactor"/>
+    <addaction name="actionFootFactor"/>
+    <addaction name="actionCSQFactor"/>
+    <addaction name="actionGeometryImformation"/>
+   </widget>
+   <widget class="QMenu" name="menuTool">
+    <property name="title">
+     <string>Tool</string>
+    </property>
+    <addaction name="Show_next_point"/>
+    <addaction name="Show_previous_point"/>
+   </widget>
+   <addaction name="menuBin_analyze"/>
+   <addaction name="menuTool"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="Fold_Bins"/>
+   <addaction name="Offset_Traces"/>
+   <addaction name="Azimuth_Traces"/>
+   <addaction name="Rose_Traces"/>
+   <addaction name="Offset_Fold_Bins"/>
+   <addaction name="Bin_Fold"/>
+   <addaction name="actionOffsetFactor"/>
+   <addaction name="actionAzimuthFactor"/>
+   <addaction name="actionFootFactor"/>
+   <addaction name="actionCSQFactor"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionGeometryImformation"/>
+  </widget>
+  <action name="Fold_Bins">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/foldVSBINS.PNG</normaloff>:/DataReconstruction/Resources/foldVSBINS.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Fold-Bins</string>
+   </property>
+  </action>
+  <action name="Offset_Traces">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/offsetVStraces.PNG</normaloff>:/DataReconstruction/Resources/offsetVStraces.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Offset-Traces</string>
+   </property>
+  </action>
+  <action name="Azimuth_Traces">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/azimuthVStraces.PNG</normaloff>:/DataReconstruction/Resources/azimuthVStraces.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Azimuth-Traces</string>
+   </property>
+  </action>
+  <action name="Rose_Traces">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/rose.PNG</normaloff>:/DataReconstruction/Resources/rose.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Rose-Traces</string>
+   </property>
+  </action>
+  <action name="Offset_Fold_Bins">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/offsetVSfold-bins.PNG</normaloff>:/DataReconstruction/Resources/offsetVSfold-bins.PNG</iconset>
+   </property>
+   <property name="text">
+    <string>Offset-Fold-Bins</string>
+   </property>
+  </action>
+  <action name="Bin_Fold">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/binfold.png</normaloff>:/DataReconstruction/Resources/binfold.png</iconset>
+   </property>
+   <property name="text">
+    <string>Bin-Fold</string>
+   </property>
+  </action>
+  <action name="Show_next_point">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show next point</string>
+   </property>
+  </action>
+  <action name="Show_previous_point">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Show previous point</string>
+   </property>
+  </action>
+  <action name="actionOffsetFactor">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/Offset_Nonuniform.png</normaloff>:/DataReconstruction/Resources/Offset_Nonuniform.png</iconset>
+   </property>
+   <property name="text">
+    <string>Offset Factor</string>
+   </property>
+  </action>
+  <action name="actionAzimuthFactor">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/AzimuthNonfor.png</normaloff>:/DataReconstruction/Resources/AzimuthNonfor.png</iconset>
+   </property>
+   <property name="text">
+    <string>Azimuth Factor</string>
+   </property>
+  </action>
+  <action name="actionFootFactor">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/foot_factor.png</normaloff>:/DataReconstruction/Resources/foot_factor.png</iconset>
+   </property>
+   <property name="text">
+    <string>Foot Factor</string>
+   </property>
+  </action>
+  <action name="actionCSQFactor">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/CSQF.png</normaloff>:/DataReconstruction/Resources/CSQF.png</iconset>
+   </property>
+   <property name="text">
+    <string>CSQFactor</string>
+   </property>
+  </action>
+  <action name="actionGeometryImformation">
+   <property name="icon">
+    <iconset resource="datareconstruction.qrc">
+     <normaloff>:/DataReconstruction/Resources/Surveyinfos.png</normaloff>:/DataReconstruction/Resources/Surveyinfos.png</iconset>
+   </property>
+   <property name="text">
+    <string>Geometry Imformation</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="datareconstruction.qrc"/>
+ </resources>
+ <connections/>
+</ui>

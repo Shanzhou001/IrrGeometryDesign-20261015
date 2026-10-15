@@ -1,0 +1,127 @@
+<ui version="4.0" >
+ <class>TQFDividedlgClass</class>
+ <widget class="QDialog" name="TQFDividedlgClass" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>282</width>
+    <height>190</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>TQFDividedlg</string>
+  </property>
+  <widget class="QPushButton" name="OK" >
+   <property name="geometry" >
+    <rect>
+     <x>40</x>
+     <y>160</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>OK</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Cancel" >
+   <property name="geometry" >
+    <rect>
+     <x>150</x>
+     <y>160</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="Basic_parameter_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>251</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Divide parameter</string>
+   </property>
+   <widget class="QLabel" name="label_12" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>29</y>
+      <width>120</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Offset divide number</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="OffsetDivNumber" >
+    <property name="geometry" >
+     <rect>
+      <x>136</x>
+      <y>29</y>
+      <width>105</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>62</y>
+      <width>120</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Angle divide number</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="AngleDivNumber" >
+    <property name="geometry" >
+     <rect>
+      <x>136</x>
+      <y>62</y>
+      <width>105</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>120</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Max Offset</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="MaxOffset" >
+    <property name="geometry" >
+     <rect>
+      <x>136</x>
+      <y>100</y>
+      <width>105</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <resources/>
+ <connections/>
+</ui>

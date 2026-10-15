@@ -1,0 +1,104 @@
+<ui version="4.0" >
+ <class>TChangeShowareadlgClass</class>
+ <widget class="QDialog" name="TChangeShowareadlgClass" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>272</width>
+    <height>152</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>TChangeShowareadlg</string>
+  </property>
+  <widget class="QGroupBox" name="Basic_parameter_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>251</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Show area parameter</string>
+   </property>
+   <widget class="QLabel" name="label_12" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>29</y>
+      <width>120</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>MaxShow Value</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="MaxShowValue" >
+    <property name="geometry" >
+     <rect>
+      <x>136</x>
+      <y>29</y>
+      <width>105</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>62</y>
+      <width>120</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>MinShow Value</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="MinShowValue" >
+    <property name="geometry" >
+     <rect>
+      <x>136</x>
+      <y>62</y>
+      <width>105</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="Cancel" >
+   <property name="geometry" >
+    <rect>
+     <x>160</x>
+     <y>120</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="OK" >
+   <property name="geometry" >
+    <rect>
+     <x>50</x>
+     <y>120</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>OK</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11" />
+ <resources/>
+ <connections/>
+</ui>
