@@ -1,19 +1,31 @@
-========================================================================
-    ?¨¤2¨¦?¨´?¨º??¡À¨¨¨º??¨¦¡À¡§?? (30% / 50% / 70% 1??¨° vs ???¨² vs Jitter-SA)
-    2a¨º?¨º¡À??: 2026-10-15 10:41:57
-========================================================================
+====================================================================================
+  Irregular Seismic Geometry Non-Uniform Sampling Benchmark Report (Scientific Evaluation)
+  Generated: 2026-10-15 16:45:58
+  Base Random Seed: 42
+====================================================================================
 
-??¨º??¨¦?¨¢???¨°¡À¡§??
-1. 1??¨°??3¨¦¡¤?¡ã?¨°¨°?a?????¨¹?¨²D?¡ê??¨²?¨²2¡§¨®¨°?¨¤?¨¦?¨¨¡Á??? (???¨¤?¨¦?¨´?¦Ì¨®??¨¹?¨²?¨¬¦Ìt)¡ê?
-2. ¡ä????¨²3¨¦?¨´???¦Ì¨¢??¨¹?¨²D?¡ê??¨¤?¨¦?¨¨¨®D?¨´?¦Ì¦Ì¨ª¡ê?¦Ì?¨®¨¦¨®¨²¨¨¡À¡¤|????¡¤¨¤¨ª?¡ä???¨º?¡ê?¨°¡Á2¨²¨¦¨²2¨¦?¨´?¡Á?¡ä¡ê?
-3. ¡À?????¨®??¡¥¦Ì? Jitter-SA ¡¤?¡ã??¨¢o?¨¢????¡¥2¨¦?¨´¦Ì??????¨´?¨¨D?¨®??¡ê?a¨ª??e¦Ì?¨¨????¨²2¡§?¨¤?¨¦D???D??¡¥¡ê?
-   ?¨²?¡Â2¨¦?¨´?¨º???¨¤?¨¦?¨¨ miu ?¨´?¦Ì?¨¢¡Á?¦Ì¨ª¡ê??¨´?¦Ì?¨¤?¨¦??¨¦¨´¨°???¡À¨¨¡ä?¦Ì? 7 ~ 12 dB ¨°?¨¦?¡ê?
+[Sampling Protocol & Fairness Guarantees]
+  1. Spatial Total Points N = 128; strictly synchronized actual sampling points m.
+  2. Regular Decimation covers full space: i_k = int(k * N / m), preventing boundary artifacts.
+  3. Pure Random Sampling uses Fisher-Yates shuffle, exactly m points without duplicate.
+  4. Jitter Initial Sampling uses grid-partitioned jitter, exactly m points.
+  5. Jitter-SA uses Metropolis acceptance & local perturbation, strictly preserving sum(mask) == m.
+  6. Coherence Reduction Ratio definition: 20 * log10(mu_regular / mu_opt) dB.
 
-???¨¤¡¤?¡ã?¨¢??¡¥??¡À¨¨??¡À¨º??
-----------------------------------------------------------------------------------------------------
-2¨¦?¨´?¨º  3¨¦?¨´¦Ì?¨ºy  ¡Á¨¹¦Ì?¨ºy  1??¨°??3¨¦miu  ¡ä????¨²miu  3?¨º?Jitter miu  ¨®??¡¥Jitter-SA miu  ??¨¦??¨º(??1??¨°)  ?¨´?¦Ì¨°???¡À¨¨
-----------------------------------------------------------------------------------------------------
-30%	38/128		0.8345		0.5427		0.5519		0.3889		53.40%		6.63 dB
-50%	64/128		0.9601		0.3887		0.2697		0.2187		77.22%		12.85 dB
-70%	90/128		0.2815		0.2014		0.2160		0.1479		47.46%		5.59 dB
-----------------------------------------------------------------------------------------------------
+[Sampling Benchmark Comparison Table]
+--------------------------------------------------------------------------------------------------------
+Rate	Sampled/Total	Regular_Mu	Random_Mu	Jitter_Init_Mu	Jitter_SA_Mu	Imprv_vs_Reg	Coherence_Red(dB)
+--------------------------------------------------------------------------------------------------------
+30%	38/128		0.7892		0.4379		0.5737		0.3729		52.75%		6.51 dB
+50%	64/128		0.9601		0.3661		0.3472		0.2364		75.38%		12.17 dB
+70%	90/128		0.2609		0.1914		0.2355		0.1545		40.80%		4.55 dB
+--------------------------------------------------------------------------------------------------------
+
+[Statistical Metrics & Scientific Conclusions]
+  - Cross-Rate Average Improvement (vs Regular): 56.31%
+  - Cross-Rate Average Improvement (vs Random):  23.19%
+  - Cross-Rate Average Coherence Reduction:      7.75 dB
+  - 50% Benchmark Single-Row Result: Imprv vs Regular = 75.38%, Coherence Reduction = 12.17 dB
+
+Conclusion: Jitter initialization with Metropolis Simulated Annealing suppresses curvelet coherence
+across all sampling rates, converting coherent aliasing energy into harmless pseudo-random noise.

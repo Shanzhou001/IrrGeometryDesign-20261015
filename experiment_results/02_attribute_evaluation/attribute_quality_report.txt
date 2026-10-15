@@ -1,29 +1,34 @@
 ========================================================================
-            1?2a?¦Ì¨ª3????¨º?D?¡Á?o??¨º¨¢?¨®??-??D¡ì¨°??¨¤1¨¤¡À¡§??
-            ?¨¤1¨¤¨º¡À??: 2026-10-15 10:41:57
+  Seismic Acquisition Geometry Spatial Attribute Quality Evaluation Report
+  Evaluation Mode: Synthetic Benchmark Mode (Simulated 3D Survey)
+  Generated: 2026-10-15 16:45:58
 ========================================================================
 
-??¨°¡ã¨ªa2¨¦?¡¥3¨¦¡À?¨®?¨¦¨¨¡À?D¡ì¨°???
-  ?-¨º?¨¦¨¨???¨¬2¡§¦Ì?¨ºy: 400
-  ¨®??¡¥??¨º¨¨?¨¬2¡§¦Ì?¨ºy: 200
-  ¨°¡ã¨ªa2¨¦?¡¥¨¦¨¨¡À?¨®?¨º?1¡è3¨¦¡À??¨²??: 50.0%
+[Synthetic Benchmark Mode]
+  Calculated on 24x24 CMP bin grid with 32 active channels across synthetic geometry.
 
-??CMP ???a?2??¡ä?¨ºy¨º?D??¨º¨¢???
-  ¨®DD¡ì?2?????a¡Á¨¹¨ºy (Live Bins): 576
-  ???¨´?2??¡ä?¨ºy (Mean Fold):     32.08
-  ?2??¡ä?¨ºy???¦Ì¡¤??¡ì (Min ~ Max): 24 ~ 40
-  ?2??¡ä?¨ºy¡À¨º¡Á?2? (StdDev):      4.87
-  ?2??2??¨´?¨¨?¨¨?¦Ì¨ºy (Cv = s/u):  0.1517
-  ????¨º?D?¡À¡ê???¨¨?¨¤¡¤?:           92.4%
+[Field Survey Cost & Channel Optimization]
+  Full Coverage Receivers:   400
+  Optimized Active Channels: 200
+  Acquisition Cost Reduction:50.0%
+  Analyzed Traces:           2854 (Invalid/Filtered: 0)
 
-???¨²?¨¬?¨¤????¡¤?2?¨º?D???
-  ¨®DD¡ì?¨²?¨¬?¨¤¡¤??¡ì: 50.0 m ~ 3200.0 m
-  ???¨´?¨²?¨¬?¨¤:     1535.1 m
-  ?¨¹?¨²?¨¬?¨¤??¡À¨¨ (< 1/3 MaxOff):   25.2%
-  ?D?¨²?¨¬?¨¤??¡À¨¨ (1/3~2/3 MaxOff): 57.1%
-  ???¨²?¨¬?¨¤??¡À¨¨ (> 2/3 MaxOff):   17.7%
+[CMP Bin Fold Uniformity Analysis]
+  Live CMP Bins:             576
+  Mean Fold:                 31.70
+  Fold Range (Min ~ Max):    24 ~ 40
+  Fold Standard Deviation:   4.94
+  Coefficient of Variation:  0.1558 (Cv = StdDev / Mean)
+  Fold Retention Score:      92.2%
 
-??¡¤??????¦Ì1?¨ª?¨ª¨º??D???
-  ¨¨?¡¤?????¨¦¨¨???2??¨ª¨º???¨¨: 100.0%
-  ¡Á?o??¨¤1¨¤?¨¢??: ¡¤?1??¨°¨®??¡¥¡¤?¡ã??¨²¡ä¨®¡¤¨´?¨¨?¦Ì¦Ì¨ª¨°¡ã¨ªa2¨¦?¡¥¦Ì¨¤¨ºy3¨¦¡À?¦Ì??¡ã¨¬¨¢??¡ê?
-                ¨ª¨º?¨¤¡À¡ê3?¨¢??¨ª¡¤??????¡é?¨¹?D???¨²?¨¬?¨¤¦Ì?¨¢?D?¡¤?2?¨®? CMP ???a?2???¨´?¨¨D??¡ê
+[Offset Distribution Analysis]
+  Offset Range (Min ~ Max):  50.0 m ~ 3200.0 m
+  Mean Offset:               1535.1 m
+  Near Offset (< 1/3 Max):   25.2%
+  Mid Offset (1/3~2/3 Max):  57.1%
+  Far Offset (> 2/3 Max):    17.7%
+
+[Azimuth Distribution Analysis]
+  Azimuth Coverage Completeness Score: 100.0%
+  Evaluation: Non-uniform spatial decimation reduces acquisition cost while maintaining
+              high fold uniformity and complete azimuthal illumination.

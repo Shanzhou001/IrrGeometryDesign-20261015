@@ -1,11 +1,21 @@
-Parameter,Value,Unit
-Total_Traces,128,Traces
-Sampled_Traces,64,Traces
-Actual_Sampling_Rate,50.0,%
-Initial_Zero_Fill_SNR,3.01,dB
-Recovered_Final_SNR,7.46,dB
-SNR_Improvement,4.45,dB
-Reconstruction_RMSE,0.067172,
-Pearson_Correlation_r,0.9097,
-Algorithm_Iterations,40,Steps
-Computation_Time,722.00,ms
+Metric_Name,Value,Unit,Description
+Data_Mode,Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise),-,Mode
+Mask_Source,Auto-Generated Jitter Mask (m=64/128, 50.0%),-,Source
+Calculation_Grid,256x128,points,Nt x Nx
+Export_Grid,256x128,points,Export dimensions
+Calc_Time_Sampling,4.0,ms,Time step dt
+Export_Time_Sampling,4.0,ms,Export dt
+Spatial_Spacing,12.5,m,Trace dx
+Total_Traces,128,traces,Nx
+Sampled_Traces,64,traces,Number of measured traces
+Sampling_Ratio,50.00,%,Actual sampled ratio
+POCS_Iterations,40,steps,Iterations
+Baseline_Zero_Fill_SNR,3.02,dB,Zero filling baseline
+Baseline_Linear_Interp_SNR,12.35,dB,Linear interp baseline
+Recovered_SNR,6.32,dB,Reconstructed SNR
+SNR_Improvement_vs_Zero,3.30,dB,Delta SNR vs Zero Fill
+SNR_Improvement_vs_Linear,-6.03,dB,Delta SNR vs Linear
+RMSE,0.07678,amplitude,Root Mean Square Error
+Correlation_r,0.8820,-,Pearson correlation
+Data_Consistency_Passed,YES,-,Exact measurement consistency
+Runtime,638.0,ms,Computation time
