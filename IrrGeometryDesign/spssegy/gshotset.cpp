@@ -1,4 +1,4 @@
-﻿#include "gshotset.h"
+#include "gshotset.h"
 #include "grlineset.h"
 #include "gslineset.h"
 #include "gproject.h"
@@ -880,15 +880,20 @@ float GShot::getTrcDistance(Q_INT32 index)
 
 GSPoint * GShot::getSPoint()
 { 
-//	GProject *pProject=mpProject;
-	 GProject *pProject=GProject::getCurrentProject();// add by zhao hu
-	if(pProject != NULL)
-		if(mpSPoint!=NULL) 
-			return mpSPoint;
-		else 
-			return pProject->getSLineSet()->get(mLineIndex)->get(mPointIndex); // ½۲ϵͳʱڴʳִ(ΪgetSLineSet()صĶΪա [Liu Wei 6/5/2023]
-		
-	else return NULL;
+	if(mpSPoint != NULL) return mpSPoint;
+	GProject *pProject = mpProject ? mpProject : GProject::getCurrentProject();
+	if(pProject != NULL && pProject->getSLineSet() != NULL)
+	{
+		if(mLineIndex >= 0 && mLineIndex < pProject->getSLineSet()->count())
+		{
+			GSLine *pSLine = pProject->getSLineSet()->get(mLineIndex);
+			if(pSLine != NULL && mPointIndex >= 0 && mPointIndex < pSLine->count())
+			{
+				return pSLine->get(mPointIndex);
+			}
+		}
+	}
+	return NULL;
 }
 
 GShotXLine * GShot::get(int index)
@@ -948,6 +953,11 @@ GShotXArray * GShot::getXArrayByTrcIndex(int index)
 
 GRPoint * GShot::getRPointByTrcIndex(int index)
 {
+	if(mRLIndex == NULL || mRPIndex == NULL)
+	{
+		GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
+		return pProj ? getRPointByTrcIndex(index, pProj->getRLineSet()) : NULL;
+	}
 	GRLine *rLine = GProject::getCurrentProject()->getRLineSet()->get(mRLIndex[index]);
 	if(rLine==NULL)
 		return NULL;
@@ -959,7 +969,6 @@ GRPoint * GShot::getRPointByTrcIndex(int index)
 //add by LiuWei 20230117
 GRPoint * GShot::getRPointByTrcIndex(int index, GRLineSet *pRLineSet)
 {
-
 	GShotXLine *pXLine = getXLineByTrcIndex(index);
 	if(pXLine == NULL) return NULL;
 
@@ -977,7 +986,16 @@ GRPoint * GShot::getRPointByTrcIndex(int index, GRLineSet *pRLineSet)
 	if(pRLineSet == NULL) return NULL;
 	GRLine *pRLine = pRLineSet->get(pXLine->getLineIndex());
 	if(pRLine == NULL) return NULL;
-	return pRLine->get(pXArray->getFirstPtIndex()+index-pXArray->getMinTrcIndex());
+
+	int relTrc = index - pXArray->getMinTrcIndex();
+	int ptIdx = 0;
+	if(pXArray->getFirstPtIndex() <= pXArray->getLastPtIndex())
+		ptIdx = pXArray->getFirstPtIndex() + relTrc;
+	else
+		ptIdx = pXArray->getFirstPtIndex() - relTrc;
+
+	if(ptIdx < 0 || ptIdx >= pRLine->count()) return NULL;
+	return pRLine->get(ptIdx);
 }
 
 // GRPoint * GShot::getRPointByTrcIndex(int index)

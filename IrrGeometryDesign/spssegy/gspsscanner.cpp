@@ -63,15 +63,21 @@ static bool gIsValidXRecord(const XParsedRecord &rec)
 	if(rec.firstTrc <= 0) return false;
 	if(rec.lastTrc < rec.firstTrc) return false;
 	if(rec.trcInc <= 0) return false;
-	if((rec.lastTrc - rec.firstTrc) % rec.trcInc != 0) return false;
+	if((rec.lastTrc - rec.firstTrc) % rec.trcInc != 0 &&
+	   (rec.lastTrc - rec.firstTrc + 1) % rec.trcInc != 0) return false;
 
 	if(rec.rLineName.isEmpty()) return false;
 	if(rec.firstPt.isEmpty()) return false;
 	if(rec.lastPt.isEmpty()) return false;
 
-	Q_INT32 trcCount = (rec.lastTrc - rec.firstTrc) / rec.trcInc + 1;
+	Q_INT32 trcCount = 0;
+	if((rec.lastTrc - rec.firstTrc + 1) % rec.trcInc == 0 && (rec.lastTrc - rec.firstTrc) % rec.trcInc != 0)
+		trcCount = (rec.lastTrc - rec.firstTrc + 1) / rec.trcInc;
+	else
+		trcCount = (rec.lastTrc - rec.firstTrc) / rec.trcInc + 1;
+
 	if(trcCount <= 0) return false;
-	if(trcCount > 200000) return false;   // ֹݵ³ڴ
+	if(trcCount > 200000) return false;
 
 	return true;
 }
@@ -114,7 +120,10 @@ static bool gParseXSPS21Fixed(const QString &line, XParsedRecord &rec)
 	rec.lastTrc = line.mid(43, 5).stripWhiteSpace().toInt(&ok);
 	if(!ok || rec.lastTrc < rec.firstTrc) return false;
 
-	rec.trcInc = 1; // 标准 SPS 2.1 物理采集道增量
+	// trcInc: col 49 (0-indexed mid(48, 1))
+	int incVal = line.mid(48, 1).stripWhiteSpace().toInt(&ok);
+	if(ok && incVal > 0) rec.trcInc = incVal;
+	else rec.trcInc = 1; // 默认物理采集道增量
 
 	// rLineName: cols 50-60 (0-indexed mid(49, 11))
 	rec.rLineName = gNormalizeSPSKey(line.mid(49, 11));
@@ -268,7 +277,12 @@ bool GXFileScanner::scanLine(const QString &line, GShot *pShot)
 	GShotXArray *pXArray = pXLine->getXArrayByTrc(rec.firstTrc);
 	if(pXArray == NULL)
 	{
-		Q_INT32 trcCount = (rec.lastTrc - rec.firstTrc) / rec.trcInc + 1;
+		Q_INT32 trcCount = 0;
+		if((rec.lastTrc - rec.firstTrc + 1) % rec.trcInc == 0 && (rec.lastTrc - rec.firstTrc) % rec.trcInc != 0)
+			trcCount = (rec.lastTrc - rec.firstTrc + 1) / rec.trcInc;
+		else
+			trcCount = (rec.lastTrc - rec.firstTrc) / rec.trcInc + 1;
+
 		pXArray = new GShotXArray(rec.firstPt, rec.lastPt,
 								  rec.firstTrc, rec.lastTrc,
 								  rec.trcInc, trcCount);
@@ -360,7 +374,11 @@ bool GXFileScanner::scan(const QString &fileName, GShotSet *pShotSet, QTextEdit 
 		GShotXArray *pXArray = pXLine->getXArrayByTrc(rec.firstTrc);
 		if(pXArray == NULL)
 		{
-			Q_INT32 trcCount = (rec.lastTrc - rec.firstTrc) / rec.trcInc + 1;
+			Q_INT32 trcCount = 0;
+			if((rec.lastTrc - rec.firstTrc + 1) % rec.trcInc == 0 && (rec.lastTrc - rec.firstTrc) % rec.trcInc != 0)
+				trcCount = (rec.lastTrc - rec.firstTrc + 1) / rec.trcInc;
+			else
+				trcCount = (rec.lastTrc - rec.firstTrc) / rec.trcInc + 1;
 
 			pXArray = new GShotXArray(rec.firstPt, rec.lastPt,
 									  rec.firstTrc, rec.lastTrc,

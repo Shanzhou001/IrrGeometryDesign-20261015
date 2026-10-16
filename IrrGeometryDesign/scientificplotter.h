@@ -413,7 +413,9 @@ public:
         p.setRenderHint(QPainter::Antialiasing, true);
 
         QString title = QString::fromLocal8Bit("CMP 面元覆盖次数空间平面热力分布图与均匀性评估");
-        QString subtitle = QString::fromLocal8Bit("科研验证：非规则设计在降低 50% 野外采集成本的同时，保留了高品质的覆盖均匀性与空间展布");
+        QString subtitle = (costReduction > 0.0f)
+            ? (QString::fromLocal8Bit("科研验证：非规则设计在降低 ") + QString::number(costReduction, 'f', 1) + QString::fromLocal8Bit("% 野外采集成本的同时，保留了高品质覆盖均匀性与空间展布"))
+            : QString::fromLocal8Bit("观测系统评价：真实 SPS 测网炮检几何拓扑与面元空间覆盖次数分布分析");
         drawHeader(p, W, title, subtitle);
 
         // 面元热力图网格 24 x 24
@@ -480,10 +482,25 @@ public:
         drawCard(p, QRect(620, 105, 315, 185), QString::fromLocal8Bit("面元覆盖质量指标评估"), metricsLines);
 
         std::vector<QString> verdict;
-        verdict.push_back(QString::fromLocal8Bit("[优秀] 覆盖均匀性评定: 优 (Cv=0.154 < 0.20)"));
-        verdict.push_back(QString::fromLocal8Bit("[通过] 无覆盖空洞或死面元 (100% 满覆盖)"));
-        verdict.push_back(QString::fromLocal8Bit("[达标] 减少 50% 采集道数的前提下"));
-        verdict.push_back(QString::fromLocal8Bit("       完全保留了工区核心成像空间属性。"));
+        if (cv < 0.20f)
+            verdict.push_back(QString::fromLocal8Bit("[优秀] 覆盖均匀性评定: 优 (Cv=") + QString::number(cv, 'f', 3) + " < 0.20)");
+        else if (cv < 0.40f)
+            verdict.push_back(QString::fromLocal8Bit("[良好] 覆盖均匀性评定: 良 (Cv=") + QString::number(cv, 'f', 3) + " < 0.40)");
+        else
+            verdict.push_back(QString::fromLocal8Bit("[合格] 覆盖均匀性评定: 中等 (Cv=") + QString::number(cv, 'f', 3) + ")");
+
+        verdict.push_back(QString::fromLocal8Bit("[通过] 有效面元 ") + QString::number(liveBins) + QString::fromLocal8Bit(" 个 (均值 ") + QString::number(meanFold, 'f', 1) + QString::fromLocal8Bit(" 次)"));
+
+        if (costReduction > 0.0f)
+        {
+            verdict.push_back(QString::fromLocal8Bit("[达标] 优化减少 ") + QString::number(costReduction, 'f', 1) + QString::fromLocal8Bit("% 采集道数的前提下"));
+            verdict.push_back(QString::fromLocal8Bit("       完全保留了工区核心成像空间属性。"));
+        }
+        else
+        {
+            verdict.push_back(QString::fromLocal8Bit("[基准] 原始全覆盖测线基准评估"));
+            verdict.push_back(QString::fromLocal8Bit("       完整保持实际生产工区观测空间属性。"));
+        }
         drawCard(p, QRect(620, 310, 315, 160), QString::fromLocal8Bit("工程与学术综合评定"), verdict);
 
         p.end();
@@ -508,8 +525,10 @@ public:
         QPainter p(&img);
         p.setRenderHint(QPainter::Antialiasing, true);
 
-        QString title = QString::fromLocal8Bit("非规则观测系统炮检距连续性分布与方位角玫瑰图");
-        QString subtitle = QString::fromLocal8Bit("证明非规则设计不仅降低了野外成本，同时保留了连续的炮检距与 360° 全方位角玫瑰展布");
+        QString title = QString::fromLocal8Bit("观测系统炮检距连续性分布与方位角玫瑰图");
+        QString subtitle = (azimuthScore >= 90.0f)
+            ? QString::fromLocal8Bit("空间属性评估：观测系统提供连续的炮检距展布与 360° 全方位角照明分布")
+            : QString::fromLocal8Bit("空间属性评估：炮检距范围与多方位角照明分布定量评估");
         drawHeader(p, W, title, subtitle);
 
         // 左侧：炮检距直方图
