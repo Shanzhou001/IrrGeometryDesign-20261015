@@ -1,22 +1,51 @@
-========================================================================
-          ¦Ì??e2¡§3??1???D?a??11¨º??¨¦¡À¡§?? (POCS ¨ª1?¡¥¨ª?¨®¡ã¡¤¡ä?Y)
-          ¨º??¨¦¨º¡À??: 2026-10-15 15:19:13
-========================================================================
+====================================================================================
+  Seismic Wavefield Compressive Sensing Reconstruction Research Report
+  Dataset Mode: Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)
+  Subsampling Mask: External File (cmp_mask.txt)
+  Generated: 2026-10-16 11:19:34
+====================================================================================
 
-??¨º??¨¦2?¨ºy??
-  ¦Ì??e????1???: 128 ¦Ì¨¤ (????¦Ì¨¤???¨¤ dx=25m) x 256 ?¨´¦Ì? (¨º¡À??2¨¦?¨´ dt=2ms)
-  ¨º?¨¨?¨º¦Ì2a¦Ì¨¤¨ºy: 64 ¦Ì¨¤ (¨º¦Ì?¨º2¨¦?¨´?¨º 50.0%)
-  ¡¤¡ä?Y??¡¤¡§?¡êD¨ª: 2D-FK ¨®¨°??¨ºy¨¨¨ª?D?¦Ì??2¡§ + ¨ºy?Y¨°???D?¨ª?¨®¡ã (POCS)
-  ¦Ì¨¹¡ä¨²¨º?¨¢22?¨ºy: 40 2? (o?¨º¡À 613.0 ms)
+[Subsampling Geometry Configuration]
+  Aperture Traces (Nx):      128 (Spatial Interval dx = 12.5 m)
+  Time Samples (Nt):         256 (Sampling dt = 4 ms)
+  Subsampled Channels (m):   64 (50.0% of Full Layout)
+  Unsampled Missing Channels:64 traces to be interpolated/recovered
 
-????11?¨º¨¢?¨®?D???¡À¨¨o?D???¡À¨º??
-  1. 3?¨º??¡ä??11D???¡À¨¨ (¨¢??¦Ì¨¬?3?): 3.01 dB
-  2. ?1???D?a???¡äo¨®D???¡À¨¨ (SNR):  7.46 dB
-  3. D???¡À¨¨??¨¬¨¢¨¦y¡¤¨´?¨¨ (Delta SNR): 4.45 dB
-  4. ¨¨?3?2¡§D??¨´¡¤??¨´?¨®2? (RMSE):   0.06717
-  5. 2¡§D?D?¨¬??¡è???¡¤?¨¤1??¦Ì¨ºy (r):  0.9097 (?¡Â?¨¹ 1.0)
+[Comparative Quantitative Reconstruction Quality Metrics]
+  1. Baseline 1 (Zero-fill Subsampled Gather):        SNR = 3.02 dB (Reference 0.00 dB)
+  2. Baseline 2 (Spatial Linear Interpolation):       SNR = 12.35 dB (Gain: +9.34 dB)
+  3. Compressive Sensing (Curvelet POCS):             SNR = 14.10 dB (Gain: +11.09 dB vs Zero-fill, +1.75 dB vs Linear)
+  4. Full-Field Root Mean Square Error (RMSE):        0.031334
+  5. Pearson Cross-Correlation Coefficient (r):       0.9804
+  6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
+  7. Reconstruction Execution Time:                   1550.0 ms (40 iterations)
 
-???¡ì¨º?¨®?1¡è3¨¬?¨¦?¡è?¨¢????
-  ??11?¨º??2???¨ª¨º?¨¤??3y¨¢?¨®¨¦ 50% ??¨º¨¨2¨¦?¨´¡ä?¨¤¡ä¦Ì???¨¢¨°?¨´?¦Ì?¨¤?¨¦¡À3?¡ã?¨¦¨¨?¡ê?
-  ¨ª?¨º¡À??¡À¡ê??¦Ì????¡ä3?¨¢?¡À?3¨¦3y¦Ì¨¤¨¦?¦Ì?¦Ì???¡¤¡ä¨¦?2????¨²??2¡§3????¨²¡ê?
-  2D2??D???¨¹¨¢????a???¨²?¡é¨¨?¡ã¡Á??¨¦¨´¡ê??¡è?¡Â¨¢?¡À?????¡¤?1??¨°¨¦¨¨???¨²?1???D?a??11??¦Ì?¨ª¨º¨¨??¨¦DDD?¡ê?
+[In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]
+  - Observation Summary:
+    In this numerical experiment (50% sampling rate, trace spacing dx=12.5m), the improved 2D Curvelet
+    POCS reconstruction achieves SNR = 14.10 dB,
+    significantly surpassing both the Zero-Fill baseline (3.02 dB, +11.09 dB)
+    and the 1D Spatial Linear Interpolation baseline (12.35 dB, +1.75 dB).
+  - Geophysical & Mathematical Advancements:
+    1. Multi-scale & Directional Sparsity in Curvelet Domain:
+       Seismic reflection events exhibit hyperbolic curvature and localized wave fronts. While standard
+       2D Fourier bases disperse curved events across the entire (f, k) plane, discrete curvelet frames
+       provide optimal, highly sparse representations of parabolic wavefronts with minimal coefficients.
+    2. Spatial Linear Interpolation Warm-Start:
+       Initializing the iterative solver with spatial linear interpolation eliminates severe high-frequency
+       harmonic noise and spatial aliasing from raw zero-fill, providing a robust initial trajectory.
+    3. Cosine Annealing Thresholding & Scale-Adaptive Wiener Shrinkage:
+       Smoothly decaying the regularization threshold prevents Gibbs ringing artifacts and preserves weak
+       deep reflection amplitudes while preserving coarse background scales and suppressing noise.
+    4. Strict Observed Trace Consistency Projection:
+       Exact replacement of known channels after each inverse transform guarantees zero distortion on
+       measured physical data (maximum error strictly < 1e-5).
+
+[Scientific Conclusions & Supporting Figures]
+  All run data charts and result figures have been saved to: all_result_figures/
+  1. [Figure 05_wavefield_reconstruction_quad.png]:
+     Four-panel comparison directly displays ground truth, 50% subsampled, Curvelet POCS CS reconstructed,
+     and residual difference slices. Demonstrates continuous event recovery with minimal residual energy.
+  2. [Figure 06_recon_convergence_trace_comparison.png]:
+     Monotonic residual energy convergence curve and single-trace overlay comparison on unsampled channels
+     prove millisecond-accurate reflection peak, trough, and traveltime preservation (r = 0.9804).

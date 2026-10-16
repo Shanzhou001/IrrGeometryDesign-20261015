@@ -365,6 +365,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Curvelet2d\ifdct_wrapping.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\gAttrAnalyzeParam.cpp"
 				>
 			</File>

@@ -954,7 +954,7 @@ GRPoint * GShot::getRPointByTrcIndex(int index)
 	GRPoint *rPoint = rLine->get(mRPIndex[index]);
 	if(rPoint==NULL)
 		return NULL;
-   // return GProject::getCurrentProject()->getRLineSet()->get(mRLIndex[index])->get(mRPIndex[index]);
+	return rPoint;
 }
 //add by LiuWei 20230117
 GRPoint * GShot::getRPointByTrcIndex(int index, GRLineSet *pRLineSet)
@@ -1458,7 +1458,7 @@ void GShotSet::checkRInfo(QTextEdit *spsMemo,QProgressBar *progressBar)
 	/////////
 		//	if(progressBar != NULL) progressBar->setProgress( srcOffset*100/srcLen );
 //	progressBar->setTotalSteps(100);
-	progressBar->setValue(100);
+	if (progressBar != NULL) progressBar->setValue(100);
 	/////////////
 	GProject *pProject = GProject::getCurrentProject();
 	if(pProject == NULL) return;
@@ -1539,7 +1539,7 @@ void GShotSet::checkRInfo(QTextEdit *spsMemo,QProgressBar *progressBar)
 		spsMemo->append( QString::fromLocal8Bit("//----첨Ϣ ("+
 						 QString::number(errCount)+")----//") );
 //	progressBar->reset();
-	progressBar->setValue(100);
+	if (progressBar != NULL) progressBar->setValue(100);
 }
 
 void GShotSet::checkSEGYInfo(QTextEdit *sgyMemo)

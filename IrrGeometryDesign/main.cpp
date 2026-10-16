@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 		if (strcmp(argv[i], "--run-experiments") == 0 || strcmp(argv[i], "-e") == 0)
 		{
 			QString outDir = "experiment_results";
-			int repeatRuns = 1;
+			int repeatRuns = 3;
 			unsigned long long masterSeed = 42ULL;
 
 			for (int j = 1; j < argc; j++)

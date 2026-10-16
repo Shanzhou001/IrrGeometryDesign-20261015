@@ -1,4 +1,4 @@
-﻿#include "gproject.h"
+#include "gproject.h"
 #include "gspsscanner.h"
 #include "gsegyfilescanner.h"
 //#include "tchoicefbtform.h"
@@ -335,8 +335,6 @@ bool GProject::appendSPSInfo(const QString &sFileName, const QString &rFileName,
 	mMaxX = MIN_FLOAT;	mMaxY = MIN_FLOAT;
 	mpRLineSet->getRange(mMinX, mMinY, mMaxX, mMaxY);
 	mpSLineSet->getRange(mMinX, mMinY, mMaxX, mMaxY);
-
-//modify by psl 070619
 
 	mpShotSet->checkSInfo(spsMemo);
 	mpShotSet->checkRInfo(spsMemo,progressBar);

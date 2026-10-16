@@ -1,4 +1,4 @@
-#include "gsegyfilescanner.h"
+ï»¿#include "gsegyfilescanner.h"
 
 GSEGYFileScanner::GSEGYFileScanner()
 {
@@ -7,21 +7,21 @@ GSEGYFileScanner::GSEGYFileScanner()
 QString GSEGYFileScanner::getShotInfo(GShot *pShot)
 {
 	return QString::fromLocal8Bit( "  ("+QString::number(pShot->getRecNum())+")"+
-			" -- µÀÊı "+QString::number(pShot->getTrcCount())+
-			" -- ²ÉÑùµãÊı "+QString::number(pShot->getCPCount())+
-			" -- ²ÉÑù¼ä¸ô "+QString::number(pShot->getCPInv()) );
+			" --  "+QString::number(pShot->getTrcCount())+
+			" --  "+QString::number(pShot->getCPCount())+
+			" --  "+QString::number(pShot->getCPInv()) );
 }
 
 QString GSEGYFileScanner::getErrorInfo(int recNum, GErrorType type)
 {
 	switch(type)
 	{
-	case gErrorTrcCount	:	return QString::fromLocal8Bit("  ¾¯¸æ ("+QString::number(recNum)+
-							") SEG-YÎÄ¼şÖĞµÀÊıÓëSPSÎÄ¼ş¼ÇÔØ²»Ò»ÖÂ" );
-	case gNoSPSInfo		:	return QString::fromLocal8Bit("  ¾¯¸æ ("+QString::number(recNum)+
-							") Ã»ÓĞ¶ÔÓ¦µÄSPSĞÅÏ¢" );
-	case gNoXInfo		:	return QString::fromLocal8Bit("  ¾¯¸æ ("+QString::number(recNum)+
-							") È±ÉÙÓëSEG-YÎÄ¼ş¶ÔÓ¦µÄ¹ØÏµĞÅÏ¢" );
+	case gErrorTrcCount	:	return QString::fromLocal8Bit("   ("+QString::number(recNum)+
+							") SEG-YÄ¼ĞµSPSÄ¼Ø²Ò»" );
+	case gNoSPSInfo		:	return QString::fromLocal8Bit("   ("+QString::number(recNum)+
+							") Ã»Ğ¶Ó¦SPSÏ¢" );
+	case gNoXInfo		:	return QString::fromLocal8Bit("   ("+QString::number(recNum)+
+							") È±SEG-YÄ¼Ó¦Ä¹ÏµÏ¢" );
 	}
 
 	return QString::null;
@@ -35,42 +35,42 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 	GShotSet *pShotSet = pProject->getShotSet();
 	if(pShotSet == NULL) return false;
 
-	//----(1)´ò¿ªÎÄ¼ş,ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ----
+	//----(1)Ä¼,Ğ¶Ä¼Ç·----
 	QFile srcFile(fileName);
 	if(!srcFile.open(IO_ReadOnly)) return false;
 
 	QDataStream srcStream(&srcFile);
 	srcStream.setByteOrder(QDataStream::BigEndian);
 
-	//----(2)ÅĞ¶ÏÔ´ÎÄ¼ş´óĞ¡,ÒÆ¶¯ÎÄ¼şÖ¸Õë,³õÊ¼»¯½ø¶È¸Ë----
+	//----(2)Ğ¶Ô´Ä¼Ğ¡,Æ¶Ä¼Ö¸,Ê¼È¸----
 //	QIODevice::Offset srcLen = srcFile.size();
 	long long srcLen = srcFile.size();
-	if(srcLen < 3600) return false;	//Èç¹ûĞ¡ÓÚ3600×Ö½ÚÈÏÎªÊÇ·Ç·¨SEGYÎÄ¼ş
+	if(srcLen < 3600) return false;	//Ğ¡3600Ö½ÎªÇ·Ç·SEGYÄ¼
 //	QIODevice::Offset srcOffset = 3600;
 	long long srcOffset = 3600;
 
 //	progressBar->setTotalSteps(100);
-	progressBar->setValue(100);
+	if (progressBar != NULL) progressBar->setValue(100);
 
-	//----(3)Ñ­»·É¨ÃèÊı¾İÎÄ¼ş----
-	bool isScanDataTrc;					//ÊÇ·ñĞèÒªµÈ´ıÉ¨ÃèÊı¾İµÀµÄ³öÏÖ
-	int errCount = 0;					//¾¯¸æ´íÎó¼ÆÊıÆ÷
-	Q_INT16 trcType;					//µÀÀàĞÍ
-	Q_INT16 cpCount, cpInv;				//²ÉÑùµãÊı¡¢²ÉÑù¼ä¸ô
-	Q_INT32 recNum, preRecNum = -1;		//Ò°Íâ¼ÇÂ¼ºÅ¡¢Ò°Íâ¼ÇÂ¼ºÅ±¸·İ
-	Q_INT32 trcNum, trcCount = 0;		//µÀºÅ¡¢×ÜµÀÊı
-	long long shotPos;	//ÅÚÆğÊ¼Î»ÖÃ¡¢Êı¾İµÀÆğÊ¼Î»ÖÃ
-	long long dataPos;	//ÅÚÆğÊ¼Î»ÖÃ¡¢Êı¾İµÀÆğÊ¼Î»ÖÃ
-	QIODevice::Offset tbPos = 0, taoPos = 0;	//TB¡¢TAOÎÄ¼şÎ»ÖÃ
-	GShot *pShot = NULL;				//ÅÚ¹ØÏµÖ¸Õë
-	GShotXLine *pXLine = NULL;			//¹ØÏµÏß
-	GShotXArray *pXArray = NULL;		//¹ØÏµÅÅÁĞ	
-	int iL, iA;							//¹ØÏµÏß¡¢ÅÅÁĞĞòºÅ±äÁ¿
-	QString infoLine, errLine;			//ĞÅÏ¢ÌáÊ¾×Ö·û´®
+	//----(3)Ñ­É¨Ä¼----
+	bool isScanDataTrc;					//Ç·ÒªÈ´É¨İµÄ³
+	int errCount = 0;					//
+	Q_INT16 trcType;					//
+	Q_INT16 cpCount, cpInv;				//
+	Q_INT32 recNum, preRecNum = -1;		//Ò°Â¼Å¡Ò°Â¼Å±
+	Q_INT32 trcNum, trcCount = 0;		//Å¡Üµ
+	long long shotPos;	//Ê¼Î»Ã¡İµÊ¼Î»
+	long long dataPos;	//Ê¼Î»Ã¡İµÊ¼Î»
+	QIODevice::Offset tbPos = 0, taoPos = 0;	//TBTAOÄ¼Î»
+	GShot *pShot = NULL;				//Ú¹ÏµÖ¸
+	GShotXLine *pXLine = NULL;			//Ïµ
+	GShotXArray *pXArray = NULL;		//Ïµ	
+	int iL, iA;							//Ïµß¡Å±
+	QString infoLine, errLine;			//Ï¢Ê¾Ö·
 	//Cheng Du old
-	//sgyMemo->append( QString::fromLocal8Bit("//----É¨ÃèSEG-YÎÄ¼ş \""+
+	//sgyMemo->append( QString::fromLocal8Bit("//----É¨SEG-YÄ¼ \""+
 	//				 fileName+"----//") );
-	sgyMemo->append( QString::fromLocal8Bit("\n//----É¨ÃèSEG-YÎÄ¼ş \"") + fileName+"\"----//" );//Lena add 1009
+	sgyMemo->append( QString::fromLocal8Bit("\n//----É¨SEG-YÄ¼ \"") + fileName+"\"----//" );//Lena add 1009
 	
 	while(srcOffset < srcLen)
 	{
@@ -78,23 +78,23 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 		if(progressBar != NULL) progressBar->setValue( srcOffset*100/srcLen );
 
 		srcFile.at(srcOffset+8);
-		srcStream >> recNum;			//¶ÁÈ¡Ò°Íâ¼ÇÂ¼ºÅ
+		srcStream >> recNum;			//È¡Ò°Â¼
 		//for debug
 //		recNum-=30000;
 		//
-		srcStream >> trcNum;			//¶ÁÈ¡µÀºÅ
+		srcStream >> trcNum;			//È¡
 		srcFile.at(srcOffset+28);		
-		srcStream >> trcType;			//¶ÁÈ¡µÀÀàĞÍ£¨Êı¾İµÀ/·ÇÊı¾İµÀ£©
+		srcStream >> trcType;			//È¡Í£İµ/İµ
         if(trcNum<0)
 			trcType = 4;
-		//Ò°ÍâÎÄ¼şºÅÓĞ±ä»¯£¬ËµÃ÷ĞÂµÄÒ»ÅÚ¿ªÊ¼
+		//Ò°Ä¼Ğ±ä»¯ËµÂµÒ»Ú¿Ê¼
 		if(preRecNum != recNum)			
 		{
-			//----(3.1)Ìî³äpShot->FileOffset×Ö¶Î----
-			if(pShot != NULL)			//Èç¹ûÇ°Ò»ÅÚÖ¸Õë²»ÎªNULL£¬Ìî³äÓĞĞ§ĞÅÏ¢
+			//----(3.1)pShot->FileOffsetÖ¶----
+			if(pShot != NULL)			//Ç°Ò»Ö¸ë²»ÎªNULLĞ§Ï¢
 			{
 			/*
-			if(pShot->getTrcCount() != trcCount) //ÅÚµÀÊı¼ì²é£¬µÀÊıÒì³£·ÅÆú¸ÃÅÚ
+			if(pShot->getTrcCount() != trcCount) //Úµé£¬ì³£
 				{
 					if(sgyMemo != NULL) sgyMemo->append(getErrorInfo(recNum, gErrorTrcCount));
 					errCount++;
@@ -120,9 +120,9 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 				pShot->setFileIndex(pProject->getSEGYFileCount());
 					sgyMemo->append(getShotInfo(pShot));
 			}
-			//----(3.2)»ñÈ¡µ±Ç°ÅÚ£¬ÖØĞÂÉèÖÃÉ¨Ãè±äÁ¿----
+			//----(3.2)È¡Ç°Ú£É¨----
 			pShot = pShotSet->getByRecNum(recNum);
-			if(pShot == NULL) //ÔÚ¹ØÏµÎÄ¼şÖĞÃ»ÓĞ¼ÇÔØ
+			if(pShot == NULL) //Ú¹ÏµÄ¼Ã»Ğ¼
 			{
 				if(sgyMemo != NULL) sgyMemo->append(getErrorInfo(recNum, gNoSPSInfo));
 				errCount++;
@@ -138,57 +138,57 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 			srcStream >> cpCount;
 			srcStream >> cpInv;
 
-			if(trcType <= 3) //Ã»ÓĞ¸¨ÖúµÀ
+			if(trcType <= 3) //Ã»Ğ¸
 			{
 				iL = 0;		iA = 0;
 				pXLine = pShot->get(iL);
 				pXArray = pXLine->get(iA);
-				dataPos = srcOffset;	//¼ÇÂ¼Êı¾İµÀÎ»ÖÃ
-				isScanDataTrc = false;	//²»ĞèÒªÔÙÉ¨ÃèÊı¾İµÀÎ»ÖÃ
+				dataPos = srcOffset;	//Â¼İµÎ»
+				isScanDataTrc = false;	//ÒªÉ¨İµÎ»
 			}
 			else isScanDataTrc = true;	
 			
-			trcCount = 0;				//µÀ¼ÆÊıÆ÷Çå0
-			shotPos = srcOffset;		//¼ÇÂ¼ÅÚÆğÊ¼Î»ÖÃ
+			trcCount = 0;				//0
+			shotPos = srcOffset;		//Â¼Ê¼Î»
 		}
 		
-		if(pShot == NULL) //Èç¹û¸ÃÅÚÃ»ÓĞ¼ÇÂ¼Ìø¹ı
+		if(pShot == NULL) //Ã»Ğ¼Â¼
 		{
 			srcOffset += 240+(long long)cpCount*4;
 			continue;
 		}
 
-		if(isScanDataTrc) //º¬ÓĞ¸¨ÖúµÀ,µÈ´ıÊı¾İµÀµÄ³öÏÖ
+		if(isScanDataTrc) //Ğ¸,È´İµÄ³
 		{
 			if(trcType <= 3)
 			{
 				iL = 0;		iA = 0;
 				pXLine = pShot->get(iL);
 				pXArray = pXLine->get(iA);
-				dataPos = srcOffset;	//¼ÇÂ¼Êı¾İµÀÎ»ÖÃ
+				dataPos = srcOffset;	//Â¼İµÎ»
 				isScanDataTrc = false;
 			}
 			else
 			{
-				if(trcType == 4) tbPos = srcOffset;		//TBµÀ
-				if(trcType == 5) taoPos = srcOffset;	//TAOµÀ
+				if(trcType == 4) tbPos = srcOffset;		//TB
+				if(trcType == 5) taoPos = srcOffset;	//TAO
 				srcOffset += 240+(long long)cpCount*4;
 				continue;
 			}
 		}
 
-		if(pXArray == NULL) //¹ØÏµÎÄ¼şÖĞÈ±ÉÙÅÚÅÅÁĞĞÅÏ¢
+		if(pXArray == NULL) //ÏµÄ¼È±Ï¢
 		{
 			if(sgyMemo != NULL) sgyMemo->append(getErrorInfo(recNum, gNoXInfo));
 			srcOffset += 240+(long long)cpCount*4;
 			errCount++;
 			continue;
 		}
-		if(pXArray->getFirstTrc() == trcNum) //¼ÇÂ¼ÅÅÁĞµÚÒ»µÀÔÚÎÄ¼şÖĞµÄÎ»ÖÃ
+		if(pXArray->getFirstTrc() == trcNum) //Â¼ĞµÒ»Ä¼ĞµÎ»
 		{
 			pXArray->setFilePos(srcOffset);
 		}
-		if( pXArray->getLastTrc() == trcNum ) //Èç¹ûÒ»¸öÅÅÁĞ½áÊø,¸üĞÂpXArray
+		if( pXArray->getLastTrc() == trcNum ) //Ò»Ğ½,pXArray
 		{
 			if(iA < pShot->get(iL)->count()-1) iA++;
 			else 
@@ -200,17 +200,17 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 			else pXArray = NULL;
 		}
 
-		srcOffset += 240+(long long)cpCount*4;			//ÒÆ¶¯ÎÄ¼şÖ¸Õëµ½ÏÂÒ»µÀ
+		srcOffset += 240+(long long)cpCount*4;			//Æ¶Ä¼Ö¸ëµ½Ò»
       if(trcNum>0)
 	  {
 		//  pShot->setTrcNumByIndex(trcCount,trcNum);
-		  trcCount++;							//µÀ¼ÆÊıÆ÷Ôö¼Ó
+		  trcCount++;							//
 	  }
 	}
 
-	if(pShot != NULL)			//Èç¹û×îºóÒ»ÅÚÊı¾İ²»ÎªNULL£¬Ìî³äÓĞĞ§ĞÅÏ¢
+	if(pShot != NULL)			//Ò»İ²ÎªNULLĞ§Ï¢
 	{
-		if(pShot->getTrcCount() != trcCount) //ÅÚµÀÊı¼ì²é£¬µÀÊıÒì³£·ÅÆú¸ÃÅÚ
+		if(pShot->getTrcCount() != trcCount) //Úµé£¬ì³£
 		{
 			if(sgyMemo != NULL) sgyMemo->append(getErrorInfo(recNum, gErrorTrcCount));
 			errCount++;
@@ -227,12 +227,12 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 			sgyMemo->append(getShotInfo(pShot));
 		}
 	}
-	sgyMemo->append( QString::fromLocal8Bit("//----SEG-YÎÄ¼şÉ¨Ãè½áÊø ¾¯¸æ´íÎó("+
+	sgyMemo->append( QString::fromLocal8Bit("//----SEG-YÄ¼É¨ ("+
 					 QString::number(errCount)+")----//") );
 
-	//----(4)¹Ø±ÕÎÄ¼ş----
+	//----(4)Ø±Ä¼----
 //	progressBar->reset();
-	progressBar->setValue(100);
+	if (progressBar != NULL) progressBar->setValue(100);
 	srcFile.close();
 	return true;
 }
@@ -244,32 +244,32 @@ bool GSEGYFileScanner::scanForShotRecorderRange(const QString &fileName,
 	GProject *pProject = mpProject;
 	if(pProject == NULL) return false;
 	
-	//----(1)´ò¿ªÎÄ¼ş,ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ----
+	//----(1)Ä¼,Ğ¶Ä¼Ç·----
 	QFile srcFile(fileName);
 	if(!srcFile.open(IO_ReadOnly)) return false;
 
 	QDataStream srcStream(&srcFile);
 	srcStream.setByteOrder(QDataStream::BigEndian);
 
-	//----(2)ÅĞ¶ÏÔ´ÎÄ¼ş´óĞ¡,ÒÆ¶¯ÎÄ¼şÖ¸Õë,³õÊ¼»¯½ø¶È¸Ë----
+	//----(2)Ğ¶Ô´Ä¼Ğ¡,Æ¶Ä¼Ö¸,Ê¼È¸----
 	long long srcLen = srcFile.size();
-	if(srcLen < 3600) return false;	//Èç¹ûĞ¡ÓÚ3600×Ö½ÚÈÏÎªÊÇ·Ç·¨SEGYÎÄ¼ş
+	if(srcLen < 3600) return false;	//Ğ¡3600Ö½ÎªÇ·Ç·SEGYÄ¼
 	long long srcOffset = 3600;
 //	progressBar->setTotalSteps(100);
-	progressBar->setValue(100);
+	if (progressBar != NULL) progressBar->setValue(100);
 
-	Q_INT16 cpCount, cpInv;				//²ÉÑùµãÊı¡¢²ÉÑù¼ä¸ô
-	Q_INT32 recNum, preRecNum = -1;		//Ò°Íâ¼ÇÂ¼ºÅ¡¢Ò°Íâ¼ÇÂ¼ºÅ±¸·İ
-	Q_INT32 trcNum, trcCount = 0;		//µÀºÅ¡¢×ÜµÀÊı
+	Q_INT16 cpCount, cpInv;				//
+	Q_INT32 recNum, preRecNum = -1;		//Ò°Â¼Å¡Ò°Â¼Å±
+	Q_INT32 trcNum, trcCount = 0;		//Å¡Üµ
 	int shotCount = 0;
 	int minRecorderNum = 1000000000;
 	int maxRecorderNum = -1000000000;
-	sgyMemo->append( QString::fromLocal8Bit("\n//----É¨ÃèSEG-YÎÄ¼ş \"") + fileName+"\"----//" );//Lena add 1009
+	sgyMemo->append( QString::fromLocal8Bit("\n//----É¨SEG-YÄ¼ \"") + fileName+"\"----//" );//Lena add 1009
 
 	while(srcOffset < srcLen)
 	{
 		srcFile.at(srcOffset+8);
-		srcStream >> recNum;			//¶ÁÈ¡Ò°Íâ¼ÇÂ¼ºÅ
+		srcStream >> recNum;			//È¡Ò°Â¼
 		srcFile.at(srcOffset+114);
 			srcStream >> cpCount;
 		srcOffset += (240+(long long)cpCount*4);
@@ -292,7 +292,7 @@ bool GSEGYFileScanner::scanForShotRecorderRange(const QString &fileName,
 		if(progressBar != NULL) progressBar->setValue( srcOffset*100/srcLen );
 
 		srcFile.at(srcOffset+8);
-		srcStream >> recNum;			//¶ÁÈ¡Ò°Íâ¼ÇÂ¼ºÅ
+		srcStream >> recNum;			//È¡Ò°Â¼
 		srcFile.at(srcOffset+114);
 			srcStream >> cpCount;
 		srcOffset += ((long long)moveStep*(240+(long long)cpCount*4));
@@ -306,13 +306,13 @@ bool GSEGYFileScanner::scanForShotRecorderRange(const QString &fileName,
 	}
 	QString shotNumString = QString::number(shotCount);
 	pProject->setRecorderNum(minRecorderNum,maxRecorderNum);
-		sgyMemo->append( QString::fromLocal8Bit("//----SEG-YÎÄ¼şÉ¨Ãè1½áÊø //")+"\n"+
-			        QString::fromLocal8Bit("¹²")+shotNumString 
-					 +QString::fromLocal8Bit("ÅÚ")+"----//") ;
+		sgyMemo->append( QString::fromLocal8Bit("//----SEG-YÄ¼É¨1 //")+"\n"+
+			        QString::fromLocal8Bit("")+shotNumString 
+					 +QString::fromLocal8Bit("")+"----//") ;
 
-	//----(4)¹Ø±ÕÎÄ¼ş----
+	//----(4)Ø±Ä¼----
 //	progressBar->reset();
-	progressBar->setValue(100);
+	if (progressBar != NULL) progressBar->setValue(100);
 	srcFile.close();
 	return true;
 }
@@ -324,16 +324,16 @@ void GSEGYFileScanner::ExportShotSgy(const QString &fileName)//zhaohu
 // 	GShotSet *pShotSet = pProject->getShotSet();
 // 	if(pShotSet == NULL) return false;
 // 
-// 	//----(1)´ò¿ªÎÄ¼ş,ÅĞ¶ÏÎÄ¼şÊÇ·ñ´æÔÚ----
+// 	//----(1)Ä¼,Ğ¶Ä¼Ç·----
 // 	QFile srcFile(fileName);
 // 	if(!srcFile.open(IO_ReadOnly)) return false;
 // 
 // 	QDataStream srcStream(&srcFile);
 // 	srcStream.setByteOrder(QDataStream::BigEndian);
 // 
-// 	//----(2)ÅĞ¶ÏÔ´ÎÄ¼ş´óĞ¡,ÒÆ¶¯ÎÄ¼şÖ¸Õë,³õÊ¼»¯½ø¶È¸Ë----
+// 	//----(2)Ğ¶Ô´Ä¼Ğ¡,Æ¶Ä¼Ö¸,Ê¼È¸----
 // 	QIODevice::Offset srcLen = srcFile.size();
-// 	if(srcLen < 3600) return false;	//Èç¹ûĞ¡ÓÚ3600×Ö½ÚÈÏÎªÊÇ·Ç·¨SEGYÎÄ¼ş
+// 	if(srcLen < 3600) return false;	//Ğ¡3600Ö½ÎªÇ·Ç·SEGYÄ¼
 // 	QIODevice::Offset srcOffset = 3600;
 // 
 // 	while(srcOffset < srcLen)
