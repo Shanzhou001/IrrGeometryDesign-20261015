@@ -1,4 +1,4 @@
-#ifndef GPROJECT_H
+﻿#ifndef GPROJECT_H
 #define GPROJECT_H
 
 #include <qobject.h>

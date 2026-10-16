@@ -117,7 +117,7 @@ public slots:
     void on_actionRunWavefieldReconstruction_triggered();
     void on_actionRunFullExperimentSuite_triggered();
     void updateExperimentActionsState();
-    void quickLoadDemoSPS();
+    void quickLoadDemoSPS(bool showMsgBox = true);
     void on_actionViewDashboard_triggered();
     void on_actionViewGallery_triggered();
     void on_actionOpenFiguresDir_triggered();

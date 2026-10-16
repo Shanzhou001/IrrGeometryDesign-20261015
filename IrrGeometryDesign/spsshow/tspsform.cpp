@@ -90,11 +90,11 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
 
     mScrollArea = new QScrollArea(this);
     mScrollArea->setWidgetResizable(true);
-    mScrollArea->setStyleSheet("background-color: #2b2b2b; border: 1px solid #708090;");
+    mScrollArea->setStyleSheet("background-color: #f1f5f9; border: 1px solid #cbd5e1;");
 
     mImageLabel = new QLabel(mScrollArea);
     mImageLabel->setAlignment(Qt::AlignCenter);
-    mImageLabel->setStyleSheet("background-color: #2b2b2b; color: #ffffff; padding: 10px;");
+    mImageLabel->setStyleSheet("background-color: #f1f5f9; color: #1e293b; padding: 10px;");
     mScrollArea->setWidget(mImageLabel);
     mainLayout->addWidget(mScrollArea, 1);
 
@@ -339,18 +339,113 @@ TSPSForm::~TSPSForm()
 
 void TSPSForm::init()
 {
-	//界面中的工具栏是怎么来的，自动添加的吗？刘伟
 	//----调整窗口大小和位置----
 	QPoint p( 0, 0 );
 	QRect desk;
-	int top = 0, left = 0, width = 800, height = 600;
+	int top = 0, left = 0, width = 1040, height = 720;
 	desk = QApplication::desktop()->availableGeometry( 1 );
 
 	left = ( desk.width()-width )/2;
 	top = ( desk.height()-height )/2;
 	setGeometry( left, top, width, height );
 
-	mSpl=new QSplitter(this);
+	QWidget *mainContainer = new QWidget(this);
+	QVBoxLayout *mainVBox = new QVBoxLayout(mainContainer);
+	mainVBox->setContentsMargins(4, 4, 4, 4);
+	mainVBox->setSpacing(4);
+
+	QFrame *workflowBar = new QFrame(mainContainer);
+	workflowBar->setStyleSheet(
+		"QFrame { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #eef2f7); "
+		"border: 1px solid #b0c4de; border-radius: 4px; padding: 3px; }"
+	);
+	QHBoxLayout *flowLayout = new QHBoxLayout(workflowBar);
+	flowLayout->setContentsMargins(4, 2, 4, 2);
+	flowLayout->setSpacing(5);
+
+	QLabel *lblFlowTitle = new QLabel(QString::fromLocal8Bit("<b>【科研全流程导航】:</b>"), workflowBar);
+	lblFlowTitle->setStyleSheet("color: #0b3c6d; font-family: SimSun; font-size: 12px;");
+	flowLayout->addWidget(lblFlowTitle);
+
+	QString btnNormalStyle = 
+		"QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #f0f4f8); "
+		"border: 1px solid #94a3b8; border-radius: 3px; padding: 4px 6px; font-family: SimSun; font-size: 12px; color: #1e293b; }"
+		"QPushButton:hover { background: #e2e8f0; border-color: #3b82f6; color: #1d4ed8; }"
+		"QPushButton:pressed { background: #cbd5e1; }";
+
+	QString btnAccentStyle = 
+		"QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2563eb, stop:1 #1d4ed8); "
+		"border: 1px solid #1e40af; border-radius: 3px; padding: 4px 8px; font-family: SimSun; font-weight: bold; font-size: 12px; color: #ffffff; }"
+		"QPushButton:hover { background: #1d4ed8; border-color: #172554; }"
+		"QPushButton:pressed { background: #1e3a8a; }";
+
+	QString btnGalleryStyle = 
+		"QPushButton { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #059669, stop:1 #047857); "
+		"border: 1px solid #065f46; border-radius: 3px; padding: 4px 7px; font-family: SimSun; font-weight: bold; font-size: 12px; color: #ffffff; }"
+		"QPushButton:hover { background: #047857; }"
+		"QPushButton:pressed { background: #064e3b; }";
+
+	QPushButton *btnStep1 = new QPushButton(QString::fromLocal8Bit("1. 示范工区"), workflowBar);
+	btnStep1->setStyleSheet(btnNormalStyle);
+	btnStep1->setToolTip(QString::fromLocal8Bit("一键载入标准三维地震示范观测系统 (8接收线x128道，12激发线)"));
+	connect(btnStep1, SIGNAL(clicked()), this, SLOT(quickLoadDemoSPS()));
+	flowLayout->addWidget(btnStep1);
+
+	QPushButton *btnStep2 = new QPushButton(QString::fromLocal8Bit("2. 导入SPS"), workflowBar);
+	btnStep2->setStyleSheet(btnNormalStyle);
+	btnStep2->setToolTip(QString::fromLocal8Bit("通过数据向导导入外部 SPS 文件 (*.s, *.r, *.x)"));
+	connect(btnStep2, SIGNAL(clicked()), this, SLOT(on_Load_SPS_Action_triggered()));
+	flowLayout->addWidget(btnStep2);
+
+	QPushButton *btnStep3 = new QPushButton(QString::fromLocal8Bit("3. CMP面元网格"), workflowBar);
+	btnStep3->setStyleSheet(btnNormalStyle);
+	btnStep3->setToolTip(QString::fromLocal8Bit("划分 CMP 面元网格并自动计算覆盖次数"));
+	connect(btnStep3, SIGNAL(clicked()), this, SLOT(grid()));
+	flowLayout->addWidget(btnStep3);
+
+	QPushButton *btnStep4 = new QPushButton(QString::fromLocal8Bit("4. 排列退火优化"), workflowBar);
+	btnStep4->setStyleSheet(btnNormalStyle);
+	btnStep4->setToolTip(QString::fromLocal8Bit("执行空间非规则采样与模拟退火优化互相干度 μ"));
+	connect(btnStep4, SIGNAL(clicked()), this, SLOT(on_actionRAOptimizing_triggered()));
+	flowLayout->addWidget(btnStep4);
+
+	QPushButton *btnStep5 = new QPushButton(QString::fromLocal8Bit("5. 多采样率试验"), workflowBar);
+	btnStep5->setStyleSheet(btnNormalStyle);
+	btnStep5->setToolTip(QString::fromLocal8Bit("多采样率基准对比试验 (30%, 50%, 70%)"));
+	connect(btnStep5, SIGNAL(clicked()), this, SLOT(on_actionRunSamplingBenchmark_triggered()));
+	flowLayout->addWidget(btnStep5);
+
+	QPushButton *btnStep6 = new QPushButton(QString::fromLocal8Bit("6. 属性质量评估"), workflowBar);
+	btnStep6->setStyleSheet(btnNormalStyle);
+	btnStep6->setToolTip(QString::fromLocal8Bit("导出观测系统空间属性质量评估报告与热力图、玫瑰图"));
+	connect(btnStep6, SIGNAL(clicked()), this, SLOT(on_actionExportAttributeReport_triggered()));
+	flowLayout->addWidget(btnStep6);
+
+	QPushButton *btnStep7 = new QPushButton(QString::fromLocal8Bit("7. 波场POCS重构"), workflowBar);
+	btnStep7->setStyleSheet(btnNormalStyle);
+	btnStep7->setToolTip(QString::fromLocal8Bit("地震波场欠采样与压缩感知 POCS 凸集投影重构试验"));
+	connect(btnStep7, SIGNAL(clicked()), this, SLOT(on_actionRunWavefieldReconstruction_triggered()));
+	flowLayout->addWidget(btnStep7);
+
+	QPushButton *btnSuite = new QPushButton(QString::fromLocal8Bit("★ 一键全流程闭环验证"), workflowBar);
+	btnSuite->setStyleSheet(btnAccentStyle);
+	btnSuite->setToolTip(QString::fromLocal8Bit("自动化全流程执行全部科研对比试验并集中生成科研图件"));
+	connect(btnSuite, SIGNAL(clicked()), this, SLOT(on_actionRunFullExperimentSuite_triggered()));
+	flowLayout->addWidget(btnSuite);
+
+	QPushButton *btnGallery = new QPushButton(QString::fromLocal8Bit("成果图件画廊"), workflowBar);
+	btnGallery->setStyleSheet(btnGalleryStyle);
+	btnGallery->setToolTip(QString::fromLocal8Bit("查看 00~06 全部科研成果图件与科学结论"));
+	connect(btnGallery, SIGNAL(clicked()), this, SLOT(on_actionViewGallery_triggered()));
+	flowLayout->addWidget(btnGallery);
+
+	QPushButton *btnDir = new QPushButton(QString::fromLocal8Bit("图件目录"), workflowBar);
+	btnDir->setStyleSheet(btnNormalStyle);
+	btnDir->setToolTip(QString::fromLocal8Bit("打开保存全部数据图与结果图的 all_result_figures 文件夹"));
+	connect(btnDir, SIGNAL(clicked()), this, SLOT(on_actionOpenFiguresDir_triggered()));
+	flowLayout->addWidget(btnDir);
+
+	mSpl=new QSplitter(mainContainer);
 	mSpl->setOrientation(Qt::Vertical);
 	mpView = new GSPSView(mSpl);
 
@@ -388,15 +483,21 @@ void TSPSForm::init()
 	list.append(100);
 	list.append(300);
 	mSpl->setSizes(list);
-	// 连接保存、缩放、网格显示动作 // add by shanzhou in 2026/10/15
+
 	connect(ui.saveAction, SIGNAL(triggered()), this, SLOT(saveSPS()));
 	connect(ui.zoomAction, SIGNAL(triggered()), this, SLOT(zoom()));
 	connect(ui.gridAction, SIGNAL(triggered()), this, SLOT(grid()));
-    connect(ui.actionRunSamplingBenchmark, SIGNAL(triggered()), this, SLOT(on_actionRunSamplingBenchmark_triggered()));
-    connect(ui.actionExportAttributeReport, SIGNAL(triggered()), this, SLOT(on_actionExportAttributeReport_triggered()));
-    connect(ui.actionRunWavefieldReconstruction, SIGNAL(triggered()), this, SLOT(on_actionRunWavefieldReconstruction_triggered()));
-    connect(ui.actionRunFullExperimentSuite, SIGNAL(triggered()), this, SLOT(on_actionRunFullExperimentSuite_triggered()));
-	setCentralWidget(mSpl);
+	connect(ui.actionQuickDemoSPS, SIGNAL(triggered()), this, SLOT(quickLoadDemoSPS()));
+	connect(ui.actionRunSamplingBenchmark, SIGNAL(triggered()), this, SLOT(on_actionRunSamplingBenchmark_triggered()));
+	connect(ui.actionExportAttributeReport, SIGNAL(triggered()), this, SLOT(on_actionExportAttributeReport_triggered()));
+	connect(ui.actionRunWavefieldReconstruction, SIGNAL(triggered()), this, SLOT(on_actionRunWavefieldReconstruction_triggered()));
+	connect(ui.actionRunFullExperimentSuite, SIGNAL(triggered()), this, SLOT(on_actionRunFullExperimentSuite_triggered()));
+	connect(ui.actionViewGallery, SIGNAL(triggered()), this, SLOT(on_actionViewGallery_triggered()));
+	connect(ui.actionOpenFiguresDir, SIGNAL(triggered()), this, SLOT(on_actionOpenFiguresDir_triggered()));
+
+	mainVBox->addWidget(workflowBar);
+	mainVBox->addWidget(mSpl, 1);
+	setCentralWidget(mainContainer);
 }
 
 void TSPSForm::destroy()
@@ -1695,8 +1796,8 @@ void TSPSForm::on_actionSSample_triggered()
 			GSLineSet *pSLineSetNew = mpProject->getSLineSetNew();
 			pSLineSetNew->create(XCoordinate,YCoordinate,pSPSParam);// 重写create函数并将李汶骏的坐标（最好是二维的）导入进去，替换其XY坐标。 [Liu Wei 6/14/2023]
 			
-			QString info_str=tr("Incoherent parameter")+QString::fromLocal8Bit("(μ): ")+QString::number(miu_xj_before);
-			QMessageBox::information(NULL,tr("Computation Information"),info_str);
+			QString info_str = QString::fromLocal8Bit("互相干度参数 (μ): ") + QString::number(miu_xj_before, 'f', 4);
+			QMessageBox::information(this, QString::fromLocal8Bit("互相干度计算结果"), info_str);
 
 			// 个人认为：需要重新创建炮检关系 [Liu Wei 6/29/2023]
 			GRLineSet *pRLineSetNew = mpProject->getRLineSetNew();
@@ -1880,9 +1981,11 @@ void TSPSForm::on_actionRAOptimizing_triggered()
 			GRLineSet *pRLineSetNew = mpProject->getRLineSetNew();
 			pRLineSetNew->create(XCoordinate,YCoordinate,pSPSParam);// 重写create函数并将李汶骏的坐标（最好是二维的）导入进去，替换其XY坐标。 [Liu Wei 6/14/2023]
 
-			QString miu_str=QString::fromLocal8Bit("miu0:")+QString::number(miu0)+","+QString::fromLocal8Bit("miu1:")+QString::number(miu1)+","+QString::fromLocal8Bit("优化前最大互相关值:")+QString::number(miu_xj_after)+";";
-			QString info_str=tr("Incoherent parameter")+QString::fromLocal8Bit("(μ): ")+QString::number(miu_after)+","+tr("Optimizing time: ")+QString::number(duration)+" s";
-			QMessageBox::information(NULL,tr("Computation Information"),miu_str+info_str);
+			QString miu_str = QString::fromLocal8Bit("检波点排列模拟退火优化完成：\n") +
+				QString::fromLocal8Bit("● 初始互相干度: ") + QString::number(miu0, 'f', 4) + QString::fromLocal8Bit("\n") +
+				QString::fromLocal8Bit("● 优化后互相干度 (μ): ") + QString::number(miu_after, 'f', 4) + QString::fromLocal8Bit("\n") +
+				QString::fromLocal8Bit("● 优化耗时: ") + QString::number(duration, 'f', 2) + QString::fromLocal8Bit(" 秒");
+			QMessageBox::information(this, QString::fromLocal8Bit("排列退火优化计算完成"), miu_str);
 
 			// 个人认为：需要重新创建炮检关系 [Liu Wei 6/29/2023]
 			GSLineSet *pSLineSetNew = mpProject->getSLineSetNew();
@@ -2089,9 +2192,11 @@ void TSPSForm::on_actionSAOptimizing_triggered()
 			GSLineSet *pSLineSetNew = mpProject->getSLineSetNew();
 			pSLineSetNew->create(XCoordinate,YCoordinate,pSPSParam);// 重写create函数并将李汶骏的坐标（最好是二维的）导入进去，替换其XY坐标。 [Liu Wei 6/14/2023]
 
-			QString miu_str=QString::fromLocal8Bit("miu0:")+QString::number(miu0)+","+QString::fromLocal8Bit("miu1:")+QString::number(miu1)+","+QString::fromLocal8Bit("优化前最大互相关值:")+QString::number(miu_xj_after)+";";
-			QString info_str=tr("Incoherent parameter")+QString::fromLocal8Bit("(μ): ")+QString::number(miu_after)+","+tr("Optimizing time: ")+QString::number(duration)+" s";
-			QMessageBox::information(NULL,tr("Computation Information"),miu_str+info_str);
+			QString miu_str = QString::fromLocal8Bit("检波点排列模拟退火优化完成：\n") +
+				QString::fromLocal8Bit("● 初始互相干度: ") + QString::number(miu0, 'f', 4) + QString::fromLocal8Bit("\n") +
+				QString::fromLocal8Bit("● 优化后互相干度 (μ): ") + QString::number(miu_after, 'f', 4) + QString::fromLocal8Bit("\n") +
+				QString::fromLocal8Bit("● 优化耗时: ") + QString::number(duration, 'f', 2) + QString::fromLocal8Bit(" 秒");
+			QMessageBox::information(this, QString::fromLocal8Bit("排列退火优化计算完成"), miu_str);
 
 			// 个人认为：需要重新创建炮检关系 [Liu Wei 6/29/2023]
 			GRLineSet *pRLineSetNew = mpProject->getRLineSetNew();
@@ -2246,15 +2351,8 @@ void TSPSForm::updateExperimentActionsState()
 // 多采样率对比试验（带前置校验） // add by shanzhou in 2026/10/15
 void TSPSForm::on_actionRunSamplingBenchmark_triggered()
 {
+    if (!ensureProjectLoaded(false, false)) return;
     GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
-    if (!pProj || (!pProj->getSLineSet() && !pProj->getRLineSet()) ||
-        (pProj->getSLineSet()->count() == 0 && pProj->getRLineSet()->count() == 0))
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【未满足前置条件】：尚未加载观测系统！\n"
-                                                  "请先点击【文件 -> 加载SPS】导入工区数据。"));
-        return;
-    }
 
     int N = 128;
     if (pProj->getRLineSet() && pProj->getRLineSet()->count() > 0)
@@ -2276,69 +2374,58 @@ void TSPSForm::on_actionRunSamplingBenchmark_triggered()
     QString summary;
     if (GeometryExperimentEngine::runSamplingBenchmark(N, rates, outDir, results, summary))
     {
-        QMessageBox::information(this, QString::fromLocal8Bit("多采样率对比试验完成"), summary);
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle(QString::fromLocal8Bit("多采样率对比试验完成"));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(summary);
+        QPushButton *btnViewFigure = msgBox.addButton(QString::fromLocal8Bit("查看科研成果图件"), QMessageBox::ActionRole);
+        QPushButton *btnOk = msgBox.addButton(QString::fromLocal8Bit("确定"), QMessageBox::AcceptRole);
+        msgBox.setDefaultButton(btnViewFigure);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton*)btnViewFigure)
+        {
+            ResearchFiguresDialog dlg(this);
+            dlg.selectFigure(1);
+            dlg.exec();
+        }
     }
 }
 
 // 观测系统空间属性质量评估报告导出（带网格与采样前置校验） // add by shanzhou in 2026/10/15
 void TSPSForm::on_actionExportAttributeReport_triggered()
 {
+    if (!ensureProjectLoaded(true, true)) return;
     GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
-    if (!pProj || (!pProj->getSLineSet() && !pProj->getRLineSet()) ||
-        (pProj->getSLineSet()->count() == 0 && pProj->getRLineSet()->count() == 0))
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【第1步未完成】：尚未加载观测系统！\n"
-                                                  "请先点击【文件 -> 加载SPS】导入工区数据。"));
-        return;
-    }
-
-    GCellGrid *pCellGrid = pProj->getCellGrid();
-    if (!pCellGrid || !pCellGrid->getCoverCount())
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【第2步未完成】：尚未新建网格或计算面元覆盖次数！\n"
-                                                  "请点击工具栏【网格】按钮划分CMP面元并计算覆盖次数。"));
-        return;
-    }
-
-    if (!pProj->mIsNewImfo || (!pProj->getRLineSetNew() && !pProj->getSLineSetNew()))
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【第3步未完成】：尚未进行非规则采样或排列优化！\n"
-                                                  "请先在【排列优化】菜单中点击【检波点采样】或【排列优化】，生成优化后的非规则排列后，系统才能对比原始与优化后的空间属性。"));
-        return;
-    }
 
     QString outDir = QDir::current().filePath("experiment_results/02_attribute_evaluation");
     GeometryExperimentEngine::AttributeMetrics metrics;
     QString summary;
     if (GeometryExperimentEngine::evaluateProjectAttributes(pProj, outDir, metrics, summary))
     {
-        QMessageBox::information(this, QString::fromLocal8Bit("观测系统空间属性评估完成"), summary);
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle(QString::fromLocal8Bit("观测系统空间属性评估完成"));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(summary);
+        QPushButton *btnViewFigure = msgBox.addButton(QString::fromLocal8Bit("查看科研成果图件"), QMessageBox::ActionRole);
+        QPushButton *btnOk = msgBox.addButton(QString::fromLocal8Bit("确定"), QMessageBox::AcceptRole);
+        msgBox.setDefaultButton(btnViewFigure);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton*)btnViewFigure)
+        {
+            ResearchFiguresDialog dlg(this);
+            dlg.selectFigure(3);
+            dlg.exec();
+        }
     }
 }
 
 // 地震波场压缩感知重构试验（带采样掩码前置校验） // add by shanzhou in 2026/10/15
 void TSPSForm::on_actionRunWavefieldReconstruction_triggered()
 {
+    if (!ensureProjectLoaded(false, true)) return;
     GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
-    if (!pProj || (!pProj->getSLineSet() && !pProj->getRLineSet()) ||
-        (pProj->getSLineSet()->count() == 0 && pProj->getRLineSet()->count() == 0))
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【第1步未完成】：尚未加载观测系统！\n"
-                                                  "请先点击【文件 -> 加载SPS】导入工区数据。"));
-        return;
-    }
-
-    if (!pProj->mIsNewImfo || (!pProj->getRLineSetNew() && !pProj->getSLineSetNew()))
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【第2步未完成】：尚未进行非规则采样或排列优化！\n"
-                                                  "缺少实际工区的欠采样掩码分布。请先在【排列优化】菜单中执行【检波点采样】或【排列优化】后，再开展波场重构试验。"));
-        return;
-    }
 
     QString outDir = QDir::current().filePath("experiment_results/03_wavefield_reconstruction");
     QString maskPath = QDir::current().filePath("cmp_mask.txt");
@@ -2364,50 +2451,54 @@ void TSPSForm::on_actionRunWavefieldReconstruction_triggered()
     QString summary;
     if (GeometryExperimentEngine::runWavefieldReconstruction(maskPath, outDir, actualRatio, metrics, summary))
     {
-        QMessageBox::information(this, QString::fromLocal8Bit("地震波场压缩感知重构试验完成"), summary);
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle(QString::fromLocal8Bit("地震波场压缩感知重构试验完成"));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(summary);
+        QPushButton *btnViewFigure = msgBox.addButton(QString::fromLocal8Bit("查看科研成果图件"), QMessageBox::ActionRole);
+        QPushButton *btnOk = msgBox.addButton(QString::fromLocal8Bit("确定"), QMessageBox::AcceptRole);
+        msgBox.setDefaultButton(btnViewFigure);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton*)btnViewFigure)
+        {
+            ResearchFiguresDialog dlg(this);
+            dlg.selectFigure(5);
+            dlg.exec();
+        }
     }
 }
 
 // 一键运行全套科研闭环对比试验（带全流程前置校验） // add by shanzhou in 2026/10/15
 void TSPSForm::on_actionRunFullExperimentSuite_triggered()
 {
+    if (!ensureProjectLoaded(true, true)) return;
     GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
-    if (!pProj || (!pProj->getSLineSet() && !pProj->getRLineSet()) ||
-        (pProj->getSLineSet()->count() == 0 && pProj->getRLineSet()->count() == 0))
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【步骤1未完成】：尚未加载SPS观测系统数据！\n"
-                                                  "请先通过【文件 -> 加载SPS】导入工区数据。"));
-        return;
-    }
-
-    GCellGrid *pCellGrid = pProj->getCellGrid();
-    if (!pCellGrid || !pCellGrid->getCoverCount())
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【步骤2未完成】：尚未新建网格与计算覆盖次数！\n"
-                                                  "请先点击工具栏【网格】按钮划分CMP面元网格。"));
-        return;
-    }
-
-    if (!pProj->mIsNewImfo || (!pProj->getRLineSetNew() && !pProj->getSLineSetNew()))
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("前置条件未满足"),
-                             QString::fromLocal8Bit("【步骤3未完成】：尚未执行非规则采样或排列优化！\n"
-                                                  "请先在【排列优化】菜单中执行【检波点采样】或【排列优化】。"));
-        return;
-    }
 
     QString outDir = QDir::current().filePath("experiment_results");
     QString summary;
     if (GeometryExperimentEngine::runFullExperimentSuite(pProj, outDir, summary))
     {
-        QMessageBox::information(this, QString::fromLocal8Bit("全套科研闭环对比试验完成"), summary);
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle(QString::fromLocal8Bit("全套科研闭环对比试验完成"));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.setText(summary);
+        QPushButton *btnViewFigure = msgBox.addButton(QString::fromLocal8Bit("浏览科研成果图件画廊"), QMessageBox::ActionRole);
+        QPushButton *btnOk = msgBox.addButton(QString::fromLocal8Bit("确定"), QMessageBox::AcceptRole);
+        msgBox.setDefaultButton(btnViewFigure);
+        msgBox.exec();
+
+        if (msgBox.clickedButton() == (QAbstractButton*)btnViewFigure)
+        {
+            ResearchFiguresDialog dlg(this);
+            dlg.selectFigure(0);
+            dlg.exec();
+        }
     }
 }
 
 // 快速加载标准示范三维地震观测系统
-void TSPSForm::quickLoadDemoSPS()
+void TSPSForm::quickLoadDemoSPS(bool showMsgBox)
 {
     GProject *pProject = mpProject ? mpProject : GProject::getCurrentProject();
     if (!pProject) return;
@@ -2526,6 +2617,7 @@ void TSPSForm::quickLoadDemoSPS()
     refresh();
     mpView->repaintContents();
 
+    if (showMsgBox) {
     QMessageBox::information(this,
         QString::fromLocal8Bit("示范工区加载成功"),
         QString::fromLocal8Bit("已成功加载标准示范三维地震观测系统！\n"
@@ -2533,6 +2625,7 @@ void TSPSForm::quickLoadDemoSPS()
                               "● 激发线数: 12 线，每线 25 炮 (炮距 50m, 线距 250m)\n"
                               "● CMP面元网格: 25m x 25m, 覆盖次数已自动计算完成。\n\n"
                               "所有后续流程按钮已就绪，可直接点击进行空间采样优化、属性分析、压缩感知重构或浏览科研成果图件！"));
+    }
 }
 
 // 保证工程数据就绪辅助校验函数

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SPS Seismic geometry</string>
+   <string>SPS 地震观测系统设计与分析</string>
   </property>
   <widget class="Q3ToolBar" name="Toolbar" native="true">
    <property name="geometry">
@@ -88,22 +88,23 @@
    </property>
    <widget class="QMenu" name="File">
     <property name="title">
-     <string>&amp;File</string>
+     <string>文件(&amp;F)</string>
     </property>
+    <addaction name="actionQuickDemoSPS"/>
     <addaction name="newspsAction"/>
     <addaction name="saveAction"/>
     <addaction name="Load_SPS_Action"/>
    </widget>
    <widget class="QMenu" name="View">
     <property name="title">
-     <string>&amp;View</string>
+     <string>视图(&amp;V)</string>
     </property>
     <addaction name="zoomAction"/>
     <addaction name="actionGeometry_Attribute_Plotting"/>
    </widget>
    <widget class="QMenu" name="Edit">
     <property name="title">
-     <string>&amp;Edit</string>
+     <string>编辑(&amp;E)</string>
     </property>
     <addaction name="gridAction"/>
     <addaction name="ShowNewSPS"/>
@@ -111,14 +112,14 @@
    </widget>
    <widget class="QMenu" name="menuOVT_Attribute_Analysis">
     <property name="title">
-     <string>OVT Attribute Analysis</string>
+     <string>OVT 属性分析(&amp;T)</string>
     </property>
     <addaction name="actionOVT_Volume_Attributes"/>
     <addaction name="actionOVT_Patch_Attributes"/>
    </widget>
    <widget class="QMenu" name="menuOptimal">
     <property name="title">
-     <string>Optimize</string>
+     <string>空间优化与科研试验(&amp;O)</string>
     </property>
     <addaction name="actionRSample"/>
     <addaction name="actionRAOptimizing"/>
@@ -132,6 +133,9 @@
     <addaction name="actionExportAttributeReport"/>
     <addaction name="actionRunWavefieldReconstruction"/>
     <addaction name="actionRunFullExperimentSuite"/>
+    <addaction name="separator"/>
+    <addaction name="actionViewGallery"/>
+    <addaction name="actionOpenFiguresDir"/>
    </widget>
    <addaction name="File"/>
    <addaction name="Edit"/>
@@ -148,10 +152,10 @@
      <normaloff>:/DataReconstruction/Resources/filesave.png</normaloff>:/DataReconstruction/Resources/filesave.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Save</string>
+    <string>保存观测系统(&amp;S)</string>
    </property>
    <property name="iconText">
-    <string>Save</string>
+    <string>保存</string>
    </property>
    <property name="name" stdset="0">
     <string>saveAction</string>
@@ -163,7 +167,7 @@
      <normaloff>:/DataReconstruction/Resources/mouse_zoom.png</normaloff>:/DataReconstruction/Resources/mouse_zoom.png</iconset>
    </property>
    <property name="iconText">
-    <string>Zoom</string>
+    <string>鼠标缩放(&amp;Z)</string>
    </property>
    <property name="name" stdset="0">
     <string>zoomAction</string>
@@ -178,10 +182,10 @@
      <normaloff>:/DataReconstruction/Resources/editshot.png</normaloff>:/DataReconstruction/Resources/editshot.png</iconset>
    </property>
    <property name="text">
-    <string>Edit Shot Point</string>
+    <string>编辑炮点</string>
    </property>
    <property name="iconText">
-    <string>Edit Shot Point</string>
+    <string>编辑炮点</string>
    </property>
    <property name="name" stdset="0">
     <string>editSPtAction</string>
@@ -196,10 +200,10 @@
      <normaloff>:/DataReconstruction/Resources/refresh.png</normaloff>:/DataReconstruction/Resources/refresh.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Fill SPS</string>
+    <string>填充 SPS(&amp;F)</string>
    </property>
    <property name="iconText">
-    <string>Fill SPS</string>
+    <string>填充 SPS</string>
    </property>
    <property name="name" stdset="0">
     <string>fillSPSAction</string>
@@ -211,7 +215,7 @@
      <normaloff>:/DataReconstruction/Resources/griding.png</normaloff>:/DataReconstruction/Resources/griding.png</iconset>
    </property>
    <property name="iconText">
-    <string>Grid</string>
+    <string>CMP 面元网格(&amp;G)</string>
    </property>
    <property name="name" stdset="0">
     <string>gridAction</string>
@@ -226,7 +230,7 @@
      <normaloff>:/DataReconstruction/Resources/newsps.png</normaloff>:/DataReconstruction/Resources/newsps.png</iconset>
    </property>
    <property name="text">
-    <string>New</string>
+    <string>新建观测系统(&amp;N)</string>
    </property>
   </action>
   <action name="ShowNewSPS">
@@ -234,7 +238,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show New SPS</string>
+    <string>显示优化后观测系统</string>
    </property>
   </action>
   <action name="ShowImportSPS">
@@ -242,7 +246,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Show Import SPS</string>
+    <string>显示导入观测系统</string>
    </property>
   </action>
   <action name="actionGeometry_Attribute_Plotting">
@@ -254,7 +258,7 @@
      <normaloff>:/DataReconstruction/Resources/GeometryAT.png</normaloff>:/DataReconstruction/Resources/GeometryAT.png</iconset>
    </property>
    <property name="text">
-    <string>Geometry Attribute Plotting</string>
+    <string>观测系统属性综合分析</string>
    </property>
   </action>
   <action name="actionOVT_Volume_Attributes">
@@ -266,7 +270,7 @@
      <normaloff>:/DataReconstruction/Resources/OVTVL.png</normaloff>:/DataReconstruction/Resources/OVTVL.png</iconset>
    </property>
    <property name="text">
-    <string>OVT Volume Attributes</string>
+    <string>OVT 体属性分析</string>
    </property>
   </action>
   <action name="actionOVT_Patch_Attributes">
@@ -278,15 +282,15 @@
      <normaloff>:/DataReconstruction/Resources/OVTPT.png</normaloff>:/DataReconstruction/Resources/OVTPT.png</iconset>
    </property>
    <property name="text">
-    <string>OVT Patch Attributes</string>
+    <string>OVT 片属性分析</string>
    </property>
    <property name="toolTip">
-    <string>OVT Patch Attributes</string>
+    <string>OVT 片属性分析</string>
    </property>
   </action>
   <action name="Load_SPS_Action">
    <property name="text">
-    <string>Load</string>
+    <string>加载 SPS 文件(&amp;L)</string>
    </property>
   </action>
   <action name="actionRSample">
@@ -294,7 +298,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>RSample</string>
+    <string>检波点非规则采样(&amp;R)</string>
    </property>
   </action>
   <action name="actionRAOptimizing">
@@ -302,7 +306,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Receiver Array Optimizing</string>
+    <string>检波点排列退火优化(&amp;A)</string>
    </property>
   </action>
   <action name="actionSSample">
@@ -310,7 +314,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>SSample</string>
+    <string>炮点非规则采样(&amp;S)</string>
    </property>
   </action>
   <action name="actionSAOptimizing">
@@ -318,7 +322,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Shot Array Optimizing</string>
+    <string>炮点排列退火优化(&amp;M)</string>
    </property>
   </action>
   <action name="actionCalculate_the_Miu_for_Loaded_Geometry">
@@ -326,28 +330,43 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Calculate the Miu for Loaded Geometry</string>
+    <string>计算当前观测系统互相干度 μ</string>
    </property>
   </action>
   <!-- add by shanzhou in 2026/10/15 -->
   <action name="actionRunSamplingBenchmark">
    <property name="text">
-    <string>多采样率对比试验 (30%/50%/70%)</string>
+    <string>多采样率基准对比试验 (30%/50%/70%)</string>
    </property>
   </action>
   <action name="actionExportAttributeReport">
    <property name="text">
-    <string>导出观测系统属性质量评估报告</string>
+    <string>导出观测系统空间属性质量评估报告</string>
    </property>
   </action>
   <action name="actionRunWavefieldReconstruction">
    <property name="text">
-    <string>地震波场压缩感知重构试验</string>
+    <string>地震波场压缩感知 POCS 重构试验</string>
    </property>
   </action>
   <action name="actionRunFullExperimentSuite">
    <property name="text">
-    <string>一键运行全套科研对比试验</string>
+    <string>一键全流程科研闭环对比试验</string>
+   </property>
+  </action>
+  <action name="actionViewGallery">
+   <property name="text">
+    <string>科研成果图件画廊与科学结论</string>
+   </property>
+  </action>
+  <action name="actionOpenFiguresDir">
+   <property name="text">
+    <string>打开科研结果图件文件夹</string>
+   </property>
+  </action>
+  <action name="actionQuickDemoSPS">
+   <property name="text">
+    <string>快速载入标准示范观测系统(&amp;D)</string>
    </property>
   </action>
  </widget>

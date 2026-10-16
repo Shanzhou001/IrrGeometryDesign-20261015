@@ -387,11 +387,6 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                                                    unsigned long long rngSeed,
                                                    int repeatRuns)
 {
-    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
-    if (!codec) codec = QTextCodec::codecForLocale();
-    QTextCodec::setCodecForCStrings(codec);
-    QTextCodec::setCodecForLocale(codec);
-
     if (N <= 0) N = 128;
     QDir dir(outputDir);
     if (!dir.exists()) dir.mkpath(outputDir);
@@ -831,11 +826,6 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                                                         QString& outReportSummary,
                                                         bool allowSyntheticFallback)
 {
-    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
-    if (!codec) codec = QTextCodec::codecForLocale();
-    QTextCodec::setCodecForCStrings(codec);
-    QTextCodec::setCodecForLocale(codec);
-
     QDir dir(outputDir);
     if (!dir.exists()) dir.mkpath(outputDir);
 
@@ -1335,12 +1325,6 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
                                                          bool exportFullResolution,
                                                          bool forceDataConsistencyFailure)
 {
-    // add by shanzhou in 2026/10/15
-    QTextCodec *codec = QTextCodec::codecForName("UTF-8");
-    if (!codec) codec = QTextCodec::codecForLocale();
-    QTextCodec::setCodecForCStrings(codec);
-    QTextCodec::setCodecForLocale(codec);
-
     clock_t startTime = clock();
 
     QDir dir(outputDir);
