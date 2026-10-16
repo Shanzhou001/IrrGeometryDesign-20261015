@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'geometrytemplateparameter.ui'
 **
-** Created: Wed Oct 14 11:55:39 2026
+** Created: Fri Oct 16 19:51:29 2026
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
