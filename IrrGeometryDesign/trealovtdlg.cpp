@@ -32,11 +32,27 @@ void TRealOVTdlg::init(GAttrAnalyzeParam *param)
 void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 {
 	GProject *pProject = GProject::getCurrentProject();
-	GSLineSet *pSLineSet = pProject->getSLineSet();	//炮线数据集
-	GRLineSet *pRLineSet = pProject->getRLineSet();	//检波线数据集
-	GShotSet *pShotSet = pProject->getShotSet();	//炮关系数据集
+	if (!pProject) return;
+	GSLineSet *pSLineSet = (pProject->mIsNewImfo && pProject->getSLineSetNew() && pProject->getSLineSetNew()->count() > 0)
+	                       ? pProject->getSLineSetNew()
+	                       : ((pProject->getSLineSet() && pProject->getSLineSet()->count() > 0) ? pProject->getSLineSet() : pProject->getSLineSetNew());
+	GRLineSet *pRLineSet = (pProject->mIsNewImfo && pProject->getRLineSetNew() && pProject->getRLineSetNew()->count() > 0)
+	                       ? pProject->getRLineSetNew()
+	                       : ((pProject->getRLineSet() && pProject->getRLineSet()->count() > 0) ? pProject->getRLineSet() : pProject->getRLineSetNew());
+	GShotSet *pShotSet = (pProject->mIsNewImfo && pProject->getShotSetNew() && pProject->getShotSetNew()->count() > 0)
+	                     ? pProject->getShotSetNew()
+	                     : ((pProject->getShotSet() && pProject->getShotSet()->count() > 0) ? pProject->getShotSet() : pProject->getShotSetNew());
 	GSPSParam *pSPSParam = pProject->getSPSParam();	//SPS基本参数。合并前两边调用函数名不同
 	GCellGrid *pCellGrid = pProject->getCellGrid();	//共中心点（面元）数据集
+
+	if (!pSLineSet || !pRLineSet || !pShotSet || !pSPSParam || !pCellGrid ||
+	    pSLineSet->count() == 0 || pRLineSet->count() == 0 || pShotSet->count() == 0 ||
+	    pCellGrid->getNumX() <= 0 || pCellGrid->getNumY() <= 0)
+	{
+		QMessageBox::warning(this, QString::fromLocal8Bit("提示"),
+			QString::fromLocal8Bit("观测系统数据或面元网格未就绪，无法计算 OVT 片属性。"));
+		return;
+	}
 
 	if(fabsf(ui.eBeginInOffset->text().toInt()) >ui.eInLineMaxOffset->text().toInt() || fabsf(ui.eEndInOffset->text().toInt()) >ui.eInLineMaxOffset->text().toInt() 
 		|| fabsf(ui.eBeginCLOffset->text().toInt()) >ui.eCLineMaxOffset->text().toInt() || fabsf(ui.eEndCLOffset->text().toInt())>ui.eCLineMaxOffset->text().toInt())
@@ -61,12 +77,20 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 	pSLineSet->getRange(minSX, minSY, maxSX, maxSY);	//得到炮线变换后坐标范围
 	pRLineSet->getRange(minRX, minRY, maxRX, maxRY);	//得到测线变换后坐标范围
 	float  x0, y0, xn, yn;
-	x0 = (minRX + minSX)/2;
-	y0 = (minRY + minSY)/2;	
-	xn = (maxRX + maxSX)/2;
-	yn = (maxRY + maxSY)/2;
-	x0 +=pCellGrid->mDiffX;	// 第一网格单元左上角偏离第一中心点位置的距离：mDiffX，mDiffY（赵老师：历史遗留问题，暂时不管）
-	y0 +=pCellGrid->mDiffY;
+	if (pCellGrid->mGridXY != NULL)
+	{
+		x0 = pCellGrid->mGridXY[0][0].x();
+		y0 = pCellGrid->mGridXY[0][0].z();
+		xn = pCellGrid->mGridXY[pCellGrid->getNumY()][pCellGrid->getNumX()].x();
+		yn = pCellGrid->mGridXY[pCellGrid->getNumY()][pCellGrid->getNumX()].z();
+	}
+	else
+	{
+		x0 = (minRX + minSX)/2 + pCellGrid->mDiffX;
+		y0 = (minRY + minSY)/2 + pCellGrid->mDiffY;	
+		xn = (maxRX + maxSX)/2;
+		yn = (maxRY + maxSY)/2;
+	}
 
 	//固定坐标原点为观测系统中第一条检波线的第一个检波点
 	int	Num_ShotPerSLine, Num_RecPerRecLine, Num_RecLine;
@@ -104,8 +128,12 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 	float gy, gx; //横向间距gy，纵向间距gx
 	int maxgys_y=gcd( int(int_RecLine),int(int_shotpoint) ); //求两个数的最大公约数
 	int maxgys_x=gcd( int(int_receiver),int(int_SLine) ); //求两个数的最大公约数
+	if (maxgys_y <= 0) maxgys_y = 1;
+	if (maxgys_x <= 0) maxgys_x = 1;
 	gy=int(int_shotpoint*int_RecLine)/maxgys_y; //求两个数的最小公倍数
 	gx=int(int_receiver*int_SLine)/maxgys_x; //求两个数的最小公倍数
+	if (gy <= 0) gy = 50.0f;
+	if (gx <= 0) gx = 50.0f;
 
 	float realOVTLengthX=fabsf(pAttrAnalyzeParam->mRealEndAreaInOffset - pAttrAnalyzeParam->mRealBeginAreaInOffset);
 	float realOVTLengthY=fabsf(pAttrAnalyzeParam->mRealEndAreaCLOffset - pAttrAnalyzeParam->mRealBeginAreaCLOffset);

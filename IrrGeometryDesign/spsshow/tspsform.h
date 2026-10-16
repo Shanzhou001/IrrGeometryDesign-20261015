@@ -1,4 +1,4 @@
-﻿/****************************************************************************
+/****************************************************************************
 ** Form interface generated from reading ui file 'src\sps\tspsform.ui'
 **
 ** Created:   17 17:27:31 2011
@@ -25,9 +25,9 @@
 //#include "ggausstracer.h"
 //#include "gcmpview.h"
 #include <QSplitter>
-//#include "gmmaindoc3d.h"//ֲ
+//#include "gmmaindoc3d.h"//  
 
-// ΰ [3/14/2023 Liu Wei]
+//    [3/14/2023 Liu Wei]
 #include "gproject.h"
 #include "trealovtdlg.h"
 #include "ovtvolumeattributeview.h"
@@ -57,6 +57,9 @@ class QSpinBox;
 #include <QScrollArea>
 #include <QPushButton>
 #include <QStringList>
+#include <QTextBrowser>
+#include <QTextEdit>
+#include <QSplitter>
 
 class ResearchFiguresDialog : public QDialog
 {
@@ -78,7 +81,7 @@ private:
     QComboBox *mCombo;
     QLabel *mImageLabel;
     QScrollArea *mScrollArea;
-    QLabel *mConclusionLabel;
+    QTextBrowser *mConclusionBrowser;
     QPushButton *mBtnPrev;
     QPushButton *mBtnNext;
     QPushButton *mBtnBrowser;
@@ -90,6 +93,24 @@ private:
     int mCurrentIndex;
 };
 
+class ExperimentReportDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    ExperimentReportDialog(const QString &title, const QString &reportText, int figureIndex = -1, QWidget *parent = 0);
+    bool shouldViewFigure() const { return mViewFigure; }
+
+private slots:
+    void onViewFigure();
+
+private:
+    bool mViewFigure;
+    int mFigureIndex;
+    QTextEdit *mTextEdit;
+    QPushButton *mBtnView;
+    QPushButton *mBtnOk;
+};
+
 class TSPSForm : public Q3MainWindow
 {
     Q_OBJECT
@@ -99,12 +120,12 @@ public:
     ~TSPSForm();
     virtual int exec();
 	bool is2Dcal;
-//	void setGmMainDoc3DDoc(GmMainDoc3D *doc) {mp3DDoc=doc;}//ֲ
+//	void setGmMainDoc3DDoc(GmMainDoc3D *doc) {mp3DDoc=doc;}//  
 public slots:
     virtual void closeEvent( QCloseEvent * e );
     virtual void refresh();
 
-	// [3/14/2023 Liu Wei]--------------⼸ܺʱûʵ
+	// [3/14/2023 Liu Wei]--------------           
 
 	//12/3 2025 Wu ShanZhou
     // add by shanzhou in 2026/10/15
@@ -116,6 +137,7 @@ public slots:
     void on_actionExportAttributeReport_triggered();
     void on_actionRunWavefieldReconstruction_triggered();
     void on_actionRunFullExperimentSuite_triggered();
+    void updateAllActionsState();
     void updateExperimentActionsState();
     void quickLoadDemoSPS(bool showMsgBox = true);
     void on_actionViewDashboard_triggered();
@@ -124,13 +146,13 @@ public slots:
     bool ensureProjectLoaded(bool needGrid = false, bool needSampled = false);
     //virtual void editSPoint();
     //virtual void fillSPS();
-	// [3/14/2023 Liu Wei]--------------⼸ܺʱûʵ
+	// [3/14/2023 Liu Wei]--------------           
 
     virtual void onZoomScaleChanged( double zoomScaleX, double zoomScaleY, double preZoomScaleX, double preZoomScaleY );
     virtual void zoom();
     virtual void onZoomChanged( int value );
-    virtual void grid();//Ԫ
-	//ʵֵܺеvoid on_ShowNewSPS_triggered()ʵּ򵥹۲ϵͳ
+    virtual void grid();//  
+	//        void on_ShowNewSPS_triggered()              
 	void on_ShowImportSPS_triggered();
 	void on_ShowNewSPS_triggered();
 	void on_newspsAction_triggered();
@@ -139,15 +161,13 @@ public slots:
 	void on_actionOVT_Volume_Attributes_triggered();
 	void on_actionOVT_Patch_Attributes_triggered();
 	void on_Load_SPS_Action_triggered();
-	// 뿥ͬѧļӿ [Liu Wei 8/13/2023]
-	void on_actionRSample_triggered();//߼첨Ż
-	void on_actionSSample_triggered();//ڵŻ
+	void on_actionRSample_triggered();
+	void on_actionSSample_triggered();
 
 	void on_actionRAOptimizing_triggered();
 	void on_actionSAOptimizing_triggered();
-	void on_Cancel_clicked();//lwj-2023.9.13
-	void on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered();//۲ϵͳĦֵ
-	// 뿥ͬѧļӿ [Liu Wei 8/13/2023]
+	void on_Cancel_clicked();
+	void on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered();
 	//void on_SetShowMaxFold_triggered();
 	//void on_CRPFoldAction_triggered();
 	//void on_CRPAnalyzeAction_triggered();
@@ -159,39 +179,31 @@ public slots:
 
 protected:
     bool mIsFill;
-	bool mIsLiner;//ֱƱ־
+	bool mIsLiner;
 	QSplitter *mSpl;
     GSPSView *mpView;
-	//Gcmpview *mpCMPView;
     bool mIsMouseZoom;
-	//void Freeline(vector<double> x,vector <double> y);
-	//GmMainDoc3D *mp3DDoc;//ֲ
-	bool mIsNewCreate;//add by zhaohu Ƿʾ½Ĺ۲ϵͳ
-	bool mOwnProject;//add Wushanzhou
+	bool mIsNewCreate;
+	bool mOwnProject;
 
-
-public://ͨΪprivate
+public:
 	Ui::TSPSForm ui;
 
 private:
     void init();
     void destroy();
-	//void BaseCRPfun();
-	//void BaseCMPfun();
-	//int mAimID;
-	//QString mAimName;
-	//GGaussTracer *mpTracer;
 
-	//////////////////////////////////////////////////////////////////////////add by LiuWei
 	GProject *mpProject;
 
 	GValueVector<short> **offsetarray;	
 	GValueVector<short> **Azimutharray;
+	int mAllocatedCMPX;
+	int mAllocatedCMPY;
 
 	OVTVolumeAttributeView *VolumeAttributeview;
-	QVector<QVector<int> > R_Sampling_Arrays;	// 첨 [Liu Wei 6/30/2023]
+	QVector<QVector<int> > R_Sampling_Arrays;
 	QVector<int> RL_Sampling;
-	QVector<QVector<int> > S_Sampling_Arrays;	// Դ [Liu Wei 6/30/2023]
+	QVector<QVector<int> > S_Sampling_Arrays;
 	QVector<int> SL_Sampling;
 	//////////////////////////////////////////////////////////////////////////add by LiuWei
 

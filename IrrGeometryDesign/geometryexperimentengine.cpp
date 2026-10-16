@@ -2256,14 +2256,20 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
             aMetrics.foldUniformityCv,
             rMetrics.snr_improvement_db,
             atten_db_50,
-            QDir(centralFiguresDir).filePath("00_research_workflow_summary.png")
+            QDir(centralFiguresDir).filePath("00_research_workflow_summary.png"),
+            rMetrics.snr_recovered_db,
+            rMetrics.rmse,
+            rMetrics.correlation
         );
         ScientificPlotter::plotWorkflowSummaryDashboard(
             aMetrics.meanFold,
             aMetrics.foldUniformityCv,
             rMetrics.snr_improvement_db,
             atten_db_50,
-            dir.filePath("00_research_workflow_summary.png")
+            dir.filePath("00_research_workflow_summary.png"),
+            rMetrics.snr_recovered_db,
+            rMetrics.rmse,
+            rMetrics.correlation
         );
 
         ScientificPlotter::exportFiguresGalleryHtml(

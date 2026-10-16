@@ -522,13 +522,22 @@ bool GCellGrid::exportOfsEn(Q3TextStream *streams, GSPoint *pSPoint)
 void GCellGrid::calculateCoverCount()
 {
 	GProject *pProject = GProject::getCurrentProject();
+	if (!pProject || !mFold || mNumX <= 0 || mNumY <= 0 || !mGridXY) return;
 
 	int r,s; 
 	for(r=0; r<mNumY; r++)
 		for(s=0; s<mNumX; s++)
 			mFold[r][s] = 0;
-	GRLineSet *rLineSet =	pProject->getRLineSet();	
-	GShotSet *tsl = pProject->getShotSet();
+	mMaxoffset = 0;
+	mInMaxoffset = 0;
+	mCLMaxoffset = 0;
+	GRLineSet *rLineSet = (pProject->mIsNewImfo && pProject->getRLineSetNew() && pProject->getRLineSetNew()->count() > 0)
+	                      ? pProject->getRLineSetNew()
+	                      : ((pProject->getRLineSet() && pProject->getRLineSet()->count() > 0) ? pProject->getRLineSet() : pProject->getRLineSetNew());
+	GShotSet *tsl = (pProject->mIsNewImfo && pProject->getShotSetNew() && pProject->getShotSetNew()->count() > 0)
+	                ? pProject->getShotSetNew()
+	                : ((pProject->getShotSet() && pProject->getShotSet()->count() > 0) ? pProject->getShotSet() : pProject->getShotSetNew());
+	if (!rLineSet || !tsl || tsl->count() == 0) return;
 
 #pragma omp parallel for //并行计算代码
 	for(s=0; s<tsl->count(); s++)

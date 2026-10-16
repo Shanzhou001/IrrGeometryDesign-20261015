@@ -154,6 +154,7 @@ void analyzebinview::drawBinpoint(QPainter *p,int ii)//点面元属性分析
 		if(maxoffset<binpointoffset[ii][i])	maxoffset=binpointoffset[ii][i];
 		if(minoffset>binpointoffset[ii][i]) minoffset=binpointoffset[ii][i];
 	}
+	if (maxoffset <= 0) maxoffset = 1;
 	float scale=(float)150/maxoffset;
 	float x=0,y=0;
 
@@ -294,7 +295,9 @@ void analyzebinview::drawlineOffsetVSFoldBins(QPainter *p,int ycoord)//炮检距
 	//画色标条
 	QPoint color=kedufun(max);
 	int colorvalue=color.x()*color.y()/15;
+	if (colorvalue <= 0) colorvalue = 1;
 	float colorvalue2=(float)max/15;
+	if (colorvalue2 <= 0.0f) colorvalue2 = 1.0f;
 	float yyscale=(float)600/15;
 	p->drawRect(750,50,20,600);
 	int scalefold=fold.x()*fold.y()/5;
@@ -359,7 +362,9 @@ void analyzebinview::drawlineOffsetVSFoldBins(QPainter *p,int ycoord)//炮检距
 		//画色标条
 		QPoint color=kedufun(max);
 		int colorvalue=color.x()*color.y()/15;
+		if (colorvalue <= 0) colorvalue = 1;
 		float colorvalue2=(float)max/15;
+		if (colorvalue2 <= 0.0f) colorvalue2 = 1.0f;
 		float yyscale=(float)600/15;
 		p->drawRect(750,50,20,600);
 		for(int i=1;i<=15;i++)//画色标条
@@ -714,7 +719,9 @@ void analyzebinview::drawlineRoseVSTraces(QPainter *p)
 	QColor windowcolor;
 	QPoint color=kedufun(maxrosetraces);
 	int colorvalue=color.x()*color.y()/15;
+	if (colorvalue <= 0) colorvalue = 1;
 	float colorvalue2=(float)maxrosetraces/15;
+	if (colorvalue2 <= 0.0f) colorvalue2 = 1.0f;
 	float yscale=(float)600/15;
 	p->drawRect(750,50,20,600);
 	for(int i=1;i<=15;i++)//画色标条
@@ -1191,7 +1198,9 @@ void analyzebinview::drawworkareaRoseVSTraces(int lx,int ly,int maxoffset1)//画
 	QColor windowcolor;
 	QPoint color=kedufun(maxrosetraces);
 	int colorvalue=color.x()*color.y()/15;
+	if (colorvalue <= 0) colorvalue = 1;
 	float colorvalue2=(float)maxrosetraces/15;
+	if (colorvalue2 <= 0.0f) colorvalue2 = 1.0f;
 	float yscale=(float)600/15;
 	p->drawRect(750,50,20,600);
 	for(int i=1;i<=15;i++)//画色标条
@@ -1321,7 +1330,9 @@ void analyzebinview::drawworkareaOffsetVSFoldBins(int ycoord,int lx,int maxzhufo
 	//画色标条
 	QPoint color=kedufun(max);
 	int colorvalue=color.x()*color.y()/15;
+	if (colorvalue <= 0) colorvalue = 1;
 	float colorvalue2=(float)max/15;
+	if (colorvalue2 <= 0.0f) colorvalue2 = 1.0f;
 	float yyscale=(float)600/15;
 	p->drawRect(750,50,20,600);
 
@@ -1391,7 +1402,9 @@ void analyzebinview::drawworkareaOffsetVSFoldBins(int ycoord,int lx,int maxzhufo
 		//画色标条
 		QPoint color=kedufun(max);
 		int colorvalue=color.x()*color.y()/15;
+		if (colorvalue <= 0) colorvalue = 1;
 		float colorvalue2=(float)max/15;
+		if (colorvalue2 <= 0.0f) colorvalue2 = 1.0f;
 		float yyscale=(float)600/15;
 		p->drawRect(750,50,20,600);
 		for(int i=1;i<=15;i++)//画色标条
@@ -1568,6 +1581,7 @@ void analyzebinview::drawworkareaBinfold(int **array,int xline,int yline)//整�
 		int cx=viewx-50,cy=viewy-50;
 		QColor windowcolor;	
 		float temp2=(float)(maxfold-minfold)/15;
+		if (temp2 <= 0.0f) temp2 = 1.0f;
 		for(int i=0;i<xline;i++)
 		{
 			for(int j=0;j<yline;j++)
@@ -1673,7 +1687,7 @@ void analyzebinview::drawworkareaBinfold(int **array,int xline,int yline)//整�
 			if(i>0) p.drawRect(viewx,cy-50-(cy-50-15*temp)/2-i*temp,20,temp);
 			QString str;
 			int hh=0;
-			if(minfold!=maxfold||(minfold=maxfold&&minfold!=0)) hh=i*temp2+minfold;
+			if(minfold!=maxfold||(minfold==maxfold&&minfold!=0)) hh=i*temp2+minfold;
 			if(i==15) str.sprintf("%d",maxfold);
 			else str.sprintf("%d",hh);
 			QPen pen2(Qt::black,0);
@@ -1721,6 +1735,7 @@ void analyzebinview::drawoffsetNonuniformfactor(float **array,int x,int y,float 
 	int cx=m_viewx-50,cy=m_viewy-50;
 	QColor windowcolor;	
 	float temp2=(max-min)/15;
+	if (temp2 <= 0.0f) temp2 = 1.0f;
 	for(int i=0;i<x;i++)
 	{
 		for(int j=0;j<y;j++)
@@ -1858,24 +1873,33 @@ void analyzebinview::drawoffsetNonuniformfactor(float **array,int x,int y,float 
 QPoint analyzebinview::kedufun(int m)//为一个数选择合适的刻度函数
 {
 	QPoint point;
-	float kedu=m;
-	int ii=1,a=0;
-	if(kedu<=10)
+	if (m <= 0)
 	{
-		kedu=1;
+		point.setX(1);
+		point.setY(1);
+		return point;
+	}
+	float kedu=(float)m;
+	int ii=1,a=0;
+	if(kedu<=10.0f)
+	{
+		kedu=1.0f;
 		a=m;
+		if (a < 1) a = 1;
 	}
 	else
 	{
 		while(kedu/ii>1)//选择一个合适的刻度
 		{
-			a=kedu/ii;
+			a=(int)(kedu/ii);
 			ii=ii*10;	
 		}
-		kedu=ii/100;
-		a=m/kedu+1;	
+		kedu=(float)ii/100.0f;
+		if (kedu <= 0.0f) kedu = 1.0f;
+		a=(int)(m/kedu)+1;	
+		if (a < 1) a = 1;
 	}
-	point.setX(kedu);
+	point.setX((int)kedu);
 	point.setY(a);
 	return point;	
 }
@@ -2171,6 +2195,7 @@ void analyzebinview::drawWorkAreaBinFold( int **array,int xbinnum,int ybinnum )
 	int viewport_width=1150;//整个视口宽度
 	int viewport_height=925;//整个视口高度
 	//判断绘图数据是否正确
+	if (!mpCellGrid || !mpCellGrid->mGrid || array == NULL) return;
 	int minfold=0;int maxfold=0;
 	for(int i=0;i<xbinnum;i++)
 	{
@@ -2184,6 +2209,8 @@ void analyzebinview::drawWorkAreaBinFold( int **array,int xbinnum,int ybinnum )
 	//绘制数据范围
 	double binlength=mpCellGrid->mXmax-mpCellGrid->mXmin;
 	double binheight=mpCellGrid->mYmax-mpCellGrid->mYmin;
+	if (binlength <= 0) binlength = 1000.0;
+	if (binheight <= 0) binheight = 1000.0;
 	mCoordinateXmin=mpCellGrid->mXmin;
 	mCoordinateYmin=mpCellGrid->mYmin;
 	//刷新绘图区域
@@ -2224,6 +2251,7 @@ void analyzebinview::drawWorkAreaBinFold( int **array,int xbinnum,int ybinnum )
 	//  [Liu Wei 3/29/2023]
 	QColor windowcolor;	
 	float temp2=(float)(maxfold-minfold)/15;//值域区间（颜色）划分为15段
+	if (temp2 <= 0.0f) temp2 = 1.0f;
 
 	for(int i=0;i<xbinnum;i++)
 	{
@@ -2366,7 +2394,7 @@ void analyzebinview::drawWorkAreaBinFold( int **array,int xbinnum,int ybinnum )
 
 void analyzebinview::drawOffsetNonuniformFactor( float **array,int xbinnum,int ybinnum,float max,float min,float NonuniformBinx,float NonuniformBiny,QString FnameStr,float CSQFactor )
 {
-	if(max<=0) return;	//判断绘图数据是否正确
+	if(max<=0 || !mpCellGrid || !mpCellGrid->mGrid || array == NULL) return;	//判断绘图数据是否正确
 	//
 	/*********************************LiuWei***************************************/
 	/*	注意：这里输入的面元个数xbinnum为测线方向的面元个数、ybinnum为联络线方向的面元个数；
@@ -2381,6 +2409,8 @@ void analyzebinview::drawOffsetNonuniformFactor( float **array,int xbinnum,int y
 	//绘制数据范围
 	double binlength=mpCellGrid->mXmax-mpCellGrid->mXmin;
 	double binheight=mpCellGrid->mYmax-mpCellGrid->mYmin;
+	if (binlength <= 0) binlength = 1000.0;
+	if (binheight <= 0) binheight = 1000.0;
 	mCoordinateXmin=mpCellGrid->mXmin;
 	mCoordinateYmin=mpCellGrid->mYmin;
 	//刷新绘图区域
@@ -2422,6 +2452,7 @@ void analyzebinview::drawOffsetNonuniformFactor( float **array,int xbinnum,int y
 
 	QColor windowcolor;	
 	float temp2=(max-min)/15;//值域区间（颜色）划分为15段
+	if (temp2 <= 0.0f) temp2 = 1.0f;
 
 	for(int i=0;i<xbinnum;i++)
 	{
@@ -2582,6 +2613,9 @@ void analyzebinview::drawOffsetNonuniformFactor( float **array,int xbinnum,int y
 
 void analyzebinview::drawCellAttribute( QPainter *p, int i, int j, int cx, int cy, int cw, int ch, QPen &pen, const QBrush &brush )
 {
+	if (!mpCellGrid || !mpCellGrid->mGrid) return;
+	if (i < 0 || i >= mpCellGrid->mNumY || j < 0 || j >= mpCellGrid->mNumX) return;
+
 	int dx, dy;
 	Q3PointArray pts(5);
 

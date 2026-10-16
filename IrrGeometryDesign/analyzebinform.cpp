@@ -37,11 +37,40 @@ analyzebinform::analyzebinform(QWidget *parent)
 	m_dataAngle=NULL;
 	m_dataFoot=NULL;
 	m_dataCSDFPercent=NULL;
-	
+	offsetarray=NULL;
+	azimutharray=NULL;
+	CMPxbinnumber=0;
+	CMPybinnumber=0;
+	CMPmaxfold=0;
+	CMPdlgmaxoffset=3200;
+	mBinx=25.0f;
+	mBiny=25.0f;
+	mCircleR=0.0f;
+	lxRose=10;
+	lyRose=36;
+	lxCSQF=6;
+	lyCSQF=36;
+	maxoffsetCSQF=3200;
+	lxzhu=8;
+	maxzhufold=0;
+	m_maxNonuniformfactor=0.0f;
+	m_minNonuniformfactor=0.0f;
+	m_maxAnglefactor=0.0f;
+	m_minAnglefactor=0.0f;
+	m_maxFootfactor=0.0f;
+	m_minFootfactor=0.0f;
+	m_maxCSDFPfactor=0.0f;
+	m_minCSDFPfactor=0.0f;
+	m_CSQFfactor=0.0f;
 }
 
 analyzebinform::~analyzebinform()
 {
+	if(in_loop)
+	{
+		in_loop = false;
+		qApp->exit_loop();
+	}
 	if(mpBinDoc!=NULL) delete mpBinDoc;
 	if(mpBinView!=NULL) delete mpBinView;
 	
@@ -55,6 +84,16 @@ analyzebinform::~analyzebinform()
 	if(m_dataAngle!=NULL) gFree2(m_dataAngle);
 	if(m_dataFoot!=NULL) gFree2(m_dataFoot);
 	if(m_dataCSDFPercent!=NULL) gFree2(m_dataCSDFPercent);
+}
+
+void analyzebinform::closeEvent(QCloseEvent *e)
+{
+	if(in_loop)
+	{
+		in_loop = false;
+		qApp->exit_loop();
+	}
+	QMainWindow::closeEvent(e);
 }
 
 
@@ -453,11 +492,13 @@ void analyzebinform::setDataValueline(int valueline)//画
 
 
 void analyzebinform::CMPLayoutAttibuteConculate(int **foldData)//观测系统属性计算
-{	//传递参数foldData并没有被调用-刘伟
+{
 	int xline=CMPxbinnumber;
 	int yline=CMPybinnumber;
-	int zline=CMPmaxfold;
-	if(CMPBinfold==NULL) gAlloc2(CMPBinfold,xline,yline);
+	if (xline <= 0 || yline <= 0 || offsetarray == NULL || azimutharray == NULL) return;
+
+	if(CMPBinfold!=NULL) gFree2(CMPBinfold);
+	gAlloc2(CMPBinfold,xline,yline);
 	for(int i=0;i<xline;i++)
 	{
 		for(int j=0;j<yline;j++)
@@ -465,187 +506,212 @@ void analyzebinform::CMPLayoutAttibuteConculate(int **foldData)//观测系统属
 			CMPBinfold[i][j]=0;
 		}
 	}
-	//求覆盖次数-面元个数
-	//分配内存
-	if(CMPFoldVSBins==NULL) gAlloc1(CMPFoldVSBins,zline+1);
-	for(int i=0;i<zline;i++)
-	{
-		CMPFoldVSBins[i]=0;//覆盖次数-面元数量数组初始化
-	}	
-	//分配内存	
-	CMPdlgmaxoffset=0;//最大炮检距
-	CMPmaxfold=0;
 
-	for(int i=0;i<xline;i++)
+	// 首先扫描实际最大覆盖次数和最大炮检距
+	int actualMaxFold = 0;
+	int actualMaxOffset = 0;
+	for (int i = 0; i < xline; i++)
 	{
-		for(int j=0;j<yline;j++)
+		for (int j = 0; j < yline; j++)
 		{
-			int temp=0;
-			for(int k=0;k<offsetarray[i][j].count();k++)
+			int temp = 0;
+			for (int k = 0; k < offsetarray[i][j].count(); k++)
 			{
-				if(offsetarray[i][j][k]!=-1) 
+				if (offsetarray[i][j][k] != -1)
 				{
 					temp++;
-					if(offsetarray[i][j][k]>CMPdlgmaxoffset) CMPdlgmaxoffset=offsetarray[i][j][k];//求最大炮检距
+					if (offsetarray[i][j][k] > actualMaxOffset) actualMaxOffset = offsetarray[i][j][k];
 				}
 			}
-			if(temp!=0) CMPFoldVSBins[temp-1]++;
-			CMPBinfold[i][j]=temp;//面元的覆盖次数数组	
-			if(CMPmaxfold<CMPBinfold[i][j]) CMPmaxfold=CMPBinfold[i][j];//寻找最大覆盖次数
+			CMPBinfold[i][j] = temp;
+			if (temp > actualMaxFold) actualMaxFold = temp;
 		}
 	}
-	//求覆盖次数-面元个数
 
-	//炮检距-炮检对
-
-	if(CMPOffsetVSTraces==NULL) gAlloc1(CMPOffsetVSTraces,CMPdlgmaxoffset+1);
-	for(int i=0;i<CMPdlgmaxoffset;i++)
+	int zline = actualMaxFold;
+	if (zline < 1) zline = 1;
+	CMPmaxfold = zline;
+	CMPdlgmaxoffset = actualMaxOffset;
+	if (CMPdlgmaxoffset <= 0)
 	{
-		CMPOffsetVSTraces[i]=0;//炮检距-炮检对数组初始化
+		GProject *pProj = GProject::getCurrentProject();
+		if (pProj && pProj->getCellGrid() && pProj->getCellGrid()->mMaxoffset > 0)
+			CMPdlgmaxoffset = pProj->getCellGrid()->mMaxoffset;
+		else
+			CMPdlgmaxoffset = 3200;
 	}
 
-	for(int i=0;i<xline;i++)
+	// 覆盖次数-面元个数数组
+	if(CMPFoldVSBins!=NULL) gFree1(CMPFoldVSBins);
+	gAlloc1(CMPFoldVSBins, zline + 1);
+	for(int i = 0; i <= zline; i++)
 	{
-		for(int j=0;j<yline;j++)
-		{		
-			for(int k=0;k<offsetarray[i][j].count();k++)
-			{
-				int temp=0;
-				if(offsetarray[i][j][k]!=-1) 
-				{
-					temp=offsetarray[i][j][k];
-					CMPOffsetVSTraces[temp]++;
-				}
-			}
-		}
+		CMPFoldVSBins[i] = 0;
 	}
-	//炮检距-炮检对
-	//计算炮检距-覆盖次数-面元数量
-	//玫瑰图分段
-	lxRose=10;//炮检距分成几段
-	lyRose=36;//方位角分段
-	lxCSQF=6;//炮检距分成几段
-	lyCSQF=36;//方位角分段
-	maxoffsetCSQF=CMPdlgmaxoffset;//最大炮检距
-//玫瑰图分段	
-	lxzhu=8;//柱状图炮检距分段
-	
-	if(CMPOffsetVSFoldBins==NULL) gAlloc2(CMPOffsetVSFoldBins,lxzhu,CMPmaxfold+1);
-	for(int i=0;i<lxzhu;i++)
+	for(int i = 0; i < xline; i++)
 	{
-		for(int j=0;j<CMPmaxfold;j++)
+		for(int j = 0; j < yline; j++)
 		{
-			CMPOffsetVSFoldBins[i][j]=0;
+			int temp = CMPBinfold[i][j];
+			if (temp > 0 && temp <= zline) CMPFoldVSBins[temp - 1]++;
+		}
+	}
+
+	// 炮检距-炮检对数组
+	if(CMPOffsetVSTraces!=NULL) gFree1(CMPOffsetVSTraces);
+	gAlloc1(CMPOffsetVSTraces, CMPdlgmaxoffset + 1);
+	for(int i = 0; i <= CMPdlgmaxoffset; i++)
+	{
+		CMPOffsetVSTraces[i] = 0;
+	}
+
+	for(int i = 0; i < xline; i++)
+	{
+		for(int j = 0; j < yline; j++)
+		{		
+			for(int k = 0; k < offsetarray[i][j].count(); k++)
+			{
+				if(offsetarray[i][j][k] != -1) 
+				{
+					int temp = offsetarray[i][j][k];
+					if (temp >= 0 && temp <= CMPdlgmaxoffset)
+					{
+						CMPOffsetVSTraces[temp]++;
+					}
+				}
+			}
+		}
+	}
+
+	// 玫瑰图分段
+	lxRose = 10;
+	lyRose = 36;
+	lxCSQF = 6;
+	lyCSQF = 36;
+	maxoffsetCSQF = CMPdlgmaxoffset;
+	lxzhu = 8;
+	
+	if(CMPOffsetVSFoldBins!=NULL) gFree2(CMPOffsetVSFoldBins);
+	gAlloc2(CMPOffsetVSFoldBins, lxzhu, CMPmaxfold + 1);
+	for(int i = 0; i < lxzhu; i++)
+	{
+		for(int j = 0; j <= CMPmaxfold; j++)
+		{
+			CMPOffsetVSFoldBins[i][j] = 0;
 		}	
 	}
-	float kedu=CMPdlgmaxoffset;
-	int ii=1;
-	float a=0;
-	while(kedu/ii>1)//选择一个合适的刻度
+
+	float kedu = (float)CMPdlgmaxoffset;
+	int ii = 1;
+	float a = 0;
+	while(kedu / ii > 1)
 	{
-		a=kedu/ii;
-		ii=ii*10;	
+		a = kedu / ii;
+		ii = ii * 10;	
 	}
-	kedu=ii/100;
-	a=CMPdlgmaxoffset/kedu+1;
-	float offset=kedu*a;
+	kedu = (float)ii / 100.0f;
+	if (kedu <= 0.0f) kedu = 1.0f;
+	a = (float)CMPdlgmaxoffset / kedu + 1;
+	float offset = kedu * a;
+	if (offset <= 0.0f) offset = (float)CMPdlgmaxoffset;
 
-	int scaleoffset=offset/lxzhu;//偏移距lxRose等份分组
-	int scaleoffsetRose=offset/lxRose;//偏移距lxRose等份分组
-	int scaleangleRose=360/lyRose;//方位角等分
-//玫瑰图分段
+	int scaleoffset = (lxzhu > 0) ? (int)(offset / lxzhu) : 400;
+	if (scaleoffset <= 0) scaleoffset = 400;
+	int scaleoffsetRose = (lxRose > 0) ? (int)(offset / lxRose) : 320;
+	if (scaleoffsetRose <= 0) scaleoffsetRose = 320;
+	int scaleangleRose = (lyRose > 0) ? 360 / lyRose : 10;
+	if (scaleangleRose <= 0) scaleangleRose = 10;
+
 	QVector<int> tempfoldbins;
-	int tempoffsetnum=0;
-	maxzhufold=0;//统计的数组中最大覆盖次数
+	int tempoffsetnum = 0;
+	maxzhufold = 0;
 
-	for(int i=0;i<xline;i++)
+	for(int i = 0; i < xline; i++)
 	{
-		for(int j=0;j<yline;j++)
+		for(int j = 0; j < yline; j++)
 		{		
 			tempfoldbins.clear();
-			for(int h=0;h<lxzhu;h++)
+			for(int h = 0; h < lxzhu; h++)
 			{
 				tempfoldbins.push_back(0);
 			}
-			for(int k=0;k<offsetarray[i][j].count();k++)
+			for(int k = 0; k < offsetarray[i][j].count(); k++)
 			{
-				if(offsetarray[i][j][k]!=-1) 
+				if(offsetarray[i][j][k] != -1) 
 				{
-					tempoffsetnum=offsetarray[i][j][k]/scaleoffset;//哪个炮检距段
-					if(tempoffsetnum>=lxzhu) tempoffsetnum = lxzhu-1;
-					tempfoldbins[tempoffsetnum]++;	//记录覆盖次数			
+					tempoffsetnum = offsetarray[i][j][k] / scaleoffset;
+					if(tempoffsetnum < 0) tempoffsetnum = 0;
+					if(tempoffsetnum >= lxzhu) tempoffsetnum = lxzhu - 1;
+					tempfoldbins[tempoffsetnum]++;
 				}
 			}
-			for(int h=0;h<tempfoldbins.count();h++)
+			for(int h = 0; h < tempfoldbins.count(); h++)
 			{
-				if(tempfoldbins[h]>0) CMPOffsetVSFoldBins[h][tempfoldbins[h]]++;
-				if(tempfoldbins[h]>maxzhufold) maxzhufold=tempfoldbins[h];
+				if(tempfoldbins[h] > 0 && tempfoldbins[h] <= CMPmaxfold)
+					CMPOffsetVSFoldBins[h][tempfoldbins[h]]++;
+				if(tempfoldbins[h] > maxzhufold) maxzhufold = tempfoldbins[h];
 			}
 		}
 	}
 	tempfoldbins.clear();
-	//炮检距-覆盖次数-面元数量数组付初值
-	//方位角炮检对
+
+	// 方位角炮检对
 	if(CMPAzimuthVSTraces!=NULL) gFree1(CMPAzimuthVSTraces);
-	gAlloc1(CMPAzimuthVSTraces,360);
-	//	if(CMPAzimuthVSTraces==NULL)	gAlloc1(CMPAzimuthVSTraces,360);
-	for(int i=0;i<360;i++)
+	gAlloc1(CMPAzimuthVSTraces, 360);
+	for(int i = 0; i < 360; i++)
 	{
-		CMPAzimuthVSTraces[i]=0;//方位角-炮检对数组初始化
+		CMPAzimuthVSTraces[i] = 0;
 	}
 
-	for(int i=0;i<xline;i++)
+	for(int i = 0; i < xline; i++)
 	{
-		for(int j=0;j<yline;j++)
+		for(int j = 0; j < yline; j++)
 		{
-			for(int k=0;k<azimutharray[i][j].count();k++)
+			for(int k = 0; k < azimutharray[i][j].count(); k++)
 			{
-				int temp=0;
-				if(azimutharray[i][j][k]!=-1) 
+				int temp = 0;
+				if(azimutharray[i][j][k] != -1) 
 				{
-					temp=azimutharray[i][j][k];
-					//CMPAzimuthVSTraces[temp]++;//方位角，赵老师的原始代码：存在内存溢出的风险
-					if (temp >= 360)//  [Liu Wei 3/20/2023]
+					temp = azimutharray[i][j][k];
+					while(temp >= 360) temp -= 360;
+					while(temp < 0) temp += 360;
+					if (temp >= 0 && temp < 360)
 					{
-						temp = temp-360;
-					} 
-					else if (temp<0)
-					{
-						temp=0;
+						CMPAzimuthVSTraces[temp]++;
 					}
-					CMPAzimuthVSTraces[temp]++;//方位角
 				}
 			}	
 		}
 	}
-	//方位角炮检对
-	//玫瑰花图-炮检对
-	if(CMPmeiguiVStraces==NULL) gAlloc2(CMPmeiguiVStraces,lxRose,lyRose);
-	for(int i=0;i<lxRose;i++)
+
+	// 玫瑰花图-炮检对
+	if(CMPmeiguiVStraces!=NULL) gFree2(CMPmeiguiVStraces);
+	gAlloc2(CMPmeiguiVStraces, lxRose, lyRose);
+	for(int i = 0; i < lxRose; i++)
 	{
-		for(int j=0;j<lyRose;j++)
+		for(int j = 0; j < lyRose; j++)
 		{
-			CMPmeiguiVStraces[i][j]=0;//付初值
+			CMPmeiguiVStraces[i][j] = 0;
 		}
 	}
-	for(int i=0;i<xline;i++)
+	for(int i = 0; i < xline; i++)
 	{
-		for(int j=0;j<yline;j++)
+		for(int j = 0; j < yline; j++)
 		{
-			for(int k=0;k<azimutharray[i][j].count();k++)
+			for(int k = 0; k < azimutharray[i][j].count(); k++)
 			{
-				int kk=0;int hh=0;
-				if(azimutharray[i][j][k]!=-1) 
+				int kk = 0; int hh = 0;
+				if(azimutharray[i][j][k] != -1) 
 				{
-					hh=offsetarray[i][j][k]/scaleoffsetRose;//炮检距
-					if(hh<0) continue;// 出现负数，导致内存溢出 [Liu Wei 3/20/2023]
-					if(hh>=lxRose) 
-						hh = lxRose-1;//modify by psl
-					kk=azimutharray[i][j][k]/scaleangleRose;//方位角
-                    if(kk<0)
-						kk = 0;
-					if(kk>lyRose-1)
-						kk = lyRose-1;//modify by psl
+					hh = offsetarray[i][j][k] / scaleoffsetRose;
+					if(hh < 0) hh = 0;
+					if(hh >= lxRose) hh = lxRose - 1;
+					int az = azimutharray[i][j][k];
+					while(az >= 360) az -= 360;
+					while(az < 0) az += 360;
+					kk = az / scaleangleRose;
+					if(kk < 0) kk = 0;
+					if(kk >= lyRose) kk = lyRose - 1;
 					CMPmeiguiVStraces[hh][kk]++;
 				}
 			}	
@@ -730,10 +796,10 @@ int analyzebinform::exec()
 
 void analyzebinform::CSDFactorfun(GValueVector<short> **offset,GValueVector<short> **azimuth,int xline,int yline,int zline,float maxoffst)//观测系统设计质量系数函数
 {
-	int xBeginbinNum=2*mCircleR/mBinx;
-	int xEndbinNum=xline-xBeginbinNum;
-	int yBeginbinNum=2*mCircleR/mBiny;
-	int yEndbinNum=yline-yBeginbinNum;
+	int xBeginbinNum = (mBinx > 0.0f) ? (int)(2 * mCircleR / mBinx) : 0;
+	int xEndbinNum = xline - xBeginbinNum;
+	int yBeginbinNum = (mBiny > 0.0f) ? (int)(2 * mCircleR / mBiny) : 0;
+	int yEndbinNum = yline - yBeginbinNum;
 	bool canCSQFfactor=false;
 
 	int begini;int endi;
@@ -758,22 +824,27 @@ void analyzebinform::CSDFactorfun(GValueVector<short> **offset,GValueVector<shor
 				m_dataCSDFPercent[i][j]=-1;//存放面元比例
 		}
 	}
-	int offsetNum=lxCSQF;int azimuthNum=lyCSQF;
-//	float kedu=maxoffst;
-	float kedu=maxoffsetCSQF;
-	int ii=1;
-	float a=0;
-	while(kedu/ii>1)//选择一个合适的刻度
+	int offsetNum = (lxCSQF > 0) ? lxCSQF : 6;
+	int azimuthNum = (lyCSQF > 0) ? lyCSQF : 36;
+	float kedu = (float)maxoffsetCSQF;
+	if (kedu <= 0.0f) kedu = (maxoffst > 0.0f) ? maxoffst : 3200.0f;
+	int ii = 1;
+	float a = 0;
+	while (kedu / ii > 1)
 	{
-		a=kedu/ii;
-		ii=ii*10;	
+		a = kedu / ii;
+		ii = ii * 10;	
 	}
-	kedu=ii/100;
-	a=maxoffst/kedu+1;
-	float tempoffset=kedu*a;
-	int scaleoffset=tempoffset/offsetNum;//偏移距n等份分组
+	kedu = (float)ii / 100.0f;
+	if (kedu <= 0.0f) kedu = 1.0f;
+	a = (float)maxoffst / kedu + 1;
+	float tempoffset = kedu * a;
+	if (tempoffset <= 0.0f) tempoffset = (maxoffst > 0.0f) ? maxoffst : 3200.0f;
+	int scaleoffset = (offsetNum > 0) ? (int)(tempoffset / offsetNum) : 400;
+	if (scaleoffset <= 0) scaleoffset = 400;
 	bool **tempdata;
-	int scaleazimuth=360/azimuthNum;
+	int scaleazimuth = (azimuthNum > 0) ? 360 / azimuthNum : 10;
+	if (scaleazimuth <= 0) scaleazimuth = 10;
 
 	gAlloc2(tempdata,offsetNum,azimuthNum);
 	
@@ -804,7 +875,10 @@ void analyzebinform::CSDFactorfun(GValueVector<short> **offset,GValueVector<shor
 					if (hh<0) continue;// 出现负数，导致内存溢出 [Liu Wei 3/20/2023]
 					if(hh>=offsetNum) 
 						hh = offsetNum-1;//modify by psl
-					kk=azimuth[i][j][k]/scaleazimuth;//方位角
+					int az = azimuth[i][j][k];
+					while (az >= 360) az -= 360;
+					while (az < 0) az += 360;
+					kk = az / scaleazimuth;//方位角
 					if(kk<0)
 						kk = 0;
 					if(kk>azimuthNum-1)
@@ -862,6 +936,7 @@ void analyzebinform::CSDFactorfun(GValueVector<short> **offset,GValueVector<shor
 //foldup：统计的覆盖次数上限，folddown：统计的覆盖次数下线
 void analyzebinform::computeNonuniformfactorfun(GValueVector<short> **offset,int xl,int yl,int zl,int foldup,int folddown)//
 {
+		if(xl <= 0 || yl <= 0 || offset == NULL) return;
 		if(m_dataNonuniform!=NULL) gFree2(m_dataNonuniform);
 		if(gAlloc2(m_dataNonuniform,xl,yl))//存放非均匀性系数的数组
 		{
@@ -871,33 +946,41 @@ void analyzebinform::computeNonuniformfactorfun(GValueVector<short> **offset,int
 					m_dataNonuniform[i][j]=-1;//存放非均匀性系数数组
 			}
 		}
-		int *a;//临时存放数组
-		float maxoffset=0;//每个面元的最大炮检距
-		m_maxNonuniformfactor=0;//存放最大的那个系数
-		m_minNonuniformfactor=10000000;
-		a=new int[zl];
+
+		int maxInBin = 0;
+		for (int i = 0; i < xl; i++)
+		{
+			for (int j = 0; j < yl; j++)
+			{
+				if (offset[i][j].count() > maxInBin) maxInBin = offset[i][j].count();
+			}
+		}
+		int allocZ = (zl > maxInBin ? zl : maxInBin) + 32;
+		int *a = new int[allocZ];
+		float maxoffset = 0;
+		m_maxNonuniformfactor = 0;
+		m_minNonuniformfactor = 10000000;
 
 		for(int i=0;i<xl;i++)
 		{
 			for(int j=0;j<yl;j++)
 			{
-				for(int k=0;k<zl;k++)
-					a[k]=0;//数组清空
-				int ii=0;//有几个值
-				maxoffset=a[ii]=offset[i][j][0];
+				for(int k=0;k<allocZ;k++) a[k]=0;
+				int ii=0;
+				maxoffset=0;
 				for(int k=0;k<offset[i][j].count();k++)
 				{	
-					if(offset[i][j][k]!=-1) //将数据放在准备排序的数组里
+					if(offset[i][j][k]!=-1) 
 					{
-						a[ii]=offset[i][j][k];
-						ii++;//覆盖次数	
-						if(maxoffset<offset[i][j][k]) maxoffset=offset[i][j][k];//最大炮检距
+						if (ii < allocZ) a[ii]=offset[i][j][k];
+						ii++;
+						if(maxoffset<offset[i][j][k]) maxoffset=offset[i][j][k];
 					}
 				}				
-				if(ii>=folddown&&ii<=foldup)//在输入的覆盖次数范围内进行计算
-					//				if(ii>1)//在输入的覆盖次数范围内进行计算
+				if(ii>=folddown && ii<=foldup && ii > 1)
 				{
-					float diter=maxoffset/ii;//炮检距标准间隔
+					float diter = (maxoffset > 0.0f) ? (maxoffset / (float)ii) : 1.0f;
+					if (diter < 1e-4f) diter = 1.0f;
 					int temp=0;
 					for(int m=0;m<ii;m++) 
 						for(int n=0;n<ii-m-1;n++) 
@@ -909,17 +992,18 @@ void analyzebinform::computeNonuniformfactorfun(GValueVector<short> **offset,int
 							float e=0;//炮检距非均匀性系数
 							for(int l=0;l<ii-1;l++)
 							{
-								float temp2=(float)(a[l+1]-a[l]);//想邻道的炮检距变化量
-								temp2=temp2/diter;//两个差值
+								float temp2=(float)(a[l+1]-a[l]);
+								temp2=temp2/diter;
 								if(temp2<1) temp2=1+1-temp2;
 								e=e+temp2;
 							}
-							float temp3=(float)(zl)/ii;//补成满覆盖次数
-							e=e*temp3;//补成满覆盖次数
-							e=e/(ii-1);//平均到每道										
-							if(m_maxNonuniformfactor<e) m_maxNonuniformfactor=e;//寻找最大值
-							if(m_minNonuniformfactor>e) m_minNonuniformfactor=e;//寻找最小值
-							m_dataNonuniform[i][j]=e;//炮检距非均匀性系数数组
+							float temp3 = (zl > 0) ? ((float)(zl)/ii) : 1.0f;
+							e=e*temp3;
+							int divVal = (ii > 1) ? (ii - 1) : 1;
+							e=e/divVal;
+							if(m_maxNonuniformfactor<e) m_maxNonuniformfactor=e;
+							if(m_minNonuniformfactor>e) m_minNonuniformfactor=e;
+							m_dataNonuniform[i][j]=e;
 				}			
 			}
 		}
@@ -936,6 +1020,8 @@ void analyzebinform::computeNonuniformfactorfun(GValueVector<short> **offset,int
 //功能：输入方位角数据计算非均匀性系数（计算函数
 void analyzebinform::computeAnglefactorfun(GValueVector<short> **azimuth,int xl,int yl,int zl,int foldup,int folddown)//输入方位角数据计算非均匀性系数（计算函数）
 {
+		if(xl <= 0 || yl <= 0 || azimuth == NULL) return;
+		if(m_dataAngle!=NULL) gFree2(m_dataAngle);
 		if(gAlloc2(m_dataAngle,xl,yl))//存放非均匀性系数的数组
 		{
 			for(int i=0;i<xl;i++)//数组初始化
@@ -944,33 +1030,41 @@ void analyzebinform::computeAnglefactorfun(GValueVector<short> **azimuth,int xl,
 					m_dataAngle[i][j]=-1;//存放非均匀性系数数组
 			}
 		}
-		int *a;//临时存放数组
-		float maxangle=0;//每个面元的最大炮检距
-		m_maxAnglefactor=0;//存放最大的那个系数
-		m_minAnglefactor=10000000;
-		a=new int[zl];
+
+		int maxInBin = 0;
+		for (int i = 0; i < xl; i++)
+		{
+			for (int j = 0; j < yl; j++)
+			{
+				if (azimuth[i][j].count() > maxInBin) maxInBin = azimuth[i][j].count();
+			}
+		}
+		int allocZ = (zl > maxInBin ? zl : maxInBin) + 32;
+		int *a = new int[allocZ];
+		float maxangle = 0;
+		m_maxAnglefactor = 0;
+		m_minAnglefactor = 10000000;
 
 		for(int i=0;i<xl;i++)
 		{
 			for(int j=0;j<yl;j++)
 			{
-				for(int k=0;k<zl;k++)
-					a[k]=0;//数组清空
-				int ii=0;//有几个值
-				maxangle=a[ii]=azimuth[i][j][0];
+				for(int k=0;k<allocZ;k++) a[k]=0;
+				int ii=0;
+				maxangle=0;
 				for(int k=0;k<azimuth[i][j].count();k++)
 				{	
-					if(azimuth[i][j][k]!=-1&&azimuth[i][j][k]>=0&&azimuth[i][j][k]<=360) //将数据放在准备排序的数组里
+					if(azimuth[i][j][k]!=-1 && azimuth[i][j][k]>=0 && azimuth[i][j][k]<=360) 
 					{
-						a[ii]=azimuth[i][j][k];
-						ii++;//覆盖次数	
-						if(maxangle<azimuth[i][j][k]) maxangle=azimuth[i][j][k];//最大炮检距
+						if (ii < allocZ) a[ii]=azimuth[i][j][k];
+						ii++;
+						if(maxangle<azimuth[i][j][k]) maxangle=azimuth[i][j][k];
 					}
 				}
 				if(ii<=0) continue;
-				if(ii>=folddown&&ii<=foldup)//在输入的覆盖次数范围内进行计算
+				if(ii>=folddown && ii<=foldup)
 				{
-					float diter=(float)360/(float)ii;//炮检距标准间隔
+					float diter=(float)360/(float)ii;
 					int temp=0;
 					for(int m=0;m<ii;m++) 
 						for(int n=0;n<ii-m-1;n++) 
@@ -982,19 +1076,19 @@ void analyzebinform::computeAnglefactorfun(GValueVector<short> **azimuth,int xl,
 							float e=0;//方位角非均匀性系数
 							for(int l=0;l<ii-1;l++)
 							{
-								float temp2=(float)(a[l+1]-a[l]);//想邻道的炮检距变化量
-								temp2=temp2/diter;//两个差值
+								float temp2=(float)(a[l+1]-a[l]);
+								temp2=temp2/diter;
 								if(temp2<1) temp2=1+1-temp2;
 								e=e+temp2;
 							}
-							float temp2=(float)(360-a[ii-1]+a[0]);//求最大的方位角差值
+							float temp2=(float)(360-a[ii-1]+a[0]);
 							temp2=temp2/diter;
 							if(temp2<1) temp2=1+1-temp2;
 							e=e+temp2;
-							e=e/ii;//平均到每道										
-							if(m_maxAnglefactor<e) m_maxAnglefactor=e;//寻找最大值
-							if(m_minAnglefactor>e) m_minAnglefactor=e;//寻找最小值
-							m_dataAngle[i][j]=e;//炮检距非均匀性系数数组
+							e=e/ii;
+							if(m_maxAnglefactor<e) m_maxAnglefactor=e;
+							if(m_minAnglefactor>e) m_minAnglefactor=e;
+							m_dataAngle[i][j]=e;
 				}			
 			}
 		}
@@ -1012,6 +1106,8 @@ void analyzebinform::computeAnglefactorfun(GValueVector<short> **azimuth,int xl,
 //采集脚印计算
 void analyzebinform::Footprintfun(GValueVector<short> **offset,int xline,int yline,int zline,int foldup,int folddown)//采集脚印计算
 {
+	if(xline <= 0 || yline <= 0 || offset == NULL) return;
+	if(m_dataFoot!=NULL) gFree2(m_dataFoot);
 	if(gAlloc2(m_dataFoot,xline,yline))//存放非均匀性系数的数组
 	{
 		for(int i=0;i<xline;i++)//数组初始化
@@ -1091,9 +1187,10 @@ void analyzebinform::on_actionGeometryImformation_triggered()
 	{
 		
 		GProject *pProject = GProject::getCurrentProject();
-		GSPSParam *pSPSParam = pProject->getSPSParam();
-		int begini;int endi;
-		int beginj;int endj;
+		GSPSParam *pSPSParam = pProject ? pProject->getSPSParam() : NULL;
+		if (!pProject || !pSPSParam) return;
+		int begini = 0; int endi = 0;
+		int beginj = 0; int endj = 0;
 		pProject->getFoldArea(begini,endi,beginj,endj);//满覆盖的范围
 		int JZfold=CMPmaxfold;//截止覆盖次数
 		int JZfoldNum=0;//大于截止覆盖次数的面元个数
@@ -1102,7 +1199,7 @@ void analyzebinform::on_actionGeometryImformation_triggered()
 		{
 			for(int j=0;j<CMPybinnumber;j++)
 			{
-				if(CMPBinfold[i][j]>=JZfold) JZfoldNum++;//统计大于截止覆盖次数的面元个数
+				if(CMPBinfold && CMPBinfold[i][j]>=JZfold) JZfoldNum++;
 			}
 		}
 		float Xlength=CMPxbinnumber*mBinx*0.001;//有数据X长度
@@ -1111,14 +1208,13 @@ void analyzebinform::on_actionGeometryImformation_triggered()
 		float ManCiXlength=(endi-begini+1)*mBinx*0.001;//满次X长度
 		float ManCiYlength=(endj-beginj+1)*mBiny*0.001;//满次Y长度
 		float ManCiarea=ManCiXlength*ManCiYlength;//满次面积
-		//int AllSPNum=pSPSParam->mSLineCount*pSPSParam->mSPtCount*pSPSParam->mArrayCount*pSPSParam->mXArrayCount;//总炮数	
-		int AllSPNum=pSPSParam->mSLineCount*pSPSParam->mSPtCount;//总炮数，注意这个数值的获取20230117	
+		int AllSPNum=pSPSParam->mSLineCount*pSPSParam->mSPtCount;//总炮数	
 		
 		float JZarea=JZfoldNum*mBinx*0.001*mBiny*0.001;//某个覆盖次数（截止覆盖次数）以上面积
 		float maxXoffset=fabs((pSPSParam->mSPtInv*(pSPSParam->mSPtCount-1))+pSPSParam->mSX0-pSPSParam->mRX0);//最大纵向距
 		float maxYoffset=fabs(pSPSParam->mSY0-pSPSParam->mRY0-(pSPSParam->mRLineInv*(pSPSParam->mRLineCount-1)));//最大非纵距
 		float maxoffset=sqrt(maxXoffset*maxXoffset+maxYoffset*maxYoffset);//最大炮检距
-		float XYratio=maxYoffset/maxXoffset;//横纵比	
+		float XYratio = (maxXoffset > 0.0f) ? (maxYoffset / maxXoffset) : 0.0f;
 
 		TGeometryImforDlg *dlg=new TGeometryImforDlg();
 		dlg->init(CMPxbinnumber,CMPybinnumber,mBinx,mBiny,CMPBinfold,CMPmaxfold);
@@ -1137,5 +1233,6 @@ void analyzebinform::on_actionGeometryImformation_triggered()
 		dlg->ui.eJZfold->setText(QString::number(JZfold));
 		dlg->ui.eMaxFold->setText(QString::number(CMPmaxfold));		
 		dlg->exec();
+		delete dlg;
 	}
 }

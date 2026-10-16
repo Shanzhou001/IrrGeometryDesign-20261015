@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
 ** ui.h extension file, included from the uic-generated form implementation.
 **
 ** If you want to add, delete, or rename functions or slots, use
@@ -30,8 +30,12 @@ TCellGridForm::~TCellGridForm()
 void TCellGridForm::init()
 {
 	GProject *pProject = GProject::getCurrentProject();
-	GSLineSet *pSLineSet = pProject->getSLineSet();
-	GRLineSet *pRLineSet = pProject->getRLineSet();
+	GSLineSet *pSLineSet = (pProject->mIsNewImfo && pProject->getSLineSetNew() && pProject->getSLineSetNew()->count() > 0)
+	                       ? pProject->getSLineSetNew()
+	                       : ((pProject->getSLineSet() && pProject->getSLineSet()->count() > 0) ? pProject->getSLineSet() : pProject->getSLineSetNew());
+	GRLineSet *pRLineSet = (pProject->mIsNewImfo && pProject->getRLineSetNew() && pProject->getRLineSetNew()->count() > 0)
+	                       ? pProject->getRLineSetNew()
+	                       : ((pProject->getRLineSet() && pProject->getRLineSet()->count() > 0) ? pProject->getRLineSet() : pProject->getRLineSetNew());
 	GSPSParam *pSPSParam = pProject->getSPSParam();
 	GCellGrid *pCellGrid = pProject->getCellGrid();
 
@@ -43,31 +47,38 @@ void TCellGridForm::init()
 	minRX = minRY = HUGE_VAL;
 	maxRX = maxRY = -HUGE_VAL;
 
-	pSLineSet->getRange(minSX, minSY, maxSX, maxSY);
-	pRLineSet->getRange(minRX, minRY, maxRX, maxRY);
+	if (pSLineSet && pSLineSet->count() > 0)
+		pSLineSet->getRange(minSX, minSY, maxSX, maxSY);
+	if (pRLineSet && pRLineSet->count() > 0)
+		pRLineSet->getRange(minRX, minRY, maxRX, maxRY);
+
+	if (minSX == HUGE_VAL || maxSX == -HUGE_VAL) { minSX = 0.0f; maxSX = 8000.0f; minSY = 0.0f; maxSY = 6000.0f; }
+	if (minRX == HUGE_VAL || maxRX == -HUGE_VAL) { minRX = 0.0f; maxRX = 8000.0f; minRY = 0.0f; maxRY = 6000.0f; }
 
 	float spsX0, spsY0, x0, y0, xn, yn, gx, gy;
 	mX0 = x0 = (minRX + minSX)/2;
 	mY0 = y0 = (minRY + minSY)/2;
 	pSPSParam->transTosps(x0, y0, spsX0, spsY0);
-	//  [Liu Wei 3/29/2023]
-	mXn = xn = (maxRX + maxSX)/2;// yn = (maxRY + maxRY)/2;//Ô­Ê¼´úÂë£¨´íÎó£©£¬ÕÔ»¢	
-	mYn = yn = (maxRY + maxSY)/2;// ÐÞ¸Ä [3/18/2023 Liu Wei]
-	//  [Liu Wei 3/29/2023]
-	QString str;
-	str.sprintf("(%.2f, %.2f)", spsX0, spsY0);//¸ñÊ½»¯×Ö·û´®£º×îÐ¡µÄ¹²ÖÐµã×ø±ê
-	ui.cFirstCMPLabel->setText(tr("First CMP Coordinate:")+str);// ½çÃæÖÐµÄ×Ö·û´®±»¸ÄÐ´£¬ÐèÒª×ö¶¯Ì¬·­ÒëÊ±ÐèÒªÐ¡ÐÄ´¦Àí£¨¸ÄÐ´µÄÇé¿ö½¨ÒéÖ±½Ó²ÉÓÃÄ¿±êÓïÑÔ×Ö·û»ìºÏÓ¢ÎÄ×Ö·û¡££© [Liu Wei 4/14/2023]
+	mXn = xn = (maxRX + maxSX)/2;
+	mYn = yn = (maxRY + maxSY)/2;
 
-	gx = pSPSParam->mRPtInv/2;
-	gy = pSPSParam->mSPtInv/2;
+	QString str;
+	str.sprintf("(%.2f, %.2f)", spsX0, spsY0);
+	ui.cFirstCMPLabel->setText(tr("First CMP Coordinate:")+str);
+
+	gx = pSPSParam->mRPtInv / 2.0f;
+	gy = pSPSParam->mSPtInv / 2.0f;
+	if (gx <= 0.1f) gx = 25.0f;
+	if (gy <= 0.1f) gy = 25.0f;
 	
-	// ½çÃæ²ÎÊý¼ÆËãºÍÏÔÊ¾ [Liu Wei 6/21/2023]
 	ui.cXGridEdit->setText(QString::number(gx));
 	ui.cYGridEdit->setText(QString::number(gy));
 
 	int numX, numY;
-	numX = gRound((xn-x0) / gx);// //numX = gRound((xn-x0) / gx) + 1;// Ô­Ê¼´úÂë ÎªÊ²Ã´+1£¿ [3/18/2023 Liu Wei]
+	numX = gRound((xn-x0) / gx);
 	numY = gRound((yn-y0) / gy);
+	if (numX < 1) numX = 80;
+	if (numY < 1) numY = 60;
 
 	ui.cXGridNumBox->setValue(numX);
 	ui.cYGridNumBox->setValue(numY);
@@ -75,14 +86,14 @@ void TCellGridForm::init()
 	ui.cXDiffEdit->setText(QString::number(-gx/2));
 	ui.cYDiffEdit->setText(QString::number(-gy/2));
 
-	// ÕÔÀÏÊ¦µÄÔ­Ê¼´úÂë [Liu Wei 6/21/2023]
+	// èµµè€å¸ˆçš„åŽŸå§‹ä»£ç  [Liu Wei 6/21/2023]
 	//if(pCellGrid->mGrid == NULL)
 	//{
 	//	ui.cXGridEdit->setText(QString::number(gx));
 	//	ui.cYGridEdit->setText(QString::number(gy));
 
 	//	int numX, numY;
-	//	//numX = gRound((xn-x0) / gx) + 1;// Ô­Ê¼´úÂë ÎªÊ²Ã´+1£¿ [3/18/2023 Liu Wei]
+	//	//numX = gRound((xn-x0) / gx) + 1;// åŽŸå§‹ä»£ç  ä¸ºä»€ä¹ˆ+1ï¼Ÿ [3/18/2023 Liu Wei]
 	//	numX = gRound((xn-x0) / gx);// [3/18/2023 Liu Wei]
 	//	numY = gRound((yn-y0) / gy);
 	//	ui.cXGridNumBox->setValue(numX);
@@ -102,14 +113,14 @@ void TCellGridForm::init()
 	//	ui.cXDiffEdit->setText(QString::number(pCellGrid->mDiffX));
 	//	ui.cYDiffEdit->setText(QString::number(pCellGrid->mDiffY));
 	//}
-	// ÕÔÀÏÊ¦µÄÔ­Ê¼´úÂë [Liu Wei 6/21/2023]
+	// èµµè€å¸ˆçš„åŽŸå§‹ä»£ç  [Liu Wei 6/21/2023]
 }
 
 void TCellGridForm::destroy()
 {
 }
 
-//»®·ÖÃæÔª
+//åˆ’åˆ†é¢å…ƒ
 void TCellGridForm::accept()
 {
 	GProject *pProject = GProject::getCurrentProject();
@@ -135,15 +146,23 @@ void TCellGridForm::accept()
 void TCellGridForm::on_cXGridEdit_textChanged(const QString &txt)
 {
 	float gx=txt.toFloat();
-	float numX = gRound((mXn-mX0) / gx);
-	ui.cXGridNumBox->setValue(numX);
-	ui.cXDiffEdit->setText(QString::number(-gx/2));
+	if (gx > 0.01f)
+	{
+		float numX = gRound((mXn-mX0) / gx);
+		if (numX < 1) numX = 1;
+		ui.cXGridNumBox->setValue(numX);
+		ui.cXDiffEdit->setText(QString::number(-gx/2));
+	}
 }
 
 void TCellGridForm::on_cYGridEdit_textChanged(const QString &txt)
 {
 	float gy=txt.toFloat();
-	float numY = gRound((mYn-mY0) / gy);
-	ui.cYGridNumBox->setValue(numY);
-	ui.cYDiffEdit->setText(QString::number(-gy/2));
+	if (gy > 0.01f)
+	{
+		float numY = gRound((mYn-mY0) / gy);
+		if (numY < 1) numY = 1;
+		ui.cYGridNumBox->setValue(numY);
+		ui.cYDiffEdit->setText(QString::number(-gy/2));
+	}
 }
