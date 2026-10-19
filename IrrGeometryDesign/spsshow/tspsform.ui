@@ -71,8 +71,6 @@
    </widget>
    <addaction name="saveAction"/>
    <addaction name="separator"/>
-   <addaction name="editSPtAction"/>
-   <addaction name="fillSPSAction"/>
    <addaction name="gridAction"/>
    <addaction name="separator"/>
    <addaction name="zoomAction"/>
@@ -171,42 +169,6 @@
    </property>
    <property name="name" stdset="0">
     <string>zoomAction</string>
-   </property>
-  </action>
-  <action name="editSPtAction">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/editshot.png</normaloff>:/DataReconstruction/Resources/editshot.png</iconset>
-   </property>
-   <property name="text">
-    <string>编辑炮点</string>
-   </property>
-   <property name="iconText">
-    <string>编辑炮点</string>
-   </property>
-   <property name="name" stdset="0">
-    <string>editSPtAction</string>
-   </property>
-  </action>
-  <action name="fillSPSAction">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/refresh.png</normaloff>:/DataReconstruction/Resources/refresh.png</iconset>
-   </property>
-   <property name="text">
-    <string>填充 SPS(&amp;F)</string>
-   </property>
-   <property name="iconText">
-    <string>填充 SPS</string>
-   </property>
-   <property name="name" stdset="0">
-    <string>fillSPSAction</string>
    </property>
   </action>
   <action name="gridAction">

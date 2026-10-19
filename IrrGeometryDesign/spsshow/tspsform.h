@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
 ** Form interface generated from reading ui file 'src\sps\tspsform.ui'
 **
 ** Created:   17 17:27:31 2011
@@ -133,10 +133,6 @@ public slots:
     void on_saveAction_triggered();
     void on_zoomAction_triggered();
     void on_gridAction_triggered();
-    void on_actionRunSamplingBenchmark_triggered();
-    void on_actionExportAttributeReport_triggered();
-    void on_actionRunWavefieldReconstruction_triggered();
-    void on_actionRunFullExperimentSuite_triggered();
     void updateAllActionsState();
     void updateExperimentActionsState();
     void quickLoadDemoSPS(bool showMsgBox = true);

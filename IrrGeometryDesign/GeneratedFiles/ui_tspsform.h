@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'tspsform.ui'
 **
-** Created: Fri Oct 16 19:51:29 2026
+** Created: Mon Oct 19 17:51:00 2026
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -31,8 +31,6 @@ class Ui_TSPSForm
 public:
     QAction *saveAction;
     QAction *zoomAction;
-    QAction *editSPtAction;
-    QAction *fillSPSAction;
     QAction *gridAction;
     QAction *newspsAction;
     QAction *ShowNewSPS;
@@ -79,29 +77,17 @@ public:
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/DataReconstruction/Resources/mouse_zoom.png"), QSize(), QIcon::Normal, QIcon::Off);
         zoomAction->setIcon(icon1);
-        editSPtAction = new QAction(TSPSForm);
-        editSPtAction->setObjectName(QString::fromUtf8("editSPtAction"));
-        editSPtAction->setEnabled(false);
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/DataReconstruction/Resources/editshot.png"), QSize(), QIcon::Normal, QIcon::Off);
-        editSPtAction->setIcon(icon2);
-        fillSPSAction = new QAction(TSPSForm);
-        fillSPSAction->setObjectName(QString::fromUtf8("fillSPSAction"));
-        fillSPSAction->setEnabled(false);
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8(":/DataReconstruction/Resources/refresh.png"), QSize(), QIcon::Normal, QIcon::Off);
-        fillSPSAction->setIcon(icon3);
         gridAction = new QAction(TSPSForm);
         gridAction->setObjectName(QString::fromUtf8("gridAction"));
-        QIcon icon4;
-        icon4.addFile(QString::fromUtf8(":/DataReconstruction/Resources/griding.png"), QSize(), QIcon::Normal, QIcon::Off);
-        gridAction->setIcon(icon4);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/DataReconstruction/Resources/griding.png"), QSize(), QIcon::Normal, QIcon::Off);
+        gridAction->setIcon(icon2);
         newspsAction = new QAction(TSPSForm);
         newspsAction->setObjectName(QString::fromUtf8("newspsAction"));
         newspsAction->setEnabled(true);
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/DataReconstruction/Resources/newsps.png"), QSize(), QIcon::Normal, QIcon::Off);
-        newspsAction->setIcon(icon5);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/DataReconstruction/Resources/newsps.png"), QSize(), QIcon::Normal, QIcon::Off);
+        newspsAction->setIcon(icon3);
         ShowNewSPS = new QAction(TSPSForm);
         ShowNewSPS->setObjectName(QString::fromUtf8("ShowNewSPS"));
         ShowNewSPS->setEnabled(true);
@@ -111,21 +97,21 @@ public:
         actionGeometry_Attribute_Plotting = new QAction(TSPSForm);
         actionGeometry_Attribute_Plotting->setObjectName(QString::fromUtf8("actionGeometry_Attribute_Plotting"));
         actionGeometry_Attribute_Plotting->setEnabled(false);
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/DataReconstruction/Resources/GeometryAT.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionGeometry_Attribute_Plotting->setIcon(icon6);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/DataReconstruction/Resources/GeometryAT.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionGeometry_Attribute_Plotting->setIcon(icon4);
         actionOVT_Volume_Attributes = new QAction(TSPSForm);
         actionOVT_Volume_Attributes->setObjectName(QString::fromUtf8("actionOVT_Volume_Attributes"));
         actionOVT_Volume_Attributes->setEnabled(false);
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/DataReconstruction/Resources/OVTVL.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionOVT_Volume_Attributes->setIcon(icon7);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/DataReconstruction/Resources/OVTVL.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionOVT_Volume_Attributes->setIcon(icon5);
         actionOVT_Patch_Attributes = new QAction(TSPSForm);
         actionOVT_Patch_Attributes->setObjectName(QString::fromUtf8("actionOVT_Patch_Attributes"));
         actionOVT_Patch_Attributes->setEnabled(false);
-        QIcon icon8;
-        icon8.addFile(QString::fromUtf8(":/DataReconstruction/Resources/OVTPT.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionOVT_Patch_Attributes->setIcon(icon8);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/DataReconstruction/Resources/OVTPT.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionOVT_Patch_Attributes->setIcon(icon6);
         Load_SPS_Action = new QAction(TSPSForm);
         Load_SPS_Action->setObjectName(QString::fromUtf8("Load_SPS_Action"));
         actionRSample = new QAction(TSPSForm);
@@ -190,8 +176,6 @@ public:
 
         Toolbar->addAction(saveAction);
         Toolbar->addSeparator();
-        Toolbar->addAction(editSPtAction);
-        Toolbar->addAction(fillSPSAction);
         Toolbar->addAction(gridAction);
         Toolbar->addSeparator();
         Toolbar->addAction(zoomAction);
@@ -243,12 +227,6 @@ public:
         saveAction->setProperty("name", QVariant(QApplication::translate("TSPSForm", "saveAction", 0, QApplication::UnicodeUTF8)));
         zoomAction->setIconText(QApplication::translate("TSPSForm", "\351\274\240\346\240\207\347\274\251\346\224\276(&Z)", 0, QApplication::UnicodeUTF8));
         zoomAction->setProperty("name", QVariant(QApplication::translate("TSPSForm", "zoomAction", 0, QApplication::UnicodeUTF8)));
-        editSPtAction->setText(QApplication::translate("TSPSForm", "\347\274\226\350\276\221\347\202\256\347\202\271", 0, QApplication::UnicodeUTF8));
-        editSPtAction->setIconText(QApplication::translate("TSPSForm", "\347\274\226\350\276\221\347\202\256\347\202\271", 0, QApplication::UnicodeUTF8));
-        editSPtAction->setProperty("name", QVariant(QApplication::translate("TSPSForm", "editSPtAction", 0, QApplication::UnicodeUTF8)));
-        fillSPSAction->setText(QApplication::translate("TSPSForm", "\345\241\253\345\205\205 SPS(&F)", 0, QApplication::UnicodeUTF8));
-        fillSPSAction->setIconText(QApplication::translate("TSPSForm", "\345\241\253\345\205\205 SPS", 0, QApplication::UnicodeUTF8));
-        fillSPSAction->setProperty("name", QVariant(QApplication::translate("TSPSForm", "fillSPSAction", 0, QApplication::UnicodeUTF8)));
         gridAction->setIconText(QApplication::translate("TSPSForm", "CMP \351\235\242\345\205\203\347\275\221\346\240\274(&G)", 0, QApplication::UnicodeUTF8));
         gridAction->setProperty("name", QVariant(QApplication::translate("TSPSForm", "gridAction", 0, QApplication::UnicodeUTF8)));
         newspsAction->setText(QApplication::translate("TSPSForm", "\346\226\260\345\273\272\350\247\202\346\265\213\347\263\273\347\273\237(&N)", 0, QApplication::UnicodeUTF8));

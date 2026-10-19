@@ -431,30 +431,30 @@ void TSPSForm::init()
 	connect(mpView, SIGNAL(zoomScaleChanged(double, double, double, double)), this, 
 		SLOT(onZoomScaleChanged(double, double, double, double)));
 
+	// 2026.10.19: mSpl 仅含 mpView 一个子控件，原代码却给出 3 个尺寸值
+	// (400/100/300)，多出的两项被 Qt 忽略并在左/上侧留下空白分栏。
+	// 现改为单值，主视图占满窗口。
 	QList<int> list;
-	list.append(400);
-	list.append(100);
-	list.append(300);
+	list.append(1);
 	mSpl->setSizes(list);
 
 	connect(ui.saveAction, SIGNAL(triggered()), this, SLOT(saveSPS()));
 	connect(ui.zoomAction, SIGNAL(triggered()), this, SLOT(zoom()));
 	connect(ui.gridAction, SIGNAL(triggered()), this, SLOT(grid()));
 	connect(ui.actionQuickDemoSPS, SIGNAL(triggered()), this, SLOT(quickLoadDemoSPS()));
-	connect(ui.actionRunSamplingBenchmark, SIGNAL(triggered()), this, SLOT(on_actionRunSamplingBenchmark_triggered()));
-	connect(ui.actionExportAttributeReport, SIGNAL(triggered()), this, SLOT(on_actionExportAttributeReport_triggered()));
-	connect(ui.actionRunWavefieldReconstruction, SIGNAL(triggered()), this, SLOT(on_actionRunWavefieldReconstruction_triggered()));
-	connect(ui.actionRunFullExperimentSuite, SIGNAL(triggered()), this, SLOT(on_actionRunFullExperimentSuite_triggered()));
 	connect(ui.actionViewGallery, SIGNAL(triggered()), this, SLOT(on_actionViewGallery_triggered()));
 	connect(ui.actionOpenFiguresDir, SIGNAL(triggered()), this, SLOT(on_actionOpenFiguresDir_triggered()));
 
 	ui.Toolbar->addSeparator();
 	ui.Toolbar->addAction(ui.actionQuickDemoSPS);
-	ui.Toolbar->addAction(ui.actionRunSamplingBenchmark);
-	ui.Toolbar->addAction(ui.actionExportAttributeReport);
-	ui.Toolbar->addAction(ui.actionRunWavefieldReconstruction);
-	ui.Toolbar->addAction(ui.actionRunFullExperimentSuite);
 	ui.Toolbar->addAction(ui.actionViewGallery);
+
+	// 2026.10.19: mScaleBox / textLabel3 在 .ui 中声明却从未加入工具栏布局，
+	// 使窗口左上角出现一个无标签、无作用的游离输入框。Q3ToolBar 仅支持
+	// addAction/addSeparator，不支持 addWidget；且该缩放输入框的作用可由
+	// 菜单"视图 -> 鼠标缩放"完全覆盖，故直接隐藏，保持界面简洁。
+	ui.textLabel3->hide();
+	ui.mScaleBox->hide();
 
 	setCentralWidget(mSpl);
 
@@ -2452,10 +2452,6 @@ void TSPSForm::updateAllActionsState()
     ui.actionCalculate_the_Miu_for_Loaded_Geometry->setEnabled(true);
 
     // 科研试验相关
-    ui.actionRunSamplingBenchmark->setEnabled(true);
-    ui.actionExportAttributeReport->setEnabled(true);
-    ui.actionRunWavefieldReconstruction->setEnabled(true);
-    ui.actionRunFullExperimentSuite->setEnabled(true);
     ui.actionViewGallery->setEnabled(true);
     ui.actionOpenFiguresDir->setEnabled(true);
 }
@@ -2465,125 +2461,9 @@ void TSPSForm::updateExperimentActionsState()
     updateAllActionsState();
 }
 
-void TSPSForm::on_actionRunSamplingBenchmark_triggered()
-{
-    if (!ensureProjectLoaded(false, false)) return;
-    GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
 
-    int N = 128;
-    if (pProj->getRLineSet() && pProj->getRLineSet()->count() > 0)
-    {
-        GRLine *pLine = pProj->getRLineSet()->get(0);
-        if (pLine && pLine->count() > 10)
-        {
-            N = pLine->count();
-        }
-    }
 
-    QString outDir = QDir::current().filePath("experiment_results/01_sampling_benchmark");
-    std::vector<float> rates;
-    rates.push_back(0.30f);
-    rates.push_back(0.50f);
-    rates.push_back(0.70f);
 
-    std::vector<GeometryExperimentEngine::BenchmarkRecord> results;
-    QString summary;
-    if (GeometryExperimentEngine::runSamplingBenchmark(N, rates, outDir, results, summary))
-    {
-        ExperimentReportDialog dlg(QString::fromLocal8Bit("多采样率对比试验完成"), summary, 1, this);
-        dlg.exec();
-        if (dlg.shouldViewFigure())
-        {
-            ResearchFiguresDialog figDlg(this);
-            figDlg.selectFigure(1);
-            figDlg.exec();
-        }
-    }
-}
-
-// 观测系统空间属性质量评估报告导出（带网格与采样前置校验） // add by shanzhou in 2026/10/15
-void TSPSForm::on_actionExportAttributeReport_triggered()
-{
-    if (!ensureProjectLoaded(true, true)) return;
-    GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
-
-    QString outDir = QDir::current().filePath("experiment_results/02_attribute_evaluation");
-    GeometryExperimentEngine::AttributeMetrics metrics;
-    QString summary;
-    if (GeometryExperimentEngine::evaluateProjectAttributes(pProj, outDir, metrics, summary))
-    {
-        ExperimentReportDialog dlg(QString::fromLocal8Bit("观测系统空间属性评估完成"), summary, 3, this);
-        dlg.exec();
-        if (dlg.shouldViewFigure())
-        {
-            ResearchFiguresDialog figDlg(this);
-            figDlg.selectFigure(3);
-            figDlg.exec();
-        }
-    }
-}
-
-// 地震波场压缩感知重构试验（带采样掩码前置校验） // add by shanzhou in 2026/10/15
-void TSPSForm::on_actionRunWavefieldReconstruction_triggered()
-{
-    if (!ensureProjectLoaded(false, true)) return;
-    GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
-
-    QString outDir = QDir::current().filePath("experiment_results/03_wavefield_reconstruction");
-    QString maskPath = QDir::current().filePath("cmp_mask.txt");
-
-    float actualRatio = 0.50f;
-    GRLineSet *pOrigRLineSet = pProj->getOriginalRLineSet();
-    GRLineSet *pNewRLineSet = pProj->getRLineSetNew();
-    if (pOrigRLineSet && pNewRLineSet && pOrigRLineSet->count() > 0)
-    {
-        int origPts = 0, newPts = 0;
-        for (int i = 0; i < pOrigRLineSet->count(); i++)
-        {
-            if (pOrigRLineSet->get(i)) origPts += pOrigRLineSet->get(i)->count();
-        }
-        for (int i = 0; i < pNewRLineSet->count(); i++)
-        {
-            if (pNewRLineSet->get(i)) newPts += pNewRLineSet->get(i)->count();
-        }
-        if (origPts > 0) actualRatio = (float)newPts / (float)origPts;
-    }
-
-    GeometryExperimentEngine::ReconstructionMetrics metrics;
-    QString summary;
-    if (GeometryExperimentEngine::runWavefieldReconstruction(maskPath, outDir, actualRatio, metrics, summary))
-    {
-        ExperimentReportDialog dlg(QString::fromLocal8Bit("地震波场压缩感知重构试验完成"), summary, 5, this);
-        dlg.exec();
-        if (dlg.shouldViewFigure())
-        {
-            ResearchFiguresDialog figDlg(this);
-            figDlg.selectFigure(5);
-            figDlg.exec();
-        }
-    }
-}
-
-// 一键运行全套科研闭环对比试验（带全流程前置校验） // add by shanzhou in 2026/10/15
-void TSPSForm::on_actionRunFullExperimentSuite_triggered()
-{
-    if (!ensureProjectLoaded(true, true)) return;
-    GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
-
-    QString outDir = QDir::current().filePath("experiment_results");
-    QString summary;
-    if (GeometryExperimentEngine::runFullExperimentSuite(pProj, outDir, summary))
-    {
-        ExperimentReportDialog dlg(QString::fromLocal8Bit("全套科研闭环对比试验完成"), summary, 0, this);
-        dlg.exec();
-        if (dlg.shouldViewFigure())
-        {
-            ResearchFiguresDialog figDlg(this);
-            figDlg.selectFigure(0);
-            figDlg.exec();
-        }
-    }
-}
 
 // 快速加载标准示范三维地震观测系统
 void TSPSForm::quickLoadDemoSPS(bool showMsgBox)
