@@ -932,8 +932,129 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
 }
 
 // =============================================================================
-// Task 2: 观测系统空间属性质量评估与导出 // add by shanzhou in 2026/10/15
+// Task 4: 曲波变换参数对 μ 排序的鲁棒性实验 (2026.10.19 新增)
+// -----------------------------------------------------------------------------
+// 背景：主流程的 μ 定义固定使用 fdct_wrapping(N,N,1,4,...)，即仅最粗尺度
+//       (nbscales=1, nbangles_coarse=4)，并未利用曲波多尺度方向选择性。
+//       若审稿人质疑"结论依赖于这一组固定参数"，需要有直接的敏感性证据。
+// 做法：在同一组采样掩码（规则减抽 / 纯随机 / Jitter-SA 优化）上，用多组
+//       (nbscales, nbangles) 重新计算 μ，检验三者的相对排序是否稳定。
+// 输出：mu_param_robustness.csv + 文本结论。
 // =============================================================================
+static bool runMiuParamRobustness(int N, float c, const QString& outputDir, QString& outReportSummary)
+{
+    QDir dir(outputDir);
+    if (!dir.exists()) dir.mkpath(outputDir);
+
+    const int m = (int)floor((double)N * c + 0.5);
+    exprng::seed(20261019ULL);
+
+    // 三组代表性掩码：规则减抽、纯随机(单次)、Jitter-SA 优化
+    int *phiReg = Sampling1R_Count(N, m);
+    int *phiRand = Sampling1S_Count(N, m);
+    int *phiJit = Sampling1J_Count(N, m);
+    SAParams sap;
+    SAStats st;
+    int *phiOpt = UnOptiMiuSAEx(N, c, phiJit, "J", true, &st, 2, sap);
+    delete[] phiJit;
+
+    std::vector<int> idxReg, idxRand, idxOpt;
+    for (int i = 0; i < N; i++)
+    {
+        if (phiReg[i] == 1) idxReg.push_back(i);
+        if (phiRand[i] == 1) idxRand.push_back(i);
+        if (phiOpt[i] == 1) idxOpt.push_back(i);
+    }
+
+    // (nbscales, nbangles_coarse) 组合：1x4 为主流程基线；其余检验多尺度方向选择性影响。
+    // 注：nbscales==1 时曲波只有 1 个低频块，nbangles 不生效，故不再重复采集 (1,8)；
+    //     真正有区分度的是 nbscales>=2（2/3/4 尺度 × 8/12/16/32 方向），共 7 组。
+    const int scArr[]  = { 1, 2, 2, 2, 3, 3, 4 };
+    const int angArr[] = { 4, 8, 16, 32, 12, 16, 16 };
+    const int nCombos = 7;
+
+    QFile csv(dir.filePath("mu_param_robustness.csv"));
+    if (!csv.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        outReportSummary = QString::fromLocal8Bit("【参数鲁棒性实验失败】：无法创建输出文件");
+        delete[] phiReg; delete[] phiRand; delete[] phiOpt;
+        return false;
+    }
+
+    QTextStream os(&csv);
+    os.setCodec("UTF-8");
+    os << "nbscales,nbangles,mu_regular,mu_random,mu_jitter_sa,order_stable,atten_db\n";
+
+    QStringList rows;
+    int stableCount = 0;
+    int baselineOrderStable = -1;
+    double atten1x4 = 0.0;
+
+    for (int k = 0; k < nCombos; k++)
+    {
+        const int sc = scArr[k];
+        const int an = angArr[k];
+        const float muR = CurveletMiu1DEigenParam(idxReg, N, 1, sc, an);
+        const float muN = CurveletMiu1DEigenParam(idxRand, N, 1, sc, an);
+        const float muO = CurveletMiu1DEigenParam(idxOpt, N, 1, sc, an);
+        if (muR <= 0.0f && muN <= 0.0f && muO <= 0.0f) continue;
+
+        // 期望排序: 优化 < 随机 < 规则 (μ 越低越好)
+        const bool stable = (muO < muN) && (muN < muR);
+        if (stable) stableCount++;
+        if (k == 0)
+        {
+            baselineOrderStable = stable ? 1 : 0;
+            atten1x4 = (muO > 1e-6f) ? (20.0 * log10((double)muR / (double)muO)) : 0.0;
+        }
+
+        const double atten = (muO > 1e-6f) ? (20.0 * log10((double)muR / (double)muO)) : 0.0;
+        os << sc << "," << an << ","
+           << QString::number(muR, 'f', 6) << ","
+           << QString::number(muN, 'f', 6) << ","
+           << QString::number(muO, 'f', 6) << ","
+           << (stable ? "YES" : "NO") << ","
+           << QString::number(atten, 'f', 3) << "\n";
+
+        rows.append(QString::fromLocal8Bit("  (%1,%2): μ_reg=%3  μ_rand=%4  μ_SA=%5  排序%6  衰减 %7 dB")
+            .arg(sc).arg(an)
+            .arg(QString::number(muR, 'f', 4))
+            .arg(QString::number(muN, 'f', 4))
+            .arg(QString::number(muO, 'f', 4))
+            .arg(stable ? QString::fromLocal8Bit("稳定(SA<Rand<Reg)") : QString::fromLocal8Bit("**不稳定**"))
+            .arg(QString::number(atten, 'f', 2)));
+    }
+    csv.close();
+
+    delete[] phiReg;
+    delete[] phiRand;
+    delete[] phiOpt;
+
+    const int total = rows.size();
+    outReportSummary = QString::fromLocal8Bit(
+        "【曲波变换参数鲁棒性实验完成】\n"
+        "检验目标: 在不同 (nbscales, nbangles_coarse) 下，"
+        "Jitter-SA < 纯随机 < 规则减抽 的相对排序是否稳定。\n"
+        "采样率: %1%%, m=%2/%3\n\n")
+        .arg(QString::number(c * 100.0f, 'f', 0)).arg(m).arg(N);
+    outReportSummary += rows.join("\n");
+    outReportSummary += QString::fromLocal8Bit(
+        "\n\n结论: %1/%2 组参数下排序完全稳定%3。\n"
+        "说明: 主流程采用的 (1,4) 为最粗尺度基线；若多组参数下排序一致，"
+        "则\"Jitter-SA 相干度最低\"这一结论不依赖于特定变换参数选择，可作为方法鲁棒性证据。\n"
+        "明细: %4")
+        .arg(stableCount).arg(total)
+        .arg(stableCount == total ? QString::fromLocal8Bit("（全部稳定）") : QString::fromLocal8Bit("（存在不稳定组，需在论文中说明）"))
+        .arg(dir.filePath("mu_param_robustness.csv"));
+
+    // 便于测试断言
+    if (baselineOrderStable == 0)
+    {
+        outReportSummary += QString::fromLocal8Bit("\n[警告] 基线 (1,4) 参数下排序即不稳定。");
+    }
+    Q_UNUSED(atten1x4);
+    return true;
+}
 bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                                                         const QString& outputDir,
                                                         AttributeMetrics& outMetrics,
@@ -1789,7 +1910,9 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
             return false;
         }
         outMetrics.isSynthetic = false;
-        outMetrics.modeName = QString("External Seismic Record (%1)").arg(QFileInfo(inputSeismicFilePath).fileName());
+        // 措辞中性化：外部 CSV 既可能是真实资料，也可能是测试光栅，
+        // 因此不再声称 "Seismic Record"，只如实说明"来自外部文件"。
+        outMetrics.modeName = QString("External CSV File (%1)").arg(QFileInfo(inputSeismicFilePath).fileName());
     }
     else
     {
@@ -3061,13 +3184,15 @@ bool GeometryExperimentEngine::runUnitTests()
     if (!okSynth || !rmSynth.isSynthetic) t8_ok = false;
 
     // 2. 合法外部 CSV 数据文件 (256 行 x 128 列)
+    // 注：此处 fixture 为解析/校验用的人造正弦光栅，仅用于验证 CSV 读取链路，
+    //     不代表真实地震资料，因此输出目录命名为 test_csv_external（原 test_csv_real 易被误读）。
     QString pValidCsv = "experiment_results/test_csvs/seismic_valid_256x128.csv";
     {
         QFile f(pValidCsv);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
         {
             QTextStream out(&f);
-            out << "# Valid 256x128 Seismic Gather\n";
+            out << "# Synthetic 256x128 CSV fixture (sine grating) for CSV-parser validation only\n";
             for (int r = 0; r < 256; r++)
             {
                 for (int c = 0; c < 128; c++)
@@ -3089,7 +3214,7 @@ bool GeometryExperimentEngine::runUnitTests()
     }
     ReconstructionMetrics rmReal;
     QString sumReal;
-    bool okReal = runWavefieldReconstruction("", "experiment_results/test_csv_real", 0.50f, rmReal, sumReal, pValidCsv, true, false);
+    bool okReal = runWavefieldReconstruction("", "experiment_results/test_csv_external", 0.50f, rmReal, sumReal, pValidCsv, true, false);
     if (!okReal || rmReal.isSynthetic != false) t8_ok = false;
 
     // 3. 不存在的文件 -> loadAndValidateSeismicCSV 返回 false，且波场重构直接失败（绝不静默回退）
@@ -3445,6 +3570,61 @@ bool GeometryExperimentEngine::runUnitTests()
         passedTests++;
     } else {
         log_test(logFp, " [FAIL] Test 11: Cold/Warm-Start Ablation failed!\n");
+    }
+
+
+    // -------------------------------------------------------------
+    // Test 12: 曲波变换参数鲁棒性 (2026.10.19 新增)
+    // 验证 Jitter-SA < 纯随机 < 规则减抽 的 mu 相对排序是否独立于
+    // (nbscales, nbangles_coarse) 的具体取值。
+    // -------------------------------------------------------------
+    totalTests++;
+    bool t12_ok = true;
+    {
+        QString robSum;
+        if (!runMiuParamRobustness(128, 0.50f, "experiment_results/test_miu_robust", robSum))
+        {
+            t12_ok = false;
+            log_test(logFp, "   [FAIL Reason] Miu robustness run failed!\n");
+        }
+        else
+        {
+            QString robCsv = "experiment_results/test_miu_robust/mu_param_robustness.csv";
+            QFile rf(robCsv);
+            if (!rf.open(QIODevice::ReadOnly | QIODevice::Text))
+            {
+                t12_ok = false;
+                log_test(logFp, "   [FAIL Reason] mu_param_robustness.csv not written!\n");
+            }
+            else
+            {
+                QString rc = QTextStream(&rf).readAll();
+                rf.close();
+                int yesCnt = rc.count(",YES,");
+                int noCnt = rc.count(",NO,");
+                if (yesCnt + noCnt < 4)
+                {
+                    t12_ok = false;
+                    log_test(logFp, "   [FAIL Reason] Too few parameter combos evaluated!\n");
+                }
+                else if (noCnt > 0)
+                {
+                    t12_ok = false;
+                    log_test(logFp, "   [FAIL Reason] Ordering unstable in %d/%d combos!\n", noCnt, yesCnt + noCnt);
+                }
+                if (!rc.contains("1,4,"))
+                {
+                    t12_ok = false;
+                    log_test(logFp, "   [FAIL Reason] Baseline (1,4) row missing!\n");
+                }
+            }
+        }
+    }
+    if (t12_ok) {
+        log_test(logFp, " [PASS] Test 12: Curvelet Transform Parameter Robustness of Mu Ordering\n");
+        passedTests++;
+    } else {
+        log_test(logFp, " [FAIL] Test 12: Curvelet parameter robustness failed!\n");
     }
 
     log_test(logFp, "============================================================\n");

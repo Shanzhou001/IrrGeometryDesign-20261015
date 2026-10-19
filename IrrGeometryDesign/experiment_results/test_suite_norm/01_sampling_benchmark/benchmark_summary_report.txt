@@ -1,6 +1,6 @@
 ====================================================================================
   Irregular Seismic Geometry Non-Uniform Sampling Benchmark Report (Scientific Evaluation)
-  Generated: 2026-10-19 16:48:22
+  Generated: 2026-10-19 17:18:01
   Master Random Seed: 42
   Repetition Runs per Rate: 1
   Seed Derivation Formula: actual_seed = master_seed + int(c * 1000) + run_index * 179 + 1

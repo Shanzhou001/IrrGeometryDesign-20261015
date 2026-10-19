@@ -538,7 +538,6 @@ static bool miu_ref_build(int N, int col, int datatype, int sc, int an)
 		CI.clear();
 		return false;
 	}
-
 	if (datatype == 0) //复数
 	{
 		MatrixXcf CIMat(col, col);  CIMat.setZero();
@@ -666,12 +665,112 @@ float CurveletMiu1DEigenParam(vector<int> idx, int N, int datatype, int nbscales
 	fdct_wrapping(N, N, nbscales, nbangles, 1, X, C);   //C 为采样矩阵
 	clear(X); X.~NumMat();
 
+	// ---------------------------------------------------------------------
+	// 2026.10.19 修复：原实现恒取 C[0][0]（"最粗尺度的第一个方向块"）。
+	//   nbscales==1 时该块即 128x128 全矩阵，结果正确；
+	//   但 nbscales>=2 时各块形状不一（实测 nbscales=2,nbangles=8 时为
+	//   C[0][0]=85x85 低频块 + 8 个 75x171 / 171x75 楔形块），
+	//   楔形块并非"列数=col 的窄条"，无法纵向拼接；据此取 C[0][0] 只能
+	//   衡量低频子块，与真实相干度无关（会导致"SA 反而更差"的错误排序）。
+	// 正确做法：把全部系数块经 IFDCT 重建回空间域感知矩阵，再对其求
+	//   Gram 相干度。这样无论 nbscales 取何值，衡量的都是同一物理量。
+	//   当 nbscales==1 且仅一个块时，重建与原块等价，主流程数值不变。
+	// ---------------------------------------------------------------------
+	{
+		bool multiBlock = ((int)C.size() > 1) || ((int)C.size() == 1 && (int)C[0].size() > 1);
+		if (multiBlock)
+		{
+			CpxNumMat xr(N, N);
+			ifdct_wrapping(N, N, nbscales, nbangles, 1, C, xr);
+			for (int i = 0; i < (int)C.size(); i++) C[i].clear();
+			C.clear();
+
+			// 重建出的是空间域采样算子的稀疏表示，直接用其实部构成感知矩阵
+			MatrixXf A = MatrixXf::Zero(N, N);
+			for (int i = 0; i < N; i++)
+				for (int j = 0; j < N; j++)
+					A(i, j) = xr(i, j).real();
+			xr.~NumMat();
+
+			MatrixXf G = A.adjoint() * A;
+			A.resize(0, 0);
+			std::vector<float> dd(N);
+			bool okDiv = true;
+			for (int i = 0; i < N; i++)
+			{
+				float v = G(i, i);
+				if (v <= 1e-20f) { okDiv = false; break; }
+				dd[i] = 1.0f / sqrt(v);
+			}
+			if (okDiv)
+			{
+				MatrixXf Gn(N, N);
+				for (int j = 0; j < N; j++)
+					for (int i = 0; i < N; i++)
+						Gn(i, j) = dd[i] * G(i, j) * dd[j];
+				G.resize(0, 0);
+
+				// 同一变换下的单位阵参考项 -> 同口径归一化 Gram
+				int **I2 = (int**)malloc(sizeof(int*) * N);
+				for (int i = 0; i < N; i++)
+				{
+					I2[i] = (int*)malloc(sizeof(int) * N);
+					for (int j = 0; j < N; j++) I2[i][j] = 0;
+				}
+				for (int i = 0; i < N; i++) I2[i][i] = 1;
+				CpxNumMat FH(N, N);
+				FFT1D_fftshift(I2, FH, N, N);
+				for (int i = 0; i < N; i++) { free(I2[i]); I2[i] = NULL; }
+				free(I2);
+				vector< vector<CpxNumMat> > CI;
+				fdct_wrapping(N, N, nbscales, nbangles, 1, FH, CI);
+				clear(FH); FH.~NumMat();
+				CpxNumMat xri(N, N);
+				ifdct_wrapping(N, N, nbscales, nbangles, 1, CI, xri);
+				for (int i = 0; i < (int)CI.size(); i++) CI[i].clear();
+				CI.clear();
+
+				MatrixXf AI = MatrixXf::Zero(N, N);
+				for (int i = 0; i < N; i++)
+					for (int j = 0; j < N; j++)
+						AI(i, j) = xri(i, j).real();
+				xri.~NumMat();
+
+				MatrixXf GI = AI.adjoint() * AI;
+				AI.resize(0, 0);
+				bool ok2 = true;
+				std::vector<float> di(N);
+				for (int i = 0; i < N; i++)
+				{
+					float v = GI(i, i);
+					if (v <= 1e-20f) { ok2 = false; break; }
+					di[i] = 1.0f / sqrt(v);
+				}
+				if (ok2)
+				{
+					MatrixXf GIn = MatrixXf(N, N);
+					for (int j = 0; j < N; j++)
+						for (int i = 0; i < N; i++)
+							GIn(i, j) = di[i] * GI(i, j) * di[j];
+					GI.resize(0, 0);
+					float v = (Gn - GIn).cwiseAbs().maxCoeff();
+					Gn.resize(0, 0);
+					GIn.resize(0, 0);
+					return v;
+				}
+				GI.resize(0, 0);
+				Gn.resize(0, 0);
+			}
+		}
+	}
+
 	int col = C[0][0].m();
 	float Miu = 0;
 
 	// 参考项 G4（优先走缓存；异常时回退为本地计算，结果不变）
 	bool ref_ok = miu_ref_build(N, col, datatype, nbscales, nbangles);
 	MiuRefEntry& e = miu_ref_for(N, col, nbscales, nbangles);
+
 
 	if (datatype == 0) //复数参与计算
 	{

@@ -1,5 +1,5 @@
 Metric_Name,Value,Unit,Description
-Mode_Name,External Seismic Record (seismic_valid_256x128.csv),Text,Dataset mode
+Mode_Name,External CSV File (seismic_valid_256x128.csv),Text,Dataset mode
 Mask_Source,Auto-Generated Jitter Mask (m=64/128, 50.0%),Text,Subsampling mask origin
 Sampling_Ratio,50.00%,Percentage of active receiver traces
 Active_Traces,64,Traces,Number of acquired traces
@@ -22,4 +22,4 @@ RMSE_WarmStart,0.007183,Amplitude,RMSE of warm-start POCS
 RMSE,0.007183,Amplitude,Root mean square error across gather
 Pearson_Correlation,0.9999,Ratio,Linear correlation with ground truth
 Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
-Runtime_ms,3693.0,ms,Execution wall time
+Runtime_ms,4898.0,ms,Execution wall time

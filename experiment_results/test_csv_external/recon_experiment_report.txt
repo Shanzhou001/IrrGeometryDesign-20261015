@@ -1,8 +1,8 @@
 ====================================================================================
   Seismic Wavefield Compressive Sensing Reconstruction Research Report
-  Dataset Mode: External Seismic Record (seismic_valid_256x128.csv)
+  Dataset Mode: External CSV File (seismic_valid_256x128.csv)
   Subsampling Mask: Auto-Generated Jitter Mask (m=64/128, 50.0%)
-  Generated: 2026-10-19 16:48:16
+  Generated: 2026-10-19 17:17:53
 ====================================================================================
 
 [Subsampling Geometry Configuration]
@@ -18,7 +18,7 @@
   4. Full-Field Root Mean Square Error (RMSE):        0.007183
   5. Pearson Cross-Correlation Coefficient (r):       0.9999
   6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
-  7. Reconstruction Execution Time:                   3693.0 ms (40 iterations)
+  7. Reconstruction Execution Time:                   4898.0 ms (40 iterations)
 
 [Controlled Cold-Start vs Warm-Start Experiment (Fairness / Ablation)]
   Purpose: isolate the contribution of the linear-interpolation initial solution from
