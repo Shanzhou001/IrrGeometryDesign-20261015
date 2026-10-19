@@ -573,20 +573,23 @@ void GCellGrid::calculateCoverCount()
 
 			//赵虎添加
 			int offset=sqrt((float)((sx-rx)*(sx-rx)+(sy-ry)*(sy-ry)));//炮检距
-			if(offset>mMaxoffset) mMaxoffset=offset;//求最大炮检距
+			#pragma omp critical(gcell_maxoff)
+			{ if(offset>mMaxoffset) mMaxoffset=offset; }//求最大炮检距
 			int tInoffset=abs(sx-rx);
-			if(tInoffset>mInMaxoffset) mInMaxoffset=tInoffset;
+			#pragma omp critical(gcell_maxoff)
+			{ if(tInoffset>mInMaxoffset) mInMaxoffset=tInoffset; }
 			int tCLoffset=abs(sy-ry);
-			if(tCLoffset>mCLMaxoffset) mCLMaxoffset=tCLoffset;
+			#pragma omp critical(gcell_maxoff)
+			{ if(tCLoffset>mCLMaxoffset) mCLMaxoffset=tCLoffset; }
 			//赵虎添加
 
 			if(i<0||j<0)
 				continue; 	
 			if(i>mNumX-1||j>mNumY-1)
 				continue; 
+			#pragma omp atomic
 			mFold[j][i]++;
-			if(mFold[j][i]>10)// 这个做什么用？ [Liu Wei 4/6/2023]
-				int dddd = 0;
+			// (removed racy debug read-back of mFold[j][i])
 		}
 	}
 

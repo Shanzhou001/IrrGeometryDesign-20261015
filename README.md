@@ -231,7 +231,7 @@ experiment_results/
   - 检波点范围：$X \in [679735.9, 681891.0]\text{ m}$, $Y \in [4138298.0, 4150889.8]\text{ m}$
 - **有效 CMP 面元网格统计**：
   - 有效非空面元数（Live CMP Bins）：**29,719 个面元**
-  - 平均覆盖次数（Mean Fold）：**106.41 次**
+  - 平均覆盖次数（Mean Fold）：**106.42 次**
   - 覆盖次数极值范围（Fold Range）：**1 ~ 198 次**
   - 覆盖次数标准差（Fold StdDev）：**58.61**
   - 覆盖次数变异系数（Coefficient of Variation）：**$C_v = 0.5508$**
@@ -264,6 +264,7 @@ experiment_results/
 | 9 | **`test_csv_real` 名不副实**：其输入 `seismic_valid_256x128.csv` 实为 `sin(0.05i+0.1j)` 合成正弦光栅，并非野外记录 | 目录更名为 `test_csv_external`；CSV 首行标注 "Synthetic 256x128 CSV fixture (sine grating) for CSV-parser validation only"；`Mode_Name` 由 `External Seismic Record` 中性化为 `External CSV File` | 报告首行与目录名一致，不再暗示真实资料 |
 | 10 | **曲波多尺度 μ 计算存在实质缺陷**：`CurveletMiu1DEigenParam` 恒取 `C[0][0]`（最粗尺度第一块）。`nbscales=1` 时该块即全矩阵（正确），但 `nbscales>=2` 时各块形状不一（实测 2 尺度 8 方向为 `85×85` 低频块 + 8 个 `75×171/171×75` 楔形块），据此算出的 μ **超过 1**（实测 1.457/1.762），而归一化 Gram 相干度理论上界为 1 —— 属明确错误 | 改为：多块时将全部系数经 `ifdct_wrapping` 重建回空间域感知矩阵，再对其求归一化 Gram 相干度；参考项同样经逆变换构建 | 修复后 7 组参数下 μ 全部落在 [0,1] 且 **Jitter-SA < 纯随机 < 规则减抽 排序 7/7 稳定**；`nbscales=1` 主流程数值逐位不变 |
 | 11 | 曲波变换参数缺少敏感性证据，存在"结论依赖单一固定参数"的质疑空间 | 新增 **Test 12 + `mu_param_robustness.csv`**：在 (1,4)(2,8)(2,16)(2,32)(3,12)(3,16)(4,16) 七组参数下检验三方案 μ 排序稳定性 | Test 12 通过；见下表 |
+| 12 | **OpenMP 数据竞争导致结果不可复现**：`gcellgrid.cpp` 的 `#pragma omp parallel for` 内对共享 `mFold[j][i]++` 及 `mMaxoffset/mInMaxoffset/mCLMaxoffset` 无保护写入。实测同一 seed 连续运行，`Mean Fold` 在 **106.41 / 106.42** 之间漂移，`attribute_fold_distribution.csv` 在 fold=197 档出现 0/1/2 面元的随机变化 | 对 `mFold` 累加改用 `#pragma omp atomic`；三处极值更新改用 `#pragma omp critical`；删除无意义的 `if(mFold[j][i]>10) int dddd=0;` 竞态读回 | 修复后连续 4 次运行，`attribute_fold_distribution.csv` 的 MD5 **完全一致**，`Mean Fold` 恒为 106.42 |
 
 ### 曲波变换参数鲁棒性结果（`mu_param_robustness.csv`）
 
