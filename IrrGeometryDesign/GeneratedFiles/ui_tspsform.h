@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'tspsform.ui'
 **
-** Created: Mon Oct 19 17:51:00 2026
+** Created: Tue Oct 20 00:50:11 2026
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -44,10 +44,6 @@ public:
     QAction *actionSSample;
     QAction *actionSAOptimizing;
     QAction *actionCalculate_the_Miu_for_Loaded_Geometry;
-    QAction *actionRunSamplingBenchmark;
-    QAction *actionExportAttributeReport;
-    QAction *actionRunWavefieldReconstruction;
-    QAction *actionRunFullExperimentSuite;
     QAction *actionViewGallery;
     QAction *actionOpenFiguresDir;
     QAction *actionQuickDemoSPS;
@@ -129,14 +125,6 @@ public:
         actionCalculate_the_Miu_for_Loaded_Geometry = new QAction(TSPSForm);
         actionCalculate_the_Miu_for_Loaded_Geometry->setObjectName(QString::fromUtf8("actionCalculate_the_Miu_for_Loaded_Geometry"));
         actionCalculate_the_Miu_for_Loaded_Geometry->setEnabled(false);
-        actionRunSamplingBenchmark = new QAction(TSPSForm);
-        actionRunSamplingBenchmark->setObjectName(QString::fromUtf8("actionRunSamplingBenchmark"));
-        actionExportAttributeReport = new QAction(TSPSForm);
-        actionExportAttributeReport->setObjectName(QString::fromUtf8("actionExportAttributeReport"));
-        actionRunWavefieldReconstruction = new QAction(TSPSForm);
-        actionRunWavefieldReconstruction->setObjectName(QString::fromUtf8("actionRunWavefieldReconstruction"));
-        actionRunFullExperimentSuite = new QAction(TSPSForm);
-        actionRunFullExperimentSuite->setObjectName(QString::fromUtf8("actionRunFullExperimentSuite"));
         actionViewGallery = new QAction(TSPSForm);
         actionViewGallery->setObjectName(QString::fromUtf8("actionViewGallery"));
         actionOpenFiguresDir = new QAction(TSPSForm);
@@ -202,11 +190,6 @@ public:
         menuOptimal->addSeparator();
         menuOptimal->addAction(actionCalculate_the_Miu_for_Loaded_Geometry);
         menuOptimal->addSeparator();
-        menuOptimal->addAction(actionRunSamplingBenchmark);
-        menuOptimal->addAction(actionExportAttributeReport);
-        menuOptimal->addAction(actionRunWavefieldReconstruction);
-        menuOptimal->addAction(actionRunFullExperimentSuite);
-        menuOptimal->addSeparator();
         menuOptimal->addAction(actionViewGallery);
         menuOptimal->addAction(actionOpenFiguresDir);
 
@@ -244,10 +227,6 @@ public:
         actionSSample->setText(QApplication::translate("TSPSForm", "\347\202\256\347\202\271\351\235\236\350\247\204\345\210\231\351\207\207\346\240\267(&S)", 0, QApplication::UnicodeUTF8));
         actionSAOptimizing->setText(QApplication::translate("TSPSForm", "\347\202\256\347\202\271\346\216\222\345\210\227\351\200\200\347\201\253\344\274\230\345\214\226(&M)", 0, QApplication::UnicodeUTF8));
         actionCalculate_the_Miu_for_Loaded_Geometry->setText(QApplication::translate("TSPSForm", "\350\256\241\347\256\227\345\275\223\345\211\215\350\247\202\346\265\213\347\263\273\347\273\237\344\272\222\347\233\270\345\271\262\345\272\246 \316\274", 0, QApplication::UnicodeUTF8));
-        actionRunSamplingBenchmark->setText(QApplication::translate("TSPSForm", "\345\244\232\351\207\207\346\240\267\347\216\207\345\237\272\345\207\206\345\257\271\346\257\224\350\257\225\351\252\214 (30%/50%/70%)", 0, QApplication::UnicodeUTF8));
-        actionExportAttributeReport->setText(QApplication::translate("TSPSForm", "\345\257\274\345\207\272\350\247\202\346\265\213\347\263\273\347\273\237\347\251\272\351\227\264\345\261\236\346\200\247\350\264\250\351\207\217\350\257\204\344\274\260\346\212\245\345\221\212", 0, QApplication::UnicodeUTF8));
-        actionRunWavefieldReconstruction->setText(QApplication::translate("TSPSForm", "\345\234\260\351\234\207\346\263\242\345\234\272\345\216\213\347\274\251\346\204\237\347\237\245 POCS \351\207\215\346\236\204\350\257\225\351\252\214", 0, QApplication::UnicodeUTF8));
-        actionRunFullExperimentSuite->setText(QApplication::translate("TSPSForm", "\344\270\200\351\224\256\345\205\250\346\265\201\347\250\213\347\247\221\347\240\224\351\227\255\347\216\257\345\257\271\346\257\224\350\257\225\351\252\214", 0, QApplication::UnicodeUTF8));
         actionViewGallery->setText(QApplication::translate("TSPSForm", "\347\247\221\347\240\224\346\210\220\346\236\234\345\233\276\344\273\266\347\224\273\345\273\212\344\270\216\347\247\221\345\255\246\347\273\223\350\256\272", 0, QApplication::UnicodeUTF8));
         actionOpenFiguresDir->setText(QApplication::translate("TSPSForm", "\346\211\223\345\274\200\347\247\221\347\240\224\347\273\223\346\236\234\345\233\276\344\273\266\346\226\207\344\273\266\345\244\271", 0, QApplication::UnicodeUTF8));
         actionQuickDemoSPS->setText(QApplication::translate("TSPSForm", "\345\277\253\351\200\237\350\275\275\345\205\245\346\240\207\345\207\206\347\244\272\350\214\203\350\247\202\346\265\213\347\263\273\347\273\237(&D)", 0, QApplication::UnicodeUTF8));

@@ -22,4 +22,4 @@ RMSE_WarmStart,0.031334,Amplitude,RMSE of warm-start POCS
 RMSE,0.031334,Amplitude,Root mean square error across gather
 Pearson_Correlation,0.9804,Ratio,Linear correlation with ground truth
 Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
-Runtime_ms,4779.0,ms,Execution wall time
+Runtime_ms,3649.0,ms,Execution wall time

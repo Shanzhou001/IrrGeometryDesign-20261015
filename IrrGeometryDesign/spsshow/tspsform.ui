@@ -127,11 +127,6 @@
     <addaction name="actionCalculate_the_Miu_for_Loaded_Geometry"/>
     <!-- add by shanzhou in 2026/10/15 -->
     <addaction name="separator"/>
-    <addaction name="actionRunSamplingBenchmark"/>
-    <addaction name="actionExportAttributeReport"/>
-    <addaction name="actionRunWavefieldReconstruction"/>
-    <addaction name="actionRunFullExperimentSuite"/>
-    <addaction name="separator"/>
     <addaction name="actionViewGallery"/>
     <addaction name="actionOpenFiguresDir"/>
    </widget>
@@ -296,26 +291,6 @@
    </property>
   </action>
   <!-- add by shanzhou in 2026/10/15 -->
-  <action name="actionRunSamplingBenchmark">
-   <property name="text">
-    <string>多采样率基准对比试验 (30%/50%/70%)</string>
-   </property>
-  </action>
-  <action name="actionExportAttributeReport">
-   <property name="text">
-    <string>导出观测系统空间属性质量评估报告</string>
-   </property>
-  </action>
-  <action name="actionRunWavefieldReconstruction">
-   <property name="text">
-    <string>地震波场压缩感知 POCS 重构试验</string>
-   </property>
-  </action>
-  <action name="actionRunFullExperimentSuite">
-   <property name="text">
-    <string>一键全流程科研闭环对比试验</string>
-   </property>
-  </action>
   <action name="actionViewGallery">
    <property name="text">
     <string>科研成果图件画廊与科学结论</string>
