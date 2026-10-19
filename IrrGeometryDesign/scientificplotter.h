@@ -155,7 +155,7 @@ public:
 
         QString title = QString::fromLocal8Bit("模拟退火 (SA) 优化相干度下降收敛曲线 [采样率: ") +
                         QString::number(rate * 100.0f, 'f', 0) + "%, m=" + QString::number(m) + "/" + QString::number(N) + "]";
-        QString subtitle = QString::fromLocal8Bit("科研验证：Jitter-SA 优化算法能显著破坏网格周期假频，抑制互相干度并加速收敛");
+        QString subtitle = QString::fromLocal8Bit("科研验证：Jitter-SA 优化算法能显著破坏网格周期假频，抑制互相干度并加速收敛（图示为单次代表轮次轨迹）");
         drawHeader(p, W, title, subtitle);
 
         QRect plotRect(80, 105, 540, 370);
@@ -363,7 +363,7 @@ public:
                 p.setPen(QColor(22, 101, 52));
                 p.drawRoundedRect(badge, 3, 3);
                 p.setFont(getFont(9, true));
-                p.drawText(badge, Qt::AlignCenter, "-" + QString::number(att, 'f', 1) + " dB");
+                p.drawText(badge, Qt::AlignCenter, "-" + QString::number(att, 'f', 2) + " dB");
                 p.setFont(axisFont);
 
                 // 组标签
@@ -381,9 +381,32 @@ public:
         legend.push_back(QString::fromLocal8Bit("■ 翠绿柱: Jitter-SA 优化 (相干极小)"));
         drawCard(p, QRect(660, 105, 240, 120), QString::fromLocal8Bit("采样方案图例 (Legend)"), legend);
 
+        // 学术结论文字改为按实测数值动态生成，杜绝与柱状图数值自相矛盾 (2026.10.19)
+        // 取 50% 采样率（若存在）作为主结论口径
+        int i50 = -1;
+        for (size_t k = 0; k < rates.size(); k++)
+        {
+            if (fabs(rates[k] - 0.50f) < 0.01f) { i50 = (int)k; break; }
+        }
+        if (i50 < 0 && !rates.empty()) i50 = (int)(rates.size() / 2);
+
         std::vector<QString> insights;
-        insights.push_back(QString::fromLocal8Bit("1. 50%采样率下相干度由 0.9601"));
-        insights.push_back(QString::fromLocal8Bit("   降至 0.2213，衰减达 12.75 dB。"));
+        if (i50 >= 0 && i50 < (int)regMius.size() && i50 < (int)saMius.size())
+        {
+            QString rp = QString::number(rates[i50] * 100.0f, 'f', 0) + "%";
+            insights.push_back(QString::fromLocal8Bit("1. ") + rp + QString::fromLocal8Bit("采样率下相干度由 ")
+                               + QString::number(regMius[i50], 'f', 4));
+            QString attenStr = (i50 < (int)attenDbs.size())
+                               ? QString::number(attenDbs[i50], 'f', 2)
+                               : QString::number(20.0f * (float)log10(regMius[i50] / (saMius[i50] > 1e-6f ? saMius[i50] : 1e-6f)), 'f', 2);
+            insights.push_back(QString::fromLocal8Bit("   降至 ") + QString::number(saMius[i50], 'f', 4)
+                               + QString::fromLocal8Bit("，衰减达 ") + attenStr + " dB。");
+        }
+        else
+        {
+            insights.push_back(QString::fromLocal8Bit("1. 三档采样率下 Jitter-SA 均为最低相干度。"));
+            insights.push_back(QString::fromLocal8Bit("   (详细分档数值见统计明细表)"));
+        }
         insights.push_back(QString::fromLocal8Bit("2. 相比纯随机，Jitter约束消除了"));
         insights.push_back(QString::fromLocal8Bit("   检波点聚集与大孔隙缺陷。"));
         insights.push_back(QString::fromLocal8Bit("3. 实现了空间非规则性与均匀性的"));
@@ -396,6 +419,11 @@ public:
 
     // =============================================================
     // 图 3: CMP 面元空间覆盖次数平面分布热力图 (02_attribute_evaluation)
+    // 2026.10.19 重构：改为按真实 GCellGrid 覆盖次数矩阵逐格渲染。
+    //   原实现用 foldVal = maxFold - dist^2*... + 伪随机扰动 直接"画"出一张
+    //   与实测无关的径向渐变图，标签却声称是真实工区，属伪造数据。
+    //   现：若 foldGrid 非空则渲染实测矩阵；为空则明确标注"无实测网格"，
+    //       绝不回退到合成公式。
     // =============================================================
     static bool plotCmpFoldDistributionMap(int liveBins,
                                           float meanFold,
@@ -404,6 +432,8 @@ public:
                                           float cv,
                                           float retention,
                                           float costReduction,
+                                          const std::vector<std::vector<float> >& foldGrid,
+                                          bool isSynthetic,
                                           const QString& savePath)
     {
         int W = 960, H = 580;
@@ -413,41 +443,70 @@ public:
         p.setRenderHint(QPainter::Antialiasing, true);
 
         QString title = QString::fromLocal8Bit("CMP 面元覆盖次数空间平面热力分布图与均匀性评估");
-        QString subtitle = (costReduction > 0.0f)
-            ? (QString::fromLocal8Bit("科研验证：非规则设计在降低 ") + QString::number(costReduction, 'f', 1) + QString::fromLocal8Bit("% 野外采集成本的同时，保留了高品质覆盖均匀性与空间展布"))
-            : QString::fromLocal8Bit("观测系统评价：真实 SPS 测网炮检几何拓扑与面元空间覆盖次数分布分析");
+        QString subtitle;
+        if (foldGrid.empty())
+        {
+            subtitle = QString::fromLocal8Bit("[无实测网格] 本次评估未取得 CMP 面元覆盖次数矩阵，不绘制热力图（拒绝以合成公式替代实测数据）");
+        }
+        else if (isSynthetic)
+        {
+            subtitle = QString::fromLocal8Bit("合成基准模式：模拟 3D 观测系统 CMP 面元覆盖次数分布（按实测矩阵渲染，非真实工区）");
+        }
+        else
+        {
+            subtitle = QString::fromLocal8Bit("真实 SPS 工区：按 GCellGrid 实测覆盖次数矩阵逐格渲染的面元覆盖分布");
+        }
         drawHeader(p, W, title, subtitle);
 
-        // 面元热力图网格 24 x 24
-        int gridCols = 24, gridRows = 24;
         QRect gridRect(115, 105, 390, 390);
-        float cellW = (float)gridRect.width() / (float)gridCols;
-        float cellH = (float)gridRect.height() / (float)gridRows;
 
-        float foldRange = maxFold - minFold;
-        if (foldRange < 1.0f) foldRange = 1.0f;
-
-        for (int r = 0; r < gridRows; r++)
+        if (foldGrid.empty())
         {
-            for (int c = 0; c < gridCols; c++)
-            {
-                float dx = (float)(c - gridCols / 2) / (float)(gridCols / 2);
-                float dy = (float)(r - gridRows / 2) / (float)(gridRows / 2);
-                float dist2 = dx * dx + dy * dy;
-                float foldVal = maxFold - dist2 * (maxFold - minFold) * 0.45f + ((r + c * 3) % 5 - 2) * 1.5f;
-                if (foldVal < minFold) foldVal = minFold;
-                if (foldVal > maxFold) foldVal = maxFold;
-
-                float t = (foldVal - minFold) / foldRange;
-                QColor col = jetColor(t);
-
-                QRectF cellRect(gridRect.left() + c * cellW, gridRect.top() + r * cellH, cellW + 0.5f, cellH + 0.5f);
-                p.fillRect(cellRect, col);
-            }
+            // 无数据：绘制空白占位与说明，不做任何合成插值
+            p.setPen(QColor(203, 213, 225));
+            p.setBrush(QColor(248, 250, 252));
+            p.drawRect(gridRect);
+            p.setBrush(Qt::NoBrush);
+            p.setPen(QColor(148, 163, 184));
+            p.setFont(getFont(12, false));
+            p.drawText(gridRect, Qt::AlignCenter, QString::fromLocal8Bit("无实测 CMP 覆盖次数矩阵"));
+            gridRect = QRect(115, 105, 390, 390);
         }
+        else
+        {
+            const int gridRows = (int)foldGrid.size();
+            const int gridCols = (int)foldGrid[0].size();
+            float cellW = (float)gridRect.width() / (float)gridCols;
+            float cellH = (float)gridRect.height() / (float)gridRows;
 
-        p.setPen(QColor(71, 85, 105));
-        p.drawRect(gridRect);
+            float foldRange = maxFold - minFold;
+            if (foldRange < 1.0f) foldRange = 1.0f;
+
+            for (int r = 0; r < gridRows; r++)
+            {
+                for (int c = 0; c < gridCols; c++)
+                {
+                    float foldVal = foldGrid[r][c];
+                    float t = (foldVal - minFold) / foldRange;
+                    if (t < 0.0f) t = 0.0f;
+                    if (t > 1.0f) t = 1.0f;
+                    QColor col = (foldVal <= 0.0f) ? QColor(245, 245, 245) : jetColor(t);
+
+                    QRectF cellRect(gridRect.left() + c * cellW, gridRect.top() + r * cellH,
+                                    cellW + 0.5f, cellH + 0.5f);
+                    p.fillRect(cellRect, col);
+                }
+            }
+
+            p.setPen(QColor(71, 85, 105));
+            p.drawRect(gridRect);
+
+            p.setFont(getFont(10, false));
+            p.setPen(QColor(71, 85, 105));
+            p.drawText(gridRect.left(), gridRect.bottom() + 18,
+                       QString::fromLocal8Bit("网格尺寸: ") + QString::number(gridCols) + " (Inline) x "
+                       + QString::number(gridRows) + QString::fromLocal8Bit(" (Crossline) 个面元"));
+        }
 
         // 色标柱 (Colorbar)
         QRect colorbarRect(525, 105, 18, 390);
@@ -467,9 +526,14 @@ public:
         p.drawText(colorbarRect.right() + 8, colorbarRect.top() + colorbarRect.height() / 2 + 4, QString::number(meanFold, 'f', 1) + " Mean");
         p.drawText(colorbarRect.right() + 8, colorbarRect.bottom() + 4, QString::number(minFold, 'f', 0) + " Min");
 
-        // 坐标轴标注
-        p.drawText(gridRect.left() + gridRect.width() / 2 - 50, gridRect.bottom() + 25, QString::fromLocal8Bit("CMP 线号 (Inline Bins 1~24)"));
-        p.drawText(15, gridRect.top() + gridRect.height() / 2, QString::fromLocal8Bit("CMP 道号\n(Crossline)"));
+        // 坐标轴标注 (仅在存在实测矩阵时标注，避免对空白占位图产生误导)
+        if (!foldGrid.empty())
+        {
+            p.setFont(cbFont);
+            p.drawText(gridRect.left() + gridRect.width() / 2 - 60, gridRect.bottom() + 36,
+                       QString::fromLocal8Bit("CMP 线号 (Inline Bins)"));
+            p.drawText(15, gridRect.top() + gridRect.height() / 2, QString::fromLocal8Bit("CMP 道号\n(Crossline)"));
+        }
 
         // 右侧质量评估面板
         std::vector<QString> metricsLines;
@@ -839,8 +903,10 @@ public:
                 if (a > maxA) maxA = a;
             }
 
-            // 黑色细线：原始波形
-            p.setPen(QPen(QColor(15, 23, 42), 1, Qt::SolidLine));
+            // 先画黑色粗底：原始波形 (Ground Truth)
+            // 2026.10.19: 原实现黑线宽 1、红线宽 2，两条几乎重合导致黑线被完全遮盖，
+            // 图例宣称的"双色对比"实际只看到一条红线。现改为黑线加粗打底 + 红细线叠加。
+            p.setPen(QPen(QColor(15, 23, 42), 3, Qt::SolidLine));
             int availH = traceRect.height() - 75;
             for (int t = 1; t < Nt; t++)
             {
@@ -851,8 +917,8 @@ public:
                 p.drawLine(x1, y1, x2, y2);
             }
 
-            // 红色粗线：POCS 重构波形
-            p.setPen(QPen(QColor(220, 38, 38), 2, Qt::SolidLine));
+            // 再画红色细线：POCS 重构波形 (叠加在黑线之上，重合处仍可见红线走向)
+            p.setPen(QPen(QColor(220, 38, 38), 1, Qt::SolidLine));
             for (int t = 1; t < Nt; t++)
             {
                 int y1 = traceRect.top() + 10 + (int)(((float)(t - 1) / (float)Nt) * availH);

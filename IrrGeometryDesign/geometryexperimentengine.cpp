@@ -1497,6 +1497,46 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
         QString centralFiguresDir = getCentralFiguresDir(outputDir);
         QDir().mkpath(centralFiguresDir);
 
+        // 导出真实 CMP 面元覆盖次数矩阵 (用于绘制真实热力图，替代此前的合成径向伪造数据)
+        // 2026.10.19: 原 plotCmpFoldDistributionMap 内部以 maxFold - dist^2*... 公式"画"出一张
+        // 与真实数据无关的伪热力图，标签却声称是真实工区。现改为把 GCellGrid 的真实覆盖次数
+        // 矩阵落盘，再由绘图器按实测值逐格渲染。
+        std::vector<std::vector<float> > realFoldGrid;
+        {
+            GCellGrid *pcg = pCellGrid;
+            if (pcg && pcg->getCoverCount() && pcg->getNumX() > 0 && pcg->getNumY() > 0)
+            {
+                const int gnx = pcg->getNumX();
+                const int gny = pcg->getNumY();
+                int **cov = pcg->getCoverCount();
+                realFoldGrid.assign(gny, std::vector<float>(gnx, 0.0f));
+                for (int j = 0; j < gny; j++)
+                    for (int i = 0; i < gnx; i++)
+                        realFoldGrid[j][i] = (float)cov[j][i];
+
+                // 同步落盘为 CSV，供论文与复核随时核对
+                QString foldMapCsv = dir.filePath("attribute_fold_map_matrix.csv");
+                QFile fmFile(foldMapCsv);
+                if (fmFile.open(QIODevice::WriteOnly | QIODevice::Text))
+                {
+                    QTextStream fm(&fmFile);
+                    fm.setCodec("UTF-8");
+                    fm << "# Real CMP fold matrix from GCellGrid (rows=" << gny << ", cols=" << gnx << ")\n";
+                    fm << "# Mode: " << (outMetrics.isSynthetic ? "Synthetic" : "Real SPS Survey") << "\n";
+                    for (int j = 0; j < gny; j++)
+                    {
+                        for (int i = 0; i < gnx; i++)
+                        {
+                            fm << (int)realFoldGrid[j][i];
+                            if (i + 1 < gnx) fm << ",";
+                        }
+                        fm << "\n";
+                    }
+                    fmFile.close();
+                }
+            }
+        }
+
         ScientificPlotter::plotCmpFoldDistributionMap(
             outMetrics.liveBinCount,
             outMetrics.meanFold,
@@ -1505,6 +1545,8 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
             outMetrics.foldUniformityCv,
             outMetrics.foldRetentionPct,
             outMetrics.costReductionPct,
+            realFoldGrid,
+            outMetrics.isSynthetic,
             dir.filePath("03_cmp_fold_distribution_map.png")
         );
         ScientificPlotter::plotCmpFoldDistributionMap(
@@ -1515,6 +1557,8 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
             outMetrics.foldUniformityCv,
             outMetrics.foldRetentionPct,
             outMetrics.costReductionPct,
+            realFoldGrid,
+            outMetrics.isSynthetic,
             QDir(centralFiguresDir).filePath("03_cmp_fold_distribution_map.png")
         );
 

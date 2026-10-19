@@ -1,7 +1,7 @@
 ========================================================================
   Seismic Acquisition Geometry Spatial Attribute Quality Evaluation Report
   Evaluation Mode: Real Survey Evaluation Mode
-  Generated: 2026-10-19 16:17:24
+  Generated: 2026-10-19 16:48:24
 ========================================================================
 
 [Real Survey Evaluation Mode]
@@ -15,7 +15,7 @@
 
 [CMP Bin Fold Uniformity Analysis]
   Live CMP Bins:             29719
-  Mean Fold:                 106.42
+  Mean Fold:                 106.41
   Fold Range (Min ~ Max):    1 ~ 198
   Fold Standard Deviation:   58.61
   Coefficient of Variation:  0.5508 (Cv = StdDev / Mean)

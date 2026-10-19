@@ -8,10 +8,18 @@ Time_Samples,256,Samples,Time axis discrete length
 POCS_Iterations,40,Iterations,Max convex projection loops
 SNR_Zero_Fill,3.02,dB,Baseline 1: Zero-fill unmeasured traces
 SNR_Linear_Interp,12.35,dB,Baseline 2: 1D Spatial linear interpolation
-SNR_POCS_CS,14.10,dB,Compressive sensing POCS recovered SNR
+SNR_POCS_CS,14.10,dB,Compressive sensing POCS recovered SNR (main pipeline)
 SNR_Improvement_vs_Zero,11.09,dB,Net SNR gain over zero fill baseline
 SNR_Imprv_vs_Linear,1.75,dB,Net SNR gain over linear interp baseline
+Initialization_Mode,WarmStart (Linear Interpolation),Text,POCS initial solution used by main pipeline
+SNR_POCS_ColdStart,5.90,dB,POCS from zero-fill init (standard POCS reference)
+SNR_POCS_WarmStart,14.10,dB,POCS from linear-interp init
+SNR_WarmGain_over_Cold,8.20,dB,Isolated contribution of warm-start initialization
+SNR_POCS_IterGain_Cold,2.89,dB,Isolated contribution of POCS iterations from cold start
+SNR_POCS_IterGain_Warm,1.75,dB,Isolated contribution of POCS iterations from warm start
+RMSE_ColdStart,0.080550,Amplitude,RMSE of cold-start POCS
+RMSE_WarmStart,0.031334,Amplitude,RMSE of warm-start POCS
 RMSE,0.031334,Amplitude,Root mean square error across gather
 Pearson_Correlation,0.9804,Ratio,Linear correlation with ground truth
 Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
-Runtime_ms,1433.0,ms,Execution wall time
+Runtime_ms,3579.0,ms,Execution wall time
