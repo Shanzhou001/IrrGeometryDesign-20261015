@@ -280,58 +280,6 @@ void ResearchFiguresDialog::loadFigure(int index)
     mBtnNext->setEnabled(index < mFileNames.size() - 1);
 }
 
-// =========================================================================
-// 实验报告交互对话框 (自适应拉伸与文本滚动，杜绝截断)
-// =========================================================================
-ExperimentReportDialog::ExperimentReportDialog(const QString &title, const QString &reportText, int figureIndex, QWidget *parent)
-    : QDialog(parent), mViewFigure(false), mFigureIndex(figureIndex)
-{
-    setWindowTitle(title);
-    resize(860, 580);
-    setSizeGripEnabled(true);
-
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(12, 12, 12, 12);
-    layout->setSpacing(10);
-
-    mTextEdit = new QTextEdit(this);
-    mTextEdit->setReadOnly(true);
-    mTextEdit->setPlainText(reportText);
-    mTextEdit->setFrameShape(QFrame::NoFrame);
-    QPalette p = mTextEdit->palette();
-    p.setColor(QPalette::Base, palette().color(QPalette::Window));
-    mTextEdit->setPalette(p);
-    QFont textFont("SimSun", 9);
-    mTextEdit->setFont(textFont);
-    layout->addWidget(mTextEdit, 1);
-
-    QHBoxLayout *btnLayout = new QHBoxLayout();
-    btnLayout->addStretch(1);
-
-    if (mFigureIndex >= 0)
-    {
-        mBtnView = new QPushButton(QString::fromLocal8Bit("查看对应科研成果图件"), this);
-        connect(mBtnView, SIGNAL(clicked()), this, SLOT(onViewFigure()));
-        btnLayout->addWidget(mBtnView);
-    }
-    else
-    {
-        mBtnView = NULL;
-    }
-
-    mBtnOk = new QPushButton(QString::fromLocal8Bit("确定"), this);
-    connect(mBtnOk, SIGNAL(clicked()), this, SLOT(accept()));
-    btnLayout->addWidget(mBtnOk);
-
-    layout->addLayout(btnLayout);
-}
-
-void ExperimentReportDialog::onViewFigure()
-{
-    mViewFigure = true;
-    accept();
-}
-
 TSPSForm::TSPSForm( QWidget* parent ):Q3MainWindow(parent)    //add 2026/4/14 by Wushanzhou
 {
     ui.setupUi(this);

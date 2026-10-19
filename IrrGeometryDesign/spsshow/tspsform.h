@@ -93,24 +93,6 @@ private:
     int mCurrentIndex;
 };
 
-class ExperimentReportDialog : public QDialog
-{
-    Q_OBJECT
-public:
-    ExperimentReportDialog(const QString &title, const QString &reportText, int figureIndex = -1, QWidget *parent = 0);
-    bool shouldViewFigure() const { return mViewFigure; }
-
-private slots:
-    void onViewFigure();
-
-private:
-    bool mViewFigure;
-    int mFigureIndex;
-    QTextEdit *mTextEdit;
-    QPushButton *mBtnView;
-    QPushButton *mBtnOk;
-};
-
 class TSPSForm : public Q3MainWindow
 {
     Q_OBJECT
