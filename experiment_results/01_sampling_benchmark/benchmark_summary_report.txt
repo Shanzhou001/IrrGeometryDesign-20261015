@@ -1,6 +1,6 @@
 ====================================================================================
   Irregular Seismic Geometry Non-Uniform Sampling Benchmark Report (Scientific Evaluation)
-  Generated: 2026-10-16 20:16:34
+  Generated: 2026-10-19 16:14:24
   Master Random Seed: 42
   Repetition Runs per Rate: 3
   Seed Derivation Formula: actual_seed = master_seed + int(c * 1000) + run_index * 179 + 1
@@ -20,21 +20,21 @@
 Rate	m/N	Regular_Mu	Random_Mu	SA_Mean_Mu	SA_StdDev	[Min, Max]	Imprv_vs_Reg	Coherence_Atten(dB)
 ------------------------------------------------------------------------------------------------------------------------
 30%	38/128	0.7892		0.4595		0.3614		0.0247		[0.3338, 0.3938]	54.21%		6.80 dB
-50%	64/128	0.9601		0.3242		0.2240		0.0051		[0.2196, 0.2311]	76.67%		12.64 dB
-70%	90/128	0.2609		0.2356		0.1333		0.0079		[0.1245, 0.1438]	48.90%		5.85 dB
+50%	64/128	0.9601		0.3242		0.2353		0.0216		[0.2071, 0.2596]	75.49%		12.25 dB
+70%	90/128	0.2609		0.2356		0.1367		0.0064		[0.1282, 0.1437]	47.61%		5.63 dB
 ------------------------------------------------------------------------------------------------------------------------
 
 [Statistical Metrics & Scientific Conclusions]
-  - Cross-Rate Average Improvement (vs Regular): 59.93%
-  - Cross-Rate Average Improvement (vs Random):  31.25%
-  - Cross-Rate Average Coherence Attenuation:    8.43 dB
-  - 50% Sampling Rate Benchmark: Mean Mu = 0.2240 (Std: 0.0051), Imprv vs Regular = 76.67%, Coherence Ratio Attenuation = 12.64 dB
+  - Cross-Rate Average Improvement (vs Regular): 59.10%
+  - Cross-Rate Average Improvement (vs Random):  29.54%
+  - Cross-Rate Average Coherence Attenuation:    8.23 dB
+  - 50% Sampling Rate Benchmark: Mean Mu = 0.2353 (Std: 0.0216), Imprv vs Regular = 75.49%, Coherence Ratio Attenuation = 12.25 dB
 
 [Scientific Conclusions & Supporting Figures]
   All run data charts and result figures have been saved to: all_result_figures/
   1. [Figure 01_sa_convergence_curve.png]:
      Proves Metropolis SA convergence is unbiased with strictly non-increasing best trace,
-     achieving 12.64 dB attenuation at 50% rate and breaking periodic coherent aliasing peaks.
+     achieving 12.25 dB attenuation at 50% rate and breaking periodic coherent aliasing peaks.
   2. [Figure 02_sampling_benchmark_bars.png]:
      Directly compares Regular, Random, and Jitter-SA across 30%, 50%, 70% rates,
      proving Jitter-SA consistently outperforms other schemes in mutual coherence suppression.

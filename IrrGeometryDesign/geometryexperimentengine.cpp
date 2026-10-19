@@ -13,6 +13,9 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include <QTextCodec>
+#include <QCoreApplication>
+#include <QList>
+#include <QByteArray>
 #include <math.h>
 #include <time.h>
 #include <stdlib.h>
@@ -41,28 +44,56 @@ static QString getCentralFiguresDir(const QString& currentOutputDir)
     return dir.filePath("all_result_figures");
 }
 
+// 定位仓库自带真实 SPS 示范工区 (sps/5151-5171.S, .R, .X) 所在目录
+// 修复(2026.10.19): 原实现以硬编码绝对路径 "d:/Desktop/work/..." 作为回退，
+// 导致在非项目根目录运行 --test 时 Test 9 失败（可移植性缺陷）。
+// 现改为相对可执行文件与当前工作目录的多候选搜索，不依赖任何固定盘符路径。
+static QString findRepositorySpsDir()
+{
+    QList<QString> candidates;
+
+    // 1) 可执行文件所在目录向上回溯（覆盖 x64/Release、bin 等常见输出目录布局）
+    QString exeDir = QCoreApplication::applicationDirPath();
+    QDir d(exeDir);
+    for (int i = 0; i < 5 && !d.isRoot(); i++)
+    {
+        candidates.append(d.absoluteFilePath("sps"));
+        if (!d.cdUp()) break;
+    }
+
+    // 2) 当前工作目录及其上级（覆盖从项目根或子目录运行的情形）
+    QDir cwd = QDir::current();
+    candidates.append(cwd.absoluteFilePath("sps"));
+    if (cwd.cdUp()) candidates.append(cwd.absoluteFilePath("sps"));
+
+    // 3) 环境变量覆盖（便于测试/CI 指定外部数据目录）
+    candidates.append(QString::fromLocal8Bit(qgetenv("IRR_SPS_DIR")));
+
+    for (int i = 0; i < candidates.size(); i++)
+    {
+        const QString &dir = candidates.at(i);
+        if (dir.isEmpty()) continue;
+        if (QFile::exists(dir + "/5151-5171.S") &&
+            QFile::exists(dir + "/5151-5171.R") &&
+            QFile::exists(dir + "/5151-5171.X"))
+        {
+            return dir;
+        }
+    }
+    return QString();
+}
+
 // 尝试从工程仓库常见位置自动加载真实 SPS 示范工区 (sps/5151-5171.S, .R, .X)
 static GProject* loadRepositorySpsProject()
 {
-    QString sFile = "sps/5151-5171.S";
-    QString rFile = "sps/5151-5171.R";
-    QString xFile = "sps/5151-5171.X";
-    if (!QFile::exists(sFile) || !QFile::exists(rFile) || !QFile::exists(xFile))
-    {
-        sFile = "../sps/5151-5171.S";
-        rFile = "../sps/5151-5171.R";
-        xFile = "../sps/5151-5171.X";
-    }
-    if (!QFile::exists(sFile) || !QFile::exists(rFile) || !QFile::exists(xFile))
-    {
-        sFile = "d:/Desktop/work/IrrGeometryDesign-20261015/sps/5151-5171.S";
-        rFile = "d:/Desktop/work/IrrGeometryDesign-20261015/sps/5151-5171.R";
-        xFile = "d:/Desktop/work/IrrGeometryDesign-20261015/sps/5151-5171.X";
-    }
-    if (!QFile::exists(sFile) || !QFile::exists(rFile) || !QFile::exists(xFile))
+    const QString spsDir = findRepositorySpsDir();
+    if (spsDir.isEmpty())
     {
         return NULL;
     }
+    const QString sFile = spsDir + "/5151-5171.S";
+    const QString rFile = spsDir + "/5151-5171.R";
+    const QString xFile = spsDir + "/5151-5171.X";
 
     GProject *pProj = GProject::create();
     pProj->setFlag();
@@ -794,8 +825,16 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
         out << "\n[Scientific Conclusions & Supporting Figures]\n";
         out << "  All run data charts and result figures have been saved to: all_result_figures/\n";
         out << "  1. [Figure 01_sa_convergence_curve.png]:\n";
-        out << "     Proves Metropolis SA convergence is unbiased with strictly non-increasing best trace,\n";
-        out << "     achieving 12.64 dB attenuation at 50% rate and breaking periodic coherent aliasing peaks.\n";
+        out << "     Proves Metropolis SA convergence is unbiased with strictly non-increasing best trace";
+        if (rateSummaries.size() >= 2)
+        {
+            out << ",\n     achieving " << QString::number(rateSummaries[1].coherence_ratio_atten_db_mean, 'f', 2)
+                << " dB attenuation at 50% rate and breaking periodic coherent aliasing peaks.\n";
+        }
+        else
+        {
+            out << ".\n";
+        }
         out << "  2. [Figure 02_sampling_benchmark_bars.png]:\n";
         out << "     Directly compares Regular, Random, and Jitter-SA across 30%, 50%, 70% rates,\n";
         out << "     proving Jitter-SA consistently outperforms other schemes in mutual coherence suppression.\n";
@@ -1537,6 +1576,128 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
 // =============================================================================
 // Task 3: 地震波场压缩感知重构试验引擎 // add by shanzhou in 2026/10/15
 // =============================================================================
+
+// 曲波域 POCS 重构内核 (可复用于冷启动/热启动对照实验) // add by shanzhou in 2026/10/19
+// 参数:
+//   initGather -- 迭代初值 (零填充 或 线性插值), 尺寸 Nt x Nx
+//   dObs       -- 欠采样观测记录 (Nt x Nx, 未采样道为 0)
+//   mask       -- 长度 Nx 的二值采样掩码
+// 输出:
+//   outRecon    -- 重构结果 (Nt x Nx)
+//   outResidual -- 残差 (Nt x Nx)
+//   outStepRes  -- 每次迭代的相对步长收敛轨迹
+static void curveletPocsReconstruct(const std::vector<std::vector<float> >& initGather,
+                                    const std::vector<std::vector<float> >& dObs,
+                                    const std::vector<int>& mask,
+                                    int numIter,
+                                    std::vector<std::vector<float> >& outRecon,
+                                    std::vector<std::vector<float> >& outResidual,
+                                    std::vector<float>& outStepRes)
+{
+    const int Nt = (int)initGather.size();
+    const int Nx = (int)initGather[0].size();
+
+    fdct_wrapping_ns::CpxNumMat x_mat(Nt, Nx);
+    for (int i = 0; i < Nt; i++)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            x_mat(i, j) = fdct_wrapping_ns::cpx(initGather[i][j], 0.0);
+        }
+    }
+
+    const int nbscales = 4;
+    const int nbangles_coarse = 16;
+    const int ac = 0; // 最高频尺度使用小波基，抑制高频角度伪影
+    const double l_max = 0.026;
+    const double l_min = 0.0005;
+
+    std::vector<std::vector<fdct_wrapping_ns::CpxNumMat> > c;
+    outStepRes.clear();
+
+    for (int it = 0; it < numIter; it++)
+    {
+        fdct_wrapping_ns::CpxNumMat prev_mat = x_mat;
+
+        // 1. 2D 离散曲波正变换 (FDCT Wrapping)
+        fdct_wrapping_ns::fdct_wrapping(Nt, Nx, nbscales, nbangles_coarse, ac, x_mat, c);
+
+        // 2. 余弦退火调度与尺度自适应 Wiener 收缩滤波
+        double progress = (numIter > 1) ? (double)it / (double)(numIter - 1) : 0.0;
+        double factor = 0.5 * (1.0 + cos(PI_CONST * progress));
+        double lambda = l_max * factor + l_min;
+
+        for (size_t s = 0; s < c.size(); s++)
+        {
+            if (s == 0) continue; // 粗尺度背景低频严格保留
+            double s_lambda = (s == c.size() - 1) ? lambda * 2.0 : lambda;
+            double s_sigma2 = s_lambda * s_lambda;
+            for (size_t w = 0; w < c[s].size(); w++)
+            {
+                for (int i = 0; i < c[s][w].m(); i++)
+                {
+                    for (int j = 0; j < c[s][w].n(); j++)
+                    {
+                        fdct_wrapping_ns::cpx val = c[s][w](i, j);
+                        double m2 = val.real() * val.real() + val.imag() * val.imag();
+                        if (m2 > 0.0)
+                        {
+                            double gain = m2 / (m2 + s_sigma2);
+                            c[s][w](i, j) = val * gain;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3. 2D 离散曲波逆变换 (IFDCT Wrapping)
+        fdct_wrapping_ns::ifdct_wrapping(Nt, Nx, nbscales, nbangles_coarse, ac, c, x_mat);
+
+        // 4. 实测道数据一致性严格投影 (Data Consistency Projection)
+        for (int j = 0; j < Nx; j++)
+        {
+            if (mask[j] == 1)
+            {
+                for (int i = 0; i < Nt; i++)
+                {
+                    x_mat(i, j) = fdct_wrapping_ns::cpx(dObs[i][j], 0.0);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Nt; i++)
+                {
+                    x_mat(i, j) = fdct_wrapping_ns::cpx(x_mat(i, j).real(), 0.0);
+                }
+            }
+        }
+
+        // 记录迭代收敛残差
+        double diffEnergy = 0.0;
+        double curEnergy = 0.0;
+        for (int i = 0; i < Nt; i++)
+        {
+            for (int j = 0; j < Nx; j++)
+            {
+                double d = x_mat(i, j).real() - prev_mat(i, j).real();
+                diffEnergy += d * d;
+                curEnergy += x_mat(i, j).real() * x_mat(i, j).real();
+            }
+        }
+        outStepRes.push_back((curEnergy > 1e-12) ? (float)sqrt(diffEnergy / curEnergy) : 0.0f);
+    }
+
+    outRecon.assign(Nt, std::vector<float>(Nx, 0.0f));
+    outResidual.assign(Nt, std::vector<float>(Nx, 0.0f));
+    for (int i = 0; i < Nt; i++)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            outRecon[i][j] = (mask[j] == 1) ? dObs[i][j] : (float)x_mat(i, j).real();
+        }
+    }
+}
+
 bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFilePath,
                                                          const QString& outputDir,
                                                          float customRatio,
@@ -1544,7 +1705,9 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
                                                          QString& outReportSummary,
                                                          const QString& inputSeismicFilePath,
                                                          bool exportFullResolution,
-                                                         bool forceDataConsistencyFailure)
+                                                         bool forceDataConsistencyFailure,
+                                                         bool useWarmStart,
+                                                         bool runStartupComparison)
 {
     clock_t startTime = clock();
 
@@ -1736,96 +1899,88 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     outMetrics.snr_linear_interp_db = snr_linear;
 
     // 4. 曲波域 (Curvelet) 稀疏反演与 POCS 凸集投影迭代
-    // 空间线性插值预热初始化 (Warm-Start) + 尺度自适应 Wiener 软阈值滤波 + 余弦退火调度 + 严格观测道数据一致性投射
+    // useWarmStart=true : 空间线性插值预热初始化 (Warm-Start) —— 本项目主实验口径
+    // useWarmStart=false: 零填充初始化 (Cold-Start) —— 标准 POCS / 文献对照口径
+    outMetrics.usedWarmStart = useWarmStart;
+    outMetrics.iterations = 40;
+
+    const std::vector<std::vector<float> >& d_init = useWarmStart ? d_linear : d_obs;
+
+    std::vector<std::vector<float> > d_recon;
+    std::vector<std::vector<float> > d_residual;
+    curveletPocsReconstruct(d_init, d_obs, mask, outMetrics.iterations,
+                            d_recon, d_residual, outMetrics.residual_convergence);
+
+    // 提取单道曲线供后续一致性校验使用 (保持与旧实现相同的校验语义)
     fdct_wrapping_ns::CpxNumMat x_mat(Nt, Nx);
     for (int i = 0; i < Nt; i++)
     {
         for (int j = 0; j < Nx; j++)
         {
-            x_mat(i, j) = fdct_wrapping_ns::cpx(d_linear[i][j], 0.0);
+            x_mat(i, j) = fdct_wrapping_ns::cpx(d_recon[i][j], 0.0);
         }
     }
 
-    int nbscales = 4;
-    int nbangles_coarse = 16;
-    int ac = 0; // 最高频尺度使用小波基，抑制高频角度伪影
-    double l_max = 0.026;
-    double l_min = 0.0005;
+    // 4b. 冷启动 / 热启动 受控对照实验 (2026.10.19 新增)
+    // 目的：为学术公平性提供证据——隔离"线性插值初值"与"曲波 POCS 迭代"各自的贡献。
+    outMetrics.residual_convergence_cold.clear();
+    outMetrics.residual_convergence_warm.clear();
+    outMetrics.snr_cold_start_db = 0.0f;
+    outMetrics.snr_warm_start_db = 0.0f;
+    outMetrics.rmse_cold_start = 0.0f;
+    outMetrics.rmse_warm_start = 0.0f;
+    outMetrics.corr_cold_start = 0.0f;
+    outMetrics.corr_warm_start = 0.0f;
 
-    std::vector<std::vector<fdct_wrapping_ns::CpxNumMat> > c;
-    outMetrics.residual_convergence.clear();
-
-    for (int it = 0; it < outMetrics.iterations; it++)
+    if (runStartupComparison)
     {
-        fdct_wrapping_ns::CpxNumMat prev_mat = x_mat;
+        // 辅助 lambda 风格评分（C++98 兼容，用局部结构体模拟）
+        struct StartupScore { float snr; float rmse; float corr; };
 
-        // 1. 2D 离散曲波正变换 (FDCT Wrapping)
-        fdct_wrapping_ns::fdct_wrapping(Nt, Nx, nbscales, nbangles_coarse, ac, x_mat, c);
+        const std::vector<std::vector<float> >* inits[2] = { &d_obs, &d_linear };
+        std::vector<float>* traces[2] = { &outMetrics.residual_convergence_cold,
+                                           &outMetrics.residual_convergence_warm };
+        StartupScore scores[2];
 
-        // 2. 余弦退火调度与尺度自适应软阈值/Wiener收缩滤波
-        double progress = (outMetrics.iterations > 1) ? (double)it / (double)(outMetrics.iterations - 1) : 0.0;
-        double factor = 0.5 * (1.0 + cos(PI_CONST * progress));
-        double lambda = l_max * factor + l_min;
-
-        for (size_t s = 0; s < c.size(); s++)
+        for (int m2 = 0; m2 < 2; m2++)
         {
-            if (s == 0) continue; // 粗尺度背景低频严格保留
-            double s_lambda = (s == c.size() - 1) ? lambda * 2.0 : lambda;
-            double s_sigma2 = s_lambda * s_lambda;
-            for (size_t w = 0; w < c[s].size(); w++)
+            std::vector<std::vector<float> > rec2, res2;
+            curveletPocsReconstruct(*inits[m2], d_obs, mask, outMetrics.iterations, rec2, res2, *traces[m2]);
+
+            double e2 = 0.0, mf = 0.0, mr = 0.0;
+            for (int i = 0; i < Nt; i++)
             {
-                for (int i = 0; i < c[s][w].m(); i++)
+                for (int j = 0; j < Nx; j++)
                 {
-                    for (int j = 0; j < c[s][w].n(); j++)
-                    {
-                        fdct_wrapping_ns::cpx val = c[s][w](i, j);
-                        double m2 = val.real() * val.real() + val.imag() * val.imag();
-                        if (m2 > 0.0)
-                        {
-                            double gain = m2 / (m2 + s_sigma2);
-                            c[s][w](i, j) = val * gain;
-                        }
-                    }
+                    double r = (double)rec2[i][j] - (double)d_full[i][j];
+                    e2 += r * r;
+                    mf += d_full[i][j];
+                    mr += rec2[i][j];
                 }
             }
-        }
-
-        // 3. 2D 离散曲波逆变换 (IFDCT Wrapping)
-        fdct_wrapping_ns::ifdct_wrapping(Nt, Nx, nbscales, nbangles_coarse, ac, c, x_mat);
-
-        // 4. 实测道数据一致性严格投影 (Data Consistency Projection)
-        for (int j = 0; j < Nx; j++)
-        {
-            if (mask[j] == 1)
+            const double tot = (double)(Nt * Nx);
+            mf /= tot; mr /= tot;
+            double nc = 0.0, df = 0.0, dr = 0.0;
+            for (int i = 0; i < Nt; i++)
             {
-                for (int i = 0; i < Nt; i++)
+                for (int j = 0; j < Nx; j++)
                 {
-                    x_mat(i, j) = fdct_wrapping_ns::cpx(d_obs[i][j], 0.0);
+                    double a = d_full[i][j] - mf;
+                    double b = rec2[i][j] - mr;
+                    nc += a * b; df += a * a; dr += b * b;
                 }
             }
-            else
-            {
-                for (int i = 0; i < Nt; i++)
-                {
-                    x_mat(i, j) = fdct_wrapping_ns::cpx(x_mat(i, j).real(), 0.0);
-                }
-            }
+            scores[m2].snr = 10.0f * (float)log10(energy_full / (e2 > 1e-12 ? e2 : 1e-12));
+            scores[m2].rmse = (float)sqrt(e2 / tot);
+            scores[m2].corr = (df > 1e-12 && dr > 1e-12) ? (float)(nc / sqrt(df * dr)) : 0.0f;
         }
 
-        // 记录迭代收敛残差
-        double diffEnergy = 0.0;
-        double curEnergy = 0.0;
-        for (int i = 0; i < Nt; i++)
-        {
-            for (int j = 0; j < Nx; j++)
-            {
-                double d = x_mat(i, j).real() - prev_mat(i, j).real();
-                diffEnergy += d * d;
-                curEnergy += x_mat(i, j).real() * x_mat(i, j).real();
-            }
-        }
-        float stepRes = (curEnergy > 1e-12) ? (float)sqrt(diffEnergy / curEnergy) : 0.0f;
-        outMetrics.residual_convergence.push_back(stepRes);
+        outMetrics.snr_cold_start_db = scores[0].snr;
+        outMetrics.rmse_cold_start = scores[0].rmse;
+        outMetrics.corr_cold_start = scores[0].corr;
+        outMetrics.snr_warm_start_db = scores[1].snr;
+        outMetrics.rmse_warm_start = scores[1].rmse;
+        outMetrics.corr_warm_start = scores[1].corr;
     }
 
     // 5. 实测道数据一致性严格校验 (支持人工注入故障测试) // add by shanzhou in 2026/10/15
@@ -1864,9 +2019,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         return false;
     }
 
-    // 6. 重构指标统计 (严格保障已知观测道数据一致性替换)
-    std::vector<std::vector<float> > d_recon(Nt, std::vector<float>(Nx, 0.0f));
-    std::vector<std::vector<float> > d_residual(Nt, std::vector<float>(Nx, 0.0f));
+    // 6. 重构指标统计 (d_recon/d_residual 已由 curveletPocsReconstruct 按"已知道强制替换"口径产出)
     double energy_rec_err = 0.0;
     double mean_full = 0.0, mean_rec = 0.0;
 
@@ -1874,14 +2027,12 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     {
         for (int j = 0; j < Nx; j++)
         {
-            float rec_val = (mask[j] == 1) ? d_obs[i][j] : (float)x_mat(i, j).real();
-            d_recon[i][j] = rec_val;
-            float res = rec_val - d_full[i][j];
+            float res = d_recon[i][j] - d_full[i][j];
             d_residual[i][j] = res;
 
             energy_rec_err += (double)res * (double)res;
             mean_full += d_full[i][j];
-            mean_rec += rec_val;
+            mean_rec += d_recon[i][j];
         }
     }
 
@@ -1974,9 +2125,17 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out << "POCS_Iterations," << outMetrics.iterations << ",Iterations,Max convex projection loops\n";
         out << "SNR_Zero_Fill," << QString::number(outMetrics.snr_zero_fill_db, 'f', 2) << ",dB,Baseline 1: Zero-fill unmeasured traces\n";
         out << "SNR_Linear_Interp," << QString::number(outMetrics.snr_linear_interp_db, 'f', 2) << ",dB,Baseline 2: 1D Spatial linear interpolation\n";
-        out << "SNR_POCS_CS," << QString::number(outMetrics.snr_recovered_db, 'f', 2) << ",dB,Compressive sensing POCS recovered SNR\n";
+        out << "SNR_POCS_CS," << QString::number(outMetrics.snr_recovered_db, 'f', 2) << ",dB,Compressive sensing POCS recovered SNR (main pipeline)\n";
         out << "SNR_Improvement_vs_Zero," << QString::number(outMetrics.snr_improvement_db, 'f', 2) << ",dB,Net SNR gain over zero fill baseline\n";
         out << "SNR_Imprv_vs_Linear," << QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2) << ",dB,Net SNR gain over linear interp baseline\n";
+        out << "Initialization_Mode," << (outMetrics.usedWarmStart ? "WarmStart (Linear Interpolation)" : "ColdStart (Zero-Fill)") << ",Text,POCS initial solution used by main pipeline\n";
+        out << "SNR_POCS_ColdStart," << QString::number(outMetrics.snr_cold_start_db, 'f', 2) << ",dB,POCS from zero-fill init (standard POCS reference)\n";
+        out << "SNR_POCS_WarmStart," << QString::number(outMetrics.snr_warm_start_db, 'f', 2) << ",dB,POCS from linear-interp init\n";
+        out << "SNR_WarmGain_over_Cold," << QString::number(outMetrics.snr_warm_start_db - outMetrics.snr_cold_start_db, 'f', 2) << ",dB,Isolated contribution of warm-start initialization\n";
+        out << "SNR_POCS_IterGain_Cold," << QString::number(outMetrics.snr_cold_start_db - outMetrics.snr_zero_fill_db, 'f', 2) << ",dB,Isolated contribution of POCS iterations from cold start\n";
+        out << "SNR_POCS_IterGain_Warm," << QString::number(outMetrics.snr_warm_start_db - outMetrics.snr_linear_interp_db, 'f', 2) << ",dB,Isolated contribution of POCS iterations from warm start\n";
+        out << "RMSE_ColdStart," << QString::number(outMetrics.rmse_cold_start, 'f', 6) << ",Amplitude,RMSE of cold-start POCS\n";
+        out << "RMSE_WarmStart," << QString::number(outMetrics.rmse_warm_start, 'f', 6) << ",Amplitude,RMSE of warm-start POCS\n";
         out << "RMSE," << QString::number(outMetrics.rmse, 'f', 6) << ",Amplitude,Root mean square error across gather\n";
         out << "Pearson_Correlation," << QString::number(outMetrics.correlation, 'f', 4) << ",Ratio,Linear correlation with ground truth\n";
         out << "Data_Consistency_Passed," << (outMetrics.dataConsistencyPassed ? "PASSED" : "FAILED") << ",Bool,Exact equality on sampled traces\n";
@@ -2020,6 +2179,26 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out << "  6. Measured Traces Data Consistency Equality Check: " << (outMetrics.dataConsistencyPassed ? "PASSED (Strict error < 1e-5)" : "FAILED") << "\n";
         out << "  7. Reconstruction Execution Time:                   " << QString::number(outMetrics.runtimeMs, 'f', 1) << " ms ("
             << outMetrics.iterations << " iterations)\n\n";
+
+        if (outMetrics.snr_warm_start_db != 0.0f || outMetrics.snr_cold_start_db != 0.0f)
+        {
+            out << "[Controlled Cold-Start vs Warm-Start Experiment (Fairness / Ablation)]\n";
+            out << "  Purpose: isolate the contribution of the linear-interpolation initial solution from\n";
+            out << "           the contribution of the curvelet POCS iterations themselves.\n";
+            out << "  - POCS from Zero-Fill init   (Cold-Start): SNR = " << QString::number(outMetrics.snr_cold_start_db, 'f', 2)
+                << " dB, RMSE = " << QString::number(outMetrics.rmse_cold_start, 'f', 6)
+                << ", r = " << QString::number(outMetrics.corr_cold_start, 'f', 4) << "\n";
+            out << "  - POCS from Linear-Interp init (Warm-Start): SNR = " << QString::number(outMetrics.snr_warm_start_db, 'f', 2)
+                << " dB, RMSE = " << QString::number(outMetrics.rmse_warm_start, 'f', 6)
+                << ", r = " << QString::number(outMetrics.corr_warm_start, 'f', 4) << "\n";
+            out << "  - Contribution split:\n";
+            out << "      (a) warm-start initialization alone : " << QString::number(outMetrics.snr_linear_interp_db - outMetrics.snr_zero_fill_db, 'f', 2) << " dB\n";
+            out << "      (b) POCS iterations from cold start : " << QString::number(outMetrics.snr_cold_start_db - outMetrics.snr_zero_fill_db, 'f', 2) << " dB\n";
+            out << "      (c) POCS iterations from warm start : " << QString::number(outMetrics.snr_warm_start_db - outMetrics.snr_linear_interp_db, 'f', 2) << " dB\n";
+            out << "  - Interpretation: the headline SNR gain of the main pipeline is the SUM of (a) and (c).\n";
+            out << "    Term (b) is the fair, literature-comparable measure of the curvelet POCS method itself,\n";
+            out << "    because it starts from the same zero-fill initial solution used by standard POCS.\n\n";
+        }
 
         out << "[In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]\n";
         out << "  - Observation Summary:\n";
@@ -2239,18 +2418,41 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
     QString centralFiguresDir = dir.filePath("all_result_figures");
     QDir().mkpath(centralFiguresDir);
 
-    float atten_db_50 = 12.64f;
-    for (size_t i = 0; i < bResults.size(); i++)
-    {
-        if (std::abs(bResults[i].rate - 0.50f) < 0.01f)
-        {
-            atten_db_50 = bResults[i].alias_suppress_db;
-            break;
-        }
-    }
+    // 50% 采样率相干度衰减与 beta/μ 指标一律取多轮重复试验的聚合均值（下方计算），
+    // 不在任何采样率缺失时虚构默认值。
+    float atten_db_50 = 0.0f;
 
     if (allSuccess)
     {
+        // 50% 采样率指标一律取"多轮重复试验的聚合均值"，与 benchmark_comparison_table.csv 口径严格一致；
+        // 修复(2026.10.19): 原实现取 bResults 中首个 50% 记录（单轮值），
+        // 会与汇总表(3 轮均值)出现 11.36 dB vs 12.25 dB 的自相矛盾。
+        int n50 = 0;
+        double sumReg50 = 0.0, sumOpt50 = 0.0, sumImprv50 = 0.0, sumAtten50 = 0.0;
+        for (size_t i = 0; i < bResults.size(); i++)
+        {
+            if (std::abs(bResults[i].rate - 0.50f) < 0.01f)
+            {
+                sumReg50 += bResults[i].miu_regular;
+                sumOpt50 += bResults[i].miu_jitter_sa;
+                sumImprv50 += bResults[i].imprv_vs_regular;
+                sumAtten50 += bResults[i].alias_suppress_db;
+                n50++;
+            }
+        }
+        float miuReg50 = 0.0f, miuOpt50 = 0.0f, imprvPct50 = 0.0f;
+        if (n50 > 0)
+        {
+            miuReg50 = (float)(sumReg50 / n50);
+            miuOpt50 = (float)(sumOpt50 / n50);
+            imprvPct50 = (float)(sumImprv50 / n50);
+            atten_db_50 = (float)(sumAtten50 / n50);
+        }
+
+        // 真实/合成模式标记与属性指标透传，杜绝模块间模式混用
+        const bool attrIsReal = !aMetrics.isSynthetic;
+        const bool reconIsReal = !rMetrics.isSynthetic;
+
         ScientificPlotter::plotWorkflowSummaryDashboard(
             aMetrics.meanFold,
             aMetrics.foldUniformityCv,
@@ -2259,7 +2461,20 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
             QDir(centralFiguresDir).filePath("00_research_workflow_summary.png"),
             rMetrics.snr_recovered_db,
             rMetrics.rmse,
-            rMetrics.correlation
+            rMetrics.correlation,
+            attrIsReal,
+            aMetrics.liveBinCount,
+            aMetrics.costReductionPct,
+            aMetrics.minOffset,
+            aMetrics.maxOffset,
+            aMetrics.azimuthCoverageScore,
+            miuReg50,
+            miuOpt50,
+            imprvPct50,
+            rMetrics.snr_linear_interp_db,
+            rMetrics.snr_zero_fill_db,
+            reconIsReal,
+            rMetrics.usedWarmStart
         );
         ScientificPlotter::plotWorkflowSummaryDashboard(
             aMetrics.meanFold,
@@ -2269,7 +2484,20 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
             dir.filePath("00_research_workflow_summary.png"),
             rMetrics.snr_recovered_db,
             rMetrics.rmse,
-            rMetrics.correlation
+            rMetrics.correlation,
+            attrIsReal,
+            aMetrics.liveBinCount,
+            aMetrics.costReductionPct,
+            aMetrics.minOffset,
+            aMetrics.maxOffset,
+            aMetrics.azimuthCoverageScore,
+            miuReg50,
+            miuOpt50,
+            imprvPct50,
+            rMetrics.snr_linear_interp_db,
+            rMetrics.snr_zero_fill_db,
+            reconIsReal,
+            rMetrics.usedWarmStart
         );
 
         ScientificPlotter::exportFiguresGalleryHtml(
@@ -2286,14 +2514,19 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
         "图件支撑清单与科学结论：\n"
         "1. [00_research_workflow_summary.png] 全流程科研闭环综合大看板 (采样-属性-重构总览)\n"
         "2. [01_sa_convergence_curve.png] 模拟退火相干度下降收敛曲线 (证明无偏探索与单调收敛)\n"
-        "3. [02_sampling_benchmark_bars.png] 三种采样方案相干度对比柱状图 (Jitter-SA相干度衰减12.64 dB)\n"
+        "3. [02_sampling_benchmark_bars.png] 三种采样方案相干度对比柱状图 (Jitter-SA相干度衰减%2 dB)\n"
         "4. [03_cmp_fold_distribution_map.png] CMP面元空间覆盖次数平面热力图 (展示覆盖次数在二维CMP网格上的连续分布)\n"
-        "5. [04_offset_azimuth_rose_charts.png] 炮检距连续性分布直方图与方位角玫瑰图 (完整度100%)\n"
-        "6. [05_wavefield_reconstruction_quad.png] 地震波场欠采样与曲波POCS恢复四联剖面 (SNR恢复达14.10 dB，较线性插值提升1.75 dB)\n"
-        "7. [06_recon_convergence_trace_comparison.png] 曲波POCS残差收敛与抽稀道波形拟合细节 (波形相关系数r=0.9804)\n"
+        "5. [04_offset_azimuth_rose_charts.png] 炮检距连续性分布直方图与方位角玫瑰图 (完整度%3)\n"
+        "6. [05_wavefield_reconstruction_quad.png] 地震波场欠采样与曲波POCS恢复四联剖面 (SNR恢复达%4 dB，较线性插值提升%5 dB)\n"
+        "7. [06_recon_convergence_trace_comparison.png] 曲波POCS残差收敛与抽稀道波形拟合细节 (波形相关系数r=%6)\n"
         "8. [index.html] 科研成果图件集中浏览画廊 (可直接在网页浏览器中查看)\n"
         "========================================================================\n"
-    ).arg(centralFiguresDir);
+    ).arg(centralFiguresDir)
+     .arg(QString::number(atten_db_50, 'f', 2))
+     .arg(QString::number(aMetrics.azimuthCoverageScore, 'f', 1) + "%")
+     .arg(QString::number(rMetrics.snr_recovered_db, 'f', 2))
+     .arg(QString::number(rMetrics.snr_imprv_vs_linear_db, 'f', 2))
+     .arg(QString::number(rMetrics.correlation, 'f', 4));
 
     fullReportSummary = statusHeader + subStatus +
                         s1 + "\n----------------------------------------\n" +
@@ -2918,16 +3151,15 @@ bool GeometryExperimentEngine::runUnitTests()
     bool strict_rejected = !evaluateProjectAttributes(NULL, "experiment_results/test_attrs", strictAm, strictSum, false);
     if (!strict_rejected || strictSum.isEmpty()) t9_ok = false;
 
-    // 2. 检查 SPS 物理文件存在性与大小完整性
-    QString sFile = "sps/5151-5171.S";
-    QString rFile = "sps/5151-5171.R";
-    QString xFile = "sps/5151-5171.X";
-    if (!QFile::exists(sFile)) sFile = "../sps/5151-5171.S";
-    if (!QFile::exists(rFile)) rFile = "../sps/5151-5171.R";
-    if (!QFile::exists(xFile)) xFile = "../sps/5151-5171.X";
-    if (!QFile::exists(sFile) || !QFile::exists(rFile) || !QFile::exists(xFile))
+    // 2. 检查 SPS 物理文件存在性与大小完整性 (复用统一解析器，支持任意工作目录)
+    const QString spsDir9 = findRepositorySpsDir();
+    QString sFile = spsDir9.isEmpty() ? QString() : (spsDir9 + "/5151-5171.S");
+    QString rFile = spsDir9.isEmpty() ? QString() : (spsDir9 + "/5151-5171.R");
+    QString xFile = spsDir9.isEmpty() ? QString() : (spsDir9 + "/5151-5171.X");
+    if (sFile.isEmpty() || !QFile::exists(sFile) || !QFile::exists(rFile) || !QFile::exists(xFile))
     {
         t9_ok = false;
+        log_test(logFp, "   [FAIL Reason] SPS sample files not found by repository resolver!\n");
     }
     else if (QFileInfo(sFile).size() == 0 || QFileInfo(rFile).size() == 0 || QFileInfo(xFile).size() == 0)
     {
@@ -3076,6 +3308,99 @@ bool GeometryExperimentEngine::runUnitTests()
         passedTests++;
     } else {
         log_test(logFp, " [FAIL] Test 10: Full Experiment Suite Failure Propagation failed!\n");
+    }
+
+    // -------------------------------------------------------------
+    // Test 11: 冷启动/热启动受控消融实验与初始化贡献分解 (2026.10.19 新增)
+    // 目的: 保证 warm-start 消融口径长期不被回退 —
+    //       ① 冷启动 POCS 必须优于零填充基线 (曲波 POCS 本身有效);
+    //       ② 热启动 POCS 必须优于冷启动 (线性插值初值确有增益);
+    //       ③ 主流水线 SNR 应等于所声明初始化方式对应的那一路结果;
+    //       ④ 两条收敛轨迹长度都等于迭代数。
+    // -------------------------------------------------------------
+    totalTests++;
+    bool t11_ok = true;
+    ReconstructionMetrics rmAbl;
+    QString sumAbl;
+    bool okAbl = runWavefieldReconstruction("", "experiment_results/test_ablation", 0.50f,
+                                            rmAbl, sumAbl, "", true, false, true, true);
+    if (!okAbl)
+    {
+        t11_ok = false;
+        log_test(logFp, "   [FAIL Reason] Ablation reconstruction run failed!\n");
+    }
+    else
+    {
+        if (!(rmAbl.snr_cold_start_db > rmAbl.snr_zero_fill_db))
+        {
+            t11_ok = false;
+            log_test(logFp, "   [FAIL Reason] Cold-start POCS (%.2f dB) not better than zero-fill (%.2f dB)!\n",
+                     rmAbl.snr_cold_start_db, rmAbl.snr_zero_fill_db);
+        }
+        if (!(rmAbl.snr_warm_start_db > rmAbl.snr_cold_start_db))
+        {
+            t11_ok = false;
+            log_test(logFp, "   [FAIL Reason] Warm-start POCS (%.2f dB) not better than cold-start (%.2f dB)!\n",
+                     rmAbl.snr_warm_start_db, rmAbl.snr_cold_start_db);
+        }
+        // 主流水线采用热启动，其 SNR 必须与热启动分支一致
+        if (rmAbl.usedWarmStart && fabs(rmAbl.snr_recovered_db - rmAbl.snr_warm_start_db) > 1e-3f)
+        {
+            t11_ok = false;
+            log_test(logFp, "   [FAIL Reason] Main pipeline SNR (%.4f) != warm-start branch (%.4f)!\n",
+                     rmAbl.snr_recovered_db, rmAbl.snr_warm_start_db);
+        }
+        if ((int)rmAbl.residual_convergence_cold.size() != rmAbl.iterations ||
+            (int)rmAbl.residual_convergence_warm.size() != rmAbl.iterations ||
+            (int)rmAbl.residual_convergence.size() != rmAbl.iterations)
+        {
+            t11_ok = false;
+            log_test(logFp, "   [FAIL Reason] Residual trace length mismatch (expected %d iters)!\n", rmAbl.iterations);
+        }
+        // 消融指标必须真实写入磁盘，便于论文附表引用
+        QString ablCsv = "experiment_results/test_ablation/recon_metrics_summary.csv";
+        QFile abf(ablCsv);
+        if (!abf.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            t11_ok = false;
+            log_test(logFp, "   [FAIL Reason] Ablation metrics CSV not written!\n");
+        }
+        else
+        {
+            QString ablTxt = QTextStream(&abf).readAll();
+            abf.close();
+            if (!ablTxt.contains("SNR_POCS_ColdStart") || !ablTxt.contains("SNR_POCS_WarmStart"))
+            {
+                t11_ok = false;
+                log_test(logFp, "   [FAIL Reason] Ablation CSV missing cold/warm start rows!\n");
+            }
+        }
+    }
+
+    // 冷启动模式单独验证: useWarmStart=false 时主流水线应走冷启动
+    ReconstructionMetrics rmCold;
+    QString sumCold;
+    if (runWavefieldReconstruction("", "experiment_results/test_ablation_cold", 0.50f,
+                                   rmCold, sumCold, "", true, false, false, false))
+    {
+        if (rmCold.usedWarmStart || fabs(rmCold.snr_recovered_db - rmAbl.snr_cold_start_db) > 1e-3f)
+        {
+            t11_ok = false;
+            log_test(logFp, "   [FAIL Reason] Cold-start mode not honored (SNR %.4f vs %.4f)!\n",
+                     rmCold.snr_recovered_db, rmAbl.snr_cold_start_db);
+        }
+    }
+    else
+    {
+        t11_ok = false;
+        log_test(logFp, "   [FAIL Reason] Cold-start mode reconstruction failed!\n");
+    }
+
+    if (t11_ok) {
+        log_test(logFp, " [PASS] Test 11: Cold/Warm-Start Ablation & Initialization Contribution Decomposition\n");
+        passedTests++;
+    } else {
+        log_test(logFp, " [FAIL] Test 11: Cold/Warm-Start Ablation failed!\n");
     }
 
     log_test(logFp, "============================================================\n");

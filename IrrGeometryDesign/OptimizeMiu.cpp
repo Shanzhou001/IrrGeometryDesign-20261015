@@ -87,6 +87,27 @@ static int* gen_candidate_regen(int N, float c, const string& samptype) // add b
 	return Sampling1S_Count(N, m);
 }
 
+// 邻域扰动幅度（交换的采样点对数）// add by shanzhou in 2026/10/19
+// 原实现固定取 m/20（50% 采样率下每次交换约 3 对点），属于"大邻域跳转"，
+// 退火轨迹更接近多起点随机重启而非标准 SA 的单点邻域搜索。
+// 现默认改为标准 SA 的单点交换 (1 对)，既保持采样点数严格守恒，
+// 又使 Metropolis 接受准则真正作用于"小步扰动"的局部邻域。
+// 可通过环境变量 IRR_SA_NEIGHBOR_K 指定固定对数（>0），用于邻域幅度敏感性分析。
+static int sa_neighbor_swaps()
+{
+	static int cached = -2; // -2 = 未初始化
+	if (cached != -2) return cached;
+	const char *envs = getenv("IRR_SA_NEIGHBOR_K");
+	int k = 1;
+	if (envs && envs[0])
+	{
+		int v = atoi(envs);
+		if (v >= 1) k = v;
+	}
+	cached = k;
+	return cached;
+}
+
 static int* gen_candidate_neighbor(int N, const int* cur, const string& samptype)
 {
 	(void)samptype;
@@ -100,7 +121,8 @@ static int* gen_candidate_neighbor(int N, const int* cur, const string& samptype
 		else zeros.push_back(i);
 	}
 	if (ones.empty() || zeros.empty()) return cand;
-	int nm = (int)ones.size() / 20;
+	// 标准 SA 单点交换 (默认 1 对)，保持采样点数严格守恒 // 2026.10.19
+	int nm = sa_neighbor_swaps();
 	if (nm < 1) nm = 1;
 	for (int k = 0; k < nm; k++)
 	{

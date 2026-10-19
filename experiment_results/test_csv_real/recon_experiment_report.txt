@@ -2,7 +2,7 @@
   Seismic Wavefield Compressive Sensing Reconstruction Research Report
   Dataset Mode: External Seismic Record (seismic_valid_256x128.csv)
   Subsampling Mask: Auto-Generated Jitter Mask (m=64/128, 50.0%)
-  Generated: 2026-10-16 20:15:16
+  Generated: 2026-10-19 16:17:15
 ====================================================================================
 
 [Subsampling Geometry Configuration]
@@ -18,7 +18,20 @@
   4. Full-Field Root Mean Square Error (RMSE):        0.007183
   5. Pearson Cross-Correlation Coefficient (r):       0.9999
   6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
-  7. Reconstruction Execution Time:                   1720.0 ms (40 iterations)
+  7. Reconstruction Execution Time:                   3922.0 ms (40 iterations)
+
+[Controlled Cold-Start vs Warm-Start Experiment (Fairness / Ablation)]
+  Purpose: isolate the contribution of the linear-interpolation initial solution from
+           the contribution of the curvelet POCS iterations themselves.
+  - POCS from Zero-Fill init   (Cold-Start): SNR = 4.56 dB, RMSE = 0.418445, r = 0.8102
+  - POCS from Linear-Interp init (Warm-Start): SNR = 39.86 dB, RMSE = 0.007183, r = 0.9999
+  - Contribution split:
+      (a) warm-start initialization alone : 34.21 dB
+      (b) POCS iterations from cold start : 1.55 dB
+      (c) POCS iterations from warm start : 2.64 dB
+  - Interpretation: the headline SNR gain of the main pipeline is the SUM of (a) and (c).
+    Term (b) is the fair, literature-comparable measure of the curvelet POCS method itself,
+    because it starts from the same zero-fill initial solution used by standard POCS.
 
 [In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]
   - Observation Summary:

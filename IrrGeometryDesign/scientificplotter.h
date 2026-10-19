@@ -881,6 +881,8 @@ public:
 
     // =============================================================
     // 图 7: 全流程科研闭环综合大看板图 (集中汇集在 all_result_figures)
+    // 2026.10.19 重构：所有指标一律由实参驱动，杜绝硬编码；
+    //                  并显式标注每个模块的数据模式(真实/合成)，避免模式混用误导。
     // =============================================================
     static bool plotWorkflowSummaryDashboard(float meanFold,
                                             float cv,
@@ -889,7 +891,20 @@ public:
                                             const QString& savePath,
                                             float recon_snr = 14.10f,
                                             float rmse = 0.0382f,
-                                            float r_pearson = 0.9872f)
+                                            float r_pearson = 0.9872f,
+                                            bool attrIsReal = true,
+                                            int liveBins = 29719,
+                                            float costReductionPct = 0.0f,
+                                            float minOffset = 1.7f,
+                                            float maxOffset = 9324.0f,
+                                            float azimuthScore = 100.0f,
+                                            float miuReg50 = 0.9601f,
+                                            float miuOpt50 = 0.2240f,
+                                            float imprvPct50 = 76.67f,
+                                            float snrLinear = 12.35f,
+                                            float snrZero = 3.02f,
+                                            bool reconIsReal = false,
+                                            bool reconWarmStart = true)
     {
         int W = 1100, H = 680;
         QImage img(W, H, QImage::Format_RGB32);
@@ -904,43 +919,57 @@ public:
         int colW = 320, colH = 430;
         int topY = 95;
 
-        // 模块 1：采样优化
+        const QString attrTag = attrIsReal
+            ? QString::fromLocal8Bit("〔真实SPS工区〕")
+            : QString::fromLocal8Bit("〔合成基准〕");
+        const QString reconTag = reconIsReal
+            ? QString::fromLocal8Bit("〔外部实测资料〕")
+            : QString::fromLocal8Bit("〔合成数值模拟〕");
+
+        // 模块 1：采样优化 (均为合成基准上的算法对比，与观测系统属性无关)
         QRect r1(35, topY, colW, colH);
         std::vector<QString> l1;
         l1.push_back(QString::fromLocal8Bit("● 50% 采样相干度衰减: ") + QString::number(atten_db_50, 'f', 2) + " dB");
-        l1.push_back(QString::fromLocal8Bit("● 相干度改善率: 76.95% (由0.9601降至0.2213)"));
-        l1.push_back(QString::fromLocal8Bit("● 模拟退火状态转移无偏单调收敛"));
+        l1.push_back(QString::fromLocal8Bit("● 相干度改善率: ") + QString::number(imprvPct50, 'f', 2)
+                     + QString::fromLocal8Bit("% (由") + QString::number(miuReg50, 'f', 4)
+                     + QString::fromLocal8Bit("降至") + QString::number(miuOpt50, 'f', 4) + ")");
+        l1.push_back(QString::fromLocal8Bit("● 模拟退火历史最优轨迹严格单调非增"));
         l1.push_back(QString::fromLocal8Bit("● 彻底破坏网格周期假频并抑制栅瓣"));
         l1.push_back(QString::fromLocal8Bit("● 优于纯随机抽样：消除局部聚集与大孔隙"));
-        l1.push_back(QString::fromLocal8Bit("● 兼备高频白噪化与空间非规则展布"));
+        l1.push_back(QString::fromLocal8Bit("● 样本数 N=128，三种采样率 30%/50%/70%"));
         l1.push_back(QString::fromLocal8Bit("● 支撑论文核心创新点一：非规则优化"));
         drawCard(p, r1, QString::fromLocal8Bit("【模块一】多采样率对比与相干度优化"), l1);
 
-        // 模块 2：空间属性
+        // 模块 2：空间属性 (显式标注数据模式)
         QRect r2(390, topY, colW, colH);
         std::vector<QString> l2;
-        l2.push_back(QString::fromLocal8Bit("● CMP 面元平均覆盖: ") + QString::number(meanFold, 'f', 1) + QString::fromLocal8Bit(" 次"));
-        l2.push_back(QString::fromLocal8Bit("● 覆盖变异系数 Cv: ") + QString::number(cv, 'f', 3) + QString::fromLocal8Bit(" (优级标准<0.20)"));
-        l2.push_back(QString::fromLocal8Bit("● 检波点成本节约率: 50.0%"));
-        l2.push_back(QString::fromLocal8Bit("● 576 个有效面元 100% 满覆盖"));
-        l2.push_back(QString::fromLocal8Bit("● 炮检距 50m~3200m 连续平滑无缺失"));
-        l2.push_back(QString::fromLocal8Bit("● 方位角 360° 均匀对称玫瑰展布"));
+        l2.push_back(QString::fromLocal8Bit("● CMP 有效面元数: ") + QString::number(liveBins));
+        l2.push_back(QString::fromLocal8Bit("● 平均覆盖次数: ") + QString::number(meanFold, 'f', 1) + QString::fromLocal8Bit(" 次"));
+        l2.push_back(QString::fromLocal8Bit("● 覆盖变异系数 Cv: ") + QString::number(cv, 'f', 4));
+        l2.push_back(QString::fromLocal8Bit("● 检波点成本节约率: ") + QString::number(costReductionPct, 'f', 1) + "%");
+        l2.push_back(QString::fromLocal8Bit("● 炮检距 ") + QString::number(minOffset, 'f', 1)
+                     + "m ~ " + QString::number(maxOffset, 'f', 1) + "m");
+        l2.push_back(QString::fromLocal8Bit("● 方位角玫瑰完整度: ") + QString::number(azimuthScore, 'f', 1) + "%");
         l2.push_back(QString::fromLocal8Bit("● 支撑论文核心创新点二：空间属性保真"));
-        drawCard(p, r2, QString::fromLocal8Bit("【模块二】观测系统空间属性质量评估"), l2);
+        drawCard(p, r2, QString::fromLocal8Bit("【模块二】观测系统空间属性评估 ") + attrTag, l2);
 
         // 模块 3：波场重构
         QRect r3(745, topY, colW, colH);
         std::vector<QString> l3;
-        l3.push_back(QString::fromLocal8Bit("● 2D Curvelet POCS 恢复 SNR: ") + QString::number(recon_snr, 'f', 2) + " dB");
-        l3.push_back(QString::fromLocal8Bit("● 较空间线性插值基线净提升: +1.75 dB"));
-        l3.push_back(QString::fromLocal8Bit("● 均方根误差 RMSE: ") + QString::number(rmse, 'f', 4));
-        l3.push_back(QString::fromLocal8Bit("● 波形皮尔逊相关系数 r: ") + QString::number(r_pearson, 'f', 4));
-        l3.push_back(QString::fromLocal8Bit("● 实测采样道一致性严格通过 (< 1e-5)"));
-        l3.push_back(QString::fromLocal8Bit("● 抽稀未采样道波形相位微观精确保真"));
-        l3.push_back(QString::fromLocal8Bit("● 支撑论文核心创新点三：全链路学术闭环"));
-        drawCard(p, r3, QString::fromLocal8Bit("【模块三】地震波场压缩感知闭环重构"), l3);
+        l3.push_back(QString::fromLocal8Bit("● 基线1 零值填充 SNR: ") + QString::number(snrZero, 'f', 2) + " dB");
+        l3.push_back(QString::fromLocal8Bit("● 基线2 线性插值 SNR: ") + QString::number(snrLinear, 'f', 2) + " dB");
+        l3.push_back(QString::fromLocal8Bit("● 2D Curvelet POCS SNR: ") + QString::number(recon_snr, 'f', 2) + " dB");
+        l3.push_back(QString::fromLocal8Bit("● 较零值填充净提升: +") + QString::number(recon_snr - snrZero, 'f', 2) + " dB");
+        l3.push_back(QString::fromLocal8Bit("● 较线性插值净提升: ") + QString::number(recon_snr - snrLinear, 'f', 2) + " dB");
+        l3.push_back(QString::fromLocal8Bit("● RMSE: ") + QString::number(rmse, 'f', 4)
+                     + QString::fromLocal8Bit(" / r = ") + QString::number(r_pearson, 'f', 4));
+        l3.push_back(QString::fromLocal8Bit("● 初始化: ") + (reconWarmStart
+                     ? QString::fromLocal8Bit("线性插值热启动")
+                     : QString::fromLocal8Bit("零填充冷启动"))
+                     + QString::fromLocal8Bit(" / 采样道一致性<1e-5"));
+        drawCard(p, r3, QString::fromLocal8Bit("【模块三】波场压缩感知重构 ") + reconTag, l3);
 
-        // 底部总论栏
+        // 底部总论栏 (明确区分真实/合成，不混用)
         QRect bottomBar(35, 545, 1030, 105);
         p.fillRect(bottomBar, QColor(240, 253, 244));
         p.setPen(QColor(187, 247, 208));
@@ -950,12 +979,18 @@ public:
         p.setPen(QColor(22, 101, 52));
         p.drawText(bottomBar.left() + 20, bottomBar.top() + 30, QString::fromLocal8Bit("★ 全项目科研总结与学术闭环结论 (Scientific Research Conclusion)"));
 
+        const QString line1 = QString::fromLocal8Bit(
+            "1. 打通『非规则Jitter采样与退火优化』→『观测系统面元与属性评估』→『地震波场压缩感知重构』完整学术闭环。");
+        const QString line2 = attrIsReal
+            ? QString::fromLocal8Bit("2. 模块二基于真实野外SPS工区实测数据验证（未施加抽稀，成本节约率0%），属性指标为真实测量结果。")
+            : QString::fromLocal8Bit("2. 模块二为合成观测系统基准（24×24=576面元，50%检波点抽稀），用于算法可行性验证，非真实工区结论。");
+        const QString line3 = QString::fromLocal8Bit("3. 模块一/三为合成数值模拟条件下的算法对比实验，结论适用性需在真实野外资料上进一步验证。");
+
         p.setFont(getFont(11, false));
         p.setPen(QColor(21, 128, 61));
-        p.drawText(bottomBar.left() + 20, bottomBar.top() + 58,
-                   QString::fromLocal8Bit("1. 本项目打通了『非规则Jitter采样与退火优化』→『观测系统面元与属性评估』→『地震波场压缩感知重构』完整学术闭环。"));
-        p.drawText(bottomBar.left() + 20, bottomBar.top() + 82,
-                   QString::fromLocal8Bit("2. 证明了在节约 50% 野外采集成本前提下，不仅保持了极佳的覆盖均匀度，且能高保真重构未采样道波场，数字结论与多剖面图件相互印证。"));
+        p.drawText(bottomBar.left() + 20, bottomBar.top() + 52, line1);
+        p.drawText(bottomBar.left() + 20, bottomBar.top() + 74, line2);
+        p.drawText(bottomBar.left() + 20, bottomBar.top() + 96, line3);
 
         p.end();
         return img.save(savePath, "PNG");
@@ -989,9 +1024,9 @@ public:
         struct FigureItem { const char* filename; const char* title; const char* desc; };
         FigureItem items[] = {
             { "00_research_workflow_summary.png", "0. 全流程科研闭环综合大看板", "综合展示采样优化、属性质量与波场重构三大模块核心成果" },
-            { "01_sa_convergence_curve.png", "1. 模拟退火(SA)优化相干度下降收敛曲线", "展示50%采样率下相干度由0.9601收敛至0.2213，衰减12.75 dB" },
+            { "01_sa_convergence_curve.png", "1. 模拟退火(SA)优化相干度下降收敛曲线", "展示50%采样率下模拟退火当前解探索轨迹与历史最优单调非增收敛轨迹" },
             { "02_sampling_benchmark_bars.png", "2. 三种采样方案在各采样率下的相干度对比柱状图", "对比规则抽样、随机抽样与Jitter-SA优化采样的相干度与假频抑制" },
-            { "03_cmp_fold_distribution_map.png", "3. CMP 面元覆盖次数空间平面热力分布图", "展示576个面元的覆盖次数，变异系数Cv=0.154，证明空间覆盖高度均匀" },
+            { "03_cmp_fold_distribution_map.png", "3. CMP 面元覆盖次数空间平面热力分布图", "展示观测系统有效面元的空间覆盖次数分布与覆盖均匀度" },
             { "04_offset_azimuth_rose_charts.png", "4. 炮检距连续性分布直方图与方位角玫瑰图", "证明非规则排列保留了连续的炮检距与360度全方位角覆盖" },
             { "05_wavefield_reconstruction_quad.png", "5. 地震波场欠采样与压缩感知(POCS)恢复四联剖面", "展示原始记录、50%欠采样、POCS恢复剖面与残差空间切片剖面" },
             { "06_recon_convergence_trace_comparison.png", "6. POCS残差收敛曲线与抽稀道单道波形对比细节", "展示迭代收敛轨迹与未采样道反射峰谷精确对齐" }

@@ -126,7 +126,17 @@ public:
         float correlation;           // 皮尔逊相关系数 r (0~1)
         bool dataConsistencyPassed;  // 观测道数据一致性检验是否通过
         double runtimeMs;            // 算法耗时 (毫秒)
+        // ---- 冷启动/热启动对照 (用于学术公平性论证, 2026.10.19 新增) ----
+        bool usedWarmStart;          // 本次 POCS 是否使用线性插值热启动初始化
+        float snr_cold_start_db;     // 零填充冷启动 POCS 恢复 SNR (dB)
+        float rmse_cold_start;       // 零填充冷启动 POCS RMSE
+        float corr_cold_start;       // 零填充冷启动 POCS 相关系数
+        float snr_warm_start_db;     // 线性插值热启动 POCS 恢复 SNR (dB)
+        float rmse_warm_start;       // 线性插值热启动 POCS RMSE
+        float corr_warm_start;       // 线性插值热启动 POCS 相关系数
         std::vector<float> residual_convergence; // 迭代残差收敛轨迹
+        std::vector<float> residual_convergence_cold; // 冷启动迭代残差轨迹
+        std::vector<float> residual_convergence_warm; // 热启动迭代残差轨迹
     };
 
     // 严格校验采样掩码文件合法性 (长度严格为 expectedN, 采样点数严格为 expectedSampledPoints, 取值只能严格为 0 或 1) // add by shanzhou in 2026/10/15
@@ -149,6 +159,8 @@ public:
                                          QString& outErrorMsg);
 
     // 执行地震波场压缩感知重构试验（支持外部地震文件输入、真实掩码校验、基线对比与全分辨率导出）
+    // useWarmStart: true=以空间线性插值为初值 (热启动)；false=以零填充为初值 (冷启动，标准 POCS)
+    // runStartupComparison: true=额外跑一次相反初始化并填入冷/热启动对照指标
     static bool runWavefieldReconstruction(const QString& maskFilePath,
                                           const QString& outputDir,
                                           float customRatio,
@@ -156,7 +168,9 @@ public:
                                           QString& outReportSummary,
                                           const QString& inputSeismicFilePath,
                                           bool exportFullResolution,
-                                          bool forceDataConsistencyFailure = false);
+                                          bool forceDataConsistencyFailure = false,
+                                          bool useWarmStart = true,
+                                          bool runStartupComparison = true);
 
     // 辅助工具：一键执行全部三个试验并导出完整成果（具备子试验状态核验与错误追溯）
     static bool runFullExperimentSuite(GProject *pProject,
