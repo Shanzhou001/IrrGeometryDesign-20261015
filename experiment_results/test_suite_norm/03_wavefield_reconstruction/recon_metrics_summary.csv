@@ -14,4 +14,4 @@ SNR_Imprv_vs_Linear,1.75,dB,Net SNR gain over linear interp baseline
 RMSE,0.031334,Amplitude,Root mean square error across gather
 Pearson_Correlation,0.9804,Ratio,Linear correlation with ground truth
 Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
-Runtime_ms,2776.0,ms,Execution wall time
+Runtime_ms,1458.0,ms,Execution wall time

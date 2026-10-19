@@ -1,0 +1,17 @@
+Metric_Name,Value,Unit,Description
+Mode_Name,External Seismic Record (seismic_valid_256x128.csv),Text,Dataset mode
+Mask_Source,Auto-Generated Jitter Mask (m=64/128, 50.0%),Text,Subsampling mask origin
+Sampling_Ratio,50.00%,Percentage of active receiver traces
+Active_Traces,64,Traces,Number of acquired traces
+Total_Traces,128,Traces,Full grid aperture traces
+Time_Samples,256,Samples,Time axis discrete length
+POCS_Iterations,40,Iterations,Max convex projection loops
+SNR_Zero_Fill,3.01,dB,Baseline 1: Zero-fill unmeasured traces
+SNR_Linear_Interp,37.22,dB,Baseline 2: 1D Spatial linear interpolation
+SNR_POCS_CS,39.86,dB,Compressive sensing POCS recovered SNR
+SNR_Improvement_vs_Zero,36.85,dB,Net SNR gain over zero fill baseline
+SNR_Imprv_vs_Linear,2.64,dB,Net SNR gain over linear interp baseline
+RMSE,0.007183,Amplitude,Root mean square error across gather
+Pearson_Correlation,0.9999,Ratio,Linear correlation with ground truth
+Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
+Runtime_ms,1720.0,ms,Execution wall time
