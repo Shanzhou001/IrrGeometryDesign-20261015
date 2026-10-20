@@ -120,7 +120,7 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     mTitles << QString::fromLocal8Bit("00. 全流程科研闭环综合大看板 (Workflow Summary Dashboard)");
     mConclusions << QString::fromLocal8Bit(
         "<b>【图件定位】</b>全流程科研闭环综合大看板（观测系统设计 -> 空间相干度优化 -> CMP属性评估 -> 压缩感知POCS波场重构 -> 多指标定量对比）。<br>"
-        "<b>【核心结论与图件支撑】</b>如图件所示，系统打通了从野外地震观测设计到保真恢复的完整链路。Jitter-SA 优化将 50% 采样率下的曲波互相干度由 0.9601（规则减抽）降至 0.2353（3 轮均值），相干度比值衰减 12.25 dB；同时在 50% 欠采样下 2D Curvelet POCS（线性插值热启动）重构信噪比达 14.10 dB，相关系数 0.9804，较线性插值基线提升 1.75 dB，同相轴平滑连续，数字结论与多剖面图件相互印证。"
+        "<b>【核心结论与图件支撑】</b>如图件所示，系统打通了从野外地震观测设计到保真恢复的完整链路。Jitter-SA 优化将 50% 采样率下的曲波互相干度由 0.9601（规则减抽）降至 0.2238（10 轮均值），相干度比值衰减 12.71 dB；同时在 50% 欠采样下 2D Curvelet POCS（线性插值热启动）重构信噪比达 13.90 dB，相关系数 0.9794，较线性插值基线（11.83 dB）提升 2.07 dB。注意：此为合成数值模拟条件下的结果，真实野外资料验证见 README 第八节。"
     );
 
     mFileNames << "01_sa_convergence_curve.png";
@@ -155,7 +155,7 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     mTitles << QString::fromLocal8Bit("05. 2D波场欠采样与POCS压缩感知重构四联剖面 (CS Reconstruction)");
     mConclusions << QString::fromLocal8Bit(
         "<b>【图件定位】</b>(a) 原始完整波场、(b) 50% 欠采样波场、(c) 2D Curvelet POCS 压缩感知重构波场、(d) 残差剖面的四联对比。<br>"
-        "<b>【核心结论与图件支撑】</b>剖面对比直观证实：在缺失 50% 道的情况下，2D Curvelet POCS 重构剖面完整恢复了微弱反射同相轴的连续性，重构 SNR 达到 14.10 dB（相比零值填充提升 11.09 dB），显著超越空间线性插值基线（12.35 dB，+1.75 dB），RMSE 降至 0.0313，残差剖面能量微弱且无同相轴残余泄漏。"
+        "<b>【核心结论与图件支撑】</b>剖面对比显示：在缺失 50% 道的情况下，2D Curvelet POCS 重构剖面恢复了反射同相轴的连续性，重构 SNR 达 13.90 dB（相比零值填充提升 10.90 dB），高于空间线性插值基线（11.83 dB，+2.07 dB），RMSE 为 0.032070。以上为合成数值模拟条件；真实野外资料上该增益并不成立（−0.62 dB），详见 README 第八节。"
     );
 
     mFileNames << "06_recon_convergence_trace_comparison.png";

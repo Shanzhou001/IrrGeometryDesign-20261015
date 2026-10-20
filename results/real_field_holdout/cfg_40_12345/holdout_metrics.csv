@@ -1,0 +1,18 @@
+Metric_Name,Value,Unit,Description
+Validation_Type,Hold-out on measured traces,Text,SNR computed ONLY on withheld real traces
+Input_File,real_gather_59x256.csv,Text,Source gather
+Traces_Used,59,Traces,Real traces in the working grid
+Traces_Kept,40,Traces,Traces given to the solver as known
+Traces_HeldOut,19,Traces,Measured traces used as truth only
+Time_Samples,256,Samples,Samples per trace
+POCS_Iterations,40,Iterations,POCS iterations
+Random_Seed,12345,Seed,Seed selecting kept traces
+SNR_Zero_Fill_HeldOut,0.00,dB,On held-out traces
+SNR_Linear_HeldOut,-1.18,dB,On held-out traces
+SNR_POCS_HeldOut,-0.27,dB,On held-out traces
+Gain_POCS_vs_Linear,0.91,dB,Held-out gain
+Gain_POCS_vs_Zero,-0.27,dB,Held-out gain
+RMSE_Linear,0.125856,Amplitude,Held-out RMSE
+RMSE_POCS,0.113385,Amplitude,Held-out RMSE
+Input_SHA1,5efdbb3dfbad355b07f9de4366b6e90e76890260,Hash,SHA1 of the input gather CSV
+Runtime_ms,774.0,ms,Wall time for this hold-out run

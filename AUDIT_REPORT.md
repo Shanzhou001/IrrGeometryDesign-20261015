@@ -234,3 +234,89 @@ figures/...                                      重新生成
 - ❌ "曲波 POCS 显著超过线性插值"（真实资料上不成立）
 - ❌ 将合成 13.90 dB 作为真实工区结论
 - ❌ 将 12.35 / 14.10 作为当前结果（那是旧配置）
+
+---
+
+# 第二轮整改（2026-10-20 下午）
+
+- **基线**：`main` @ `fede417c`（已核对）
+- **目标**：测试有效性、真实留出证据归档、目录语义、文档一致性
+
+## 二轮问题关闭表
+
+| # | 问题 | 状态 | 证据 |
+| :---: | :--- | :---: | :--- |
+| R1 | Test 13/14 跳过却计为通过；无 `results/` 时仍报 `14/14 ALL PASS` | ✅ 已修复 | 删除必需输入后退出码 1、`Status: FAILED` |
+| R2 | Test 13 依赖磁盘遗留报告 | ✅ 已修复 | 改为沙箱内自生成正/负增益报告 |
+| R3 | Test 14 仅验单组，无泄漏断言 | ✅ 已修复 | 6 组 cfg + 换种子必变 + gain 自洽 |
+| R4 | 无掩码生效回归测试 | ✅ 已修复 | Test 15：Δ11.74 dB + 4 类非法掩码拒绝 |
+| R5 | 6 组留出未归档为机器可读记录 | ✅ 已修复 | `holdout_runs.csv`（程序自写，6 行） |
+| R6 | 真实 SPS 报告在 `synthetic/` 下 | ✅ 已修复 | 移至 `results/real_sps/attribute_evaluation/` |
+| R7 | `scientificplotter.h` 默认参数仍为 14.10/12.35 | ✅ 已修复 | 改为 13.90/11.83/3.00 |
+| R8 | GUI 叙述仍称"14.10 dB / 提升 1.75 dB" | ✅ 已修复 | 改为 13.90 / +2.07，并注明合成条件 |
+| R9 | README 出现 8.20 dB（与 13.90−6.24=7.66 不符） | ✅ 已修复 | 改为 7.66 dB |
+| R10 | 构建脚本硬编码 Qt/VS 路径 | ⚠️ 未修改 | 本环境可构建；迁移需在另一台机器验证 |
+| R11 | 无 CI 工作流 | ⚠️ 不适用 | MSVC 9.0 / Qt 4.7.4 已停止分发，Actions 无法获取 |
+| R12 | 单炮数据无法做 CMP 全工区闭环 | ⚠️ 需补数据 | 需同工区多炮资料 |
+
+## 本轮测试结果（实际执行）
+
+```
+x64\Release\IrrGeometryDesign.exe --test
+ Test Results: PASS=15  FAIL=0  SKIP=0  (total=15)
+ Status: ALL PASS (15/15)
+```
+
+负向验证（删除 `real_gather_59x256.csv` 后，于临时目录运行）：
+
+```
+[FAIL] Required input missing: data/real_seismic/real_gather_59x256.csv
+[FAIL] Test preconditions not met - required data files are missing.
+[FAIL] Test 14: Held-out validation failed!
+ Test Results: PASS=14  FAIL=1  SKIP=0  (total=15)
+ Status: FAILED - required input files are missing (preflight failed)
+EXIT=1
+```
+
+## 6 组留出实验（`holdout_runs.csv`，程序实测）
+
+| cfg | keep | held | seed | 零填充 | 线性 | POCS | POCS−线性 | RMSE(POCS) |
+| :---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 20 | 39 | 20261020 | 0.00 | −1.6371 | −0.5403 | **+1.0968** | 0.120721 |
+| 1 | 20 | 39 | 12345 | 0.00 | −2.4184 | −1.1177 | **+1.3007** | 0.127729 |
+| 2 | 30 | 29 | 20261020 | 0.00 | −1.6669 | −0.4142 | **+1.2527** | 0.116189 |
+| 3 | 30 | 29 | 12345 | 0.00 | −1.6777 | −0.5692 | **+1.1085** | 0.118186 |
+| 4 | 40 | 19 | 20261020 | 0.00 | −1.4263 | −0.2539 | **+1.1724** | 0.116323 |
+| 5 | 40 | 19 | 12345 | 0.00 | −1.1774 | −0.2710 | **+0.9063** | 0.113385 |
+
+- 6/6 配置 POCS 均优于线性插值（+0.91 ~ +1.30 dB）
+- 输入 SHA1：`5efdbb3d...`（由程序写入 CSV）
+- 两次运行科学列完全一致，仅 `runtime_ms` 不同
+- gain 列可由 `snr_pocs_db − snr_linear_db` 独立复算，6/6 吻合
+
+## 本轮目录迁移
+
+| 数据模式 | 旧路径 | 新路径 |
+| :--- | :--- | :--- |
+| 合成数值模拟 | `results/synthetic/02_attribute_real_sps/` | `results/synthetic/`（仅 01、03） |
+| 真实 SPS 几何 | 同上（混放） | **`results/real_sps/attribute_evaluation/`** |
+| 真实波形重构 | `results/real_field/` | `results/real_field/`（不变） |
+| 真实留出验证 | `results/real_field_holdout/` | `results/real_field_holdout/` + `holdout_runs.csv` |
+
+## 旧指标检索结论
+
+| 指标 | 位置 | 判定 |
+| :--- | :--- | :--- |
+| 12.35 / 14.10 / 1.75 / 5.90 | `README.md` §4.5.3 历史行、`AUDIT_REPORT.md`、changelog | **保留为历史**（已标注旧配置与掩码差异） |
+| 14.10 / 12.35 | `scientificplotter.h` 默认参数 | **已修正** → 13.90 / 11.83 |
+| 14.10 / 1.75 | `tspsform.cpp` GUI 叙述 | **已修正** → 13.90 / +2.07 |
+| 8.20 | `README.md` 热启动−冷启动差值 | **已修正** → 7.66 |
+| `all_result_figures` | `tspsform.cpp` GUI 画廊路径 | **待处理**（GUI 画廊仍按旧路径查找，非科学指标） |
+| `02_attribute_evaluation` | 仅注释与历史记录 | **保留**（历史说明） |
+
+## 本轮仍无法验证的事项
+
+- **构建脚本路径可移植性**：脚本仍写死 `D:\Qt\4.7.4`。转为环境变量需在一台无该路径的机器上实测，本环境无法完成，故未改动。
+- **CI**：MSVC 9.0 与 Qt 4.7.4 已停止分发，GitHub Actions runner 无法获取，记录为已知限制。
+- **多炮闭环**：`RRAW.SGY` 为单炮 59 道，无法做 CMP 面元/速度分析/NMO/叠加。
+- **GUI 画廊路径**：`tspsform.cpp` 中"打开图件文件夹"仍指向旧 `experiment_results/all_result_figures`，本轮未调整（属 GUI 便利功能，不影响命令行与科学指标）。

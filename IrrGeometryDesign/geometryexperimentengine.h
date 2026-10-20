@@ -3,6 +3,7 @@
 #define GEOMETRY_EXPERIMENT_ENGINE_H
 
 #include <QString>
+#include <QList>
 #include <vector>
 #include <complex>
 #include "gproject.h"
@@ -233,6 +234,8 @@ public:
         float  rmse_linear;
         float  rmse_pocs;
         bool   dataConsistencyPassed;
+        double runtimeMs;        // 2026.10.20: 本组实际运行耗时
+        QString inputSha1;       // 2026.10.20: 输入 CSV 的 SHA1（Qt4.7 无 SHA256，独立复核用）
     };
 
     // 输入 CSV: 每行 Nt 个时间样点? 否 —— 与引擎一致: 行=时间, 列=道。
@@ -248,6 +251,17 @@ public:
 
     // 自动化单元测试与回归校验体系 (Task 11) (add by shanzhou in 2026/10/15)
     static bool runUnitTests();
+
+    // 批量留出验证并归档 (2026.10.20 新增)
+    // 对 keep x seed 组合逐一执行，写出机器可读的汇总 CSV，
+    // 所有数值均由实际执行产生，便于第三方复算。
+    static bool runHoldoutBatch(const QString& inputCsvPath,
+                                int useTraces,
+                                const QList<int>& keeps,
+                                const QList<unsigned long long>& seeds,
+                                int iterations,
+                                const QString& outputDir,
+                                QString& outReport);
 };
 
 #endif // GEOMETRY_EXPERIMENT_ENGINE_H

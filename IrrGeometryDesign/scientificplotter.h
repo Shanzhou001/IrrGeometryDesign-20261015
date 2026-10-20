@@ -418,7 +418,7 @@ public:
     }
 
     // =============================================================
-    // 图 3: CMP 面元空间覆盖次数平面分布热力图 (02_attribute_evaluation)
+    // 图 3: CMP 面元空间覆盖次数平面分布热力图
     // 2026.10.19 重构：改为按真实 GCellGrid 覆盖次数矩阵逐格渲染。
     //   原实现用 foldVal = maxFold - dist^2*... + 伪随机扰动 直接"画"出一张
     //   与实测无关的径向渐变图，标签却声称是真实工区，属伪造数据。
@@ -955,9 +955,9 @@ public:
                                             float snr_gain,
                                             float atten_db_50,
                                             const QString& savePath,
-                                            float recon_snr = 14.10f,
-                                            float rmse = 0.0382f,
-                                            float r_pearson = 0.9872f,
+                                            float recon_snr = 13.90f,   // 2026.10.20: 同步当前正式基准
+                                            float rmse = 0.032070f,
+                                            float r_pearson = 0.9794f,
                                             bool attrIsReal = true,
                                             int liveBins = 29719,
                                             float costReductionPct = 0.0f,
@@ -965,10 +965,10 @@ public:
                                             float maxOffset = 9324.0f,
                                             float azimuthScore = 100.0f,
                                             float miuReg50 = 0.9601f,
-                                            float miuOpt50 = 0.2240f,
-                                            float imprvPct50 = 76.67f,
-                                            float snrLinear = 12.35f,
-                                            float snrZero = 3.02f,
+                                            float miuOpt50 = 0.2238f,
+                                            float imprvPct50 = 76.69f,
+                                            float snrLinear = 11.83f,
+                                            float snrZero = 3.00f,
                                             bool reconIsReal = false,
                                             bool reconWarmStart = true)
     {

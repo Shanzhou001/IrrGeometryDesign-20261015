@@ -184,6 +184,47 @@ int main(int argc, char *argv[])
 			}
 			return 0;
 		}
+		// 2026.10.20: 批量留出验证并归档（生成 holdout_runs.csv，供第三方复算）
+		// 用法: --holdout-batch <gather.csv> [--traces m] [--iter n] [--out dir]
+		if (strcmp(argv[i], "--holdout-batch") == 0)
+		{
+			QString inCsv;
+			QString outDir = "results/real_field_holdout";
+			int m = 59, iters = 40;
+			if (i + 1 < argc && argv[i + 1][0] != '-')
+			{
+				inCsv = QString::fromLocal8Bit(argv[i + 1]);
+			}
+			for (int j = 1; j < argc; j++)
+			{
+				if (strcmp(argv[j], "--out") == 0 && j + 1 < argc) outDir = QString::fromLocal8Bit(argv[j + 1]);
+				else if (strcmp(argv[j], "--traces") == 0 && j + 1 < argc) m = atoi(argv[j + 1]);
+				else if (strcmp(argv[j], "--iter") == 0 && j + 1 < argc) iters = atoi(argv[j + 1]);
+			}
+			if (inCsv.isEmpty())
+			{
+				fprintf(stderr, "Usage: IrrGeometryDesign --holdout-batch <gather.csv> [--traces m] [--iter n] [--out dir]\n");
+				return 1;
+			}
+			QList<int> keeps;
+			keeps << 20 << 30 << 40;
+			QList<unsigned long long> seeds;
+			seeds << 20261020ULL << 12345ULL;
+
+			printf("Hold-out batch validation (6 configurations)\n");
+			printf("  input : %s\n", inCsv.toLocal8Bit().constData());
+			printf("  traces=%d iter=%d out=%s\n", m, iters, outDir.toLocal8Bit().constData());
+
+			QString rep;
+			bool bok = GeometryExperimentEngine::runHoldoutBatch(inCsv, m, keeps, seeds, iters, outDir, rep);
+			printf("%s\n", rep.toLocal8Bit().constData());
+			if (!bok)
+			{
+				fprintf(stderr, "\n[ERROR]: hold-out batch validation failed.\n");
+				return 1;
+			}
+			return 0;
+		}
 	}
 
 	QTranslator *qtTranslator = new QTranslator;

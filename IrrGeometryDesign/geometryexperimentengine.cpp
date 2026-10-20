@@ -16,6 +16,7 @@
 #include <QCoreApplication>
 #include <QList>
 #include <QByteArray>
+#include <QCryptographicHash>
 #include <math.h>
 #include <time.h>
 #include <stdlib.h>
@@ -2521,11 +2522,11 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
     QDir().mkpath(outputDir);   // 2026.10.20: 原 dir.mkpath(outputDir) 会把 outputDir 重复拼接到 dir 之后
 
     QString dir1 = dir.filePath("01_sampling_benchmark");
-    // 2026.10.20: 该模块使用真实 SPS 观测系统数据，目录名显式标注 real_sps，
-    // 避免与"合成模拟"结果混在同一目录而被误读。
-    QString dir2 = dir.filePath("02_attribute_real_sps");
-    QString dir3 = dir.filePath("03_wavefield_reconstruction");
+    // 2026.10.20: 真实 SPS 几何评价不属于"合成"实验，放到输出目录的兄弟目录
+    // real_sps/attribute_evaluation/ 下，避免与 synthetic/ 混淆。
+    QString dir2 = QDir(dir.filePath("..")).filePath("real_sps/attribute_evaluation");
 
+    QString dir3 = dir.filePath("03_wavefield_reconstruction");
     // 2026.10.20 修复: dir.mkpath(dir1) 会把 dir1 当作相对于 dir 的路径，
     // 而 dir1 已含 outputDir 前缀，结果创建出 experiment_results/experiment_results/01_...
     // 的空壳目录。改用 QDir() 以绝对/完整路径创建。
@@ -2581,10 +2582,10 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
                  checkFileExistsAndNonEmpty(dir.filePath("01_sampling_benchmark/benchmark_convergence_curves.csv")) &&
                  checkFileExistsAndNonEmpty(dir.filePath("01_sampling_benchmark/benchmark_summary_report.txt"));
 
-    bool f2_ok = checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_fold_distribution.csv")) &&
-                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_offset_distribution.csv")) &&
-                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_azimuth_rose.csv")) &&
-                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_quality_report.txt"));
+    bool f2_ok = checkFileExistsAndNonEmpty(QDir(dir2).filePath("attribute_fold_distribution.csv")) &&
+                 checkFileExistsAndNonEmpty(QDir(dir2).filePath("attribute_offset_distribution.csv")) &&
+                 checkFileExistsAndNonEmpty(QDir(dir2).filePath("attribute_azimuth_rose.csv")) &&
+                 checkFileExistsAndNonEmpty(QDir(dir2).filePath("attribute_quality_report.txt"));
 
     bool f3_ok = checkFileExistsAndNonEmpty(dir.filePath("03_wavefield_reconstruction/recon_original_gather.csv")) &&
                  checkFileExistsAndNonEmpty(dir.filePath("03_wavefield_reconstruction/recon_subsampled_gather.csv")) &&
@@ -2820,6 +2821,7 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
                                                     HoldoutMetrics& outMetrics,
                                                     QString& outReport)
 {
+    const clock_t holdoutStart = clock();   // 2026.10.20: 记录本组实际耗时
     QDir dir(outputDir);
     if (!dir.exists()) QDir().mkpath(outputDir);
 
@@ -2957,6 +2959,7 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
     outMetrics.heldOutTraces= m - k;
     outMetrics.nSamples     = availNt;
     outMetrics.iterations   = iterations;
+    outMetrics.runtimeMs   = (double)(clock() - holdoutStart) / CLOCKS_PER_SEC * 1000.0;
     outMetrics.seed         = seed;
     outMetrics.snr_zero_fill_db = 10.0 * log10(eTruth / (eZero > eps ? eZero : eps));
     outMetrics.snr_linear_db    = 10.0 * log10(eTruth / (eLin  > eps ? eLin  : eps));
@@ -2966,6 +2969,14 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
     outMetrics.rmse_linear = (float)sqrt(eLin  / (double)cnt);
     outMetrics.rmse_pocs   = (float)sqrt(ePocs / (double)cnt);
     outMetrics.dataConsistencyPassed = true;
+    {   // 2026.10.20: 记录输入文件 SHA1，便于第三方独立复核
+        QFile hf(inputCsvPath);
+        if (hf.open(QIODevice::ReadOnly))
+        {
+            outMetrics.inputSha1 = QString(QCryptographicHash::hash(hf.readAll(), QCryptographicHash::Sha1).toHex());
+            hf.close();
+        }
+    }
 
     // ---- 5. 输出 CSV + 文本报告 ----
     QFile csv(dir.filePath("holdout_metrics.csv"));
@@ -2993,6 +3004,8 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
         o << "Gain_POCS_vs_Zero," << QString::number(outMetrics.gain_pocs_vs_zero_db, 'f', 2) << ",dB,Held-out gain\n";
         o << "RMSE_Linear," << QString::number(outMetrics.rmse_linear, 'f', 6) << ",Amplitude,Held-out RMSE\n";
         o << "RMSE_POCS," << QString::number(outMetrics.rmse_pocs, 'f', 6) << ",Amplitude,Held-out RMSE\n";
+        o << "Input_SHA1," << outMetrics.inputSha1 << ",Hash,SHA1 of the input gather CSV\n";
+        o << "Runtime_ms," << QString::number(outMetrics.runtimeMs, 'f', 1) << ",ms,Wall time for this hold-out run\n";
         csv.close();
     }
 
@@ -3024,6 +3037,127 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
 }
 
 
+// =============================================================================
+// 批量留出验证并归档 (2026.10.20 新增)
+//
+// 目的: 让"6 组 keep x seed 配置"成为可独立复算的机器可读记录，
+//       而不是散落在审计报告表格里由人工抄录。
+//
+// 输出: <outputDir>/holdout_runs.csv，每行一组配置，字段包括
+//       输入文件与 SHA1、道数、样点、迭代、种子、三种方法 SNR、
+//       两个增益、两个 RMSE、实际耗时。
+//
+// 说明: 所有数值均由 runHoldoutValidation 实际执行产生。
+// =============================================================================
+bool GeometryExperimentEngine::runHoldoutBatch(const QString& inputCsvPath,
+                                               int useTraces,
+                                               const QList<int>& keeps,
+                                               const QList<unsigned long long>& seeds,
+                                               int iterations,
+                                               const QString& outputDir,
+                                               QString& outReport)
+{
+    QDir dir(outputDir);
+    if (!dir.exists()) QDir().mkpath(outputDir);
+
+    QFile in(inputCsvPath);
+    if (!in.open(QIODevice::ReadOnly))
+    {
+        outReport = QString::fromLocal8Bit("【批量留出验证失败】无法打开输入: %1").arg(inputCsvPath);
+        return false;
+    }
+    QByteArray blob = in.readAll();
+    in.close();
+    if (blob.isEmpty())
+    {
+        outReport = QString::fromLocal8Bit("【批量留出验证失败】输入文件为空");
+        return false;
+    }
+    const QString sha1 = QString(QCryptographicHash::hash(blob, QCryptographicHash::Sha1).toHex());
+
+    QFile csv(dir.filePath("holdout_runs.csv"));
+    if (!csv.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        outReport = QString::fromLocal8Bit("【批量留出验证失败】无法写入 holdout_runs.csv");
+        return false;
+    }
+
+    QTextStream o(&csv);
+    o.setCodec("UTF-8");
+    o << "config_index,keep_traces,total_traces,held_out_traces,time_samples,"
+         "iterations,seed,input_file,input_sha1,"
+         "snr_zero_fill_db,snr_linear_db,snr_pocs_db,"
+         "gain_pocs_vs_linear_db,gain_pocs_vs_zero_db,"
+         "rmse_linear,rmse_pocs,runtime_ms\n";
+
+    int okCount = 0;
+    const int nKeeps = keeps.size();
+    const int nSeeds = seeds.size();
+    int cfgIndex = 0;
+
+    QStringList lines;
+    for (int ki = 0; ki < nKeeps; ki++)
+    {
+        for (int si = 0; si < nSeeds; si++)
+        {
+            const int keep = keeps.at(ki);
+            const unsigned long long sd = seeds.at(si);
+            const QString oneDir = dir.filePath(QString("cfg_%1_%2").arg(keep).arg(QString::number(sd)));
+
+            HoldoutMetrics hm;
+            QString oneReport;
+            if (!runHoldoutValidation(inputCsvPath, useTraces, keep, iterations, sd, oneDir, hm, oneReport))
+            {
+                o << cfgIndex << "," << keep << "," << useTraces << ",,,"
+                  << QString::number(sd) << "," << QFileInfo(inputCsvPath).fileName() << ","
+                  << sha1 << ",,,,,,,,ERROR\n";
+                lines << QString::fromLocal8Bit("  cfg%1 keep=%2 seed=%3 -> FAILED")
+                         .arg(cfgIndex).arg(keep).arg(QString::number(sd));
+                cfgIndex++;
+                continue;
+            }
+
+            o << cfgIndex << "," << keep << "," << hm.nTraces << "," << hm.heldOutTraces << ","
+              << hm.nSamples << "," << hm.iterations << ","
+              << QString::number(sd) << "," << QFileInfo(inputCsvPath).fileName() << ","
+              << sha1 << ","
+              << QString::number(hm.snr_zero_fill_db, 'f', 4) << ","
+              << QString::number(hm.snr_linear_db, 'f', 4) << ","
+              << QString::number(hm.snr_pocs_db, 'f', 4) << ","
+              << QString::number(hm.gain_pocs_vs_linear_db, 'f', 4) << ","
+              << QString::number(hm.gain_pocs_vs_zero_db, 'f', 4) << ","
+              << QString::number(hm.rmse_linear, 'f', 6) << ","
+              << QString::number(hm.rmse_pocs, 'f', 6) << ","
+              << QString::number(hm.runtimeMs, 'f', 1) << "\n";
+
+            lines << QString::fromLocal8Bit("  cfg%1 keep=%2/%3 held=%4 seed=%5  zero=%6 linear=%7 POCS=%8 gain=%9 rmse=%10")
+                     .arg(cfgIndex).arg(keep).arg(hm.nTraces).arg(hm.heldOutTraces)
+                     .arg(QString::number(sd))
+                     .arg(QString::number(hm.snr_zero_fill_db, 'f', 2))
+                     .arg(QString::number(hm.snr_linear_db, 'f', 2))
+                     .arg(QString::number(hm.snr_pocs_db, 'f', 2))
+                     .arg(fmtSigned(hm.gain_pocs_vs_linear_db))
+                     .arg(QString::number(hm.rmse_pocs, 'f', 6));
+            okCount++;
+            cfgIndex++;
+        }
+    }
+    csv.close();
+
+    outReport = QString::fromLocal8Bit(
+        "【批量留出验证完成】%1/%2 组成功\n"
+        "输入: %3\n"
+        "SHA1: %4\n"
+        "%5\n"
+        "归档: %6")
+        .arg(okCount).arg(nKeeps * nSeeds)
+        .arg(QFileInfo(inputCsvPath).fileName())
+        .arg(sha1)
+        .arg(lines.join("\n"))
+        .arg(dir.filePath("holdout_runs.csv"));
+
+    return (okCount == nKeeps * nSeeds);
+}
 bool GeometryExperimentEngine::runUnitTests()
 {
     // 2026.10.20: 测试中间产物统一写入临时沙箱，测试结束自动删除，
@@ -3039,6 +3173,35 @@ bool GeometryExperimentEngine::runUnitTests()
 
     int totalTests = 0;
     int passedTests = 0;
+    int skippedTests = 0;   // 2026.10.20: SKIP 单独计数，不计为通过
+    // -------------------------------------------------------------
+    // 前置条件检查 (2026.10.20 新增)
+    // 仓库承诺必须存在的测试输入，缺失时直接判失败，不得静默跳过。
+    // -------------------------------------------------------------
+    bool preflightOk = true;
+    {
+        const char *requiredInputs[] = {
+            "data/real_seismic/real_gather_59x256.csv",
+            "data/real_seismic/real_gather_256x128.csv",
+            "data/sps/5151-5171.S",
+            "data/sps/5151-5171.R",
+            "data/sps/5151-5171.X"
+        };
+        const int nRequired = (int)(sizeof(requiredInputs) / sizeof(requiredInputs[0]));
+        for (int ri = 0; ri < nRequired; ri++)
+        {
+            if (!QFile::exists(QString::fromLocal8Bit(requiredInputs[ri])))
+            {
+                preflightOk = false;
+                log_test(logFp, " [FAIL] Required input missing: %s\n", requiredInputs[ri]);
+            }
+        }
+        if (!preflightOk)
+        {
+            log_test(logFp, " [FAIL] Test preconditions not met - required data files are missing.\n");
+            log_test(logFp, "        Run --test from the repository root.\n");
+        }
+    }
 
     // -------------------------------------------------------------
     // Test 1: 采样点数精确一致性与二进制合法性 (P0 / Task 1)
@@ -3676,7 +3839,8 @@ bool GeometryExperimentEngine::runUnitTests()
     }
 
     // 严格核查生成的真实工区评价报告文件内容，杜绝报告指标退化与虚假陈述
-    QString rptFileNorm = "unit_test_sandbox/test_suite_norm/02_attribute_real_sps/attribute_quality_report.txt";
+    // 2026.10.20: 真实 SPS 报告现位于 <suite 输出目录的父目录>/real_sps/attribute_evaluation/
+    QString rptFileNorm = "unit_test_sandbox/real_sps/attribute_evaluation/attribute_quality_report.txt";
     QFile rptF(rptFileNorm);
     if (!rptF.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -3902,48 +4066,74 @@ bool GeometryExperimentEngine::runUnitTests()
         if (compareGain(0.01f)  !=  0) { t13_ok = false; log_test(logFp, "   [FAIL] compareGain(0.01) != 0\n"); }
         if (compareGain(-0.01f) !=  0) { t13_ok = false; log_test(logFp, "   [FAIL] compareGain(-0.01) != 0\n"); }
 
-        // ③ 端到端: 用真实资料报告验证负增益措辞
-        QString realRpt = "results/real_field/recon_experiment_report.txt";
-        QFile rf(realRpt);
-        if (rf.open(QIODevice::ReadOnly | QIODevice::Text))
+        // ③ 端到端(自生成): 在沙箱中分别跑一次"负增益"和"正增益"重构，
+        //   再检查刚生成的报告措辞。不读取 results/ 下的任何遗留文件。
+        //   负增益: 用真实野外道集（POCS 实测低于线性插值）
+        //   正增益: 用合成波场（POCS 实测高于线性插值）
+        const QString realIn = "data/real_seismic/real_gather_256x128.csv";
+        ReconstructionMetrics mNeg;
+        QString sNeg;
+        bool okNeg = (QFile::exists(realIn) &&
+                      runWavefieldReconstruction("", kTestSandbox + "/t13_neg", 0.50f,
+                                                 mNeg, sNeg, realIn, true, false, true, false));
+        if (!okNeg)
         {
-            QString txt = QTextStream(&rf).readAll();
-            rf.close();
-            if (txt.contains("+-")) { t13_ok = false; log_test(logFp, "   [FAIL] real report contains +-\n"); }
-            // 真实资料上 POCS 低于线性插值 -> 必须出现 UNDERPERFORMS, 且不得出现该行的 surpassing
-            if (txt.contains("Linear Interpolation baseline") && !txt.contains("UNDERPERFORMS"))
-            {
-                t13_ok = false;
-                log_test(logFp, "   [FAIL] real report missing UNDERPERFORMS wording\n");
-            }
-            if (txt.contains("significantly surpassing"))
-            {
-                t13_ok = false;
-                log_test(logFp, "   [FAIL] real report still has unconditional surpassing claim\n");
-            }
+            t13_ok = false;
+            log_test(logFp, "   [FAIL] t13 negative-gain report could not be generated\n");
+        }
+        else if (mNeg.snr_imprv_vs_linear_db >= 0.0f)
+        {
+            t13_ok = false;
+            log_test(logFp, "   [FAIL] t13 expected negative vs-linear on real gather, got %.2f dB\n",
+                     mNeg.snr_imprv_vs_linear_db);
         }
         else
         {
-            log_test(logFp, "   [SKIP] real_field report not present (run --run-real-reconstruction first)\n");
+            QFile rf(kTestSandbox + "/t13_neg/recon_experiment_report.txt");
+            if (!rf.open(QIODevice::ReadOnly | QIODevice::Text))
+            { t13_ok = false; log_test(logFp, "   [FAIL] t13 negative report missing\n"); }
+            else
+            {
+                QString txt = QTextStream(&rf).readAll();
+                rf.close();
+                if (txt.contains("+-"))
+                { t13_ok = false; log_test(logFp, "   [FAIL] negative report contains +-\n"); }
+                if (!txt.contains("UNDERPERFORMS"))
+                { t13_ok = false; log_test(logFp, "   [FAIL] negative report missing UNDERPERFORMS\n"); }
+                if (txt.contains("significantly surpassing"))
+                { t13_ok = false; log_test(logFp, "   [FAIL] negative report has unconditional surpassing claim\n"); }
+            }
         }
 
-        // ④ 端到端: 合成报告验证正增益措辞
-        QString synRpt = "results/synthetic/03_wavefield_reconstruction/recon_experiment_report.txt";
-        QFile sf(synRpt);
-        if (sf.open(QIODevice::ReadOnly | QIODevice::Text))
+        ReconstructionMetrics mPos;
+        QString sPos;
+        bool okPos = runWavefieldReconstruction("", kTestSandbox + "/t13_pos", 0.50f,
+                                                mPos, sPos, "", true, false, true, false);
+        if (!okPos)
         {
-            QString txt = QTextStream(&sf).readAll();
-            sf.close();
-            if (txt.contains("+-")) { t13_ok = false; log_test(logFp, "   [FAIL] synthetic report contains +-\n"); }
-            if (txt.contains("Linear Interpolation baseline") && !txt.contains("OUTPERFORMS"))
-            {
-                t13_ok = false;
-                log_test(logFp, "   [FAIL] synthetic report should report positive gain as OUTPERFORMS\n");
-            }
+            t13_ok = false;
+            log_test(logFp, "   [FAIL] t13 positive-gain report could not be generated\n");
+        }
+        else if (mPos.snr_imprv_vs_linear_db <= 0.0f)
+        {
+            t13_ok = false;
+            log_test(logFp, "   [FAIL] t13 expected positive vs-linear on synthetic, got %.2f dB\n",
+                     mPos.snr_imprv_vs_linear_db);
         }
         else
         {
-            log_test(logFp, "   [SKIP] synthetic report not present (run --run-experiments first)\n");
+            QFile sf(kTestSandbox + "/t13_pos/recon_experiment_report.txt");
+            if (!sf.open(QIODevice::ReadOnly | QIODevice::Text))
+            { t13_ok = false; log_test(logFp, "   [FAIL] t13 positive report missing\n"); }
+            else
+            {
+                QString txt = QTextStream(&sf).readAll();
+                sf.close();
+                if (txt.contains("+-"))
+                { t13_ok = false; log_test(logFp, "   [FAIL] positive report contains +-\n"); }
+                if (!txt.contains("OUTPERFORMS"))
+                { t13_ok = false; log_test(logFp, "   [FAIL] positive report missing OUTPERFORMS\n"); }
+            }
         }
     }
     if (t13_ok) {
@@ -3965,13 +4155,17 @@ bool GeometryExperimentEngine::runUnitTests()
     totalTests++;
     bool t14_ok = true;
     {
-        QString hoIn = "data/real_seismic/real_gather_59x256.csv";
+        const QString hoIn = "data/real_seismic/real_gather_59x256.csv";
+        // 必需输入，缺失即失败（不 SKIP）
         if (!QFile::exists(hoIn))
         {
-            log_test(logFp, "   [SKIP] hold-out input not present\n");
+            t14_ok = false;
+            log_test(logFp, "   [FAIL] Required hold-out input missing: %s\n",
+                     hoIn.toLocal8Bit().constData());
         }
         else
         {
+            // 固定配置回归: m=59, k=30, seed=20261020
             GeometryExperimentEngine::HoldoutMetrics h1, h2;
             QString r1, r2;
             bool ok1 = runHoldoutValidation(hoIn, 59, 30, 40, 20261020ULL,
@@ -3981,15 +4175,23 @@ bool GeometryExperimentEngine::runUnitTests()
             if (!ok1 || !ok2) { t14_ok = false; log_test(logFp, "   [FAIL] hold-out run failed\n"); }
             else
             {
+                // ① 留出道数正确
                 if (h1.keptTraces + h1.heldOutTraces != h1.nTraces)
                 { t14_ok = false; log_test(logFp, "   [FAIL] kept+heldOut != total\n"); }
                 if (h1.heldOutTraces != 29)
                 { t14_ok = false; log_test(logFp, "   [FAIL] expected 29 held-out, got %d\n", h1.heldOutTraces); }
-                // 可复现
+
+                // ② 可复现
                 if (fabs(h1.snr_pocs_db - h2.snr_pocs_db) > 1e-4f ||
                     fabs(h1.snr_linear_db - h2.snr_linear_db) > 1e-4f)
                 { t14_ok = false; log_test(logFp, "   [FAIL] hold-out not reproducible with same seed\n"); }
-                // CSV 标记
+
+                // ③ 指标自洽: gain == pocs - linear
+                const float expectGain = h1.snr_pocs_db - h1.snr_linear_db;
+                if (fabs(h1.gain_pocs_vs_linear_db - expectGain) > 1e-3f)
+                { t14_ok = false; log_test(logFp, "   [FAIL] gain != pocs - linear\n"); }
+
+                // ④ CSV 内容
                 QFile hf("unit_test_sandbox/ho1/holdout_metrics.csv");
                 if (!hf.open(QIODevice::ReadOnly | QIODevice::Text))
                 { t14_ok = false; log_test(logFp, "   [FAIL] holdout_metrics.csv missing\n"); }
@@ -4004,19 +4206,232 @@ bool GeometryExperimentEngine::runUnitTests()
                     if (ht.contains("+-"))
                     { t14_ok = false; log_test(logFp, "   [FAIL] holdout CSV contains +-\n"); }
                 }
+
+                // ⑤ 留出数据未被输入算法: 不同 seed 必须改变留出划分与指标
+                GeometryExperimentEngine::HoldoutMetrics h3;
+                QString r3;
+                if (!runHoldoutValidation(hoIn, 59, 30, 40, 12345ULL,
+                                          "unit_test_sandbox/ho3", h3, r3))
+                { t14_ok = false; log_test(logFp, "   [FAIL] hold-out run (seed 12345) failed\n"); }
+                else if (fabs(h3.snr_linear_db - h1.snr_linear_db) < 1e-6f)
+                {
+                    t14_ok = false;
+                    log_test(logFp, "   [FAIL] changing seed did not change the held-out split/metrics\n");
+                }
+                // ⑥ 全 6 组配置逐一执行并断言 gain 自洽
+                const int cfgK[6]   = { 20, 20, 30, 30, 40, 40 };
+                const unsigned long long cfgS[6] = { 20261020ULL, 12345ULL, 20261020ULL,
+                                                     12345ULL, 20261020ULL, 12345ULL };
+                for (int ci = 0; ci < 6; ci++)
+                {
+                    GeometryExperimentEngine::HoldoutMetrics hc;
+                    QString rc;
+                    QString cfgDir2;
+                    cfgDir2 = kTestSandbox + QString("/ho_cfg") + QString::number(ci);
+                    if (!runHoldoutValidation(hoIn, 59, cfgK[ci], 40, cfgS[ci], cfgDir2, hc, rc))
+                    {
+                        t14_ok = false;
+                        log_test(logFp, "   [FAIL] config %d/%llu failed\n", cfgK[ci], cfgS[ci]);
+                        continue;
+                    }
+                    if (hc.heldOutTraces != 59 - cfgK[ci])
+                    { t14_ok = false; log_test(logFp, "   [FAIL] config %d: wrong held-out count\n", cfgK[ci]); }
+                    if (fabs(hc.gain_pocs_vs_linear_db - (hc.snr_pocs_db - hc.snr_linear_db)) > 1e-3f)
+                    { t14_ok = false; log_test(logFp, "   [FAIL] config %d: gain inconsistent\n", cfgK[ci]); }
+                }
             }
         }
     }
     if (t14_ok) {
-        log_test(logFp, " [PASS] Test 14: Held-Out Validation on Measured Real Traces\n");
+        log_test(logFp, " [PASS] Test 14: Held-Out Validation on Measured Real Traces (6 configs)\n");
         passedTests++;
     } else {
         log_test(logFp, " [FAIL] Test 14: Held-out validation failed!\n");
     }
 
+
+    // -------------------------------------------------------------
+    // Test 15: 外部掩码真实生效回归 (2026.10.20 新增)
+    // 防止再次出现"传了 --mask 但引擎仍用自动掩码"的回归。
+    // 验证:
+    //   ① 引擎确实加载指定文件（Mask_Source = External File）;
+    //   ② 两份位置不同的掩码在同一输入上产生不同的基线指标;
+    //   ③ 非法掩码（路径不存在/非二值/点数不符/长度不符）必须失败，不得回退自动生成。
+    // -------------------------------------------------------------
+    totalTests++;
+    bool t15_ok = true;
+    {
+        const QString maskIn = "data/real_seismic/real_gather_256x128.csv";
+        if (!QFile::exists(maskIn))
+        {
+            t15_ok = false;
+            log_test(logFp, "   [FAIL] Required mask-test input missing: %s\n", maskIn.toLocal8Bit().constData());
+        }
+        else
+        {
+            const QString mkA = kTestSandbox + "/maskA.txt";
+            const QString mkB = kTestSandbox + "/maskB.txt";
+
+            for (int variant = 0; variant < 2; variant++)
+            {
+                QFile mf(variant == 0 ? mkA : mkB);
+                if (!mf.open(QIODevice::WriteOnly | QIODevice::Text))
+                {
+                    t15_ok = false;
+                    log_test(logFp, "   [FAIL] cannot write mask variant %d\n", variant);
+                    continue;
+                }
+                QTextStream o(&mf);
+                o << "# mask variant " << variant << " (64/128)\n";
+                int ones = 0;
+                for (int i = 0; i < 128; i++)
+                {
+                    int v = (variant == 0) ? (i < 64 ? 1 : 0) : ((i % 2 == 0) ? 1 : 0);
+                    ones += v;
+                    o << v << "\n";
+                }
+                mf.close();
+                if (ones != 64)
+                {
+                    t15_ok = false;
+                    log_test(logFp, "   [FAIL] mask variant %d has %d ones, expected 64\n", variant, ones);
+                }
+            }
+
+            ReconstructionMetrics mA, mB;
+            QString sA, sB;
+            bool okA = runWavefieldReconstruction(mkA, kTestSandbox + "/maskA_out", 0.50f,
+                                                  mA, sA, maskIn, true, false, true, false);
+            bool okB = runWavefieldReconstruction(mkB, kTestSandbox + "/maskB_out", 0.50f,
+                                                  mB, sB, maskIn, true, false, true, false);
+            if (!okA || !okB)
+            {
+                t15_ok = false;
+                log_test(logFp, "   [FAIL] mask reconstruction run failed\n");
+            }
+            else
+            {
+                if (!mA.maskSource.contains("External File"))
+                {
+                    t15_ok = false;
+                    log_test(logFp, "   [FAIL] mask A source not External File: %s\n", mA.maskSource.toLocal8Bit().constData());
+                }
+                if (!mB.maskSource.contains("External File"))
+                {
+                    t15_ok = false;
+                    log_test(logFp, "   [FAIL] mask B source not External File\n");
+                }
+                float dLin = fabs(mA.snr_linear_interp_db - mB.snr_linear_interp_db);
+                if (dLin < 1e-4f)
+                {
+                    t15_ok = false;
+                    log_test(logFp, "   [FAIL] two different masks gave identical linear-interp SNR (%.4f dB) - mask not applied\n",
+                             mA.snr_linear_interp_db);
+                }
+                else
+                {
+                    log_test(logFp, "   [OK] maskA linear=%.2f dB vs maskB linear=%.2f dB (delta %.2f dB) - mask IS applied\n",
+                             mA.snr_linear_interp_db, mB.snr_linear_interp_db, dLin);
+                }
+            }
+
+            // 非法掩码必须被拒绝
+            ReconstructionMetrics mBad;
+            QString sBad;
+
+            bool noneRejected = !runWavefieldReconstruction("no_such_mask_file_at_all.txt",
+                                                            kTestSandbox + "/mask_none", 0.50f,
+                                                            mBad, sBad, maskIn, true, false, true, false);
+            if (!noneRejected)
+            {
+                t15_ok = false;
+                log_test(logFp, "   [FAIL] nonexistent mask path was NOT rejected\n");
+            }
+
+            const QString mkNonBin = kTestSandbox + "/mask_nonbinary.txt";
+            {
+                QFile f2(mkNonBin);
+                if (f2.open(QIODevice::WriteOnly | QIODevice::Text))
+                {
+                    QTextStream o2(&f2);
+                    for (int i = 0; i < 128; i++) o2 << (i == 5 ? 2 : (i < 64 ? 1 : 0)) << "\n";
+                    f2.close();
+                }
+            }
+            bool nbRejected = !runWavefieldReconstruction(mkNonBin, kTestSandbox + "/mask_nb", 0.50f,
+                                                          mBad, sBad, maskIn, true, false, true, false);
+            if (!nbRejected)
+            {
+                t15_ok = false;
+                log_test(logFp, "   [FAIL] non-binary mask was NOT rejected\n");
+            }
+
+            const QString mkCount = kTestSandbox + "/mask_count63.txt";
+            {
+                QFile f3(mkCount);
+                if (f3.open(QIODevice::WriteOnly | QIODevice::Text))
+                {
+                    QTextStream o3(&f3);
+                    for (int i = 0; i < 128; i++) o3 << (i < 63 ? 1 : 0) << "\n";
+                    f3.close();
+                }
+            }
+            bool cntRejected = !runWavefieldReconstruction(mkCount, kTestSandbox + "/mask_cnt", 0.50f,
+                                                           mBad, sBad, maskIn, true, false, true, false);
+            if (!cntRejected)
+            {
+                t15_ok = false;
+                log_test(logFp, "   [FAIL] wrong-count mask (63/128) was NOT rejected\n");
+            }
+
+            const QString mkLen = kTestSandbox + "/mask_len100.txt";
+            {
+                QFile f4(mkLen);
+                if (f4.open(QIODevice::WriteOnly | QIODevice::Text))
+                {
+                    QTextStream o4(&f4);
+                    for (int i = 0; i < 100; i++) o4 << (i < 50 ? 1 : 0) << "\n";
+                    f4.close();
+                }
+            }
+            bool lenRejected = !runWavefieldReconstruction(mkLen, kTestSandbox + "/mask_len", 0.50f,
+                                                           mBad, sBad, maskIn, true, false, true, false);
+            if (!lenRejected)
+            {
+                t15_ok = false;
+                log_test(logFp, "   [FAIL] wrong-length mask (100 rows) was NOT rejected\n");
+            }
+        }
+    }
+    if (t15_ok) {
+        log_test(logFp, " [PASS] Test 15: External Mask Actually Applied + Invalid Masks Rejected\n");
+        passedTests++;
+    } else {
+        log_test(logFp, " [FAIL] Test 15: External mask effectiveness failed!\n");
+    }
+
+    // 2026.10.20: 汇总必须区分 PASS / FAIL / SKIP，且 SKIP 不计为通过。
+    // 任何 SKIP 都会使整体不通过（本套件不含允许跳过的项）。
+    const int failedTests = totalTests - passedTests - skippedTests;
     log_test(logFp, "============================================================\n");
-    log_test(logFp, " Test Results: %d/%d Passed (%s)\n", passedTests, totalTests,
-             (passedTests == totalTests ? "ALL PASS" : "SOME FAILED"));
+    log_test(logFp, " Test Results: PASS=%d  FAIL=%d  SKIP=%d  (total=%d)\n",
+             passedTests, failedTests, skippedTests, totalTests);
+    if (!preflightOk)
+    {
+        log_test(logFp, " Status: FAILED - required input files are missing (preflight failed)\n");
+    }
+    else if (failedTests > 0)
+    {
+        log_test(logFp, " Status: FAILED - %d test(s) failed\n", failedTests);
+    }
+    else if (skippedTests > 0)
+    {
+        log_test(logFp, " Status: FAILED - %d test(s) skipped; skips are not counted as passes\n", skippedTests);
+    }
+    else
+    {
+        log_test(logFp, " Status: ALL PASS (%d/%d)\n", passedTests, totalTests);
+    }
     log_test(logFp, "============================================================\n");
 
     if (logFp) fclose(logFp);
@@ -4037,5 +4452,5 @@ bool GeometryExperimentEngine::runUnitTests()
         }
     }
 
-    return (passedTests == totalTests);
+    return (preflightOk && failedTests == 0 && skippedTests == 0);
 }

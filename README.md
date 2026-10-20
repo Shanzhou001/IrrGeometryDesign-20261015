@@ -64,7 +64,7 @@ x64\Release\IrrGeometryDesign.exe --test
 :: 或使用别名: -t, --run-tests
 ```
 
-**测试覆盖 12 大核心科研与工程校验模块**：
+**测试覆盖 15 大核心科研与工程校验模块**：
 1. **采样点数精确一致性与二进制合法性 (P0 / Task 1)**：验证 30%（38点）、50%（64点）、70%（90点）下四种采样方式的点数严格守恒，掩码值仅为 0 或 1，无重复不越界；
 2. **规则减抽空间分布公式与全区间覆盖验证 (P1 / Section IV)**：验证严格公式 $i_k = \lfloor k \cdot N / m \rfloor$，确保首端覆盖 0、末端覆盖区间尾部、无连续聚集；
 3. **随机数发生器可复现性与主/实种子独立性 (P0 / Section III)**：验证 xorshift64* 与 Box-Muller 算法在同一随机种子下的严格复现性与跨种子独立性；
@@ -78,7 +78,7 @@ x64\Release\IrrGeometryDesign.exe --test
 11. **冷启动/热启动消融实验与初始化贡献分解 (2026.10.19 新增)**：验证在同一掩码与参数下，冷启动 POCS 严格优于零填充基线、热启动 POCS 严格优于冷启动、主流水线 SNR 与所声明初始化分支一致、两路收敛轨迹长度等于迭代数，且消融指标确实写入 `recon_metrics_summary.csv`（防止热启动口径被无意回退）。
 12. **曲波变换参数鲁棒性 (2026.10.19 新增)**：在 7 组 (nbscales, nbangles_coarse) 参数下重算三方案 μ，断言 "Jitter-SA < 纯随机 < 规则减抽" 排序全部稳定、基线 (1,4) 存在、各组数值落在 [0,1] 归一化相干度有效区间（防止多尺度 μ 计算缺陷回归）。
 
-> **测试可移植性说明**：SPS 样本路径通过 `QCoreApplication::applicationDirPath()` 向上回溯与 `IRR_SPS_DIR` 环境变量解析，**不再依赖任何硬编码绝对路径**，因此在任意工作目录下运行均可获得 12/12 全通过。
+> **测试可移植性说明**：SPS 样本路径通过 `QCoreApplication::applicationDirPath()` 向上回溯与 `IRR_SPS_DIR` 环境变量解析，**不再依赖任何硬编码绝对路径**，因此在任意工作目录下运行均可获得 15/15 全通过。
 
 ### 2. 一键执行全套科研闭环对比试验（Task 10）
 
@@ -138,7 +138,7 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 result
   - 热启动初值本身贡献 $11.83 - 3.00 = 8.83\text{ dB}$；
   - 曲波 POCS 迭代在冷启动下贡献 $6.24 - 3.00 = \mathbf{3.24\text{ dB}}$（**这是曲波 POCS 方法自身可比的净贡献**）；
   - 曲波 POCS 迭代在热启动下贡献 $13.90 - 11.83 = \mathbf{2.07\text{ dB}}$；
-  - 热启动相对冷启动的总增益为 $8.20\text{ dB}$。
+- 热启动相对冷启动的总增益为 $7.66\text{ dB}$（$13.90 - 6.24$）。
 
   **结论解读**：曲波 POCS 在两种初值下均为正向增益（+3.24 dB / +2.07 dB），方法有效性成立；但**主口径 13.90 dB 的大部分来自线性插值先验而非曲波稀疏约束**。论文中若引用 14.10 dB，必须同时声明热启动设置并给出冷启动对照值 6.24 dB，否则会高估曲波方法本身的贡献。
 
@@ -162,7 +162,7 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 result
 | 项目 | 取值 |
 | :--- | :--- |
 | 执行命令 | `x64\Release\IrrGeometryDesign.exe --run-experiments results\synthetic --repeat 10 --seed 42` |
-| 结果目录 | `results/synthetic/`（模块 02 为 `02_attribute_real_sps/`，使用真实 SPS） |
+| 结果目录 | `results/synthetic/`（采样基准 + 波场重构）；真实 SPS 属性在 `results/real_sps/attribute_evaluation/` |
 | 数据模式 | 合成三层反射模型 + Box-Muller 高斯白噪声（`exprng::seed(1234567)`） |
 | 网格 | Nt=256 (dt=4 ms), Nx=128 (dx=12.5 m) |
 | 采样掩码 | **自动生成 Jitter 掩码，固定种子 `exprng::seed(20261020)`，m=64/128** |
@@ -246,32 +246,46 @@ figures/
 └── gui/                                       GUI 界面截图（--screenshot / --screenshot-all）
 ```
 
-### 5.3 `results/synthetic/`（数值结果，不含图片）
+### 5.3 结果目录分区（合成 / 真实 SPS / 真实波形）
 
 ```text
-results/synthetic/
-├── cmp_mask.txt                                  全局统一重构采样掩码
-├── 01_sampling_benchmark/
-│   ├── benchmark_runs_detail.csv                 每轮重复试验完整明细
-│   ├── benchmark_comparison_table.csv            30%/50%/70% 三方案均值、方差与极值
-│   ├── benchmark_convergence_curves.csv          退火探索与历史最优收敛轨迹
-│   └── benchmark_summary_report.txt              文本评估报告
-├── 02_attribute_evaluation/
-│   ├── attribute_fold_distribution.csv           CMP 覆盖次数直方图
-│   ├── attribute_fold_map_matrix.csv             实测覆盖次数矩阵（热力图数据源）
-│   ├── attribute_offset_distribution.csv         炮检距区间分布
-│   ├── attribute_azimuth_rose.csv                24 扇区方位角统计
-│   └── attribute_quality_report.txt              覆盖变异系数与质量评分报告
-└── 03_wavefield_reconstruction/
-    ├── cmp_mask.txt                              本次实际使用的掩码
-    ├── recon_original_gather.csv                 全分辨率参考波场 (256x128)
-    ├── recon_subsampled_gather.csv               50% 欠采样观测波场
-    ├── recon_recovered_gather.csv                曲波 POCS 恢复波场
-    ├── recon_residual_slice.csv                  重构残差切片
-    ├── recon_metrics_summary.csv                 SNR/RMSE/相关系数/冷热启动消融
-    └── recon_experiment_report.txt               重构科研报告
+results/
+├── synthetic/                             合成数值模拟实验
+│   ├── cmp_mask.txt                       全局统一重构采样掩码
+│   ├── 01_sampling_benchmark/
+│   │   ├── benchmark_runs_detail.csv      每轮重复试验完整明细（10 轮）
+│   │   ├── benchmark_comparison_table.csv 30%/50%/70% 三方案均值、方差与极值
+│   │   ├── benchmark_convergence_curves.csv 退火探索与历史最优收敛轨迹
+│   │   └── benchmark_summary_report.txt   文本评估报告
+│   └── 03_wavefield_reconstruction/
+│       ├── cmp_mask.txt                   本次实际使用的掩码
+│       ├── recon_original_gather.csv      全分辨率参考波场 (256x128)
+│       ├── recon_subsampled_gather.csv    50% 欠采样观测波场
+│       ├── recon_recovered_gather.csv     曲波 POCS 恢复波场
+│       ├── recon_residual_slice.csv       重构残差切片
+│       ├── recon_metrics_summary.csv      SNR/RMSE/相关系数/冷热启动消融
+│       └── recon_experiment_report.txt    重构科研报告
+│
+├── real_sps/                              真实 SPS 观测系统几何评价
+│   └── attribute_evaluation/
+│       ├── attribute_fold_distribution.csv
+│       ├── attribute_fold_map_matrix.csv  实测覆盖次数矩阵（热力图数据源）
+│       ├── attribute_offset_distribution.csv
+│       ├── attribute_azimuth_rose.csv
+│       └── attribute_quality_report.txt   （报告内含 Real Survey Evaluation Mode）
+│
+├── real_field/                            真实野外资料重构（插值参考场口径）
+│   ├── cmp_mask.txt
+│   ├── recon_*.csv / recon_metrics_summary.csv
+│   └── recon_experiment_report.txt
+│
+└── real_field_holdout/                    真实实测道留出验证
+    ├── holdout_runs.csv                   ★ 6 组 keep×seed 汇总（机器可读，可复算）
+    ├── holdout_metrics.csv                keep=30 / seed=20261020 单组明细
+    └── cfg_<keep>_<seed>/                 各组独立输出目录
 ```
 
+> **数据模式对照**：`synthetic/` 全部为合成数值模拟；`real_sps/` 为真实 SPS 几何（无波形）；`real_field/` 与 `real_field_holdout/` 为真实野外波形资料。前三者的报告首行均标明所属模式，不可混用指标。
 
 ---
 
@@ -359,6 +373,11 @@ results/synthetic/
 | 19 | **真实资料验证用插值参考场自证**：SNR 相对 59→128 插值构造的参考场计算，不能代表真实波场精度 | 新增 `--holdout-validate`：只用真实实测道作验证目标（`real_gather_59x256.csv`），SNR 仅在留出道统计 | 6 组 keep×seed 配置下 POCS 均优于线性（+0.91~+1.30 dB）；Test 14 固化 |
 | 20 | **真实 SPS 属性报告放在 `results/synthetic/`**，与合成结果混放易误读 | 目录更名 `02_attribute_real_sps`，代码/测试引用同步 | 目录名与报告内 `Real Survey Evaluation Mode` 一致 |
 | 21 | **采样基准仅 3 轮重复**，不足以支撑统计结论 | 默认 `--repeat` 由 3 提高到 10，逐轮原始数据保留在 `benchmark_runs_detail.csv` | 统计量可由该文件独立复算；3 轮数值作废 |
+| 22 | **测试"跳过即通过"**：Test 13/14 在报告或输入缺失时只记 SKIP，`t*_ok` 仍为 true，实测在无 `results/` 目录时仍输出 `14/14 ALL PASS` | 新增 `skippedTests` 计数与前置条件检查；SKIP 不计入通过且使整体失败；Test 13 改为在沙箱内自生成正/负增益报告，不读遗留文件 | 删除必需输入后实测退出码 1、`Status: FAILED`；正常时 `PASS=15 FAIL=0 SKIP=0` |
+| 23 | **Test 14 仅验单组、无留出泄漏断言** | 扩展为 6 组 cfg 逐一执行 + 换种子必改变划分 + gain 自洽校验 | Test 14 通过并覆盖 6 组 |
+| 24 | **无掩码生效的自动回归** | 新增 Test 15：两份不同掩码实测产生不同基线（Δ11.74 dB）+ 四类非法掩码必须被拒 | Test 15 通过 |
+| 25 | **6 组留出结果未归档为机器可读记录** | 新增 `runHoldoutBatch()` 与 `--holdout-batch`，程序自写 `holdout_runs.csv`（含输入 SHA1、道数、种子、三 SNR、双增益、双 RMSE、耗时） | 6 行实测数据；gain 可由 SNR 列独立复算；两次运行科学列完全一致 |
+| 26 | **真实 SPS 报告仍在 `synthetic/` 下** | 输出改到 `results/real_sps/attribute_evaluation/`，`synthetic/` 仅剩 01 与 03 | 目录树与报告模式一致；全套实验重跑成功 |
 
 ### 曲波变换参数鲁棒性结果（`mu_param_robustness.csv`）
 
@@ -435,17 +454,7 @@ C++ 引擎要求 **256 × 128**（Nt=256, dt=4 ms；Nx=128, dx=12.5 m）的纯�
 
 **因此**：论文中引用 13.90 dB 必须限定为"合成数值模拟条件"，并同时给出真实资料对照值 9.23 dB；不可将合成结论外推为真实工区结论。
 
-### 8.5 复现命令
-
-```bat
-x64\Release\IrrGeometryDesign.exe --run-real-reconstruction ^
-  data\real_seismic\real_gather_256x128.csv ^
-  --out results\real_field --ratio 0.50
-```
-
-产物：`recon_metrics_summary.csv`、`recon_experiment_report.txt`、`05_wavefield_reconstruction_quad.png`、`06_recon_convergence_trace_comparison.png`（全部由 Qt 渲染器生成）。
-
-### 8.6 留出验证（Hold-out on measured traces）—— 2026-10-20 新增
+### 8.5 留出验证（Hold-out on measured traces）—— 2026-10-20 新增
 
 8.3 的 SNR 是在**插值构造的 128 道参考场**上计算的，不能代表"相对于真实完整地下波场的重构精度"。为消除该局限，新增留出验证：**只用真实实测道作为验证目标**。
 
@@ -479,6 +488,36 @@ x64\Release\IrrGeometryDesign.exe --run-real-reconstruction ^
 > **结论**：在全部 6 组配置下，**曲波 POCS 均优于线性插值（+0.91 ~ +1.30 dB）**，方向一致、量级稳定。这是本项目关于"曲波 POCS 优于插值"最可信的一条真实数据证据。
 >
 > 但 POCS 与线性插值的绝对 SNR 均为**负值**，说明在只有 30/59 真实道作为已知的条件下，两种方法的填补误差都大于信号本身。负 SNR 是真实结果，不做修饰。
+
+### 8.6 复现命令
+
+```bat
+:: 单组留出验证
+x64\Release\IrrGeometryDesign.exe --holdout-validate data\real_seismic\real_gather_59x256.csv ^
+  --traces 59 --keep 30 --iter 40 --seed 20261020 --out results\real_field_holdout
+
+:: 6 组批量留出验证（生成 holdout_runs.csv，机器可读可复算）
+x64\Release\IrrGeometryDesign.exe --holdout-batch data\real_seismic\real_gather_59x256.csv ^
+  --traces 59 --iter 40 --out results\real_field_holdout
+
+:: 真实资料重构（插值参考场口径）
+x64\Release\IrrGeometryDesign.exe --run-real-reconstruction ^
+  data\real_seismic\real_gather_256x128.csv --out results\real_field --ratio 0.50
+```
+
+> `holdout_runs.csv` 每行一组 keep×seed 配置，包含输入 SHA1、道数、迭代、种子、
+> 三种方法 SNR、两个增益、两个 RMSE 与实际耗时。所有数值由程序实际执行产生，
+> 可用上表命令逐行复算。
+
+#### 8.5.1 原命令说明
+
+```bat
+x64\Release\IrrGeometryDesign.exe --run-real-reconstruction ^
+  data\real_seismic\real_gather_256x128.csv ^
+  --out results\real_field --ratio 0.50
+```
+
+产物：`recon_metrics_summary.csv`、`recon_experiment_report.txt`、`05_wavefield_reconstruction_quad.png`、`06_recon_convergence_trace_comparison.png`（全部由 Qt 渲染器生成）。
 
 ---
 
