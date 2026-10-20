@@ -2174,6 +2174,7 @@ int GShotSet::getRecNumByLineNamePointName(QString LineName,QString PointName)//
 			return shot->getRecNum();
 		}
 	}
+	return -1; /* 2026.10.20 fix C4715: not found */
 }
 
 //sps2.1汾

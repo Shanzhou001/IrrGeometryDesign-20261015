@@ -2,7 +2,7 @@
   Seismic Wavefield Compressive Sensing Reconstruction Research Report
   Dataset Mode: External CSV File (real_gather_256x128.csv)
   Subsampling Mask: Auto-Generated Jitter Mask (m=64/128, 50.0%)
-  Generated: 2026-10-20 14:48:11
+  Generated: 2026-10-20 16:12:58
 ====================================================================================
 
 [Subsampling Geometry Configuration]
@@ -17,8 +17,9 @@
   3. Compressive Sensing (Curvelet POCS):             SNR = 9.23 dB (Gain: +6.19 dB vs Zero-fill, -0.62 dB vs Linear)
   4. Full-Field Root Mean Square Error (RMSE):        0.036707
   5. Pearson Cross-Correlation Coefficient (r):       0.9384
+  5b. Missing-Trace-Only SNR (unsampled traces):      Linear = 6.81 dB, POCS = 6.19 dB (zero-fill = 0.00 dB by definition)
   6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
-  7. Reconstruction Execution Time:                   3644.0 ms (40 iterations)
+  7. Reconstruction Execution Time:                   3639.0 ms (40 iterations)
 
 [Controlled Cold-Start vs Warm-Start Experiment (Fairness / Ablation)]
   Purpose: isolate the contribution of the linear-interpolation initial solution from

@@ -66,17 +66,20 @@ x64\Release\IrrGeometryDesign.exe --test
 
 **测试覆盖 15 大核心科研与工程校验模块**：
 1. **采样点数精确一致性与二进制合法性 (P0 / Task 1)**：验证 30%（38点）、50%（64点）、70%（90点）下四种采样方式的点数严格守恒，掩码值仅为 0 或 1，无重复不越界；
-2. **规则减抽空间分布公式与全区间覆盖验证 (P1 / Section IV)**：验证严格公式 $i_k = \lfloor k \cdot N / m \rfloor$，确保首端覆盖 0、末端覆盖区间尾部、无连续聚集；
+2. **规则减抽空间分布公式与全区间覆盖验证 (P1 / Section IV)**：验证严格公式 $i_k = \lfloor k \cdot N / m \rfloor$，确保首端覆盖 0、末端落在区间后部、无连续聚集；**注意**：该公式不保证覆盖索引 $N-1$（m=38/64/90 时末点分别为 124/126/126），测试仅断言末点 $> N/2$；
 3. **随机数发生器可复现性与主/实种子独立性 (P0 / Section III)**：验证 xorshift64* 与 Box-Muller 算法在同一随机种子下的严格复现性与跨种子独立性；
 4. **多随机种子重复试验计算与统计量检验 (P0 / Section III)**：验证 `repeatRuns > 1` 时的独立循环执行、独立种子派生与严格复现性；
-5. **模拟退火历史最优非增性与 CG 精修防恶化保护 (P1 / Section V)**：验证 Metropolis SA 历史最优轨迹严格单调非增，且在 CG 精修导致相干度升高时强制回退保护最优解；
+5. **模拟退火历史最优非增性与局部精修防恶化约束 (P1 / Section V)**：验证 Metropolis SA 历史最优轨迹严格单调非增，并断言最终解不劣于初始抖动解；**注意**：`OptiMiuCG` 的"CG 导致恶化即回退"分支本身尚未被独立触发，Test 5 只覆盖了"最终不劣于初始"这一必要条件；
 6. **采样掩码文件严格校验体系 (任务二 9 组验收测试)**：覆盖正常 128 点 64 道、127 点截断、129 点多余、全零、全一、63 道、65 道、非二值字符（2, -1, 文本）、文件不存在与空文件，并严格验证错误信息包含预期长度、实际长度、预期点数、实际点数四要素；
 7. **波场重构失败状态传播与数据一致性约束 (任务一验收)**：验证正常波场重构成功、人为注入实测道数据一致性失败时严格返回失败并截断向上传播、以及输出目录或文件不可写时的失败拦截；
 8. **外部地震数据 CSV 严格加载校验与杜绝静默回退 (任务三验收)**：验证缺省路径触发合成数值模拟、合法 256x128 CSV 正常加载并标识真实模式、文件不存在、空文件、行数不符 (200行)、列数不符 (100列)、非法数值/NaN/Inf 严格报错拦截，绝不静默伪造合成数据；
 9. **真实 SPS 观测系统模式端到端评估与严格防护 (P1 / Section VIII)**：验证真实工程模式下未初始化工程对象时坚决拒绝并明确报错（绝不静默伪造真实数据），审计 `data/sps/5151-5171` 物理文件完整性，并实测加载真实野外 SPS 样本成功构建工程与 CMP 面元网格，断言炮点数、检波点数、有效道对数与有效面元数均严格大于 0；
 10. **全套科研闭环套件故障向上传播与退出状态检验 (P0 / Task 1)**：验证全套试验流水线在子试验失败时（如损坏掩码）立即截断并返回失败，汇总报告明示失败项，CLI 严格返回退出码 1。
 11. **冷启动/热启动消融实验与初始化贡献分解 (2026.10.19 新增)**：验证在同一掩码与参数下，冷启动 POCS 严格优于零填充基线、热启动 POCS 严格优于冷启动、主流水线 SNR 与所声明初始化分支一致、两路收敛轨迹长度等于迭代数，且消融指标确实写入 `recon_metrics_summary.csv`（防止热启动口径被无意回退）。
-12. **曲波变换参数鲁棒性 (2026.10.19 新增)**：在 7 组 (nbscales, nbangles_coarse) 参数下重算三方案 μ，断言 "Jitter-SA < 纯随机 < 规则减抽" 排序全部稳定、基线 (1,4) 存在、各组数值落在 [0,1] 归一化相干度有效区间（防止多尺度 μ 计算缺陷回归）。
+12. **曲波变换参数鲁棒性 (2026.10.19 新增)**：在 7 组 (nbscales, nbangles_coarse) 参数下重算三方案 μ，断言 "Jitter-SA < 纯随机 < 规则减抽" 排序全部稳定、基线 (1,4) 存在、各组数值落在 [0,1] 归一化相干度有效区间；**注意**：2026-10-20 复核发现 `nbscales>=2` 的 6 组因 `ifdct` 为精确逆而数学等价，本测试只能防止"μ 越界/排序反转"，**不能**证明参数敏感性（见 §七 口径更正）。
+13. **报告结论由实测差值动态生成 (2026.10.20 新增)**：正增益 / 负增益 / 近零增益三种情况下，报告结论分别输出 OUTPERFORMS / UNDERPERFORMS / COMPARABLE，且全文不出现 `+-`；Test 13 在沙箱内自生成报告，不依赖磁盘遗留文件。
+14. **真实实测道留出验证 (2026.10.20 新增)**：6 组 keep×seed 配置逐一执行，断言留出道数正确、换种子必改变划分、`gain = SNR_POCS − SNR_Linear` 自洽、结果写入 `holdout_runs.csv`；SNR 只在留出道上统计。
+15. **外部掩码真实生效回归 (2026.10.20 新增)**：两份不同掩码实测产生不同线性基线（Δ11.74 dB），证明 `--mask` 确实被应用；同时验证不存在、非二值、点数不符、长度不符四类非法掩码必须被拒绝。
 
 > **测试可移植性说明**：SPS 样本路径通过 `QCoreApplication::applicationDirPath()` 向上回溯与 `IRR_SPS_DIR` 环境变量解析，**不再依赖任何硬编码绝对路径**，因此在任意工作目录下运行均可获得 15/15 全通过。
 
@@ -88,9 +91,10 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 result
 ```
 
 参数说明：
-- `输出目录`（可选）：默认 `results/synthetic`；
-- `--repeat <N>`（可选）：每个采样率独立重复试验轮数，默认 3 轮（可设为 1 或更多）；
+- `输出目录`（可选）：默认 `experiment_results`（正式基准请显式写 `results\synthetic`）；
+- `--repeat <N>`（可选）：每个采样率独立重复试验轮数，默认 10 轮（可设为 1 或更多）；
 - `--seed <S>`（可选）：主随机数种子，默认 42。
+- `--miu-robustness [目录]`（可选）：单独运行曲波参数鲁棒性实验并归档 `mu_param_robustness.csv`，默认输出到 `results/synthetic/01_sampling_benchmark`。
 
 执行后将依次运行三个子试验，并在控制台输出包含耗时、状态、指标摘要的执行报告，所有子实验成功时返回退出码 `0`，任何子实验失败时返回非零退出码 `1`。
 
@@ -119,7 +123,7 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 result
 - **数据源支持**：支持外部真实野外单炮集 CSV 文件输入；若未指定则自动采用含薄层反射、双曲同相轴与 Box-Muller 高斯白噪声的三层物理波场模型。
 - **重构算法**：采用**二维快速离散曲波变换（2D Discrete Curvelet Transform, FDCT Wrapping / IFDCT Wrapping）凸集精确投影（POCS）**，迭代 40 次。
 - **定量对比基准与科研证据链**：
-  1. **零值填充初始基准（Zero-Fill Baseline）**：未采样道置零，$\text{SNR} = 3.02\text{ dB}$（基准参照）；
+  1. **零值填充初始基准（Zero-Fill Baseline）**：未采样道置零，$\text{SNR} = 3.00\text{ dB}$（基准参照）；
   2. **一维空间线性插值基准（Linear Interpolation Baseline）**：相邻已采样道做空间一维线性插值，$\text{SNR} = 11.83\text{ dB}$；
   3. **改进曲波域 POCS 压缩感知恢复（Curvelet POCS CS）**：$\text{SNR} = \mathbf{13.90\text{ dB}}$，相比零值填充净提升 $\mathbf{+10.90\text{ dB}}$，**显著超越空间线性插值基准 $\mathbf{+2.07\text{ dB}}$**，均方根误差降至 $0.032070$，波形皮尔逊相关系数高达 $0.9794$。
 
@@ -129,7 +133,7 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 result
 
   | 实验路径 | SNR (dB) | RMSE | 说明 |
   | :--- | :---: | :---: | :--- |
-  | ① 零值填充（无迭代） | 3.02 | — | 基线参照 |
+  | ① 零值填充（无迭代） | 3.00 | — | 基线参照 |
   | ② 线性插值（无迭代） | 11.83 | — | 插值基线 |
   | ③ **零值填充 + 曲波 POCS（冷启动）** | **6.24** | 0.077459 | **标准 POCS 口径，与文献可比** |
   | ④ **线性插值 + 曲波 POCS（热启动）** | **13.90** | 0.032070 | 本项目主口径 |
@@ -169,7 +173,9 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 result
 | POCS 迭代 | 40 次；主口径 = 线性插值热启动 |
 | 图件输出 | `figures/`（7 张） |
 
-**关键指标（合成）**：零填充 3.00 dB / 线性插值 11.83 dB / 热启动 POCS **13.90 dB**（相对线性 **+2.07 dB**）/ 冷启动 POCS 6.24 dB / RMSE 0.032070 / r 0.9794。
+**关键指标（合成）**：零填充 3.00 dB / 线性插值 11.83 dB / 热启动 POCS **13.90 dB（全幅）/ 10.90 dB（缺失道）**（相对线性 **+2.07 dB**）/ 冷启动 POCS 6.24 dB / RMSE 0.032070 / r 0.9794。
+
+> **SNR 口径约定（2026-10-20 新增）**：全幅 SNR 包含 64 条被精确置回的道，**比"缺失道 SNR"高约 3.0 dB（合成 3.01、真实 3.04）**。论文中必须同时给出两个口径；只写 13.90 dB 会被视为高估重构精度。`recon_metrics_summary.csv` 已新增 `SNR_Linear_MissingOnly` / `SNR_POCS_MissingOnly` 两行，由程序自动计算。
 
 ### 4.5.2 当前正式基准（真实野外资料）
 
@@ -195,6 +201,55 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 result
 ### 4.5.4 消融实验（算法对比，非正式基准）
 
 冷/热启动消融结果（`SNR_POCS_ColdStart` / `SNR_POCS_WarmStart`）用于论证热启动的贡献，**不替代**上面的正式基准。真实资料上热启动相对线性插值为负（−0.62 dB），已在报告中如实标注。
+
+### 4.5.5 采样优化 → 重构闭环实验（2026-10-20 新增）
+
+`--run-experiments` 现会把每个采样率下 μ 最优的 SA 掩码及其 Jitter 初始掩码导出：
+
+```text
+results/synthetic/01_sampling_benchmark/
+├── mask_30pct_sa_best.txt / mask_30pct_jitter_init.txt
+├── mask_50pct_sa_best.txt / mask_50pct_jitter_init.txt
+└── mask_70pct_sa_best.txt / mask_70pct_jitter_init.txt
+```
+
+可直接把优化掩码送进重构（同一合成道集、同一 40 次迭代）：
+
+```bat
+x64\Release\IrrGeometryDesign.exe --run-real-reconstruction ^
+  results\synthetic\03_wavefield_reconstruction\recon_original_gather.csv ^
+  --mask results\synthetic\01_sampling_benchmark\mask_50pct_sa_best.txt ^
+  --out results\mask_compare\sa_best --ratio 0.50
+```
+
+> **对照时必须用 `SNR_POCS_MissingOnly`**（而不是全幅 SNR）：全幅口径的约 3 dB 常量会掩盖不同掩码之间的真实差异。
+
+#### 4.5.5.1 五组掩码对照实测结果（2026-10-20）
+
+一键脚本（同一合成道集、同一 40 次迭代、同一 50% 采样率，只换掩码）：
+
+```bat
+python tools\compare_masks.py --gather results\synthetic\03_wavefield_reconstruction\recon_original_gather.csv ^
+  --sa results\synthetic\01_sampling_benchmark\mask_50pct_sa_best.txt ^
+  --jitter results\synthetic\01_sampling_benchmark\mask_50pct_jitter_init.txt ^
+  --auto results\synthetic\03_wavefield_reconstruction\cmp_mask.txt ^
+  --out results\mask_compare
+```
+
+结果（`results/mask_compare/mask_comparison.csv`）：
+
+| 掩码 | 全幅零填充 | 全幅线性 | 全幅 POCS | **缺失道线性** | **缺失道 POCS** | **POCS−线性（缺失道）** |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| **SA_best（μ 最优，0.1771）** | 3.01 | 10.75 | 13.35 | 7.75 | **10.34** | **+2.59** |
+| Jitter_init（SA 的初始抖动掩码） | 3.01 | 12.02 | 13.78 | 9.01 | 10.77 | +1.76 |
+| Auto_jitter（正式基准用掩码，μ≈0.22） | 3.00 | 11.83 | 13.90 | 8.82 | 10.90 | +2.08 |
+| Random（seed 543） | 3.01 | 9.52 | 11.72 | 6.51 | 8.70 | +2.19 |
+| Regular（偶数抽稀，μ=0.9601） | 3.01 | 13.03 | 13.61 | 10.02 | 10.60 | +0.58 |
+
+> **必须如实写入论文的三点**：
+> 1. **μ 最优 ≠ 重构最优**。SA 掩码 μ 最低（0.1771），但缺失道 POCS 为 10.34 dB，**略低于**普通 Jitter 初始掩码（10.77）与自动抖动掩码（10.90），仅比规则减抽（10.60）高。
+> 2. **μ 下降主要改变"相对插值的增益"，而非 POCS 的绝对精度**。规则掩码下 POCS−线性只有 +0.58 dB，而各非规则掩码下为 +1.76 ~ +2.59 dB；原因是规则掩码下线性插值本身很强（10.02 dB）。
+> 3. **在单炮合成数据上，μ 与重构质量之间没有单调关系**。若论文要主张"μ 优化提升重构质量"，必须补充更多道集/多炮数据，或改用与重构目标更一致的目标函数（见 `THESIS_CODE_REVIEW.md` §5.1、§5.3）。
 
 ## 五、项目目录结构与实验成果索引
 
@@ -256,7 +311,12 @@ results/
 │   │   ├── benchmark_runs_detail.csv      每轮重复试验完整明细（10 轮）
 │   │   ├── benchmark_comparison_table.csv 30%/50%/70% 三方案均值、方差与极值
 │   │   ├── benchmark_convergence_curves.csv 退火探索与历史最优收敛轨迹
-│   │   └── benchmark_summary_report.txt   文本评估报告
+│   │   ├── benchmark_summary_report.txt   文本评估报告
+│   │   ├── mu_param_robustness.csv        曲波参数实验（★ 多尺度行数学等价，见 §七口径更正）
+│   │   ├── mask_30pct_sa_best.txt         ★ 30% SA 最优掩码（闭环实验用）
+│   │   ├── mask_50pct_sa_best.txt         ★ 50% SA 最优掩码（闭环实验用）
+│   │   ├── mask_70pct_sa_best.txt         ★ 70% SA 最优掩码（闭环实验用）
+│   │   └── mask_*_jitter_init.txt         对应轮次的 Jitter 初始掩码
 │   └── 03_wavefield_reconstruction/
 │       ├── cmp_mask.txt                   本次实际使用的掩码
 │       ├── recon_original_gather.csv      全分辨率参考波场 (256x128)
@@ -279,6 +339,11 @@ results/
 │   ├── recon_*.csv / recon_metrics_summary.csv
 │   └── recon_experiment_report.txt
 │
+├── mask_compare/                          ★ 五组掩码闭环对照（2026-10-20 新增）
+│   ├── mask_comparison.csv                 SA/Jitter/Auto/Random/Regular × 全幅/缺失道 SNR
+│   ├── masks/                              随机与规则对照掩码
+│   └── <Mask>/                             各组重构输出（含 recon_metrics_summary.csv）
+│
 └── real_field_holdout/                    真实实测道留出验证
     ├── holdout_runs.csv                   ★ 6 组 keep×seed 汇总（机器可读，可复算）
     ├── holdout_metrics.csv                keep=30 / seed=20261020 单组明细
@@ -291,7 +356,7 @@ results/
 
 ## 六、科研复现核验基准数据
 
-使用系统默认主随机种子（`Seed = 42`，重复 3 轮独立试验）生成的核心科研指标基准值如下：
+使用系统默认主随机种子（`Seed = 42`，重复 10 轮独立试验）生成的核心科研指标基准值如下：
 
 ### 1. 多采样率相干度对比基准表 (`benchmark_comparison_table.csv`)
 
@@ -309,16 +374,17 @@ results/
 ### 2. 波场重构关键定量指标 (`recon_metrics_summary.csv`)
 
 - **数据模式**：Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)
-- **掩码来源**：External File (`cmp_mask.txt`，来自 50% Jitter-SA 优化掩码，严格 64 点)
-- **零值填充初始基准 SNR**：$3.02\text{ dB}$（基准参照 0.00 dB）
-- **空间线性插值基准 SNR**：$11.83\text{ dB}$（较零值填充提升 $+8.83\text{ dB}$）
-- **曲波域压缩感知重构 SNR (Curvelet POCS CS)**：**$13.90\text{ dB}$**
-- **相比零值填充净提升量**：**$+10.90\text{ dB}$**
-- **相比空间线性插值净超越量**：**$+2.07\text{ dB}$**
+- **掩码来源**：**Auto-Generated Jitter Mask**（`Sampling1J_Count(128,64)`，固定 `exprng::seed(20261020)`；**不是** SA 优化掩码。SA 优化掩码已由 `--run-experiments` 导出为 `mask_50pct_sa_best.txt`，供闭环对照使用）
+- **口径说明（重要）**：以下 SNR 默认是**全幅口径**（含 64 条被精确置回的道）。同一掩码的**缺失道口径**为：线性插值 $8.82\text{ dB}$、POCS $10.90\text{ dB}$（零填充按定义为 0 dB）。全幅 SNR 比缺失道高约 $3.0\text{ dB}$（合成 $3.01$、真实 $3.04$），论文对比必须注明口径。
+- **零值填充初始基准 SNR**：$3.00\text{ dB}$（基准参照 0.00 dB）
+- **空间线性插值基准 SNR**：$11.83\text{ dB}$（全幅；较零值填充提升 $+8.83\text{ dB}$）
+- **曲波域压缩感知重构 SNR (Curvelet POCS CS)**：**$13.90\text{ dB}$（全幅）/ $10.90\text{ dB}$（缺失道）**
+- **相比零值填充净提升量**：**$+10.90\text{ dB}$（全幅；数值上等于缺失道 POCS SNR 本身）**
+- **相比空间线性插值净超越量**：**$+2.07\text{ dB}$（缺失道口径）**
 - **全场均方根误差 (RMSE)**：**$0.032070$**
 - **波形皮尔逊相关系数 ($r$)**：**$0.9794$**
 - **观测道一致性检验**：**PASSED**（实测道最大偏差严格 $< 10^{-5}$，实测误差 $0.000000$）
-- **算法迭代与耗时**：40 步迭代，耗时约 $1550\text{ ms}$
+- **算法迭代与耗时**：40 步迭代，单次耗时约 $3.4\text{–}3.8\text{ s}$（随机器负载波动，CSV 中 `Runtime_ms` 为实测值）
 
 ### 3. 真实 SPS 观测系统空间属性评价指标 (`attribute_quality_report.txt`)
 
@@ -362,14 +428,14 @@ results/
 | 8 | `scratch/`、`patch_engine.py` 等一次性脚本混入主干 | 统一迁入 `tools/` 与 `tools/scratch/`，不参与构建 | vcproj 无引用 |
 | 9 | **`test_csv_real` 名不副实**：其输入 `seismic_valid_256x128.csv` 实为 `sin(0.05i+0.1j)` 合成正弦光栅，并非野外记录 | 目录更名为 `test_csv_external`；CSV 首行标注 "Synthetic 256x128 CSV fixture (sine grating) for CSV-parser validation only"；`Mode_Name` 由 `External Seismic Record` 中性化为 `External CSV File` | 报告首行与目录名一致，不再暗示真实资料 |
 | 10 | **曲波多尺度 μ 计算存在实质缺陷**：`CurveletMiu1DEigenParam` 恒取 `C[0][0]`（最粗尺度第一块）。`nbscales=1` 时该块即全矩阵（正确），但 `nbscales>=2` 时各块形状不一（实测 2 尺度 8 方向为 `85×85` 低频块 + 8 个 `75×171/171×75` 楔形块），据此算出的 μ **超过 1**（实测 1.457/1.762），而归一化 Gram 相干度理论上界为 1 —— 属明确错误 | 改为：多块时将全部系数经 `ifdct_wrapping` 重建回空间域感知矩阵，再对其求归一化 Gram 相干度；参考项同样经逆变换构建 | 修复后 7 组参数下 μ 全部落在 [0,1] 且 **Jitter-SA < 纯随机 < 规则减抽 排序 7/7 稳定**；`nbscales=1` 主流程数值逐位不变 |
-| 11 | 曲波变换参数缺少敏感性证据，存在"结论依赖单一固定参数"的质疑空间 | 新增 **Test 12 + `mu_param_robustness.csv`**：在 (1,4)(2,8)(2,16)(2,32)(3,12)(3,16)(4,16) 七组参数下检验三方案 μ 排序稳定性 | Test 12 通过；见下表 |
+| 11 | 曲波变换参数缺少敏感性证据，存在"结论依赖单一固定参数"的质疑空间 | 新增 **Test 12 + `mu_param_robustness.csv`**：在 (1,4)(2,8)(2,16)(2,32)(3,12)(3,16)(4,16) 七组参数下检验三方案 μ 排序稳定性 | Test 12 通过；**但 2026-10-20 复核发现多尺度行因精确逆变换而参数无关，本项不能作为鲁棒性证据（详见下文口径更正）** |
 | 12 | **OpenMP 数据竞争导致结果不可复现**：`gcellgrid.cpp` 的 `#pragma omp parallel for` 内对共享 `mFold[j][i]++` 及 `mMaxoffset/mInMaxoffset/mCLMaxoffset` 无保护写入。实测同一 seed 连续运行，`Mean Fold` 在 **106.41 / 106.42** 之间漂移，`attribute_fold_distribution.csv` 在 fold=197 档出现 0/1/2 面元的随机变化 | 对 `mFold` 累加改用 `#pragma omp atomic`；三处极值更新改用 `#pragma omp critical`；删除无意义的 `if(mFold[j][i]>10) int dddd=0;` 竞态读回 | 修复后连续 4 次运行，`attribute_fold_distribution.csv` 的 MD5 **完全一致**，`Mean Fold` 恒为 106.42 |
 | 13 | **自动抖动掩码未播种**：`runWavefieldReconstruction` 在未提供掩码文件时直接调用 `Sampling1J_Count`，无显式 `exprng::seed`，导致同一输入两次运行 SNR 从 9.25 漂到 10.23 dB | 掩码生成前固定 `exprng::seed(20261020ULL)` | 3 次运行 `cmp_mask.txt` MD5 完全一致，全部科学指标逐位一致（仅 `Runtime_ms` 不同） |
 | 14 | 报告增益为负时输出 `+-1.02 dB`（硬编码 `"+"` 前缀） | 改为带符号格式化 | 真实资料报告现正确显示 `-0.62 dB vs Linear` |
 | 15 | **`--run-real-reconstruction` 从未传递掩码**：调用处硬编码 `""`，导致 `--mask` 无效、三份不同掩码得到完全相同结果（11.83/13.90）。实验实际不可控 | 新增 `--mask <file>` 参数并正确传入；实测三份掩码现分别得到 11.34 / 12.55 / 12.37 dB | 掩码变化确实改变结果，`Mask_Source` 显示 External File |
 | 16 | **报告结论无条件断言"显著超过"**：即使真实资料上 POCS 低于线性插值（−0.62 dB），正文仍写 "significantly surpassing ... linear interpolation"，且格式为 `+-0.62 dB` | 新增 `fmtSigned()` / `compareGain()`；结论按实测差值分支输出 OUTPERFORMS / UNDERPERFORMS / COMPARABLE | Test 13 覆盖正增益/负增益/近零三种情况；全部输出已无 `+-` |
 | 17 | **README 指标与仓库不符**：README 写 12.35/14.10/1.75/5.90，仓库为 11.83/13.90/2.07/6.24；两组并非同一配置 | 查明差异源于采样掩码不同（非算法变化）；新增 4.5 节"实验基准与数据版本对照"作为指标唯一来源，并保留历史版本对照 | README 全部数值与 `results/synthetic` 一致 |
-| 18 | **SEG-Y 预处理不可复现**：无转换脚本，且二进制头为 **little-endian**（非 SEG-Y 标准大端）、format code 声明与实际 payload 不符 | 新增 `tools/convert_rraw_to_engine_csv.py`：显式记录参数、自带 `--check-encoding` 判定、输出前自检 256×128 | 重新生成 CSV 与原文件**逐字节一致** |
+| 18 | **SEG-Y 预处理不可复现**：无转换脚本，且二进制头为 **little-endian**（非 SEG-Y 标准大端）、format code 声明与实际 payload 不符 | 新增 `tools/convert_rraw_to_engine_csv.py`：显式记录参数、自带 `--check-encoding` 判定、输出前自检 256×128 | 重新生成 CSV 的**数据行逐位一致**（头注释已扩充，整文件不再逐字节一致） |
 | 19 | **真实资料验证用插值参考场自证**：SNR 相对 59→128 插值构造的参考场计算，不能代表真实波场精度 | 新增 `--holdout-validate`：只用真实实测道作验证目标（`real_gather_59x256.csv`），SNR 仅在留出道统计 | 6 组 keep×seed 配置下 POCS 均优于线性（+0.91~+1.30 dB）；Test 14 固化 |
 | 20 | **真实 SPS 属性报告放在 `results/synthetic/`**，与合成结果混放易误读 | 目录更名 `02_attribute_real_sps`，代码/测试引用同步 | 目录名与报告内 `Real Survey Evaluation Mode` 一致 |
 | 21 | **采样基准仅 3 轮重复**，不足以支撑统计结论 | 默认 `--repeat` 由 3 提高到 10，逐轮原始数据保留在 `benchmark_runs_detail.csv` | 统计量可由该文件独立复算；3 轮数值作废 |
@@ -391,27 +457,31 @@ results/
 | (3, 16) | 1.0000 | 0.2850 | **0.2366** | ✅ | 12.52 |
 | (4, 16) | 1.0000 | 0.2850 | **0.2366** | ✅ | 12.52 |
 
-> **解读**：在全部 7 组参数下，"Jitter-SA 相干度最低、规则减抽最高"的排序完全一致，说明核心结论**不依赖特定变换参数选择**，可作为方法鲁棒性证据。
-> 多尺度下 μ_规则 = 1.0000，是规则减抽（周期性采样）在任一完备变换基下都达到相干度理论上界的自然结果。
-> 亦可见多尺度下衰减约 12.52 dB，与单尺度基线 12.72 dB 高度接近，进一步支持结论稳健。
-> 说明：`nbscales==1` 时曲波仅有一个低频块，`nbangles` 不生效，故未重复采集 (1,8)。
+> **⚠ 口径更正（2026-10-20，必读）**：这张表**不能**作为"参数鲁棒性"证据，原因有三：
+> 1. `CurveletMiu1DEigenParam` 在 `nbscales>=2` 时走的是 `ifdct_wrapping(fdct_wrapping(X))`；`ifdct` 是 `fdct` 的精确逆，重建矩阵恒等于输入，`(nbscales, nbangles)` 被完全约掉。表中 6 组多尺度结果到 4 位小数完全相同，正是"同一个函数被算了 6 遍"的直接证据。
+> 2. `(1,4)` 行走的是"仅最粗尺度系数块"的另一条路径，与多尺度行**不是同一个度量**，两行数值不可横向比较。
+> 3. 因此本实验实际只有 **1 个独立参数点 `(1,4)`**。论文若需要参数敏感性证据，必须换一个真正随参数变化的度量（例如直接对多尺度系数块求 Gram，或比较不同变换参数下的重构 SNR），**不能用本表**。
+>
+> 保留此表仅用于记录历史输出；`--miu-robustness` 现会把该 CSV 归档到 `results/synthetic/01_sampling_benchmark/`，便于复核。
 
 ## 八、真实野外资料重构验证（2026-10-20 新增）
 
 ### 8.1 数据来源
 
-`data/real_seismic/Data/RRAW.SGY` —— 真实野外**共炮点道集**（训练数据集 Group A）。
+`data/real_seismic/Data/RRAW.SGY` —— 真实野外 **offset-sort 的 CDP 道集**（SEG-Y 文本头：`Off. Sort`、`GATHER DISPLAY FOR MIKE GALBRAITH NMO TEST`；道头 CDP 仅 237–241）。
 
 | 属性 | 实测值 |
 | :--- | :--- |
 | 文件大小 | 76,760 字节 |
-| 道数 | **59**（off-end 排列） |
-| 采样点数 | 250 |
-| 采样间隔 | 8 ms（记录长度 2.0 s） |
-| 道间距 | 约 12.3 m |
-| 偏移距 | 52 ~ 1,560 m（首道距炮点 33 m，末道 747 m） |
-| 振幅范围 | -7,155 ~ +7,011 |
+| 道数 | **59**（31 条负偏移 + 28 条正偏移，双侧接收） |
+| 采样点数 / 间隔 | 250 点 / 8 ms（记录长度 1.992 s） |
+| 电缆 / 道距 | 文本头 `CABLE 1586-52-0-52-1586 BY 26` → **split spread，道距 26 m** |
+| 偏移距 | **−1,560 ~ +1,430 m**（绝对值 52 ~ 1,560 m；存在 104/130/156/182 m 的不规则缺道） |
+| CDP 范围 | 237 ~ 241（5 个 CDP，属 offset-sorted 道集而非单炮道集） |
+| 振幅范围 | −7,155 ~ +7,011 |
 | 主频 | 约 21 Hz（10–40 Hz 占能量 61.9%） |
+
+> **几何描述修正（2026-10-20）**：此前把该数据写成"off-end 单侧共炮点道集、12.3 m 道距、首道 33 m/末道 747 m"，与 SEG-Y 文本头和道头实测不符。实际为**双侧 split spread 的 CDP 道集、26 m 道距、±52–1560 m**。§8.4 的解释已按此修正。
 
 > **数据格式注意**：SEG-Y 二进制头声明的格式码为 `1`（IBM 浮点），但实测数据实为 **IEEE 754 小端浮点**。按 IBM 解码会得到 10²⁵ 量级的荒谬值。这是该数据集的已知异常，解析时以实际字节为准。
 
@@ -431,13 +501,15 @@ C++ 引擎要求 **256 × 128**（Nt=256, dt=4 ms；Nx=128, dx=12.5 m）的纯�
 
 | 指标 | 合成数值模拟（前文） | **真实野外资料** |
 | :--- | :---: | :---: |
-| 零值填充 SNR | 3.02 dB | **3.04 dB** |
+| 零值填充 SNR | 3.00 dB | **3.04 dB** |
 | 线性插值 SNR | 11.83 dB | **9.85 dB** |
 | 曲波 POCS（热启动，主口径） | 13.90 dB | **9.23 dB** |
+| **缺失道口径 POCS**（全幅 − 3.01/3.04） | **10.90 dB** | **6.19 dB** |
+| **缺失道口径线性插值** | **8.82 dB** | **6.81 dB** |
 | 相对零填充提升 | +10.90 dB | **+6.19 dB** |
 | **相对线性插值** | **+2.07 dB** | **−0.62 dB** |
 | 冷启动 POCS | 6.24 dB | **6.85 dB** |
-| POCS 迭代净贡献（冷启动） | +2.89 dB | **+3.81 dB** |
+| POCS 迭代净贡献（冷启动） | +3.24 dB | **+3.81 dB** |
 | RMSE | 0.032070 | **0.036707** |
 | 皮尔逊相关系数 r | 0.9794 | **0.9384** |
 | 观测道一致性 | PASSED | **PASSED** |
@@ -448,9 +520,10 @@ C++ 引擎要求 **256 × 128**（Nt=256, dt=4 ms；Nx=128, dx=12.5 m）的纯�
 
 这不是程序缺陷，而是可信的科研结果。可能原因：
 
-1. **真实道集的空间相干性远低于合成模型**。合成数据是三层水平层状模型 + 高斯白噪声，同相轴高度规律；真实资料含地滚波残余、初至、非均质散射与随机噪声，空间预测性弱，线性插值已能捕获大部分可预测成分。
-2. **道集几何为 off-end 排列**（非对称、单侧），并非规则对称孔径。59 道插值到 128 道相当于 2.17 倍上采样，超出曲波稀疏先验的有效作用范围。
-3. **冷启动 POCS 仍有 +3.81 dB 净贡献**，说明曲波稀疏约束本身有效；但热启动路径下 POCS 反而**降低**了 0.62 dB，即迭代在插值初值上做了负向修正。
+1. **参考场本身由线性插值构造**（59 道 → 128 道），用它与重构结果比 SNR 会**系统性偏袒线性插值**；这是该口径最根本的局限，也是我们另做留出验证（§8.5）的原因。
+2. **真实道集的空间相干性远低于合成模型**。合成数据是三层水平层状模型 + 高斯白噪声，同相轴高度规律；真实资料含初至、非均质散射与随机噪声，空间预测性弱，线性插值已能捕获大部分可预测成分。
+3. **样本与孔径有限**：单个 CDP 道集、59 道、±1,560 m 孔径；59→128 相当于 2.17 倍上采样，超出曲波稀疏先验的有效作用范围。
+4. **冷启动 POCS 仍有 +3.81 dB 净贡献**，说明曲波稀疏约束本身有效；但热启动路径下 POCS 反而**降低**了 0.62 dB，即迭代在插值初值上做了负向修正。
 
 **因此**：论文中引用 13.90 dB 必须限定为"合成数值模拟条件"，并同时给出真实资料对照值 9.23 dB；不可将合成结论外推为真实工区结论。
 
@@ -488,6 +561,8 @@ C++ 引擎要求 **256 × 128**（Nt=256, dt=4 ms；Nx=128, dx=12.5 m）的纯�
 > **结论**：在全部 6 组配置下，**曲波 POCS 均优于线性插值（+0.91 ~ +1.30 dB）**，方向一致、量级稳定。这是本项目关于"曲波 POCS 优于插值"最可信的一条真实数据证据。
 >
 > 但 POCS 与线性插值的绝对 SNR 均为**负值**，说明在只有 30/59 真实道作为已知的条件下，两种方法的填补误差都大于信号本身。负 SNR 是真实结果，不做修饰。
+>
+> **补充说明（2026-10-20）**：留出验证使用的是**随机抽稀掩码**（间隔无上界），检验的是"随机缺失下的方法鲁棒性"，**不是**本文采样设计的有效性；若要检验抖动/SA 掩码，需要用 §4.5.5 导出的掩码在 `runHoldoutValidation` 中替换随机抽稀（尚未实现，属后续工作）。
 
 ### 8.6 复现命令
 
@@ -517,12 +592,16 @@ x64\Release\IrrGeometryDesign.exe --run-real-reconstruction ^
   --out results\real_field --ratio 0.50
 ```
 
-产物：`recon_metrics_summary.csv`、`recon_experiment_report.txt`、`05_wavefield_reconstruction_quad.png`、`06_recon_convergence_trace_comparison.png`（全部由 Qt 渲染器生成）。
+> **说明（2026-10-20）**：全分辨率导出会写 4 个道集 CSV，但**不再**在 `--run-real-reconstruction` 中重绘 05/06 图件——批量对照实验（如 `tools/compare_masks.py`）不应改动 `figures/` 下的正式科研图。图件只在 `--run-experiments` 全流程中生成。
 
 ---
 
 ### 尚未解决 / 后续建议
 
-- **真实资料仅为单炮**：`RRAW.SGY` 是单个共炮点道集，无法做速度分析、NMO、叠加与 CMP 面元属性评估。若需完整闭环，建议补充同工区多炮数据以构建 CMP 道集。
+- **真实资料仅为单个 CDP 道集**：`RRAW.SGY` 只有 5 个 CDP、59 道，无法做速度分析、NMO、叠加与 CMP 面元属性评估。若需完整闭环，建议补充同工区多炮数据以构建 CMP 道集。
 - **道数上采样倍数偏高**：59 → 128（2.17×）。建议补充"59 道原孔径、50% 抽稀"的对照，避免上采样本身主导指标。
+- **留出验证仍用随机抽稀**：`runHoldoutValidation` 目前只支持随机选 k 道，尚未接入抖动/SA 掩码（见 §8.5 补充说明）。
+- **2D/3D 扩展未归档**：GUI 中的 2D 流程（线间 SA → 线内逐线优化）与 CLI 一维基准不是同一算法，且无结果归档；`CalculateAveMiu` 是逐线 1D μ 的平均，不含跨线相干性。
+- **μ 与重构目标的一致性**：§4.5.5 的五掩码对照显示 μ 最优不等于重构最优；若论文要主张"μ 优化提升重构质量"，需扩充数据集或改进目标函数。
+- **SA 短程退火**：基准配置下 SA 实为 25 个温度步（≈26 次 μ 评估），"混合优化"中约 92% 算力在坐标局部搜索；等预算随机重启对照尚未实现。
 

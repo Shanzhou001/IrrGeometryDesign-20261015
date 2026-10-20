@@ -59,6 +59,22 @@ static QString getCentralFiguresDir(const QString& currentOutputDir)
     QDir dir(currentOutputDir);
     if (dir.dirName() == "figures") return dir.absolutePath();
 
+    // 2026.10.20 修复：测试/沙箱运行不得覆盖项目正式图件。
+    // 1) 显式环境变量优先（便于脚本把图件导到临时目录）；
+    // 2) 输出目录位于 unit_test_sandbox 时，图件写到沙箱内部，随沙箱一起清理。
+    const QString envFigs = QString::fromLocal8Bit(qgetenv("IRR_FIGURES_DIR"));
+    if (!envFigs.isEmpty())
+    {
+        QDir().mkpath(envFigs);
+        return envFigs;
+    }
+    if (currentOutputDir.contains("unit_test_sandbox", Qt::CaseInsensitive))
+    {
+        QString testFigs = dir.filePath("figures");
+        QDir().mkpath(testFigs);
+        return testFigs;
+    }
+
     // 注意: 不能用 contains("real") 判断——"02_attribute_real_sps" 也会命中，
     // 会把 SPS 属性图误写进 figures/real/。只认明确的外部 CSV 道集实验。
     const bool isRealFieldRun = currentOutputDir.contains("real_field", Qt::CaseInsensitive)
@@ -567,6 +583,13 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
         double sum_imprv_rand = 0.0;
         double sum_alias_db = 0.0;
 
+        // 2026.10.20 新增：记录本采样率下 μ 最优的 SA 掩码与其 Jitter 初始掩码，
+        // 供论文"采样优化 → 波场重构"闭环实验直接使用（此前掩码从不落盘）。
+        std::vector<int> bestSaMask;
+        std::vector<int> bestJitterMask;
+        int bestSaRunIndex = -1;
+        float bestSaMiu = 1e9f;
+
         for (int runIdx = 0; runIdx < repeatRuns; runIdx++)
         {
             BenchmarkRecord record;
@@ -629,6 +652,15 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             record.best_convergence_trace = stats.best_mu_trace;
             record.eval_trace = stats.eval_trace;
 
+            // 保存本采样率当前最优掩码（在 delete 之前拷贝）
+            if (record.miu_jitter_sa < bestSaMiu)
+            {
+                bestSaMiu = record.miu_jitter_sa;
+                bestSaRunIndex = runIdx;
+                bestSaMask.assign(phi_opt, phi_opt + N);
+                bestJitterMask.assign(phi_jit, phi_jit + N);
+            }
+
             delete[] phi_jit;
             delete[] phi_opt;
 
@@ -670,6 +702,36 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
         summary.imprv_vs_reg_mean = (float)(sum_imprv_reg / nRuns);
         summary.imprv_vs_rand_mean = (float)(sum_imprv_rand / nRuns);
         summary.coherence_ratio_atten_db_mean = (float)(sum_alias_db / nRuns);
+
+        // 导出本采样率最优掩码（每行一个 0/1；可直接传给 --run-real-reconstruction --mask）
+        if (!bestSaMask.empty())
+        {
+            const int pct = (int)(c * 100.0f + 0.5f);
+            QString pathSa = dir.filePath(QString("mask_%1pct_sa_best.txt").arg(pct));
+            QFile fSa(pathSa);
+            if (fSa.open(QIODevice::WriteOnly | QIODevice::Text))
+            {
+                QTextStream out(&fSa);
+                out.setCodec("UTF-8");
+                out << "# Jitter-SA optimized mask (best of " << repeatRuns << " runs)\n";
+                out << "# Sampling_Rate: " << pct << "%, m=" << m << "/" << N
+                    << ", best_run_index=" << bestSaRunIndex
+                    << ", mu=" << QString::number(bestSaMiu, 'f', 6) << "\n";
+                for (int i = 0; i < N; i++) out << bestSaMask[i] << "\n";
+                fSa.close();
+            }
+            QString pathJit = dir.filePath(QString("mask_%1pct_jitter_init.txt").arg(pct));
+            QFile fJit(pathJit);
+            if (fJit.open(QIODevice::WriteOnly | QIODevice::Text))
+            {
+                QTextStream out(&fJit);
+                out.setCodec("UTF-8");
+                out << "# Jitter init mask of the best Jitter-SA run (run_index=" << bestSaRunIndex << ")\n";
+                out << "# Sampling_Rate: " << pct << "%, m=" << m << "/" << N << "\n";
+                for (int i = 0; i < N; i++) out << bestJitterMask[i] << "\n";
+                fJit.close();
+            }
+        }
 
         rateSummaries.push_back(summary);
     }
@@ -866,19 +928,20 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
         out << "\n[Scientific Conclusions & Supporting Figures]\n";
         out << "  All run data charts and result figures have been saved to: figures/\n";
         out << "  1. [Figure 01_sa_convergence_curve.png]:\n";
-        out << "     Proves Metropolis SA convergence is unbiased with strictly non-increasing best trace";
+        out << "     Shows the Metropolis SA current-solution trace and the strictly non-increasing best-so-far trace";
         if (rateSummaries.size() >= 2)
         {
-            out << ",\n     achieving " << QString::number(rateSummaries[1].coherence_ratio_atten_db_mean, 'f', 2)
-                << " dB attenuation at 50% rate and breaking periodic coherent aliasing peaks.\n";
+            out << ",\n     with " << QString::number(rateSummaries[1].coherence_ratio_atten_db_mean, 'f', 2)
+                << " dB coherence-ratio attenuation at 50% rate.\n";
         }
         else
         {
             out << ".\n";
         }
         out << "  2. [Figure 02_sampling_benchmark_bars.png]:\n";
-        out << "     Directly compares Regular, Random, and Jitter-SA across 30%, 50%, 70% rates,\n";
-        out << "     proving Jitter-SA consistently outperforms other schemes in mutual coherence suppression.\n";
+        out << "     Compares Regular, Random, and Jitter-SA mu values across the tested sampling rates.\n";
+        out << "     Jitter-SA attains the lowest mu among the three schemes in these runs; this is a\n";
+        out << "     mu-domain result and does not by itself establish a reconstruction-SNR gain.\n";
         out << "\n[Experiment Traceability Notes]\n";
         out << "  - Complete per-run raw measurements are logged in 'benchmark_runs_detail.csv'.\n";
         out << "  - All runs are 100% deterministic and reproducible under Master Random Seed " << rngSeed << ".\n";
@@ -951,8 +1014,8 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
         .arg(outputDir);
     outReportSummary += QString::fromLocal8Bit(
         "\n\n【科研成果图件支撑】(全部数据图与结果图集中保存至 %1 文件夹)：\n"
-        "  ● 图件 01_sa_convergence_curve.png: 模拟退火优化相干度下降收敛曲线 (证明无偏探索与单调收敛)\n"
-        "  ● 图件 02_sampling_benchmark_bars.png: 三种采样方案相干度对比柱状图 (Jitter-SA相干度极小，衰减显著)"
+        "  ● 图件 01_sa_convergence_curve.png: SA 当前解/历史最优轨迹（历史最优单调非增）\n"
+        "  ● 图件 02_sampling_benchmark_bars.png: 三种采样方案 μ 对比柱状图（仅相干度口径）"
     ).arg(getCentralFiguresDir(outputDir));
 
     return true;
@@ -1066,12 +1129,13 @@ static bool runMiuParamRobustness(int N, float c, const QString& outputDir, QStr
         .arg(QString::number(c * 100.0f, 'f', 0)).arg(m).arg(N);
     outReportSummary += rows.join("\n");
     outReportSummary += QString::fromLocal8Bit(
-        "\n\n结论: %1/%2 组参数下排序完全稳定%3。\n"
-        "说明: 主流程采用的 (1,4) 为最粗尺度基线；若多组参数下排序一致，"
-        "则\"Jitter-SA 相干度最低\"这一结论不依赖于特定变换参数选择，可作为方法鲁棒性证据。\n"
+        "\n\n结论: %1/%2 组参数下三方案排序一致%3。\n"
+        "重要限制（2026.10.20 复核）: nbscales>=2 时本函数经 ifdct_wrapping 精确逆变换"
+        "重建感知矩阵，参数被数学约掉，因此多尺度各行的 μ 必然相同；"
+        "本实验实际只有 (1,4) 一个独立参数点，不能作为参数敏感性或鲁棒性证据。\n"
         "明细: %4")
         .arg(stableCount).arg(total)
-        .arg(stableCount == total ? QString::fromLocal8Bit("（全部稳定）") : QString::fromLocal8Bit("（存在不稳定组，需在论文中说明）"))
+        .arg(stableCount == total ? QString::fromLocal8Bit("（全部一致）") : QString::fromLocal8Bit("（存在不一致组）"))
         .arg(dir.filePath("mu_param_robustness.csv"));
 
     // 便于测试断言
@@ -1082,6 +1146,15 @@ static bool runMiuParamRobustness(int N, float c, const QString& outputDir, QStr
     Q_UNUSED(atten1x4);
     return true;
 }
+
+// 2026.10.20 新增：对外入口，便于 CLI 把参数鲁棒性结果归档到 results/ 下
+bool GeometryExperimentEngine::runMiuParamRobustnessExperiment(int N, float c,
+                                                               const QString& outputDir,
+                                                               QString& outReportSummary)
+{
+    return runMiuParamRobustness(N, c, outputDir, outReportSummary);
+}
+
 bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                                                         const QString& outputDir,
                                                         AttributeMetrics& outMetrics,
@@ -1902,6 +1975,8 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     outMetrics.calcDt = dt;
     outMetrics.dx = dx;
     outMetrics.iterations = 40;
+    outMetrics.snr_linear_missing_db = 0.0f;
+    outMetrics.snr_pocs_missing_db = 0.0f;
 
     std::vector<std::vector<float> > d_full(Nt, std::vector<float>(Nx, 0.0f));
 
@@ -2234,6 +2309,27 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     outMetrics.snr_imprv_vs_linear_db = outMetrics.snr_recovered_db - outMetrics.snr_linear_interp_db;
     outMetrics.rmse = (float)sqrt(energy_rec_err / (double)totalSamples);
     outMetrics.correlation = (den_f > 1e-12 && den_r > 1e-12) ? (float)(num_corr / sqrt(den_f * den_r)) : 0.0f;
+
+    // 2026.10.20 新增：缺失道口径 SNR。
+    // 全幅 SNR 包含 64 条被精确置回的道，恒比“缺失道 SNR”高约 3 dB；
+    // 论文对比必须同时给出缺失道口径，否则会高估重构精度。
+    double energy_miss_truth = 0.0, energy_miss_lin = 0.0, energy_miss_poc = 0.0;
+    for (int i = 0; i < Nt; i++)
+    {
+        for (int j = 0; j < Nx; j++)
+        {
+            if (mask[j] != 0) continue;
+            const double g = (double)d_full[i][j];
+            const double el = (double)d_linear[i][j] - g;
+            const double ep = (double)d_recon[i][j] - g;
+            energy_miss_truth += g * g;
+            energy_miss_lin += el * el;
+            energy_miss_poc += ep * ep;
+        }
+    }
+    outMetrics.snr_linear_missing_db = 10.0f * (float)log10(energy_miss_truth / (energy_miss_lin > 1e-12 ? energy_miss_lin : 1e-12));
+    outMetrics.snr_pocs_missing_db = 10.0f * (float)log10(energy_miss_truth / (energy_miss_poc > 1e-12 ? energy_miss_poc : 1e-12));
+
     outMetrics.runtimeMs = (double)(clock() - startTime) / CLOCKS_PER_SEC * 1000.0;
 
     // 7. 导出实验数据矩阵 (CSV 格式) (含严格写入检查) // add by shanzhou in 2026/10/15
@@ -2304,6 +2400,9 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out << "SNR_POCS_CS," << QString::number(outMetrics.snr_recovered_db, 'f', 2) << ",dB,Compressive sensing POCS recovered SNR (main pipeline)\n";
         out << "SNR_Improvement_vs_Zero," << QString::number(outMetrics.snr_improvement_db, 'f', 2) << ",dB,Net SNR gain over zero fill baseline\n";
         out << "SNR_Imprv_vs_Linear," << QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2) << ",dB,Net SNR gain over linear interp baseline\n";
+        // 2026.10.20: 缺失道口径（不含被精确置回的已采样道）
+        out << "SNR_Linear_MissingOnly," << QString::number(outMetrics.snr_linear_missing_db, 'f', 2) << ",dB,Linear interp SNR on unsampled traces only\n";
+        out << "SNR_POCS_MissingOnly," << QString::number(outMetrics.snr_pocs_missing_db, 'f', 2) << ",dB,POCS SNR on unsampled traces only (zero-fill = 0 dB by definition)\n";
         out << "Initialization_Mode," << (outMetrics.usedWarmStart ? "WarmStart (Linear Interpolation)" : "ColdStart (Zero-Fill)") << ",Text,POCS initial solution used by main pipeline\n";
         out << "SNR_POCS_ColdStart," << QString::number(outMetrics.snr_cold_start_db, 'f', 2) << ",dB,POCS from zero-fill init (standard POCS reference)\n";
         out << "SNR_POCS_WarmStart," << QString::number(outMetrics.snr_warm_start_db, 'f', 2) << ",dB,POCS from linear-interp init\n";
@@ -2354,6 +2453,11 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
             << (outMetrics.snr_imprv_vs_linear_db >= 0.0f ? "+" : "") << QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2) << " dB vs Linear)\n";
         out << "  4. Full-Field Root Mean Square Error (RMSE):        " << QString::number(outMetrics.rmse, 'f', 6) << "\n";
         out << "  5. Pearson Cross-Correlation Coefficient (r):       " << QString::number(outMetrics.correlation, 'f', 4) << "\n";
+        // 2026.10.20: 缺失道口径（与全幅口径并列，防止高估重构精度）
+        out << "  5b. Missing-Trace-Only SNR (unsampled traces):      Linear = "
+            << QString::number(outMetrics.snr_linear_missing_db, 'f', 2)
+            << " dB, POCS = " << QString::number(outMetrics.snr_pocs_missing_db, 'f', 2)
+            << " dB (zero-fill = 0.00 dB by definition)\n";
         out << "  6. Measured Traces Data Consistency Equality Check: " << (outMetrics.dataConsistencyPassed ? "PASSED (Strict error < 1e-5)" : "FAILED") << "\n";
         out << "  7. Reconstruction Execution Time:                   " << QString::number(outMetrics.runtimeMs, 'f', 1) << " ms ("
             << outMetrics.iterations << " iterations)\n\n";
@@ -2446,7 +2550,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     }
 
     // 绘制并保存科研图件 (集中保存到 figures/)
-    QString centralFiguresDir = getCentralFiguresDir(outputDir);
+        QString centralFiguresDir = getCentralFiguresDir(outputDir);
     QDir().mkpath(centralFiguresDir);
 
     ScientificPlotter::plotWavefieldReconstructionQuad(
@@ -2524,7 +2628,18 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
     QString dir1 = dir.filePath("01_sampling_benchmark");
     // 2026.10.20: 真实 SPS 几何评价不属于"合成"实验，放到输出目录的兄弟目录
     // real_sps/attribute_evaluation/ 下，避免与 synthetic/ 混淆。
-    QString dir2 = QDir(dir.filePath("..")).filePath("real_sps/attribute_evaluation");
+    // 2026.10.20 修复：属性评价目录原来固定写到 <输出目录>/../real_sps，导致
+    //   --test 的 Test 10 在沙箱中运行时会覆盖 results/real_sps 下的正式报告。
+    //   现改为：沙箱运行写到沙箱内部；否则仍写到 results/real_sps/attribute_evaluation。
+    QString dir2;
+    if (outputDir.contains("unit_test_sandbox", Qt::CaseInsensitive))
+    {
+        dir2 = dir.filePath("real_sps/attribute_evaluation");
+    }
+    else
+    {
+        dir2 = QDir(dir.filePath("..")).filePath("real_sps/attribute_evaluation");
+    }
 
     QString dir3 = dir.filePath("03_wavefield_reconstruction");
     // 2026.10.20 修复: dir.mkpath(dir1) 会把 dir1 当作相对于 dir 的路径，
@@ -2611,7 +2726,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
      .arg(ok3 ? QString::fromLocal8Bit("成功") : QString::fromLocal8Bit("失败"))
      .arg(f3_ok ? QString::fromLocal8Bit("正常") : QString::fromLocal8Bit("缺失"));
 
-    QString centralFiguresDir = getCentralFiguresDir(outputDir);   // 2026.10.20: 统一输出到 figures/
+        QString centralFiguresDir = getCentralFiguresDir(outputDir);   // 2026.10.20: 统一输出到 figures/
     QDir().mkpath(centralFiguresDir);
 
     // 50% 采样率相干度衰减与 beta/μ 指标一律取多轮重复试验的聚合均值（下方计算），
@@ -2685,7 +2800,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
         "--> %1\n\n"
         "图件支撑清单与科学结论：\n"
         "1. [00_research_workflow_summary.png] 全流程科研闭环综合大看板 (采样-属性-重构总览)\n"
-        "2. [01_sa_convergence_curve.png] 模拟退火相干度下降收敛曲线 (证明无偏探索与单调收敛)\n"
+        "2. [01_sa_convergence_curve.png] 模拟退火当前解/历史最优收敛轨迹 (历史最优单调非增)\n"
         "3. [02_sampling_benchmark_bars.png] 三种采样方案相干度对比柱状图 (Jitter-SA相干度衰减%2 dB)\n"
         "4. [03_cmp_fold_distribution_map.png] CMP面元空间覆盖次数平面热力图 (展示覆盖次数在二维CMP网格上的连续分布)\n"
         "5. [04_offset_azimuth_rose_charts.png] 炮检距连续性分布直方图与方位角玫瑰图 (完整度%3)\n"
@@ -3839,8 +3954,9 @@ bool GeometryExperimentEngine::runUnitTests()
     }
 
     // 严格核查生成的真实工区评价报告文件内容，杜绝报告指标退化与虚假陈述
-    // 2026.10.20: 真实 SPS 报告现位于 <suite 输出目录的父目录>/real_sps/attribute_evaluation/
-    QString rptFileNorm = "unit_test_sandbox/real_sps/attribute_evaluation/attribute_quality_report.txt";
+    // 2026.10.20: 沙箱运行时报告写在 <suite 输出目录>/real_sps/attribute_evaluation/
+    //   （不再写到父目录，否则会覆盖 results/real_sps 的正式报告）
+    QString rptFileNorm = "unit_test_sandbox/test_suite_norm/real_sps/attribute_evaluation/attribute_quality_report.txt";
     QFile rptF(rptFileNorm);
     if (!rptF.open(QIODevice::ReadOnly | QIODevice::Text))
     {

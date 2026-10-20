@@ -155,7 +155,7 @@ public:
 
         QString title = QString::fromLocal8Bit("模拟退火 (SA) 优化相干度下降收敛曲线 [采样率: ") +
                         QString::number(rate * 100.0f, 'f', 0) + "%, m=" + QString::number(m) + "/" + QString::number(N) + "]";
-        QString subtitle = QString::fromLocal8Bit("科研验证：Jitter-SA 优化算法能显著破坏网格周期假频，抑制互相干度并加速收敛（图示为单次代表轮次轨迹）");
+        QString subtitle = QString::fromLocal8Bit("Metropolis 当前解与历史最优轨迹（单次代表轮次；终值为 SA 历史最优，不含 CG 精修）");
         drawHeader(p, W, title, subtitle);
 
         QRect plotRect(80, 105, 540, 370);
@@ -253,10 +253,10 @@ public:
         cardLines.push_back(QString::fromLocal8Bit("抽取保留点 m: ") + QString::number(m));
         cardLines.push_back(QString::fromLocal8Bit("规则减抽相干度: ") + QString::number(regMiu, 'f', 4));
         cardLines.push_back(QString::fromLocal8Bit("纯随机抽样相干度: ") + QString::number(randMiu, 'f', 4));
-        cardLines.push_back(QString::fromLocal8Bit("优化最终相干度: ") + QString::number(finalBest, 'f', 4));
+        cardLines.push_back(QString::fromLocal8Bit("SA 历史最优(不含CG): ") + QString::number(finalBest, 'f', 4));
         float imprvReg = (regMiu > 1e-4f) ? ((regMiu - finalBest) / regMiu * 100.0f) : 0.0f;
         float attenDb = (finalBest > 1e-6f && regMiu > 1e-6f) ? (20.0f * (float)log10(regMiu / finalBest)) : 0.0f;
-        cardLines.push_back(QString::fromLocal8Bit("相干度降幅: -") + QString::number(imprvReg, 'f', 2) + "%");
+        cardLines.push_back(QString::fromLocal8Bit("相干度降幅: ") + QString::number(imprvReg, 'f', 2) + "%");
         cardLines.push_back(QString::fromLocal8Bit("相干度衰减: ") + QString::number(attenDb, 'f', 2) + " dB");
         drawCard(p, QRect(650, 105, 230, 215), QString::fromLocal8Bit("优化收敛指标统计 (SA Metrics)"), cardLines);
 
@@ -290,7 +290,7 @@ public:
         p.setRenderHint(QPainter::Antialiasing, true);
 
         QString title = QString::fromLocal8Bit("不同采样比例下三种采样方案互相干度综合对比与衰减分析");
-        QString subtitle = QString::fromLocal8Bit("对比方案：规则减抽采样 vs 纯随机采样 vs 本项目优化的 Jitter-SA 采样 (证明假频抑制性能)");
+        QString subtitle = QString::fromLocal8Bit("对比方案：规则减抽采样 vs 纯随机采样 vs Jitter-SA 优化（数值为 μ，仅反映相干度差异）");
         drawHeader(p, W, title, subtitle);
 
         QRect plotRect(80, 105, 560, 370);
@@ -407,10 +407,9 @@ public:
             insights.push_back(QString::fromLocal8Bit("1. 三档采样率下 Jitter-SA 均为最低相干度。"));
             insights.push_back(QString::fromLocal8Bit("   (详细分档数值见统计明细表)"));
         }
-        insights.push_back(QString::fromLocal8Bit("2. 相比纯随机，Jitter约束消除了"));
-        insights.push_back(QString::fromLocal8Bit("   检波点聚集与大孔隙缺陷。"));
-        insights.push_back(QString::fromLocal8Bit("3. 实现了空间非规则性与均匀性的"));
-        insights.push_back(QString::fromLocal8Bit("   双重最优平衡。"));
+        insights.push_back(QString::fromLocal8Bit("2. 相比纯随机，Jitter 初始化提供"));
+        insights.push_back(QString::fromLocal8Bit("   网格约束；SA 后是否仍均匀"));
+        insights.push_back(QString::fromLocal8Bit("   需用最大间隔/最近邻距离另行评估。"));
         drawCard(p, QRect(660, 240, 240, 175), QString::fromLocal8Bit("学术科研结论 (Conclusions)"), insights);
 
         p.end();

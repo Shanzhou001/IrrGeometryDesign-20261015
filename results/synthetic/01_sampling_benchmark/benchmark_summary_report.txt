@@ -1,6 +1,6 @@
 ====================================================================================
   Irregular Seismic Geometry Non-Uniform Sampling Benchmark Report (Scientific Evaluation)
-  Generated: 2026-10-20 14:47:58
+  Generated: 2026-10-20 16:33:45
   Master Random Seed: 42
   Repetition Runs per Rate: 10
   Seed Derivation Formula: actual_seed = master_seed + int(c * 1000) + run_index * 179 + 1
@@ -33,11 +33,12 @@ Rate	m/N	Regular_Mu	Random_Mu	SA_Mean_Mu	SA_StdDev	[Min, Max]	Imprv_vs_Reg	Coher
 [Scientific Conclusions & Supporting Figures]
   All run data charts and result figures have been saved to: figures/
   1. [Figure 01_sa_convergence_curve.png]:
-     Proves Metropolis SA convergence is unbiased with strictly non-increasing best trace,
-     achieving 12.71 dB attenuation at 50% rate and breaking periodic coherent aliasing peaks.
+     Shows the Metropolis SA current-solution trace and the strictly non-increasing best-so-far trace,
+     with 12.71 dB coherence-ratio attenuation at 50% rate.
   2. [Figure 02_sampling_benchmark_bars.png]:
-     Directly compares Regular, Random, and Jitter-SA across 30%, 50%, 70% rates,
-     proving Jitter-SA consistently outperforms other schemes in mutual coherence suppression.
+     Compares Regular, Random, and Jitter-SA mu values across the tested sampling rates.
+     Jitter-SA attains the lowest mu among the three schemes in these runs; this is a
+     mu-domain result and does not by itself establish a reconstruction-SNR gain.
 
 [Experiment Traceability Notes]
   - Complete per-run raw measurements are logged in 'benchmark_runs_detail.csv'.

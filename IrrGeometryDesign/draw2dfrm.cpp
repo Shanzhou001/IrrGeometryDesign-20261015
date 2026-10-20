@@ -102,6 +102,7 @@ int Draw2Dfrm::exec()
 	show();
 	in_loop = true;
 	qApp->enter_loop();		
+	return 0;   // 2026.10.20 修复 C4715：补全返回路径
 }
 
 //ovt覆盖次数

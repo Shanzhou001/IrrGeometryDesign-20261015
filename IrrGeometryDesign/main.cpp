@@ -225,6 +225,22 @@ int main(int argc, char *argv[])
 			}
 			return 0;
 		}
+		// 2026.10.20 新增：曲波变换参数鲁棒性实验（结果写入指定目录，可归档）
+		// 用法: --miu-robustness [outDir, 默认 results/synthetic/01_sampling_benchmark]
+		if (strcmp(argv[i], "--miu-robustness") == 0)
+		{
+			QString outDir = "results/synthetic/01_sampling_benchmark";
+			if (i + 1 < argc && argv[i + 1][0] != '-')
+			{
+				outDir = QString::fromLocal8Bit(argv[i + 1]);
+			}
+			printf("Curvelet parameter robustness experiment\n");
+			printf("  outDir: %s\n", outDir.toLocal8Bit().constData());
+			QString summary;
+			bool ok = GeometryExperimentEngine::runMiuParamRobustnessExperiment(128, 0.50f, outDir, summary);
+			printf("%s\n", summary.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
 	}
 
 	QTranslator *qtTranslator = new QTranslator;
@@ -304,52 +320,6 @@ int main(int argc, char *argv[])
 			printf("Captured all audit screenshots successfully!\n");
 			return 0;
 		}
-		// 2026.10.20: 真实野外资料重构验证专用入口
-		// 用法: --run-real-reconstruction <input.csv> [outDir] [--ratio <0..1>]
-		if (strcmp(argv[i], "--run-real-reconstruction") == 0)
-		{
-			QString inCsv;
-			QString outDir = "experiment_results_real";
-			float ratio = 0.50f;
-			if (i + 1 < argc && argv[i + 1][0] != '-')
-			{
-				inCsv = QString::fromLocal8Bit(argv[i + 1]);
-			}
-			for (int j = 1; j < argc; j++)
-			{
-				if (strcmp(argv[j], "--out") == 0 && j + 1 < argc)
-				{
-					outDir = QString::fromLocal8Bit(argv[j + 1]);
-				}
-				else if (strcmp(argv[j], "--ratio") == 0 && j + 1 < argc)
-				{
-					ratio = (float)atof(argv[j + 1]);
-					if (ratio <= 0.0f || ratio >= 1.0f) ratio = 0.50f;
-				}
-			}
-			if (inCsv.isEmpty())
-			{
-				fprintf(stderr, "Usage: IrrGeometryDesign --run-real-reconstruction <input.csv> [--out <dir>] [--ratio <0..1>]\n");
-				return 1;
-			}
-			printf("Real-field wavefield reconstruction\n");
-			printf("  input : %s\n", inCsv.toLocal8Bit().constData());
-			printf("  outDir: %s\n", outDir.toLocal8Bit().constData());
-			printf("  ratio : %.2f\n", ratio);
-
-			GeometryExperimentEngine::ReconstructionMetrics metrics;
-			QString summary;
-			bool ok = GeometryExperimentEngine::runWavefieldReconstruction(
-				"", outDir, ratio, metrics, summary, inCsv, true, false, true, true);
-			printf("%s\n", summary.toLocal8Bit().constData());
-			if (!ok)
-			{
-				fprintf(stderr, "\n[ERROR]: real-field reconstruction failed.\n");
-				return 1;
-			}
-			printf("\nReal-field reconstruction succeeded.\n");
-			return 0;
-		}
 	}
 
 	for (int i = 1; i < argc; i++)
@@ -360,52 +330,6 @@ int main(int argc, char *argv[])
 			QCoreApplication::processEvents();
 			QPixmap pix = QPixmap::grabWidget(&w);
 			pix.save("audit_populated_survey.png");
-			return 0;
-		}
-		// 2026.10.20: 真实野外资料重构验证专用入口
-		// 用法: --run-real-reconstruction <input.csv> [outDir] [--ratio <0..1>]
-		if (strcmp(argv[i], "--run-real-reconstruction") == 0)
-		{
-			QString inCsv;
-			QString outDir = "experiment_results_real";
-			float ratio = 0.50f;
-			if (i + 1 < argc && argv[i + 1][0] != '-')
-			{
-				inCsv = QString::fromLocal8Bit(argv[i + 1]);
-			}
-			for (int j = 1; j < argc; j++)
-			{
-				if (strcmp(argv[j], "--out") == 0 && j + 1 < argc)
-				{
-					outDir = QString::fromLocal8Bit(argv[j + 1]);
-				}
-				else if (strcmp(argv[j], "--ratio") == 0 && j + 1 < argc)
-				{
-					ratio = (float)atof(argv[j + 1]);
-					if (ratio <= 0.0f || ratio >= 1.0f) ratio = 0.50f;
-				}
-			}
-			if (inCsv.isEmpty())
-			{
-				fprintf(stderr, "Usage: IrrGeometryDesign --run-real-reconstruction <input.csv> [--out <dir>] [--ratio <0..1>]\n");
-				return 1;
-			}
-			printf("Real-field wavefield reconstruction\n");
-			printf("  input : %s\n", inCsv.toLocal8Bit().constData());
-			printf("  outDir: %s\n", outDir.toLocal8Bit().constData());
-			printf("  ratio : %.2f\n", ratio);
-
-			GeometryExperimentEngine::ReconstructionMetrics metrics;
-			QString summary;
-			bool ok = GeometryExperimentEngine::runWavefieldReconstruction(
-				"", outDir, ratio, metrics, summary, inCsv, true, false, true, true);
-			printf("%s\n", summary.toLocal8Bit().constData());
-			if (!ok)
-			{
-				fprintf(stderr, "\n[ERROR]: real-field reconstruction failed.\n");
-				return 1;
-			}
-			printf("\nReal-field reconstruction succeeded.\n");
 			return 0;
 		}
 	}

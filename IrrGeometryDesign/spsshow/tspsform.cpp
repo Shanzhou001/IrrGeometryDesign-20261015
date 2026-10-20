@@ -127,14 +127,14 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     mTitles << QString::fromLocal8Bit("01. 模拟退火相干度下降收敛曲线 (SA Coherence Minimization)");
     mConclusions << QString::fromLocal8Bit(
         "<b>【图件定位】</b>模拟退火算法对观测感知矩阵互相干度 μ 的优化收敛轨迹（横轴：迭代步数，纵轴：相干度 μ）。<br>"
-        "<b>【核心结论与图件支撑】</b>当前解轨迹（μ_trace）在 Metropolis 准则下持续探索，历史最优轨迹（best_mu_trace）严格单调非增，证明算法能够稳定收敛至更低相干度；20°C 退火条件下 50% 采样率单次代表轮次历史最优 μ 由初始抖动网格值下降至该轮收敛值（图示曲线终点），3 轮均值为 0.2353，平均衰减 12.25 dB，破坏了规则采样的周期性假频栅瓣，使感知矩阵与稀疏变换基的互相干性得到显著抑制。"
+        "<b>【核心结论与图件支撑】</b>当前解轨迹（μ_trace）在 Metropolis 准则下持续探索，历史最优轨迹（best_mu_trace）严格单调非增；50% 采样率单次代表轮次历史最优 μ 由初始抖动网格值下降至该轮收敛值（图示曲线终点为 SA 历史最优，不含 CG 精修）。10 轮独立试验均值为 0.2238，平均相干度比值衰减 12.71 dB；该图仅反映 μ 轨迹，空间均匀性需另行评估。"
     );
 
     mFileNames << "02_sampling_benchmark_bars.png";
     mTitles << QString::fromLocal8Bit("02. 空间采样方案多指标对比柱状图 (Uniform vs Random vs Jitter-SA)");
     mConclusions << QString::fromLocal8Bit(
         "<b>【图件定位】</b>30%、50%、70% 三种采样率下，规则减抽(Regular)、纯随机(Random)与 Jitter-SA 抖动退火优化的互相干度 μ 柱状对比。<br>"
-        "<b>【核心结论与图件支撑】</b>柱状图清晰表明：Jitter-SA 在各采样率下均取得最低相干度（50% 下均值 0.2353，规则减抽 0.9601、纯随机 0.3242），改善率分别达 75.49% 与 26.30%，相干度比值衰减 12.25 dB。图件证明了抖动采样兼具随机高频去相干性与局部空间覆盖均匀度，彻底避免了纯随机采样的局部聚集与大面积空洞。"
+        "<b>【核心结论与图件支撑】</b>柱状图表明：Jitter-SA 在各采样率下均取得最低相干度（50% 下 10 轮均值 0.2238，规则减抽 0.9601、纯随机 0.3332），改善率 76.69% 与 32.33%，相干度比值衰减 12.71 dB。该图仅反映 μ 差异；空间均匀性需用最大间隔/最近邻距离另行评估，不能由本图直接断言。"
     );
 
     mFileNames << "03_cmp_fold_distribution_map.png";
@@ -155,14 +155,14 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     mTitles << QString::fromLocal8Bit("05. 2D波场欠采样与POCS压缩感知重构四联剖面 (CS Reconstruction)");
     mConclusions << QString::fromLocal8Bit(
         "<b>【图件定位】</b>(a) 原始完整波场、(b) 50% 欠采样波场、(c) 2D Curvelet POCS 压缩感知重构波场、(d) 残差剖面的四联对比。<br>"
-        "<b>【核心结论与图件支撑】</b>剖面对比显示：在缺失 50% 道的情况下，2D Curvelet POCS 重构剖面恢复了反射同相轴的连续性，重构 SNR 达 13.90 dB（相比零值填充提升 10.90 dB），高于空间线性插值基线（11.83 dB，+2.07 dB），RMSE 为 0.032070。以上为合成数值模拟条件；真实野外资料上该增益并不成立（−0.62 dB），详见 README 第八节。"
+        "<b>【核心结论与图件支撑】</b>剖面对比显示：在缺失 50% 道的情况下，2D Curvelet POCS 重构剖面恢复了反射同相轴的连续性。全幅 SNR 为 13.90 dB（缺失道口径 10.90 dB），高于空间线性插值基线（全幅 11.83 dB，+2.07 dB），RMSE 为 0.032070。以上为合成数值模拟条件；真实野外资料上该增益并不成立（-0.62 dB），详见 README 第八节。"
     );
 
     mFileNames << "06_recon_convergence_trace_comparison.png";
     mTitles << QString::fromLocal8Bit("06. POCS残差收敛曲线与抽稀道单道波形对比细节 (Trace Comparison)");
     mConclusions << QString::fromLocal8Bit(
         "<b>【图件定位】</b>左图：POCS迭代残差与PSNR提升收敛曲线；右图：抽取单道（原始道 vs 缺失插值道 vs 重构道）的振幅与子波重叠对比。<br>"
-        "<b>【核心结论与图件支撑】</b>曲线显示残差在前15次迭代即下降85%，在30次收敛平稳；单道对比中，重构波形（红线）与原始真实波形（黑虚线）高度吻合，波峰波谷相位精确对齐，单道皮尔逊相关系数达0.987，微观定量支撑了波场恢复的高保真度。"
+        "<b>【核心结论与图件支撑】</b>左图显示 POCS 残差随迭代下降并趋于平稳；右图为抽取单道（原始道 vs 重构道）的振幅与子波重叠对比。单道指标与迭代收敛数值请以 recon_metrics_summary.csv 及 figures/ 中对应图件为准，此处不再硬编码未计算的数字。"
     );
 
     for (int i = 0; i < mTitles.size(); ++i)
@@ -210,7 +210,7 @@ void ResearchFiguresDialog::onNext()
 
 void ResearchFiguresDialog::onOpenInBrowser()
 {
-    QString htmlPath = QDir::current().filePath("experiment_results/all_result_figures/index.html");
+    QString htmlPath = QDir::current().filePath("figures/index.html");
     QFileInfo fi(htmlPath);
     if (fi.exists())
     {
@@ -219,13 +219,13 @@ void ResearchFiguresDialog::onOpenInBrowser()
     else
     {
         QMessageBox::warning(this, QString::fromLocal8Bit("未找到画廊网页"),
-                             QString::fromLocal8Bit("画廊网页尚未生成：%1\n请先在主窗口点击【一键全流程验证】。").arg(htmlPath));
+                             QString::fromLocal8Bit("画廊网页尚未生成：%1\n请先在命令行运行：\nIrrGeometryDesign.exe --run-experiments results\\synthetic --repeat 10 --seed 42").arg(htmlPath));
     }
 }
 
 void ResearchFiguresDialog::onOpenFolder()
 {
-    QString dirPath = QDir::current().filePath("experiment_results/all_result_figures");
+    QString dirPath = QDir::current().filePath("figures");
     QDir dir(dirPath);
     if (!dir.exists())
     {
@@ -246,12 +246,12 @@ void ResearchFiguresDialog::loadFigure(int index)
         mCombo->blockSignals(false);
     }
 
-    QString dirPath = QDir::current().filePath("experiment_results/all_result_figures");
+    QString dirPath = QDir::current().filePath("figures");
     QString filePath = QDir(dirPath).filePath(mFileNames[index]);
     QFileInfo fi(filePath);
     if (!fi.exists())
     {
-        filePath = QDir::current().filePath("experiment_results/" + mFileNames[index]);
+        filePath = QDir::current().filePath("figures/" + mFileNames[index]);
         fi.setFile(filePath);
     }
 
@@ -272,7 +272,8 @@ void ResearchFiguresDialog::loadFigure(int index)
     {
         mImageLabel->setText(QString::fromLocal8Bit(
             "<font color=red><b>图件尚未生成：</b>%1</font><br><br>"
-            "提示：请先在主界面点击【一键运行全套科研闭环验证】或对应的试验按钮生成图件！").arg(mFileNames[index]));
+            "提示：本版本 GUI 不再提供一键运行入口。请先在命令行运行：<br>"
+            "IrrGeometryDesign.exe --run-experiments results\\synthetic --repeat 10 --seed 42").arg(mFileNames[index]));
     }
 
     mConclusionBrowser->setHtml(mConclusions[index]);
@@ -2671,7 +2672,7 @@ void TSPSForm::on_actionViewDashboard_triggered()
 
 void TSPSForm::on_actionOpenFiguresDir_triggered()
 {
-    QString dirPath = QDir::current().filePath("experiment_results/all_result_figures");
+    QString dirPath = QDir::current().filePath("figures");
     QDir dir(dirPath);
     if (!dir.exists())
     {

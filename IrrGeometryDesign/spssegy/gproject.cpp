@@ -462,7 +462,7 @@ bool GProject::saveTime()
 
 bool GProject::saveProjectFile()
 {
-	Q_INT32 i, data;
+	Q_INT32 i, data = 0;   /* 2026.10.20 fix C4700: data was used uninitialized */
 	QFile file(getProjectFileName());			//ļͳһʹQFileд
 	if(!file.open(IO_WriteOnly)) return false;
 

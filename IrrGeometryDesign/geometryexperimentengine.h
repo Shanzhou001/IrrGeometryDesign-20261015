@@ -125,6 +125,9 @@ public:
         float snr_imprv_vs_linear_db;// 相比线性插值净提升 (dB)
         float rmse;                  // 均方根误差 (RMSE)
         float correlation;           // 皮尔逊相关系数 r (0~1)
+        // 2026.10.20 新增：缺失道口径 SNR（全幅 SNR 含已精确置回的道，约高 3 dB）
+        float snr_linear_missing_db; // 线性插值在未采样道上的 SNR (dB)
+        float snr_pocs_missing_db;   // POCS 在未采样道上的 SNR (dB)
         bool dataConsistencyPassed;  // 观测道数据一致性检验是否通过
         double runtimeMs;            // 算法耗时 (毫秒)
         // ---- 冷启动/热启动对照 (用于学术公平性论证, 2026.10.19 新增) ----
@@ -262,6 +265,11 @@ public:
                                 int iterations,
                                 const QString& outputDir,
                                 QString& outReport);
+
+    // 曲波变换参数鲁棒性实验（2026.10.20 新增 CLI 入口，结果可归档）
+    static bool runMiuParamRobustnessExperiment(int N, float c,
+                                                const QString& outputDir,
+                                                QString& outReportSummary);
 };
 
 #endif // GEOMETRY_EXPERIMENT_ENGINE_H
