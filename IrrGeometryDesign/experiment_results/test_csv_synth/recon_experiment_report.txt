@@ -2,7 +2,7 @@
   Seismic Wavefield Compressive Sensing Reconstruction Research Report
   Dataset Mode: Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)
   Subsampling Mask: Auto-Generated Jitter Mask (m=64/128, 50.0%)
-  Generated: 2026-10-20 01:31:50
+  Generated: 2026-10-20 09:50:15
 ====================================================================================
 
 [Subsampling Geometry Configuration]
@@ -12,23 +12,23 @@
   Unsampled Missing Channels:64 traces to be interpolated/recovered
 
 [Comparative Quantitative Reconstruction Quality Metrics]
-  1. Baseline 1 (Zero-fill Subsampled Gather):        SNR = 3.02 dB (Reference 0.00 dB)
-  2. Baseline 2 (Spatial Linear Interpolation):       SNR = 12.35 dB (Gain: +9.34 dB)
-  3. Compressive Sensing (Curvelet POCS):             SNR = 14.10 dB (Gain: +11.09 dB vs Zero-fill, +1.75 dB vs Linear)
-  4. Full-Field Root Mean Square Error (RMSE):        0.031334
-  5. Pearson Cross-Correlation Coefficient (r):       0.9804
+  1. Baseline 1 (Zero-fill Subsampled Gather):        SNR = 3.00 dB (Reference 0.00 dB)
+  2. Baseline 2 (Spatial Linear Interpolation):       SNR = 11.83 dB (Gain: +8.82 dB)
+  3. Compressive Sensing (Curvelet POCS):             SNR = 13.90 dB (Gain: +10.90 dB vs Zero-fill, +2.07 dB vs Linear)
+  4. Full-Field Root Mean Square Error (RMSE):        0.032070
+  5. Pearson Cross-Correlation Coefficient (r):       0.9794
   6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
-  7. Reconstruction Execution Time:                   4270.0 ms (40 iterations)
+  7. Reconstruction Execution Time:                   4105.0 ms (40 iterations)
 
 [Controlled Cold-Start vs Warm-Start Experiment (Fairness / Ablation)]
   Purpose: isolate the contribution of the linear-interpolation initial solution from
            the contribution of the curvelet POCS iterations themselves.
-  - POCS from Zero-Fill init   (Cold-Start): SNR = 5.90 dB, RMSE = 0.080550, r = 0.8656
-  - POCS from Linear-Interp init (Warm-Start): SNR = 14.10 dB, RMSE = 0.031334, r = 0.9804
+  - POCS from Zero-Fill init   (Cold-Start): SNR = 6.24 dB, RMSE = 0.077459, r = 0.8769
+  - POCS from Linear-Interp init (Warm-Start): SNR = 13.90 dB, RMSE = 0.032070, r = 0.9794
   - Contribution split:
-      (a) warm-start initialization alone : 9.34 dB
-      (b) POCS iterations from cold start : 2.89 dB
-      (c) POCS iterations from warm start : 1.75 dB
+      (a) warm-start initialization alone : 8.82 dB
+      (b) POCS iterations from cold start : 3.24 dB
+      (c) POCS iterations from warm start : 2.07 dB
   - Interpretation: the headline SNR gain of the main pipeline is the SUM of (a) and (c).
     Term (b) is the fair, literature-comparable measure of the curvelet POCS method itself,
     because it starts from the same zero-fill initial solution used by standard POCS.
@@ -36,9 +36,9 @@
 [In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]
   - Observation Summary:
     In this numerical experiment (50% sampling rate, trace spacing dx=12.5m), the improved 2D Curvelet
-    POCS reconstruction achieves SNR = 14.10 dB,
-    significantly surpassing both the Zero-Fill baseline (3.02 dB, +11.09 dB)
-    and the 1D Spatial Linear Interpolation baseline (12.35 dB, +1.75 dB).
+    POCS reconstruction achieves SNR = 13.90 dB,
+    significantly surpassing both the Zero-Fill baseline (3.00 dB, +10.90 dB)
+    and the 1D Spatial Linear Interpolation baseline (11.83 dB, +2.07 dB).
   - Geophysical & Mathematical Advancements:
     1. Multi-scale & Directional Sparsity in Curvelet Domain:
        Seismic reflection events exhibit hyperbolic curvature and localized wave fronts. While standard
@@ -61,4 +61,4 @@
      and residual difference slices. Demonstrates continuous event recovery with minimal residual energy.
   2. [Figure 06_recon_convergence_trace_comparison.png]:
      Monotonic residual energy convergence curve and single-trace overlay comparison on unsampled channels
-     prove millisecond-accurate reflection peak, trough, and traveltime preservation (r = 0.9804).
+     prove millisecond-accurate reflection peak, trough, and traveltime preservation (r = 0.9794).

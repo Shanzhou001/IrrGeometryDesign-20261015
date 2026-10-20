@@ -1981,6 +1981,10 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     }
     if (!loadedFromFile)
     {
+        // 2026.10.20: 自动生成抖动掩码前必须显式播种，否则同一次运行结果不可复现
+        // （实测真实资料两次运行 SNR 由 9.25 漂到 10.23 dB）。
+        // 用固定种子保证"同一输入 -> 同一掩码 -> 同一指标"。
+        exprng::seed(20261020ULL);
         int *jit_mask = Sampling1J_Count(Nx, expectedM);
         for (int j = 0; j < Nx; j++) mask[j] = jit_mask[j];
         delete[] jit_mask;
@@ -2336,11 +2340,13 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
 
         out << "[Comparative Quantitative Reconstruction Quality Metrics]\n";
         out << "  1. Baseline 1 (Zero-fill Subsampled Gather):        SNR = " << QString::number(outMetrics.snr_zero_fill_db, 'f', 2) << " dB (Reference 0.00 dB)\n";
-        out << "  2. Baseline 2 (Spatial Linear Interpolation):       SNR = " << QString::number(outMetrics.snr_linear_interp_db, 'f', 2) << " dB (Gain: +"
-            << QString::number(outMetrics.snr_linear_interp_db - outMetrics.snr_zero_fill_db, 'f', 2) << " dB)\n";
-        out << "  3. Compressive Sensing (Curvelet POCS):             SNR = " << QString::number(outMetrics.snr_recovered_db, 'f', 2) << " dB (Gain: +"
-            << QString::number(outMetrics.snr_improvement_db, 'f', 2) << " dB vs Zero-fill, +"
-            << QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2) << " dB vs Linear)\n";
+        // 2026.10.20: 增益为负时原写法会输出 "+-1.02 dB"（真实资料上确实出现负增益），改用带符号格式化。
+        const float gainLinear = outMetrics.snr_linear_interp_db - outMetrics.snr_zero_fill_db;
+        out << "  2. Baseline 2 (Spatial Linear Interpolation):       SNR = " << QString::number(outMetrics.snr_linear_interp_db, 'f', 2) << " dB (Gain: "
+            << (gainLinear >= 0.0f ? "+" : "") << QString::number(gainLinear, 'f', 2) << " dB)\n";
+        out << "  3. Compressive Sensing (Curvelet POCS):             SNR = " << QString::number(outMetrics.snr_recovered_db, 'f', 2) << " dB (Gain: "
+            << (outMetrics.snr_improvement_db >= 0.0f ? "+" : "") << QString::number(outMetrics.snr_improvement_db, 'f', 2) << " dB vs Zero-fill, "
+            << (outMetrics.snr_imprv_vs_linear_db >= 0.0f ? "+" : "") << QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2) << " dB vs Linear)\n";
         out << "  4. Full-Field Root Mean Square Error (RMSE):        " << QString::number(outMetrics.rmse, 'f', 6) << "\n";
         out << "  5. Pearson Cross-Correlation Coefficient (r):       " << QString::number(outMetrics.correlation, 'f', 4) << "\n";
         out << "  6. Measured Traces Data Consistency Equality Check: " << (outMetrics.dataConsistencyPassed ? "PASSED (Strict error < 1e-5)" : "FAILED") << "\n";

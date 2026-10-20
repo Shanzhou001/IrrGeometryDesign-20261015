@@ -1,7 +1,7 @@
 ========================================================================
   Seismic Acquisition Geometry Spatial Attribute Quality Evaluation Report
   Evaluation Mode: Real Survey Evaluation Mode
-  Generated: 2026-10-20 01:32:01
+  Generated: 2026-10-20 09:50:25
 ========================================================================
 
 [Real Survey Evaluation Mode]

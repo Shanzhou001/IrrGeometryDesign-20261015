@@ -2,7 +2,7 @@
   Seismic Wavefield Compressive Sensing Reconstruction Research Report
   Dataset Mode: External CSV File (seismic_valid_256x128.csv)
   Subsampling Mask: Auto-Generated Jitter Mask (m=64/128, 50.0%)
-  Generated: 2026-10-20 01:31:55
+  Generated: 2026-10-20 09:50:19
 ====================================================================================
 
 [Subsampling Geometry Configuration]
@@ -13,22 +13,22 @@
 
 [Comparative Quantitative Reconstruction Quality Metrics]
   1. Baseline 1 (Zero-fill Subsampled Gather):        SNR = 3.01 dB (Reference 0.00 dB)
-  2. Baseline 2 (Spatial Linear Interpolation):       SNR = 37.22 dB (Gain: +34.21 dB)
-  3. Compressive Sensing (Curvelet POCS):             SNR = 39.86 dB (Gain: +36.85 dB vs Zero-fill, +2.64 dB vs Linear)
-  4. Full-Field Root Mean Square Error (RMSE):        0.007183
+  2. Baseline 2 (Spatial Linear Interpolation):       SNR = 37.17 dB (Gain: +34.16 dB)
+  3. Compressive Sensing (Curvelet POCS):             SNR = 39.83 dB (Gain: +36.82 dB vs Zero-fill, +2.66 dB vs Linear)
+  4. Full-Field Root Mean Square Error (RMSE):        0.007211
   5. Pearson Cross-Correlation Coefficient (r):       0.9999
   6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
-  7. Reconstruction Execution Time:                   4587.0 ms (40 iterations)
+  7. Reconstruction Execution Time:                   4213.0 ms (40 iterations)
 
 [Controlled Cold-Start vs Warm-Start Experiment (Fairness / Ablation)]
   Purpose: isolate the contribution of the linear-interpolation initial solution from
            the contribution of the curvelet POCS iterations themselves.
-  - POCS from Zero-Fill init   (Cold-Start): SNR = 4.56 dB, RMSE = 0.418445, r = 0.8102
-  - POCS from Linear-Interp init (Warm-Start): SNR = 39.86 dB, RMSE = 0.007183, r = 0.9999
+  - POCS from Zero-Fill init   (Cold-Start): SNR = 4.55 dB, RMSE = 0.418567, r = 0.8101
+  - POCS from Linear-Interp init (Warm-Start): SNR = 39.83 dB, RMSE = 0.007211, r = 0.9999
   - Contribution split:
-      (a) warm-start initialization alone : 34.21 dB
-      (b) POCS iterations from cold start : 1.55 dB
-      (c) POCS iterations from warm start : 2.64 dB
+      (a) warm-start initialization alone : 34.16 dB
+      (b) POCS iterations from cold start : 1.54 dB
+      (c) POCS iterations from warm start : 2.66 dB
   - Interpretation: the headline SNR gain of the main pipeline is the SUM of (a) and (c).
     Term (b) is the fair, literature-comparable measure of the curvelet POCS method itself,
     because it starts from the same zero-fill initial solution used by standard POCS.
@@ -36,9 +36,9 @@
 [In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]
   - Observation Summary:
     In this numerical experiment (50% sampling rate, trace spacing dx=12.5m), the improved 2D Curvelet
-    POCS reconstruction achieves SNR = 39.86 dB,
-    significantly surpassing both the Zero-Fill baseline (3.01 dB, +36.85 dB)
-    and the 1D Spatial Linear Interpolation baseline (37.22 dB, +2.64 dB).
+    POCS reconstruction achieves SNR = 39.83 dB,
+    significantly surpassing both the Zero-Fill baseline (3.01 dB, +36.82 dB)
+    and the 1D Spatial Linear Interpolation baseline (37.17 dB, +2.66 dB).
   - Geophysical & Mathematical Advancements:
     1. Multi-scale & Directional Sparsity in Curvelet Domain:
        Seismic reflection events exhibit hyperbolic curvature and localized wave fronts. While standard

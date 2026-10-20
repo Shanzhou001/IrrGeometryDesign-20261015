@@ -6,20 +6,20 @@ Active_Traces,64,Traces,Number of acquired traces
 Total_Traces,128,Traces,Full grid aperture traces
 Time_Samples,256,Samples,Time axis discrete length
 POCS_Iterations,40,Iterations,Max convex projection loops
-SNR_Zero_Fill,3.02,dB,Baseline 1: Zero-fill unmeasured traces
-SNR_Linear_Interp,12.35,dB,Baseline 2: 1D Spatial linear interpolation
-SNR_POCS_CS,5.90,dB,Compressive sensing POCS recovered SNR (main pipeline)
-SNR_Improvement_vs_Zero,2.89,dB,Net SNR gain over zero fill baseline
-SNR_Imprv_vs_Linear,-6.45,dB,Net SNR gain over linear interp baseline
+SNR_Zero_Fill,3.00,dB,Baseline 1: Zero-fill unmeasured traces
+SNR_Linear_Interp,11.83,dB,Baseline 2: 1D Spatial linear interpolation
+SNR_POCS_CS,6.24,dB,Compressive sensing POCS recovered SNR (main pipeline)
+SNR_Improvement_vs_Zero,3.24,dB,Net SNR gain over zero fill baseline
+SNR_Imprv_vs_Linear,-5.59,dB,Net SNR gain over linear interp baseline
 Initialization_Mode,ColdStart (Zero-Fill),Text,POCS initial solution used by main pipeline
 SNR_POCS_ColdStart,0.00,dB,POCS from zero-fill init (standard POCS reference)
 SNR_POCS_WarmStart,0.00,dB,POCS from linear-interp init
 SNR_WarmGain_over_Cold,0.00,dB,Isolated contribution of warm-start initialization
-SNR_POCS_IterGain_Cold,-3.02,dB,Isolated contribution of POCS iterations from cold start
-SNR_POCS_IterGain_Warm,-12.35,dB,Isolated contribution of POCS iterations from warm start
+SNR_POCS_IterGain_Cold,-3.00,dB,Isolated contribution of POCS iterations from cold start
+SNR_POCS_IterGain_Warm,-11.83,dB,Isolated contribution of POCS iterations from warm start
 RMSE_ColdStart,0.000000,Amplitude,RMSE of cold-start POCS
 RMSE_WarmStart,0.000000,Amplitude,RMSE of warm-start POCS
-RMSE,0.080550,Amplitude,Root mean square error across gather
-Pearson_Correlation,0.8656,Ratio,Linear correlation with ground truth
+RMSE,0.077459,Amplitude,Root mean square error across gather
+Pearson_Correlation,0.8769,Ratio,Linear correlation with ground truth
 Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
-Runtime_ms,1422.0,ms,Execution wall time
+Runtime_ms,1196.0,ms,Execution wall time
