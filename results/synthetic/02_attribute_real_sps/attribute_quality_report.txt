@@ -1,7 +1,7 @@
 ========================================================================
   Seismic Acquisition Geometry Spatial Attribute Quality Evaluation Report
   Evaluation Mode: Real Survey Evaluation Mode
-  Generated: 2026-10-20 11:32:58
+  Generated: 2026-10-20 13:32:23
 ========================================================================
 
 [Real Survey Evaluation Mode]
@@ -33,7 +33,7 @@
   Evaluation: Complete 360-degree azimuthal illumination provides isotropic subsurface imaging.
 
 [Scientific Conclusions & Supporting Figures]
-  All run data charts and result figures have been saved to: all_result_figures/
+  All run data charts and result figures have been saved to: figures/
   1. [Figure 03_cmp_fold_distribution_map.png]:
      Real survey CMP fold distribution across 29719 active bins (Mean Fold = 106.4, Range: 1 ~ 198, Cv = 0.551).
   2. [Figure 04_offset_azimuth_rose_charts.png]:

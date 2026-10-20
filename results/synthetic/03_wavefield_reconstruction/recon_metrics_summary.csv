@@ -1,6 +1,6 @@
 Metric_Name,Value,Unit,Description
 Mode_Name,Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise),Text,Dataset mode
-Mask_Source,External File (cmp_mask.txt),Text,Subsampling mask origin
+Mask_Source,Auto-Generated Jitter Mask (m=64/128, 50.0%),Text,Subsampling mask origin
 Sampling_Ratio,50.00%,Percentage of active receiver traces
 Active_Traces,64,Traces,Number of acquired traces
 Total_Traces,128,Traces,Full grid aperture traces
@@ -22,4 +22,4 @@ RMSE_WarmStart,0.032070,Amplitude,RMSE of warm-start POCS
 RMSE,0.032070,Amplitude,Root mean square error across gather
 Pearson_Correlation,0.9794,Ratio,Linear correlation with ground truth
 Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
-Runtime_ms,4915.0,ms,Execution wall time
+Runtime_ms,3561.0,ms,Execution wall time

@@ -29,17 +29,39 @@
 
 static const float PI_CONST = 3.14159265358979323846f;
 
-// 统一获取科研成果图件集中保存目录 (all_result_figures)
+// 2026.10.20: 带符号增益格式化 —— 修复负增益被写成 "+-0.62 dB" 的问题。
+// 正数显示 "+x"，负数显示 "-x"，零显示 "0"。
+static QString fmtSigned(float v, int prec = 2)
+{
+    if (v > 1e-9f)  return QString("+") + QString::number(v, 'f', prec);
+    if (v < -1e-9f) return QString::number(v, 'f', prec);
+    return QString::number(0.0, 'f', prec);
+}
+
+// 2026.10.20: 比较类结论必须由实测差值决定，禁止无条件输出"超过基线"。
+// 返回: 1 = 优于基线; -1 = 劣于基线; 0 = 差异可忽略(|d| < tol)
+static int compareGain(float delta, float tol = 0.05f)
+{
+    if (delta > tol)  return 1;
+    if (delta < -tol) return -1;
+    return 0;
+}
+
+
+// 统一获取科研成果图件集中保存目录 (figures/)
 static QString getCentralFiguresDir(const QString& currentOutputDir)
 {
     // 2026.10.20 目录重组: 全部图片统一输出到项目根目录下的 figures/，
-    // 不再分散到各子模块目录或 all_result_figures 子文件夹。
+    // 不再分散到各子模块目录或 figures/ 子文件夹。
     // 真实野外资料（输出目录名含 real）单独进 figures/real/，避免两组
     // 05_/06_ 同名图件互相覆盖。
     QDir dir(currentOutputDir);
     if (dir.dirName() == "figures") return dir.absolutePath();
 
-    const bool isRealFieldRun = currentOutputDir.contains("real", Qt::CaseInsensitive);
+    // 注意: 不能用 contains("real") 判断——"02_attribute_real_sps" 也会命中，
+    // 会把 SPS 属性图误写进 figures/real/。只认明确的外部 CSV 道集实验。
+    const bool isRealFieldRun = currentOutputDir.contains("real_field", Qt::CaseInsensitive)
+                             || currentOutputDir.contains("real_field_holdout", Qt::CaseInsensitive);
 
     // 从当前输出目录向上回溯，找到包含 build_release.bat 的项目根
     QDir probe = dir;
@@ -841,7 +863,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                 << "%, Coherence Ratio Attenuation = " << QString::number(rateSummaries[1].coherence_ratio_atten_db_mean, 'f', 2) << " dB\n";
         }
         out << "\n[Scientific Conclusions & Supporting Figures]\n";
-        out << "  All run data charts and result figures have been saved to: all_result_figures/\n";
+        out << "  All run data charts and result figures have been saved to: figures/\n";
         out << "  1. [Figure 01_sa_convergence_curve.png]:\n";
         out << "     Proves Metropolis SA convergence is unbiased with strictly non-increasing best trace";
         if (rateSummaries.size() >= 2)
@@ -861,7 +883,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
         out << "  - All runs are 100% deterministic and reproducible under Master Random Seed " << rngSeed << ".\n";
         rptFile.close();
 
-        // 绘制并保存科研图件 (集中保存到 all_result_figures)
+        // 绘制并保存科研图件 (集中保存到 figures/)
         QString centralFiguresDir = getCentralFiguresDir(outputDir);
         QDir().mkpath(centralFiguresDir);
 
@@ -1595,7 +1617,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
             out << "  Evaluation: Multi-directional azimuthal illumination evaluated across active sectors.\n";
 
         out << "\n[Scientific Conclusions & Supporting Figures]\n";
-        out << "  All run data charts and result figures have been saved to: all_result_figures/\n";
+        out << "  All run data charts and result figures have been saved to: figures/\n";
         if (outMetrics.isSynthetic)
         {
             out << "  1. [Figure 03_cmp_fold_distribution_map.png]:\n";
@@ -1618,7 +1640,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
         }
         rptFile.close();
 
-        // 绘制并保存科研图件 (集中保存到 all_result_figures)
+        // 绘制并保存科研图件 (集中保存到 figures/)
         QString centralFiguresDir = getCentralFiguresDir(outputDir);
         QDir().mkpath(centralFiguresDir);
 
@@ -2355,15 +2377,48 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
             out << "    because it starts from the same zero-fill initial solution used by standard POCS.\n\n";
         }
 
+        // 2026.10.20: 结论由实测差值动态生成 —— 不再无条件输出 "significantly surpassing"。
         out << "[In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]\n";
         out << "  - Observation Summary:\n";
-        out << "    In this numerical experiment (50% sampling rate, trace spacing dx=12.5m), the improved 2D Curvelet\n";
-        out << "    POCS reconstruction achieves SNR = " << QString::number(outMetrics.snr_recovered_db, 'f', 2) << " dB,\n";
-        out << "    significantly surpassing both the Zero-Fill baseline (" << QString::number(outMetrics.snr_zero_fill_db, 'f', 2)
-            << " dB, +" << QString::number(outMetrics.snr_improvement_db, 'f', 2) << " dB)\n";
-        out << "    and the 1D Spatial Linear Interpolation baseline (" << QString::number(outMetrics.snr_linear_interp_db, 'f', 2)
-            << " dB, +" << QString::number(outMetrics.snr_imprv_vs_linear_db, 'f', 2) << " dB).\n";
-        out << "  - Geophysical & Mathematical Advancements:\n";
+        out << "    Dataset mode: " << outMetrics.modeName << "\n";
+        out << "    Sampling rate: " << QString::number(outMetrics.samplingRate * 100.0f, 'f', 1)
+            << "%, trace spacing dx = " << QString::number(outMetrics.dx, 'f', 1) << " m\n";
+        out << "    Curvelet POCS (warm start) SNR = " << QString::number(outMetrics.snr_recovered_db, 'f', 2) << " dB\n";
+        {
+            const float dZero   = outMetrics.snr_improvement_db;
+            const float dLinear = outMetrics.snr_imprv_vs_linear_db;
+            const int   cZero   = compareGain(dZero);
+            const int   cLinear = compareGain(dLinear);
+
+            out << "    vs Zero-Fill baseline (" << QString::number(outMetrics.snr_zero_fill_db, 'f', 2)
+                << " dB): ";
+            if (cZero > 0)      out << "OUTPERFORMS by " << fmtSigned(dZero) << " dB\n";
+            else if (cZero < 0) out << "UNDERPERFORMS by " << fmtSigned(dZero) << " dB\n";
+            else                out << "COMPARABLE (difference " << fmtSigned(dZero) << " dB)\n";
+
+            out << "    vs Linear Interpolation baseline (" << QString::number(outMetrics.snr_linear_interp_db, 'f', 2)
+                << " dB): ";
+            if (cLinear > 0)      out << "OUTPERFORMS by " << fmtSigned(dLinear) << " dB\n";
+            else if (cLinear < 0) out << "UNDERPERFORMS by " << fmtSigned(dLinear) << " dB"
+                                      << " (curvelet POCS did NOT improve on the interpolation baseline here)\n";
+            else                  out << "COMPARABLE (difference " << fmtSigned(dLinear) << " dB)\n";
+
+            // 冷启动区间若存在，单独给出，避免与热启动口径混淆
+            if (outMetrics.snr_cold_start_db > 0.0f)
+            {
+                const float itGainCold = outMetrics.snr_cold_start_db - outMetrics.snr_zero_fill_db;
+                out << "    Cold-start POCS iteration contribution over zero-fill: "
+                    << fmtSigned(itGainCold) << " dB (the literature-comparable figure)\n";
+                if (cLinear < 0)
+                {
+                    out << "    NOTE: the warm-start pipeline total is dominated by the linear-interpolation prior,\n"
+                        << "          not by the curvelet sparsity constraint. The negative vs-linear margin above\n"
+                        << "          means the POCS iterations actually degraded the interpolated initial solution\n"
+                        << "          on this dataset.\n";
+                }
+            }
+        }
+        out << "  - Method Notes (not measured claims):\n";
         out << "    1. Multi-scale & Directional Sparsity in Curvelet Domain:\n";
         out << "       Seismic reflection events exhibit hyperbolic curvature and localized wave fronts. While standard\n";
         out << "       2D Fourier bases disperse curved events across the entire (f, k) plane, discrete curvelet frames\n";
@@ -2378,10 +2433,10 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out << "       Exact replacement of known channels after each inverse transform guarantees zero distortion on\n";
         out << "       measured physical data (maximum error strictly < 1e-5).\n";
         out << "\n[Scientific Conclusions & Supporting Figures]\n";
-        out << "  All run data charts and result figures have been saved to: all_result_figures/\n";
+        out << "  All run data charts and result figures have been saved to: figures/\n";
         out << "  1. [Figure 05_wavefield_reconstruction_quad.png]:\n";
         out << "     Four-panel comparison directly displays ground truth, 50% subsampled, Curvelet POCS CS reconstructed,\n";
-        out << "     and residual difference slices. Demonstrates continuous event recovery with minimal residual energy.\n";
+        out << "     Four-panel comparison: reference, 50% subsampled, curvelet POCS reconstruction, and residual.\n";
         out << "  2. [Figure 06_recon_convergence_trace_comparison.png]:\n";
         out << "     Monotonic residual energy convergence curve and single-trace overlay comparison on unsampled channels\n";
         out << "     prove millisecond-accurate reflection peak, trough, and traveltime preservation (r = "
@@ -2389,7 +2444,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         rptFile.close();
     }
 
-    // 绘制并保存科研图件 (集中保存到 all_result_figures)
+    // 绘制并保存科研图件 (集中保存到 figures/)
     QString centralFiguresDir = getCentralFiguresDir(outputDir);
     QDir().mkpath(centralFiguresDir);
 
@@ -2466,7 +2521,9 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
     QDir().mkpath(outputDir);   // 2026.10.20: 原 dir.mkpath(outputDir) 会把 outputDir 重复拼接到 dir 之后
 
     QString dir1 = dir.filePath("01_sampling_benchmark");
-    QString dir2 = dir.filePath("02_attribute_evaluation");
+    // 2026.10.20: 该模块使用真实 SPS 观测系统数据，目录名显式标注 real_sps，
+    // 避免与"合成模拟"结果混在同一目录而被误读。
+    QString dir2 = dir.filePath("02_attribute_real_sps");
     QString dir3 = dir.filePath("03_wavefield_reconstruction");
 
     // 2026.10.20 修复: dir.mkpath(dir1) 会把 dir1 当作相对于 dir 的路径，
@@ -2524,10 +2581,10 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
                  checkFileExistsAndNonEmpty(dir.filePath("01_sampling_benchmark/benchmark_convergence_curves.csv")) &&
                  checkFileExistsAndNonEmpty(dir.filePath("01_sampling_benchmark/benchmark_summary_report.txt"));
 
-    bool f2_ok = checkFileExistsAndNonEmpty(dir.filePath("02_attribute_evaluation/attribute_fold_distribution.csv")) &&
-                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_evaluation/attribute_offset_distribution.csv")) &&
-                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_evaluation/attribute_azimuth_rose.csv")) &&
-                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_evaluation/attribute_quality_report.txt"));
+    bool f2_ok = checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_fold_distribution.csv")) &&
+                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_offset_distribution.csv")) &&
+                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_azimuth_rose.csv")) &&
+                 checkFileExistsAndNonEmpty(dir.filePath("02_attribute_real_sps/attribute_quality_report.txt"));
 
     bool f3_ok = checkFileExistsAndNonEmpty(dir.filePath("03_wavefield_reconstruction/recon_original_gather.csv")) &&
                  checkFileExistsAndNonEmpty(dir.filePath("03_wavefield_reconstruction/recon_subsampled_gather.csv")) &&
@@ -2738,6 +2795,234 @@ static bool removeDirRecursive(const QString& path)
     }
     return QDir().rmdir(path);
 }
+// =============================================================================
+// 留出验证 (Hold-out validation) —— 2026.10.20 新增
+//
+// 关键动机: 此前真实资料实验的"参考场"是由 59 道插值构造的 128 道，
+// 因此那份 SNR 衡量的是"重构结果与插值参考场的一致性"，不能当作
+// "与真实完整波场的重构精度"。留出验证改为在**真实实测道**上计算误差。
+//
+// 方法:
+//   1. 读取真实道集 CSV（行=时间样点，列=道），取前 m 道；
+//   2. 用给定 seed 随机选 k 道作为"已知"，其余 m-k 道隐藏（真实实测保留）；
+//   3. 三种方法在同一 (m-k) 留出道上比较:
+//        a) 零填充       : 未知道置 0
+//        b) 线性插值     : 沿道方向线性插值
+//        c) 曲波 POCS    : 以线性插值热启动，40 次迭代，观测道严格投影
+//   4. SNR 只在留出道集合上统计；参考值为真实实测振幅。
+// =============================================================================
+bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
+                                                    int useTraces,
+                                                    int keepTraces,
+                                                    int iterations,
+                                                    unsigned long long seed,
+                                                    const QString& outputDir,
+                                                    HoldoutMetrics& outMetrics,
+                                                    QString& outReport)
+{
+    QDir dir(outputDir);
+    if (!dir.exists()) QDir().mkpath(outputDir);
+
+    // ---- 1. 读入真实道集（不做 256x128 尺寸假设，按文件实际列数）----
+    QFile in(inputCsvPath);
+    if (!in.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        outReport = QString::fromLocal8Bit("【留出验证失败】无法打开输入文件: %1").arg(inputCsvPath);
+        return false;
+    }
+    std::vector<std::vector<double> > all;
+    {
+        QTextStream ts(&in);
+        ts.setCodec("UTF-8");
+        while (!ts.atEnd())
+        {
+            QString line = ts.readLine().trimmed();
+            if (line.isEmpty() || line.startsWith("#")) continue;
+            QStringList parts = line.split(QRegExp("[,;\\s]+"), QString::SkipEmptyParts);
+            if (parts.size() > 200) continue;            // 防御: 跳过异常行
+            bool okAll = true;
+            std::vector<double> row;
+            row.reserve(parts.size());
+            for (int i = 0; i < parts.size(); i++)
+            {
+                bool ok = false;
+                double v = parts[i].toDouble(&ok);
+                if (!ok || v != v) { okAll = false; break; }
+                row.push_back(v);
+            }
+            if (okAll && row.size() > 1) all.push_back(row);
+        }
+        in.close();
+    }
+    if (all.empty())
+    {
+        outReport = QString::fromLocal8Bit("【留出验证失败】输入文件无有效数值行");
+        return false;
+    }
+
+    const int availNt = (int)all.size();
+    const int availNx = (int)all[0].size();
+    int m = (useTraces > 0 && useTraces <= availNx) ? useTraces : availNx;
+    int k = (keepTraces > 0 && keepTraces < m) ? keepTraces : (int)(m / 2);
+    if (k < 4) k = 4;
+    if (iterations < 1) iterations = 40;
+
+    // 截取前 m 道
+    std::vector<std::vector<float> > truth(availNt, std::vector<float>(m, 0.0f));
+    for (int i = 0; i < availNt; i++)
+        for (int j = 0; j < m; j++)
+            truth[i][j] = (float)all[i][j];
+
+    // ---- 2. 用 seed 随机选 k 道作为"已知" ----
+    exprng::seed(seed);
+    std::vector<int> idx(m);
+    for (int i = 0; i < m; i++) idx[i] = i;
+    for (int i = m - 1; i > 0; i--)
+    {
+        int j = (int)(exprng::integer() % (unsigned long)(i + 1));
+        int t = idx[i]; idx[i] = idx[j]; idx[j] = t;
+    }
+    std::vector<int> mask(m, 0);
+    for (int i = 0; i < k; i++) mask[idx[i]] = 1;
+
+    // 观测数据: 未知道置 0
+    std::vector<std::vector<float> > dObs(availNt, std::vector<float>(m, 0.0f));
+    std::vector<int> known;
+    for (int j = 0; j < m; j++)
+    {
+        if (!mask[j]) continue;
+        known.push_back(j);
+        for (int i = 0; i < availNt; i++) dObs[i][j] = truth[i][j];
+    }
+
+    // ---- 3a. 零填充 ----
+    // 未知道保持 0（dObs 本身）
+
+    // ---- 3b. 线性插值 ----
+    std::vector<std::vector<float> > dLin(availNt, std::vector<float>(m, 0.0f));
+    for (int i = 0; i < availNt; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (mask[j]) { dLin[i][j] = dObs[i][j]; continue; }
+            int left = -1, right = -1;
+            for (size_t t = 0; t < known.size(); t++)
+            {
+                if (known[t] < j) left = known[t];
+                if (known[t] > j && right < 0) right = known[t];
+            }
+            if (left >= 0 && right >= 0)
+            {
+                float w = (float)(j - left) / (float)(right - left);
+                dLin[i][j] = (1.0f - w) * dObs[i][left] + w * dObs[i][right];
+            }
+            else if (left >= 0) dLin[i][j] = dObs[i][left];
+            else if (right >= 0) dLin[i][j] = dObs[i][right];
+        }
+    }
+
+    // ---- 3c. 曲波 POCS（线性插值热启动）----
+    std::vector<std::vector<float> > dRec, dRes;
+    std::vector<float> stepRes;
+    curveletPocsReconstruct(dLin, dObs, mask, iterations, dRec, dRes, stepRes);
+
+    // ---- 4. 只在留出道集合上统计 SNR ----
+    double eZero = 0.0, eLin = 0.0, ePocs = 0.0, eTruth = 0.0;
+    long cnt = 0;
+    for (int j = 0; j < m; j++)
+    {
+        if (mask[j]) continue;                       // 只用留出道
+        for (int i = 0; i < availNt; i++)
+        {
+            double g = truth[i][j];
+            eTruth += g * g;
+            double a = 0.0 - g;                      // 零填充
+            double b = dLin[i][j] - g;
+            double c = dRec[i][j] - g;
+            eZero += a * a;
+            eLin  += b * b;
+            ePocs += c * c;
+            cnt++;
+        }
+    }
+    if (cnt == 0 || eTruth <= 1e-20)
+    {
+        outReport = QString::fromLocal8Bit("【留出验证失败】留出道样本为空或参考能量为 0");
+        return false;
+    }
+
+    const double eps = 1e-20;
+    outMetrics.nTraces      = m;
+    outMetrics.keptTraces   = k;
+    outMetrics.heldOutTraces= m - k;
+    outMetrics.nSamples     = availNt;
+    outMetrics.iterations   = iterations;
+    outMetrics.seed         = seed;
+    outMetrics.snr_zero_fill_db = 10.0 * log10(eTruth / (eZero > eps ? eZero : eps));
+    outMetrics.snr_linear_db    = 10.0 * log10(eTruth / (eLin  > eps ? eLin  : eps));
+    outMetrics.snr_pocs_db      = 10.0 * log10(eTruth / (ePocs > eps ? ePocs : eps));
+    outMetrics.gain_pocs_vs_linear_db = outMetrics.snr_pocs_db - outMetrics.snr_linear_db;
+    outMetrics.gain_pocs_vs_zero_db   = outMetrics.snr_pocs_db - outMetrics.snr_zero_fill_db;
+    outMetrics.rmse_linear = (float)sqrt(eLin  / (double)cnt);
+    outMetrics.rmse_pocs   = (float)sqrt(ePocs / (double)cnt);
+    outMetrics.dataConsistencyPassed = true;
+
+    // ---- 5. 输出 CSV + 文本报告 ----
+    QFile csv(dir.filePath("holdout_metrics.csv"));
+    if (!csv.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        outReport = QString::fromLocal8Bit("【留出验证失败】无法写入输出目录");
+        return false;
+    }
+    {
+        QTextStream o(&csv);
+        o.setCodec("UTF-8");
+        o << "Metric_Name,Value,Unit,Description\n";
+        o << "Validation_Type,Hold-out on measured traces,Text,SNR computed ONLY on withheld real traces\n";
+        o << "Input_File," << QFileInfo(inputCsvPath).fileName() << ",Text,Source gather\n";
+        o << "Traces_Used," << m << ",Traces,Real traces in the working grid\n";
+        o << "Traces_Kept," << k << ",Traces,Traces given to the solver as known\n";
+        o << "Traces_HeldOut," << (m - k) << ",Traces,Measured traces used as truth only\n";
+        o << "Time_Samples," << availNt << ",Samples,Samples per trace\n";
+        o << "POCS_Iterations," << iterations << ",Iterations,POCS iterations\n";
+        o << "Random_Seed," << QString::number(seed) << ",Seed,Seed selecting kept traces\n";
+        o << "SNR_Zero_Fill_HeldOut," << QString::number(outMetrics.snr_zero_fill_db, 'f', 2) << ",dB,On held-out traces\n";
+        o << "SNR_Linear_HeldOut," << QString::number(outMetrics.snr_linear_db, 'f', 2) << ",dB,On held-out traces\n";
+        o << "SNR_POCS_HeldOut," << QString::number(outMetrics.snr_pocs_db, 'f', 2) << ",dB,On held-out traces\n";
+        o << "Gain_POCS_vs_Linear," << QString::number(outMetrics.gain_pocs_vs_linear_db, 'f', 2) << ",dB,Held-out gain\n";
+        o << "Gain_POCS_vs_Zero," << QString::number(outMetrics.gain_pocs_vs_zero_db, 'f', 2) << ",dB,Held-out gain\n";
+        o << "RMSE_Linear," << QString::number(outMetrics.rmse_linear, 'f', 6) << ",Amplitude,Held-out RMSE\n";
+        o << "RMSE_POCS," << QString::number(outMetrics.rmse_pocs, 'f', 6) << ",Amplitude,Held-out RMSE\n";
+        csv.close();
+    }
+
+    outReport = QString::fromLocal8Bit(
+        "【留出验证完成】(Hold-out on measured traces)\n"
+        "输入文件: %1\n"
+        "真实道数 m=%2, 已知 k=%3, 留出 %4 道（真实实测，仅用于评估）\n"
+        "时间样点 Nt=%5, POCS 迭代 %6 次, 种子 %7\n"
+        "--- 仅在留出道上的 SNR ---\n"
+        "  零填充: %8 dB\n"
+        "  线性插值: %9 dB\n"
+        "  曲波 POCS: %10 dB\n"
+        "  POCS 相对线性: %11 dB\n"
+        "  POCS 相对零填充: %12 dB\n"
+        "  留出 RMSE: 线性 %13 / POCS %14\n"
+        "输出: %15")
+        .arg(QFileInfo(inputCsvPath).fileName())
+        .arg(m).arg(k).arg(m - k).arg(availNt).arg(iterations).arg(QString::number(seed))
+        .arg(QString::number(outMetrics.snr_zero_fill_db, 'f', 2))
+        .arg(QString::number(outMetrics.snr_linear_db, 'f', 2))
+        .arg(QString::number(outMetrics.snr_pocs_db, 'f', 2))
+        .arg(fmtSigned(outMetrics.gain_pocs_vs_linear_db))
+        .arg(fmtSigned(outMetrics.gain_pocs_vs_zero_db))
+        .arg(QString::number(outMetrics.rmse_linear, 'f', 6))
+        .arg(QString::number(outMetrics.rmse_pocs, 'f', 6))
+        .arg(dir.filePath("holdout_metrics.csv"));
+
+    return true;
+}
+
 
 bool GeometryExperimentEngine::runUnitTests()
 {
@@ -3391,7 +3676,7 @@ bool GeometryExperimentEngine::runUnitTests()
     }
 
     // 严格核查生成的真实工区评价报告文件内容，杜绝报告指标退化与虚假陈述
-    QString rptFileNorm = "unit_test_sandbox/test_suite_norm/02_attribute_evaluation/attribute_quality_report.txt";
+    QString rptFileNorm = "unit_test_sandbox/test_suite_norm/02_attribute_real_sps/attribute_quality_report.txt";
     QFile rptF(rptFileNorm);
     if (!rptF.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -3592,6 +3877,141 @@ bool GeometryExperimentEngine::runUnitTests()
         passedTests++;
     } else {
         log_test(logFp, " [FAIL] Test 12: Curvelet parameter robustness failed!\n");
+    }
+
+
+    // -------------------------------------------------------------
+    // Test 13: 报告结论由实测差值动态生成 (2026.10.20 新增)
+    // 构造 正增益 / 负增益 / 近零 三种情况，验证:
+    //   ① fmtSigned 不产生 "+-" 这种错误格式;
+    //   ② compareGain 正确区分优于/劣于/可忽略;
+    //   ③ 负增益不会被描述成取得提升。
+    // -------------------------------------------------------------
+    totalTests++;
+    bool t13_ok = true;
+    {
+        // ① 带符号格式化
+        if (fmtSigned(2.07f) != QString("+2.07")) { t13_ok = false; log_test(logFp, "   [FAIL] fmtSigned(+2.07)\n"); }
+        if (fmtSigned(-0.62f) != QString("-0.62")) { t13_ok = false; log_test(logFp, "   [FAIL] fmtSigned(-0.62)\n"); }
+        if (fmtSigned(0.0f) != QString("0.00")) { t13_ok = false; log_test(logFp, "   [FAIL] fmtSigned(0)\n"); }
+        if (fmtSigned(-0.62f).contains("+-")) { t13_ok = false; log_test(logFp, "   [FAIL] produces +-\n"); }
+
+        // ② 差值分类
+        if (compareGain(2.07f)  !=  1) { t13_ok = false; log_test(logFp, "   [FAIL] compareGain(+2.07) != 1\n"); }
+        if (compareGain(-0.62f) != -1) { t13_ok = false; log_test(logFp, "   [FAIL] compareGain(-0.62) != -1\n"); }
+        if (compareGain(0.01f)  !=  0) { t13_ok = false; log_test(logFp, "   [FAIL] compareGain(0.01) != 0\n"); }
+        if (compareGain(-0.01f) !=  0) { t13_ok = false; log_test(logFp, "   [FAIL] compareGain(-0.01) != 0\n"); }
+
+        // ③ 端到端: 用真实资料报告验证负增益措辞
+        QString realRpt = "results/real_field/recon_experiment_report.txt";
+        QFile rf(realRpt);
+        if (rf.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QString txt = QTextStream(&rf).readAll();
+            rf.close();
+            if (txt.contains("+-")) { t13_ok = false; log_test(logFp, "   [FAIL] real report contains +-\n"); }
+            // 真实资料上 POCS 低于线性插值 -> 必须出现 UNDERPERFORMS, 且不得出现该行的 surpassing
+            if (txt.contains("Linear Interpolation baseline") && !txt.contains("UNDERPERFORMS"))
+            {
+                t13_ok = false;
+                log_test(logFp, "   [FAIL] real report missing UNDERPERFORMS wording\n");
+            }
+            if (txt.contains("significantly surpassing"))
+            {
+                t13_ok = false;
+                log_test(logFp, "   [FAIL] real report still has unconditional surpassing claim\n");
+            }
+        }
+        else
+        {
+            log_test(logFp, "   [SKIP] real_field report not present (run --run-real-reconstruction first)\n");
+        }
+
+        // ④ 端到端: 合成报告验证正增益措辞
+        QString synRpt = "results/synthetic/03_wavefield_reconstruction/recon_experiment_report.txt";
+        QFile sf(synRpt);
+        if (sf.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QString txt = QTextStream(&sf).readAll();
+            sf.close();
+            if (txt.contains("+-")) { t13_ok = false; log_test(logFp, "   [FAIL] synthetic report contains +-\n"); }
+            if (txt.contains("Linear Interpolation baseline") && !txt.contains("OUTPERFORMS"))
+            {
+                t13_ok = false;
+                log_test(logFp, "   [FAIL] synthetic report should report positive gain as OUTPERFORMS\n");
+            }
+        }
+        else
+        {
+            log_test(logFp, "   [SKIP] synthetic report not present (run --run-experiments first)\n");
+        }
+    }
+    if (t13_ok) {
+        log_test(logFp, " [PASS] Test 13: Data-Driven Report Conclusion (positive / negative / near-zero gain)\n");
+        passedTests++;
+    } else {
+        log_test(logFp, " [FAIL] Test 13: Data-driven report conclusion failed!\n");
+    }
+
+
+    // -------------------------------------------------------------
+    // Test 14: 真实实测道留出验证 (2026.10.20 新增)
+    // 验证留出验证接口:
+    //   ① 留出道数 = m - k，且 SNR 只在留出道上统计;
+    //   ② 三种方法指标齐全;
+    //   ③ 相同 seed 可复现;
+    //   ④ 输出 CSV 含 Validation_Type 标记，与插值参考场口径区分。
+    // -------------------------------------------------------------
+    totalTests++;
+    bool t14_ok = true;
+    {
+        QString hoIn = "data/real_seismic/real_gather_59x256.csv";
+        if (!QFile::exists(hoIn))
+        {
+            log_test(logFp, "   [SKIP] hold-out input not present\n");
+        }
+        else
+        {
+            GeometryExperimentEngine::HoldoutMetrics h1, h2;
+            QString r1, r2;
+            bool ok1 = runHoldoutValidation(hoIn, 59, 30, 40, 20261020ULL,
+                                            "unit_test_sandbox/ho1", h1, r1);
+            bool ok2 = runHoldoutValidation(hoIn, 59, 30, 40, 20261020ULL,
+                                            "unit_test_sandbox/ho2", h2, r2);
+            if (!ok1 || !ok2) { t14_ok = false; log_test(logFp, "   [FAIL] hold-out run failed\n"); }
+            else
+            {
+                if (h1.keptTraces + h1.heldOutTraces != h1.nTraces)
+                { t14_ok = false; log_test(logFp, "   [FAIL] kept+heldOut != total\n"); }
+                if (h1.heldOutTraces != 29)
+                { t14_ok = false; log_test(logFp, "   [FAIL] expected 29 held-out, got %d\n", h1.heldOutTraces); }
+                // 可复现
+                if (fabs(h1.snr_pocs_db - h2.snr_pocs_db) > 1e-4f ||
+                    fabs(h1.snr_linear_db - h2.snr_linear_db) > 1e-4f)
+                { t14_ok = false; log_test(logFp, "   [FAIL] hold-out not reproducible with same seed\n"); }
+                // CSV 标记
+                QFile hf("unit_test_sandbox/ho1/holdout_metrics.csv");
+                if (!hf.open(QIODevice::ReadOnly | QIODevice::Text))
+                { t14_ok = false; log_test(logFp, "   [FAIL] holdout_metrics.csv missing\n"); }
+                else
+                {
+                    QString ht = QTextStream(&hf).readAll();
+                    hf.close();
+                    if (!ht.contains("Validation_Type,Hold-out"))
+                    { t14_ok = false; log_test(logFp, "   [FAIL] missing Validation_Type marker\n"); }
+                    if (!ht.contains("SNR_POCS_HeldOut"))
+                    { t14_ok = false; log_test(logFp, "   [FAIL] missing SNR_POCS_HeldOut\n"); }
+                    if (ht.contains("+-"))
+                    { t14_ok = false; log_test(logFp, "   [FAIL] holdout CSV contains +-\n"); }
+                }
+            }
+        }
+    }
+    if (t14_ok) {
+        log_test(logFp, " [PASS] Test 14: Held-Out Validation on Measured Real Traces\n");
+        passedTests++;
+    } else {
+        log_test(logFp, " [FAIL] Test 14: Held-out validation failed!\n");
     }
 
     log_test(logFp, "============================================================\n");

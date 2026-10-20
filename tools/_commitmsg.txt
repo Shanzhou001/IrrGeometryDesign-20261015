@@ -1,0 +1,55 @@
+fix(science): honest report conclusions, controllable masks, reproducible SEG-Y prep, held-out validation
+
+Audit of main @ 31cdd41 found 7 issues; 4 are P0. Details in AUDIT_REPORT.md.
+
+P0-1/-2 report used unconditional claims
+- The report printed "significantly surpassing ... linear interpolation"
+  even when POCS was BELOW it, and formatted negative gains as "+-0.62 dB".
+  Added fmtSigned() and compareGain(); conclusions now branch on the
+  measured delta (OUTPERFORMS / UNDERPERFORMS / COMPARABLE) and print a
+  NOTE when the warm-start total is dominated by the interpolation prior.
+  Test 13 covers positive / negative / near-zero cases.
+
+P0-4 mask option never reached the engine (new finding)
+- main.cpp passed a hard-coded empty string for the mask path, so every
+  run used an auto-generated mask. Verified: three completely different
+  64/128 masks produced byte-identical 11.83/13.90 dB results - the mask
+  had no effect at all.
+  Added a mask argument and passed it through. The same gather now gives
+  11.34 / 12.55 / 12.37 dB for the three masks.
+
+P0-5 SEG-Y preprocessing was not reproducible
+- No conversion script existed. Also: the RRAW.SGY binary header is
+  little-endian (non-standard SEG-Y), so big-endian parsing yields
+  ns=0/format=0, and the declared format code 1 (IBM float) disagrees
+  with the payload, which is IEEE-754 little-endian float32.
+  Added tools/convert_rraw_to_engine_csv.py with fixed documented
+  parameters, an encoding self-check, and a built-in 256x128 self-check.
+  Regenerated CSV is byte-identical to the committed one.
+
+P0-6 real-data SNR was self-referential
+- The 128-trace reference was built by interpolating 59 real traces, so
+  that SNR does not measure accuracy against a real wavefield.
+  Added runHoldoutValidation() and a CLI entry: SNR is computed only on
+  withheld REAL traces. Over 6 keep x seed configurations POCS beats
+  linear interpolation by +0.91..+1.30 dB consistently; absolute SNRs are
+  negative and are reported as such. Test 14 pins the contract.
+
+P1
+- results/*/02_attribute_evaluation renamed to 02_attribute_real_sps so a
+  report saying "Real Survey Evaluation Mode" is not filed under
+  "synthetic".
+- Default repeat count 3 -> 10 (3 rounds could not support the
+  statistics); per-run raw data stays in benchmark_runs_detail.csv for
+  independent recomputation.
+- Fixed an over-broad output-path test: a substring match on "real" also
+  matched "02_attribute_real_sps" and diverted the SPS figures to
+  figures/real/.
+
+README: added section 4.5 (single source of truth for metrics, with a
+historical-version table explaining that 12.35/14.10 and 11.83/13.90 are
+different mask configurations, not a stale update) and section 8.6
+(held-out results). Changelog rows 15-21 added.
+
+Verified: build 0 error; 14/14 tests from repo root and %TEMP%; conversion
+byte-identical; no "+-" anywhere; no stray PNGs.

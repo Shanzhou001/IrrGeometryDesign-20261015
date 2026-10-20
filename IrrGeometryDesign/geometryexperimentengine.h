@@ -206,6 +206,46 @@ public:
                                        const QString& outputDir,
                                        QString& fullReportSummary);
 
+    // =============================================================
+    // 留出验证 (Hold-out validation) —— 2026.10.20 新增
+    // 目的: 在**真实实测道**上评估插值/重构精度，而不是在插值构造的
+    //       128 道参考场上自证。做法:
+    //   ① 取 m 道真实实测数据作为输出网格 (Nx=m)；
+    //   ② 随机保留其中 k 道作为"已知输入"，其余 m-k 道**真实实测**作为验证目标；
+    //   ③ 分别计算 零填充 / 线性插值 / 曲波 POCS 在留出道上的误差；
+    //   ④ 报告留出道 SNR，而非全网格 SNR。
+    // 注意: 该接口复用 curveletPocsReconstruct（与尺寸无关），
+    //       不受主流程 Nt=256/Nx=128 固定尺寸的限制。
+    // =============================================================
+    struct HoldoutMetrics
+    {
+        int    nTraces;          // 使用的真实道数 m
+        int    heldOutTraces;    // 留出道数 m-k
+        int    keptTraces;       // 已知道数 k
+        int    nSamples;         // 时间样点数
+        int    iterations;       // POCS 迭代次数
+        unsigned long long seed; // 随机种子（决定 k 道位置）
+        float  snr_zero_fill_db; // 留出道上的零填充 SNR
+        float  snr_linear_db;    // 留出道上的线性插值 SNR
+        float  snr_pocs_db;      // 留出道上的曲波 POCS SNR
+        float  gain_pocs_vs_linear_db;
+        float  gain_pocs_vs_zero_db;
+        float  rmse_linear;
+        float  rmse_pocs;
+        bool   dataConsistencyPassed;
+    };
+
+    // 输入 CSV: 每行 Nt 个时间样点? 否 —— 与引擎一致: 行=时间, 列=道。
+    // 使用真实道集 CSV (例如 data/real_seismic 转换产物)，按 --traces 取前 m 道。
+    static bool runHoldoutValidation(const QString& inputCsvPath,
+                                     int useTraces,
+                                     int keepTraces,
+                                     int iterations,
+                                     unsigned long long seed,
+                                     const QString& outputDir,
+                                     HoldoutMetrics& outMetrics,
+                                     QString& outReport);
+
     // 自动化单元测试与回归校验体系 (Task 11) (add by shanzhou in 2026/10/15)
     static bool runUnitTests();
 };

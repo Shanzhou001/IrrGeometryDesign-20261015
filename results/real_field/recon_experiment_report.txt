@@ -2,7 +2,7 @@
   Seismic Wavefield Compressive Sensing Reconstruction Research Report
   Dataset Mode: External CSV File (real_gather_256x128.csv)
   Subsampling Mask: Auto-Generated Jitter Mask (m=64/128, 50.0%)
-  Generated: 2026-10-20 11:33:08
+  Generated: 2026-10-20 13:32:31
 ====================================================================================
 
 [Subsampling Geometry Configuration]
@@ -18,7 +18,7 @@
   4. Full-Field Root Mean Square Error (RMSE):        0.036707
   5. Pearson Cross-Correlation Coefficient (r):       0.9384
   6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
-  7. Reconstruction Execution Time:                   4116.0 ms (40 iterations)
+  7. Reconstruction Execution Time:                   3867.0 ms (40 iterations)
 
 [Controlled Cold-Start vs Warm-Start Experiment (Fairness / Ablation)]
   Purpose: isolate the contribution of the linear-interpolation initial solution from
@@ -35,11 +35,17 @@
 
 [In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]
   - Observation Summary:
-    In this numerical experiment (50% sampling rate, trace spacing dx=12.5m), the improved 2D Curvelet
-    POCS reconstruction achieves SNR = 9.23 dB,
-    significantly surpassing both the Zero-Fill baseline (3.04 dB, +6.19 dB)
-    and the 1D Spatial Linear Interpolation baseline (9.85 dB, +-0.62 dB).
-  - Geophysical & Mathematical Advancements:
+    Dataset mode: External CSV File (real_gather_256x128.csv)
+    Sampling rate: 50.0%, trace spacing dx = 12.5 m
+    Curvelet POCS (warm start) SNR = 9.23 dB
+    vs Zero-Fill baseline (3.04 dB): OUTPERFORMS by +6.19 dB
+    vs Linear Interpolation baseline (9.85 dB): UNDERPERFORMS by -0.62 dB (curvelet POCS did NOT improve on the interpolation baseline here)
+    Cold-start POCS iteration contribution over zero-fill: +3.81 dB (the literature-comparable figure)
+    NOTE: the warm-start pipeline total is dominated by the linear-interpolation prior,
+          not by the curvelet sparsity constraint. The negative vs-linear margin above
+          means the POCS iterations actually degraded the interpolated initial solution
+          on this dataset.
+  - Method Notes (not measured claims):
     1. Multi-scale & Directional Sparsity in Curvelet Domain:
        Seismic reflection events exhibit hyperbolic curvature and localized wave fronts. While standard
        2D Fourier bases disperse curved events across the entire (f, k) plane, discrete curvelet frames
@@ -55,10 +61,10 @@
        measured physical data (maximum error strictly < 1e-5).
 
 [Scientific Conclusions & Supporting Figures]
-  All run data charts and result figures have been saved to: all_result_figures/
+  All run data charts and result figures have been saved to: figures/
   1. [Figure 05_wavefield_reconstruction_quad.png]:
      Four-panel comparison directly displays ground truth, 50% subsampled, Curvelet POCS CS reconstructed,
-     and residual difference slices. Demonstrates continuous event recovery with minimal residual energy.
+     Four-panel comparison: reference, 50% subsampled, curvelet POCS reconstruction, and residual.
   2. [Figure 06_recon_convergence_trace_comparison.png]:
      Monotonic residual energy convergence curve and single-trace overlay comparison on unsampled channels
      prove millisecond-accurate reflection peak, trough, and traveltime preservation (r = 0.9384).

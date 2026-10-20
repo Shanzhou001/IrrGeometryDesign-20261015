@@ -57,7 +57,8 @@ int main(int argc, char *argv[])
 		if (strcmp(argv[i], "--run-experiments") == 0 || strcmp(argv[i], "-e") == 0)
 		{
 			QString outDir = "experiment_results";
-			int repeatRuns = 3;
+			// 2026.10.20: 3 轮不足以支撑统计结论，默认提高到 10 轮独立种子
+			int repeatRuns = 10;
 			unsigned long long masterSeed = 42ULL;
 
 			for (int j = 1; j < argc; j++)
@@ -93,12 +94,13 @@ int main(int argc, char *argv[])
 			return 0;
 		}
 		// 2026.10.20: 真实野外资料重构验证专用入口
-		// 用法: --run-real-reconstruction <input.csv> [outDir] [--ratio <0..1>]
+		// 用法: --run-real-reconstruction <input.csv> [--out <dir>] [--ratio <0..1>] [--mask <mask.txt>]
 		if (strcmp(argv[i], "--run-real-reconstruction") == 0)
 		{
 			QString inCsv;
-			QString outDir = "experiment_results_real";
+			QString outDir = "results/real_field";
 			float ratio = 0.50f;
+			QString maskPath = "";   // 留空则自动生成抖动掩码（固定种子，可复现）
 			if (i + 1 < argc && argv[i + 1][0] != '-')
 			{
 				inCsv = QString::fromLocal8Bit(argv[i + 1]);
@@ -114,21 +116,26 @@ int main(int argc, char *argv[])
 					ratio = (float)atof(argv[j + 1]);
 					if (ratio <= 0.0f || ratio >= 1.0f) ratio = 0.50f;
 				}
+				else if (strcmp(argv[j], "--mask") == 0 && j + 1 < argc)
+				{
+					maskPath = QString::fromLocal8Bit(argv[j + 1]);
+				}
 			}
 			if (inCsv.isEmpty())
 			{
-				fprintf(stderr, "Usage: IrrGeometryDesign --run-real-reconstruction <input.csv> [--out <dir>] [--ratio <0..1>]\n");
+				fprintf(stderr, "Usage: IrrGeometryDesign --run-real-reconstruction <input.csv> [--out <dir>] [--ratio <0..1>] [--mask <mask.txt>]\n");
 				return 1;
 			}
 			printf("Real-field wavefield reconstruction\n");
 			printf("  input : %s\n", inCsv.toLocal8Bit().constData());
 			printf("  outDir: %s\n", outDir.toLocal8Bit().constData());
 			printf("  ratio : %.2f\n", ratio);
+			printf("  mask  : %s\n", maskPath.isEmpty() ? "(auto-generated jitter)" : maskPath.toLocal8Bit().constData());
 
 			GeometryExperimentEngine::ReconstructionMetrics metrics;
 			QString summary;
 			bool ok = GeometryExperimentEngine::runWavefieldReconstruction(
-				"", outDir, ratio, metrics, summary, inCsv, true, false, true, true);
+				maskPath, outDir, ratio, metrics, summary, inCsv, true, false, true, true);
 			printf("%s\n", summary.toLocal8Bit().constData());
 			if (!ok)
 			{
@@ -136,6 +143,45 @@ int main(int argc, char *argv[])
 				return 1;
 			}
 			printf("\nReal-field reconstruction succeeded.\n");
+			return 0;
+		}
+		// 2026.10.20: 真实实测道留出验证（不依赖插值参考场）
+		// 用法: --holdout-validate <gather.csv> [--traces m] [--keep k] [--iter n] [--seed s] [--out dir]
+		if (strcmp(argv[i], "--holdout-validate") == 0)
+		{
+			QString inCsv;
+			QString outDir = "results/real_field_holdout";
+			int m = 59, k = 30, iters = 40;
+			unsigned long long hs = 20261020ULL;
+			if (i + 1 < argc && argv[i + 1][0] != '-')
+			{
+				inCsv = QString::fromLocal8Bit(argv[i + 1]);
+			}
+			for (int j = 1; j < argc; j++)
+			{
+				if (strcmp(argv[j], "--out") == 0 && j + 1 < argc) outDir = QString::fromLocal8Bit(argv[j + 1]);
+				else if (strcmp(argv[j], "--traces") == 0 && j + 1 < argc) m = atoi(argv[j + 1]);
+				else if (strcmp(argv[j], "--keep") == 0 && j + 1 < argc) k = atoi(argv[j + 1]);
+				else if (strcmp(argv[j], "--iter") == 0 && j + 1 < argc) iters = atoi(argv[j + 1]);
+				else if (strcmp(argv[j], "--seed") == 0 && j + 1 < argc) hs = (unsigned long long)_atoi64(argv[j + 1]);
+			}
+			if (inCsv.isEmpty())
+			{
+				fprintf(stderr, "Usage: IrrGeometryDesign --holdout-validate <gather.csv> [--traces m] [--keep k] [--iter n] [--seed s] [--out dir]\n");
+				return 1;
+			}
+			printf("Hold-out validation on measured traces\n");
+			printf("  input : %s\n", inCsv.toLocal8Bit().constData());
+			printf("  traces=%d keep=%d iter=%d seed=%llu\n", m, k, iters, hs);
+			GeometryExperimentEngine::HoldoutMetrics hm;
+			QString rep;
+			bool hok = GeometryExperimentEngine::runHoldoutValidation(inCsv, m, k, iters, hs, outDir, hm, rep);
+			printf("%s\n", rep.toLocal8Bit().constData());
+			if (!hok)
+			{
+				fprintf(stderr, "\n[ERROR]: hold-out validation failed.\n");
+				return 1;
+			}
 			return 0;
 		}
 	}
