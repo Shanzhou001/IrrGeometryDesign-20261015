@@ -1,0 +1,5 @@
+# Master_Seed=42, SA(T0=80,Tmin=0.5,alpha=0.85,n_rapid=8,iter=1,Metropolis)
+Sampling_Rate,m,Total,Initial_Jitter_Mu,SA_only_Mu,CG_only_Mu,SA_CG_Mu,SA_CG_Evals,Restart_K,Jitter_Restart_Best,Jitter_Restart_Mean,Random_Restart_Best,Gain_Init_to_SA_dB,Gain_Init_to_SA_CG_dB,SA_CG_vs_JitterRestart_dB,SA_CG_vs_RandomRestart_dB
+0.30,38,128,0.5355,0.4288,0.4031,0.3683,175,175,0.3900,0.5078,0.3848,1.93,3.25,0.50,0.38
+0.50,64,128,0.3241,0.2442,0.2333,0.2193,229,229,0.2499,0.3623,0.2414,2.46,3.39,1.14,0.84
+0.70,90,128,0.2335,0.1680,0.1400,0.1522,209,209,0.1605,0.2229,0.1534,2.86,3.72,0.46,0.07

@@ -153,6 +153,7 @@ int main(int argc, char *argv[])
 			QString outDir = "results/real_field_holdout";
 			int m = 59, k = 30, iters = 40;
 			unsigned long long hs = 20261020ULL;
+			QString extMask;   // 2026.10.20: 用外部掩码（抖动/SA）代替随机抽稀
 			if (i + 1 < argc && argv[i + 1][0] != '-')
 			{
 				inCsv = QString::fromLocal8Bit(argv[i + 1]);
@@ -164,18 +165,20 @@ int main(int argc, char *argv[])
 				else if (strcmp(argv[j], "--keep") == 0 && j + 1 < argc) k = atoi(argv[j + 1]);
 				else if (strcmp(argv[j], "--iter") == 0 && j + 1 < argc) iters = atoi(argv[j + 1]);
 				else if (strcmp(argv[j], "--seed") == 0 && j + 1 < argc) hs = (unsigned long long)_atoi64(argv[j + 1]);
+				else if (strcmp(argv[j], "--mask") == 0 && j + 1 < argc) extMask = QString::fromLocal8Bit(argv[j + 1]);
 			}
 			if (inCsv.isEmpty())
 			{
-				fprintf(stderr, "Usage: IrrGeometryDesign --holdout-validate <gather.csv> [--traces m] [--keep k] [--iter n] [--seed s] [--out dir]\n");
+				fprintf(stderr, "Usage: IrrGeometryDesign --holdout-validate <gather.csv> [--traces m] [--keep k] [--iter n] [--seed s] [--out dir] [--mask <mask.txt>]\n");
 				return 1;
 			}
 			printf("Hold-out validation on measured traces\n");
 			printf("  input : %s\n", inCsv.toLocal8Bit().constData());
-			printf("  traces=%d keep=%d iter=%d seed=%llu\n", m, k, iters, hs);
+			printf("  traces=%d keep=%d iter=%d seed=%llu mask=%s\n", m, k, iters, hs,
+				extMask.isEmpty() ? "(random)" : extMask.toLocal8Bit().constData());
 			GeometryExperimentEngine::HoldoutMetrics hm;
 			QString rep;
-			bool hok = GeometryExperimentEngine::runHoldoutValidation(inCsv, m, k, iters, hs, outDir, hm, rep);
+			bool hok = GeometryExperimentEngine::runHoldoutValidation(inCsv, m, k, iters, hs, outDir, hm, rep, extMask);
 			printf("%s\n", rep.toLocal8Bit().constData());
 			if (!hok)
 			{
@@ -238,6 +241,53 @@ int main(int argc, char *argv[])
 			printf("  outDir: %s\n", outDir.toLocal8Bit().constData());
 			QString summary;
 			bool ok = GeometryExperimentEngine::runMiuParamRobustnessExperiment(128, 0.50f, outDir, summary);
+			printf("%s\n", summary.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		// 2026.10.20 新增：混合优化贡献分解消融（SA-only / CG-only / SA+CG / 等预算随机重启）
+		// 用法: --ablation [outDir, 默认 results/ablation] [--seed S]
+		if (strcmp(argv[i], "--ablation") == 0)
+		{
+			QString outDir = "results/ablation";
+			unsigned long long abSeed = 42ULL;
+			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
+			for (int j = 1; j < argc; j++)
+			{
+				if ((strcmp(argv[j], "--seed") == 0 || strcmp(argv[j], "-s") == 0) && j + 1 < argc)
+					abSeed = (unsigned long long)_atoi64(argv[j + 1]);
+			}
+			printf("Hybrid optimisation ablation (SA / CG / SA+CG / equal-budget restart)\n");
+			printf("  outDir: %s, seed: %llu\n", outDir.toLocal8Bit().constData(), abSeed);
+			std::vector<float> ablRates;
+			ablRates.push_back(0.30f);
+			ablRates.push_back(0.50f);
+			ablRates.push_back(0.70f);
+			QString summary;
+			bool ok = GeometryExperimentEngine::runHybridAblationExperiment(128, ablRates, abSeed, outDir, summary);
+			printf("%s\n", summary.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		// 2026.10.20 新增：2D 采样基准（N×N 接收网格上的二维相干度对比）
+		// 用法: --sampling-2d [outDir, 默认 results/benchmark_2d] [--grid N] [--seed S]
+		if (strcmp(argv[i], "--sampling-2d") == 0)
+		{
+			QString outDir = "results/benchmark_2d";
+			int gridN = 32;
+			unsigned long long s2Seed = 42ULL;
+			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
+			for (int j = 1; j < argc; j++)
+			{
+				if (strcmp(argv[j], "--grid") == 0 && j + 1 < argc) gridN = atoi(argv[j + 1]);
+				else if ((strcmp(argv[j], "--seed") == 0 || strcmp(argv[j], "-s") == 0) && j + 1 < argc)
+					s2Seed = (unsigned long long)_atoi64(argv[j + 1]);
+			}
+			printf("2D sampling benchmark (%dx%d grid, seed %llu)\n", gridN, gridN, s2Seed);
+			std::vector<float> r2d;
+			r2d.push_back(0.30f);
+			r2d.push_back(0.50f);
+			r2d.push_back(0.70f);
+			QString summary;
+			bool ok = GeometryExperimentEngine::runSampling2DBenchmark(gridN, r2d, s2Seed, outDir, summary);
 			printf("%s\n", summary.toLocal8Bit().constData());
 			return ok ? 0 : 1;
 		}

@@ -42,7 +42,7 @@ GProject::GProject()
 	mEquWin = 400; 
 	mFixedGain = 0;
 //	mGainMode = gAGC;
-	mFromTimeIndex = 0;		mToTimeIndex = -1;		//-1ʾȫʱ
+	mFromTimeIndex = 0;		mToTimeIndex = -1;		//-1
 	mBase = 1000;			mVelocity = 2200;  
 
 	mpShotSet = NULL;
@@ -224,7 +224,7 @@ void GProject::clear()
 	mFixedGain = -50;
 //	mGainMode = gAGC;
 	mFromTimeIndex = -1;
-	mToTimeIndex = -1;		//-1ʾȫʱ
+	mToTimeIndex = -1;		//-1
 
 	mPrjName = QString::null;//add by zhaohu
 	mPrjFileName = QString::null;//add by zhaohu
@@ -346,13 +346,13 @@ bool GProject::appendSPSInfo(const QString &sFileName, const QString &rFileName,
 	minx = MAX_FLOAT;	miny = MAX_FLOAT;
 	maxx = MIN_FLOAT;	maxy = MIN_FLOAT;
 	mpRLineSet->getRange(minx,miny,maxx,maxy);
-	mpSPSParam->mRX0=minx;// źͼ첨еʼ굽 GSPSParam  [Liu Wei 5/31/2023]
-	mpSPSParam->mRY0=miny;// źͼ첨еʼ굽 GSPSParam  [Liu Wei 5/31/2023]
+	mpSPSParam->mRX0=minx;// GSPSParam [Liu Wei 5/31/2023]
+	mpSPSParam->mRY0=miny;// GSPSParam [Liu Wei 5/31/2023]
 	minx = MAX_FLOAT;	miny = MAX_FLOAT;
 	maxx = MIN_FLOAT;	maxy = MIN_FLOAT;
 	mpSLineSet->getRange(minx,miny,maxx,maxy);
-	mpSPSParam->mSX0=minx;// źͼ첨еʼ굽 GSPSParam  [Liu Wei 5/31/2023]
-	mpSPSParam->mSY0=miny;// źͼ첨еʼ굽 GSPSParam  [Liu Wei 5/31/2023]
+	mpSPSParam->mSX0=minx;// GSPSParam [Liu Wei 5/31/2023]
+	mpSPSParam->mSY0=miny;// GSPSParam [Liu Wei 5/31/2023]
 #pragma endregion "add by liuwei"
 
 
@@ -422,25 +422,25 @@ void GProject::refresh()
 {
 //	if(mPSVFlag==PPDATA)
 //	{
-	mpSLineSet->clearVainShots();			//޹ϵڵ
-	mpSLineSet->sort();						//ߺŵݼ
-	mpShotSet->sort();						//ߺڹϵݼ
-	mpShotSet->extractCSP(mpSLineSet);		//ȡڵ
-	mpShotSet->extractCRP(mpRLineSet);		//ȡ첨
+	mpSLineSet->clearVainShots();			// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpSLineSet->sort();						// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSet->sort();						// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSet->extractCSP(mpSLineSet);		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSet->extractCRP(mpRLineSet);		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
 
-	mpSLineSetNew->clearVainShots();			//޹ϵڵ
-	mpSLineSetNew->sort();						//ߺŵݼ
-	mpShotSetNew->sort();						//ߺڹϵݼ
-	mpShotSetNew->extractCSP(mpSLineSetNew);		//ȡڵ
-	mpShotSetNew->extractCRP(mpRLineSetNew);		//ȡ첨
+	mpSLineSetNew->clearVainShots();			// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpSLineSetNew->sort();						// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSetNew->sort();						// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSetNew->extractCSP(mpSLineSetNew);		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSetNew->extractCRP(mpRLineSetNew);		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
 /*	}
 	else
 	{
-	mpSLineSetSV->clearVainShots();			//޹ϵڵ
-	mpSLineSetSV->sort();						//ߺŵݼ
-	mpShotSetSV->sort();						//ߺڹϵݼ
-	mpShotSetSV->extractCSP(mpSLineSet);		//ȡڵ
-	mpShotSetSV->extractCRP(mpRLineSet);		//ȡ첨
+	mpSLineSetSV->clearVainShots();			// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpSLineSetSV->sort();						// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSetSV->sort();						// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSetSV->extractCSP(mpSLineSet);		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	mpShotSetSV->extractCRP(mpRLineSet);		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
 	}
 	*/
 }
@@ -463,12 +463,12 @@ bool GProject::saveTime()
 bool GProject::saveProjectFile()
 {
 	Q_INT32 i, data = 0;   /* 2026.10.20 fix C4700: data was used uninitialized */
-	QFile file(getProjectFileName());			//ļͳһʹQFileд
+	QFile file(getProjectFileName());			//QFile
 	if(!file.open(IO_WriteOnly)) return false;
 
 	QDataStream stream( &file );
 
-	//<1>ļ־Ͱ汾
+	//<1>
 	stream << PROJECT_TAG;
 	stream << PROJECT_VERSION;			
 	//<2>
@@ -484,18 +484,18 @@ bool GProject::saveProjectFile()
 	}
 	*/
 	stream << mMinSPSX << mMinSPSY << mMaxSPSX << mMaxSPSY;
-	stream << mAF << mSinAF << mCosAF;				//mAFΪĿ
+	stream << mAF << mSinAF << mCosAF;				//mAF
 	stream << mTransX0 << mTransY0;
 	stream << mMinX << mMinY << mMaxX << mMaxY;
-	//<3>Ĭ
+	//<3>
 //	stream << mAmpWidth << mTrcWidth << mTrcHeight <<mTrcInv;
 	stream << mAmpWidth << mTrcWidth << mTrcHeight;
 //	if(mGainMode == gAGC) data = 1;
 //	else data = 0;
 	stream << data;
 	stream << mEquWin << mFixedGain;
-	stream << mFromTimeIndex << mToTimeIndex;		//Ŀ
-	//<4>SEG-Yļб
+	stream << mFromTimeIndex << mToTimeIndex;		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	//<4>SEG-Y
 	stream << (Q_INT32)mSEGYFileList.count();
 	for(i=0; i<getSEGYFileCount(); i++)
 	{
@@ -554,7 +554,7 @@ bool GProject::saveSPS(const QString &spsFileName) // add by shanzhou in 2026/10
 
 
 
-//2026.3.24 ùļsaveȲñ׼spsļ by Wushanzhou
+//2026.3.24 save sps by Wushanzhou
 
 bool GProject::saveSPS(const QString &spsFileName) // add by shanzhou in 2026/10/15
 {
@@ -575,7 +575,7 @@ bool GProject::saveSPS(const QString &spsFileName) // add by shanzhou in 2026/10
     QString rFileName = prefix + ".r";
     QString xFileName = prefix + ".x";
 
-    // Ϊ SPS2.1 ıӿ
+    // SPS2.1
     if (!pSLineSet->saveSFile2(sFileName))
         return false;
 
@@ -628,20 +628,20 @@ bool GProject::loadProjectFile( const QString &fileName )
 	QString prjTag, prjVersion, str;
 
 	Q_INT32 i, count, data;
-	QFile file( fileName );			//ļͳһʹQFileд
+	QFile file( fileName );			//QFile
 	if(!file.open(IO_ReadOnly)) return false;
 	
 	QDataStream stream(&file);
 
-	//<1>ȡļ־Ͱ汾ŲȽ
+	//<1>
 	stream >> prjTag;
 	if(prjTag != PROJECT_TAG) return false;
 	stream >> prjVersion;
 	if(prjVersion != PROJECT_VERSION) return false;
 
-	//clear();			//ԭclear()ʯʹѧ
+	//clear(); //clear()
  QString projectName,projectDir,projectNameSV,projectDirSV;
-	//<2>ȡ
+	//<2>
 //	if(mPSVFlag==PPDATA)
 //	{
 	stream >> projectName;
@@ -654,20 +654,20 @@ bool GProject::loadProjectFile( const QString &fileName )
 //	stream >> projectNameSV;
 //	stream >> projectDirSV;
 //	}
-	//mProjectDir = waInfo.workareaDir + "/" + mProjectDir;	//Ϊʯʹѧӿ
+	//mProjectDir = waInfo.workareaDir + "/" + mProjectDir;	//
 	stream >> mMinSPSX >> mMinSPSY >> mMaxSPSX >> mMaxSPSY;
-	stream >> mAF >> mSinAF >> mCosAF;				//mAFΪĿ
+	stream >> mAF >> mSinAF >> mCosAF;				//mAF
 	stream >> mTransX0 >> mTransY0;
 	stream >> mMinX >> mMinY >> mMaxX >> mMaxY;
-	//<3>ȡĬ
+	//<3>
 	//stream >> mAmpWidth >> mTrcWidth >> mTrcHeight >> mTrcInv;
 	stream >> mAmpWidth >> mTrcWidth >> mTrcHeight ;
 	stream >> data;
 //	if(data == 1) mGainMode = gAGC;
 //	else mGainMode = gFixed;
 	stream >> mEquWin >> mFixedGain;
-	stream >> mFromTimeIndex >> mToTimeIndex;		//Ŀ
-	//<4>ȡSEG-Yļб
+	stream >> mFromTimeIndex >> mToTimeIndex;		// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
+	//<4> SEG-Y
 	stream >> count;
 	mIsNoSEGYFile = false;
 	bool isModify = false;
@@ -795,9 +795,9 @@ bool GProject::saveFBT()
 // 	float type = 0;
 //    
 // 	QString s1 = QString::fromLocal8Bit("");
-// 	QString s2 = QString::fromLocal8Bit("ѡ񱣴ͣɫΪһɫΪ");
-// 	QString s3 = QString::fromLocal8Bit("һ");
-// 	QString s4 = QString::fromLocal8Bit("һͶ");
+// QString s2 = QString::fromLocal8Bit("");
+// QString s3 = QString::fromLocal8Bit("");
+// QString s4 = QString::fromLocal8Bit("");
 // 	switch( QMessageBox::information( 0,s1 ,s2,s3,s4, "Cancel",
 // 			0,      // Enter == button 0
 //         2 ) ) { // Escape == button 2
@@ -856,9 +856,9 @@ bool GProject::saveFBT()
 // 	float type = 0;
 // 	
 // 	QString s1 = QString::fromLocal8Bit("");
-// 	QString s2 = QString::fromLocal8Bit("ѡ񱣴ͣɫΪһɫΪ");
-// 	QString s3 = QString::fromLocal8Bit("һ");
-// 	QString s4 = QString::fromLocal8Bit("һͶ");
+// QString s2 = QString::fromLocal8Bit("");
+// QString s3 = QString::fromLocal8Bit("");
+// QString s4 = QString::fromLocal8Bit("");
 // 	switch( QMessageBox::information( 0,s1 ,s2,s3,s4, "Cancel",
 // 		0,      // Enter == button 0
 //         2 ) ) { // Escape == button 2
@@ -1564,10 +1564,10 @@ QString GProject::getSPSFileName()// add by zhaohu
 
 double GProject::getAngle( double sinAF, double cosAF )
 {
-	double af = asin(sinAF);//[-11]Χڣasin()[-/ 2/ 2]Χڵֵ
+	double af = asin(sinAF);//[-11]asin()[-/ 2/ 2]
 
-	if(cosAF < 0) af = PI-af;//۽ǣڶޣ
+	if(cosAF < 0) af = PI-af;// (comment text was garbled by an earlier encoding conversion; meaning unrecoverable)
 	else if(sinAF < 0) af = 2*PI+af;//
 
-	return af;//صĽǶΪ[0,2PI]
+	return af;// [0,2PI]
 }

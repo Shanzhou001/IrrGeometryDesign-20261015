@@ -146,7 +146,40 @@ int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype,
 
 int *OptiMiuCG(int N, int *Phi, int max_iter = 2);//2025.12.13修改
 /*-----------------------------------------------------
- *  Function: 基于数值梯度的共轭梯度局部精修（原地修改并返回 Phi）
+ *  Function: 基于数值梯度的局部坐标搜索精修（原地修改并返回 Phi）
+ *  Note    : 实现是"坐标贪心 ±1 移动"，并非标准共轭梯度法；
+ *            名称保留以兼容既有接口与结果文件。
+ *-----------------------------------------------------*/
+
+// ---- 2026.10.20 新增：混合优化消融实验 ----
+struct AblationResult // add by shanzhou in 2026.10.20
+{
+	int n;                  // 掩码长度
+	int m;                  // 采样点数
+	double evalBudget;      // SA+CG 实际累计 μ 评估次数
+	float mu_init;          // 初始抖动掩码 μ
+	float mu_sa_only;       // 仅 SA（cg_max_iter = 0）
+	float mu_cg_only;       // 仅局部搜索（跳过 SA）
+	float mu_sa_cg;         // 当前主口径：SA + 局部搜索
+	float mu_restart_best;  // 等预算抖动随机重启（K 次取最优）
+	float mu_restart_mean;  // 等预算抖动随机重启的均值
+	float mu_rand_best;     // 等预算纯随机掩码（K 次取最优）
+	int   restart_trials;   // 随机重启次数 K
+	AblationResult()
+		: n(0), m(0), evalBudget(0.0), mu_init(0), mu_sa_only(0), mu_cg_only(0),
+		  mu_sa_cg(0), mu_restart_best(0), mu_restart_mean(0), mu_rand_best(0),
+		  restart_trials(0) {}
+};
+
+bool RunHybridAblation(int N, float c, unsigned long long seed,
+					   const SAParams &sap, AblationResult &out, int restartTrials = 0);
+/*-----------------------------------------------------
+ *  Function: 混合优化贡献分解消融
+ *  策略  : SA-only / CG-only / SA+CG / 等预算抖动随机重启 / 等预算纯随机
+ *  Input : N, c -- 掩码长度与采样率；seed -- 复现种子
+ *          sap -- SA 超参数（应与基准一致）
+ *          restartTrials -- 重启次数；<=0 时自动取 SA+CG 的评估次数
+ *  Note  : 所有策略共享同一初始抖动掩码，确保可比。
  *-----------------------------------------------------*/
 
 /* 辅助函数：计算数值梯度 */

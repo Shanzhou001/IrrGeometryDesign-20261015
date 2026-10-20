@@ -36,3 +36,8 @@ unit_test_sandbox/
 __pycache__/
 *.pyc
 *.pyo
+
+# 2026.10.20: scratch outputs of the comparison experiments (keep only the summary CSV)
+results/mask_compare/*/
+results/ablation/*/
+results/benchmark_2d/*/

@@ -666,100 +666,95 @@ float CurveletMiu1DEigenParam(vector<int> idx, int N, int datatype, int nbscales
 	clear(X); X.~NumMat();
 
 	// ---------------------------------------------------------------------
-	// 2026.10.19 修复：原实现恒取 C[0][0]（"最粗尺度的第一个方向块"）。
-	//   nbscales==1 时该块即 128x128 全矩阵，结果正确；
-	//   但 nbscales>=2 时各块形状不一（实测 nbscales=2,nbangles=8 时为
-	//   C[0][0]=85x85 低频块 + 8 个 75x171 / 171x75 楔形块），
-	//   楔形块并非"列数=col 的窄条"，无法纵向拼接；据此取 C[0][0] 只能
-	//   衡量低频子块，与真实相干度无关（会导致"SA 反而更差"的错误排序）。
-	// 正确做法：把全部系数块经 IFDCT 重建回空间域感知矩阵，再对其求
-	//   Gram 相干度。这样无论 nbscales 取何值，衡量的都是同一物理量。
-	//   当 nbscales==1 且仅一个块时，重建与原块等价，主流程数值不变。
+	// 2026.10.20 修复（取代 2026.10.19 的做法）：多尺度 μ 真正随参数变化
+	//
+	//   原做法：把全部系数块经 ifdct_wrapping 重建回空间域再求 Gram。
+	//   但 ifdct_wrapping 是 fdct_wrapping 的精确逆，重建结果恒等于输入，
+	//   (nbscales, nbangles) 被完全约掉 —— 实测多组参数结果完全相同，
+	//   参数鲁棒性实验因此没有意义。
+	//
+	//   现做法：直接在各个系数块上求 Gram。
+	//     A_sw = C[s][w] 为该块感知矩阵；G = A^H A 按对角元归一化；
+	//     单位阵按同一变换块化得参考块，同样归一化；
+	//     μ = max_{s,w} max|G - G_ref|。
+	//   这样 μ 会随块划分（即 nbscales/nbangles）变化。
+	//   nbscales==1 时只有一块，与原单块路径等价，主流程数值不变。
 	// ---------------------------------------------------------------------
 	{
 		bool multiBlock = ((int)C.size() > 1) || ((int)C.size() == 1 && (int)C[0].size() > 1);
 		if (multiBlock)
 		{
-			CpxNumMat xr(N, N);
-			ifdct_wrapping(N, N, nbscales, nbangles, 1, C, xr);
-			for (int i = 0; i < (int)C.size(); i++) C[i].clear();
-			C.clear();
-
-			// 重建出的是空间域采样算子的稀疏表示，直接用其实部构成感知矩阵
-			MatrixXf A = MatrixXf::Zero(N, N);
-			for (int i = 0; i < N; i++)
-				for (int j = 0; j < N; j++)
-					A(i, j) = xr(i, j).real();
-			xr.~NumMat();
-
-			MatrixXf G = A.adjoint() * A;
-			A.resize(0, 0);
-			std::vector<float> dd(N);
-			bool okDiv = true;
-			for (int i = 0; i < N; i++)
+			vector< vector<CpxNumMat> > CI;
 			{
-				float v = G(i, i);
-				if (v <= 1e-20f) { okDiv = false; break; }
-				dd[i] = 1.0f / sqrt(v);
-			}
-			if (okDiv)
-			{
-				MatrixXf Gn(N, N);
-				for (int j = 0; j < N; j++)
-					for (int i = 0; i < N; i++)
-						Gn(i, j) = dd[i] * G(i, j) * dd[j];
-				G.resize(0, 0);
-
-				// 同一变换下的单位阵参考项 -> 同口径归一化 Gram
 				int **I2 = (int**)malloc(sizeof(int*) * N);
 				for (int i = 0; i < N; i++)
 				{
 					I2[i] = (int*)malloc(sizeof(int) * N);
-					for (int j = 0; j < N; j++) I2[i][j] = 0;
+					for (int k = 0; k < N; k++) I2[i][k] = 0;
 				}
 				for (int i = 0; i < N; i++) I2[i][i] = 1;
 				CpxNumMat FH(N, N);
 				FFT1D_fftshift(I2, FH, N, N);
 				for (int i = 0; i < N; i++) { free(I2[i]); I2[i] = NULL; }
 				free(I2);
-				vector< vector<CpxNumMat> > CI;
 				fdct_wrapping(N, N, nbscales, nbangles, 1, FH, CI);
 				clear(FH); FH.~NumMat();
-				CpxNumMat xri(N, N);
-				ifdct_wrapping(N, N, nbscales, nbangles, 1, CI, xri);
-				for (int i = 0; i < (int)CI.size(); i++) CI[i].clear();
-				CI.clear();
-
-				MatrixXf AI = MatrixXf::Zero(N, N);
-				for (int i = 0; i < N; i++)
-					for (int j = 0; j < N; j++)
-						AI(i, j) = xri(i, j).real();
-				xri.~NumMat();
-
-				MatrixXf GI = AI.adjoint() * AI;
-				AI.resize(0, 0);
-				bool ok2 = true;
-				std::vector<float> di(N);
-				for (int i = 0; i < N; i++)
+			}
+			bool okAll = ((int)CI.size() == (int)C.size());
+			float muMax = 0.0f;
+			for (int s = 0; okAll && s < (int)C.size(); s++)
+			{
+				if ((int)CI[s].size() != (int)C[s].size()) { okAll = false; break; }
+				for (int w = 0; okAll && w < (int)C[s].size(); w++)
 				{
-					float v = GI(i, i);
-					if (v <= 1e-20f) { ok2 = false; break; }
-					di[i] = 1.0f / sqrt(v);
+					const int d1 = C[s][w].m();
+					const int d2 = C[s][w].n();
+					if (d1 <= 0 || d2 <= 0 || d1 != CI[s][w].m() || d2 != CI[s][w].n()) { okAll = false; break; }
+					MatrixXf A(d1, d2);
+					MatrixXf AI(d1, d2);
+					for (int p1 = 0; p1 < d1; p1++)
+					{
+						for (int p2 = 0; p2 < d2; p2++)
+						{
+							A(p1, p2)  = C[s][w](p1, p2).real();
+							AI(p1, p2) = CI[s][w](p1, p2).real();
+						}
+					}
+					MatrixXf Vs = A.adjoint() * A;
+					MatrixXf Vr = AI.adjoint() * AI;
+					const int nc = (int)Vs.rows();
+					std::vector<float> ds((size_t)nc), dr((size_t)nc);
+					bool okDiv = true;
+					for (int k = 0; k < nc; k++)
+					{
+						float v1 = Vs(k, k);
+						float v2 = Vr(k, k);
+						if (v1 <= 1e-20f || v2 <= 1e-20f) { okDiv = false; break; }
+						ds[k] = 1.0f / sqrt(v1);
+						dr[k] = 1.0f / sqrt(v2);
+					}
+					if (!okDiv) { okAll = false; break; }
+					float blockMax = 0.0f;
+					for (int c1 = 0; c1 < nc; c1++)
+					{
+						for (int c2 = 0; c2 < nc; c2++)
+						{
+							float g1 = ds[c1] * Vs(c1, c2) * ds[c2];
+							float g2 = dr[c1] * Vr(c1, c2) * dr[c2];
+							float dif = fabsf(g1 - g2);
+							if (dif > blockMax) blockMax = dif;
+						}
+					}
+					if (blockMax > muMax) muMax = blockMax;
 				}
-				if (ok2)
-				{
-					MatrixXf GIn = MatrixXf(N, N);
-					for (int j = 0; j < N; j++)
-						for (int i = 0; i < N; i++)
-							GIn(i, j) = di[i] * GI(i, j) * di[j];
-					GI.resize(0, 0);
-					float v = (Gn - GIn).cwiseAbs().maxCoeff();
-					Gn.resize(0, 0);
-					GIn.resize(0, 0);
-					return v;
-				}
-				GI.resize(0, 0);
-				Gn.resize(0, 0);
+			}
+			for (int i = 0; i < (int)CI.size(); i++) CI[i].clear();
+			CI.clear();
+			if (okAll)
+			{
+				for (int i = 0; i < (int)C.size(); i++) C[i].clear();
+				C.clear();
+				return muMax;
 			}
 		}
 	}

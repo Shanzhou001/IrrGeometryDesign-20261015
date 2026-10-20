@@ -642,3 +642,98 @@ int *OptiMiuCG(int N, int *Phi, int max_iter) {
 	delete[] d_k;
 	return Phi;
 }
+
+// ==========================================================
+//  2026.10.20 新增：混合优化消融（SA-only / CG-only / SA+CG / 等预算随机重启）
+//  目的：此前所有对外表格只给"Jitter-SA"一个数，无法回答
+//        "SA 与局部搜索各自的贡献有多大""混合是否优于等预算随机重启"。
+//  所有策略共享同一初始抖动掩码与同一随机种子，保证可比。
+// ==========================================================
+bool RunHybridAblation(int N, float c, unsigned long long seed,
+					   const SAParams &sap, AblationResult &out, int restartTrials)
+{
+	out = AblationResult();
+	if (N <= 0) return false;
+	int m = (int)floor((double)N * (double)c + 0.5);
+	if (m < 2) m = 2;
+	if (m > N) m = N;
+	out.n = N;
+	out.m = m;
+
+	// ---- 共享的初始抖动掩码 ----
+	exprng::seed(seed);
+	int *phi0 = Sampling1J_Count(N, m);
+	if (!ValidateSamplingMask(N, m, phi0)) { delete[] phi0; return false; }
+	out.mu_init = TestCurveletMiu1D(N, phi0, "EigenReal");
+
+	// ---- 主口径：SA + 局部搜索（同时得到真实评估预算） ----
+	long evalsBefore = miu_eval_count();
+	SAStats stMain;
+	{
+		int *phiIn = new int[N];
+		memcpy(phiIn, phi0, sizeof(int) * N);
+		int *phiOut = UnOptiMiuSAEx(N, c, phiIn, "J", true, &stMain, 2, sap);
+		out.mu_sa_cg = stMain.miu_final;
+		delete[] phiOut;
+		delete[] phiIn;
+	}
+	out.evalBudget = (double)(miu_eval_count() - evalsBefore);
+
+	// ---- SA-only：跳过局部搜索 ----
+	{
+		int *phiIn = new int[N];
+		memcpy(phiIn, phi0, sizeof(int) * N);
+		SAStats st;
+		int *phiOut = UnOptiMiuSAEx(N, c, phiIn, "J", true, &st, 0, sap);
+		out.mu_sa_only = st.miu_final;
+		delete[] phiOut;
+		delete[] phiIn;
+	}
+
+	// ---- CG-only：从同一初始掩码直接做局部搜索 ----
+	{
+		int *phiIn = new int[N];
+		memcpy(phiIn, phi0, sizeof(int) * N);
+		OptiMiuCG(N, phiIn, 2);
+		out.mu_cg_only = TestCurveletMiu1D(N, phiIn, "EigenReal");
+		delete[] phiIn;
+	}
+
+	// ---- 等预算随机重启：K 个抖动掩码取最优，K = SA+CG 的评估次数 ----
+	int K = (restartTrials > 0) ? restartTrials : (int)out.evalBudget;
+	if (K < 1) K = 1;
+	if (K > 2000) K = 2000;   // 防御：避免极端配置下耗时爆炸
+	out.restart_trials = K;
+	{
+		double sum = 0.0;
+		float best = 1e9f;
+		for (int k = 0; k < K; k++)
+		{
+			int *phi = Sampling1J_Count(N, m);
+			if (phi == NULL) continue;
+			float mu = TestCurveletMiu1D(N, phi, "EigenReal");
+			delete[] phi;
+			sum += mu;
+			if (mu < best) best = mu;
+		}
+		out.mu_restart_best = (best < 1e9f) ? best : 0.0f;
+		out.mu_restart_mean = (float)(sum / (double)K);
+	}
+
+	// ---- 等预算纯随机掩码：K 次取最优（第二种对照，排除"抖动先验"的贡献） ----
+	{
+		float best = 1e9f;
+		for (int k = 0; k < K; k++)
+		{
+			int *phi = Sampling1S_Count(N, m);
+			if (phi == NULL) continue;
+			float mu = TestCurveletMiu1D(N, phi, "EigenReal");
+			delete[] phi;
+			if (mu < best) best = mu;
+		}
+		out.mu_rand_best = (best < 1e9f) ? best : 0.0f;
+	}
+
+	delete[] phi0;
+	return true;
+}

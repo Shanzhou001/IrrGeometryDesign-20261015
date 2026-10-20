@@ -1785,6 +1785,17 @@ void TSPSForm::on_actionSSample_triggered()
 	delete sample_dlg;
 }
 
+static SAParams makeGuiSA()
+{
+	// 2026.10.20: GUI 与 CLI 基准统一使用"邻域 SA"超参数，保证同一算法口径。
+	// 原 GUI 调用 UnOptiMiuSA(neighbor_mode=false)，每次整体重采样，与基准不同。
+	SAParams p;
+	p.T0 = 80.0; p.Tmin = 0.5; p.alpha = 0.85; p.n_rapid = 8; p.iter = 1;
+	p.strategy = SA_ACCEPT_METROPOLIS;
+	return p;
+}
+
+static const SAParams sap = makeGuiSA();
 void TSPSForm::on_actionRAOptimizing_triggered()
 {
     //************** 检波点优化 *************//
@@ -1844,15 +1855,15 @@ void TSPSForm::on_actionRAOptimizing_triggered()
 
 			if (Mode_value==0)
 			{
-				phi = UnOptiMiuSA(row,cl,phi0,"R");//优化后的矩阵
+				phi = UnOptiMiuSAEx(row,cl,phi0,"R",true,NULL,2,sap);//优化后的矩阵
 			}
 			else if (Mode_value==1)
 			{
-				phi = UnOptiMiuSA(row,cl,phi0,"J");//优化后的矩阵
+				phi = UnOptiMiuSAEx(row,cl,phi0,"J",true,NULL,2,sap);//优化后的矩阵
 			} 
 			else
 			{
-				phi = UnOptiMiuSA(row,cl,phi0,"F");//优化后的矩阵
+				phi = UnOptiMiuSAEx(row,cl,phi0,"F",true,NULL,2,sap);//优化后的矩阵
 			}
 		
 			//****** 计算优化前后线之间的μ值 ******//
@@ -1896,7 +1907,7 @@ void TSPSForm::on_actionRAOptimizing_triggered()
 			{
 				for (int j=0;j<row;j++)
 				{
-					int *phi1 = UnOptiMiuSA(N,cr,Phi1[j],"R");//混合优化算法优化μ值
+					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"R",true,NULL,2,sap);//混合优化算法优化μ值
 					PHI[j] = phi1;   //得到线间和线内优化后的二维矩阵
 					row_r++;
 					mProgressDlg->setValue(row_r);
@@ -1906,7 +1917,7 @@ void TSPSForm::on_actionRAOptimizing_triggered()
 			{
 				for (int j=0;j<row;j++)
 				{
-					int *phi1 = UnOptiMiuSA(N,cr,Phi1[j],"J");//混合优化算法优化μ值
+					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"J",true,NULL,2,sap);//混合优化算法优化μ值
 					PHI[j] = phi1;   //得到线间和线内优化后的二维矩阵
 					row_r++;
 					mProgressDlg->setValue(row_r);
@@ -1916,7 +1927,7 @@ void TSPSForm::on_actionRAOptimizing_triggered()
 			{
 				for (int j=0;j<row;j++)
 				{
-					int *phi1 = UnOptiMiuSA(N,cr,Phi1[j],"F");//混合优化算法优化μ值
+					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"F",true,NULL,2,sap);//混合优化算法优化μ值
 					PHI[j] = phi1;   //得到线间和线内优化后的二维矩阵
 					row_r++;
 					mProgressDlg->setValue(row_r);
@@ -2074,15 +2085,15 @@ void TSPSForm::on_actionSAOptimizing_triggered()
 			
 			if (Mode_value==0)
 			{
-				phi = UnOptiMiuSA(row,cl,phi0,"R");//优化后的矩阵
+				phi = UnOptiMiuSAEx(row,cl,phi0,"R",true,NULL,2,sap);//优化后的矩阵
 			}
 			else if (Mode_value==1)
 			{
-				phi = UnOptiMiuSA(row,cl,phi0,"J");//优化后的矩阵
+				phi = UnOptiMiuSAEx(row,cl,phi0,"J",true,NULL,2,sap);//优化后的矩阵
 			} 
 			else
 			{
-				phi = UnOptiMiuSA(row,cl,phi0,"F");//优化后的矩阵
+				phi = UnOptiMiuSAEx(row,cl,phi0,"F",true,NULL,2,sap);//优化后的矩阵
 			}
 
 			float miu0 = TestCurveletMiu1D(row, phi0,"EigenReal"); //优化前线间的μ值
@@ -2126,7 +2137,7 @@ void TSPSForm::on_actionSAOptimizing_triggered()
 			{
 				for (int j=0;j<row;j++)
 				{
-					int *phi1 = UnOptiMiuSA(N,cr,Phi1[j],"R");//混合优化算法优化μ值
+					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"R",true,NULL,2,sap);//混合优化算法优化μ值
 					PHI[j] = phi1;
 					row_s++;
 					mProgressDlg->setValue(row_s);//设置进度并显示进度条//得到线间和线内优化后的二维矩阵
@@ -2137,7 +2148,7 @@ void TSPSForm::on_actionSAOptimizing_triggered()
 			{
 				for (int j=0;j<row;j++)
 				{
-					int *phi1 = UnOptiMiuSA(N,cr,Phi1[j],"J");//混合优化算法优化μ值
+					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"J",true,NULL,2,sap);//混合优化算法优化μ值
 					PHI[j] = phi1; 
 					row_s++;
 					mProgressDlg->setValue(row_s);
@@ -2147,7 +2158,7 @@ void TSPSForm::on_actionSAOptimizing_triggered()
 			{
 				for (int j=0;j<row;j++)
 				{
-					int *phi1 = UnOptiMiuSA(N,cr,Phi1[j],"F");//混合优化算法优化μ值
+					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"F",true,NULL,2,sap);//混合优化算法优化μ值
 					PHI[j] = phi1;
 					row_s++;
 					mProgressDlg->setValue(row_s);

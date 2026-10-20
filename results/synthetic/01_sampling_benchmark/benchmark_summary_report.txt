@@ -1,6 +1,6 @@
 ====================================================================================
   Irregular Seismic Geometry Non-Uniform Sampling Benchmark Report (Scientific Evaluation)
-  Generated: 2026-10-20 16:33:45
+  Generated: 2026-10-20 18:30:36
   Master Random Seed: 42
   Repetition Runs per Rate: 10
   Seed Derivation Formula: actual_seed = master_seed + int(c * 1000) + run_index * 179 + 1
@@ -43,3 +43,11 @@ Rate	m/N	Regular_Mu	Random_Mu	SA_Mean_Mu	SA_StdDev	[Min, Max]	Imprv_vs_Reg	Coher
 [Experiment Traceability Notes]
   - Complete per-run raw measurements are logged in 'benchmark_runs_detail.csv'.
   - All runs are 100% deterministic and reproducible under Master Random Seed 42.
+
+[Uniformity Metrics (2026.10.20 added)]
+  Max gap (traces)      : Regular=2.67  Random=7.90  JitterInit=4.20  <b>SA=6.87</b>
+  Nearest-neighbour CV  : Regular=0.0000  Random=0.5377  JitterInit=0.3527  SA=0.4883
+  Jitter-unit occupancy of the SA mask : 56.31%
+  Note: SA performs unconstrained pairwise swaps, so the final mask is NOT
+        guaranteed to stay on the jitter grid; occupancy below 100% quantifies
+        how far the optimiser drifts from the jitter prior.

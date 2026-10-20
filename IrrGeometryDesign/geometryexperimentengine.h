@@ -31,6 +31,16 @@ public:
         float imprv_vs_regular;   // 相比规则减抽改善率(%)
         float imprv_vs_random;    // 相比随机抽样改善率(%)
         float alias_suppress_db;  // 相干度比值衰减指标 (20*log10(mu_reg/mu_opt) dB)
+        // ---- 2026.10.20 新增：空间均匀性三指标（衡量"非规则但均匀"） ----
+        int max_gap_regular;      // 规则减抽最大相邻采样间隔（格）
+        int max_gap_random;       // 纯随机最大间隔
+        int max_gap_jitter_init;  // 初始抖动最大间隔
+        int max_gap_sa;           // SA 优化后最大间隔
+        float nn_cv_regular;      // 规则减抽最近邻间隔变异系数
+        float nn_cv_random;
+        float nn_cv_jitter_init;
+        float nn_cv_sa;
+        float jitter_unit_occupancy; // SA 后"每抖动单元恰一点"的比例(0~1)
         std::vector<float> convergence_trace;      // SA 当前解探索轨迹
         std::vector<float> best_convergence_trace; // SA 历史最优收敛曲线 (单调非增)
         std::vector<long> eval_trace;              // 逐步累计评估次数
@@ -174,7 +184,9 @@ public:
                                           bool exportFullResolution,
                                           bool forceDataConsistencyFailure = false,
                                           bool useWarmStart = true,
-                                          bool runStartupComparison = true);
+                                          bool runStartupComparison = true,
+                                          // 2026.10.20: 复用落盘掩码时的原始来源标签（避免被误标为 External File）
+                                          const QString& maskSourceOverride = QString());
 
     // 辅助工具：一键执行全部三个试验并导出完整成果（具备子试验状态核验与错误追溯）
     static bool runFullExperimentSuite(GProject *pProject,
@@ -250,7 +262,8 @@ public:
                                      unsigned long long seed,
                                      const QString& outputDir,
                                      HoldoutMetrics& outMetrics,
-                                     QString& outReport);
+                                     QString& outReport,
+                                     const QString& externalMaskPath = QString());
 
     // 自动化单元测试与回归校验体系 (Task 11) (add by shanzhou in 2026/10/15)
     static bool runUnitTests();
@@ -270,6 +283,23 @@ public:
     static bool runMiuParamRobustnessExperiment(int N, float c,
                                                 const QString& outputDir,
                                                 QString& outReportSummary);
+
+    // 混合优化贡献分解消融（2026.10.20 新增 CLI 入口）
+    // 输出 hybrid_ablation.csv：SA-only / CG-only / SA+CG / 等预算随机重启
+    static bool runHybridAblationExperiment(int N,
+                                            const std::vector<float>& rates,
+                                            unsigned long long seed,
+                                            const QString& outputDir,
+                                            QString& outReportSummary);
+
+    // 2D 采样基准（2026.10.20 新增 CLI 入口）
+    // 在 N×N 接收网格上比较规则 / 随机 / Jitter / Jitter-SA 的二维相干度，
+    // 弥补"只有一维道抽取基准、2D 仅停留在 GUI"的缺口。
+    static bool runSampling2DBenchmark(int N2D,
+                                       const std::vector<float>& rates,
+                                       unsigned long long seed,
+                                       const QString& outputDir,
+                                       QString& outReportSummary);
 };
 
 #endif // GEOMETRY_EXPERIMENT_ENGINE_H

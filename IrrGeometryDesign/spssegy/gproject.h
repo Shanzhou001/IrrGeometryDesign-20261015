@@ -34,32 +34,32 @@ class GProject : public QObject
 	Q_OBJECT	
 
 public:
-	QString mPrjFileName;				// add by zhaohu ļ
+	QString mPrjFileName;				// add by zhaohu
 	QString mPrjName;					// add by zhaohu 
-	double mX0, mY0, mZ0;				// add by zhaohu ½(С)
+	double mX0, mY0, mZ0;				// add by zhaohu ()
 	double mLength, mWidth, mHeight;	// Ի,ߴ
 
-	bool mIsNewImfo;                        //Ƿ񷵻½Ĺ۲Ϣı־,add by zhaohu
+	bool mIsNewImfo;                        // ,add by zhaohu
 
 private:
 	//------------------------------------------------------------------
 	//----<1>ݿ޹----
-	float mAF;										//бǶȣȣ
-	float mSinAF, mCosAF;							//бǲ
-	float mMinX, mMinY, mMaxX, mMaxY;				//ӳ󹤳̷Χ
-	float mMinSPSX, mMinSPSY, mMaxSPSX, mMaxSPSY;	//SPSļй̷Χ
-	float mTransX0, mTransY0;						//ƽƱ任ǰСֵ
+	float mAF;										// 标定方位角（度）
+	float mSinAF, mCosAF;							// 标定方位角的正/余弦
+	float mMinX, mMinY, mMaxX, mMaxY;				// 工作区范围
+	float mMinSPSX, mMinSPSY, mMaxSPSX, mMaxSPSY;	// SPS 坐标范围
+	float mTransX0, mTransY0;						// 平移变换前的起始值
    	float mHCMPInv, mVCMPInv;						//CMP
-	float mTrcInv, mLineInv;						//Ƶ,߼
-	bool mIsNoSEGYFile;							    //SEGYļǷȱʧ
-	static GProject * mpCurrentPtr;					//ǰָ
-	static GProject * mpCurrentPtrSV;               //svϹָ
+	float mTrcInv, mLineInv;						// 道间距/线间距
+	bool mIsNoSEGYFile;							    // SEG-Y 文件是否缺失
+	static GProject * mpCurrentPtr;					// (original comment lost in an earlier encoding conversion)
+	static GProject * mpCurrentPtrSV;               //sv
 
-	//PWorkAreaList *mainFrmProList;				//еĿб,wyt
+	//PWorkAreaList *mainFrmProList; // ,wyt
 	//----<2>ݿ----
 	GProjectType mProjectType;						//
 	QString mProjectName;							//
-	QString mProjectDir;							//Ŀ¼
+	QString mProjectDir;							// (original comment lost in an earlier encoding conversion)
 	///////////////////////////////////////////////////////////
 	QString mProjectNameSV;
 	QString mProjectDirSV;
@@ -68,48 +68,48 @@ private:
 	QString mLineBindNo;							//ߺ
 	float mBase;									//׼߳
 	float mVelocity;								//ٶ
-	bool mIsBend;									//ǷΪ
-//	GEvaluateGrade mEvaluateGrade;					//۵ȼ2ȼ/3ȼ
+	bool mIsBend;									// (original comment lost in an earlier encoding conversion)
+//	GEvaluateGrade mEvaluateGrade; // 2 /3
 	bool mIsTFix;									//T־
 	//--------------------------------------------------------------------------
 
 	//----ݼ------------------------------------------------------------
-	GShotSet *mpShotSet;							//ڹϵݼ
+	GShotSet *mpShotSet;							// (original comment lost in an earlier encoding conversion)
 	GSLineSet *mpSLineSet;							//ݼ
 	GRLineSet *mpRLineSet;							//첨ݼ
-	QStringList mSEGYFileList;						//SEG-Yļб
+	QStringList mSEGYFileList;						//SEG-Y
 
 	GCMPLineSet *mpCMPLineSet;                     //cmplineݼzhaohu
 	GSPSParam *mpSPSParam;				// SPSָ룬zhaohu
 	GCellGrid *mpCellGrid;				// Ԫzhaohu
-	GShotSet *mpShotSetNew;				//ڹϵݼ(½ģzhaohu
-	GSLineSet *mpSLineSetNew;				//ݼ(½ģzhaohu
-	GRLineSet *mpRLineSetNew;				//첨ݼ(½ģzhaohu
-	GCMPLineSet *mpCMPLineSetNew;                     //cmplineݼ(½ģzhaohu
+	GShotSet *mpShotSetNew;				//( zhaohu
+	GSLineSet *mpSLineSetNew;				//( zhaohu
+	GRLineSet *mpRLineSetNew;				//( zhaohu
+	GCMPLineSet *mpCMPLineSetNew;                     //cmpline( zhaohu
 
 	///////////////
-	GShotSet *mpShotSetSV;							//ڹϵݼ
+	GShotSet *mpShotSetSV;							// (original comment lost in an earlier encoding conversion)
 	GSLineSet *mpSLineSetSV;							//ݼ
 	GRLineSet *mpRLineSetSV;							//첨ݼ
-	QStringList mSEGYFileListSV;						//SEG-Yļб
+	QStringList mSEGYFileListSV;						//SEG-Y
 	//--------------------------------------------------------------------------
 
-	//----Ĭ----------------------------------------------------------
-	//----<1>ͼͼ----
-	float mAmpWidth, mTrcWidth, mTrcHeight;			//ͼ
-	float mEquWin, mFixedGain;						//ʱС
-//	GGainMode mGainMode;							//淽ʽ
-	Q_INT32 mFromTimeIndex, mToTimeIndex;			//ͼʱ
+	//---- ----------------------------------------------------------
+	//----<1>----
+	float mAmpWidth, mTrcWidth, mTrcHeight;			// (original comment lost in an earlier encoding conversion)
+	float mEquWin, mFixedGain;						// (original comment lost in an earlier encoding conversion)
+//	GGainMode mGainMode; //
+	Q_INT32 mFromTimeIndex, mToTimeIndex;			// (original comment lost in an earlier encoding conversion)
     float mR;
 	float mH;
 	//---------------------------------------------------------------------------
-//	GRPointVList *mpRPointVList;                 //ݼ첨㶨ĵٶϢ
-//	GRPointVList *mpRPointPVList;                 //ݼ첨㶨ݲٶϢ
+//	GRPointVList *mpRPointVList; //
+//	GRPointVList *mpRPointPVList; //
 	//////////
-//	GRPointVList *mpRPointVListSV;                 //ݼ첨㶨ĵٶϢ
-//	GRPointVList *mpRPointPVListSV;                 //ݼ첨㶨ݲٶϢ
+//	GRPointVList *mpRPointVListSV; //
+//	GRPointVList *mpRPointPVListSV; //
 //    PPORPSV mPSVFlag;    
-	//־ǰǷת
+	// (original comment lost in an earlier encoding conversion)
 	//////////////////////////
 	float mSinA;                                  //
 	float mCosA;                                   //
@@ -119,28 +119,28 @@ private:
 	int mMinRecordNum;
 	int mMaxRecordNum;
 	//////////////////////////////////////////////////////////////////////////add by LiuWei
-	int mbeginfoldi;int mendfoldi;//ǵķΧ
-	int mbeginfoldj;int mendfoldj;//ǵķΧ
-	GAttrAnalyzeParam *mpAttrAnalyzeParam;          //ڼ༰ַλԷ?
+	int mbeginfoldi;int mendfoldi;// (original comment lost in an earlier encoding conversion)
+	int mbeginfoldj;int mendfoldj;// (original comment lost in an earlier encoding conversion)
+	GAttrAnalyzeParam *mpAttrAnalyzeParam;          //?
 	//////////////////////////////////////////////////////////////////////////add by LiuWei
 public:
 	GProject();
 	~GProject();
 	float getR(){return mR;}
 	float getH(){return mH;}
-	//----̹졢١ʺ--------------------------------------------
-    static	GProject * create();		//ʯʹѧӿڣ
-	static void destroy();			//ʯʹѧӿڣ
+	//------------------------------------------------
+    static	GProject * create();		// (original comment lost in an earlier encoding conversion)
+	static void destroy();			// (original comment lost in an earlier encoding conversion)
 	static GProject * getCurrentProject(){return mpCurrentPtr;}	
 	/////////////////////
-	static GProject * createSV();		//ʯʹѧӿڣ
-	static void destroySV();			//ʯʹѧӿڣ
+	static GProject * createSV();		// (original comment lost in an earlier encoding conversion)
+	static void destroySV();			// (original comment lost in an earlier encoding conversion)
 	static GProject * getCurrentProjectSV()	{ return mpCurrentPtrSV; }
 	////////////////////////////////////////
 //    void setPSVFlag(PPORPSV flag);
 	void setFlag();//Ի
 	/////////////////////////////////////
-	//----Ŀݣʯʹѧӿڣ----
+	//---- ----
 	void clear();
 	//--------------------------------------------------------------------------
 
@@ -233,7 +233,7 @@ public:
 	}
 	GCMPLineSet *getCMPLineSetNew()
 	{
-		return mpCMPLineSetNew;    //cmplineݼ½ģzhaohu                 
+		return mpCMPLineSetNew;    //cmpline zhaohu
 	}
 	GRLineSet * getOriginalRLineSet() { return mpRLineSet; } // add by shanzhou in 2026/10/15
 	GSLineSet * getOriginalSLineSet() { return mpSLineSet; }
@@ -241,8 +241,8 @@ public:
 
 	//--------------------------------------------------------------------------
 
-	//----ļ--------------------------------------------------
-		//----õ첨ļ(ԶУ)----
+	//------------------------------------------------------
+		//---- ()----
     QString	getCMPVFileName(){return mProjectDir+"/"+mProjectName+".v";}
 	QString getRStackFileName()
 	{ 
@@ -251,7 +251,7 @@ public:
 //		else
 //			return mProjectDirSV+"/"+mProjectNameSV+".rstack";
 	}
-	//----õļ----
+	//---- ----
 	QString getProjectFileName()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -260,7 +260,7 @@ public:
  //       else
 //			return mProjectDirSV+"/"+mProjectNameSV+".ppr";
 	}
-	//----õڹϵļ----
+	//---- ----
 	QString getXFileName()
 	{
 //		if(mPSVFlag==PPDATA)
@@ -269,7 +269,7 @@ public:
  //           return mProjectDirSV+"/"+mProjectNameSV+".x"; 
 	}
 
-	//----õڵļ----
+	//---- ----
 	QString getSFileName()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -277,7 +277,7 @@ public:
 //		else
  //         return mProjectDirSV+"/"+mProjectNameSV+".s";
 	}
-	//----õ첨ļ----
+	//---- ----
 	QString getRFileName()
 	{
 //		if(mPSVFlag==PPDATA)
@@ -285,7 +285,7 @@ public:
 //		else
 //	     return mProjectDirSV+"/"+mProjectNameSV+".r"; 
 	}
-	//----õļ----
+	//---- ----
 	QString getFBTFileName()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -294,7 +294,7 @@ public:
 //		   return mProjectDirSV+"/"+mProjectNameSV+".fbt"; 
 	}
 
-	//----õתļ----
+	//---- ----
 	QString getFBTFileNameSV()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -302,7 +302,7 @@ public:
 //		else
 //		   return mProjectDirSV+"/"+mProjectNameSV+".fbtSV"; 
 	}
-	//---õļ----
+	//--- ----
 	QString getStackFileName()
 	{
 //		if(mPSVFlag==PPDATA)
@@ -312,7 +312,7 @@ public:
 
 	}
 
-	//----õSPSļ־ļ----
+	//---- SPS----
 	QString getSPSLogFileName()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -320,7 +320,7 @@ public:
 //		else
 //		   return mProjectDirSV+"/"+mProjectNameSV+"sps_log.txt"; 
 	}
-	//----õSEG-Yļ־ļ----
+	//---- SEG-Y----
 	QString getSGYLogFileName()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -328,7 +328,7 @@ public:
 //		else
 //			return mProjectDirSV+"/"+mProjectNameSV+"sgy_log.txt"; 
 	}
-	//----õͼƬ·----
+	//---- ----
 	QString getImagePath()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -336,7 +336,7 @@ public:
 //		else
  //    		return mProjectDirSV+"/image";
 	}
-	//----õSEG-YļĿ----
+	//---- SEG-Y ----
 	int getSEGYFileCount()
 	{ 
 //		if(mPSVFlag==PPDATA)
@@ -344,61 +344,61 @@ public:
 //		else
 //			return mSEGYFileListSV.count();
 	}
-	//----ͨ±SEG-Yļ----
+	//---- SEG-Y----
 	QString getSEGYFileName(int index);
-	//----׷SEG-Yļ----
+	//----SEG-Y----
 	void appendSEGYFileName(QString fileName);
-	//----SEG-Yļб----
+	//----SEG-Y----
 	void clearSEGYFileList();
-	//----Ŀ¼ʯʹѧӿڣ----
+	//---- ----
 	bool createFolders(const QString &projectName, const QString &projectDir);
 	bool  createFolders();
 	//------------- -------------------------------------------------------------
 
 	//----ݵ뺯--------------------------------------------------------
-	//----SPSļϢ----
+	//----SPS----
 	bool appendSPSInfo(const QString &sFileName, const QString &rFileName, 
 					   const QString &xFileName, QTextEdit *spsMemo = NULL,
 					   QProgressBar *progressBar= NULL);
-	//----SEG-Yļ----
+	//----SEG-Y----
 	bool appendSEGYInfo(const QString &fileName, QProgressBar *progressBar = NULL, 
 						QTextEdit *sgyMemo = NULL);
-	//----ˢݽṹ򡢳ȡݽṹ
+	//----
 	void refresh();
 
-	//----洢飨ļ+ݿ⣩-----------------------------------
-	//----湤ļ----
+	//----+-----------------------------------
+	//--------
 	bool saveProjectFile();
-	//----湤Ϣ----
+	//--------
 	bool save();
 
-	// SPSϢ
+	// SPS
 	bool saveSPS(const QString &spsFileName);//add by Wushanzhou
 
 
 
 	//-------
 	bool saveTime();
-	//----汨Ϣݿ⣨ʯʹѧӿڣ----
+	//--------
 	bool saveToDB(QProgressDialog *dlg);
 
-	//----빤ļ----
+	//--------
 	bool loadProjectFile(const QString &fileName);
-	//----ļ----
+	//--------
 	bool load(const QString &fileName);
 	//--------
 	bool reLoad();
-	//----ݿжϢ,ݿݼļʯʹѧӿڣ----
+	//----,----
 	bool loadFromDB( const QString &lineBindNo );
 	//--------------------------------------------------------------------------
 
-	//----빤غʯʹѧӿڣ--------------------------------------
+	//------------------------------------------
 	//void setMainFrmProList( PWorkAreaList *list )	{ mainFrmProList = list; }
 	//PWorkAreaList *getMainFrmProList()				{ return mainFrmProList; }
 	//--------------------------------------------------------------------------
 	
-	//----ĬԺ--------------------------------------------------------
-	//----<1>ͼĬ----
+	//---- --------------------------------------------------------
+	//----<1> ----
 	float getAmpWidth()			{ return mAmpWidth; }
 	float getTrcWidth()			{ return mTrcWidth; }
 	float getTrcHeight()		{ return mTrcHeight; }
@@ -477,11 +477,11 @@ public:
 												QProgressBar *progressBar, 
 			                           QTextEdit *sgyMemo );
 	//////////////////////////////////////////////////////////////////////////add by LiuWei
-	void setFoldArea(int beginfoldi,int endfoldi,int beginfoldj,int endfoldj)//ǵķΧ
+	void setFoldArea(int beginfoldi,int endfoldi,int beginfoldj,int endfoldj)// (original comment lost in an earlier encoding conversion)
 	{
 		mbeginfoldi=beginfoldi;mendfoldi=endfoldi;mbeginfoldj=beginfoldj;mendfoldj=endfoldj;
 	}
-	void getFoldArea(int &beginfoldi,int &endfoldi,int &beginfoldj,int &endfoldj)//ǵķΧ
+	void getFoldArea(int &beginfoldi,int &endfoldi,int &beginfoldj,int &endfoldj)// (original comment lost in an earlier encoding conversion)
 	{
 		beginfoldi=mbeginfoldi;endfoldi=mendfoldi;beginfoldj=mbeginfoldj;endfoldj=mendfoldj;
 	}
