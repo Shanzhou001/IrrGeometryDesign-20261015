@@ -32,16 +32,34 @@ static const float PI_CONST = 3.14159265358979323846f;
 // 统一获取科研成果图件集中保存目录 (all_result_figures)
 static QString getCentralFiguresDir(const QString& currentOutputDir)
 {
+    // 2026.10.20 目录重组: 全部图片统一输出到项目根目录下的 figures/，
+    // 不再分散到各子模块目录或 all_result_figures 子文件夹。
+    // 真实野外资料（输出目录名含 real）单独进 figures/real/，避免两组
+    // 05_/06_ 同名图件互相覆盖。
     QDir dir(currentOutputDir);
-    QString dirName = dir.dirName();
-    if (dirName == "all_result_figures") return dir.absolutePath();
-    if (dirName.startsWith("01_") || dirName.startsWith("02_") || dirName.startsWith("03_"))
+    if (dir.dirName() == "figures") return dir.absolutePath();
+
+    const bool isRealFieldRun = currentOutputDir.contains("real", Qt::CaseInsensitive);
+
+    // 从当前输出目录向上回溯，找到包含 build_release.bat 的项目根
+    QDir probe = dir;
+    for (int i = 0; i < 6; i++)
     {
-        QDir parentDir = dir;
-        parentDir.cdUp();
-        return parentDir.filePath("all_result_figures");
+        if (QFile::exists(probe.filePath("build_release.bat")))
+        {
+            QString figs = probe.filePath("figures");
+            if (isRealFieldRun) figs = QDir(figs).filePath("real");
+            QDir().mkpath(figs);
+            return figs;
+        }
+        if (!probe.cdUp()) break;
     }
-    return dir.filePath("all_result_figures");
+
+    // 回退: 输出目录下建 figures/
+    QString figs = dir.filePath("figures");
+    if (isRealFieldRun) figs = QDir(figs).filePath("real");
+    QDir().mkpath(figs);
+    return figs;
 }
 
 // 定位仓库自带真实 SPS 示范工区 (sps/5151-5171.S, .R, .X) 所在目录
@@ -57,14 +75,14 @@ static QString findRepositorySpsDir()
     QDir d(exeDir);
     for (int i = 0; i < 5 && !d.isRoot(); i++)
     {
-        candidates.append(d.absoluteFilePath("sps"));
+        candidates.append(d.absoluteFilePath("data/sps"));   // 2026.10.20: 目录重组后 SPS 样本位于 data/sps
         if (!d.cdUp()) break;
     }
 
     // 2) 当前工作目录及其上级（覆盖从项目根或子目录运行的情形）
     QDir cwd = QDir::current();
-    candidates.append(cwd.absoluteFilePath("sps"));
-    if (cwd.cdUp()) candidates.append(cwd.absoluteFilePath("sps"));
+    candidates.append(cwd.absoluteFilePath("data/sps"));
+    if (cwd.cdUp()) candidates.append(cwd.absoluteFilePath("data/sps"));
 
     // 3) 环境变量覆盖（便于测试/CI 指定外部数据目录）
     candidates.append(QString::fromLocal8Bit(qgetenv("IRR_SPS_DIR")));
@@ -474,7 +492,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
 {
     if (N <= 0) N = 128;
     QDir dir(outputDir);
-    if (!dir.exists()) dir.mkpath(outputDir);
+    QDir().mkpath(outputDir);   // 2026.10.20: 原 dir.mkpath(outputDir) 会把 outputDir 重复拼接到 dir 之后
 
     outResults.clear();
     std::vector<float> testRates = rates;
@@ -868,16 +886,6 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                 p50Record->rate,
                 p50Record->m,
                 p50Record->N,
-                dir.filePath("01_sa_convergence_curve.png")
-            );
-            ScientificPlotter::plotSamplingConvergenceCurve(
-                p50Record->convergence_trace,
-                p50Record->best_convergence_trace,
-                p50Record->miu_regular,
-                p50Record->miu_random,
-                p50Record->rate,
-                p50Record->m,
-                p50Record->N,
                 QDir(centralFiguresDir).filePath("01_sa_convergence_curve.png")
             );
         }
@@ -893,10 +901,6 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             pSaMius.push_back(rateSummaries[i].sa_miu_mean);
             pAttenDbs.push_back(rateSummaries[i].coherence_ratio_atten_db_mean);
         }
-        ScientificPlotter::plotSamplingRatesComparison(
-            pRates, pMs, pRegMius, pRandMius, pSaMius, pAttenDbs,
-            dir.filePath("02_sampling_benchmark_bars.png")
-        );
         ScientificPlotter::plotSamplingRatesComparison(
             pRates, pMs, pRegMius, pRandMius, pSaMius, pAttenDbs,
             QDir(centralFiguresDir).filePath("02_sampling_benchmark_bars.png")
@@ -944,7 +948,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
 static bool runMiuParamRobustness(int N, float c, const QString& outputDir, QString& outReportSummary)
 {
     QDir dir(outputDir);
-    if (!dir.exists()) dir.mkpath(outputDir);
+    QDir().mkpath(outputDir);   // 2026.10.20: 原 dir.mkpath(outputDir) 会把 outputDir 重复拼接到 dir 之后
 
     const int m = (int)floor((double)N * c + 0.5);
     exprng::seed(20261019ULL);
@@ -1062,7 +1066,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                                                         bool allowSyntheticFallback)
 {
     QDir dir(outputDir);
-    if (!dir.exists()) dir.mkpath(outputDir);
+    QDir().mkpath(outputDir);   // 2026.10.20: 原 dir.mkpath(outputDir) 会把 outputDir 重复拼接到 dir 之后
 
     GSLineSet *pSLineSet = NULL;
     GRLineSet *pRLineSet = NULL;
@@ -1668,31 +1672,9 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
             outMetrics.costReductionPct,
             realFoldGrid,
             outMetrics.isSynthetic,
-            dir.filePath("03_cmp_fold_distribution_map.png")
-        );
-        ScientificPlotter::plotCmpFoldDistributionMap(
-            outMetrics.liveBinCount,
-            outMetrics.meanFold,
-            outMetrics.minFold,
-            outMetrics.maxFold,
-            outMetrics.foldUniformityCv,
-            outMetrics.foldRetentionPct,
-            outMetrics.costReductionPct,
-            realFoldGrid,
-            outMetrics.isSynthetic,
             QDir(centralFiguresDir).filePath("03_cmp_fold_distribution_map.png")
         );
 
-        ScientificPlotter::plotOffsetAzimuthCharts(
-            outMetrics.minOffset,
-            outMetrics.maxOffset,
-            outMetrics.meanOffset,
-            outMetrics.nearOffsetRatio,
-            outMetrics.midOffsetRatio,
-            outMetrics.farOffsetRatio,
-            outMetrics.azimuthCoverageScore,
-            dir.filePath("04_offset_azimuth_rose_charts.png")
-        );
         ScientificPlotter::plotOffsetAzimuthCharts(
             outMetrics.minOffset,
             outMetrics.maxOffset,
@@ -1879,7 +1861,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     QDir dir(outputDir);
     if (!dir.exists())
     {
-        if (!dir.mkpath(outputDir))
+        if (!QDir().mkpath(outputDir))   // 2026.10.20: 原 dir.mkpath(outputDir) 会重复拼接路径
         {
             outReportSummary = QString::fromLocal8Bit("【波场重构失败】：无法创建指定的输出目录: %1").arg(outputDir);
             return false;
@@ -2421,18 +2403,6 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         outMetrics.snr_recovered_db,
         outMetrics.rmse,
         outMetrics.correlation,
-        dir.filePath("05_wavefield_reconstruction_quad.png")
-    );
-    ScientificPlotter::plotWavefieldReconstructionQuad(
-        d_full,
-        d_obs,
-        d_recon,
-        d_residual,
-        outMetrics.snr_zero_fill_db,
-        outMetrics.snr_linear_interp_db,
-        outMetrics.snr_recovered_db,
-        outMetrics.rmse,
-        outMetrics.correlation,
         QDir(centralFiguresDir).filePath("05_wavefield_reconstruction_quad.png")
     );
 
@@ -2445,14 +2415,6 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
             break;
         }
     }
-    ScientificPlotter::plotReconConvergenceAndTrace(
-        outMetrics.residual_convergence,
-        d_full,
-        d_recon,
-        sampleMissingTrace,
-        outMetrics.snr_recovered_db,
-        dir.filePath("06_recon_convergence_trace_comparison.png")
-    );
     ScientificPlotter::plotReconConvergenceAndTrace(
         outMetrics.residual_convergence,
         d_full,
@@ -2501,15 +2463,18 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
                                                      int repeatRuns)
 {
     QDir dir(outputDir);
-    if (!dir.exists()) dir.mkpath(outputDir);
+    QDir().mkpath(outputDir);   // 2026.10.20: 原 dir.mkpath(outputDir) 会把 outputDir 重复拼接到 dir 之后
 
     QString dir1 = dir.filePath("01_sampling_benchmark");
     QString dir2 = dir.filePath("02_attribute_evaluation");
     QString dir3 = dir.filePath("03_wavefield_reconstruction");
 
-    dir.mkpath(dir1);
-    dir.mkpath(dir2);
-    dir.mkpath(dir3);
+    // 2026.10.20 修复: dir.mkpath(dir1) 会把 dir1 当作相对于 dir 的路径，
+    // 而 dir1 已含 outputDir 前缀，结果创建出 experiment_results/experiment_results/01_...
+    // 的空壳目录。改用 QDir() 以绝对/完整路径创建。
+    QDir().mkpath(dir1);
+    QDir().mkpath(dir2);
+    QDir().mkpath(dir3);
 
     QString s1, s2, s3;
     std::vector<float> rates;
@@ -2588,7 +2553,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
      .arg(ok3 ? QString::fromLocal8Bit("成功") : QString::fromLocal8Bit("失败"))
      .arg(f3_ok ? QString::fromLocal8Bit("正常") : QString::fromLocal8Bit("缺失"));
 
-    QString centralFiguresDir = dir.filePath("all_result_figures");
+    QString centralFiguresDir = getCentralFiguresDir(outputDir);   // 2026.10.20: 统一输出到 figures/
     QDir().mkpath(centralFiguresDir);
 
     // 50% 采样率相干度衰减与 beta/μ 指标一律取多轮重复试验的聚合均值（下方计算），
@@ -2649,30 +2614,6 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
             reconIsReal,
             rMetrics.usedWarmStart
         );
-        ScientificPlotter::plotWorkflowSummaryDashboard(
-            aMetrics.meanFold,
-            aMetrics.foldUniformityCv,
-            rMetrics.snr_improvement_db,
-            atten_db_50,
-            dir.filePath("00_research_workflow_summary.png"),
-            rMetrics.snr_recovered_db,
-            rMetrics.rmse,
-            rMetrics.correlation,
-            attrIsReal,
-            aMetrics.liveBinCount,
-            aMetrics.costReductionPct,
-            aMetrics.minOffset,
-            aMetrics.maxOffset,
-            aMetrics.azimuthCoverageScore,
-            miuReg50,
-            miuOpt50,
-            imprvPct50,
-            rMetrics.snr_linear_interp_db,
-            rMetrics.snr_zero_fill_db,
-            reconIsReal,
-            rMetrics.usedWarmStart
-        );
-
         ScientificPlotter::exportFiguresGalleryHtml(
             centralFiguresDir,
             QDir(centralFiguresDir).filePath("index.html")
@@ -2783,8 +2724,28 @@ static bool verifyErrMsg(const QString& msg)
 // =============================================================================
 // 自动化单元测试与回归校验体系 (Task 11 / Section X) // add by shanzhou in 2026/10/15
 // =============================================================================
+// Qt 4.7 无 QDir::removeRecursively，提供递归删除辅助 (2026.10.20)
+static bool removeDirRecursive(const QString& path)
+{
+    QDir d(path);
+    if (!d.exists()) return true;
+    QStringList entries = d.entryList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
+    for (int i = 0; i < entries.size(); i++)
+    {
+        QString p = d.filePath(entries.at(i));
+        if (QFileInfo(p).isDir()) removeDirRecursive(p);
+        else QFile::remove(p);
+    }
+    return QDir().rmdir(path);
+}
+
 bool GeometryExperimentEngine::runUnitTests()
 {
+    // 2026.10.20: 测试中间产物统一写入临时沙箱，测试结束自动删除，
+    // 避免 experiment_results/ 中堆积 12 个 test_* 目录与上百个重复图片/CSV。
+    const QString kTestSandbox = "unit_test_sandbox";
+    QDir().mkpath(kTestSandbox);
+
     FILE *logFp = fopen("unit_tests.log", "w");
 
     log_test(logFp, "============================================================\n");
@@ -2923,7 +2884,7 @@ bool GeometryExperimentEngine::runUnitTests()
     std::vector<BenchmarkRecord> repRecords;
     QString repReport;
     int testRepeats = 3;
-    bool b_ok = runSamplingBenchmark(128, singleRate, "experiment_results/test_repeat", repRecords, repReport, 42ULL, testRepeats);
+    bool b_ok = runSamplingBenchmark(128, singleRate, "unit_test_sandbox/test_repeat", repRecords, repReport, 42ULL, testRepeats);
     if (!b_ok || (int)repRecords.size() != testRepeats) t4_ok = false;
     for (int k = 1; k < testRepeats; k++)
     {
@@ -2932,7 +2893,7 @@ bool GeometryExperimentEngine::runUnitTests()
 
     // 再次以相同主种子运行，验证严格复现性
     std::vector<BenchmarkRecord> repRecords2;
-    runSamplingBenchmark(128, singleRate, "experiment_results/test_repeat", repRecords2, repReport, 42ULL, testRepeats);
+    runSamplingBenchmark(128, singleRate, "unit_test_sandbox/test_repeat", repRecords2, repReport, 42ULL, testRepeats);
     for (int k = 0; k < testRepeats; k++)
     {
         if (fabs(repRecords[k].miu_jitter_sa - repRecords2[k].miu_jitter_sa) > 1e-5f) t4_ok = false;
@@ -2998,10 +2959,10 @@ bool GeometryExperimentEngine::runUnitTests()
     bool t6_ok = true;
     std::vector<int> testMaskTokens;
     QString maskErrMsg;
-    QDir().mkpath("experiment_results/test_masks");
+    QDir().mkpath("unit_test_sandbox/test_masks");
 
     // 1. 正常 128 个条目、64 个有效道
-    QString pValid = "experiment_results/test_masks/mask_valid_128_64.txt";
+    QString pValid = "unit_test_sandbox/test_masks/mask_valid_128_64.txt";
     {
         QFile f(pValid);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3015,7 +2976,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 2. 127 个条目 (截断)
-    QString p127 = "experiment_results/test_masks/mask_127.txt";
+    QString p127 = "unit_test_sandbox/test_masks/mask_127.txt";
     {
         QFile f(p127);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3029,7 +2990,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 3. 129 个条目 (多余)
-    QString p129 = "experiment_results/test_masks/mask_129.txt";
+    QString p129 = "unit_test_sandbox/test_masks/mask_129.txt";
     {
         QFile f(p129);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3043,7 +3004,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 4. 128 个全零条目
-    QString pZero = "experiment_results/test_masks/mask_all_zero.txt";
+    QString pZero = "unit_test_sandbox/test_masks/mask_all_zero.txt";
     {
         QFile f(pZero);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3057,7 +3018,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 5. 128 个全一条目
-    QString pOne = "experiment_results/test_masks/mask_all_one.txt";
+    QString pOne = "unit_test_sandbox/test_masks/mask_all_one.txt";
     {
         QFile f(pOne);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3071,7 +3032,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 6. 63 个有效道 (期望 64)
-    QString p63 = "experiment_results/test_masks/mask_63.txt";
+    QString p63 = "unit_test_sandbox/test_masks/mask_63.txt";
     {
         QFile f(p63);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3086,7 +3047,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 7. 65 个有效道 (期望 64)
-    QString p65 = "experiment_results/test_masks/mask_65.txt";
+    QString p65 = "unit_test_sandbox/test_masks/mask_65.txt";
     {
         QFile f(p65);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3101,7 +3062,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 8. 包含 2, -1, 非法字符等非二值内容
-    QString pNonBin = "experiment_results/test_masks/mask_non_binary.txt";
+    QString pNonBin = "unit_test_sandbox/test_masks/mask_non_binary.txt";
     {
         QFile f(pNonBin);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3117,7 +3078,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t6_ok = false;
 
     // 9. 文件不存在或为空
-    QString pEmpty = "experiment_results/test_masks/mask_empty.txt";
+    QString pEmpty = "unit_test_sandbox/test_masks/mask_empty.txt";
     {
         QFile f(pEmpty);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text)) { f.close(); }
@@ -3142,21 +3103,21 @@ bool GeometryExperimentEngine::runUnitTests()
     ReconstructionMetrics rmNorm;
     QString sumNorm;
     // 1. 正常合成波场重构成功
-    bool okNorm = runWavefieldReconstruction("", "experiment_results/test_recon_norm", 0.50f, rmNorm, sumNorm, "", true, false);
+    bool okNorm = runWavefieldReconstruction("", "unit_test_sandbox/test_recon_norm", 0.50f, rmNorm, sumNorm, "", true, false);
     if (!okNorm || !rmNorm.dataConsistencyPassed || rmNorm.snr_recovered_db <= rmNorm.snr_zero_fill_db)
         t7_ok = false;
 
     // 2. 人为构造数据一致性失败 (forceDataConsistencyFailure = true) 必须返回 false
     ReconstructionMetrics rmFail;
     QString sumFail;
-    bool okFail = runWavefieldReconstruction("", "experiment_results/test_recon_fail", 0.50f, rmFail, sumFail, "", true, true);
+    bool okFail = runWavefieldReconstruction("", "unit_test_sandbox/test_recon_fail", 0.50f, rmFail, sumFail, "", true, true);
     if (okFail != false || !sumFail.contains(QString::fromLocal8Bit("实测道数据一致性检验未通过")))
         t7_ok = false;
 
     // 3. 输出目录非法/不可写时不得返回成功 (使用已存在普通文件的子路径作为确定性不可写目录)
     ReconstructionMetrics rmIo;
     QString sumIo;
-    QString dummyFilePath = "experiment_results/test_io_dummy_file.txt";
+    QString dummyFilePath = "unit_test_sandbox/test_io_dummy_file.txt";
     QFile dummyFile(dummyFilePath);
     if (dummyFile.open(QIODevice::WriteOnly))
     {
@@ -3181,18 +3142,18 @@ bool GeometryExperimentEngine::runUnitTests()
     // -------------------------------------------------------------
     totalTests++;
     bool t8_ok = true;
-    QDir().mkpath("experiment_results/test_csvs");
+    QDir().mkpath("unit_test_sandbox/test_csvs");
 
     // 1. 路径为空 -> 自动触发合成波场数值模拟模式 (isSynthetic == true)
     ReconstructionMetrics rmSynth;
     QString sumSynth;
-    bool okSynth = runWavefieldReconstruction("", "experiment_results/test_csv_synth", 0.50f, rmSynth, sumSynth, "", true, false);
+    bool okSynth = runWavefieldReconstruction("", "unit_test_sandbox/test_csv_synth", 0.50f, rmSynth, sumSynth, "", true, false);
     if (!okSynth || !rmSynth.isSynthetic) t8_ok = false;
 
     // 2. 合法外部 CSV 数据文件 (256 行 x 128 列)
     // 注：此处 fixture 为解析/校验用的人造正弦光栅，仅用于验证 CSV 读取链路，
     //     不代表真实地震资料，因此输出目录命名为 test_csv_external（原 test_csv_real 易被误读）。
-    QString pValidCsv = "experiment_results/test_csvs/seismic_valid_256x128.csv";
+    QString pValidCsv = "unit_test_sandbox/test_csvs/seismic_valid_256x128.csv";
     {
         QFile f(pValidCsv);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3220,7 +3181,7 @@ bool GeometryExperimentEngine::runUnitTests()
     }
     ReconstructionMetrics rmReal;
     QString sumReal;
-    bool okReal = runWavefieldReconstruction("", "experiment_results/test_csv_external", 0.50f, rmReal, sumReal, pValidCsv, true, false);
+    bool okReal = runWavefieldReconstruction("", "unit_test_sandbox/test_csv_external", 0.50f, rmReal, sumReal, pValidCsv, true, false);
     if (!okReal || rmReal.isSynthetic != false) t8_ok = false;
 
     // 3. 不存在的文件 -> loadAndValidateSeismicCSV 返回 false，且波场重构直接失败（绝不静默回退）
@@ -3229,11 +3190,11 @@ bool GeometryExperimentEngine::runUnitTests()
         t8_ok = false;
     ReconstructionMetrics rmMiss;
     QString sumMiss;
-    if (runWavefieldReconstruction("", "experiment_results/test_csv_miss", 0.50f, rmMiss, sumMiss, "non_existent_seismic.csv", true, false) != false)
+    if (runWavefieldReconstruction("", "unit_test_sandbox/test_csv_miss", 0.50f, rmMiss, sumMiss, "non_existent_seismic.csv", true, false) != false)
         t8_ok = false;
 
     // 4. 空文件 -> 明确报错
-    QString pEmptyCsv = "experiment_results/test_csvs/seismic_empty.csv";
+    QString pEmptyCsv = "unit_test_sandbox/test_csvs/seismic_empty.csv";
     {
         QFile f(pEmptyCsv);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text)) { f.close(); }
@@ -3242,7 +3203,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t8_ok = false;
 
     // 5. 行数不符合 (200 行，期望 256 行) -> 明确报错
-    QString pRowMismatch = "experiment_results/test_csvs/seismic_row_200.csv";
+    QString pRowMismatch = "unit_test_sandbox/test_csvs/seismic_row_200.csv";
     {
         QFile f(pRowMismatch);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3264,7 +3225,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t8_ok = false;
 
     // 6. 列数不符合 (100 列，期望 128 或 129 列) -> 明确报错
-    QString pColMismatch = "experiment_results/test_csvs/seismic_col_100.csv";
+    QString pColMismatch = "unit_test_sandbox/test_csvs/seismic_col_100.csv";
     {
         QFile f(pColMismatch);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3286,7 +3247,7 @@ bool GeometryExperimentEngine::runUnitTests()
         t8_ok = false;
 
     // 7. 包含非数值/NaN/Inf/非法文本 -> 明确报错
-    QString pNanCsv = "experiment_results/test_csvs/seismic_nan.csv";
+    QString pNanCsv = "unit_test_sandbox/test_csvs/seismic_nan.csv";
     {
         QFile f(pNanCsv);
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -3323,7 +3284,7 @@ bool GeometryExperimentEngine::runUnitTests()
     AttributeMetrics strictAm;
     QString strictSum;
     // 1. 严格模式下，未加载工程对象时必须明确返回 false 并给出错误，绝不伪造真实数据
-    bool strict_rejected = !evaluateProjectAttributes(NULL, "experiment_results/test_attrs", strictAm, strictSum, false);
+    bool strict_rejected = !evaluateProjectAttributes(NULL, "unit_test_sandbox/test_attrs", strictAm, strictSum, false);
     if (!strict_rejected || strictSum.isEmpty()) t9_ok = false;
 
     // 2. 检查 SPS 物理文件存在性与大小完整性 (复用统一解析器，支持任意工作目录)
@@ -3360,7 +3321,7 @@ bool GeometryExperimentEngine::runUnitTests()
 
         AttributeMetrics realAm;
         QString realSum;
-        bool evalOk = evaluateProjectAttributes(pTestProj, "experiment_results/test_real_sps_eval", realAm, realSum, false);
+        bool evalOk = evaluateProjectAttributes(pTestProj, "unit_test_sandbox/test_real_sps_eval", realAm, realSum, false);
         if (!evalOk || realAm.isSynthetic != false)
         {
             t9_ok = false;
@@ -3399,7 +3360,7 @@ bool GeometryExperimentEngine::runUnitTests()
         // 4. 空间退化防御机制校验：人为构造退化工程对象必须被明确拒绝
         AttributeMetrics degenAm;
         QString degenSum;
-        bool degenRejected = !evaluateProjectAttributes(NULL, "experiment_results/test_degen", degenAm, degenSum, false);
+        bool degenRejected = !evaluateProjectAttributes(NULL, "unit_test_sandbox/test_degen", degenAm, degenSum, false);
         if (!degenRejected)
         {
             t9_ok = false;
@@ -3422,7 +3383,7 @@ bool GeometryExperimentEngine::runUnitTests()
     totalTests++;
     bool t10_ok = true;
     QString suiteNormalSum;
-    bool okSuiteNormal = runFullExperimentSuite(NULL, "experiment_results/test_suite_norm", suiteNormalSum, 42ULL, 1);
+    bool okSuiteNormal = runFullExperimentSuite(NULL, "unit_test_sandbox/test_suite_norm", suiteNormalSum, 42ULL, 1);
     if (!okSuiteNormal || !suiteNormalSum.contains("(3/3)"))
     {
         t10_ok = false;
@@ -3430,7 +3391,7 @@ bool GeometryExperimentEngine::runUnitTests()
     }
 
     // 严格核查生成的真实工区评价报告文件内容，杜绝报告指标退化与虚假陈述
-    QString rptFileNorm = "experiment_results/test_suite_norm/02_attribute_evaluation/attribute_quality_report.txt";
+    QString rptFileNorm = "unit_test_sandbox/test_suite_norm/02_attribute_evaluation/attribute_quality_report.txt";
     QFile rptF(rptFileNorm);
     if (!rptF.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -3459,7 +3420,7 @@ bool GeometryExperimentEngine::runUnitTests()
     }
 
     // 构造子实验失败场景：向输出目录预先写入损坏的 127 点掩码
-    QString suiteFailDir = "experiment_results/test_suite_fail";
+    QString suiteFailDir = "unit_test_sandbox/test_suite_fail";
     QDir().mkpath(suiteFailDir);
     {
         QFile f(suiteFailDir + "/cmp_mask.txt");
@@ -3497,7 +3458,7 @@ bool GeometryExperimentEngine::runUnitTests()
     bool t11_ok = true;
     ReconstructionMetrics rmAbl;
     QString sumAbl;
-    bool okAbl = runWavefieldReconstruction("", "experiment_results/test_ablation", 0.50f,
+    bool okAbl = runWavefieldReconstruction("", "unit_test_sandbox/test_ablation", 0.50f,
                                             rmAbl, sumAbl, "", true, false, true, true);
     if (!okAbl)
     {
@@ -3533,7 +3494,7 @@ bool GeometryExperimentEngine::runUnitTests()
             log_test(logFp, "   [FAIL Reason] Residual trace length mismatch (expected %d iters)!\n", rmAbl.iterations);
         }
         // 消融指标必须真实写入磁盘，便于论文附表引用
-        QString ablCsv = "experiment_results/test_ablation/recon_metrics_summary.csv";
+        QString ablCsv = "unit_test_sandbox/test_ablation/recon_metrics_summary.csv";
         QFile abf(ablCsv);
         if (!abf.open(QIODevice::ReadOnly | QIODevice::Text))
         {
@@ -3555,7 +3516,7 @@ bool GeometryExperimentEngine::runUnitTests()
     // 冷启动模式单独验证: useWarmStart=false 时主流水线应走冷启动
     ReconstructionMetrics rmCold;
     QString sumCold;
-    if (runWavefieldReconstruction("", "experiment_results/test_ablation_cold", 0.50f,
+    if (runWavefieldReconstruction("", "unit_test_sandbox/test_ablation_cold", 0.50f,
                                    rmCold, sumCold, "", true, false, false, false))
     {
         if (rmCold.usedWarmStart || fabs(rmCold.snr_recovered_db - rmAbl.snr_cold_start_db) > 1e-3f)
@@ -3588,14 +3549,14 @@ bool GeometryExperimentEngine::runUnitTests()
     bool t12_ok = true;
     {
         QString robSum;
-        if (!runMiuParamRobustness(128, 0.50f, "experiment_results/test_miu_robust", robSum))
+        if (!runMiuParamRobustness(128, 0.50f, "unit_test_sandbox/test_miu_robust", robSum))
         {
             t12_ok = false;
             log_test(logFp, "   [FAIL Reason] Miu robustness run failed!\n");
         }
         else
         {
-            QString robCsv = "experiment_results/test_miu_robust/mu_param_robustness.csv";
+            QString robCsv = "unit_test_sandbox/test_miu_robust/mu_param_robustness.csv";
             QFile rf(robCsv);
             if (!rf.open(QIODevice::ReadOnly | QIODevice::Text))
             {
@@ -3639,6 +3600,22 @@ bool GeometryExperimentEngine::runUnitTests()
     log_test(logFp, "============================================================\n");
 
     if (logFp) fclose(logFp);
+
+    // 清理测试沙箱（unit_tests.log 保留，作为回归凭据）
+    {
+        QDir sandbox(kTestSandbox);
+        if (sandbox.exists())
+        {
+            QStringList entries = sandbox.entryList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
+            for (int ie = 0; ie < entries.size(); ie++)
+            {
+                QString p = sandbox.filePath(entries.at(ie));
+                if (QFileInfo(p).isDir()) removeDirRecursive(p);
+                else QFile::remove(p);
+            }
+            QDir().rmdir(sandbox.absolutePath());
+        }
+    }
 
     return (passedTests == totalTests);
 }

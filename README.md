@@ -73,7 +73,7 @@ x64\Release\IrrGeometryDesign.exe --test
 6. **采样掩码文件严格校验体系 (任务二 9 组验收测试)**：覆盖正常 128 点 64 道、127 点截断、129 点多余、全零、全一、63 道、65 道、非二值字符（2, -1, 文本）、文件不存在与空文件，并严格验证错误信息包含预期长度、实际长度、预期点数、实际点数四要素；
 7. **波场重构失败状态传播与数据一致性约束 (任务一验收)**：验证正常波场重构成功、人为注入实测道数据一致性失败时严格返回失败并截断向上传播、以及输出目录或文件不可写时的失败拦截；
 8. **外部地震数据 CSV 严格加载校验与杜绝静默回退 (任务三验收)**：验证缺省路径触发合成数值模拟、合法 256x128 CSV 正常加载并标识真实模式、文件不存在、空文件、行数不符 (200行)、列数不符 (100列)、非法数值/NaN/Inf 严格报错拦截，绝不静默伪造合成数据；
-9. **真实 SPS 观测系统模式端到端评估与严格防护 (P1 / Section VIII)**：验证真实工程模式下未初始化工程对象时坚决拒绝并明确报错（绝不静默伪造真实数据），审计 `sps/5151-5171` 物理文件完整性，并实测加载真实野外 SPS 样本成功构建工程与 CMP 面元网格，断言炮点数、检波点数、有效道对数与有效面元数均严格大于 0；
+9. **真实 SPS 观测系统模式端到端评估与严格防护 (P1 / Section VIII)**：验证真实工程模式下未初始化工程对象时坚决拒绝并明确报错（绝不静默伪造真实数据），审计 `data/sps/5151-5171` 物理文件完整性，并实测加载真实野外 SPS 样本成功构建工程与 CMP 面元网格，断言炮点数、检波点数、有效道对数与有效面元数均严格大于 0；
 10. **全套科研闭环套件故障向上传播与退出状态检验 (P0 / Task 1)**：验证全套试验流水线在子试验失败时（如损坏掩码）立即截断并返回失败，汇总报告明示失败项，CLI 严格返回退出码 1。
 11. **冷启动/热启动消融实验与初始化贡献分解 (2026.10.19 新增)**：验证在同一掩码与参数下，冷启动 POCS 严格优于零填充基线、热启动 POCS 严格优于冷启动、主流水线 SNR 与所声明初始化分支一致、两路收敛轨迹长度等于迭代数，且消融指标确实写入 `recon_metrics_summary.csv`（防止热启动口径被无意回退）。
 12. **曲波变换参数鲁棒性 (2026.10.19 新增)**：在 7 组 (nbscales, nbangles_coarse) 参数下重算三方案 μ，断言 "Jitter-SA < 纯随机 < 规则减抽" 排序全部稳定、基线 (1,4) 存在、各组数值落在 [0,1] 归一化相干度有效区间（防止多尺度 μ 计算缺陷回归）。
@@ -83,12 +83,12 @@ x64\Release\IrrGeometryDesign.exe --test
 ### 2. 一键执行全套科研闭环对比试验（Task 10）
 
 ```bat
-x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 experiment_results] [--repeat <N>] [--seed <S>]
+x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 results/synthetic] [--repeat <N>] [--seed <S>]
 :: 或使用别名: -e, -r, -s
 ```
 
 参数说明：
-- `输出目录`（可选）：默认 `experiment_results`；
+- `输出目录`（可选）：默认 `results/synthetic`；
 - `--repeat <N>`（可选）：每个采样率独立重复试验轮数，默认 3 轮（可设为 1 或更多）；
 - `--seed <S>`（可选）：主随机数种子，默认 42。
 
@@ -111,7 +111,7 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 experi
 
 系统严格区分两种运行模式，并在所有输出 CSV 第一行通过 `# Mode:` 元数据标明：
 - **模式 A（Synthetic Benchmark Mode，合成模拟基准）**：当项目未指定外部数据且允许合成回退时启用，基于 24×24（576 个）有效 CMP 面元网格模拟三维观测系统，平均覆盖次数 32.07 次，变异系数 $C_v = \sigma / \bar{x} = 0.1577$（覆盖均匀度极佳），炮检距覆盖 50 m ~ 3200 m，全方位玫瑰图照射完整度 100%。
-- **模式 B（Real Survey Evaluation Mode，真实工程评价）**：工程解析器（`gspsscanner.cpp`）已完成鲁棒性升级，新增 SPS 2.1 固定列宽精确解析（`gParseXSPS21Fixed`）与分词回退机制，能完美解析野外测线点号（如 `1001.001`、`6858.001`）与 `.S`、`.R`、`.X` 关联拓扑。在 CLI 命令行全套实验及单元测试中，系统自动加载仓库自带的真实 SPS 样本（`sps/5151-5171`），构建真实的 `GProject`、`GCellGrid` 面元网格与炮检对坐标，输出真实观测系统的覆盖次数直方图、炮检距与方位角照射分布。**若工程数据为空且显式禁用回退，系统立即返回失败并报错，坚决杜绝静默伪造真实数据**。
+- **模式 B（Real Survey Evaluation Mode，真实工程评价）**：工程解析器（`gspsscanner.cpp`）已完成鲁棒性升级，新增 SPS 2.1 固定列宽精确解析（`gParseXSPS21Fixed`）与分词回退机制，能完美解析野外测线点号（如 `1001.001`、`6858.001`）与 `.S`、`.R`、`.X` 关联拓扑。在 CLI 命令行全套实验及单元测试中，系统自动加载仓库自带的真实 SPS 样本（`data/sps/5151-5171`），构建真实的 `GProject`、`GCellGrid` 面元网格与炮检对坐标，输出真实观测系统的覆盖次数直方图、炮检距与方位角照射分布。**若工程数据为空且显式禁用回退，系统立即返回失败并报错，坚决杜绝静默伪造真实数据**。
 
 ### 3. 地震波场压缩感知重构与评价（深层地球物理机制解析）
 
@@ -153,42 +153,82 @@ x64\Release\IrrGeometryDesign.exe --run-experiments [输出目录, 默认 experi
 
 ---
 
-## 五、实验成果文件目录索引
+## 五、项目目录结构与实验成果索引
 
-每次运行生成的全部结果均保存在 `experiment_results/`（及代码工程镜像目录 `IrrGeometryDesign/experiment_results/`）下：
+### 5.1 顶层目录（2026-10-20 整理后）
 
 ```text
-experiment_results/
-├── 00_research_workflow_summary.png                   # 全流程科研闭环综合大看板（采样-属性-重构）
-├── cmp_mask.txt                                       # 全局统一重构采样掩码 (1=保留道, 0=抽取道, 严格64点)
+IrrGeometryDesign-20261015/
+├── README.md                 项目说明（本文件）
+├── build_release.bat         一键编译 Release x64
+├── build_debug.bat           一键编译 Debug x64
+├── IrrGeometryDesign.sln     Visual Studio 解决方案
 │
-├── 01_sampling_benchmark/                             # 试验 1：不同采样率对比试验
-│   ├── 01_sa_convergence_curve.png                    # 模拟退火当前解与历史最优能量收敛轨迹图
-│   ├── 02_sampling_benchmark_bars.png                 # 四种采样算法相干度对比柱状图
-│   ├── benchmark_runs_detail.csv                      # 所有独立重复试验每轮测量的完整明细表
-│   ├── benchmark_comparison_table.csv                 # 30%、50%、70% 四种算法均值、方差与极值基准表
-│   ├── benchmark_convergence_curves.csv               # 模拟退火当前解探索与历史最优收敛轨迹
-│   └── benchmark_summary_report.txt                   # 详细文本评估报告（含随机种子、参数与结论）
-│
-├── 02_attribute_evaluation/                           # 试验 2：观测系统空间属性质量评估
-│   ├── 03_cmp_fold_distribution_map.png               # CMP 面元覆盖次数平面分布热力图
-│   ├── 04_offset_azimuth_rose_charts.png              # 炮检距分布直方图与 24 扇区方位角玫瑰图
-│   ├── attribute_fold_distribution.csv                # CMP 面元覆盖次数直方图与百分比
-│   ├── attribute_offset_distribution.csv              # 16 级炮检距区间分布表
-│   ├── attribute_azimuth_rose.csv                     # 24 扇区方位角玫瑰图统计分布
-│   └── attribute_quality_report.txt                   # 覆盖变异系数、成本节约率与玫瑰图评分报告
-│
-└── 03_wavefield_reconstruction/                       # 试验 3：地震波场压缩感知重构试验
-    ├── 05_wavefield_reconstruction_quad.png           # 真实参考、50%采样、曲波重构与残差四图对比
-    ├── 06_recon_convergence_trace_comparison.png      # 迭代能量残差收敛曲线与未采样道单道波形拟合对比
-    ├── cmp_mask.txt                                   # 试验实际使用的二值掩码持久化文件
-    ├── recon_original_gather.csv                      # 全分辨率原始参考波场单炮集 (256x128)
-    ├── recon_subsampled_gather.csv                    # 50% 欠采样观测波场单炮集 (256x128)
-    ├── recon_recovered_gather.csv                     # 曲波 POCS CS 恢复波场单炮集 (256x128)
-    ├── recon_residual_slice.csv                       # 重构残差空间切片 (256x128)
-    ├── recon_metrics_summary.csv                      # 信噪比、均方根误差、相关系数与耗时汇总表
-    └── recon_experiment_report.txt                    # 重构科研报告与基线对比分析
+├── IrrGeometryDesign/        全部源代码（VS 工程名，保持原路径）
+├── data/                     所有输入数据
+│   ├── sps/                  SPS 真实观测系统样本 5151-5171.{S,R,X}
+│   ├── real_seismic/         真实野外资料 RRAW.SGY + 转换后 CSV
+│   └── masks/                导出的二值采样掩码
+├── figures/                  ★ 唯一图片目录（所有 PNG 都在这里）
+│   ├── 00~06_*.png           合成数值模拟 7 张主成果图
+│   ├── index.html            图件画廊
+│   ├── real/                 真实野外资料验证图（4 张）
+│   └── gui/                  GUI 界面截图（9 张）
+├── results/                  数值结果（CSV/TXT，不含图片）
+│   ├── synthetic/            合成模拟三模块结果
+│   └── real_field/           真实野外资料重构结果
+├── third_party/eigen-x64/    第三方 Eigen 库
+└── tools/                    一次性调试/补丁脚本（不参与构建）
 ```
+
+> **整理原则**：图片只进 `figures/`；数据只进 `data/`；数值结果只进 `results/`；根目录只保留构建脚本、解决方案与说明文档。
+
+### 5.2 `figures/`（唯一图片目录）
+
+```text
+figures/
+├── 00_research_workflow_summary.png           全流程科研闭环综合大看板
+├── 01_sa_convergence_curve.png                模拟退火收敛轨迹（单次代表轮次）
+├── 02_sampling_benchmark_bars.png             三种采样方案相干度对比柱状图
+├── 03_cmp_fold_distribution_map.png           CMP 面元覆盖次数热力图（真实 GCellGrid 矩阵）
+├── 04_offset_azimuth_rose_charts.png          炮检距直方图与方位角玫瑰图
+├── 05_wavefield_reconstruction_quad.png       波场重构四联剖面
+├── 06_recon_convergence_trace_comparison.png  残差收敛与单道波形对比
+├── index.html                                 图件画廊（浏览器直接打开）
+├── real/                                      真实野外资料（RRAW.SGY）验证图
+│   ├── 03_cmp_fold_distribution_map.png
+│   ├── 04_offset_azimuth_rose_charts.png
+│   ├── 05_wavefield_reconstruction_quad.png
+│   └── 06_recon_convergence_trace_comparison.png
+└── gui/                                       GUI 界面截图（--screenshot / --screenshot-all）
+```
+
+### 5.3 `results/synthetic/`（数值结果，不含图片）
+
+```text
+results/synthetic/
+├── cmp_mask.txt                                  全局统一重构采样掩码
+├── 01_sampling_benchmark/
+│   ├── benchmark_runs_detail.csv                 每轮重复试验完整明细
+│   ├── benchmark_comparison_table.csv            30%/50%/70% 三方案均值、方差与极值
+│   ├── benchmark_convergence_curves.csv          退火探索与历史最优收敛轨迹
+│   └── benchmark_summary_report.txt              文本评估报告
+├── 02_attribute_evaluation/
+│   ├── attribute_fold_distribution.csv           CMP 覆盖次数直方图
+│   ├── attribute_fold_map_matrix.csv             实测覆盖次数矩阵（热力图数据源）
+│   ├── attribute_offset_distribution.csv         炮检距区间分布
+│   ├── attribute_azimuth_rose.csv                24 扇区方位角统计
+│   └── attribute_quality_report.txt              覆盖变异系数与质量评分报告
+└── 03_wavefield_reconstruction/
+    ├── cmp_mask.txt                              本次实际使用的掩码
+    ├── recon_original_gather.csv                 全分辨率参考波场 (256x128)
+    ├── recon_subsampled_gather.csv               50% 欠采样观测波场
+    ├── recon_recovered_gather.csv                曲波 POCS 恢复波场
+    ├── recon_residual_slice.csv                  重构残差切片
+    ├── recon_metrics_summary.csv                 SNR/RMSE/相关系数/冷热启动消融
+    └── recon_experiment_report.txt               重构科研报告
+```
+
 
 ---
 
@@ -223,7 +263,7 @@ experiment_results/
 
 ### 3. 真实 SPS 观测系统空间属性评价指标 (`attribute_quality_report.txt`)
 
-- **评估模式**：Real Survey Evaluation Mode（基于工区自带真实野外 SPS 样本 `sps/5151-5171`）
+- **评估模式**：Real Survey Evaluation Mode（基于工区自带真实野外 SPS 样本 `data/sps/5151-5171`）
 - **激发炮点总数 / 接收点总数**：349 炮 / 9,072 接收点
 - **有效分析道对数**：3,162,602 道（异常/过滤道数：0，零偏移距道数：0）
 - **空间包围盒真实 UTM 坐标**：
@@ -289,7 +329,7 @@ experiment_results/
 
 ### 8.1 数据来源
 
-`Reflection_Seismic_Data_Group_A/Data/RRAW.SGY` —— 真实野外**共炮点道集**（训练数据集 Group A）。
+`data/real_seismic/Data/RRAW.SGY` —— 真实野外**共炮点道集**（训练数据集 Group A）。
 
 | 属性 | 实测值 |
 | :--- | :--- |
@@ -314,9 +354,9 @@ C++ 引擎要求 **256 × 128**（Nt=256, dt=4 ms；Nx=128, dx=12.5 m）的纯�
 4. 8–70 Hz 带通（压制低频地滚波与高频噪声）；
 5. 峰值归一化。
 
-产物：`Reflection_Seismic_Data_Group_A/real_gather_256x128.csv`
+产物：`data/real_seismic/real_gather_256x128.csv`
 
-### 8.3 重构结果（`experiment_results_real/`）
+### 8.3 重构结果（`results/real_field/`）
 
 | 指标 | 合成数值模拟（前文） | **真实野外资料** |
 | :--- | :---: | :---: |
@@ -347,8 +387,8 @@ C++ 引擎要求 **256 × 128**（Nt=256, dt=4 ms；Nx=128, dx=12.5 m）的纯�
 
 ```bat
 x64\Release\IrrGeometryDesign.exe --run-real-reconstruction ^
-  Reflection_Seismic_Data_Group_A\real_gather_256x128.csv ^
-  --out experiment_results_real --ratio 0.50
+  data\real_seismic\real_gather_256x128.csv ^
+  --out results\real_field --ratio 0.50
 ```
 
 产物：`recon_metrics_summary.csv`、`recon_experiment_report.txt`、`05_wavefield_reconstruction_quad.png`、`06_recon_convergence_trace_comparison.png`（全部由 Qt 渲染器生成）。
