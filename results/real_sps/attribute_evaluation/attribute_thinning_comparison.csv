@@ -1,5 +1,9 @@
-# 2026.10.20: thinning impact on CMP attributes (binDx=25 m, thinning = keep every 2nd receiver)
+# 2026-10-21: thinning impact on CMP attributes (binDx=25 m)
+# Strategies: Regular / Random / Jitter / SA_opt, each keeps n/2 receivers
 # Mode: Real Survey Evaluation Mode
 Configuration,Receivers,Traces,Live_CMP_Bins,Mean_Fold,Min_Fold,Max_Fold,Fold_CV,Fold_Retention_Pct,Max_Offset_m,Mean_Offset_m,Near_Pct,Mid_Pct,Far_Pct,Azimuth_Sectors
 Full_Coverage,9072,3162602,29577,106.93,1,203,0.5467,75.56,9324.0,3875.9,45.3,34.5,20.3,24
-Thinned_50pct,4536,1581834,29499,53.62,1,104,0.5480,75.71,9324.0,3877.2,45.2,34.5,20.3,24
+Thinned_Regular,4536,1581834,29499,53.62,1,104,0.5480,75.71,9324.0,3877.2,45.2,34.5,20.3,24
+Thinned_Random,4536,1581178,29499,53.60,1,116,0.5537,75.62,9305.6,3849.0,45.3,35.0,19.7,24
+Thinned_Jitter,4536,1581096,29513,53.57,1,106,0.5451,76.03,9301.0,3876.1,45.1,34.5,20.4,24
+Thinned_SA_opt,4536,1581096,29513,53.57,1,106,0.5454,76.02,9301.0,3876.7,45.1,34.5,20.4,24

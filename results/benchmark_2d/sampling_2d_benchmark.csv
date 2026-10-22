@@ -1,4 +1,4 @@
-Grid,Sampling_Rate,Points_Per_Row,Rows,Rule_2D_Mu,Random_2D_Mu,Jitter_2D_Mu,JitterSA_2D_Mu,SA_Imprv_vs_Rule_Pct,SA_Imprv_vs_Random_Pct,SA_Atten_vs_Rule_dB
-32,0.30,10,32,0.8004,0.7336,0.7328,0.5250,34.41,28.43,3.66
-32,0.50,16,32,0.9610,0.5118,0.5510,0.2923,69.58,42.89,10.34
-32,0.70,22,32,0.2530,0.3304,0.3420,0.2109,16.64,36.17,1.58
+Grid,Sampling_Rate,Points_Per_Row,Rows,Rule_RowAvg,Random_RowAvg,Jitter_RowAvg,JitterSA_RowAvg,Rule_True2D,Random_True2D,Jitter_True2D,JitterSA_True2D,SA_Imprv_vs_Rule_Pct,SA_Imprv_vs_Random_Pct,SA_Atten_vs_Rule_dB
+16,0.30,5,16,0.9222,0.8872,0.8719,0.6501,0.8524,0.2557,0.2231,0.2302,29.51,26.73,3.04
+16,0.50,8,16,0.9498,0.5913,0.6558,0.3358,1.0000,0.1535,0.1535,0.2031,64.64,43.21,9.03
+16,0.70,11,16,0.2705,0.4064,0.4277,0.2363,0.3875,0.1045,0.0990,0.1642,12.66,41.86,1.18

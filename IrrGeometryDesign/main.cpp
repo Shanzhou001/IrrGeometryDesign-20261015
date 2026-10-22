@@ -3,6 +3,8 @@
 #include <QTextCodec>
 #include <QTranslator>
 #include <QDebug>
+#include <QDir>
+#include <QFileInfo>
 #include <string.h>
 #include <stdlib.h>
 #ifdef _WIN32
@@ -288,6 +290,107 @@ int main(int argc, char *argv[])
 			r2d.push_back(0.70f);
 			QString summary;
 			bool ok = GeometryExperimentEngine::runSampling2DBenchmark(gridN, r2d, s2Seed, outDir, summary);
+			printf("%s\n", summary.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		// 2026-10-21 新增：目标函数数学性质探针
+		// 用法: --mu-probe <out.csv>
+		if (strcmp(argv[i], "--mu-probe") == 0)
+		{
+			QString outCsv = "results/audit/mu_properties.csv";
+			if (i + 1 < argc && argv[i + 1][0] != '-') outCsv = QString::fromLocal8Bit(argv[i + 1]);
+			QDir().mkpath(QFileInfo(outCsv).absolutePath());
+			QString rep;
+			bool ok = GeometryExperimentEngine::runMiuProbe(outCsv, rep);
+			printf("%s\n", rep.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		if (strcmp(argv[i], "--fft-probe") == 0)
+		{
+			QString outCsv = "results/audit/fft_structure.csv";
+			if (i + 1 < argc && argv[i + 1][0] != '-') outCsv = QString::fromLocal8Bit(argv[i + 1]);
+			QDir().mkpath(QFileInfo(outCsv).absolutePath());
+			QString rep;
+			bool ok = GeometryExperimentEngine::runFftProbe(outCsv, rep);
+			printf("%s\n", rep.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		if (strcmp(argv[i], "--mu-discriminate") == 0)
+		{
+			QString outCsv = "results/audit/mu_discriminate.csv";
+			if (i + 1 < argc && argv[i + 1][0] != '-') outCsv = QString::fromLocal8Bit(argv[i + 1]);
+			QDir().mkpath(QFileInfo(outCsv).absolutePath());
+			QString rep;
+			bool ok = GeometryExperimentEngine::runMiuDiscriminateProbe(outCsv, rep);
+			printf("%s\n", rep.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		if (strcmp(argv[i], "--mc-probe") == 0)
+		{
+			QString outCsv = "results/audit/mc_properties.csv";
+			if (i + 1 < argc && argv[i + 1][0] != '-') outCsv = QString::fromLocal8Bit(argv[i + 1]);
+			QDir().mkpath(QFileInfo(outCsv).absolutePath());
+			QString rep;
+			bool ok = GeometryExperimentEngine::runMcProbe(outCsv, rep);
+			printf("%s\n", rep.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		// 2026-10-21 新增：空间约束优化 A–E 对比
+		// 用法: --constrained [outDir] [--seeds N]
+		if (strcmp(argv[i], "--constrained") == 0)
+		{
+			QString outDir = "results/constrained";
+			int nSeeds = 5;
+			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
+			for (int j = 1; j < argc; j++)
+				if (strcmp(argv[j], "--seeds") == 0 && j + 1 < argc) nSeeds = atoi(argv[j + 1]);
+			if (nSeeds < 1) nSeeds = 1;
+			std::vector<float> crates;
+			crates.push_back(0.30f); crates.push_back(0.50f); crates.push_back(0.70f);
+			std::vector<unsigned long long> cseeds;
+			for (int k = 0; k < nSeeds; k++) cseeds.push_back(20261020ULL + (unsigned long long)(k * 179));
+			printf("Constrained optimisation A-E comparison (%d seeds)\n", nSeeds);
+			QString summary;
+			bool ok = GeometryExperimentEngine::runConstrainedComparison(crates, cseeds, outDir, summary);
+			printf("%s\n", summary.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		// 2026-10-21 新增：多种子等预算消融
+		// 用法: --ablation-multiseed [outDir] [--seeds N] [--seed S]
+		if (strcmp(argv[i], "--ablation-multiseed") == 0)
+		{
+			QString outDir = "results/ablation_multiseed";
+			int nSeeds = 20;
+			unsigned long long bs = 20261020ULL;
+			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
+			for (int j = 1; j < argc; j++)
+			{
+				if (strcmp(argv[j], "--seeds") == 0 && j + 1 < argc) nSeeds = atoi(argv[j + 1]);
+				else if ((strcmp(argv[j], "--seed") == 0 || strcmp(argv[j], "-s") == 0) && j + 1 < argc)
+					bs = (unsigned long long)_atoi64(argv[j + 1]);
+			}
+			if (nSeeds < 1) nSeeds = 1;
+			printf("Multi-seed ablation: %d seeds, base=%llu\n", nSeeds, bs);
+			std::vector<float> mr;
+			mr.push_back(0.30f); mr.push_back(0.50f); mr.push_back(0.70f);
+			QString summary;
+			bool ok = GeometryExperimentEngine::runMultiSeedAblationExperiment(mr, nSeeds, bs, outDir, summary);
+			printf("%s\n", summary.toLocal8Bit().constData());
+			return ok ? 0 : 1;
+		}
+		// 2026-10-21 新增：掩码—重构对照
+		// 用法: --mask-recon [outDir] [--masks N]
+		if (strcmp(argv[i], "--mask-recon") == 0)
+		{
+			QString outDir = "results/mask_recon";
+			int nMasks = 10;
+			unsigned long long mrSeed = 20261020ULL;
+			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
+			for (int j = 1; j < argc; j++)
+				if (strcmp(argv[j], "--masks") == 0 && j + 1 < argc) nMasks = atoi(argv[j + 1]);
+			printf("Mask-reconstruction study: %d masks per type\n", nMasks);
+			QString summary;
+			bool ok = GeometryExperimentEngine::runMaskReconStudy(outDir, nMasks, mrSeed, summary);
 			printf("%s\n", summary.toLocal8Bit().constData());
 			return ok ? 0 : 1;
 		}

@@ -41,3 +41,8 @@ __pycache__/
 results/mask_compare/*/
 results/ablation/*/
 results/benchmark_2d/*/
+# 2026-10-21: keep only summary CSVs of the new audit experiments
+results/mask_recon/run_*/
+results/ablation_multiseed/
+results/constrained/
+results/audit/

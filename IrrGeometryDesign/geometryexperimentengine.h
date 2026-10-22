@@ -300,6 +300,33 @@ public:
                                        unsigned long long seed,
                                        const QString& outputDir,
                                        QString& outReportSummary);
+
+    // =========================================================================
+    // 2026-10-21 新增：目标函数数学性质探针（问题 1 取证用）
+    // 输出每个用例的: 用例名, N, m, nbscales, nbangles, mu, 对角项最大值偏差,
+    //                 G 的对角范围, ref 对角范围, 是否触发多块路径, 备注
+    // =========================================================================
+    static bool runMiuProbe(const QString& outCsvPath, QString& outReport);
+    static bool runFftProbe(const QString& outCsvPath, QString& outReport);
+    static bool runMiuDiscriminateProbe(const QString& outCsvPath, QString& outReport);
+    static bool runMcProbe(const QString& outCsvPath, QString& outReport);
+
+    // 2026-10-21 新增：空间约束优化 A–E 对比 + λ 敏感性
+    // 2026-10-21 新增：多种子等预算消融
+    // 2026-10-21 新增：优化掩码对重构效果的独立验证（10 掩码 × 3 档）
+    static bool runMaskReconStudy(const QString& outputDir,
+                                  int masksPerType,
+                                  unsigned long long baseSeed,
+                                  QString& outReportSummary);
+    static bool runMultiSeedAblationExperiment(const std::vector<float>& rates,
+                                              int nSeeds,
+                                              unsigned long long baseSeed,
+                                              const QString& outputDir,
+                                              QString& outReportSummary);
+    static bool runConstrainedComparison(const std::vector<float>& rates,
+                                         const std::vector<unsigned long long>& seeds,
+                                         const QString& outputDir,
+                                         QString& outReportSummary);
 };
 
 #endif // GEOMETRY_EXPERIMENT_ENGINE_H

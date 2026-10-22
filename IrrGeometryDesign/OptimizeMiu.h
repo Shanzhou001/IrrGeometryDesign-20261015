@@ -171,6 +171,87 @@ struct AblationResult // add by shanzhou in 2026.10.20
 		  restart_trials(0) {}
 };
 
+// =============================================================================
+// 2026-10-21 新增：带空间约束的目标函数（任务书问题 2，方案 C/D/E）
+// -----------------------------------------------------------------------------
+// 审计（THESIS_ALGORITHM_AUDIT.md）证明：互干度 μ 与空间均匀性是两个独立目标，
+//   μ 甚至会奖励聚集。因此必须把均匀性作为显式项加入目标。
+//
+// 目标函数：
+//   J(Φ) = μ(Φ) + λ_gap·P_gap(Φ) + λ_nn·P_nn(Φ)
+//   P_gap = max(0, maxgap(Φ)/idealGap - 1)   idealGap = N/m
+//   P_nn  = CV(最近邻间隔)                    无量纲
+// 两个惩罚项均与采样率无关，可跨档比较。
+// =============================================================================
+struct ConstraintWeights // add by shanzhou in 2026.10.21
+{
+    double lambdaGap;   // P_gap 权重
+    double lambdaNN;    // P_nn 权重
+    int    hardMaxGap;  // >0 时作为硬约束（方案 D）；0 表示仅软惩罚
+    ConstraintWeights() : lambdaGap(0.0), lambdaNN(0.0), hardMaxGap(0) {}
+};
+
+struct ConstrainedResult // add by shanzhou in 2026.10.21
+{
+    float mu;            // 终止时的经典互干度
+    float objective;     // 终止时的 J 值
+    int   maxGap;
+    float nnCv;
+    float unitOccupancy;
+    long  evals;         // 实际 μ 评估次数
+    bool  hardConstraintSatisfied;
+    ConstrainedResult() : mu(0), objective(0), maxGap(0), nnCv(0),
+                           unitOccupancy(0), evals(0), hardConstraintSatisfied(false) {}
+};
+
+// =============================================================================
+// 2026-10-21 新增：多种子等预算消融（任务书问题 3）
+// 每个种子都保留原始结果，不筛选。
+// =============================================================================
+struct AblationRow // add by shanzhou in 2026.10.21
+{
+    int    seedIndex;
+    unsigned long long seed;
+    float  muJitterInit;   // ① 初始解
+    float  muSaOnly;       // ② SA-only
+    float  muLocalOnly;    // ③ 局部搜索-only
+    float  muSaLocal;      // ④ SA+局部搜索
+    float  muRestartBest;  // ⑤ 等预算随机重启最优
+    float  muConstrained;  // ⑥ 带空间约束的混合
+    long   evalsSaOnly;
+    long   evalsLocalOnly;
+    long   evalsSaLocal;
+    long   evalsRestart;
+    long   evalsConstrained;
+    int    maxGapSaLocal;
+    int    maxGapConstrained;
+    float  nnCvSaLocal;
+    float  nnCvConstrained;
+    AblationRow() : seedIndex(0), seed(0), muJitterInit(0), muSaOnly(0), muLocalOnly(0),
+        muSaLocal(0), muRestartBest(0), muConstrained(0), evalsSaOnly(0), evalsLocalOnly(0),
+        evalsSaLocal(0), evalsRestart(0), evalsConstrained(0), maxGapSaLocal(0),
+        maxGapConstrained(0), nnCvSaLocal(0), nnCvConstrained(0) {}
+};
+
+bool RunMultiSeedAblation(int N, float c, int nSeeds, unsigned long long baseSeed,
+                          std::vector<AblationRow>& outRows);
+/*-----------------------------------------------------
+ *  Function: 多种子等预算消融
+ *  Note    : 每个种子独立生成初始掩码，三种策略共享同一初始解，
+ *            预算按 μ 评估次数对齐。
+ *-----------------------------------------------------*/
+
+bool RunConstrainedSA(int N, int m, const std::vector<int>& initMask,
+                      const ConstraintWeights& w, unsigned long long seed,
+                      int maxSteps, ConstrainedResult& out);
+/*-----------------------------------------------------
+ *  Function: 带空间约束的 SA（方案 C/D）
+ *  Input   : N,m -- 掩码长度与点数；initMask -- 初始掩码（0/1）
+ *            w   -- 惩罚权重；hardMaxGap>0 时启用硬约束
+ *            seed -- 复现种子；maxSteps -- 温度步数上限
+ *  Output  : out -- 终止时的 μ / J / 均匀性 / 评估次数
+ *  Note    : 硬约束方案下，不满足 maxgap 的候选解直接被拒绝（可行性投影）。
+ *-----------------------------------------------------*/
 bool RunHybridAblation(int N, float c, unsigned long long seed,
 					   const SAParams &sap, AblationResult &out, int restartTrials = 0);
 /*-----------------------------------------------------

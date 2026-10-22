@@ -144,7 +144,9 @@ float CurveletMiu1DComplex(vector<int> idx, int N)
 
 	// 计算Miu //
 	float Miu = 0.0;
-	for (int i = 0; i < col; i++)
+	// 2026.10.20 修复：上方列循环只填了 i < ncol（= min(col,64)）的列，
+	// 原实现却在此扫描 i < col，col>64 时会读入从未写入的元素（未初始化内存）。
+	for (int i = 0; i < ncol; i++)
 	{
 		for (int j = 0; j < col; j++)
 		{
@@ -284,7 +286,9 @@ float CurveletMiu1DReal(vector<int> idx, int N)
 
 	// 计算Miu //
 	float Miu = 0.0;
-	for (int i = 0; i < col; i++)
+	// 2026.10.20 修复：上方列循环只填了 i < ncol（= min(col,64)）的列，
+	// 原实现却在此扫描 i < col，col>64 时会读入从未写入的元素（未初始化内存）。
+	for (int i = 0; i < ncol; i++)
 	{
 		for (int j = 0; j < col; j++)
 		{
@@ -307,7 +311,8 @@ float CurveletMiu1DReal(vector<int> idx, int N)
 float TestCurveletMiu1D(int row, int *Phi, string calctype)//读取一维矩阵下标，计算μ值
 {
 	vector<int> idx;
-	float tempMiu;
+	// 2026.10.20 修复：原 tempMiu 未初始化，calctype 拼写错误时返回垃圾值
+	float tempMiu = 0.0f;
 		//行数，即测线
 		for (int j = 0; j < row; j++)
 		{
@@ -323,6 +328,12 @@ float TestCurveletMiu1D(int row, int *Phi, string calctype)//读取一维矩阵�
 		if (calctype == "EigenReal")//实数曲波变换
 		{
 			tempMiu = CurveletMiu1DEigen(idx, row, 1);
+		}
+		if (calctype != "EigenCpx" && calctype != "EigenReal")
+		{
+			// 2026.10.20: 未知 calctype 不再静默返回 0，打印告警便于定位调用错误
+			printf("[WARN] TestCurveletMiu1D: unknown calctype \"%s\", returning 0\n", calctype.c_str());
+			tempMiu = 0.0f;
 		}
 		idx.clear();
 		vector<int>().swap(idx);
@@ -971,3 +982,75 @@ float CalculateAveMiu(int row,int N,int **Phi)
 	float avemiu=sum/k;
 	return avemiu;
 }
+
+// =============================================================================
+// 2026-10-21 新增：经典互干度（PSF 峰值旁瓣）—— 修正实现
+// 详见 CalculateMiu.h 的接口注释与 THESIS_ALGORITHM_AUDIT.md
+// =============================================================================
+float SamplingMutualCoherence1D(const std::vector<int>& idx, int N)
+{
+    if (N <= 0 || idx.empty()) return 0.0f;
+    const int m = (int)idx.size();
+    if (m >= N) return 0.0f;   // 全采样：西矩阵非对角内积为 0
+
+    // r(Δ) = Σ_{k∈Ω} exp(-2πi·Δ·k/N)，只需 Δ=1..N-1；r(0)=m
+    double maxAbs = 0.0;
+    for (int delta = 1; delta < N; delta++)
+    {
+        double re = 0.0, im = 0.0;
+        const double w = -2.0 * 3.14159265358979323846 * (double)delta / (double)N;
+        for (int t = 0; t < m; t++)
+        {
+            const double ang = w * (double)idx[t];
+            re += cos(ang);
+            im += sin(ang);
+        }
+        const double a = sqrt(re * re + im * im);
+        if (a > maxAbs) maxAbs = a;
+    }
+    double mu = maxAbs / (double)m;
+    if (mu < 0.0) mu = 0.0;
+    if (mu > 1.0) mu = 1.0;   // 理论上界，防止浮点误差
+    return (float)mu;
+}
+
+// =============================================================================
+// 2026-10-21 新增：二维经典互干度（2D PSF 峰值旁瓣）
+// =============================================================================
+float SamplingMutualCoherence2D(const std::vector<int>& maskFlat, int Ny, int Nx)
+{
+    if (Ny <= 0 || Nx <= 0) return 0.0f;
+    if ((int)maskFlat.size() != Ny * Nx) return 0.0f;
+
+    std::vector<int> ys, xs;
+    for (int y = 0; y < Ny; y++)
+        for (int x = 0; x < Nx; x++)
+            if (maskFlat[(size_t)(y * Nx + x)] == 1) { ys.push_back(y); xs.push_back(x); }
+    const int m = (int)ys.size();
+    if (m <= 1) return (m == 1) ? 1.0f : 0.0f;
+    if (m >= Ny * Nx) return 0.0f;   // 全采样 -> 西矩阵 -> 0
+
+    double maxAbs = 0.0;
+    for (int dy = 0; dy < Ny; dy++)
+    {
+        for (int dx = 0; dx < Nx; dx++)
+        {
+            if (dy == 0 && dx == 0) continue;
+            double re = 0.0, im = 0.0;
+            for (int t = 0; t < m; t++)
+            {
+                const double ang = -2.0 * 3.14159265358979323846 *
+                    ((double)dy * (double)ys[t] / (double)Ny + (double)dx * (double)xs[t] / (double)Nx);
+                re += cos(ang);
+                im += sin(ang);
+            }
+            const double a = sqrt(re * re + im * im);
+            if (a > maxAbs) maxAbs = a;
+        }
+    }
+    double mu = maxAbs / (double)m;
+    if (mu < 0.0) mu = 0.0;
+    if (mu > 1.0) mu = 1.0;
+    return (float)mu;
+}
+
