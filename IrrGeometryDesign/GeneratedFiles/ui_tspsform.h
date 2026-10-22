@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'tspsform.ui'
 **
-** Created: Tue Oct 20 00:50:11 2026
+** Created: Thu Oct 22 11:47:39 2026
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -136,7 +136,7 @@ public:
         Toolbar->setGeometry(QRect(0, 0, 231, 30));
         textLabel3 = new QLabel();
         textLabel3->setObjectName(QString::fromUtf8("textLabel3"));
-        textLabel3->setGeometry(QRect(0, 0, 49, 14));
+        textLabel3->setGeometry(QRect(0, 0, 70, 14));
         QFont font;
         font.setBold(true);
         font.setWeight(75);

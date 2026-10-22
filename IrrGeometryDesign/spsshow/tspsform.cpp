@@ -73,7 +73,10 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     QLabel *lblSelect = new QLabel(QString::fromLocal8Bit("选择科研图件:"), this);
 
     mCombo = new QComboBox(this);
-    mCombo->setMinimumWidth(440);
+    mCombo->setMinimumWidth(620);
+	// 2026-10-22: 条目文字较长，显式绑定弹出列表宽度，避免下拉项被截断
+	mCombo->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+	mCombo->view()->setMinimumWidth(620);
 
     mBtnPrev = new QPushButton(QString::fromLocal8Bit("<- 上一张"), this);
     mBtnNext = new QPushButton(QString::fromLocal8Bit("下一张 ->"), this);

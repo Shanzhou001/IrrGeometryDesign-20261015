@@ -1,4 +1,6 @@
-# Visual Studio / MSVC build artifacts
+# ---------------------------------------------------------------------------
+# Visual Studio / MSVC 构建产物
+# ---------------------------------------------------------------------------
 .vs/
 *.ncb
 *.suo
@@ -13,36 +15,43 @@
 *.htm
 BuildLog.htm
 build_out.log
+build_*.log
 x64/
 IrrGeometryDesign/x64/
 IrrGeometryDesign/Debug/
 IrrGeometryDesign/Release/
 IrrGeometryDesign/GeneratedFiles/
 
-# Qt generated
+# ---------------------------------------------------------------------------
+# Qt 生成文件
+# ---------------------------------------------------------------------------
 moc_*.cpp
 qrc_*.cpp
 ui_*.h
 
-# Transient logs
+# ---------------------------------------------------------------------------
+# 临时日志与测试沙箱（--test 自动创建并清理）
+# ---------------------------------------------------------------------------
 unit_tests.log
 run_exp.log
 test_out.txt
-
-# Test sandbox (auto-created and auto-removed by --test)
 unit_test_sandbox/
 
+# ---------------------------------------------------------------------------
 # Python
+# ---------------------------------------------------------------------------
 __pycache__/
 *.pyc
 *.pyo
 
-# 2026.10.20: scratch outputs of the comparison experiments (keep only the summary CSV)
-results/mask_compare/*/
-results/ablation/*/
-results/benchmark_2d/*/
-# 2026-10-21: keep only summary CSVs of the new audit experiments
+# ---------------------------------------------------------------------------
+# 结果目录：只保留汇总 CSV / 报告 / 掩码，忽略可重跑生成的中间道集
+# 这些大文件（每份约 300 KB）可由 README 第四节命令随时重算
+# ---------------------------------------------------------------------------
+results/**/recon_original_gather.csv
+results/**/recon_subsampled_gather.csv
+results/**/recon_recovered_gather.csv
+results/**/recon_residual_slice.csv
+
+# 批量实验的逐次运行目录（只保留顶层汇总 CSV）
 results/mask_recon/run_*/
-results/ablation_multiseed/
-results/constrained/
-results/audit/

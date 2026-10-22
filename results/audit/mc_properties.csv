@@ -1,0 +1,15 @@
+case,N,m,mu_classic,max_gap,nn_cv,expected,pass
+full,128,128,0.00000000,,,0,YES
+single,128,1,1.00000000,,,1,YES
+regular2,128,64,1.00000000,,,1,YES
+two_d1,128,2,0.99969882,,,nonincreasing,YES
+two_d2,128,2,1.00000000,,,nonincreasing,NO
+two_d4,128,2,1.00000000,,,nonincreasing,NO
+two_d8,128,2,1.00000000,,,nonincreasing,NO
+two_d16,128,2,1.00000000,,,nonincreasing,NO
+two_d32,128,2,1.00000000,,,nonincreasing,NO
+uniform_vs_clustered_uniform,128,64,1.00000000,,,lower,NO
+uniform_vs_clustered_clustered,128,64,0.63668370,,,higher,NO
+jitter42,128,64,0.27891439,,,<1,YES
+random42,128,64,0.20444597,,,<1,YES
+empty,128,0,0.00000000,,,0,YES

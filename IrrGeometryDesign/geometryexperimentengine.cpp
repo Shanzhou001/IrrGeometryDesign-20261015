@@ -5640,7 +5640,7 @@ bool GeometryExperimentEngine::runMiuDiscriminateProbe(const QString& outCsvPath
         const float mu = TestCurveletMiu1D(N, mask, "EigenReal");
         os << "uniform_every2," << N << "," << (int)idx.size() << ","
            << QString::number(mu, 'f', 6) << "," << uniformity_max_gap(mask, N) << ","
-           << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << ",均匀间隔" << "\n";
+           << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << QString::fromLocal8Bit("均匀间隔") << "\n";
         delete[] mask;
     }
 
@@ -5651,7 +5651,7 @@ bool GeometryExperimentEngine::runMiuDiscriminateProbe(const QString& outCsvPath
         const float mu = TestCurveletMiu1D(N, mask, "EigenReal");
         os << "half_block," << N << "," << m << ","
            << QString::number(mu, 'f', 6) << "," << uniformity_max_gap(mask, N) << ","
-           << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << ",极端聚集" << "\n";
+           << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << QString::fromLocal8Bit("极端聚集") << "\n";
         delete[] mask;
     }
 
@@ -5663,7 +5663,7 @@ bool GeometryExperimentEngine::runMiuDiscriminateProbe(const QString& outCsvPath
         const float mu = TestCurveletMiu1D(N, mask, "EigenReal");
         os << "jitter_seed42," << N << "," << m << ","
            << QString::number(mu, 'f', 6) << "," << uniformity_max_gap(mask, N) << ","
-           << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << ",随机抖动" << "\n";
+           << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << QString::fromLocal8Bit("随机抖动") << "\n";
         delete[] mask;
     }
 
@@ -5688,7 +5688,7 @@ bool GeometryExperimentEngine::runMiuDiscriminateProbe(const QString& outCsvPath
             const float mu = TestCurveletMiu1D(N, mask, "EigenReal");
             os << "sweep_step" << step << "," << N << "," << cnt << ","
                << QString::number(mu, 'f', 6) << "," << uniformity_max_gap(mask, N) << ","
-               << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << ",几何渐变" << "\n";
+               << QString::number(uniformity_nn_cv(mask, N), 'f', 4) << QString::fromLocal8Bit("几何渐变") << "\n";
             delete[] mask;
         }
     }

@@ -985,7 +985,7 @@ float CalculateAveMiu(int row,int N,int **Phi)
 
 // =============================================================================
 // 2026-10-21 新增：经典互干度（PSF 峰值旁瓣）—— 修正实现
-// 详见 CalculateMiu.h 的接口注释与 THESIS_ALGORITHM_AUDIT.md
+// 详见 CalculateMiu.h 的接口注释与 README.md §7.2
 // =============================================================================
 float SamplingMutualCoherence1D(const std::vector<int>& idx, int N)
 {

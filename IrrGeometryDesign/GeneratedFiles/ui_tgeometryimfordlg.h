@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'tgeometryimfordlg.ui'
 **
-** Created: Fri Oct 16 19:51:41 2026
+** Created: Thu Oct 22 11:47:39 2026
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

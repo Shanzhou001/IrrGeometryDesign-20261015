@@ -419,55 +419,55 @@ int main(int argc, char *argv[])
 		{
 			QCoreApplication::processEvents();
 			QPixmap pix = QPixmap::grabWidget(&w);
-			pix.save("current_gui_window.png");
+			pix.save("figures/gui/01_main_window.png");
 			return 0;
 		}
 		if (strcmp(argv[i], "--screenshot-all") == 0)
 		{
 			QCoreApplication::processEvents();
 			QPixmap pix = QPixmap::grabWidget(&w);
-			pix.save("audit_main_window.png");
+			pix.save("figures/gui/01_main_window.png");
 
 			// 1. TSPSDlg
 			TSPSDlg dlg1;
 			dlg1.show();
 			QCoreApplication::processEvents();
-			QPixmap::grabWidget(&dlg1).save("audit_dlg_tspsdlg.png");
+			QPixmap::grabWidget(&dlg1).save("figures/gui/03_dlg_sps_parameters.png");
 			dlg1.close();
 
 			// 2. TCellGridForm
 			TCellGridForm dlg2;
 			dlg2.show();
 			QCoreApplication::processEvents();
-			QPixmap::grabWidget(&dlg2).save("audit_dlg_tcellgridform.png");
+			QPixmap::grabWidget(&dlg2).save("figures/gui/04_dlg_cell_grid.png");
 			dlg2.close();
 
 			// 3. SpsSampleDlg
 			SpsSampleDlg dlg3;
 			dlg3.show();
 			QCoreApplication::processEvents();
-			QPixmap::grabWidget(&dlg3).save("audit_dlg_spssampledlg.png");
+			QPixmap::grabWidget(&dlg3).save("figures/gui/05_dlg_sps_sampling.png");
 			dlg3.close();
 
 			// 4. TChangeShowareadlg
 			TChangeShowareadlg dlg4;
 			dlg4.show();
 			QCoreApplication::processEvents();
-			QPixmap::grabWidget(&dlg4).save("audit_dlg_tchangeshowareadlg.png");
+			QPixmap::grabWidget(&dlg4).save("figures/gui/06_dlg_show_area.png");
 			dlg4.close();
 
 			// 5. TRealOVTdlg
 			TRealOVTdlg dlg5;
 			dlg5.show();
 			QCoreApplication::processEvents();
-			QPixmap::grabWidget(&dlg5).save("audit_dlg_trealovtdlg.png");
+			QPixmap::grabWidget(&dlg5).save("figures/gui/07_dlg_ovt_attributes.png");
 			dlg5.close();
 
 			// 6. ResearchFiguresDialog
 			ResearchFiguresDialog dlg6;
 			dlg6.show();
 			QCoreApplication::processEvents();
-			QPixmap::grabWidget(&dlg6).save("audit_dlg_researchfigures.png");
+			QPixmap::grabWidget(&dlg6).save("figures/gui/08_dlg_figure_gallery.png");
 			dlg6.close();
 
 			printf("Captured all audit screenshots successfully!\n");
@@ -482,7 +482,7 @@ int main(int argc, char *argv[])
 			w.quickLoadDemoSPS(false);
 			QCoreApplication::processEvents();
 			QPixmap pix = QPixmap::grabWidget(&w);
-			pix.save("audit_populated_survey.png");
+			pix.save("figures/gui/02_survey_loaded.png");
 			return 0;
 		}
 	}

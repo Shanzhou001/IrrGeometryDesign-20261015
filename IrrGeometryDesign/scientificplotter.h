@@ -283,7 +283,7 @@ public:
                                            const std::vector<float>& attenDbs,
                                            const QString& savePath)
     {
-        int W = 920, H = 540;
+        int W = 920, H = 575;
         QImage img(W, H, QImage::Format_RGB32);
         img.fill(qRgb(255, 255, 255));
         QPainter p(&img);
@@ -357,8 +357,10 @@ public:
                 // 柱数值标在柱顶上方 5px
                 p.drawText(rSa.left() - 2, rSa.top() - 5, QString::number(sa, 'f', 4));
 
-                // 衰减角标置于更高位置 (rSa.top() - 28)，杜绝与柱顶数值重叠
-                QRect badge(rSa.left() - 10, rSa.top() - 34, barWidth + 20, 18);
+                // 2026-10-22 修正：原角标固定在 rSa.top()-34，当柱高接近顶部或很矮时，
+                // 会压到相邻柱的数值上（实测 30%/70% 组均出现重叠）。
+                // 现改为统一放在组标签下方，与柱高无关，彻底避免重叠。
+                QRect badge(rSa.left() - 14, plotRect.bottom() + 28, barWidth + 30, 17);
                 p.fillRect(badge, QColor(220, 252, 231));
                 p.setPen(QColor(22, 101, 52));
                 p.drawRoundedRect(badge, 3, 3);
@@ -1071,8 +1073,13 @@ public:
         QTextStream out(&file);
         out.setCodec("UTF-8");
 
+        // 2026-10-22 修复：QTextStream 已设为 UTF-8，若直接流式输出含中文的窄字符串字面量，
+        // MSVC 会按执行字符集(CP936)编码字节，导致生成的 HTML 出现乱码。
+        // 全部中文字面量必须经 QString::fromLocal8Bit() 转成 QString 后再写入。
         out << "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n"
-            << "<meta charset=\"UTF-8\">\n<title>地震非规则观测系统科研成果图件画廊</title>\n"
+            << "<meta charset=\"UTF-8\">\n<title>"
+            << QString::fromLocal8Bit("地震非规则观测系统科研成果图件画廊")
+            << "</title>\n"
             << "<style>\n"
             << "body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #f8fafc; color: #1e293b; margin: 0; padding: 24px; }\n"
             << ".container { max-width: 1200px; margin: 0 auto; }\n"
@@ -1083,8 +1090,10 @@ public:
             << ".card p { color: #475569; font-size: 14px; }\n"
             << ".card img { width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 4px; display: block; margin-top: 12px; }\n"
             << "</style>\n</head>\n<body>\n<div class=\"container\">\n"
-            << "<h1>地震非规则观测系统设计与全流程科研成果图件</h1>\n"
-            << "<p class=\"desc\">本画廊集中汇总了项目三大实验模块生成的所有高清结果图件，形成了数据指标与图件证据的完整支撑闭环。</p>\n";
+            << "<h1>" << QString::fromLocal8Bit("地震非规则观测系统设计与全流程科研成果图件") << "</h1>\n"
+            << "<p class=\"desc\">"
+            << QString::fromLocal8Bit("本画廊集中汇总了项目三大实验模块生成的所有高清结果图件，形成了数据指标与图件证据的完整支撑闭环。")
+            << "</p>\n";
 
         struct FigureItem { const char* filename; const char* title; const char* desc; };
         FigureItem items[] = {
@@ -1099,10 +1108,12 @@ public:
 
         for (int i = 0; i < 7; i++)
         {
+            const QString itemTitle = QString::fromLocal8Bit(items[i].title);
+            const QString itemDesc  = QString::fromLocal8Bit(items[i].desc);
             out << "<div class=\"card\">\n"
-                << "<h2>" << items[i].title << "</h2>\n"
-                << "<p>" << items[i].desc << "</p>\n"
-                << "<img src=\"" << items[i].filename << "\" alt=\"" << items[i].title << "\">\n"
+                << "<h2>" << itemTitle << "</h2>\n"
+                << "<p>" << itemDesc << "</p>\n"
+                << "<img src=\"" << items[i].filename << "\" alt=\"" << itemTitle << "\">\n"
                 << "</div>\n";
         }
 
