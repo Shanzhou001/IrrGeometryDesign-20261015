@@ -2,7 +2,7 @@
  * Name    : Sampling.cpp
  * Function: 根据采样点和采样率形成三种一维和二维的采样方式；
  *			 根据道间距/炮距将0-1矩阵转化为实际坐标
- * 修复日期: 2026.10.15 // add by shanzhou in 2026/10/15
+ * 修复日期: 2026.10.15 // add by wushanzhou in 2026/10/15
  * 修复内容(影响实验有效性的问题):
  *   1) 移除各采样函数内部的 srand(time(NULL)) —— 该写法使模拟退火
  *      高频循环内一秒内多次调用时生成完全相同的候选解，随机源统一
@@ -33,7 +33,7 @@ using namespace std;
  * alpha=col/m 划分为 m 个单元，每个单元内均匀随机取一点。
  * 保证：点数恰为 m；无重复；不越界。
  ***************************************************/
-static void jittered_positions(int col, int m, vector<int>& pos) // add by shanzhou in 2026/10/15
+static void jittered_positions(int col, int m, vector<int>& pos) // add by wushanzhou in 2026/10/15
 {
 	pos.clear();
 	if (col <= 0 || m <= 0) return;
@@ -47,7 +47,7 @@ static void jittered_positions(int col, int m, vector<int>& pos) // add by shanz
 	for (int i = 1; i <= m; i++)
 	{
 		// 第 i 个单元覆盖实数区间 [(i-1)*alpha, i*alpha)
-		int lo = (int)ceil((i - 1) * alpha);
+		int lo = (int)ceil((i - 1) * alpha); // add by wushanzhou in 2026/10/23
 		int hi = (int)ceil((double)i * alpha) - 1;
 		if (lo < 0) lo = 0;
 		if (hi > col - 1) hi = col - 1;
@@ -458,7 +458,7 @@ int* Sampling1F_Positions(int col, float c) //0-1掩码转采样点索引
 }
 
 // =============================================================================
-// 精确采样点数与合法性校验新实现 (Task 1 & 2) // add by shanzhou in 2026/10/15
+// 精确采样点数与合法性校验新实现 (Task 1 & 2) // add by wushanzhou in 2026/10/15
 // =============================================================================
 
 bool ValidateSamplingMask(int N, int m, const int *mask)
@@ -548,10 +548,10 @@ int *Sampling1J_Count(int col, int m)
 		return Phi;
 	}
 
-	for (int i = 0; i < col; i++) Phi[i] = 0;
-	vector<int> pos;
-	jittered_positions(col, m, pos);
-	for (size_t k = 0; k < pos.size(); k++) Phi[pos[k]] = 1;
+	for (int i = 0; i < col; i++) Phi[i] = 0; // add by wushanzhou in 2026/10/23
+	vector<int> pos; // add by wushanzhou in 2026/10/23
+	jittered_positions(col, m, pos); // add by wushanzhou in 2026/10/23
+	for (size_t k = 0; k < pos.size(); k++) Phi[pos[k]] = 1; // add by wushanzhou in 2026/10/23
 
 	int count = 0;
 	for (int i = 0; i < col; i++) if (Phi[i] == 1) count++;

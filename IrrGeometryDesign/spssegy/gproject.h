@@ -189,7 +189,7 @@ public:
 	//--------------------------------------------------------------------------
 
 	//----ݼ----------------------------------------------------------
-	// add by shanzhou in 2026/10/15
+	// add by wushanzhou in 2026/10/15
 	GShotSet * getShotSet()
 	{
 		if(mIsNewImfo && mpShotSetNew && mpShotSetNew->count() > 0)
@@ -235,7 +235,7 @@ public:
 	{
 		return mpCMPLineSetNew;    //cmpline zhaohu
 	}
-	GRLineSet * getOriginalRLineSet() { return mpRLineSet; } // add by shanzhou in 2026/10/15
+	GRLineSet * getOriginalRLineSet() { return mpRLineSet; } // add by wushanzhou in 2026/10/15
 	GSLineSet * getOriginalSLineSet() { return mpSLineSet; }
 
 
@@ -373,7 +373,7 @@ public:
 	bool save();
 
 	// SPS
-	bool saveSPS(const QString &spsFileName);//add by Wushanzhou
+	bool saveSPS(const QString &spsFileName);//add by wushanzhou in 2026/10/23
 
 
 

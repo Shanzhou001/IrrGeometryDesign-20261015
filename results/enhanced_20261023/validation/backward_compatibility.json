@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "ablation_rows_unchanged": 60,
+  "constrained_masks_unchanged": 150,
+  "seed42_2d_masks_unchanged": 15,
+  "main_selected_mask_unchanged": true
+}

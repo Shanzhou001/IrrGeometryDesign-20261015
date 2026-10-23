@@ -1,0 +1,352 @@
+{
+  "base_commit": "63d1408",
+  "annotation_date": "2026/10/24",
+  "files": [
+    {
+      "path": ".gitignore",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 30,
+      "author_markers_present": 20,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/CurveletMiu.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 41,
+      "author_markers_present": 41,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/Diagmul.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 2,
+      "author_markers_present": 2,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/ExpRng.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 2,
+      "author_markers_present": 2,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/ExpRng.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 2,
+      "author_markers_present": 2,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/OptimizeMiu.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 271,
+      "author_markers_present": 271,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/OptimizeMiu.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 29,
+      "author_markers_present": 29,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/Sampling.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 8,
+      "author_markers_present": 8,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/coordinateholdout.inc",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 106,
+      "author_markers_present": 106,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/datareconstruction.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 2,
+      "author_markers_present": 2,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/geometryexperimentengine.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 218,
+      "author_markers_present": 218,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/geometryexperimentengine.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 13,
+      "author_markers_present": 13,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/main.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 39,
+      "author_markers_present": 39,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/sample.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 1,
+      "author_markers_present": 1,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/samplingstudies.inc",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 238,
+      "author_markers_present": 238,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/scienceregression.inc",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 162,
+      "author_markers_present": 162,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/scientificplotter.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 16,
+      "author_markers_present": 16,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spsmaskbuilder.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 1,
+      "author_markers_present": 1,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spsmaskbuilder.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 1,
+      "author_markers_present": 1,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gproject.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 2,
+      "author_markers_present": 2,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gproject.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 3,
+      "author_markers_present": 3,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gshotset.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 2,
+      "author_markers_present": 2,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gspsscanner.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 1,
+      "author_markers_present": 1,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gspsview.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 1,
+      "author_markers_present": 1,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsform.cpp",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 9,
+      "author_markers_present": 9,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsform.h",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 1,
+      "author_markers_present": 1,
+      "needs_annotation": false
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsform.ui",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 3,
+      "author_markers_present": 3,
+      "needs_annotation": false
+    },
+    {
+      "path": "build_debug.bat",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 16,
+      "author_markers_present": 8,
+      "needs_annotation": false
+    },
+    {
+      "path": "build_release.bat",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 16,
+      "author_markers_present": 8,
+      "needs_annotation": false
+    },
+    {
+      "path": "requirements.txt",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 2,
+      "author_markers_present": 2,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/ablation_stats.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 78,
+      "author_markers_present": 75,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/audit_change_annotations.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 118,
+      "author_markers_present": 118,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/audit_real_gather.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 82,
+      "author_markers_present": 82,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/convert_rraw_to_engine_csv.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 17,
+      "author_markers_present": 17,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/make_59x256.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 9,
+      "author_markers_present": 9,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/run_revised_studies.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 255,
+      "author_markers_present": 252,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/test_science_tools.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 113,
+      "author_markers_present": 115,
+      "needs_annotation": false
+    },
+    {
+      "path": "tools/verify_revised_results.py",
+      "renamed_markers": 0,
+      "dated_undated_markers": 0,
+      "new_annotations": 0,
+      "already_annotated_changed_lines": 148,
+      "author_markers_present": 148,
+      "needs_annotation": false
+    }
+  ],
+  "historical_shanzhou_markers_replaced": 71,
+  "historical_shanzhou_markers_remaining": 0,
+  "changed_code_coverage_checked": true,
+  "checked_at_local": "2026-10-24T00:10:25.539796+08:00"
+}

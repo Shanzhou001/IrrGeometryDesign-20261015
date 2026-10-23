@@ -27,45 +27,20 @@ make_59x256.py
         --output data/real_seismic/real_gather_59x256.csv --verify
 """
 import argparse
-import hashlib
-import os
-import struct
-import sys
+import os  # add by wushanzhou in 2026/10/23
+import sys  # add by wushanzhou in 2026/10/23
 
 import numpy as np
+from convert_rraw_to_engine_csv import read_segy as read_validated_segy  # add by wushanzhou in 2026/10/23
 
 TARGET_NT = 256
 TARGET_DT_MS = 4.0
 SRC_DT_MS = 8.0
-SEGY_TEXT_HDR = 3200
-SEGY_BIN_HDR = 400
-TRACE_HDR = 240
 
 
 def read_segy(path):
-    raw = open(path, "rb").read()
-    bin_hdr = raw[SEGY_TEXT_HDR:SEGY_TEXT_HDR + SEGY_BIN_HDR]
-    ns = struct.unpack_from("<H", bin_hdr, 20)[0]
-    fmt = struct.unpack_from("<H", bin_hdr, 24)[0]
-    dt_raw = struct.unpack_from("<H", bin_hdr, 16)[0]
-    trace_bytes = TRACE_HDR + ns * 4
-    ntraces = (len(raw) - (SEGY_TEXT_HDR + SEGY_BIN_HDR)) // trace_bytes
-
-    data = np.zeros((ns, ntraces), dtype=np.float64)
-    offsets = np.zeros(ntraces, dtype=np.int64)
-    for t in range(ntraces):
-        off = SEGY_TEXT_HDR + SEGY_BIN_HDR + t * trace_bytes
-        offsets[t] = struct.unpack_from("<i", raw, off + 36)[0]
-        data[:, t] = struct.unpack_from("<%df" % ns, raw, off + TRACE_HDR)
-    meta = {
-        "ns": ns,
-        "ntraces": ntraces,
-        "dt_us": 8000,          # 由文本头 "Resampled 8.0 ms" 与 ns=250 印证
-        "dt_raw_field": dt_raw,
-        "declared_format": fmt,
-        "sha256": hashlib.sha256(raw).hexdigest(),
-    }
-    return data, offsets, meta
+    data, offsets, _, meta = read_validated_segy(path)  # add by wushanzhou in 2026/10/23
+    return data, offsets, meta  # add by wushanzhou in 2026/10/23
 
 
 def convert(data, offsets):
@@ -85,14 +60,14 @@ def convert(data, offsets):
     return out, offsets
 
 
-def write_csv(path, mat, meta, offsets):
+def write_csv(path, mat, meta, offsets):  # add by wushanzhou in 2026/10/23
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", newline="\n") as fh:
         fh.write("# Real field gather, ORIGINAL %d traces (NO trace interpolation)\n" % mat.shape[1])
         fh.write("# time 8->4 ms resample only (%d->%d samples); offset-sorted; peak normalized\n"
                  % (meta["ns"], TARGET_NT))
-        fh.write("# offsets_m=" + ",".join(str(int(x)) for x in offsets) + "\n")
-        fh.write("# source_sha256=" + meta["sha256"] + "\n")
+        fh.write("# offsets_m=" + ",".join(str(int(x)) for x in offsets) + "\n")  # add by wushanzhou in 2026/10/23
+        fh.write("# source_sha256=" + meta["sha256"] + "\n")  # add by wushanzhou in 2026/10/23
         fh.write("# Geometry: Nt=%d, Nx=%d\n" % (mat.shape[0], mat.shape[1]))
         for i in range(mat.shape[0]):
             fh.write(",".join("%.6g" % v for v in mat[i, :]) + "\n")
@@ -137,7 +112,7 @@ def main():
             sys.exit(2)
         return
 
-    write_csv(args.output, mat, meta, offsets)
+    write_csv(args.output, mat, meta, offsets)  # add by wushanzhou in 2026/10/23
     print("written: %s" % args.output)
 
 

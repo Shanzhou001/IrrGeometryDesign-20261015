@@ -1,5 +1,5 @@
 ﻿#include "scientificplotter.h"
-// add by shanzhou in 2026/10/15
+// add by wushanzhou in 2026/10/15
 #include "geometryexperimentengine.h"
 #include "gcellgrid.h"
 #include "sample.h"
@@ -30,34 +30,35 @@
 
 static const float PI_CONST = 3.14159265358979323846f;
 
-static QString samplingMaskHash(const std::vector<int>& mask)
-{
-    QByteArray bits;
-    for (size_t i = 0; i < mask.size(); i++) bits.append(mask[i] ? '1' : '0');
-    return QString(QCryptographicHash::hash(bits, QCryptographicHash::Sha1).toHex());
-}
-static bool saveSamplingMask(const QString& path, const ConstrainedResult& result,
-                              unsigned long long seed, int budget, const QString& objective)
-{
-    QDir().mkpath(QFileInfo(path).absolutePath());
-    QFile f(path);
-    if (result.mask.empty() || !f.open(QIODevice::WriteOnly | QIODevice::Text)) return false;
-    QTextStream os(&f); os.setCodec("UTF-8");
-    os << "# protocol=classic_psf_v2 objective=" << objective << "\n";
-    os << "# seed=" << QString::number(seed) << " budget_cap=" << budget << " evals=" << result.evals << "\n";
-    os << "# mu=" << QString::number(result.mu, 'g', 9) << " objective_value=" << QString::number(result.objective, 'g', 9)
-       << " max_gap=" << result.maxGap << " nn_cv=" << result.nnCv << "\n";
-    os << "# mask_sha1=" << samplingMaskHash(result.mask) << " status=" << QString::fromStdString(result.status) << "\n";
-    for (size_t i = 0; i < result.mask.size(); i++) os << result.mask[i] << "\n";
-    os.flush();
-    if (f.error() != QFile::NoError) return false;
-    f.close();
-    QFile trace(path + ".trace.csv");
-    if (!trace.open(QIODevice::WriteOnly | QIODevice::Text)) return false;
-    QTextStream ts(&trace); ts << "evaluation,best_objective,current_or_candidate_objective\n";
-    for (size_t i = 0; i < result.bestTrace.size(); i++) ts << (int)i + 1 << "," << QString::number(result.bestTrace[i], 'g', 9) << "," << QString::number(i<result.currentTrace.size()?result.currentTrace[i]:result.bestTrace[i],'g',9) << "\n";
-    ts.flush(); return trace.error() == QFile::NoError;
-}
+static QString samplingMaskHash(const std::vector<int>& mask) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    QByteArray bits; // add by wushanzhou in 2026/10/23
+    for (size_t i = 0; i < mask.size(); i++) bits.append(mask[i] ? '1' : '0'); // add by wushanzhou in 2026/10/23
+    return QString(QCryptographicHash::hash(bits, QCryptographicHash::Sha1).toHex()); // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
+static bool saveSamplingMask(const QString& path, const ConstrainedResult& result, // add by wushanzhou in 2026/10/23
+                              unsigned long long seed, int budget, const QString& objective) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    QDir().mkpath(QFileInfo(path).absolutePath()); // add by wushanzhou in 2026/10/23
+    QFile f(path); // add by wushanzhou in 2026/10/23
+    if (result.mask.empty() || !f.open(QIODevice::WriteOnly | QIODevice::Text)) return false; // add by wushanzhou in 2026/10/23
+    QTextStream os(&f); os.setCodec("UTF-8"); // add by wushanzhou in 2026/10/23
+    os << "# protocol=" << (objective.startsWith("Physical")?"physical_psf_v3":"classic_psf_v2") << " objective=" << objective << "\n"; // add by wushanzhou in 2026/10/23
+    os << "# seed=" << QString::number(seed) << " budget_cap=" << budget << " evals=" << result.evals << "\n"; // add by wushanzhou in 2026/10/23
+    os << "# mu=" << QString::number(result.mu, 'g', 9) << " objective_value=" << QString::number(result.objective, 'g', 9) // add by wushanzhou in 2026/10/23
+       << " max_gap=" << result.maxGap << " nn_cv=" << result.nnCv << "\n"; // add by wushanzhou in 2026/10/23
+    if(objective.startsWith("Physical"))os << "# max_gap_m=" << QString::number(result.maxGapM,'g',12) << " nn_cv_units=physical\n"; // add by wushanzhou in 2026/10/23
+    os << "# mask_sha1=" << samplingMaskHash(result.mask) << " status=" << QString::fromStdString(result.status) << "\n"; // add by wushanzhou in 2026/10/23
+    for (size_t i = 0; i < result.mask.size(); i++) os << result.mask[i] << "\n"; // add by wushanzhou in 2026/10/23
+    os.flush(); // add by wushanzhou in 2026/10/23
+    if (f.error() != QFile::NoError) return false; // add by wushanzhou in 2026/10/23
+    f.close(); // add by wushanzhou in 2026/10/23
+    QFile trace(path + ".trace.csv"); // add by wushanzhou in 2026/10/23
+    if (!trace.open(QIODevice::WriteOnly | QIODevice::Text)) return false; // add by wushanzhou in 2026/10/23
+    QTextStream ts(&trace); ts << "evaluation,best_objective,current_or_candidate_objective\n"; // add by wushanzhou in 2026/10/23
+    for (size_t i = 0; i < result.bestTrace.size(); i++) ts << (int)i + 1 << "," << QString::number(result.bestTrace[i], 'g', 9) << "," << QString::number(i<result.currentTrace.size()?result.currentTrace[i]:result.bestTrace[i],'g',9) << "\n"; // add by wushanzhou in 2026/10/23
+    ts.flush(); return trace.error() == QFile::NoError; // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
 
 
 // 2026.10.20: 带符号增益格式化 —— 修复负增益被写成 "+-0.62 dB" 的问题。
@@ -283,7 +284,7 @@ static bool checkFileExistsAndNonEmpty(const QString& filePath)
 } // namespace
 
 // =============================================================================
-// 严格掩码校验函数 (Task 7 / Section VII) // add by shanzhou in 2026/10/15
+// 严格掩码校验函数 (Task 7 / Section VII) // add by wushanzhou in 2026/10/15
 // =============================================================================
 bool GeometryExperimentEngine::validateAndLoadMaskFile(const QString& maskFilePath,
                                                       int expectedN,
@@ -291,7 +292,7 @@ bool GeometryExperimentEngine::validateAndLoadMaskFile(const QString& maskFilePa
                                                       std::vector<int>& outMask,
                                                       QString& outErrorMsg)
 {
-    // add by shanzhou in 2026/10/15
+    // add by wushanzhou in 2026/10/15
     outMask.clear();
     QString expPointsStr = (expectedSampledPoints > 0) ? QString::number(expectedSampledPoints) : QString::fromLocal8Bit("未指定");
 
@@ -398,7 +399,7 @@ bool GeometryExperimentEngine::validateAndLoadMaskFile(const QString& maskFilePa
 }
 
 // =============================================================================
-// 外部地震数据 CSV 严格加载校验 (Task 3: 防止指定真实 CSV 静默回退) // add by shanzhou in 2026/10/15
+// 外部地震数据 CSV 严格加载校验 (Task 3: 防止指定真实 CSV 静默回退) // add by wushanzhou in 2026/10/15
 // =============================================================================
 bool GeometryExperimentEngine::loadAndValidateSeismicCSV(const QString& filePath,
                                                          int expectedNt,
@@ -507,7 +508,7 @@ bool GeometryExperimentEngine::loadAndValidateSeismicCSV(const QString& filePath
     return true;
 }
 
-// 辅助函数: 导出二维道集矩阵 CSV // add by shanzhou in 2026/10/15
+// 辅助函数: 导出二维道集矩阵 CSV // add by wushanzhou in 2026/10/15
 static bool exportGatherCSV(const QString& filePath,
                            const std::vector<std::vector<float> >& matData,
                            const QString& headerNote,
@@ -618,7 +619,7 @@ static float uniformity_unit_occupancy(const int* mask, int N, int m)
 }
 
 // =============================================================================
-// Task 1: 多采样率对比试验 (30%, 50%, 70%) // add by shanzhou in 2026/10/15
+// Task 1: 多采样率对比试验 (30%, 50%, 70%) // add by wushanzhou in 2026/10/15
 // =============================================================================
 bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                                                    const std::vector<float>& rates,
@@ -662,7 +663,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             outReportSummary = QString::fromLocal8Bit("【采样基准测试失败】：规则采样掩码合法性校验未通过！");
             return false;
         }
-        float miu_reg = SamplingMaskCoherence(std::vector<int>(phi_reg, phi_reg + N));
+        float miu_reg = SamplingMaskCoherence(std::vector<int>(phi_reg, phi_reg + N)); // add by wushanzhou in 2026/10/23
         // 2026.10.20: 规则减抽的均匀性指标（作为对照基准）
         const int regMaxGap = uniformity_max_gap(phi_reg, N);
         const float regNnCv = uniformity_nn_cv(phi_reg, N);
@@ -719,12 +720,12 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                 outReportSummary = QString::fromLocal8Bit("【采样基准测试失败】：纯随机采样掩码合法性校验未通过！");
                 return false;
             }
-            record.miu_random = SamplingMaskCoherence(std::vector<int>(phi_rand, phi_rand + N));
+            record.miu_random = SamplingMaskCoherence(std::vector<int>(phi_rand, phi_rand + N)); // add by wushanzhou in 2026/10/23
             record.max_gap_random = uniformity_max_gap(phi_rand, N);
             record.nn_cv_random = uniformity_nn_cv(phi_rand, N);
             delete[] phi_rand;
 
-            // 3. Jitter-SA 优化方案 (Jitter Initial + Metropolis SA)
+            // 3. Hybrid 优化方案 (Jitter Initial + Metropolis SA) // add by wushanzhou in 2026/10/23
             int *phi_jit = Sampling1J_Count(N, m);
             if (!ValidateSamplingMask(N, m, phi_jit))
             {
@@ -732,7 +733,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                 outReportSummary = QString::fromLocal8Bit("【采样基准测试失败】：Jitter采样掩码合法性校验未通过！");
                 return false;
             }
-            record.miu_jitter_init = SamplingMaskCoherence(std::vector<int>(phi_jit, phi_jit + N));
+            record.miu_jitter_init = SamplingMaskCoherence(std::vector<int>(phi_jit, phi_jit + N)); // add by wushanzhou in 2026/10/23
             record.max_gap_jitter_init = uniformity_max_gap(phi_jit, N);
             record.nn_cv_jitter_init = uniformity_nn_cv(phi_jit, N);
 
@@ -745,19 +746,19 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             sap.iter = 1;
             sap.strategy = SA_ACCEPT_METROPOLIS; // 经典 Metropolis 准则
 
-            ConstrainedResult selected; ConstraintWeights weights;
-            if (!RunSamplingSearch(N, m, std::vector<int>(phi_jit, phi_jit + N), weights,
-                                   actual_seed + 1, 200, SEARCH_HYBRID, selected))
-            { delete[] phi_jit; outReportSummary = "sampling search failed"; return false; }
-            int *phi_opt = new int[N];
-            for (int q = 0; q < N; q++) phi_opt[q] = selected.mask[q];
-            stats.miu_final = selected.mu; stats.miu0 = record.miu_jitter_init;
-            stats.miu_sa_best = SamplingMaskCoherence(selected.saPrefixMask);
-            stats.mu_trace = selected.currentTrace; stats.best_mu_trace = selected.bestTrace;
-            for (size_t q = 0; q < selected.bestTrace.size(); q++) stats.eval_trace.push_back((long)q + 1);
-            QString savedMask = dir.filePath(QString("masks/r%1_run%2_hybrid.txt").arg((int)(c*100+0.5f)).arg(runIdx));
-            if (!saveSamplingMask(savedMask, selected, actual_seed + 1, 200, "ClassicPSF"))
-            { delete[] phi_jit; delete[] phi_opt; outReportSummary = "mask export failed"; return false; }
+            ConstrainedResult selected; ConstraintWeights weights; // add by wushanzhou in 2026/10/23
+            if (!RunSamplingSearch(N, m, std::vector<int>(phi_jit, phi_jit + N), weights, // add by wushanzhou in 2026/10/23
+                                   actual_seed + 1, 200, SEARCH_HYBRID, selected)) // add by wushanzhou in 2026/10/23
+            { delete[] phi_jit; outReportSummary = "sampling search failed"; return false; } // add by wushanzhou in 2026/10/23
+            int *phi_opt = new int[N]; // add by wushanzhou in 2026/10/23
+            for (int q = 0; q < N; q++) phi_opt[q] = selected.mask[q]; // add by wushanzhou in 2026/10/23
+            stats.miu_final = selected.mu; stats.miu0 = record.miu_jitter_init; // add by wushanzhou in 2026/10/23
+            stats.miu_sa_best = SamplingMaskCoherence(selected.saPrefixMask); // add by wushanzhou in 2026/10/23
+            stats.mu_trace = selected.currentTrace; stats.best_mu_trace = selected.bestTrace; // add by wushanzhou in 2026/10/23
+            for (size_t q = 0; q < selected.bestTrace.size(); q++) stats.eval_trace.push_back((long)q + 1); // add by wushanzhou in 2026/10/23
+            QString savedMask = dir.filePath(QString("masks/r%1_run%2_hybrid.txt").arg((int)(c*100+0.5f)).arg(runIdx)); // add by wushanzhou in 2026/10/23
+            if (!saveSamplingMask(savedMask, selected, actual_seed + 1, 200, "ClassicPSF")) // add by wushanzhou in 2026/10/23
+            { delete[] phi_jit; delete[] phi_opt; outReportSummary = "mask export failed"; return false; } // add by wushanzhou in 2026/10/23
             if (!ValidateSamplingMask(N, m, phi_opt))
             {
                 delete[] phi_jit;
@@ -836,7 +837,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             {
                 QTextStream out(&fSa);
                 out.setCodec("UTF-8");
-                out << "# Jitter-SA optimized mask (best of " << repeatRuns << " runs)\n";
+                out << "# Hybrid optimized mask (best of " << repeatRuns << " runs)\n"; // add by wushanzhou in 2026/10/23
                 out << "# Sampling_Rate: " << pct << "%, m=" << m << "/" << N
                     << ", best_run_index=" << bestSaRunIndex
                     << ", mu=" << QString::number(bestSaMiu, 'f', 6) << "\n";
@@ -849,7 +850,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             {
                 QTextStream out(&fJit);
                 out.setCodec("UTF-8");
-                out << "# Jitter init mask of the best Jitter-SA run (run_index=" << bestSaRunIndex << ")\n";
+                out << "# Jitter init mask of the best Hybrid run (run_index=" << bestSaRunIndex << ")\n"; // add by wushanzhou in 2026/10/23
                 out << "# Sampling_Rate: " << pct << "%, m=" << m << "/" << N << "\n";
                 for (int i = 0; i < N; i++) out << bestJitterMask[i] << "\n";
                 fJit.close();
@@ -1025,7 +1026,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
         out << "  2. Regular Decimation covers full space: i_k = int(k * N / m) for k=0..m-1.\n";
         out << "  3. Pure Random Sampling uses Fisher-Yates shuffle, exactly m points without duplicate.\n";
         out << "  4. Jitter Initial Sampling uses grid-partitioned jitter, exactly m points.\n";
-        out << "  5. Jitter-SA uses Metropolis acceptance & local perturbation, strictly preserving sum(mask) == m.\n";
+        out << "  5. Hybrid uses Metropolis acceptance & local perturbation, strictly preserving sum(mask) == m.\n"; // add by wushanzhou in 2026/10/23
         out << "  6. Coherence Ratio Attenuation definition: 20 * log10(mu_regular / mu_opt) dB.\n"
             << "     (Note: Measures peak mutual coherence ratio attenuation, not direct total field seismic aliasing energy).\n\n";
 
@@ -1074,8 +1075,8 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             out << ".\n";
         }
         out << "  2. [Figure 02_sampling_benchmark_bars.png]:\n";
-        out << "     Compares Regular, Random, and Jitter-SA mu values across the tested sampling rates.\n";
-        out << "     Jitter-SA attains the lowest mu among the three schemes in these runs; this is a\n";
+        out << "     Compares Regular, Random, and Hybrid mu values across the tested sampling rates.\n"; // add by wushanzhou in 2026/10/23
+        out << "     Hybrid attains the lowest mu among the three schemes in these runs; this is a\n"; // add by wushanzhou in 2026/10/23
         out << "     mu-domain result and does not by itself establish a reconstruction-SNR gain.\n";
         out << "\n[Experiment Traceability Notes]\n";
         out << "  - Complete per-run raw measurements are logged in 'benchmark_runs_detail.csv'.\n";
@@ -1192,7 +1193,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
 // 背景：主流程的 μ 定义固定使用 fdct_wrapping(N,N,1,4,...)，即仅最粗尺度
 //       (nbscales=1, nbangles_coarse=4)，并未利用曲波多尺度方向选择性。
 //       若审稿人质疑"结论依赖于这一组固定参数"，需要有直接的敏感性证据。
-// 做法：在同一组采样掩码（规则减抽 / 纯随机 / Jitter-SA 优化）上，用多组
+// 做法：在同一组采样掩码（规则减抽 / 纯随机 / Hybrid 优化）上，用多组 // add by wushanzhou in 2026/10/23
 //       (nbscales, nbangles) 重新计算 μ，检验三者的相对排序是否稳定。
 // 输出：mu_param_robustness.csv + 文本结论。
 // =============================================================================
@@ -1204,7 +1205,7 @@ static bool runMiuParamRobustness(int N, float c, const QString& outputDir, QStr
     const int m = (int)floor((double)N * c + 0.5);
     exprng::seed(20261019ULL);
 
-    // 三组代表性掩码：规则减抽、纯随机(单次)、Jitter-SA 优化
+    // 三组代表性掩码：规则减抽、纯随机(单次)、Hybrid 优化 // add by wushanzhou in 2026/10/23
     int *phiReg = Sampling1R_Count(N, m);
     int *phiRand = Sampling1S_Count(N, m);
     int *phiJit = Sampling1J_Count(N, m);
@@ -1297,7 +1298,7 @@ static bool runMiuParamRobustness(int N, float c, const QString& outputDir, QStr
     outReportSummary = QString::fromLocal8Bit(
         "【曲波变换参数鲁棒性实验完成】\n"
         "检验目标: 在不同 (nbscales, nbangles_coarse) 下，"
-        "Jitter-SA < 纯随机 < 规则减抽 的相对排序是否稳定。\n"
+        "Hybrid < 纯随机 < 规则减抽 的相对排序是否稳定。\n" // add by wushanzhou in 2026/10/23
         "采样率: %1%%, m=%2/%3\n\n")
         .arg(QString::number(c * 100.0f, 'f', 0)).arg(m).arg(N);
     outReportSummary += rows.join("\n");
@@ -1363,7 +1364,7 @@ bool GeometryExperimentEngine::runHybridAblationExperiment(int N,
     QTextStream out(&f);
     out.setCodec("UTF-8");
     // 说明：所有 μ 均由 CurveletMiu1DEigen（nbscales=1）计算，与主流程同口径
-    out << "# Master_Seed=" << QString::number(seed) << ", protocol=classic_psf_v2,budget_cap=200,sa_prefix=64,Metropolis\n";
+    out << "# Master_Seed=" << QString::number(seed) << ", protocol=classic_psf_v2,budget_cap=200,sa_prefix=64,Metropolis\n"; // add by wushanzhou in 2026/10/23
     out << "Sampling_Rate,m,Total,Initial_Jitter_Mu,SA_only_Mu,CG_only_Mu,SA_CG_Mu,"
         << "SA_CG_Evals,Restart_K,Jitter_Restart_Best,Jitter_Restart_Mean,Random_Restart_Best,"
         << "Gain_Init_to_SA_dB,Gain_Init_to_SA_CG_dB,SA_CG_vs_JitterRestart_dB,SA_CG_vs_RandomRestart_dB\n";
@@ -1687,25 +1688,25 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                     std::vector<int> mk(jm, jm + nTot); delete[] jm;
                     maskList.push_back(mk); maskNames << "Jitter";
                 }
-                // Same hybrid algorithm as the formal sampling studies.
+                // Same hybrid algorithm as the formal sampling studies. // add by wushanzhou in 2026/10/23
                 {
                     exprng::seed(20261020ULL);
                     int *jm = Sampling1J_Count(nTot, nKeep);
-                    std::vector<int> initial(jm, jm + nTot); delete[] jm;
-                    ConstraintWeights weights; ConstrainedResult selected;
-                    if (!RunSamplingSearch(nTot, nKeep, initial, weights, 20261021ULL, 200, SEARCH_HYBRID, selected) ||
-                        !saveSamplingMask(dir.filePath("sps_hybrid_mask.txt"), selected, 20261021ULL, 200, "ClassicPSF_IndexOrder"))
-                    { outReportSummary = "SPS hybrid search/export failed"; return false; }
-                    maskList.push_back(selected.mask); maskNames << "Hybrid_ClassicPSF";
+                    std::vector<int> initial(jm, jm + nTot); delete[] jm; // add by wushanzhou in 2026/10/23
+                    ConstraintWeights weights; ConstrainedResult selected; // add by wushanzhou in 2026/10/23
+                    if (!RunSamplingSearch(nTot, nKeep, initial, weights, 20261021ULL, 200, SEARCH_HYBRID, selected) || // add by wushanzhou in 2026/10/23
+                        !saveSamplingMask(dir.filePath("sps_hybrid_mask.txt"), selected, 20261021ULL, 200, "ClassicPSF_IndexOrder")) // add by wushanzhou in 2026/10/23
+                    { outReportSummary = "SPS hybrid search/export failed"; return false; } // add by wushanzhou in 2026/10/23
+                    maskList.push_back(selected.mask); maskNames << "Hybrid_ClassicPSF"; // add by wushanzhou in 2026/10/23
                 }
 
-                for(size_t mi=0;mi+1<maskList.size();mi++)
-                {
-                    ConstraintWeights weights;ConstrainedResult baseline;
-                    if(!RunSamplingSearch(nTot,nKeep,maskList[mi],weights,20261020ULL,1,SEARCH_LOCAL,baseline) ||
-                       !saveSamplingMask(dir.filePath("masks/sps_"+maskNames[(int)mi]+".txt"),baseline,20261020ULL,1,"ClassicPSF_IndexOrder"))
-                    {outReportSummary="SPS baseline mask export failed";return false;}
-                }
+                for(size_t mi=0;mi+1<maskList.size();mi++) // add by wushanzhou in 2026/10/23
+                { // add by wushanzhou in 2026/10/23
+                    ConstraintWeights weights;ConstrainedResult baseline; // add by wushanzhou in 2026/10/23
+                    if(!RunSamplingSearch(nTot,nKeep,maskList[mi],weights,20261020ULL,1,SEARCH_LOCAL,baseline) || // add by wushanzhou in 2026/10/23
+                       !saveSamplingMask(dir.filePath("masks/sps_"+maskNames[(int)mi]+".txt"),baseline,20261020ULL,1,"ClassicPSF_IndexOrder")) // add by wushanzhou in 2026/10/23
+                    {outReportSummary="SPS baseline mask export failed";return false;} // add by wushanzhou in 2026/10/23
+                } // add by wushanzhou in 2026/10/23
                 std::vector<std::map<std::pair<long long, long long>, GRPoint*> > thrSets;
                 for (size_t mi = 0; mi < maskList.size(); mi++)
                 {
@@ -1721,7 +1722,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                 std::vector<std::map<std::pair<long long, long long>, GRPoint*>*> setPtrs;
                 setPtrs.push_back(&recvSet);
                 for (size_t mi = 0; mi < thrSets.size(); mi++) setPtrs.push_back(&thrSets[mi]);
-                CmpStat* pStats[1];
+                CmpStat* pStats[1]; // add by wushanzhou in 2026/10/23
                 std::map<std::pair<long long, long long>, GRPoint*>* pSets[1];
                 Q_UNUSED(pStats); Q_UNUSED(pSets);
 
@@ -1831,7 +1832,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                     o << "# Strategies: Regular / Random / Jitter / SA_opt, each keeps n/2 receivers\n";
                     o << "# Mode: Real Survey Evaluation Mode\n";
                     o << "Configuration,Receivers,Traces,Live_CMP_Bins,Mean_Fold,Min_Fold,Max_Fold,Fold_CV,"
-                      << "Fold_Retention_Pct,Max_Offset_m,Mean_Offset_m,Near_Pct,Mid_Pct,Far_Pct,Azimuth_Sectors,Mask_SHA1,Selection_Objective\n";
+                      << "Fold_Retention_Pct,Max_Offset_m,Mean_Offset_m,Near_Pct,Mid_Pct,Far_Pct,Azimuth_Sectors,Mask_SHA1,Selection_Objective\n"; // add by wushanzhou in 2026/10/23
                     for (int pass = 0; pass < nSets; pass++)
                     {
                         const CmpStat& st = stats[(size_t)pass];
@@ -1851,14 +1852,14 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                           << QString::number(st.nearPct, 'f', 1) << ","
                           << QString::number(st.midPct, 'f', 1) << ","
                           << QString::number(st.farPct, 'f', 1) << ","
-                          << st.azimuthSectors << ","
-                          << samplingMaskHash(pass==0?std::vector<int>(nTot,1):maskList[(size_t)(pass-1)])
-                          << ",ClassicPSF_IndexOrder\n";
+                          << st.azimuthSectors << "," // add by wushanzhou in 2026/10/23
+                          << samplingMaskHash(pass==0?std::vector<int>(nTot,1):maskList[(size_t)(pass-1)]) // add by wushanzhou in 2026/10/23
+                          << ",ClassicPSF_IndexOrder\n"; // add by wushanzhou in 2026/10/23
                     }
                     tf.close();
                 }
                 // 报告摘要
-                Q_UNUSED(nRecv);
+                Q_UNUSED(nRecv); // add by wushanzhou in 2026/10/23
             }
 
             outMetrics.minOffset = minOff;
@@ -2344,10 +2345,10 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
 }
 
 // =============================================================================
-// Task 3: 地震波场压缩感知重构试验引擎 // add by shanzhou in 2026/10/15
+// Task 3: 地震波场压缩感知重构试验引擎 // add by wushanzhou in 2026/10/15
 // =============================================================================
 
-// 曲波域 POCS 重构内核 (可复用于冷启动/热启动对照实验) // add by shanzhou in 2026/10/19
+// 曲波域 POCS 重构内核 (可复用于冷启动/热启动对照实验) // add by wushanzhou in 2026/10/19
 // 参数:
 //   initGather -- 迭代初值 (零填充 或 线性插值), 尺寸 Nt x Nx
 //   dObs       -- 欠采样观测记录 (Nt x Nx, 未采样道为 0)
@@ -2362,10 +2363,10 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
                                     int numIter,
                                     std::vector<std::vector<float> >& outRecon,
                                     std::vector<std::vector<float> >& outResidual,
-                                    std::vector<float>& outStepRes,
-                                    const std::vector<double>* positions = NULL,
-                                    const std::vector<std::vector<float> >* measured = NULL,
-                                    const std::vector<int>* measuredMask = NULL)
+                                    std::vector<float>& outStepRes, // add by wushanzhou in 2026/10/23
+                                    const std::vector<double>* positions = NULL, // add by wushanzhou in 2026/10/23
+                                    const std::vector<std::vector<float> >* measured = NULL, // add by wushanzhou in 2026/10/23
+                                    const std::vector<int>* measuredMask = NULL) // add by wushanzhou in 2026/10/23
 {
     const int Nt = (int)initGather.size();
     const int Nx = (int)initGather[0].size();
@@ -2388,29 +2389,29 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
     std::vector<std::vector<fdct_wrapping_ns::CpxNumMat> > c;
     outStepRes.clear();
 
-    std::vector<int> projectionIndices, projectionLeft;
-    std::vector<double> projectionA,projectionB,projectionInverse,projectionUpper;
-    if (positions && measured && measuredMask)
-    {
-        for(int j=0;j<(int)positions->size();j++)if((*measuredMask)[j])
-        {
-            int left=(int)floor((*positions)[j]);if(left>=Nx-1)left=Nx-2;
-            const double b=(*positions)[j]-left,a=1.0-b;
-            projectionIndices.push_back(j);projectionLeft.push_back(left);
-            projectionA.push_back(a);projectionB.push_back(b);projectionInverse.push_back(0);
-            projectionUpper.push_back(0);
-        }
-        // Factor the tridiagonal A*A^T with supports ordered by physical position.
-        for(size_t k=0;k<projectionIndices.size();k++)
-        {
-            double lower=k>0 && projectionLeft[k-1]+1==projectionLeft[k]?projectionB[k-1]*projectionA[k]:0;
-            double upper=k+1<projectionIndices.size() && projectionLeft[k]+1==projectionLeft[k+1]?projectionB[k]*projectionA[k+1]:0;
-            double diagonal=projectionA[k]*projectionA[k]+projectionB[k]*projectionB[k];
-            if(k>0)diagonal-=lower*projectionUpper[k-1];
-            if(diagonal<=1e-14){outRecon.clear();return;}
-            projectionInverse[k]=1.0/diagonal;projectionUpper[k]=upper/diagonal;
-        }
-    }
+    std::vector<int> projectionIndices, projectionLeft; // add by wushanzhou in 2026/10/23
+    std::vector<double> projectionA,projectionB,projectionInverse,projectionUpper; // add by wushanzhou in 2026/10/23
+    if (positions && measured && measuredMask) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        for(int j=0;j<(int)positions->size();j++)if((*measuredMask)[j]) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            int left=(int)floor((*positions)[j]);if(left>=Nx-1)left=Nx-2; // add by wushanzhou in 2026/10/23
+            const double b=(*positions)[j]-left,a=1.0-b; // add by wushanzhou in 2026/10/23
+            projectionIndices.push_back(j);projectionLeft.push_back(left); // add by wushanzhou in 2026/10/23
+            projectionA.push_back(a);projectionB.push_back(b);projectionInverse.push_back(0); // add by wushanzhou in 2026/10/23
+            projectionUpper.push_back(0); // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+        // Factor the tridiagonal A*A^T with supports ordered by physical position. // add by wushanzhou in 2026/10/23
+        for(size_t k=0;k<projectionIndices.size();k++) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            double lower=k>0 && projectionLeft[k-1]+1==projectionLeft[k]?projectionB[k-1]*projectionA[k]:0; // add by wushanzhou in 2026/10/23
+            double upper=k+1<projectionIndices.size() && projectionLeft[k]+1==projectionLeft[k+1]?projectionB[k]*projectionA[k+1]:0; // add by wushanzhou in 2026/10/23
+            double diagonal=projectionA[k]*projectionA[k]+projectionB[k]*projectionB[k]; // add by wushanzhou in 2026/10/23
+            if(k>0)diagonal-=lower*projectionUpper[k-1]; // add by wushanzhou in 2026/10/23
+            if(diagonal<=1e-14){outRecon.clear();return;} // add by wushanzhou in 2026/10/23
+            projectionInverse[k]=1.0/diagonal;projectionUpper[k]=upper/diagonal; // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
 
     for (int it = 0; it < numIter; it++)
     {
@@ -2451,30 +2452,30 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
         fdct_wrapping_ns::ifdct_wrapping(Nt, Nx, nbscales, nbangles_coarse, ac, c, x_mat);
 
         // 4. 实测道数据一致性严格投影 (Data Consistency Projection)
-        if (positions && measured && measuredMask)
-        {
-            const int count=(int)projectionIndices.size();std::vector<double> correction(count,0);
-            for(int i=0;i<Nt;i++)
-            {
-                for(int k=0;k<count;k++)
-                {
-                    int left=projectionLeft[k],j=projectionIndices[k];
-                    double residual=(*measured)[i][j]-projectionA[k]*x_mat(i,left).real()-projectionB[k]*x_mat(i,left+1).real();
-                    double lower=k>0 && projectionLeft[k-1]+1==left?projectionB[k-1]*projectionA[k]:0;
-                    correction[k]=(residual-(k>0?lower*correction[k-1]:0))*projectionInverse[k];
-                }
-                for(int k=count-2;k>=0;k--)correction[k]-=projectionUpper[k]*correction[k+1];
-                for(int k=0;k<count;k++)
-                {
-                    int left=projectionLeft[k];
-                    x_mat(i,left)=fdct_wrapping_ns::cpx(x_mat(i,left).real()+projectionA[k]*correction[k],0);
-                    x_mat(i,left+1)=fdct_wrapping_ns::cpx(x_mat(i,left+1).real()+projectionB[k]*correction[k],0);
-                }
-            }
-            for(int i=0;i<Nt;i++)for(int j=0;j<Nx;j++)x_mat(i,j)=fdct_wrapping_ns::cpx(x_mat(i,j).real(),0);
-        }
-        else
-        {
+        if (positions && measured && measuredMask) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            const int count=(int)projectionIndices.size();std::vector<double> correction(count,0); // add by wushanzhou in 2026/10/23
+            for(int i=0;i<Nt;i++) // add by wushanzhou in 2026/10/23
+            { // add by wushanzhou in 2026/10/23
+                for(int k=0;k<count;k++) // add by wushanzhou in 2026/10/23
+                { // add by wushanzhou in 2026/10/23
+                    int left=projectionLeft[k],j=projectionIndices[k]; // add by wushanzhou in 2026/10/23
+                    double residual=(*measured)[i][j]-projectionA[k]*x_mat(i,left).real()-projectionB[k]*x_mat(i,left+1).real(); // add by wushanzhou in 2026/10/23
+                    double lower=k>0 && projectionLeft[k-1]+1==left?projectionB[k-1]*projectionA[k]:0; // add by wushanzhou in 2026/10/23
+                    correction[k]=(residual-(k>0?lower*correction[k-1]:0))*projectionInverse[k]; // add by wushanzhou in 2026/10/23
+                } // add by wushanzhou in 2026/10/23
+                for(int k=count-2;k>=0;k--)correction[k]-=projectionUpper[k]*correction[k+1]; // add by wushanzhou in 2026/10/23
+                for(int k=0;k<count;k++) // add by wushanzhou in 2026/10/23
+                { // add by wushanzhou in 2026/10/23
+                    int left=projectionLeft[k]; // add by wushanzhou in 2026/10/23
+                    x_mat(i,left)=fdct_wrapping_ns::cpx(x_mat(i,left).real()+projectionA[k]*correction[k],0); // add by wushanzhou in 2026/10/23
+                    x_mat(i,left+1)=fdct_wrapping_ns::cpx(x_mat(i,left+1).real()+projectionB[k]*correction[k],0); // add by wushanzhou in 2026/10/23
+                } // add by wushanzhou in 2026/10/23
+            } // add by wushanzhou in 2026/10/23
+            for(int i=0;i<Nt;i++)for(int j=0;j<Nx;j++)x_mat(i,j)=fdct_wrapping_ns::cpx(x_mat(i,j).real(),0); // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+        else // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
         for (int j = 0; j < Nx; j++)
         {
             if (mask[j] == 1)
@@ -2494,7 +2495,7 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
         }
 
         // 记录迭代收敛残差
-        }
+        } // add by wushanzhou in 2026/10/23
         double diffEnergy = 0.0;
         double curEnergy = 0.0;
         for (int i = 0; i < Nt; i++)
@@ -2547,9 +2548,9 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     const int Nt = 256;
     const int Nx = 128;
     const float dt = 0.004f;
-    float dx = 12.5f;
-    double spatialOrigin=-Nx/2*dx;
-    QString spatialSource="DefaultUniformGrid";
+    float dx = 12.5f; // add by wushanzhou in 2026/10/23
+    double spatialOrigin=-Nx/2*dx; // add by wushanzhou in 2026/10/23
+    QString spatialSource="DefaultUniformGrid"; // add by wushanzhou in 2026/10/23
     const float f0 = 25.0f;
 
     outMetrics.nSamples = Nt;
@@ -2562,7 +2563,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
 
     std::vector<std::vector<float> > d_full(Nt, std::vector<float>(Nx, 0.0f));
 
-    // 1. 外部真实地震数据加载或合成波场数值模拟 (严格防静默回退) // add by shanzhou in 2026/10/15
+    // 1. 外部真实地震数据加载或合成波场数值模拟 (严格防静默回退) // add by wushanzhou in 2026/10/15
     if (!inputSeismicFilePath.isEmpty())
     {
         QString csvErrMsg;
@@ -2575,35 +2576,35 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         // 措辞中性化：外部 CSV 既可能是真实资料，也可能是测试光栅，
         // 因此不再声称 "Seismic Record"，只如实说明"来自外部文件"。
         outMetrics.modeName = QString("External CSV File (%1)").arg(QFileInfo(inputSeismicFilePath).fileName());
-        QFile metadata(inputSeismicFilePath);
-        if (metadata.open(QIODevice::ReadOnly|QIODevice::Text))
-        {
-            while(!metadata.atEnd())
-            {
-                QString line=QString::fromUtf8(metadata.readLine()).trimmed();
-                if(line.startsWith("# synthetic_model="))
-                {outMetrics.isSynthetic=true;outMetrics.modeName="Synthetic external model: "+QFileInfo(inputSeismicFilePath).fileName();}
-                if(line.startsWith("# offsets_m="))
-                {
-                    QStringList fields=line.mid(12).split(',',QString::KeepEmptyParts);
-                    if(fields.size()!=Nx){outReportSummary="reference-grid coordinate count mismatch";return false;}
-                    std::vector<double> x;
-                    for(int j=0;j<Nx;j++)
-                    {
-                        bool ok=false;double value=fields[j].toDouble(&ok);
-                        if(!ok || value!=value || fabs(value)>1e20 || (!x.empty() && value<=x.back()))
-                        {outReportSummary="invalid reference-grid coordinate";return false;}
-                        x.push_back(value);
-                    }
-                    double spacing=(x.back()-x.front())/(Nx-1);
-                    for(int j=1;j<Nx;j++)if(fabs(x[j]-x[j-1]-spacing)>1e-4*std::max(1.0,spacing))
-                    {outReportSummary="reference reconstruction requires a uniform grid; use physical holdout for measured nonuniform traces";return false;}
-                    dx=(float)spacing;spatialOrigin=x.front();spatialSource="ActualOffsetUniformResampling";
-                }
-                if(!line.startsWith("#") && !line.isEmpty())break;
-            }
-        }
-        outMetrics.dx=dx;
+        QFile metadata(inputSeismicFilePath); // add by wushanzhou in 2026/10/23
+        if (metadata.open(QIODevice::ReadOnly|QIODevice::Text)) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            while(!metadata.atEnd()) // add by wushanzhou in 2026/10/23
+            { // add by wushanzhou in 2026/10/23
+                QString line=QString::fromUtf8(metadata.readLine()).trimmed(); // add by wushanzhou in 2026/10/23
+                if(line.startsWith("# synthetic_model=")) // add by wushanzhou in 2026/10/23
+                {outMetrics.isSynthetic=true;outMetrics.modeName="Synthetic external model: "+QFileInfo(inputSeismicFilePath).fileName();} // add by wushanzhou in 2026/10/23
+                if(line.startsWith("# offsets_m=")) // add by wushanzhou in 2026/10/23
+                { // add by wushanzhou in 2026/10/23
+                    QStringList fields=line.mid(12).split(',',QString::KeepEmptyParts); // add by wushanzhou in 2026/10/23
+                    if(fields.size()!=Nx){outReportSummary="reference-grid coordinate count mismatch";return false;} // add by wushanzhou in 2026/10/23
+                    std::vector<double> x; // add by wushanzhou in 2026/10/23
+                    for(int j=0;j<Nx;j++) // add by wushanzhou in 2026/10/23
+                    { // add by wushanzhou in 2026/10/23
+                        bool ok=false;double value=fields[j].toDouble(&ok); // add by wushanzhou in 2026/10/23
+                        if(!ok || value!=value || fabs(value)>1e20 || (!x.empty() && value<=x.back())) // add by wushanzhou in 2026/10/23
+                        {outReportSummary="invalid reference-grid coordinate";return false;} // add by wushanzhou in 2026/10/23
+                        x.push_back(value); // add by wushanzhou in 2026/10/23
+                    } // add by wushanzhou in 2026/10/23
+                    double spacing=(x.back()-x.front())/(Nx-1); // add by wushanzhou in 2026/10/23
+                    for(int j=1;j<Nx;j++)if(fabs(x[j]-x[j-1]-spacing)>1e-4*std::max(1.0,spacing)) // add by wushanzhou in 2026/10/23
+                    {outReportSummary="reference reconstruction requires a uniform grid; use physical holdout for measured nonuniform traces";return false;} // add by wushanzhou in 2026/10/23
+                    dx=(float)spacing;spatialOrigin=x.front();spatialSource="ActualOffsetUniformResampling"; // add by wushanzhou in 2026/10/23
+                } // add by wushanzhou in 2026/10/23
+                if(!line.startsWith("#") && !line.isEmpty())break; // add by wushanzhou in 2026/10/23
+            } // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+        outMetrics.dx=dx; // add by wushanzhou in 2026/10/23
 
     }
     else
@@ -2654,7 +2655,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         }
     }
 
-    // 2. 加载或生成采样掩码 (Mask Operator) (严格校验模式) // add by shanzhou in 2026/10/15
+    // 2. 加载或生成采样掩码 (Mask Operator) (严格校验模式) // add by wushanzhou in 2026/10/15
     std::vector<int> mask(Nx, 0);
     bool loadedFromFile = false;
     float r = (customRatio > 0.1f && customRatio < 0.9f) ? customRatio : 0.50f;
@@ -2851,7 +2852,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         outMetrics.corr_warm_start = scores[1].corr;
     }
 
-    // 5. 实测道数据一致性严格校验 (支持人工注入故障测试) // add by shanzhou in 2026/10/15
+    // 5. 实测道数据一致性严格校验 (支持人工注入故障测试) // add by wushanzhou in 2026/10/15
     if (forceDataConsistencyFailure)
     {
         for (int j = 0; j < Nx; j++)
@@ -2949,7 +2950,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
 
     outMetrics.runtimeMs = (double)(clock() - startTime) / CLOCKS_PER_SEC * 1000.0;
 
-    // 7. 导出实验数据矩阵 (CSV 格式) (含严格写入检查) // add by shanzhou in 2026/10/15
+    // 7. 导出实验数据矩阵 (CSV 格式) (含严格写入检查) // add by wushanzhou in 2026/10/15
     int expNt = exportFullResolution ? Nt : 64;
     int expNx = exportFullResolution ? Nx : 32;
     int stepT = Nt / expNt;
@@ -2980,7 +2981,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
 
     // 导出 4 组二维道集矩阵
     QString errCsv;
-    if (!exportGatherCSV(dir.filePath("recon_original_gather.csv"), d_full, "Full_Complete_Ground_Truth_Wavefield",
+    if (!exportGatherCSV(dir.filePath("recon_original_gather.csv"), d_full, outMetrics.isSynthetic?"Synthetic_Reference_Wavefield":"External_Reference_Wavefield", // add by wushanzhou in 2026/10/23
                          outMetrics.modeName, Nt, Nx, dt, expNt, expNx, outMetrics.exportDt, stepT, stepX, errCsv) ||
         !exportGatherCSV(dir.filePath("recon_subsampled_gather.csv"), d_obs, "Subsampled_Acquired_Wavefield",
                          outMetrics.modeName, Nt, Nx, dt, expNt, expNx, outMetrics.exportDt, stepT, stepX, errCsv) ||
@@ -3006,16 +3007,16 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out.setCodec("UTF-8");
         out << "Metric_Name,Value,Unit,Description\n";
         out << "Mode_Name," << outMetrics.modeName << ",Text,Dataset mode\n";
-        out << "Spatial_Grid_Dx_m," << QString::number(dx,'g',9) << ",m,Physical spacing of the working grid\n";
-        out << "Spatial_Grid_Origin_m," << QString::number(spatialOrigin,'g',12) << ",m,First physical offset or synthetic coordinate\n";
-        out << "Spatial_Grid_Source," << spatialSource << ",Text,Coordinate provenance\n";
-        out << "Mask_SHA1," << samplingMaskHash(mask) << ",Hash,Canonical binary mask SHA1\n";
+        out << "Spatial_Grid_Dx_m," << QString::number(dx,'g',9) << ",m,Physical spacing of the working grid\n"; // add by wushanzhou in 2026/10/23
+        out << "Spatial_Grid_Origin_m," << QString::number(spatialOrigin,'g',12) << ",m,First physical offset or synthetic coordinate\n"; // add by wushanzhou in 2026/10/23
+        out << "Spatial_Grid_Source," << spatialSource << ",Text,Coordinate provenance\n"; // add by wushanzhou in 2026/10/23
+        out << "Mask_SHA1," << samplingMaskHash(mask) << ",Hash,Canonical binary mask SHA1\n"; // add by wushanzhou in 2026/10/23
         out << "Mask_Source," << outMetrics.maskSource << ",Text,Subsampling mask origin\n";
         out << "Sampling_Ratio," << QString::number(outMetrics.samplingRate * 100.0f, 'f', 2) << "%,Percentage of active receiver traces\n";
         out << "Active_Traces," << outMetrics.sampledTraces << ",Traces,Number of acquired traces\n";
         out << "Total_Traces," << outMetrics.nTraces << ",Traces,Full grid aperture traces\n";
         out << "Time_Samples," << outMetrics.nSamples << ",Samples,Time axis discrete length\n";
-        out << "POCS_Iterations," << outMetrics.iterations << ",Iterations,Max convex projection loops\n";
+        out << "POCS_Iterations," << outMetrics.iterations << ",Iterations,Nonlinear curvelet shrinkage and observation projection iterations\n"; // add by wushanzhou in 2026/10/23
         out << "SNR_Zero_Fill," << QString::number(outMetrics.snr_zero_fill_db, 'f', 2) << ",dB,Baseline 1: Zero-fill unmeasured traces\n";
         out << "SNR_Linear_Interp," << QString::number(outMetrics.snr_linear_interp_db, 'f', 2) << ",dB,Baseline 2: 1D Spatial linear interpolation\n";
         out << "SNR_POCS_CS," << QString::number(outMetrics.snr_recovered_db, 'f', 2) << ",dB,Compressive sensing POCS recovered SNR (main pipeline)\n";
@@ -3033,7 +3034,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out << "RMSE_ColdStart," << QString::number(outMetrics.rmse_cold_start, 'f', 6) << ",Amplitude,RMSE of cold-start POCS\n";
         out << "RMSE_WarmStart," << QString::number(outMetrics.rmse_warm_start, 'f', 6) << ",Amplitude,RMSE of warm-start POCS\n";
         out << "RMSE," << QString::number(outMetrics.rmse, 'f', 6) << ",Amplitude,Root mean square error across gather\n";
-        out << "Pearson_Correlation," << QString::number(outMetrics.correlation, 'f', 4) << ",Ratio,Linear correlation with ground truth\n";
+        out << "Pearson_Correlation," << QString::number(outMetrics.correlation, 'f', 4) << ",Ratio,Linear correlation with the declared reference\n"; // add by wushanzhou in 2026/10/23
         out << "Data_Consistency_Passed," << (outMetrics.dataConsistencyPassed ? "PASSED" : "FAILED") << ",Bool,Exact equality on sampled traces\n";
         out << "Runtime_ms," << QString::number(outMetrics.runtimeMs, 'f', 1) << ",ms,Execution wall time\n";
         metFile.close();
@@ -3099,7 +3100,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
             out << "      (b) POCS iterations from cold start : " << QString::number(outMetrics.snr_cold_start_db - outMetrics.snr_zero_fill_db, 'f', 2) << " dB\n";
             out << "      (c) POCS iterations from warm start : " << QString::number(outMetrics.snr_warm_start_db - outMetrics.snr_linear_interp_db, 'f', 2) << " dB\n";
             out << "  - Interpretation: the headline SNR gain of the main pipeline is the SUM of (a) and (c).\n";
-            out << "    Term (b) is the fair, literature-comparable measure of the curvelet POCS method itself,\n";
+            out << "    Term (b) reports the iteration gain for this implementation from zero-fill initialization,\n"; // add by wushanzhou in 2026/10/23
             out << "    because it starts from the same zero-fill initial solution used by standard POCS.\n\n";
         }
 
@@ -3134,7 +3135,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
             {
                 const float itGainCold = outMetrics.snr_cold_start_db - outMetrics.snr_zero_fill_db;
                 out << "    Cold-start POCS iteration contribution over zero-fill: "
-                    << fmtSigned(itGainCold) << " dB (the literature-comparable figure)\n";
+                    << fmtSigned(itGainCold) << " dB (this implementation and dataset)\n"; // add by wushanzhou in 2026/10/23
                 if (cLinear < 0)
                 {
                     out << "    NOTE: the warm-start pipeline total is dominated by the linear-interpolation prior,\n"
@@ -3161,7 +3162,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out << "\n[Scientific Conclusions & Supporting Figures]\n";
         out << "  All run data charts and result figures have been saved to: figures/\n";
         out << "  1. [Figure 05_wavefield_reconstruction_quad.png]:\n";
-        out << "     Four-panel comparison directly displays ground truth, 50% subsampled, Curvelet POCS CS reconstructed,\n";
+        out << "     Four-panel comparison displays the declared reference and the actual sampling configuration.\n"; // add by wushanzhou in 2026/10/23
         out << "     Four-panel comparison: reference, 50% subsampled, curvelet POCS reconstruction, and residual.\n";
         out << "  2. [Figure 06_recon_convergence_trace_comparison.png]:\n";
         out << "     Monotonic residual energy convergence curve and single-trace overlay comparison on unsampled channels\n";
@@ -3235,7 +3236,7 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
 }
 
 // =============================================================================
-// 一键科研闭环套件 // add by shanzhou in 2026/10/15
+// 一键科研闭环套件 // add by wushanzhou in 2026/10/15
 // =============================================================================
 bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
                                                      const QString& outputDir,
@@ -3277,7 +3278,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
     rates.push_back(0.70f);
 
     // 2026.10.20: 掩码溯源（见下方复用 cmp_mask.txt 处的说明）
-    QString provenanceSource;
+    QString provenanceSource; // add by wushanzhou in 2026/10/23
 
     std::vector<BenchmarkRecord> bResults;
     bool ok1 = runSamplingBenchmark(128, rates, dir1, bResults, s1, rngSeed, repeatRuns);
@@ -3299,18 +3300,18 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
         pProjToUse = NULL;
     }
 
-    QString maskPath = QDir(dir1).filePath("mask_50pct_sa_best.txt");
-    provenanceSource = "Benchmark optimized ClassicPSF mask (50%, best across declared runs)";
-    if (QFile::exists(dir.filePath("input_mask.txt")))
-    { maskPath = dir.filePath("input_mask.txt"); provenanceSource = "Explicit suite input mask"; }
+    QString maskPath = QDir(dir1).filePath("mask_50pct_sa_best.txt"); // add by wushanzhou in 2026/10/23
+    provenanceSource = "Benchmark optimized ClassicPSF mask (50%, best across declared runs)"; // add by wushanzhou in 2026/10/23
+    if (QFile::exists(dir.filePath("input_mask.txt"))) // add by wushanzhou in 2026/10/23
+    { maskPath = dir.filePath("input_mask.txt"); provenanceSource = "Explicit suite input mask"; } // add by wushanzhou in 2026/10/23
     ReconstructionMetrics rMetrics;
     bool ok3 = runWavefieldReconstruction(maskPath, dir3, 0.50f, rMetrics, s3, "", true,
                                           false, true, true, provenanceSource);
 
     // 同步将生成的 cmp_mask.txt 复制或导出到 experiment_results 根目录供外部调用
-    if (QFile::exists(dir3 + "/cmp_mask.txt"))
+    if (QFile::exists(dir3 + "/cmp_mask.txt")) // add by wushanzhou in 2026/10/23
     {
-        QFile::remove(dir.filePath("cmp_mask.txt"));
+        QFile::remove(dir.filePath("cmp_mask.txt")); // add by wushanzhou in 2026/10/23
         QFile::copy(dir3 + "/cmp_mask.txt", dir.filePath("cmp_mask.txt"));
     }
 
@@ -3423,7 +3424,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
         "图件支撑清单与科学结论：\n"
         "1. [00_research_workflow_summary.png] 全流程科研闭环综合大看板 (采样-属性-重构总览)\n"
         "2. [01_sa_convergence_curve.png] 模拟退火当前解/历史最优收敛轨迹 (历史最优单调非增)\n"
-        "3. [02_sampling_benchmark_bars.png] 三种采样方案相干度对比柱状图 (Jitter-SA相干度衰减%2 dB)\n"
+        "3. [02_sampling_benchmark_bars.png] 三种采样方案相干度对比柱状图 (Hybrid相干度衰减%2 dB)\n" // add by wushanzhou in 2026/10/23
         "4. [03_cmp_fold_distribution_map.png] CMP面元空间覆盖次数平面热力图 (展示覆盖次数在二维CMP网格上的连续分布)\n"
         "5. [04_offset_azimuth_rose_charts.png] 炮检距连续性分布直方图与方位角玫瑰图 (完整度%3)\n"
         "6. [05_wavefield_reconstruction_quad.png] 地震波场欠采样与曲波POCS恢复四联剖面 (SNR恢复达%4 dB，较线性插值提升%5 dB)\n"
@@ -3453,7 +3454,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
     return runFullExperimentSuite(pProject, outputDir, fullReportSummary, rngSeed, 1);
 }
 
-// 兼容原有签名的转发实现 (add by shanzhou in 2026/10/15)
+// 兼容原有签名的转发实现 (add by wushanzhou in 2026/10/15)
 bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                                                     const std::vector<float>& rates,
                                                     const QString& outputDir,
@@ -3488,7 +3489,7 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
 }
 
 // 内部测试日志记录辅助函数
-// 内部测试日志记录辅助函数 // add by shanzhou in 2026/10/15
+// 内部测试日志记录辅助函数 // add by wushanzhou in 2026/10/15
 static void log_test(FILE *fp, const char *fmt, ...)
 {
     va_list args;
@@ -3506,7 +3507,7 @@ static void log_test(FILE *fp, const char *fmt, ...)
     }
 }
 
-// 严格掩码报错格式检验辅助函数 (C++98 标准静态函数) // add by shanzhou in 2026/10/15
+// 严格掩码报错格式检验辅助函数 (C++98 标准静态函数) // add by wushanzhou in 2026/10/15
 static bool verifyErrMsg(const QString& msg)
 {
     bool hasExpN = msg.contains(QString::fromLocal8Bit("预期长度"));
@@ -3517,7 +3518,7 @@ static bool verifyErrMsg(const QString& msg)
 }
 
 // =============================================================================
-// 自动化单元测试与回归校验体系 (Task 11 / Section X) // add by shanzhou in 2026/10/15
+// 自动化单元测试与回归校验体系 (Task 11 / Section X) // add by wushanzhou in 2026/10/15
 // =============================================================================
 // Qt 4.7 无 QDir::removeRecursively，提供递归删除辅助 (2026.10.20)
 static bool removeDirRecursive(const QString& path)
@@ -3549,7 +3550,7 @@ static bool removeDirRecursive(const QString& path)
 //        c) 曲波 POCS    : 以线性插值热启动，40 次迭代，观测道严格投影
 //   4. SNR 只在留出道集合上统计；参考值为真实实测振幅。
 // =============================================================================
-#include "coordinateholdout.inc"
+#include "coordinateholdout.inc" // add by wushanzhou in 2026/10/23
 
 bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
                                                     int useTraces,
@@ -3572,19 +3573,19 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
         outReport = QString::fromLocal8Bit("【留出验证失败】无法打开输入文件: %1").arg(inputCsvPath);
         return false;
     }
-    in.close();
+    in.close(); // add by wushanzhou in 2026/10/23
     std::vector<std::vector<double> > all;
-    std::vector<double> coordinates;
-    if (!loadHoldoutGather(inputCsvPath,all,coordinates,outReport)) return false;
+    std::vector<double> coordinates; // add by wushanzhou in 2026/10/23
+    if (!loadHoldoutGather(inputCsvPath,all,coordinates,outReport)) return false; // add by wushanzhou in 2026/10/23
 
     const int availNt = (int)all.size();
     const int availNx = (int)all[0].size();
-    if (useTraces<0 || useTraces>availNx || keepTraces<0 || iterations<1)
-    { outReport="invalid holdout dimensions/iterations"; return false; }
-    int m=useTraces>0?useTraces:availNx;
-    int k=keepTraces>0?keepTraces:m/2;
-    if (m<4 || k<2 || k>=m) {outReport="holdout requires 2 <= keep < traces";return false;}
-    coordinates.resize(m);
+    if (useTraces<0 || useTraces>availNx || keepTraces<0 || iterations<1) // add by wushanzhou in 2026/10/23
+    { outReport="invalid holdout dimensions/iterations"; return false; } // add by wushanzhou in 2026/10/23
+    int m=useTraces>0?useTraces:availNx; // add by wushanzhou in 2026/10/23
+    int k=keepTraces>0?keepTraces:m/2; // add by wushanzhou in 2026/10/23
+    if (m<4 || k<2 || k>=m) {outReport="holdout requires 2 <= keep < traces";return false;} // add by wushanzhou in 2026/10/23
+    coordinates.resize(m); // add by wushanzhou in 2026/10/23
 
     // 截取前 m 道
     std::vector<std::vector<float> > truth(availNt, std::vector<float>(m, 0.0f));
@@ -3647,10 +3648,10 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
     // 未知道保持 0（dObs 本身）
 
     // ---- 3b. 线性插值 ----
-    std::vector<std::vector<float> > dLin,dRec;
-    double consistencyError=0,knownScale=1;
-    if (!coordinateHoldoutReconstruct(truth,mask,coordinates,iterations,dLin,dRec,consistencyError,&knownScale))
-    {outReport="coordinate reconstruction/data consistency failed";return false;}
+    std::vector<std::vector<float> > dLin,dRec; // add by wushanzhou in 2026/10/23
+    double consistencyError=0,knownScale=1; // add by wushanzhou in 2026/10/23
+    if (!coordinateHoldoutReconstruct(truth,mask,coordinates,iterations,dLin,dRec,consistencyError,&knownScale)) // add by wushanzhou in 2026/10/23
+    {outReport="coordinate reconstruction/data consistency failed";return false;} // add by wushanzhou in 2026/10/23
 
     // ---- 4. 只在留出道集合上统计 SNR ----
     double eZero = 0.0, eLin = 0.0, ePocs = 0.0, eTruth = 0.0;
@@ -3692,7 +3693,7 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
     outMetrics.gain_pocs_vs_zero_db   = outMetrics.snr_pocs_db - outMetrics.snr_zero_fill_db;
     outMetrics.rmse_linear = (float)sqrt(eLin  / (double)cnt);
     outMetrics.rmse_pocs   = (float)sqrt(ePocs / (double)cnt);
-    outMetrics.dataConsistencyPassed = consistencyError<1e-5;
+    outMetrics.dataConsistencyPassed = consistencyError<1e-5; // add by wushanzhou in 2026/10/23
     {   // 2026.10.20: 记录输入文件 SHA1，便于第三方独立复核
         QFile hf(inputCsvPath);
         if (hf.open(QIODevice::ReadOnly))
@@ -3714,10 +3715,10 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
         o.setCodec("UTF-8");
         o << "Metric_Name,Value,Unit,Description\n";
         o << "Validation_Type,Hold-out on measured traces,Text,SNR computed ONLY on withheld real traces\n";
-        o << "Geometry_Mode,ActualOffsets_LinearObservationProjection,Text,Held-out amplitudes never enter solver input\n";
-        o << "Solver_Amplitude_Scale," << QString::number(knownScale,'g',9) << ",Amplitude,Estimated ONLY from known traces then inverted for evaluation\n";
-        o << "Mask_SHA1," << samplingMaskHash(mask) << ",Hash,Canonical binary mask SHA1\n";
-        o << "Data_Consistency_Max_Error," << QString::number(consistencyError,'g',9) << ",Amplitude,Measured on known physical coordinates\n";
+        o << "Geometry_Mode,ActualOffsets_LinearObservationProjection,Text,Held-out amplitudes never enter solver input\n"; // add by wushanzhou in 2026/10/23
+        o << "Solver_Amplitude_Scale," << QString::number(knownScale,'g',9) << ",Amplitude,Estimated ONLY from known traces then inverted for evaluation\n"; // add by wushanzhou in 2026/10/23
+        o << "Mask_SHA1," << samplingMaskHash(mask) << ",Hash,Canonical binary mask SHA1\n"; // add by wushanzhou in 2026/10/23
+        o << "Data_Consistency_Max_Error," << QString::number(consistencyError,'g',9) << ",Amplitude,Measured on known physical coordinates\n"; // add by wushanzhou in 2026/10/23
         o << "Input_File," << QFileInfo(inputCsvPath).fileName() << ",Text,Source gather\n";
         o << "Traces_Used," << m << ",Traces,Real traces in the working grid\n";
         o << "Traces_Kept," << k << ",Traces,Traces given to the solver as known\n";
@@ -4670,7 +4671,7 @@ bool GeometryExperimentEngine::runUnitTests()
     QString suiteFailDir = "unit_test_sandbox/test_suite_fail";
     QDir().mkpath(suiteFailDir);
     {
-        QFile f(suiteFailDir + "/input_mask.txt");
+        QFile f(suiteFailDir + "/input_mask.txt"); // add by wushanzhou in 2026/10/23
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
         {
             QTextStream out(&f);
@@ -4789,7 +4790,7 @@ bool GeometryExperimentEngine::runUnitTests()
 
     // -------------------------------------------------------------
     // Test 12: 曲波变换参数鲁棒性 (2026.10.19 新增)
-    // 验证 Jitter-SA < 纯随机 < 规则减抽 的 mu 相对排序是否独立于
+    // 验证 Hybrid < 纯随机 < 规则减抽 的 mu 相对排序是否独立于 // add by wushanzhou in 2026/10/23
     // (nbscales, nbangles_coarse) 的具体取值。
     // -------------------------------------------------------------
     totalTests++;
@@ -5301,7 +5302,7 @@ bool GeometryExperimentEngine::runUnitTests()
     }
     // 2026.10.20: 汇总必须区分 PASS / FAIL / SKIP，且 SKIP 不计为通过。
     // 任何 SKIP 都会使整体不通过（本套件不含允许跳过的项）。
-    #include "scienceregression.inc"
+    #include "scienceregression.inc" // add by wushanzhou in 2026/10/23
 
     const int failedTests = totalTests - passedTests - skippedTests;
     log_test(logFp, "============================================================\n");
@@ -5352,7 +5353,7 @@ bool GeometryExperimentEngine::runUnitTests()
 // 本实验在 N×N 接收网格上比较四种 2D 掩码的二维曲波相干度：
 //   规则（行隔点 + 列隔点） / 随机 / 抖动 / 抖动+SA（逐行抖动后行内 SA）
 // 二维 μ 定义为"逐行 1D μ 的均值"，与 CalculateAveMiu 同口径。
-// =============================================================================
+// ============================================================================= // add by wushanzhou in 2026/10/23
 bool GeometryExperimentEngine::runMiuProbe(const QString& outCsvPath, QString& outReport)
 {
     QFile f(outCsvPath);
@@ -5725,4 +5726,4 @@ bool GeometryExperimentEngine::runMcProbe(const QString& outCsvPath, QString& ou
 // 2026-10-21 新增：空间约束优化 A–E 方案对比 + 惩罚系数敏感性
 // =============================================================================
 // 2026-10-21: 与 OptimizeMiu.cpp 中的实现一致的均匀性度量（供基线评估复用）
-#include "samplingstudies.inc"
+#include "samplingstudies.inc" // add by wushanzhou in 2026/10/23

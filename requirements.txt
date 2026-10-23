@@ -1,2 +1,2 @@
-# Tested with Python 3.12.10; C++/Qt builds do not depend on Python.
-numpy==2.5.3
+# Tested with Python 3.12.10; C++/Qt builds do not depend on Python.  # add by wushanzhou in 2026/10/23
+numpy==2.5.3  # add by wushanzhou in 2026/10/23

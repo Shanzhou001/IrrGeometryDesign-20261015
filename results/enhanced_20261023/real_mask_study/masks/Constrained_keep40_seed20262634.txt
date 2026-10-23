@@ -1,0 +1,64 @@
+# protocol=physical_psf_v3 objective=PhysicalFourierPSF+PhysicalSpatialPenalty
+# seed=20262635 budget_cap=200 evals=168
+# mu=0.303194702 objective_value=0.825321436 max_gap=3 nn_cv=0.346907
+# max_gap_m=182 nn_cv_units=physical
+# mask_sha1=53a10de3789d7eac69225aac11d119b53f4f943d status=search_stopped
+1
+1
+1
+0
+0
+1
+1
+0
+1
+0
+1
+1
+0
+1
+0
+1
+0
+1
+0
+1
+1
+0
+1
+1
+0
+0
+1
+1
+1
+0
+1
+1
+0
+1
+1
+1
+0
+1
+1
+0
+1
+0
+1
+1
+0
+1
+0
+1
+0
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1

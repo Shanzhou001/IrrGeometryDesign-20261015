@@ -1,0 +1,72 @@
+{
+  "validated_at_local": "2026-10-24T00:10:25.539796+08:00",
+  "protocol": "physical_psf_v3",
+  "release_build_exit": 0,
+  "debug_build_exit": 0,
+  "release_binary_sha256": "ad153ea35eaaa16266c4a8589683416ae01333ce7aba62b699f2578208fc214e",
+  "debug_binary_sha256": "a0942f1abbd20964d80c1eb454f251a751479931f52dd3d4be2820f214c46d3a",
+  "binary_matches_formal_experiment": true,
+  "native_sources_match_formal_experiment": true,
+  "inputs_match_formal_experiment": true,
+  "native_source_files_checked": 115,
+  "input_files_checked": 8,
+  "cpp_tests": {
+    "pass": 24,
+    "fail": 0,
+    "skip": 0
+  },
+  "python_tests": {
+    "pass": 12,
+    "fail": 0
+  },
+  "independently_verified_rows": 1680,
+  "smoke_verified_rows": 234,
+  "legacy_verified_rows": 1425,
+  "debug_2d_verified_rows": 30,
+  "formal_steps": 12,
+  "all_formal_steps_exit_zero": true,
+  "formal_elapsed_seconds": 1094.395,
+  "synthetic_mask_reconstructions": 630,
+  "real_mask_holdouts": 210,
+  "two_dimensional_rows": 150,
+  "real_data_diagnostic_groups": 6,
+  "independent_real_sources": 1,
+  "annotations": {
+    "old_author_markers_replaced": 71,
+    "old_author_markers_remaining": 0,
+    "checked_files": 38,
+    "pending": [],
+    "new_annotation_dates": [
+      "2026/10/23",
+      "2026/10/24"
+    ]
+  },
+  "float_verification_rule": "Physical NN-CV is compared after the same float32 / six-significant-digit serialization used by QTextStream.",
+  "experiment_launch_manifest_sha256": "76a0ee529ea92525ebd08f2e1d7461e0621c67d2d61ca7b11b74ff44de7e2832",
+  "postprocessing_only_tool_changes_after_launch": [
+    "tools\\audit_change_annotations.py",
+    "tools\\test_science_tools.py",
+    "tools\\verify_revised_results.py"
+  ],
+  "postprocessing_tools_sha256": {
+    "tools\\ablation_stats.py": "f781f5aa0d490946db72fa7467148f358f4b0a83c23c64b7a6fb928110a4e7f6",
+    "tools\\audit_change_annotations.py": "71055b12e3bd12ac695347f446331b66ac2df480e9fd997178eff3de1e3fa334",
+    "tools\\audit_real_gather.py": "d87261930590840c22c1acf301413b6273568558dd1417d535af8a8279e870ec",
+    "tools\\compare_masks.py": "9f6a6f2d48605ba49bb6bfa471cffabd01e8361f3ea029d9e48ff16a28e55239",
+    "tools\\convert_rraw_to_engine_csv.py": "59f6e1252379292dc0b7f591c021bbefb7f25e0ab1175e9d49ea7054952c8396",
+    "tools\\make_59x256.py": "406ff0d331d957fb673863883ccb2d975be60e13e5292f7372bfbfe7609a9e14",
+    "tools\\mu_properties_test.py": "e14f273bf570f38d4346a87e21480d191f6b7b946c51e854d29f622f2d1cb1a8",
+    "tools\\run_revised_studies.py": "56ab9f968a1b51eb3406c70d095143a521a76f011afafc070ea64f801fe1e095",
+    "tools\\test_science_tools.py": "3dab9a2342dc8003bc9cbd93c8c8d674b696e83d13ee406c8de1745de766e381",
+    "tools\\verify_revised_results.py": "6f4a3e63d353ee5bff05c28480d6cd7bb839657182c572fc1c078ca03c970635"
+  },
+  "postprocessing_note": "Only the annotation helper, tests and independent verifier changed after launch; scientific native code and tools executed by the 12 formal steps are unchanged.",
+  "cache_reuse_smoke_steps_before_final_postprocessing_fixes": 12,
+  "backward_compatibility": {
+    "status": "PASS",
+    "ablation_rows_unchanged": 60,
+    "constrained_masks_unchanged": 150,
+    "seed42_2d_masks_unchanged": 15,
+    "main_selected_mask_unchanged": true
+  }
+}

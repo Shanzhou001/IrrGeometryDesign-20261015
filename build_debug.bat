@@ -12,9 +12,13 @@ rem ============================================================================
 
 rem ---- 1. locate Qt -----------------------------------------------------------
 if defined QTDIR if not exist "!QTDIR!\bin\qmake.exe" (
+rem add by wushanzhou in 2026/10/23
     echo [build] QTDIR is unavailable; checking qmake.exe on PATH.
+rem add by wushanzhou in 2026/10/23
     set "QTDIR="
+rem add by wushanzhou in 2026/10/23
 )
+rem add by wushanzhou in 2026/10/23
 if not defined QTDIR (
     for /f "delims=" %%Q in ('where qmake.exe 2^>nul') do (
         if not defined QTDIR set "QTDIR=%%~dpQ.."
@@ -55,7 +59,11 @@ cd /d "%~dp0"
 vcbuild IrrGeometryDesign.sln "Debug|x64"
 set "BUILD_RC=!ERRORLEVEL!"
 if "!BUILD_RC!"=="0" if not exist "x64\Debug\fftw.dll" (
+rem add by wushanzhou in 2026/10/23
     copy /Y "IrrGeometryDesign\fftw.dll" "x64\Debug\fftw.dll" >nul
+rem add by wushanzhou in 2026/10/23
     if errorlevel 1 set "BUILD_RC=4"
+rem add by wushanzhou in 2026/10/23
 )
+rem add by wushanzhou in 2026/10/23
 endlocal & exit /b %BUILD_RC%

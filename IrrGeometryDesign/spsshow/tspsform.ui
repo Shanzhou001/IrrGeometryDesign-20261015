@@ -125,7 +125,7 @@
     <addaction name="actionSAOptimizing"/>
     <addaction name="separator"/>
     <addaction name="actionCalculate_the_Miu_for_Loaded_Geometry"/>
-    <!-- add by shanzhou in 2026/10/15 -->
+    <!-- add by wushanzhou in 2026/10/15 -->
     <addaction name="separator"/>
     <addaction name="actionViewGallery"/>
     <addaction name="actionOpenFiguresDir"/>
@@ -290,7 +290,7 @@
     <string>计算当前观测系统互相干度 μ</string>
    </property>
   </action>
-  <!-- add by shanzhou in 2026/10/15 -->
+  <!-- add by wushanzhou in 2026/10/15 -->
   <action name="actionViewGallery">
    <property name="text">
     <string>科研成果图件画廊与科学结论</string>
@@ -331,7 +331,7 @@
  <connections>
   <connection>
    <sender>saveAction</sender>
-   <!-- add by shanzhou in 2026/10/15 -->
+   <!-- add by wushanzhou in 2026/10/15 -->
    <signal>triggered()</signal>
    <receiver>TSPSForm</receiver>
    <slot>saveSPS()</slot>

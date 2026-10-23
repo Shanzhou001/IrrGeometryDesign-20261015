@@ -3,7 +3,7 @@
  * Function: Calculate Miu by Curvelet transform
  *			 根据互相干度参数的定义计算miu值, 无需矩阵相乘运算
  *           包含复数, 实数两种实现方式
- * 修复日期: 2026.10.15 // add by shanzhou in 2026/10/15
+ * 修复日期: 2026.10.15 // add by wushanzhou in 2026/10/15
  * 修复内容(实验有效性与性能):
  *   1) CurveletMiu1DEigen 增加单位阵参考变换缓存：μ 的定义中参考项
  *      G4（单位阵经 FFT+曲波变换后的归一化 Gram）只依赖 N，与采样
@@ -483,7 +483,7 @@ void FFT1D_fftshift(int **inMat, CpxNumMat& bMat, int Nx, int Nt)
 // μ 定义中的参考项只依赖 (N, 曲波参数)：单位阵 I --FFT--> 曲波变换 --> 归一化 Gram G4。
 // 原实现在每次 μ 评估中重复计算；现按 (N, nbscales, nbangles) 缓存，跨调用复用。
 // 仅 CurveletMiu1DEigen（主流程）使用；ac 固定为 1。
-struct MiuRefEntry // add by shanzhou in 2026/10/15
+struct MiuRefEntry // add by wushanzhou in 2026/10/15
 {
 	int N;
 	int sc;   //nbscales
@@ -639,7 +639,7 @@ void miu_eval_reset() { g_miu_evals = 0; }
 long miu_eval_count() { return g_miu_evals; }
 
 //------------ Calculate Curvelet Miu 1D (Eigen 加速版, 主流程) ------------//
-float CurveletMiu1DEigen(vector<int> idx, int N, int datatype) // add by shanzhou in 2026/10/15
+float CurveletMiu1DEigen(vector<int> idx, int N, int datatype) // add by wushanzhou in 2026/10/15
 {
 	//默认曲波参数 (nbscales=1, nbangles=4)：与项目历史实现一致（GUI 数值不变）
 	return CurveletMiu1DEigenParam(idx, N, datatype, 1, 4);
@@ -991,48 +991,48 @@ float SamplingMutualCoherence1D(const std::vector<int>& idx, int N)
 {
     if (N <= 0 || idx.empty()) return 0.0f;
     const int m = (int)idx.size();
-    std::vector<fftw_complex> in(N), out(N);
-    for (int k = 0; k < N; k++) { in[k].re = 0.0; in[k].im = 0.0; }
-    for (int k = 0; k < m; k++)
+    std::vector<fftw_complex> in(N), out(N); // add by wushanzhou in 2026/10/23
+    for (int k = 0; k < N; k++) { in[k].re = 0.0; in[k].im = 0.0; } // add by wushanzhou in 2026/10/23
+    for (int k = 0; k < m; k++) // add by wushanzhou in 2026/10/23
     {
-        if (idx[k] < 0 || idx[k] >= N || in[idx[k]].re != 0.0) return -1.0f;
-        in[idx[k]].re = 1.0;
+        if (idx[k] < 0 || idx[k] >= N || in[idx[k]].re != 0.0) return -1.0f; // add by wushanzhou in 2026/10/23
+        in[idx[k]].re = 1.0; // add by wushanzhou in 2026/10/23
     }
-    if (m == N) return 0.0f;
-    fftw_plan plan = fftw_create_plan(N, FFTW_FORWARD, FFTW_ESTIMATE);
-    if (!plan) return -1.0f;
-    fftw_one(plan, &in[0], &out[0]);
-    fftw_destroy_plan(plan);
-    double peak = 0.0;
-    for (int k = 1; k < N; k++)
-    {
-        double v = sqrt(out[k].re * out[k].re + out[k].im * out[k].im);
-        if (v > peak) peak = v;
-    }
-    return (float)std::min(1.0, peak / m);
+    if (m == N) return 0.0f; // add by wushanzhou in 2026/10/23
+    fftw_plan plan = fftw_create_plan(N, FFTW_FORWARD, FFTW_ESTIMATE); // add by wushanzhou in 2026/10/23
+    if (!plan) return -1.0f; // add by wushanzhou in 2026/10/23
+    fftw_one(plan, &in[0], &out[0]); // add by wushanzhou in 2026/10/23
+    fftw_destroy_plan(plan); // add by wushanzhou in 2026/10/23
+    double peak = 0.0; // add by wushanzhou in 2026/10/23
+    for (int k = 1; k < N; k++) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        double v = sqrt(out[k].re * out[k].re + out[k].im * out[k].im); // add by wushanzhou in 2026/10/23
+        if (v > peak) peak = v; // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    return (float)std::min(1.0, peak / m); // add by wushanzhou in 2026/10/23
 }
 
-float SamplingMutualCoherence2D(const std::vector<int>& mask, int Ny, int Nx)
+float SamplingMutualCoherence2D(const std::vector<int>& mask, int Ny, int Nx) // add by wushanzhou in 2026/10/23
 {
-    if (Ny <= 0 || Nx <= 0 || (int)mask.size() != Ny * Nx) return -1.0f;
-    const int n = Ny * Nx;
-    int m = 0;
-    std::vector<fftw_complex> in(n), out(n);
-    for (int k = 0; k < n; k++)
+    if (Ny <= 0 || Nx <= 0 || (int)mask.size() != Ny * Nx) return -1.0f; // add by wushanzhou in 2026/10/23
+    const int n = Ny * Nx; // add by wushanzhou in 2026/10/23
+    int m = 0; // add by wushanzhou in 2026/10/23
+    std::vector<fftw_complex> in(n), out(n); // add by wushanzhou in 2026/10/23
+    for (int k = 0; k < n; k++) // add by wushanzhou in 2026/10/23
     {
-        if (mask[k] != 0 && mask[k] != 1) return -1.0f;
-        in[k].re = mask[k]; in[k].im = 0.0; m += mask[k];
+        if (mask[k] != 0 && mask[k] != 1) return -1.0f; // add by wushanzhou in 2026/10/23
+        in[k].re = mask[k]; in[k].im = 0.0; m += mask[k]; // add by wushanzhou in 2026/10/23
     }
-    if (m == 0 || m == n) return 0.0f;
-    fftwnd_plan plan = fftw2d_create_plan(Ny, Nx, FFTW_FORWARD, FFTW_ESTIMATE);
-    if (!plan) return -1.0f;
-    fftwnd_one(plan, &in[0], &out[0]);
-    fftwnd_destroy_plan(plan);
-    double peak = 0.0;
-    for (int k = 1; k < n; k++)
-    {
-        double v = sqrt(out[k].re * out[k].re + out[k].im * out[k].im);
-        if (v > peak) peak = v;
-    }
-    return (float)std::min(1.0, peak / m);
-}
+    if (m == 0 || m == n) return 0.0f; // add by wushanzhou in 2026/10/23
+    fftwnd_plan plan = fftw2d_create_plan(Ny, Nx, FFTW_FORWARD, FFTW_ESTIMATE); // add by wushanzhou in 2026/10/23
+    if (!plan) return -1.0f; // add by wushanzhou in 2026/10/23
+    fftwnd_one(plan, &in[0], &out[0]); // add by wushanzhou in 2026/10/23
+    fftwnd_destroy_plan(plan); // add by wushanzhou in 2026/10/23
+    double peak = 0.0; // add by wushanzhou in 2026/10/23
+    for (int k = 1; k < n; k++) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        double v = sqrt(out[k].re * out[k].re + out[k].im * out[k].im); // add by wushanzhou in 2026/10/23
+        if (v > peak) peak = v; // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    return (float)std::min(1.0, peak / m); // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23

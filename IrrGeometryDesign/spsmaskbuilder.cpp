@@ -1,4 +1,4 @@
-﻿// // add by shanzhou in 2026/10/15
+﻿// // add by wushanzhou in 2026/10/15
 #include "spsmaskbuilder.h"
 #include <qfile.h>
 #include <qtextstream.h>

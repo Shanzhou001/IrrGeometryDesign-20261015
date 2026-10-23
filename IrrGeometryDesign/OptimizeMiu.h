@@ -4,7 +4,7 @@
  *   Based on Curvelet transform
  *   Based on CalculateMiu
  *	 Created on Nov 1st, 2022
- *   2026.10.15: 移除 Qt 依赖并完善状态跟踪 // add by shanzhou in 2026/10/15（命令行实验框架复用本文件）；
+ *   2026.10.15: 移除 Qt 依赖并完善状态跟踪 // add by wushanzhou in 2026/10/15（命令行实验框架复用本文件）；
  *              删除只有声明没有实现的 GeneticOptimizeMiu；
  *              新增 UnOptiMiuSAEx（带收敛轨迹输出的扩展版）。
  *****************************************************/
@@ -35,7 +35,7 @@ int *UnOptiMiuSA(int N, float c, int *Phi, string samptype);//2023.5.16修改
  *	Note : 本函数为 UnOptiMiuSAEx 的简化包装（无统计输出）
  *-----------------------------------------------------*/
 
-enum SAAcceptanceStrategy // add by shanzhou in 2026/10/15
+enum SAAcceptanceStrategy // add by wushanzhou in 2026/10/15
 
 {
 
@@ -117,7 +117,7 @@ struct SAParams
 
 
 
-int *UnOptiMiuSAEx( // add by shanzhou in 2026/10/15
+int *UnOptiMiuSAEx( // add by wushanzhou in 2026/10/15
     int N, float c, int *Phi, string samptype,
 				   bool neighbor_mode, SAStats *stats, int cg_max_iter = 2);
 /*-----------------------------------------------------
@@ -152,7 +152,7 @@ int *OptiMiuCG(int N, int *Phi, int max_iter = 2);//2025.12.13修改
  *-----------------------------------------------------*/
 
 // ---- 2026.10.20 新增：混合优化消融实验 ----
-struct AblationResult // add by shanzhou in 2026.10.20
+struct AblationResult // add by wushanzhou in 2026.10.20
 {
 	int n;                  // 掩码长度
 	int m;                  // 采样点数
@@ -183,7 +183,7 @@ struct AblationResult // add by shanzhou in 2026.10.20
 //   P_nn  = CV(最近邻间隔)                    无量纲
 // 两个惩罚项均与采样率无关，可跨档比较。
 // =============================================================================
-struct ConstraintWeights // add by shanzhou in 2026.10.21
+struct ConstraintWeights // add by wushanzhou in 2026.10.21
 {
     double lambdaGap;   // P_gap 权重
     double lambdaNN;    // P_nn 权重
@@ -191,7 +191,7 @@ struct ConstraintWeights // add by shanzhou in 2026.10.21
     ConstraintWeights() : lambdaGap(0.0), lambdaNN(0.0), hardMaxGap(0) {}
 };
 
-struct ConstrainedResult // add by shanzhou in 2026.10.21
+struct ConstrainedResult // add by wushanzhou in 2026.10.21
 {
     float mu;            // 终止时的经典互干度
     float objective;     // 终止时的 J 值
@@ -200,23 +200,24 @@ struct ConstrainedResult // add by shanzhou in 2026.10.21
     float unitOccupancy;
     long  evals;         // 实际 μ 评估次数
     bool  hardConstraintSatisfied;
-    std::vector<int> mask;
-    std::vector<int> saPrefixMask;
-    std::vector<float> bestTrace;
-    std::vector<float> currentTrace;
-    long saPrefixEvals;
-    double runtimeMs;
-    std::string status;
+    std::vector<int> mask; // add by wushanzhou in 2026/10/23
+    std::vector<int> saPrefixMask; // add by wushanzhou in 2026/10/23
+    std::vector<float> bestTrace; // add by wushanzhou in 2026/10/23
+    std::vector<float> currentTrace; // add by wushanzhou in 2026/10/23
+    long saPrefixEvals; // add by wushanzhou in 2026/10/23
+    double runtimeMs; // add by wushanzhou in 2026/10/23
+    double maxGapM; // Physical-coordinate gap when coordinates are supplied. add by wushanzhou in 2026/10/23
+    std::string status; // add by wushanzhou in 2026/10/23
     ConstrainedResult() : mu(0), objective(0), maxGap(0), nnCv(0),
-                           unitOccupancy(0), evals(0), hardConstraintSatisfied(false),
-                           saPrefixEvals(0), runtimeMs(0) {}
+                           unitOccupancy(0), evals(0), hardConstraintSatisfied(false), // add by wushanzhou in 2026/10/23
+                           saPrefixEvals(0), runtimeMs(0), maxGapM(0) {} // add by wushanzhou in 2026/10/23
 };
 
 // =============================================================================
 // 2026-10-21 新增：多种子等预算消融（任务书问题 3）
 // 每个种子都保留原始结果，不筛选。
 // =============================================================================
-struct AblationRow // add by shanzhou in 2026.10.21
+struct AblationRow // add by wushanzhou in 2026.10.21
 {
     int    seedIndex;
     unsigned long long seed;
@@ -241,16 +242,18 @@ struct AblationRow // add by shanzhou in 2026.10.21
         maxGapConstrained(0), nnCvSaLocal(0), nnCvConstrained(0) {}
 };
 
-// Formal experiments: one PSF objective, identical evaluation caps, explicit constraints.
-enum SamplingSearchMethod { SEARCH_SA, SEARCH_LOCAL, SEARCH_HYBRID, SEARCH_RESTART };
-float SamplingMaskCoherence(const std::vector<int>& mask);
-int SamplingMaxGap(const std::vector<int>& mask);
-float SamplingNNCv(const std::vector<int>& mask);
-float SamplingUnitOccupancy(const std::vector<int>& mask);
-bool RunSamplingSearch(int N, int m, const std::vector<int>& initial,
-                       const ConstraintWeights& weights, unsigned long long seed,
-                       int evalBudget, SamplingSearchMethod method,
-                       ConstrainedResult& out, int saPrefixBudget = 64, int gridRows = 1);
+// Formal experiments: one PSF objective, identical evaluation caps, explicit constraints. // add by wushanzhou in 2026/10/23
+enum SamplingSearchMethod { SEARCH_SA, SEARCH_LOCAL, SEARCH_HYBRID, SEARCH_RESTART }; // add by wushanzhou in 2026/10/23
+float SamplingMaskCoherence(const std::vector<int>& mask); // add by wushanzhou in 2026/10/23
+int SamplingMaxGap(const std::vector<int>& mask); // add by wushanzhou in 2026/10/23
+float SamplingNNCv(const std::vector<int>& mask); // add by wushanzhou in 2026/10/23
+float SamplingUnitOccupancy(const std::vector<int>& mask); // add by wushanzhou in 2026/10/23
+bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by wushanzhou in 2026/10/23
+                       const ConstraintWeights& weights, unsigned long long seed, // add by wushanzhou in 2026/10/23
+                       int evalBudget, SamplingSearchMethod method, // add by wushanzhou in 2026/10/23
+                       ConstrainedResult& out, int saPrefixBudget = 64, int gridRows = 1, // add by wushanzhou in 2026/10/23
+                       const std::vector<double>* coordinates = NULL); // add by wushanzhou in 2026/10/23
+float SamplingPhysicalCoherence(const std::vector<int>& mask, const std::vector<double>& coordinates); // add by wushanzhou in 2026/10/23
 
 bool RunMultiSeedAblation(int N, float c, int nSeeds, unsigned long long baseSeed,
                           std::vector<AblationRow>& outRows);

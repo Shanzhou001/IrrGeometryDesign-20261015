@@ -20,7 +20,7 @@
 #include "tcellgridform.h"
 #include "gcellgrid.h"
 #include "tspsform.h"
-#include "geometryexperimentengine.h" // add by shanzhou in 2026/10/15
+#include "geometryexperimentengine.h" // add by wushanzhou in 2026/10/15
 #include <QDesktopWidget>
 //#include "tbendlinewidthdlg.h"
 #include "gutils.h"
@@ -213,7 +213,7 @@ void ResearchFiguresDialog::onNext()
 
 void ResearchFiguresDialog::onOpenInBrowser()
 {
-    QString htmlPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023/index.html":"figures/index.html");
+    QString htmlPath = QDir::current().filePath(QFile::exists("figures/enhanced_20261023/index.html")?"figures/enhanced_20261023/index.html":QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023/index.html":"figures/index.html"); // add by wushanzhou in 2026/10/23
     QFileInfo fi(htmlPath);
     if (fi.exists())
     {
@@ -228,7 +228,7 @@ void ResearchFiguresDialog::onOpenInBrowser()
 
 void ResearchFiguresDialog::onOpenFolder()
 {
-    QString dirPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures");
+    QString dirPath = QDir::current().filePath(QFile::exists("figures/enhanced_20261023/index.html")?"figures/enhanced_20261023":QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures"); // add by wushanzhou in 2026/10/23
     QDir dir(dirPath);
     if (!dir.exists())
     {
@@ -249,7 +249,7 @@ void ResearchFiguresDialog::loadFigure(int index)
         mCombo->blockSignals(false);
     }
 
-    QString dirPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures");
+    QString dirPath = QDir::current().filePath(QFile::exists("figures/enhanced_20261023/index.html")?"figures/enhanced_20261023":QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures"); // add by wushanzhou in 2026/10/23
     QString filePath = QDir(dirPath).filePath(mFileNames[index]);
     QFileInfo fi(filePath);
     if (!fi.exists())
@@ -328,14 +328,14 @@ TSPSForm::~TSPSForm()
         Azimutharray = NULL;
     }
 
-#pragma region "add by Wushanzhou"
+#pragma region "add by wushanzhou in 2026/10/23"
     if(mOwnProject && mpProject != NULL)
     {
         mpProject->destroy();
     }
     mpProject = NULL;
     destroy();
-#pragma endregion "add by Wushanzhou"
+#pragma endregion "add by wushanzhou in 2026/10/23"
 }
 
 void TSPSForm::init()
@@ -620,7 +620,7 @@ void TSPSForm::on_newspsAction_triggered()
 }
 
 // 保存与导出 SPS 观测系统（含 .r/.s/.x 及 CSV 坐标表）
-void TSPSForm::saveSPS() // add by shanzhou in 2026/10/15
+void TSPSForm::saveSPS() // add by wushanzhou in 2026/10/15
 {
     GProject *pProject = mpProject ? mpProject : GProject::getCurrentProject();
     if (!pProject) {
@@ -2374,7 +2374,7 @@ void TSPSForm::on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered()
 	QMessageBox::information(this, QString::fromLocal8Bit("相干度计算完成"), info_str);
 }
 
-// 试验与评估模块前置状态校验与联动更新 // add by shanzhou in 2026/10/15
+// 试验与评估模块前置状态校验与联动更新 // add by wushanzhou in 2026/10/15
 void TSPSForm::updateAllActionsState()
 {
     GProject *pProj = mpProject ? mpProject : GProject::getCurrentProject();
@@ -2686,7 +2686,7 @@ void TSPSForm::on_actionViewDashboard_triggered()
 
 void TSPSForm::on_actionOpenFiguresDir_triggered()
 {
-    QString dirPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures");
+    QString dirPath = QDir::current().filePath(QFile::exists("figures/enhanced_20261023/index.html")?"figures/enhanced_20261023":QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures"); // add by wushanzhou in 2026/10/23
     QDir dir(dirPath);
     if (!dir.exists())
     {

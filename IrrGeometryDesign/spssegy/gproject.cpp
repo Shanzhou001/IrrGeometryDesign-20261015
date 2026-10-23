@@ -508,7 +508,7 @@ bool GProject::saveProjectFile()
 
 
 /*
-bool GProject::saveSPS(const QString &spsFileName) // add by shanzhou in 2026/10/15
+bool GProject::saveSPS(const QString &spsFileName) // add by wushanzhou in 2026/10/15
 {
     GShotSet *pShotSet = getShotSet();
     GSLineSet *pSLineSet = getSLineSet();
@@ -556,7 +556,7 @@ bool GProject::saveSPS(const QString &spsFileName) // add by shanzhou in 2026/10
 
 //2026.3.24 save sps by Wushanzhou
 
-bool GProject::saveSPS(const QString &spsFileName) // add by shanzhou in 2026/10/15
+bool GProject::saveSPS(const QString &spsFileName) // add by wushanzhou in 2026/10/15
 {
     GShotSet *pShotSet = getShotSet();
     GSLineSet *pSLineSet = getSLineSet();

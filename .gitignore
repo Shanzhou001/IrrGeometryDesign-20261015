@@ -57,7 +57,33 @@ results/**/recon_residual_slice.csv
 results/mask_recon/run_*/
 
 # Corrected studies: retain masks and aggregate tables, omit re-creatable per-run gathers.
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
 results/revised_20261023/**/run_*/
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
 results/revised_20261023_smoke/
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
 figures/revised_20261023_smoke/
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
 results/revised_20261023/*.log
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
+# add by wushanzhou in 2026/10/23
+
+results/enhanced_20261023/**/run_*/
+# add by wushanzhou in 2026/10/23
+results/enhanced_20261023/**/*.log
+# add by wushanzhou in 2026/10/23
+results/enhanced_20261023_smoke/
+# add by wushanzhou in 2026/10/23
+figures/enhanced_20261023_smoke/
+# add by wushanzhou in 2026/10/23
+results/enhanced_*.log
+# add by wushanzhou in 2026/10/23

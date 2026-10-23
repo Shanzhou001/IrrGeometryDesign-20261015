@@ -5,7 +5,7 @@
  *           包括常规模拟退火和联合改进模拟退火算法和共轭梯度算法
  * 修复日期: 2025.12.24
  * 修复内容: 移除多线程冲突、增强边界检查、修复内存访问错误
- * 修复日期: 2026.10.15 // add by shanzhou in 2026/10/15
+ * 修复日期: 2026.10.15 // add by wushanzhou in 2026/10/15
  * 修复内容(影响实验有效性的问题):
  *   1) UnOptiMiuSA 的马尔可夫链没有维护"当前解"状态——接受新解时
  *      只更新 μ 标量，解向量从不更新，导致退火搜索实际上不连续；
@@ -42,7 +42,7 @@ static int* gen_candidate_neighbor(int N, const int* cur, const string& samptype
 //*********** 常规模拟退火算法（旧版接口，GUI 历史保留，未被调用）**********//
 // 2026.9.18 重写：修正候选解泄漏、record 尺寸错误与链状态缺失。
 // 返回 new[] 分配的优化矩阵，调用方 delete[] 释放。
-int *OptiMiuSA(double T, double Tmin, int iter, double alpha, int N,float c, int *Phi, string samptype) // add by shanzhou in 2026/10/15
+int *OptiMiuSA(double T, double Tmin, int iter, double alpha, int N,float c, int *Phi, string samptype) // add by wushanzhou in 2026/10/15
 {
 	if (Phi == NULL || N <= 0) return Phi;
 
@@ -79,7 +79,7 @@ int *OptiMiuSA(double T, double Tmin, int iter, double alpha, int N,float c, int
 
 //************ 候选解生成 ************//
 // 根据 samptype 生成一个全新候选解（原行为：整体重新采样）
-static int* gen_candidate_regen(int N, float c, const string& samptype) // add by shanzhou in 2026/10/15
+static int* gen_candidate_regen(int N, float c, const string& samptype) // add by wushanzhou in 2026/10/15
 {
 	int m = (int)floor((double)N * c + 0.5);
 	if (samptype == "F") return Sampling1F_Count(N, m);
@@ -87,7 +87,7 @@ static int* gen_candidate_regen(int N, float c, const string& samptype) // add b
 	return Sampling1S_Count(N, m);
 }
 
-// 邻域扰动幅度（交换的采样点对数）// add by shanzhou in 2026/10/19
+// 邻域扰动幅度（交换的采样点对数）// add by wushanzhou in 2026/10/19
 // 原实现固定取 m/20（50% 采样率下每次交换约 3 对点），属于"大邻域跳转"，
 // 退火轨迹更接近多起点随机重启而非标准 SA 的单点邻域搜索。
 // 现默认改为标准 SA 的单点交换 (1 对)，既保持采样点数严格守恒，
@@ -145,7 +145,7 @@ int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype,
 	return UnOptiMiuSAEx(N, c, Phi, samptype, neighbor_mode, stats, cg_max_iter, sap);
 }
 
-int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype, // add by shanzhou in 2026/10/15
+int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype, // add by wushanzhou in 2026/10/15
 
 				   bool neighbor_mode, SAStats *stats, int cg_max_iter,
 
@@ -455,7 +455,7 @@ int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype, // add by shanzhou
 
 
 
-	// 混合优化策略：CG 局部精修（若 cg_max_iter <= 0 则跳过）(add by shanzhou in 2026/10/15)
+	// 混合优化策略：CG 局部精修（若 cg_max_iter <= 0 则跳过）(add by wushanzhou in 2026/10/15)
 	clock_t cg_begin = clock();
 	if (cg_max_iter > 0)
 	{
@@ -650,38 +650,38 @@ int *OptiMiuCG(int N, int *Phi, int max_iter) {
 //  所有策略共享同一初始抖动掩码与同一随机种子，保证可比。
 // ==========================================================
 bool RunHybridAblation(int N, float c, unsigned long long seed,
-                       const SAParams& sap, AblationResult& out, int restartTrials)
+                       const SAParams& sap, AblationResult& out, int restartTrials) // add by wushanzhou in 2026/10/23
 {
-    (void)sap;
-    out=AblationResult(); const int m=(int)floor(N*(double)c+0.5);
-    exprng::seed(seed); int* jm=Sampling1J_Count(N,m);
-    if (!jm) return false;
-    std::vector<int> initial(jm,jm+N); delete[] jm;
-    ConstraintWeights w; ConstrainedResult result[4];
-    const SamplingSearchMethod methods[4]={SEARCH_SA,SEARCH_LOCAL,SEARCH_HYBRID,SEARCH_RESTART};
-    const int budget=restartTrials>0?restartTrials:200;
-    for (int j=0;j<4;j++) if (!RunSamplingSearch(N,m,initial,w,seed+1,budget,methods[j],result[j])) return false;
-    out.n=N;out.m=m;out.mu_init=SamplingMaskCoherence(initial);
-    out.mu_sa_only=result[0].mu;out.mu_cg_only=result[1].mu;out.mu_sa_cg=result[2].mu;
-    out.evalBudget=result[2].evals;out.restart_trials=(int)result[3].evals;
-    out.mu_restart_best=result[3].mu;out.mu_restart_mean=0;
-    // Independent pure-random restart baseline with the same objective and cap.
-    float best=out.mu_init; double sum=0;
-    exprng::seed(seed+1);
-    for(int k=0;k<budget;k++)
-    {
-        int* rm=Sampling1S_Count(N,m);std::vector<int> mk(rm,rm+N);delete[] rm;
-        float mu=SamplingMaskCoherence(mk);sum+=mu;if(mu<best)best=mu;
-    }
-    out.mu_rand_best=best;
-    exprng::seed(seed+1);sum=out.mu_init;
-    for(int k=1;k<budget;k++)
-    {
-        int* bits=Sampling1J_Count(N,m);std::vector<int> mk(bits,bits+N);delete[] bits;
-        sum+=SamplingMaskCoherence(mk);
-    }
-    out.mu_restart_mean=(float)(sum/budget);
-    return true;
+    (void)sap; // add by wushanzhou in 2026/10/23
+    out=AblationResult(); const int m=(int)floor(N*(double)c+0.5); // add by wushanzhou in 2026/10/23
+    exprng::seed(seed); int* jm=Sampling1J_Count(N,m); // add by wushanzhou in 2026/10/23
+    if (!jm) return false; // add by wushanzhou in 2026/10/23
+    std::vector<int> initial(jm,jm+N); delete[] jm; // add by wushanzhou in 2026/10/23
+    ConstraintWeights w; ConstrainedResult result[4]; // add by wushanzhou in 2026/10/23
+    const SamplingSearchMethod methods[4]={SEARCH_SA,SEARCH_LOCAL,SEARCH_HYBRID,SEARCH_RESTART}; // add by wushanzhou in 2026/10/23
+    const int budget=restartTrials>0?restartTrials:200; // add by wushanzhou in 2026/10/23
+    for (int j=0;j<4;j++) if (!RunSamplingSearch(N,m,initial,w,seed+1,budget,methods[j],result[j])) return false; // add by wushanzhou in 2026/10/23
+    out.n=N;out.m=m;out.mu_init=SamplingMaskCoherence(initial); // add by wushanzhou in 2026/10/23
+    out.mu_sa_only=result[0].mu;out.mu_cg_only=result[1].mu;out.mu_sa_cg=result[2].mu; // add by wushanzhou in 2026/10/23
+    out.evalBudget=result[2].evals;out.restart_trials=(int)result[3].evals; // add by wushanzhou in 2026/10/23
+    out.mu_restart_best=result[3].mu;out.mu_restart_mean=0; // add by wushanzhou in 2026/10/23
+    // Independent pure-random restart baseline with the same objective and cap. // add by wushanzhou in 2026/10/23
+    float best=out.mu_init; double sum=0; // add by wushanzhou in 2026/10/23
+    exprng::seed(seed+1); // add by wushanzhou in 2026/10/23
+    for(int k=0;k<budget;k++) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        int* rm=Sampling1S_Count(N,m);std::vector<int> mk(rm,rm+N);delete[] rm; // add by wushanzhou in 2026/10/23
+        float mu=SamplingMaskCoherence(mk);sum+=mu;if(mu<best)best=mu; // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    out.mu_rand_best=best; // add by wushanzhou in 2026/10/23
+    exprng::seed(seed+1);sum=out.mu_init; // add by wushanzhou in 2026/10/23
+    for(int k=1;k<budget;k++) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        int* bits=Sampling1J_Count(N,m);std::vector<int> mk(bits,bits+N);delete[] bits; // add by wushanzhou in 2026/10/23
+        sum+=SamplingMaskCoherence(mk); // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    out.mu_restart_mean=(float)(sum/budget); // add by wushanzhou in 2026/10/23
+    return true; // add by wushanzhou in 2026/10/23
 }
 
 static int cons_max_gap(const std::vector<int>& idx, int N)
@@ -748,204 +748,251 @@ static double cons_objective(float mu, int maxGap, float nnCv, int N, int m,
     return (double)mu + w.lambdaGap * pGap + w.lambdaNN * pNn;
 }
 
-float SamplingMaskCoherence(const std::vector<int>& mask)
-{
-    std::vector<int> idx;
-    for (int i = 0; i < (int)mask.size(); i++) if (mask[i] == 1) idx.push_back(i);
-    return SamplingMutualCoherence1D(idx, (int)mask.size());
-}
-int SamplingMaxGap(const std::vector<int>& mask)
-{
-    std::vector<int> idx;
-    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i);
-    return cons_max_gap(idx, (int)mask.size());
-}
-float SamplingNNCv(const std::vector<int>& mask)
-{
-    std::vector<int> idx;
-    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i);
-    return cons_nn_cv(idx);
-}
-float SamplingUnitOccupancy(const std::vector<int>& mask)
-{
-    std::vector<int> idx;
-    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i);
-    return cons_unit_occupancy(idx, (int)mask.size(), (int)idx.size());
-}
-static void search_measure(const std::vector<int>& mask, const ConstraintWeights& w,
-                            int m, ConstrainedResult& out, int gridRows)
-{
-    out.mask = mask;
-    out.mu = gridRows == 1 ? SamplingMaskCoherence(mask) :
-             SamplingMutualCoherence2D(mask, gridRows, (int)mask.size() / gridRows);
-    out.maxGap = SamplingMaxGap(mask);
-    out.nnCv = SamplingNNCv(mask);
-    out.unitOccupancy = SamplingUnitOccupancy(mask);
-    out.objective = (float)cons_objective(out.mu, out.maxGap, out.nnCv, (int)mask.size(), m, w);
-    out.hardConstraintSatisfied = w.hardMaxGap <= 0 || out.maxGap <= w.hardMaxGap;
-}
+float SamplingMaskCoherence(const std::vector<int>& mask) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    std::vector<int> idx; // add by wushanzhou in 2026/10/23
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i] == 1) idx.push_back(i); // add by wushanzhou in 2026/10/23
+    return SamplingMutualCoherence1D(idx, (int)mask.size()); // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
+int SamplingMaxGap(const std::vector<int>& mask) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    std::vector<int> idx; // add by wushanzhou in 2026/10/23
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i); // add by wushanzhou in 2026/10/23
+    return cons_max_gap(idx, (int)mask.size()); // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
+float SamplingNNCv(const std::vector<int>& mask) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    std::vector<int> idx; // add by wushanzhou in 2026/10/23
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i); // add by wushanzhou in 2026/10/23
+    return cons_nn_cv(idx); // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
+float SamplingUnitOccupancy(const std::vector<int>& mask) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    std::vector<int> idx; // add by wushanzhou in 2026/10/23
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i); // add by wushanzhou in 2026/10/23
+    return cons_unit_occupancy(idx, (int)mask.size(), (int)idx.size()); // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
+float SamplingPhysicalCoherence(const std::vector<int>& mask, const std::vector<double>& x) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    if (mask.size()!=x.size() || x.size()<2) return -1; // add by wushanzhou in 2026/10/23
+    int m=0; const int n=(int)x.size(); // add by wushanzhou in 2026/10/23
+    for(int j=0;j<n;j++) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        if(x[j]!=x[j] || fabs(x[j])>1e20 || (j && x[j]<=x[j-1]) || (mask[j]!=0 && mask[j]!=1))return -1; // add by wushanzhou in 2026/10/23
+        m+=mask[j]; // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    if(!m)return -1; // add by wushanzhou in 2026/10/23
+    // Dictionary frequencies k/L, k=0..N-1; L=N*mean candidate spacing. // add by wushanzhou in 2026/10/23
+    // Uniform positions recover the index PSF exactly. Irregular full coverage need not have mu=0. // add by wushanzhou in 2026/10/23
+    const double period=(x.back()-x.front())*n/(n-1);double maximum=0; // add by wushanzhou in 2026/10/23
+    for(int d=1;d<n;d++) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        double re=0,im=0; // add by wushanzhou in 2026/10/23
+        for(int j=0;j<n;j++)if(mask[j]) // add by wushanzhou in 2026/10/23
+        {double a=-6.28318530717958647692*d*(x[j]-x.front())/period;re+=cos(a);im+=sin(a);} // add by wushanzhou in 2026/10/23
+        maximum=std::max(maximum,sqrt(re*re+im*im)/m); // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    return (float)maximum; // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
 
-bool RunSamplingSearch(int N, int m, const std::vector<int>& initial,
-                       const ConstraintWeights& w, unsigned long long seed,
-                       int budget, SamplingSearchMethod method, ConstrainedResult& out,
-                       int prefixBudget, int gridRows)
-{
-    out = ConstrainedResult();
-    const clock_t started = clock();
-    out.status = "invalid_input";
-    if (gridRows < 1 || N % gridRows != 0 || N <= 1 || m <= 0 || m >= N || budget < 1 || (int)initial.size() != N ||
-        !ValidateSamplingMask(N, m, &initial[0]) || w.lambdaGap < 0 || w.lambdaNN < 0 ||
-        method < SEARCH_SA || method > SEARCH_RESTART) return false;
-    if (w.hardMaxGap > 0 && (long long)(m + 1) * w.hardMaxGap < N - 1)
-    { out.status = "infeasible_hard_gap"; return false; }
-    std::vector<int> cur = initial;
-    if (w.hardMaxGap > 0 && SamplingMaxGap(cur) > w.hardMaxGap)
-    {
-        // Deterministic feasible initialization; retain the exact point count.
-        for (int i = 0; i < N; i++) cur[i] = 0;
-        for (int k = 0; k < m; k++) cur[(int)((long long)(k + 1) * (N - 1) / (m + 1))] = 1;
-        if (!ValidateSamplingMask(N, m, &cur[0]) || SamplingMaxGap(cur) > w.hardMaxGap)
-        { out.status = "no_feasible_initialization"; return false; }
-    }
-    exprng::seed(seed);
-    search_measure(cur, w, m, out, gridRows);
-    if (out.mu < 0) { out.status = "objective_failure"; return false; }
-    out.evals = 1;
-    out.bestTrace.push_back(out.objective);
-    out.currentTrace.push_back(out.objective);
-    double current = out.objective;
-    if (prefixBudget < 1) prefixBudget = 1;
-    if (prefixBudget > budget) prefixBudget = budget;
-    const int saLimit = method == SEARCH_HYBRID ? prefixBudget : budget;
-    int attempts = 0;
-    if (method == SEARCH_SA || method == SEARCH_HYBRID)
-    {
-        while (out.evals < saLimit && attempts < budget * 100)
-        {
-            attempts++;
-            std::vector<int> ones, zeros;
-            for (int i = 0; i < N; i++) (cur[i] ? ones : zeros).push_back(i);
-            std::vector<int> candidate = cur;
-            candidate[ones[exprng::integer() % ones.size()]] = 0;
-            candidate[zeros[exprng::integer() % zeros.size()]] = 1;
-            if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue;
-            ConstrainedResult measured;
-            search_measure(candidate, w, m, measured, gridRows);
-            if (measured.mu < 0) { out.status = "objective_failure"; return false; }
-            out.evals++;
-            // Same temperature schedule and random stream across SA/hybrid prefixes.
-            const double temperature = 0.1 * pow(0.01, (double)(out.evals - 2) / std::max(1, prefixBudget - 1));
-            const double delta = measured.objective - current;
-            if (delta <= 0.0 || exprng::uniform() < exp(-delta / std::max(temperature, 1e-8)))
-            { cur = candidate; current = measured.objective; }
-            if (measured.objective < out.objective)
-            {
-                out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective;
-                out.maxGap = measured.maxGap; out.nnCv = measured.nnCv;
-                out.unitOccupancy = measured.unitOccupancy;
-            }
-            out.bestTrace.push_back(out.objective);
-            out.currentTrace.push_back((float)current);
-            if (out.evals == prefixBudget)
-            { out.saPrefixMask = out.mask; out.saPrefixEvals = out.evals; }
-        }
-        if (out.saPrefixMask.empty()) { out.saPrefixMask = out.mask; out.saPrefixEvals = out.evals; }
-    }
-    if (method == SEARCH_RESTART)
-    {
-        while (out.evals < budget && attempts < budget * 100)
-        {
-            attempts++;
-            int *jitter = Sampling1J_Count(N, m);
-            std::vector<int> candidate(jitter, jitter + N); delete[] jitter;
-            if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue;
-            ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows);
-            if (measured.mu < 0) { out.status = "objective_failure"; return false; }
-            out.evals++;
-            if (measured.objective < out.objective)
-            { out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective;
-              out.maxGap = measured.maxGap; out.nnCv = measured.nnCv; out.unitOccupancy = measured.unitOccupancy; }
-            out.bestTrace.push_back(out.objective);
-            out.currentTrace.push_back(measured.objective);
-        }
-    }
-    if (method == SEARCH_LOCAL || method == SEARCH_HYBRID)
-    {
-        bool improved = true;
-        while (out.evals < budget && improved)
-        {
-            improved = false;
-            for (int i = 0; i < N && out.evals < budget; i++)
-            {
-                if (!out.mask[i]) continue;
-                const int width = N / gridRows;
-                const int shifts[4] = {-1,1,-width,width};
-                for (int d = 0; d < (gridRows == 1 ? 2 : 4) && out.evals < budget; d++)
-                {
-                    if (gridRows > 1 && d < 2 && (i % width + shifts[d] < 0 || i % width + shifts[d] >= width)) continue;
-                    int j = i + shifts[d];
-                    if (j < 0 || j >= N || out.mask[j]) continue;
-                    std::vector<int> candidate = out.mask; candidate[i] = 0; candidate[j] = 1;
-                    if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue;
-                    ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows);
-                    if (measured.mu < 0) { out.status = "objective_failure"; return false; }
-                    out.evals++;
-                    out.currentTrace.push_back(measured.objective);
-                    if (measured.objective + 1e-8f < out.objective)
-                    {
-                        out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective;
-                        out.maxGap = measured.maxGap; out.nnCv = measured.nnCv;
-                        out.unitOccupancy = measured.unitOccupancy; improved = true;
-                        out.bestTrace.push_back(out.objective);
-                        break;
-                    }
-                    out.bestTrace.push_back(out.objective);
-                }
-            }
-        }
-    }
-    out.hardConstraintSatisfied = w.hardMaxGap <= 0 || out.maxGap <= w.hardMaxGap;
-    out.runtimeMs = (double)(clock() - started) * 1000.0 / CLOCKS_PER_SEC;
-    out.status = out.evals >= budget ? "budget_exhausted" : "search_stopped";
-    return out.hardConstraintSatisfied && ValidateSamplingMask(N, m, &out.mask[0]);
-}
+static void search_measure(const std::vector<int>& mask, const ConstraintWeights& w, // add by wushanzhou in 2026/10/23
+                            int m, ConstrainedResult& out, int gridRows, const std::vector<double>* coordinates) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    out.mask = mask; // add by wushanzhou in 2026/10/23
+    out.mu = gridRows == 1 ? SamplingMaskCoherence(mask) : // add by wushanzhou in 2026/10/23
+             SamplingMutualCoherence2D(mask, gridRows, (int)mask.size() / gridRows); // add by wushanzhou in 2026/10/23
+    out.maxGap = SamplingMaxGap(mask); // add by wushanzhou in 2026/10/23
+    out.nnCv = SamplingNNCv(mask); // add by wushanzhou in 2026/10/23
+    out.unitOccupancy = SamplingUnitOccupancy(mask); // add by wushanzhou in 2026/10/23
+    out.objective = (float)cons_objective(out.mu, out.maxGap, out.nnCv, (int)mask.size(), m, w); // add by wushanzhou in 2026/10/23
+    if(coordinates) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        const std::vector<double>& x=*coordinates;std::vector<double> kept,nearest; // add by wushanzhou in 2026/10/23
+        out.mu=SamplingPhysicalCoherence(mask,x); // add by wushanzhou in 2026/10/23
+        for(size_t i=0;i<mask.size();i++)if(mask[i])kept.push_back(x[i]); // add by wushanzhou in 2026/10/23
+        out.maxGapM=std::max(kept.front()-x.front(),x.back()-kept.back()); // add by wushanzhou in 2026/10/23
+        double mean=0,variance=0; // add by wushanzhou in 2026/10/23
+        for(size_t k=0;k<kept.size();k++) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            double left=k?kept[k]-kept[k-1]:1e100; // add by wushanzhou in 2026/10/23
+            double right=k+1<kept.size()?kept[k+1]-kept[k]:1e100; // add by wushanzhou in 2026/10/23
+            double distance=kept.size()==1?0:std::min(left,right);nearest.push_back(distance);mean+=distance; // add by wushanzhou in 2026/10/23
+            if(k)out.maxGapM=std::max(out.maxGapM,left); // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+        mean/=m;for(size_t k=0;k<nearest.size();k++)variance+=(nearest[k]-mean)*(nearest[k]-mean); // add by wushanzhou in 2026/10/23
+        out.nnCv=mean>0?(float)(sqrt(variance/m)/mean):0; // add by wushanzhou in 2026/10/23
+        const double period=(x.back()-x.front())*x.size()/(x.size()-1); // add by wushanzhou in 2026/10/23
+        out.objective=(float)(out.mu+w.lambdaGap*std::max(0.0,out.maxGapM/(period/m)-1)+w.lambdaNN*out.nnCv); // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    out.hardConstraintSatisfied = w.hardMaxGap <= 0 || out.maxGap <= w.hardMaxGap; // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
 
-bool RunConstrainedSA(int N, int m, const std::vector<int>& initial,
+bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by wushanzhou in 2026/10/23
+                       const ConstraintWeights& w, unsigned long long seed, // add by wushanzhou in 2026/10/23
+                       int budget, SamplingSearchMethod method, ConstrainedResult& out, // add by wushanzhou in 2026/10/23
+                       int prefixBudget, int gridRows, const std::vector<double>* coordinates) // add by wushanzhou in 2026/10/23
+{ // add by wushanzhou in 2026/10/23
+    out = ConstrainedResult(); // add by wushanzhou in 2026/10/23
+    const clock_t started = clock(); // add by wushanzhou in 2026/10/23
+    out.status = "invalid_input"; // add by wushanzhou in 2026/10/23
+    if (gridRows < 1 || N % gridRows != 0 || N <= 1 || m <= 0 || m >= N || budget < 1 || (int)initial.size() != N || // add by wushanzhou in 2026/10/23
+        !ValidateSamplingMask(N, m, &initial[0]) || w.lambdaGap < 0 || w.lambdaNN < 0 || // add by wushanzhou in 2026/10/23
+        method < SEARCH_SA || method > SEARCH_RESTART) return false; // add by wushanzhou in 2026/10/23
+    if(coordinates && (gridRows!=1 || w.hardMaxGap>0 || SamplingPhysicalCoherence(initial,*coordinates)<0)) // add by wushanzhou in 2026/10/23
+    {out.status="invalid_physical_coordinates_or_index_hard_bound";return false;} // add by wushanzhou in 2026/10/23
+    if (w.hardMaxGap > 0 && (long long)(m + 1) * w.hardMaxGap < N - 1) // add by wushanzhou in 2026/10/23
+    { out.status = "infeasible_hard_gap"; return false; } // add by wushanzhou in 2026/10/23
+    std::vector<int> cur = initial; // add by wushanzhou in 2026/10/23
+    if (w.hardMaxGap > 0 && SamplingMaxGap(cur) > w.hardMaxGap) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        // Deterministic feasible initialization; retain the exact point count. // add by wushanzhou in 2026/10/23
+        for (int i = 0; i < N; i++) cur[i] = 0; // add by wushanzhou in 2026/10/23
+        for (int k = 0; k < m; k++) cur[(int)((long long)(k + 1) * (N - 1) / (m + 1))] = 1; // add by wushanzhou in 2026/10/23
+        if (!ValidateSamplingMask(N, m, &cur[0]) || SamplingMaxGap(cur) > w.hardMaxGap) // add by wushanzhou in 2026/10/23
+        { out.status = "no_feasible_initialization"; return false; } // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    exprng::seed(seed); // add by wushanzhou in 2026/10/23
+    search_measure(cur, w, m, out, gridRows, coordinates); // add by wushanzhou in 2026/10/23
+    if (out.mu < 0) { out.status = "objective_failure"; return false; } // add by wushanzhou in 2026/10/23
+    out.evals = 1; // add by wushanzhou in 2026/10/23
+    out.bestTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
+    out.currentTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
+    double current = out.objective; // add by wushanzhou in 2026/10/23
+    if (prefixBudget < 1) prefixBudget = 1; // add by wushanzhou in 2026/10/23
+    if (prefixBudget > budget) prefixBudget = budget; // add by wushanzhou in 2026/10/23
+    const int saLimit = method == SEARCH_HYBRID ? prefixBudget : budget; // add by wushanzhou in 2026/10/23
+    int attempts = 0; // add by wushanzhou in 2026/10/23
+    if (method == SEARCH_SA || method == SEARCH_HYBRID) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        while (out.evals < saLimit && attempts < budget * 100) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            attempts++; // add by wushanzhou in 2026/10/23
+            std::vector<int> ones, zeros; // add by wushanzhou in 2026/10/23
+            for (int i = 0; i < N; i++) (cur[i] ? ones : zeros).push_back(i); // add by wushanzhou in 2026/10/23
+            std::vector<int> candidate = cur; // add by wushanzhou in 2026/10/23
+            candidate[ones[exprng::integer() % ones.size()]] = 0; // add by wushanzhou in 2026/10/23
+            candidate[zeros[exprng::integer() % zeros.size()]] = 1; // add by wushanzhou in 2026/10/23
+            if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue; // add by wushanzhou in 2026/10/23
+            ConstrainedResult measured; // add by wushanzhou in 2026/10/23
+            search_measure(candidate, w, m, measured, gridRows, coordinates); // add by wushanzhou in 2026/10/23
+            if (measured.mu < 0) { out.status = "objective_failure"; return false; } // add by wushanzhou in 2026/10/23
+            out.evals++; // add by wushanzhou in 2026/10/23
+            // Same temperature schedule and random stream across SA/hybrid prefixes. // add by wushanzhou in 2026/10/23
+            const double temperature = 0.1 * pow(0.01, (double)(out.evals - 2) / std::max(1, prefixBudget - 1)); // add by wushanzhou in 2026/10/23
+            const double delta = measured.objective - current; // add by wushanzhou in 2026/10/23
+            if (delta <= 0.0 || exprng::uniform() < exp(-delta / std::max(temperature, 1e-8))) // add by wushanzhou in 2026/10/23
+            { cur = candidate; current = measured.objective; } // add by wushanzhou in 2026/10/23
+            if (measured.objective < out.objective) // add by wushanzhou in 2026/10/23
+            { // add by wushanzhou in 2026/10/23
+                out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective; // add by wushanzhou in 2026/10/23
+                out.maxGap = measured.maxGap; out.nnCv = measured.nnCv; // add by wushanzhou in 2026/10/23
+                out.unitOccupancy = measured.unitOccupancy; // add by wushanzhou in 2026/10/23
+                out.maxGapM = measured.maxGapM; // add by wushanzhou in 2026/10/23
+            } // add by wushanzhou in 2026/10/23
+            out.bestTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
+            out.currentTrace.push_back((float)current); // add by wushanzhou in 2026/10/23
+            if (out.evals == prefixBudget) // add by wushanzhou in 2026/10/23
+            { out.saPrefixMask = out.mask; out.saPrefixEvals = out.evals; } // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+        if (out.saPrefixMask.empty()) { out.saPrefixMask = out.mask; out.saPrefixEvals = out.evals; } // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    if (method == SEARCH_RESTART) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        while (out.evals < budget && attempts < budget * 100) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            attempts++; // add by wushanzhou in 2026/10/23
+            int *jitter = Sampling1J_Count(N, m); // add by wushanzhou in 2026/10/23
+            std::vector<int> candidate(jitter, jitter + N); delete[] jitter; // add by wushanzhou in 2026/10/23
+            if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue; // add by wushanzhou in 2026/10/23
+            ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows, coordinates); // add by wushanzhou in 2026/10/23
+            if (measured.mu < 0) { out.status = "objective_failure"; return false; } // add by wushanzhou in 2026/10/23
+            out.evals++; // add by wushanzhou in 2026/10/23
+            if (measured.objective < out.objective) // add by wushanzhou in 2026/10/23
+            { out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective; // add by wushanzhou in 2026/10/23
+              out.maxGap = measured.maxGap; out.nnCv = measured.nnCv; out.unitOccupancy = measured.unitOccupancy; // add by wushanzhou in 2026/10/23
+              out.maxGapM=measured.maxGapM; } // add by wushanzhou in 2026/10/23
+            out.bestTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
+            out.currentTrace.push_back(measured.objective); // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    if (method == SEARCH_LOCAL || method == SEARCH_HYBRID) // add by wushanzhou in 2026/10/23
+    { // add by wushanzhou in 2026/10/23
+        bool improved = true; // add by wushanzhou in 2026/10/23
+        while (out.evals < budget && improved) // add by wushanzhou in 2026/10/23
+        { // add by wushanzhou in 2026/10/23
+            improved = false; // add by wushanzhou in 2026/10/23
+            for (int i = 0; i < N && out.evals < budget; i++) // add by wushanzhou in 2026/10/23
+            { // add by wushanzhou in 2026/10/23
+                if (!out.mask[i]) continue; // add by wushanzhou in 2026/10/23
+                const int width = N / gridRows; // add by wushanzhou in 2026/10/23
+                const int shifts[4] = {-1,1,-width,width}; // add by wushanzhou in 2026/10/23
+                for (int d = 0; d < (gridRows == 1 ? 2 : 4) && out.evals < budget; d++) // add by wushanzhou in 2026/10/23
+                { // add by wushanzhou in 2026/10/23
+                    if (gridRows > 1 && d < 2 && (i % width + shifts[d] < 0 || i % width + shifts[d] >= width)) continue; // add by wushanzhou in 2026/10/23
+                    int j = i + shifts[d]; // add by wushanzhou in 2026/10/23
+                    if (j < 0 || j >= N || out.mask[j]) continue; // add by wushanzhou in 2026/10/23
+                    std::vector<int> candidate = out.mask; candidate[i] = 0; candidate[j] = 1; // add by wushanzhou in 2026/10/23
+                    if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue; // add by wushanzhou in 2026/10/23
+                    ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows, coordinates); // add by wushanzhou in 2026/10/23
+                    if (measured.mu < 0) { out.status = "objective_failure"; return false; } // add by wushanzhou in 2026/10/23
+                    out.evals++; // add by wushanzhou in 2026/10/23
+                    out.currentTrace.push_back(measured.objective); // add by wushanzhou in 2026/10/23
+                    if (measured.objective + 1e-8f < out.objective) // add by wushanzhou in 2026/10/23
+                    { // add by wushanzhou in 2026/10/23
+                        out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective; // add by wushanzhou in 2026/10/23
+                        out.maxGap = measured.maxGap; out.nnCv = measured.nnCv; // add by wushanzhou in 2026/10/23
+                        out.unitOccupancy = measured.unitOccupancy; improved = true; // add by wushanzhou in 2026/10/23
+                        out.maxGapM=measured.maxGapM; // add by wushanzhou in 2026/10/23
+                        out.bestTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
+                        break; // add by wushanzhou in 2026/10/23
+                    } // add by wushanzhou in 2026/10/23
+                    out.bestTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
+                } // add by wushanzhou in 2026/10/23
+            } // add by wushanzhou in 2026/10/23
+        } // add by wushanzhou in 2026/10/23
+    } // add by wushanzhou in 2026/10/23
+    out.hardConstraintSatisfied = w.hardMaxGap <= 0 || out.maxGap <= w.hardMaxGap; // add by wushanzhou in 2026/10/23
+    out.runtimeMs = (double)(clock() - started) * 1000.0 / CLOCKS_PER_SEC; // add by wushanzhou in 2026/10/23
+    out.status = out.evals >= budget ? "budget_exhausted" : "search_stopped"; // add by wushanzhou in 2026/10/23
+    return out.hardConstraintSatisfied && ValidateSamplingMask(N, m, &out.mask[0]); // add by wushanzhou in 2026/10/23
+} // add by wushanzhou in 2026/10/23
+
+bool RunConstrainedSA(int N, int m, const std::vector<int>& initial, // add by wushanzhou in 2026/10/23
                       const ConstraintWeights& w, unsigned long long seed,
                       int maxSteps, ConstrainedResult& out)
 {
-    return RunSamplingSearch(N, m, initial, w, seed, maxSteps + 1, SEARCH_HYBRID, out,
-                             std::max(1, (maxSteps + 1) / 3));
+    return RunSamplingSearch(N, m, initial, w, seed, maxSteps + 1, SEARCH_HYBRID, out, // add by wushanzhou in 2026/10/23
+                             std::max(1, (maxSteps + 1) / 3)); // add by wushanzhou in 2026/10/23
 }
 
-bool RunMultiSeedAblation(int N, float c, int nSeeds, unsigned long long baseSeed,
-                          std::vector<AblationRow>& rows)
+bool RunMultiSeedAblation(int N, float c, int nSeeds, unsigned long long baseSeed, // add by wushanzhou in 2026/10/23
+                          std::vector<AblationRow>& rows) // add by wushanzhou in 2026/10/23
 {
-    rows.clear();
-    const int m = (int)floor(N * (double)c + 0.5);
-    if (N <= 1 || m <= 0 || m >= N || nSeeds <= 0) return false;
+    rows.clear(); // add by wushanzhou in 2026/10/23
+    const int m = (int)floor(N * (double)c + 0.5); // add by wushanzhou in 2026/10/23
+    if (N <= 1 || m <= 0 || m >= N || nSeeds <= 0) return false; // add by wushanzhou in 2026/10/23
     for (int k = 0; k < nSeeds; k++)
     {
-        AblationRow row; row.seedIndex = k; row.seed = baseSeed + (unsigned long long)k * 179ULL;
+        AblationRow row; row.seedIndex = k; row.seed = baseSeed + (unsigned long long)k * 179ULL; // add by wushanzhou in 2026/10/23
         exprng::seed(row.seed);
-        int *jm = Sampling1J_Count(N, m); std::vector<int> initial(jm, jm + N); delete[] jm;
-        row.muJitterInit = SamplingMaskCoherence(initial);
-        ConstraintWeights w;
-        ConstrainedResult sa, local, hybrid, restart, constrained;
-        if (!RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_SA,sa) ||
-            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_LOCAL,local) ||
-            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_HYBRID,hybrid) ||
-            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_RESTART,restart)) return false;
-        if (sa.saPrefixMask != hybrid.saPrefixMask) return false;
-        w.lambdaGap = 0.3; w.lambdaNN = 0.3;
-        if (!RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_HYBRID,constrained)) return false;
-        row.muSaOnly=sa.mu; row.muLocalOnly=local.mu; row.muSaLocal=hybrid.mu;
-        row.muRestartBest=restart.mu; row.muConstrained=constrained.mu;
-        row.evalsSaOnly=sa.evals; row.evalsLocalOnly=local.evals; row.evalsSaLocal=hybrid.evals;
-        row.evalsRestart=restart.evals; row.evalsConstrained=constrained.evals;
-        row.maxGapSaLocal=hybrid.maxGap; row.maxGapConstrained=constrained.maxGap;
-        row.nnCvSaLocal=hybrid.nnCv; row.nnCvConstrained=constrained.nnCv;
-        rows.push_back(row);
+        int *jm = Sampling1J_Count(N, m); std::vector<int> initial(jm, jm + N); delete[] jm; // add by wushanzhou in 2026/10/23
+        row.muJitterInit = SamplingMaskCoherence(initial); // add by wushanzhou in 2026/10/23
+        ConstraintWeights w; // add by wushanzhou in 2026/10/23
+        ConstrainedResult sa, local, hybrid, restart, constrained; // add by wushanzhou in 2026/10/23
+        if (!RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_SA,sa) || // add by wushanzhou in 2026/10/23
+            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_LOCAL,local) || // add by wushanzhou in 2026/10/23
+            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_HYBRID,hybrid) || // add by wushanzhou in 2026/10/23
+            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_RESTART,restart)) return false; // add by wushanzhou in 2026/10/23
+        if (sa.saPrefixMask != hybrid.saPrefixMask) return false; // add by wushanzhou in 2026/10/23
+        w.lambdaGap = 0.3; w.lambdaNN = 0.3; // add by wushanzhou in 2026/10/23
+        if (!RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_HYBRID,constrained)) return false; // add by wushanzhou in 2026/10/23
+        row.muSaOnly=sa.mu; row.muLocalOnly=local.mu; row.muSaLocal=hybrid.mu; // add by wushanzhou in 2026/10/23
+        row.muRestartBest=restart.mu; row.muConstrained=constrained.mu; // add by wushanzhou in 2026/10/23
+        row.evalsSaOnly=sa.evals; row.evalsLocalOnly=local.evals; row.evalsSaLocal=hybrid.evals; // add by wushanzhou in 2026/10/23
+        row.evalsRestart=restart.evals; row.evalsConstrained=constrained.evals; // add by wushanzhou in 2026/10/23
+        row.maxGapSaLocal=hybrid.maxGap; row.maxGapConstrained=constrained.maxGap; // add by wushanzhou in 2026/10/23
+        row.nnCvSaLocal=hybrid.nnCv; row.nnCvConstrained=constrained.nnCv; // add by wushanzhou in 2026/10/23
+        rows.push_back(row); // add by wushanzhou in 2026/10/23
     }
     return true;
-}
+} // add by wushanzhou in 2026/10/23

@@ -8,12 +8,12 @@
 #include <string.h>
 
 //****** 对二维矩阵的行进行采样,数据类型为int ******
-// 修复 2026.10.15 // add by shanzhou in 2026/10/15：原实现按"对角矩阵×二维矩阵"的矩阵乘法计算，
+// 修复 2026.10.15 // add by wushanzhou in 2026/10/15：原实现按"对角矩阵×二维矩阵"的矩阵乘法计算，
 // 复杂度 O(m^2*col)，被标记弃用但仍是主流程的现行调用。
 // 对角矩阵乘法在数学上等价于"按行掩码选择"，此处直接选择，
 // 输出与原实现逐位一致（phi[i]==1 保留第 i 行，否则置零），
 // 分配/释放约定不变（malloc 分配，调用方 free）。
-int **MulMatrix(int m,int *phi,int col,int **Phi) // add by shanzhou in 2026/10/15 //对Phi的行进行采样
+int **MulMatrix(int m,int *phi,int col,int **Phi) // add by wushanzhou in 2026/10/15 //对Phi的行进行采样
 {
 	int **c = (int**)malloc(sizeof(int*) * m);
 	for (int i = 0; i < m; i++)

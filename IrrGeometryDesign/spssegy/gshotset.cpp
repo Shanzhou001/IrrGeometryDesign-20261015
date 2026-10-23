@@ -1,3 +1,4 @@
+﻿// Explicit UTF-8 BOM prevents MSVC 9 code-page misparsing. add by wushanzhou in 2026/10/23
 #include "gshotset.h"
 #include "grlineset.h"
 #include "gslineset.h"
@@ -2178,7 +2179,7 @@ int GShotSet::getRecNumByLineNamePointName(QString LineName,QString PointName)//
 }
 
 //sps2.1汾
-bool GShotSet::saveXFile2(const QString &fileName, GSLineSet *pSLineSet, GRLineSet *pRLineSet) // add by shanzhou in 2026/10/15
+bool GShotSet::saveXFile2(const QString &fileName, GSLineSet *pSLineSet, GRLineSet *pRLineSet) // add by wushanzhou in 2026/10/15
 {
 	//Ϊ1.0ʽ
 /*	QFile file(fileName);

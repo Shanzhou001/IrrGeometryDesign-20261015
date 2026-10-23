@@ -1,4 +1,4 @@
-﻿// add by shanzhou in 2026/10/15
+﻿// add by wushanzhou in 2026/10/15
 #ifndef SCIENTIFIC_PLOTTER_H
 #define SCIENTIFIC_PLOTTER_H
 
@@ -21,7 +21,7 @@
 #include <cmath>
 #include <algorithm>
 
-// add by shanzhou in 2026/10/15
+// add by wushanzhou in 2026/10/15
 class ScientificPlotter
 {
 public:
@@ -153,9 +153,9 @@ public:
         QPainter p(&img);
         p.setRenderHint(QPainter::Antialiasing, true);
 
-        QString title = QString::fromLocal8Bit("混合搜索经典 PSF 互干度收敛曲线 [采样率: ") +
+        QString title = QString::fromLocal8Bit("混合搜索经典 PSF 互干度收敛曲线 [采样率: ") + // add by wushanzhou in 2026/10/23
                         QString::number(rate * 100.0f, 'f', 0) + "%, m=" + QString::number(m) + "/" + QString::number(N) + "]";
-        QString subtitle = QString::fromLocal8Bit("同一 PSF 目标；SA 前缀 64 次评估后局部精修，总评估上限 200");
+        QString subtitle = QString::fromLocal8Bit("同一 PSF 目标；SA 前缀 64 次评估后局部精修，总评估上限 200"); // add by wushanzhou in 2026/10/23
         drawHeader(p, W, title, subtitle);
 
         QRect plotRect(80, 105, 540, 370);
@@ -253,17 +253,17 @@ public:
         cardLines.push_back(QString::fromLocal8Bit("抽取保留点 m: ") + QString::number(m));
         cardLines.push_back(QString::fromLocal8Bit("规则减抽相干度: ") + QString::number(regMiu, 'f', 4));
         cardLines.push_back(QString::fromLocal8Bit("纯随机抽样相干度: ") + QString::number(randMiu, 'f', 4));
-        cardLines.push_back(QString::fromLocal8Bit("混合搜索最终最优: ") + QString::number(finalBest, 'f', 4));
+        cardLines.push_back(QString::fromLocal8Bit("混合搜索最终最优: ") + QString::number(finalBest, 'f', 4)); // add by wushanzhou in 2026/10/23
         float imprvReg = (regMiu > 1e-4f) ? ((regMiu - finalBest) / regMiu * 100.0f) : 0.0f;
         float attenDb = (finalBest > 1e-6f && regMiu > 1e-6f) ? (20.0f * (float)log10(regMiu / finalBest)) : 0.0f;
         cardLines.push_back(QString::fromLocal8Bit("相干度降幅: ") + QString::number(imprvReg, 'f', 2) + "%");
         cardLines.push_back(QString::fromLocal8Bit("相干度衰减: ") + QString::number(attenDb, 'f', 2) + " dB");
-        drawCard(p, QRect(650, 105, 230, 215), QString::fromLocal8Bit("混合搜索指标统计"), cardLines);
+        drawCard(p, QRect(650, 105, 230, 215), QString::fromLocal8Bit("混合搜索指标统计"), cardLines); // add by wushanzhou in 2026/10/23
 
         // 图例卡片
         std::vector<QString> legendLines;
         legendLines.push_back(QString::fromLocal8Bit("━━ 红色粗线: 历史最优收敛 (Best)"));
-        legendLines.push_back(QString::fromLocal8Bit("── 浅蓝细线: SA 当前解 / 局部候选目标"));
+        legendLines.push_back(QString::fromLocal8Bit("── 浅蓝细线: SA 当前解 / 局部候选目标")); // add by wushanzhou in 2026/10/23
         legendLines.push_back(QString::fromLocal8Bit("┈┈ 灰色虚线: 规则采样基线 (Regular)"));
         legendLines.push_back(QString::fromLocal8Bit("┈┈ 橙色虚线: 纯随机抽样基线 (Random)"));
         drawCard(p, QRect(650, 335, 230, 140), QString::fromLocal8Bit("图线说明与图例 (Legend)"), legendLines);
@@ -290,7 +290,7 @@ public:
         p.setRenderHint(QPainter::Antialiasing, true);
 
         QString title = QString::fromLocal8Bit("不同采样比例下三种采样方案互相干度综合对比与衰减分析");
-        QString subtitle = QString::fromLocal8Bit("对比方案：规则减抽采样 vs 纯随机采样 vs Jitter-SA 优化（数值为 μ，仅反映相干度差异）");
+        QString subtitle = QString::fromLocal8Bit("对比方案：规则减抽采样 vs 纯随机采样 vs Hybrid 优化（数值为 μ，仅反映相干度差异）"); // add by wushanzhou in 2026/10/23
         drawHeader(p, W, title, subtitle);
 
         QRect plotRect(80, 105, 560, 370);
@@ -348,7 +348,7 @@ public:
                 p.drawRect(rRnd);
                 p.drawText(rRnd.left() - 2, rRnd.top() - 5, QString::number(rnd, 'f', 4));
 
-                // Jitter-SA 优化采样柱 (翠绿)
+                // Hybrid 优化采样柱 (翠绿) // add by wushanzhou in 2026/10/23
                 int hSa = (int)(sa * plotRect.height());
                 QRect rSa(x0 + (barWidth + 6) * 2, plotRect.bottom() - hSa, barWidth, hSa);
                 p.fillRect(rSa, QColor(34, 197, 94));
@@ -380,7 +380,7 @@ public:
         std::vector<QString> legend;
         legend.push_back(QString::fromLocal8Bit("■ 灰蓝柱: 规则减抽采样 (周期假频)"));
         legend.push_back(QString::fromLocal8Bit("■ 橙黄柱: 纯随机抽样 (随机白噪)"));
-        legend.push_back(QString::fromLocal8Bit("■ 翠绿柱: Jitter 初始化的混合搜索"));
+        legend.push_back(QString::fromLocal8Bit("■ 翠绿柱: Jitter 初始化的混合搜索")); // add by wushanzhou in 2026/10/23
         drawCard(p, QRect(660, 105, 240, 120), QString::fromLocal8Bit("采样方案图例 (Legend)"), legend);
 
         // 学术结论文字改为按实测数值动态生成，杜绝与柱状图数值自相矛盾 (2026.10.19)
@@ -406,7 +406,7 @@ public:
         }
         else
         {
-            insights.push_back(QString::fromLocal8Bit("1. 当前没有可用于比较的采样率数据。"));
+            insights.push_back(QString::fromLocal8Bit("1. 当前没有可用于比较的采样率数据。")); // add by wushanzhou in 2026/10/23
             insights.push_back(QString::fromLocal8Bit("   (详细分档数值见统计明细表)"));
         }
         insights.push_back(QString::fromLocal8Bit("2. 相比纯随机，Jitter 初始化提供"));
@@ -734,7 +734,7 @@ public:
 
         const std::vector<std::vector<float> >* gathers[4] = { &d_full, &d_sub, &d_recon, &d_res };
         QString panelLine1[4] = {
-            QString::fromLocal8Bit("(a) 原始单炮记录 (Ground Truth)"),
+            QString::fromLocal8Bit("(a) 参考波场 (Reference)"), // add by wushanzhou in 2026/10/23
             QString::fromLocal8Bit("(b) 50% 欠采样单炮记录 (Subsampled)"),
             QString::fromLocal8Bit("(c) POCS 压缩感知重构波场"),
             QString::fromLocal8Bit("(d) 重构残差空间切片剖面")
@@ -904,7 +904,7 @@ public:
                 if (a > maxA) maxA = a;
             }
 
-            // 先画黑色粗底：原始波形 (Ground Truth)
+            // 先画黑色粗底：原始波形 (Reference) // add by wushanzhou in 2026/10/23
             // 2026.10.19: 原实现黑线宽 1、红线宽 2，两条几乎重合导致黑线被完全遮盖，
             // 图例宣称的"双色对比"实际只看到一条红线。现改为黑线加粗打底 + 红细线叠加。
             p.setPen(QPen(QColor(15, 23, 42), 3, Qt::SolidLine));
@@ -938,7 +938,7 @@ public:
 
         p.setFont(axisFont);
         p.setPen(QColor(15, 23, 42));
-        p.drawText(legBox.left() + 10, legBox.top() + 20, QString::fromLocal8Bit("━━ 黑色: 原始地震道 (Ground Truth)"));
+        p.drawText(legBox.left() + 10, legBox.top() + 20, QString::fromLocal8Bit("━━ 黑色: 参考地震道 (Reference)")); // add by wushanzhou in 2026/10/23
         p.setPen(QColor(220, 38, 38));
         p.drawText(legBox.left() + 10, legBox.top() + 38, QString::fromLocal8Bit("━━ 红色: POCS 压缩感知重构恢复波形"));
 
@@ -1047,7 +1047,7 @@ public:
         p.drawText(bottomBar.left() + 20, bottomBar.top() + 30, QString::fromLocal8Bit("★ 全项目科研总结与学术闭环结论 (Scientific Research Conclusion)"));
 
         const QString line1 = QString::fromLocal8Bit(
-            "1. 采样优化与波场重构使用同一掩码；真实 SPS 工区属性作为独立评价模块。");
+            "1. 采样优化与波场重构使用同一掩码；真实 SPS 工区属性作为独立评价模块。"); // add by wushanzhou in 2026/10/23
         const QString line2 = attrIsReal
             ? QString::fromLocal8Bit("2. 模块二基于真实野外SPS工区实测数据验证（未施加抽稀，成本节约率0%），属性指标为真实测量结果。")
             : QString::fromLocal8Bit("2. 模块二为合成观测系统基准（24×24=576面元，50%检波点抽稀），用于算法可行性验证，非真实工区结论。");
@@ -1099,7 +1099,7 @@ public:
         FigureItem items[] = {
             { "00_research_workflow_summary.png", "0. 全流程科研闭环综合大看板", "综合展示采样优化、属性质量与波场重构三大模块核心成果" },
             { "01_sa_convergence_curve.png", "1. 模拟退火(SA)优化相干度下降收敛曲线", "展示50%采样率下模拟退火当前解探索轨迹与历史最优单调非增收敛轨迹" },
-            { "02_sampling_benchmark_bars.png", "2. 三种采样方案在各采样率下的相干度对比柱状图", "对比规则抽样、随机抽样与Jitter-SA优化采样的相干度与假频抑制" },
+            { "02_sampling_benchmark_bars.png", "2. 三种采样方案在各采样率下的相干度对比柱状图", "对比规则抽样、随机抽样与Hybrid优化采样的相干度与相干度比值衰减" }, // add by wushanzhou in 2026/10/23
             { "03_cmp_fold_distribution_map.png", "3. CMP 面元覆盖次数空间平面热力分布图", "展示观测系统有效面元的空间覆盖次数分布与覆盖均匀度" },
             { "04_offset_azimuth_rose_charts.png", "4. 炮检距连续性分布直方图与方位角玫瑰图", "证明非规则排列保留了连续的炮检距与360度全方位角覆盖" },
             { "05_wavefield_reconstruction_quad.png", "5. 地震波场欠采样与压缩感知(POCS)恢复四联剖面", "展示原始记录、50%欠采样、POCS恢复剖面与残差空间切片剖面" },

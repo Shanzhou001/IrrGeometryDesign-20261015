@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <numeric>
 
-//根据正弦和余弦值反算角度 // add by shanzhou in 2026/10/15
+//根据正弦和余弦值反算角度 // add by wushanzhou in 2026/10/15
 double gGetAngle(double sinAF, double cosAF)
 {
 	double af = asin(sinAF);//假设参数在[-1，1]范围内，则asin()函数返回[-π/ 2，π/ 2]范围内的值。
@@ -713,7 +713,7 @@ void DataReconstruction::on_mRegularOVTVolumeBtn_clicked()
 			gFree2(temp_azimuth);
 		}
 
-		// 新增：生成并导出 CMP mask（导出到当前工作目录） // add by shanzhou in 2026/10/15
+		// 新增：生成并导出 CMP mask（导出到当前工作目录） // add by wushanzhou in 2026/10/15
 		GProject *pProject = GProject::getCurrentProject();
 		if (pProject != NULL)
 		{

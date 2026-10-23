@@ -110,7 +110,7 @@ public slots:
 	// [3/14/2023 Liu Wei]--------------           
 
 	//12/3 2025 Wu ShanZhou
-    // add by shanzhou in 2026/10/15
+    // add by wushanzhou in 2026/10/15
     virtual void saveSPS();
     void on_saveAction_triggered();
     void on_zoomAction_triggered();

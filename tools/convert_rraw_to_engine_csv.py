@@ -61,7 +61,11 @@ TRACE_HDR = 240
 
 def read_segy(path):
     """读取 SEG-Y，返回 (data[Nt,Nx], offsets[Nx], cdp[Nx], meta)。"""
-    raw = open(path, "rb").read()
+    with open(path, "rb") as stream:  # add by wushanzhou in 2026/10/23
+        raw = stream.read()  # add by wushanzhou in 2026/10/23
+    if len(raw) < SEGY_TEXT_HDR + SEGY_BIN_HDR + TRACE_HDR:  # add by wushanzhou in 2026/10/23
+        raise ValueError("truncated SEG-Y headers")  # add by wushanzhou in 2026/10/23
+    # add by wushanzhou in 2026/10/23
 
     # 重要：RRAW.SGY 的二进制头与道头**均为 little-endian**（与 SEG-Y 标准的
     # big-endian 相反）。字节级核对证据：
@@ -79,6 +83,9 @@ def read_segy(path):
 
     trace_bytes = TRACE_HDR + ns * 4
     avail = len(raw) - (SEGY_TEXT_HDR + SEGY_BIN_HDR)
+    if ns < 1 or avail % trace_bytes or avail < trace_bytes:  # add by wushanzhou in 2026/10/23
+        raise ValueError("invalid sample count or incomplete SEG-Y trace payload")  # add by wushanzhou in 2026/10/23
+    # add by wushanzhou in 2026/10/23
     ntraces = avail // trace_bytes
 
     data = np.zeros((ns, ntraces), dtype=np.float64)
@@ -91,6 +98,10 @@ def read_segy(path):
         offsets[t] = struct.unpack_from("<i", raw, off + 36)[0]
         # payload 按 IEEE-754 little-endian 解码（见模块说明）
         data[:, t] = struct.unpack_from("<%df" % ns, raw, off + TRACE_HDR)
+
+    if not np.isfinite(data).all():  # add by wushanzhou in 2026/10/23
+        raise ValueError("non-finite SEG-Y sample")  # add by wushanzhou in 2026/10/23
+    # add by wushanzhou in 2026/10/23
 
     meta = {
         "ns": ns,
@@ -135,10 +146,10 @@ def convert(data, offsets):
         time_rs[:, j] = np.interp(t_dst, t_src, data[:, j])
 
     # 3) 道数 59 -> 128
-    x_src = offsets.astype(float)
-    if not np.all(np.diff(x_src) > 0):
-        raise ValueError("offsets must be distinct and increasing")
-    x_dst = np.linspace(x_src[0], x_src[-1], TARGET_NX)
+    x_src = offsets.astype(float)  # add by wushanzhou in 2026/10/23
+    if not np.all(np.diff(x_src) > 0):  # add by wushanzhou in 2026/10/23
+        raise ValueError("offsets must be distinct and increasing")  # add by wushanzhou in 2026/10/23
+    x_dst = np.linspace(x_src[0], x_src[-1], TARGET_NX)  # add by wushanzhou in 2026/10/23
     trace_rs = np.zeros((TARGET_NT, TARGET_NX))
     for i in range(TARGET_NT):
         trace_rs[i, :] = np.interp(x_dst, x_src, time_rs[i, :])
@@ -172,10 +183,10 @@ def write_csv(path, mat, meta, offsets):
         fh.write("# Source: %d traces x %d samples, dt=%d us, declared format=%d "
                  "(payload is IEEE-LE float32)\n"
                  % (meta["ntraces"], meta["ns"], meta["dt_us"], meta["declared_format"]))
-        fh.write("# offsets_m=" + ",".join("%.9g" % x for x in np.linspace(offsets[0], offsets[-1], TARGET_NX)) + "\n")
+        fh.write("# offsets_m=" + ",".join("%.9g" % x for x in np.linspace(offsets[0], offsets[-1], TARGET_NX)) + "\n")  # add by wushanzhou in 2026/10/23
         fh.write("# Offsets (m): %s\n" % ", ".join(str(int(o)) for o in offsets))
         fh.write("# Processing: offset-sorted; time 8->4 ms (250->256 via interp); "
-                 "traces 59->128 via actual-offset interp; bandpass %.0f-%.0f Hz; peak-normalized to 1.0\n"
+                 "traces 59->128 via actual-offset interp; bandpass %.0f-%.0f Hz; peak-normalized to 1.0\n"  # add by wushanzhou in 2026/10/23
                  % (BANDPASS_LO, BANDPASS_HI))
         fh.write("# Time window: 0.000-%.3f s (%d samples @ %.1f ms); "
                  "original record length %.3f s was truncated\n"

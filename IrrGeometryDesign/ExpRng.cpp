@@ -1,4 +1,4 @@
-﻿// // add by shanzhou in 2026/10/15
+﻿// // add by wushanzhou in 2026/10/15
 /*****************************************************
  * EXPRNG.CPP
  * xorshift64* 实现，见 ExpRng.h 说明
@@ -63,7 +63,7 @@ double uniform()
 	return (double)(next_u64() >> 11) * (1.0 / 9007199254740992.0);
 }
 
-// Box-Muller 变换生成高斯白噪声 // add by shanzhou in 2026/10/15
+// Box-Muller 变换生成高斯白噪声 // add by wushanzhou in 2026/10/15
 double gaussian(double mean, double stddev)
 {
 	double u1 = uniform();

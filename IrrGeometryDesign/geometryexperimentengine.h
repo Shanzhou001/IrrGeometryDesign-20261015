@@ -1,4 +1,4 @@
-﻿// add by shanzhou in 2026/10/15
+﻿// add by wushanzhou in 2026/10/15
 #ifndef GEOMETRY_EXPERIMENT_ENGINE_H
 #define GEOMETRY_EXPERIMENT_ENGINE_H
 
@@ -8,7 +8,7 @@
 #include <complex>
 #include "gproject.h"
 
-// add by shanzhou in 2026/10/15
+// add by wushanzhou in 2026/10/15
 class GeometryExperimentEngine
 {
 public:
@@ -134,8 +134,8 @@ public:
         float snr_improvement_db;    // 相比零值填充净提升 (dB)
         float snr_imprv_vs_linear_db;// 相比线性插值净提升 (dB)
         float rmse;                  // 均方根误差 (RMSE)
-        float correlation;           // 皮尔逊相关系数 r (0~1)
-        // 2026.10.20 新增：缺失道口径 SNR（全幅 SNR 含已精确置回的道，约高 3 dB）
+        float correlation;           // 皮尔逊相关系数 r (-1~1) // add by wushanzhou in 2026/10/23
+        // 2026.10.20 新增：缺失道口径 SNR（全幅 SNR 含已精确置回的道，差值由参考能量分布决定） // add by wushanzhou in 2026/10/23
         float snr_linear_missing_db; // 线性插值在未采样道上的 SNR (dB)
         float snr_pocs_missing_db;   // POCS 在未采样道上的 SNR (dB)
         bool dataConsistencyPassed;  // 观测道数据一致性检验是否通过
@@ -153,7 +153,7 @@ public:
         std::vector<float> residual_convergence_warm; // 热启动迭代残差轨迹
     };
 
-    // 严格校验采样掩码文件合法性 (长度严格为 expectedN, 采样点数严格为 expectedSampledPoints, 取值只能严格为 0 或 1) // add by shanzhou in 2026/10/15
+    // 严格校验采样掩码文件合法性 (长度严格为 expectedN, 采样点数严格为 expectedSampledPoints, 取值只能严格为 0 或 1) // add by wushanzhou in 2026/10/15
     static bool validateAndLoadMaskFile(const QString& maskFilePath,
                                         int expectedN,
                                         int expectedSampledPoints,
@@ -165,7 +165,7 @@ public:
                                         std::vector<int>& outMask,
                                         QString& outErrorMsg);
 
-    // 严格校验并读取外部地震数据 CSV 文件 (Nt x Nx 矩阵，杜绝静默回退) // add by shanzhou in 2026/10/15
+    // 严格校验并读取外部地震数据 CSV 文件 (Nt x Nx 矩阵，杜绝静默回退) // add by wushanzhou in 2026/10/15
     static bool loadAndValidateSeismicCSV(const QString& filePath,
                                          int expectedNt,
                                          int expectedNx,
@@ -200,7 +200,7 @@ public:
                                        QString& fullReportSummary,
                                        unsigned long long rngSeed);
 
-    // 兼容原有无扩展参数签名的重载函数 (add by shanzhou in 2026/10/15)
+    // 兼容原有无扩展参数签名的重载函数 (add by wushanzhou in 2026/10/15)
     static bool runSamplingBenchmark(int N,
                                      const std::vector<float>& rates,
                                      const QString& outputDir,
@@ -265,7 +265,7 @@ public:
                                      QString& outReport,
                                      const QString& externalMaskPath = QString());
 
-    // 自动化单元测试与回归校验体系 (Task 11) (add by shanzhou in 2026/10/15)
+    // 自动化单元测试与回归校验体系 (Task 11) (add by wushanzhou in 2026/10/15)
     static bool runUnitTests();
 
     // 批量留出验证并归档 (2026.10.20 新增)
@@ -299,7 +299,7 @@ public:
                                        const std::vector<float>& rates,
                                        unsigned long long seed,
                                        const QString& outputDir,
-                                       QString& outReportSummary);
+                                       QString& outReportSummary, int repeats = 1); // add by wushanzhou in 2026/10/23
 
     // =========================================================================
     // 2026-10-21 新增：目标函数数学性质探针（问题 1 取证用）
@@ -314,13 +314,13 @@ public:
     // 2026-10-21 新增：空间约束优化 A–E 对比 + λ 敏感性
     // 2026-10-21 新增：多种子等预算消融
     // 2026-10-21 新增：优化掩码对重构效果的独立验证（10 掩码 × 3 档）
-    static bool runRealMaskStudy(const QString& inputCsv,int count,int iterations,
-                                  unsigned long long baseSeed,const QString& outputDir,QString& report);
+    static bool runRealMaskStudy(const QString& inputCsv,int count,int iterations, // add by wushanzhou in 2026/10/23
+                                  unsigned long long baseSeed,const QString& outputDir,QString& report); // add by wushanzhou in 2026/10/23
     static bool runMaskReconStudy(const QString& outputDir,
                                   int masksPerType,
                                   unsigned long long baseSeed,
-                                  QString& outReportSummary,
-                                  const QString& inputCsv = QString());
+                                  QString& outReportSummary, // add by wushanzhou in 2026/10/23
+                                  const QString& inputCsv = QString()); // add by wushanzhou in 2026/10/23
     static bool runMultiSeedAblationExperiment(const std::vector<float>& rates,
                                               int nSeeds,
                                               unsigned long long baseSeed,

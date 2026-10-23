@@ -19,7 +19,7 @@ GSPSView::GSPSView(QWidget *parent, const char *name, Qt::WFlags f) :
 
     mpProject = GProject::getCurrentProject();
     mpSPSParam = mpProject->getSPSParam();
-	if(mIsImpotSps==false)// add by Wushanzhou 
+	if(mIsImpotSps==false)// add by wushanzhou in 2026/10/23 
 	{		
 		mpRLineSet = mpProject->getRLineSetNew();//´´½¨µÄsps
 		mpSLineSet = mpProject->getSLineSetNew();

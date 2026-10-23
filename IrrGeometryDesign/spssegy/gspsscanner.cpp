@@ -6,7 +6,7 @@
 //  "1.00" -> "1", "1.0010" -> "1.001", "5001.000" -> "5001"
 // Ǵַȥβոԭ
 //------------------------------------------------------------------------------
-static QString gNormalizeSPSKey(const QString &text) // add by shanzhou in 2026/10/15
+static QString gNormalizeSPSKey(const QString &text) // add by wushanzhou in 2026/10/15
 {
 	QString s = text.stripWhiteSpace();
 	if(s.isEmpty()) return s;

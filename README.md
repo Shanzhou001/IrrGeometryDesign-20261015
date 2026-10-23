@@ -1,8 +1,24 @@
 # IrrGeometryDesign：地震采样设计与重构验证
 
+> 2026-10-23 后续修订：当前复现脚本默认输出 `results/enhanced_20261023/`，协议 `physical_psf_v3`。新增真正 SA-only 重构、实际坐标选点和物理距离软约束、10 种子二维基准、固定参数分 CDP 诊断及严格缓存校验。下面 `classic_psf_v2` 的数字与 `revised_20261023/` 对应此前归档快照；最新结果及边界见 `docs/REPAIR_NOTES_20261023.md` 和新目录 `RESULTS.md`。两版本真实选点目标不同，不能混为同一次实验。
+
+<!-- add by wushanzhou in 2026/10/23 -->
+
+最新完整复现仍使用下文的构建与运行命令，`python tools/run_revised_studies.py` 默认写入增强版目录；`python tools/verify_revised_results.py` 默认复核增强版。`--sampling-2d` 新增 `--seeds`；合成和真实掩码研究均显式区分 `SAOnly` 与 `Hybrid`。缓存同时校验命令、源码、脚本、运行环境、输入、程序和已归档输出，缺失或变更的输出会重新运行。
+
+新增和上一轮改动已按实际代码位置补注 `add by wushanzhou in 2026/10/23`；24 日补充修复标为 `2026/10/24`，历史署名改名时保留原日期。无日期的旧署名使用补注日期。运行 `python tools/audit_change_annotations.py` 可核对补注覆盖，`--apply` 会实际补注，新增注释使用执行当天日期；默认比较基线为 `63d1408`。C++ 使用 `//`、Python 使用 `#`、批处理使用独立 `rem`，数据文件与历史结果不插入源码注释。
+
+<!-- add by wushanzhou in 2026/10/23 -->
+
+<!-- add by wushanzhou in 2026/10/24 -->
+
 本项目研究给定采样点数下的地震采样设计，以及采样几何、互干度和波场重构之间的关系。工程为 C++ / Qt 4.7.4 / Visual Studio 2008 SP1 x64；Python 用于资料转换、统计与独立复核。
 
-**当前正式协议为 `classic_psf_v2`，日期 2026-10-23。** 新结果全部位于 [`results/revised_20261023/`](results/revised_20261023/)。旧目录保留的是历史实验，不应把两个协议的数字拼接比较。
+**当前增强版协议为 `physical_psf_v3`；下文基础归档为 `classic_psf_v2`。** 增强版结果位于 [`results/enhanced_20261023/`](results/enhanced_20261023/)，基础结果位于 [`results/revised_20261023/`](results/revised_20261023/)。两版本分别归档，不应拼接不同目标下的数字。
+
+增强版已完成 12 个正式步骤、630 次合成重构、210 次真实掩码留出和 150 行二维对照；24 项 C++、12 项 Python 回归及 1,680 行独立复核通过。完整证据见 [验证汇总](results/enhanced_20261023/validation/validation_summary.json)。
+
+<!-- add by wushanzhou in 2026/10/24 -->
 
 用户确认只有一份 59 道真实波形资料。本项目没有新增独立真实工区；不同随机留出划分也不计为独立真实资料。
 
@@ -32,8 +48,10 @@ x64\Release\IrrGeometryDesign.exe --test
 python -m pip install -r requirements.txt
 python tools\test_science_tools.py
 python tools\run_revised_studies.py
-python tools\verify_revised_results.py results\revised_20261023
+python tools\verify_revised_results.py results\enhanced_20261023
 ```
+
+<!-- add by wushanzhou in 2026/10/24 -->
 
 已验证的 Python 环境为 Python 3.12.10 / NumPy 2.5.3。C++ 构建不依赖 Python。含中文的 C++ 文件保持 UTF-8 BOM / CRLF，以兼容 MSVC 9.0。
 
