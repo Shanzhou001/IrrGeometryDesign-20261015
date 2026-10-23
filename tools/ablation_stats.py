@@ -1,20 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
-ablation_stats.py
-=================
-对 `--ablation-multiseed` 的输出做统计检验。
-
-输入：results/ablation_multiseed/ablation_multiseed_raw.csv
-输出：控制台表格 + results/ablation_multiseed/ablation_stats.csv
-
-检验方法及适用条件（必须写入论文）：
-  - 配对比较用 **Wilcoxon 符号秩检验**（非参数，不假设正态；n=20 时双侧 alpha=0.05
-    的最小可检出效应约为 6 个非零差值同号，见临界值表）。
-  - 同时给出 **配对 t 检验** 作参照，并注明其正态性假设。
-  - 效应量用 **Cliff's delta**（非参数），避免 Cohen's d 的正态假设。
-  - 多重比较（3 档采样率 × 4 组对照 = 12 次）用 **Holm-Bonferroni** 校正。
-
-依赖：仅标准库（不引入 scipy，保证可复现）。
+"""Paired ClassicPSF comparisons: exact signed-rank DP (including ties),
+Student-t reference p values, paired rank-biserial effect and Holm correction.
+Only like-objective comparisons enter the multiplicity family. Standard library only.
 """
 import argparse
 import csv
@@ -47,11 +34,11 @@ def wilcoxon_signed_rank(a, b):
     w_minus = sum(r for r, d in zip(ranks, diffs) if d < 0)
     stat = min(w_plus, w_minus)
 
-    if n <= 25:
-        p = exact_wilcoxon_p(stat, n)
+    if n <= 60:
+        p = exact_wilcoxon_p(stat, n, ranks)
     else:
         mean = n * (n + 1) / 4.0
-        sd = math.sqrt(n * (n + 1) * (2 * n + 1) / 24.0)
+        sd = math.sqrt(sum(r * r for r in ranks) / 4.0)
         z = (stat - mean + 0.5) / sd if sd > 0 else 0.0
         p = 2.0 * norm_cdf(-abs(z))
     return w_plus, w_minus, min(1.0, p), n
@@ -72,19 +59,64 @@ def rank_abs(diffs):
     return ranks
 
 
-def exact_wilcoxon_p(stat, n):
-    """枚举所有符号组合，计算 P(min(W+,W-) <= stat)。"""
-    total = 1 << n
-    count = 0
-    for mask in range(total):
-        wp = 0
-        for i in range(n):
-            if mask & (1 << i):
-                wp += (i + 1)
-        wm = n * (n + 1) // 2 - wp
-        if min(wp, wm) <= stat:
-            count += 1
-    return count / float(total)
+def exact_wilcoxon_p(stat, n, ranks=None):
+    """Conditional sign permutation distribution, with doubled midranks for ties."""
+    if ranks is None:
+        ranks = list(range(1, n + 1))
+    weights = [int(round(2 * rank)) for rank in ranks]
+    total = sum(weights)
+    distribution = [1] + [0] * total
+    for weight in weights:
+        for value in range(total, weight - 1, -1):
+            distribution[value] += distribution[value - weight]
+    limit = int(round(2 * stat))
+    count = sum(c for value, c in enumerate(distribution)
+                if min(value, total - value) <= limit)
+    return count / float(2 ** n)
+
+
+def beta_fraction(a, b, x):
+    """Continued fraction for the regularized incomplete beta function."""
+    tiny, eps = 1e-300, 3e-14
+    c = 1.0
+    d = 1.0 - (a + b) * x / (a + 1.0)
+    if abs(d) < tiny:
+        d = tiny
+    d = 1.0 / d
+    result = d
+    for m in range(1, 301):
+        for term in (m * (b - m) * x / ((a + 2*m - 1) * (a + 2*m)),
+                     -(a + m) * (a + b + m) * x / ((a + 2*m) * (a + 2*m + 1))):
+            d = 1.0 + term * d
+            if abs(d) < tiny:
+                d = tiny
+            c = 1.0 + term / c
+            if abs(c) < tiny:
+                c = tiny
+            d = 1.0 / d
+            change = d * c
+            result *= change
+        if abs(change - 1.0) < eps:
+            return result
+    raise ArithmeticError("incomplete beta did not converge")
+
+
+def student_t_two_sided(t, df):
+    if df <= 0:
+        raise ValueError("positive degrees of freedom required")
+    if math.isinf(t):
+        return 0.0
+    x = df / (df + t*t)
+    if x >= 1.0:
+        return 1.0
+    a, b = df / 2.0, 0.5
+    factor = math.exp(math.lgamma(a+b)-math.lgamma(a)-math.lgamma(b)
+                      + a*math.log(x) + b*math.log1p(-x))
+    if x < (a+1)/(a+b+2):
+        result = factor * beta_fraction(a,b,x) / a
+    else:
+        result = 1 - factor * beta_fraction(b,a,1-x) / b
+    return min(1.0, max(0.0, result))
 
 
 def norm_cdf(x):
@@ -99,10 +131,9 @@ def paired_t(a, b):
     mean = sum(d) / n
     var = sum((x - mean) ** 2 for x in d) / (n - 1)
     if var <= 0:
-        return 0.0, 1.0
+        return (0.0, 1.0) if mean == 0 else (math.copysign(float("inf"), mean), 0.0)
     t = mean / math.sqrt(var / n)
-    # 双尾 p 用正态近似（n>=20 时可接受；已在报告中注明）
-    p = 2.0 * norm_cdf(-abs(t))
+    p = student_t_two_sided(t, n - 1)
     return t, p
 
 
@@ -134,10 +165,10 @@ def holm(pvals):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="inp",
-                    default=os.path.join("results", "ablation_multiseed",
+                    default=os.path.join("results", "revised_20261023", "ablation_multiseed",
                                          "ablation_multiseed_raw.csv"))
     ap.add_argument("--out", dest="out",
-                    default=os.path.join("results", "ablation_multiseed",
+                    default=os.path.join("results", "revised_20261023", "ablation_multiseed",
                                          "ablation_stats.csv"))
     args = ap.parse_args()
 
@@ -145,6 +176,12 @@ def main():
         sys.exit("ERROR: input not found: %s (run --ablation-multiseed first)" % args.inp)
 
     rows = load(args.inp)
+    if not rows or any(r.get("protocol") != "classic_psf_v2" for r in rows):
+        sys.exit("ERROR: only classic_psf_v2 rows are comparable; legacy mixed-objective data must be rerun")
+    if len({(r["rate"], r["seed"]) for r in rows}) != len(rows):
+        sys.exit("ERROR: duplicate rate/seed pairs")
+    if any(r["budget_cap"] != "200" or r["sa_prefix_equal"] != "1" for r in rows):
+        sys.exit("ERROR: inconsistent budget or SA prefix")
     by_rate = defaultdict(list)
     for r in rows:
         by_rate[r["rate"]].append(r)
@@ -154,7 +191,6 @@ def main():
         ("SA+Local", "mu_sa_local", "SA-only", "mu_sa_only"),
         ("SA+Local", "mu_sa_local", "Local-only", "mu_local_only"),
         ("SA+Local", "mu_sa_local", "JitterInit", "mu_jitter_init"),
-        ("Constrained", "mu_constrained", "SA+Local", "mu_sa_local"),
     ]
 
     out_rows = []
@@ -180,15 +216,16 @@ def main():
                 "mean_diff": "%.6f" % (mean_a - mean_b),
                 "dB_A_over_B": "%.3f" % (20 * math.log10(mean_b / mean_a) if mean_a > 0 and mean_b > 0 else 0.0),
                 "W_plus": "%.1f" % wp, "W_minus": "%.1f" % wm,
-                "p_wilcoxon": "%.6f" % p,
-                "p_ttest": "%.6f" % pt,
+                "p_wilcoxon": "%.9g" % p,
+                "p_ttest": "%.9g" % pt,
                 "cliffs_delta": "%.4f" % delta,
                 "n_effective": n,
+                "paired_rank_biserial": "%.6f" % ((wp-wm)/(wp+wm) if wp+wm else 0.0),
             })
 
     adj = holm(pvals) if pvals else []
     for i, r in enumerate(out_rows):
-        r["p_holm"] = "%.6f" % adj[i]
+        r["p_holm"] = "%.9g" % adj[i]
         r["significant_0.05"] = "YES" if adj[i] < 0.05 else "NO"
 
     if not out_rows:
@@ -196,7 +233,7 @@ def main():
 
     keys = ["rate", "n", "A", "B", "mean_A", "mean_B", "mean_diff", "dB_A_over_B",
             "W_plus", "W_minus", "p_wilcoxon", "p_ttest", "p_holm",
-            "significant_0.05", "cliffs_delta", "n_effective"]
+            "significant_0.05", "cliffs_delta", "paired_rank_biserial", "n_effective"]
     with open(args.out, "w", encoding="utf-8", newline="\n") as f:
         w = csv.DictWriter(f, fieldnames=keys)
         w.writeheader()
@@ -210,7 +247,7 @@ def main():
             r["rate"], r["A"], r["B"], r["mean_A"], r["mean_B"],
             r["p_holm"], r["cliffs_delta"], r["significant_0.05"]))
     print("\nwritten: %s" % args.out)
-    print("\n[Method note] Wilcoxon signed-rank (exact for n<=25) + Holm-Bonferroni;")
+    print("\n[Method note] Wilcoxon signed-rank (exact conditional sign distribution for n<=60, ties included) + Holm-Bonferroni;")
     print("              paired t-test given as reference only (normality assumed).")
 
 

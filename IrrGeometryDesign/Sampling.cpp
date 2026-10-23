@@ -47,7 +47,7 @@ static void jittered_positions(int col, int m, vector<int>& pos) // add by shanz
 	for (int i = 1; i <= m; i++)
 	{
 		// 第 i 个单元覆盖实数区间 [(i-1)*alpha, i*alpha)
-		int lo = (int)floor((i - 1) * alpha);
+		int lo = (int)ceil((i - 1) * alpha);
 		int hi = (int)ceil((double)i * alpha) - 1;
 		if (lo < 0) lo = 0;
 		if (hi > col - 1) hi = col - 1;
@@ -548,27 +548,10 @@ int *Sampling1J_Count(int col, int m)
 		return Phi;
 	}
 
-	if (m > col / 2)
-	{
-		int drop = col - m;
-		for (int i = 0; i < col; i++) Phi[i] = 1;
-		vector<int> pos;
-		jittered_positions(col, drop, pos);
-		for (size_t k = 0; k < pos.size(); k++)
-		{
-			Phi[pos[k]] = 0;
-		}
-	}
-	else
-	{
-		for (int i = 0; i < col; i++) Phi[i] = 0;
-		vector<int> pos;
-		jittered_positions(col, m, pos);
-		for (size_t k = 0; k < pos.size(); k++)
-		{
-			Phi[pos[k]] = 1;
-		}
-	}
+	for (int i = 0; i < col; i++) Phi[i] = 0;
+	vector<int> pos;
+	jittered_positions(col, m, pos);
+	for (size_t k = 0; k < pos.size(); k++) Phi[pos[k]] = 1;
 
 	int count = 0;
 	for (int i = 0; i < col; i++) if (Phi[i] == 1) count++;

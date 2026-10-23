@@ -85,12 +85,14 @@ def convert(data, offsets):
     return out, offsets
 
 
-def write_csv(path, mat, meta):
+def write_csv(path, mat, meta, offsets):
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", newline="\n") as fh:
         fh.write("# Real field gather, ORIGINAL %d traces (NO trace interpolation)\n" % mat.shape[1])
         fh.write("# time 8->4 ms resample only (%d->%d samples); offset-sorted; peak normalized\n"
                  % (meta["ns"], TARGET_NT))
+        fh.write("# offsets_m=" + ",".join(str(int(x)) for x in offsets) + "\n")
+        fh.write("# source_sha256=" + meta["sha256"] + "\n")
         fh.write("# Geometry: Nt=%d, Nx=%d\n" % (mat.shape[0], mat.shape[1]))
         for i in range(mat.shape[0]):
             fh.write(",".join("%.6g" % v for v in mat[i, :]) + "\n")
@@ -135,7 +137,7 @@ def main():
             sys.exit(2)
         return
 
-    write_csv(args.output, mat, meta)
+    write_csv(args.output, mat, meta, offsets)
     print("written: %s" % args.output)
 
 

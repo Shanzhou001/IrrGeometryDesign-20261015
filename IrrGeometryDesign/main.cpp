@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 		}
 		if (strcmp(argv[i], "--run-experiments") == 0 || strcmp(argv[i], "-e") == 0)
 		{
-			QString outDir = "experiment_results";
+			QString outDir = "results/revised_20261023/synthetic";
 			// 2026.10.20: 3 轮不足以支撑统计结论，默认提高到 10 轮独立种子
 			int repeatRuns = 10;
 			unsigned long long masterSeed = 42ULL;
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 		if (strcmp(argv[i], "--run-real-reconstruction") == 0)
 		{
 			QString inCsv;
-			QString outDir = "results/real_field";
+			QString outDir = "results/revised_20261023/real_field";
 			float ratio = 0.50f;
 			QString maskPath = "";   // 留空则自动生成抖动掩码（固定种子，可复现）
 			if (i + 1 < argc && argv[i + 1][0] != '-')
@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
 		if (strcmp(argv[i], "--holdout-validate") == 0)
 		{
 			QString inCsv;
-			QString outDir = "results/real_field_holdout";
+			QString outDir = "results/revised_20261023/real_field_holdout";
 			int m = 59, k = 30, iters = 40;
 			unsigned long long hs = 20261020ULL;
 			QString extMask;   // 2026.10.20: 用外部掩码（抖动/SA）代替随机抽稀
@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 		if (strcmp(argv[i], "--holdout-batch") == 0)
 		{
 			QString inCsv;
-			QString outDir = "results/real_field_holdout";
+			QString outDir = "results/revised_20261023/real_field_holdout";
 			int m = 59, iters = 40;
 			if (i + 1 < argc && argv[i + 1][0] != '-')
 			{
@@ -250,7 +250,7 @@ int main(int argc, char *argv[])
 		// 用法: --ablation [outDir, 默认 results/ablation] [--seed S]
 		if (strcmp(argv[i], "--ablation") == 0)
 		{
-			QString outDir = "results/ablation";
+			QString outDir = "results/revised_20261023/ablation";
 			unsigned long long abSeed = 42ULL;
 			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
 			for (int j = 1; j < argc; j++)
@@ -273,7 +273,7 @@ int main(int argc, char *argv[])
 		// 用法: --sampling-2d [outDir, 默认 results/benchmark_2d] [--grid N] [--seed S]
 		if (strcmp(argv[i], "--sampling-2d") == 0)
 		{
-			QString outDir = "results/benchmark_2d";
+			QString outDir = "results/revised_20261023/benchmark_2d";
 			int gridN = 32;
 			unsigned long long s2Seed = 42ULL;
 			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
@@ -339,7 +339,7 @@ int main(int argc, char *argv[])
 		// 用法: --constrained [outDir] [--seeds N]
 		if (strcmp(argv[i], "--constrained") == 0)
 		{
-			QString outDir = "results/constrained";
+			QString outDir = "results/revised_20261023/constrained";
 			int nSeeds = 5;
 			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
 			for (int j = 1; j < argc; j++)
@@ -359,7 +359,7 @@ int main(int argc, char *argv[])
 		// 用法: --ablation-multiseed [outDir] [--seeds N] [--seed S]
 		if (strcmp(argv[i], "--ablation-multiseed") == 0)
 		{
-			QString outDir = "results/ablation_multiseed";
+			QString outDir = "results/revised_20261023/ablation_multiseed";
 			int nSeeds = 20;
 			unsigned long long bs = 20261020ULL;
 			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
@@ -380,17 +380,39 @@ int main(int argc, char *argv[])
 		}
 		// 2026-10-21 新增：掩码—重构对照
 		// 用法: --mask-recon [outDir] [--masks N]
+        if (strcmp(argv[i], "--holdout-study") == 0)
+        {
+            QString input="data/real_seismic/real_gather_59x256.csv";
+            QString output="results/revised_20261023/real_mask_study";
+            int count=10,iterations=40;unsigned long long seed=20261023ULL;
+            if(i+1<argc && argv[i+1][0]!='-')input=QString::fromLocal8Bit(argv[i+1]);
+            for(int j=1;j<argc;j++)
+            {
+                if(strcmp(argv[j],"--out")==0 && j+1<argc)output=QString::fromLocal8Bit(argv[j+1]);
+                else if(strcmp(argv[j],"--seeds")==0 && j+1<argc)count=atoi(argv[j+1]);
+                else if(strcmp(argv[j],"--iter")==0 && j+1<argc)iterations=atoi(argv[j+1]);
+                else if(strcmp(argv[j],"--seed")==0 && j+1<argc)seed=(unsigned long long)_atoi64(argv[j+1]);
+            }
+            QString report;
+            bool ok=GeometryExperimentEngine::runRealMaskStudy(input,count,iterations,seed,output,report);
+            printf("%s\n",report.toLocal8Bit().constData());return ok?0:1;
+        }
 		if (strcmp(argv[i], "--mask-recon") == 0)
 		{
-			QString outDir = "results/mask_recon";
+			QString outDir = "results/revised_20261023/mask_recon_builtin";
 			int nMasks = 10;
+            QString studyInput;
 			unsigned long long mrSeed = 20261020ULL;
 			if (i + 1 < argc && argv[i + 1][0] != '-') outDir = QString::fromLocal8Bit(argv[i + 1]);
 			for (int j = 1; j < argc; j++)
-				if (strcmp(argv[j], "--masks") == 0 && j + 1 < argc) nMasks = atoi(argv[j + 1]);
+            {
+                if (strcmp(argv[j], "--masks") == 0 && j + 1 < argc) nMasks = atoi(argv[j + 1]);
+                else if (strcmp(argv[j], "--study-input") == 0 && j + 1 < argc) studyInput=QString::fromLocal8Bit(argv[j+1]);
+                else if (strcmp(argv[j], "--seed") == 0 && j + 1 < argc) mrSeed=(unsigned long long)_atoi64(argv[j+1]);
+            }
 			printf("Mask-reconstruction study: %d masks per type\n", nMasks);
 			QString summary;
-			bool ok = GeometryExperimentEngine::runMaskReconStudy(outDir, nMasks, mrSeed, summary);
+			bool ok = GeometryExperimentEngine::runMaskReconStudy(outDir, nMasks, mrSeed, summary, studyInput);
 			printf("%s\n", summary.toLocal8Bit().constData());
 			return ok ? 0 : 1;
 		}

@@ -1,0 +1,2 @@
+# Tested with Python 3.12.10; C++/Qt builds do not depend on Python.
+numpy==2.5.3

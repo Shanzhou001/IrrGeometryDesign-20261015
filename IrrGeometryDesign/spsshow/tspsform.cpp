@@ -213,7 +213,7 @@ void ResearchFiguresDialog::onNext()
 
 void ResearchFiguresDialog::onOpenInBrowser()
 {
-    QString htmlPath = QDir::current().filePath("figures/index.html");
+    QString htmlPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023/index.html":"figures/index.html");
     QFileInfo fi(htmlPath);
     if (fi.exists())
     {
@@ -228,7 +228,7 @@ void ResearchFiguresDialog::onOpenInBrowser()
 
 void ResearchFiguresDialog::onOpenFolder()
 {
-    QString dirPath = QDir::current().filePath("figures");
+    QString dirPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures");
     QDir dir(dirPath);
     if (!dir.exists())
     {
@@ -249,7 +249,7 @@ void ResearchFiguresDialog::loadFigure(int index)
         mCombo->blockSignals(false);
     }
 
-    QString dirPath = QDir::current().filePath("figures");
+    QString dirPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures");
     QString filePath = QDir(dirPath).filePath(mFileNames[index]);
     QFileInfo fi(filePath);
     if (!fi.exists())
@@ -2686,7 +2686,7 @@ void TSPSForm::on_actionViewDashboard_triggered()
 
 void TSPSForm::on_actionOpenFiguresDir_triggered()
 {
-    QString dirPath = QDir::current().filePath("figures");
+    QString dirPath = QDir::current().filePath(QFile::exists("figures/revised_20261023/index.html")?"figures/revised_20261023":"figures");
     QDir dir(dirPath);
     if (!dir.exists())
     {

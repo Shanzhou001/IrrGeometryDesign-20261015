@@ -153,9 +153,9 @@ public:
         QPainter p(&img);
         p.setRenderHint(QPainter::Antialiasing, true);
 
-        QString title = QString::fromLocal8Bit("模拟退火 (SA) 优化相干度下降收敛曲线 [采样率: ") +
+        QString title = QString::fromLocal8Bit("混合搜索经典 PSF 互干度收敛曲线 [采样率: ") +
                         QString::number(rate * 100.0f, 'f', 0) + "%, m=" + QString::number(m) + "/" + QString::number(N) + "]";
-        QString subtitle = QString::fromLocal8Bit("Metropolis 当前解与历史最优轨迹（单次代表轮次；终值为 SA 历史最优，不含 CG 精修）");
+        QString subtitle = QString::fromLocal8Bit("同一 PSF 目标；SA 前缀 64 次评估后局部精修，总评估上限 200");
         drawHeader(p, W, title, subtitle);
 
         QRect plotRect(80, 105, 540, 370);
@@ -253,17 +253,17 @@ public:
         cardLines.push_back(QString::fromLocal8Bit("抽取保留点 m: ") + QString::number(m));
         cardLines.push_back(QString::fromLocal8Bit("规则减抽相干度: ") + QString::number(regMiu, 'f', 4));
         cardLines.push_back(QString::fromLocal8Bit("纯随机抽样相干度: ") + QString::number(randMiu, 'f', 4));
-        cardLines.push_back(QString::fromLocal8Bit("SA 历史最优(不含CG): ") + QString::number(finalBest, 'f', 4));
+        cardLines.push_back(QString::fromLocal8Bit("混合搜索最终最优: ") + QString::number(finalBest, 'f', 4));
         float imprvReg = (regMiu > 1e-4f) ? ((regMiu - finalBest) / regMiu * 100.0f) : 0.0f;
         float attenDb = (finalBest > 1e-6f && regMiu > 1e-6f) ? (20.0f * (float)log10(regMiu / finalBest)) : 0.0f;
         cardLines.push_back(QString::fromLocal8Bit("相干度降幅: ") + QString::number(imprvReg, 'f', 2) + "%");
         cardLines.push_back(QString::fromLocal8Bit("相干度衰减: ") + QString::number(attenDb, 'f', 2) + " dB");
-        drawCard(p, QRect(650, 105, 230, 215), QString::fromLocal8Bit("优化收敛指标统计 (SA Metrics)"), cardLines);
+        drawCard(p, QRect(650, 105, 230, 215), QString::fromLocal8Bit("混合搜索指标统计"), cardLines);
 
         // 图例卡片
         std::vector<QString> legendLines;
         legendLines.push_back(QString::fromLocal8Bit("━━ 红色粗线: 历史最优收敛 (Best)"));
-        legendLines.push_back(QString::fromLocal8Bit("── 浅蓝细线: 退火当前解探索 (Current)"));
+        legendLines.push_back(QString::fromLocal8Bit("── 浅蓝细线: SA 当前解 / 局部候选目标"));
         legendLines.push_back(QString::fromLocal8Bit("┈┈ 灰色虚线: 规则采样基线 (Regular)"));
         legendLines.push_back(QString::fromLocal8Bit("┈┈ 橙色虚线: 纯随机抽样基线 (Random)"));
         drawCard(p, QRect(650, 335, 230, 140), QString::fromLocal8Bit("图线说明与图例 (Legend)"), legendLines);
@@ -380,7 +380,7 @@ public:
         std::vector<QString> legend;
         legend.push_back(QString::fromLocal8Bit("■ 灰蓝柱: 规则减抽采样 (周期假频)"));
         legend.push_back(QString::fromLocal8Bit("■ 橙黄柱: 纯随机抽样 (随机白噪)"));
-        legend.push_back(QString::fromLocal8Bit("■ 翠绿柱: Jitter-SA 优化 (相干极小)"));
+        legend.push_back(QString::fromLocal8Bit("■ 翠绿柱: Jitter 初始化的混合搜索"));
         drawCard(p, QRect(660, 105, 240, 120), QString::fromLocal8Bit("采样方案图例 (Legend)"), legend);
 
         // 学术结论文字改为按实测数值动态生成，杜绝与柱状图数值自相矛盾 (2026.10.19)
@@ -406,7 +406,7 @@ public:
         }
         else
         {
-            insights.push_back(QString::fromLocal8Bit("1. 三档采样率下 Jitter-SA 均为最低相干度。"));
+            insights.push_back(QString::fromLocal8Bit("1. 当前没有可用于比较的采样率数据。"));
             insights.push_back(QString::fromLocal8Bit("   (详细分档数值见统计明细表)"));
         }
         insights.push_back(QString::fromLocal8Bit("2. 相比纯随机，Jitter 初始化提供"));
@@ -1047,7 +1047,7 @@ public:
         p.drawText(bottomBar.left() + 20, bottomBar.top() + 30, QString::fromLocal8Bit("★ 全项目科研总结与学术闭环结论 (Scientific Research Conclusion)"));
 
         const QString line1 = QString::fromLocal8Bit(
-            "1. 打通『非规则Jitter采样与退火优化』→『观测系统面元与属性评估』→『地震波场压缩感知重构』完整学术闭环。");
+            "1. 采样优化与波场重构使用同一掩码；真实 SPS 工区属性作为独立评价模块。");
         const QString line2 = attrIsReal
             ? QString::fromLocal8Bit("2. 模块二基于真实野外SPS工区实测数据验证（未施加抽稀，成本节约率0%），属性指标为真实测量结果。")
             : QString::fromLocal8Bit("2. 模块二为合成观测系统基准（24×24=576面元，50%检波点抽稀），用于算法可行性验证，非真实工区结论。");

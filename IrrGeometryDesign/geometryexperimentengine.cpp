@@ -30,6 +30,36 @@
 
 static const float PI_CONST = 3.14159265358979323846f;
 
+static QString samplingMaskHash(const std::vector<int>& mask)
+{
+    QByteArray bits;
+    for (size_t i = 0; i < mask.size(); i++) bits.append(mask[i] ? '1' : '0');
+    return QString(QCryptographicHash::hash(bits, QCryptographicHash::Sha1).toHex());
+}
+static bool saveSamplingMask(const QString& path, const ConstrainedResult& result,
+                              unsigned long long seed, int budget, const QString& objective)
+{
+    QDir().mkpath(QFileInfo(path).absolutePath());
+    QFile f(path);
+    if (result.mask.empty() || !f.open(QIODevice::WriteOnly | QIODevice::Text)) return false;
+    QTextStream os(&f); os.setCodec("UTF-8");
+    os << "# protocol=classic_psf_v2 objective=" << objective << "\n";
+    os << "# seed=" << QString::number(seed) << " budget_cap=" << budget << " evals=" << result.evals << "\n";
+    os << "# mu=" << QString::number(result.mu, 'g', 9) << " objective_value=" << QString::number(result.objective, 'g', 9)
+       << " max_gap=" << result.maxGap << " nn_cv=" << result.nnCv << "\n";
+    os << "# mask_sha1=" << samplingMaskHash(result.mask) << " status=" << QString::fromStdString(result.status) << "\n";
+    for (size_t i = 0; i < result.mask.size(); i++) os << result.mask[i] << "\n";
+    os.flush();
+    if (f.error() != QFile::NoError) return false;
+    f.close();
+    QFile trace(path + ".trace.csv");
+    if (!trace.open(QIODevice::WriteOnly | QIODevice::Text)) return false;
+    QTextStream ts(&trace); ts << "evaluation,best_objective,current_or_candidate_objective\n";
+    for (size_t i = 0; i < result.bestTrace.size(); i++) ts << (int)i + 1 << "," << QString::number(result.bestTrace[i], 'g', 9) << "," << QString::number(i<result.currentTrace.size()?result.currentTrace[i]:result.bestTrace[i],'g',9) << "\n";
+    ts.flush(); return trace.error() == QFile::NoError;
+}
+
+
 // 2026.10.20: 带符号增益格式化 —— 修复负增益被写成 "+-0.62 dB" 的问题。
 // 正数显示 "+x"，负数显示 "-x"，零显示 "0"。
 static QString fmtSigned(float v, int prec = 2)
@@ -632,7 +662,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             outReportSummary = QString::fromLocal8Bit("【采样基准测试失败】：规则采样掩码合法性校验未通过！");
             return false;
         }
-        float miu_reg = TestCurveletMiu1D(N, phi_reg, "EigenReal");
+        float miu_reg = SamplingMaskCoherence(std::vector<int>(phi_reg, phi_reg + N));
         // 2026.10.20: 规则减抽的均匀性指标（作为对照基准）
         const int regMaxGap = uniformity_max_gap(phi_reg, N);
         const float regNnCv = uniformity_nn_cv(phi_reg, N);
@@ -689,7 +719,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                 outReportSummary = QString::fromLocal8Bit("【采样基准测试失败】：纯随机采样掩码合法性校验未通过！");
                 return false;
             }
-            record.miu_random = TestCurveletMiu1D(N, phi_rand, "EigenReal");
+            record.miu_random = SamplingMaskCoherence(std::vector<int>(phi_rand, phi_rand + N));
             record.max_gap_random = uniformity_max_gap(phi_rand, N);
             record.nn_cv_random = uniformity_nn_cv(phi_rand, N);
             delete[] phi_rand;
@@ -702,7 +732,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
                 outReportSummary = QString::fromLocal8Bit("【采样基准测试失败】：Jitter采样掩码合法性校验未通过！");
                 return false;
             }
-            record.miu_jitter_init = TestCurveletMiu1D(N, phi_jit, "EigenReal");
+            record.miu_jitter_init = SamplingMaskCoherence(std::vector<int>(phi_jit, phi_jit + N));
             record.max_gap_jitter_init = uniformity_max_gap(phi_jit, N);
             record.nn_cv_jitter_init = uniformity_nn_cv(phi_jit, N);
 
@@ -715,7 +745,19 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
             sap.iter = 1;
             sap.strategy = SA_ACCEPT_METROPOLIS; // 经典 Metropolis 准则
 
-            int *phi_opt = UnOptiMiuSAEx(N, c, phi_jit, "J", true, &stats, 2, sap);
+            ConstrainedResult selected; ConstraintWeights weights;
+            if (!RunSamplingSearch(N, m, std::vector<int>(phi_jit, phi_jit + N), weights,
+                                   actual_seed + 1, 200, SEARCH_HYBRID, selected))
+            { delete[] phi_jit; outReportSummary = "sampling search failed"; return false; }
+            int *phi_opt = new int[N];
+            for (int q = 0; q < N; q++) phi_opt[q] = selected.mask[q];
+            stats.miu_final = selected.mu; stats.miu0 = record.miu_jitter_init;
+            stats.miu_sa_best = SamplingMaskCoherence(selected.saPrefixMask);
+            stats.mu_trace = selected.currentTrace; stats.best_mu_trace = selected.bestTrace;
+            for (size_t q = 0; q < selected.bestTrace.size(); q++) stats.eval_trace.push_back((long)q + 1);
+            QString savedMask = dir.filePath(QString("masks/r%1_run%2_hybrid.txt").arg((int)(c*100+0.5f)).arg(runIdx));
+            if (!saveSamplingMask(savedMask, selected, actual_seed + 1, 200, "ClassicPSF"))
+            { delete[] phi_jit; delete[] phi_opt; outReportSummary = "mask export failed"; return false; }
             if (!ValidateSamplingMask(N, m, phi_opt))
             {
                 delete[] phi_jit;
@@ -758,7 +800,7 @@ bool GeometryExperimentEngine::runSamplingBenchmark(int N,
 
             // 相干度比值衰减指标 (dB)
             float ratio = (record.miu_jitter_sa > 1e-6f) ? (record.miu_regular / record.miu_jitter_sa) : 1.0f;
-            if (ratio < 1.0f) ratio = 1.0f;
+
             record.alias_suppress_db = 20.0f * (float)log10((double)ratio);
 
             allRawRuns.push_back(record);
@@ -1321,7 +1363,7 @@ bool GeometryExperimentEngine::runHybridAblationExperiment(int N,
     QTextStream out(&f);
     out.setCodec("UTF-8");
     // 说明：所有 μ 均由 CurveletMiu1DEigen（nbscales=1）计算，与主流程同口径
-    out << "# Master_Seed=" << QString::number(seed) << ", SA(T0=80,Tmin=0.5,alpha=0.85,n_rapid=8,iter=1,Metropolis)\n";
+    out << "# Master_Seed=" << QString::number(seed) << ", protocol=classic_psf_v2,budget_cap=200,sa_prefix=64,Metropolis\n";
     out << "Sampling_Rate,m,Total,Initial_Jitter_Mu,SA_only_Mu,CG_only_Mu,SA_CG_Mu,"
         << "SA_CG_Evals,Restart_K,Jitter_Restart_Best,Jitter_Restart_Mean,Random_Restart_Best,"
         << "Gain_Init_to_SA_dB,Gain_Init_to_SA_CG_dB,SA_CG_vs_JitterRestart_dB,SA_CG_vs_RandomRestart_dB\n";
@@ -1645,33 +1687,25 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                     std::vector<int> mk(jm, jm + nTot); delete[] jm;
                     maskList.push_back(mk); maskNames << "Jitter";
                 }
-                // (4) SA 优化（在抖动基础上，预算限制为 20 步）
+                // Same hybrid algorithm as the formal sampling studies.
                 {
                     exprng::seed(20261020ULL);
                     int *jm = Sampling1J_Count(nTot, nKeep);
-                    std::vector<int> mk(jm, jm + nTot); delete[] jm;
-                    std::vector<int> idxv;
-                    for (int q = 0; q < nTot; q++) if (mk[(size_t)q] == 1) idxv.push_back(q);
-                    float bestMu = SamplingMutualCoherence1D(idxv, nTot);
-                    std::vector<int> bestMk = mk;
-                    for (int step2 = 0; step2 < 20; step2++)
-                    {
-                        std::vector<int> cand = mk;
-                        std::vector<int> ones, zeros;
-                        for (int q = 0; q < nTot; q++) { if (mk[(size_t)q]) ones.push_back(q); else zeros.push_back(q); }
-                        if (ones.empty() || zeros.empty()) break;
-                        int a = ones[exprng::integer() % ones.size()];
-                        int b = zeros[exprng::integer() % zeros.size()];
-                        cand[(size_t)a] = 0; cand[(size_t)b] = 1;
-                        std::vector<int> cidx;
-                        for (int q = 0; q < nTot; q++) if (cand[(size_t)q]) cidx.push_back(q);
-                        float cmu = SamplingMutualCoherence1D(cidx, nTot);
-                        if (cmu < bestMu) { bestMu = cmu; bestMk = cand; mk = cand; }
-                    }
-                    maskList.push_back(bestMk); maskNames << "SA_opt";
+                    std::vector<int> initial(jm, jm + nTot); delete[] jm;
+                    ConstraintWeights weights; ConstrainedResult selected;
+                    if (!RunSamplingSearch(nTot, nKeep, initial, weights, 20261021ULL, 200, SEARCH_HYBRID, selected) ||
+                        !saveSamplingMask(dir.filePath("sps_hybrid_mask.txt"), selected, 20261021ULL, 200, "ClassicPSF_IndexOrder"))
+                    { outReportSummary = "SPS hybrid search/export failed"; return false; }
+                    maskList.push_back(selected.mask); maskNames << "Hybrid_ClassicPSF";
                 }
 
-                // 对每种掩码构造抽稀集合
+                for(size_t mi=0;mi+1<maskList.size();mi++)
+                {
+                    ConstraintWeights weights;ConstrainedResult baseline;
+                    if(!RunSamplingSearch(nTot,nKeep,maskList[mi],weights,20261020ULL,1,SEARCH_LOCAL,baseline) ||
+                       !saveSamplingMask(dir.filePath("masks/sps_"+maskNames[(int)mi]+".txt"),baseline,20261020ULL,1,"ClassicPSF_IndexOrder"))
+                    {outReportSummary="SPS baseline mask export failed";return false;}
+                }
                 std::vector<std::map<std::pair<long long, long long>, GRPoint*> > thrSets;
                 for (size_t mi = 0; mi < maskList.size(); mi++)
                 {
@@ -1687,7 +1721,6 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                 std::vector<std::map<std::pair<long long, long long>, GRPoint*>*> setPtrs;
                 setPtrs.push_back(&recvSet);
                 for (size_t mi = 0; mi < thrSets.size(); mi++) setPtrs.push_back(&thrSets[mi]);
-                CmpStat fullStat;
                 CmpStat* pStats[1];
                 std::map<std::pair<long long, long long>, GRPoint*>* pSets[1];
                 Q_UNUSED(pStats); Q_UNUSED(pSets);
@@ -1798,7 +1831,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                     o << "# Strategies: Regular / Random / Jitter / SA_opt, each keeps n/2 receivers\n";
                     o << "# Mode: Real Survey Evaluation Mode\n";
                     o << "Configuration,Receivers,Traces,Live_CMP_Bins,Mean_Fold,Min_Fold,Max_Fold,Fold_CV,"
-                      << "Fold_Retention_Pct,Max_Offset_m,Mean_Offset_m,Near_Pct,Mid_Pct,Far_Pct,Azimuth_Sectors\n";
+                      << "Fold_Retention_Pct,Max_Offset_m,Mean_Offset_m,Near_Pct,Mid_Pct,Far_Pct,Azimuth_Sectors,Mask_SHA1,Selection_Objective\n";
                     for (int pass = 0; pass < nSets; pass++)
                     {
                         const CmpStat& st = stats[(size_t)pass];
@@ -1818,14 +1851,13 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                           << QString::number(st.nearPct, 'f', 1) << ","
                           << QString::number(st.midPct, 'f', 1) << ","
                           << QString::number(st.farPct, 'f', 1) << ","
-                          << st.azimuthSectors << "\n";
+                          << st.azimuthSectors << ","
+                          << samplingMaskHash(pass==0?std::vector<int>(nTot,1):maskList[(size_t)(pass-1)])
+                          << ",ClassicPSF_IndexOrder\n";
                     }
                     tf.close();
                 }
                 // 报告摘要
-                outMetrics.nearOffsetRatio = fullStat.nearPct;
-                outMetrics.midOffsetRatio = fullStat.midPct;
-                outMetrics.farOffsetRatio = fullStat.farPct;
                 Q_UNUSED(nRecv);
             }
 
@@ -2330,7 +2362,10 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
                                     int numIter,
                                     std::vector<std::vector<float> >& outRecon,
                                     std::vector<std::vector<float> >& outResidual,
-                                    std::vector<float>& outStepRes)
+                                    std::vector<float>& outStepRes,
+                                    const std::vector<double>* positions = NULL,
+                                    const std::vector<std::vector<float> >* measured = NULL,
+                                    const std::vector<int>* measuredMask = NULL)
 {
     const int Nt = (int)initGather.size();
     const int Nx = (int)initGather[0].size();
@@ -2352,6 +2387,30 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
 
     std::vector<std::vector<fdct_wrapping_ns::CpxNumMat> > c;
     outStepRes.clear();
+
+    std::vector<int> projectionIndices, projectionLeft;
+    std::vector<double> projectionA,projectionB,projectionInverse,projectionUpper;
+    if (positions && measured && measuredMask)
+    {
+        for(int j=0;j<(int)positions->size();j++)if((*measuredMask)[j])
+        {
+            int left=(int)floor((*positions)[j]);if(left>=Nx-1)left=Nx-2;
+            const double b=(*positions)[j]-left,a=1.0-b;
+            projectionIndices.push_back(j);projectionLeft.push_back(left);
+            projectionA.push_back(a);projectionB.push_back(b);projectionInverse.push_back(0);
+            projectionUpper.push_back(0);
+        }
+        // Factor the tridiagonal A*A^T with supports ordered by physical position.
+        for(size_t k=0;k<projectionIndices.size();k++)
+        {
+            double lower=k>0 && projectionLeft[k-1]+1==projectionLeft[k]?projectionB[k-1]*projectionA[k]:0;
+            double upper=k+1<projectionIndices.size() && projectionLeft[k]+1==projectionLeft[k+1]?projectionB[k]*projectionA[k+1]:0;
+            double diagonal=projectionA[k]*projectionA[k]+projectionB[k]*projectionB[k];
+            if(k>0)diagonal-=lower*projectionUpper[k-1];
+            if(diagonal<=1e-14){outRecon.clear();return;}
+            projectionInverse[k]=1.0/diagonal;projectionUpper[k]=upper/diagonal;
+        }
+    }
 
     for (int it = 0; it < numIter; it++)
     {
@@ -2392,6 +2451,30 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
         fdct_wrapping_ns::ifdct_wrapping(Nt, Nx, nbscales, nbangles_coarse, ac, c, x_mat);
 
         // 4. 实测道数据一致性严格投影 (Data Consistency Projection)
+        if (positions && measured && measuredMask)
+        {
+            const int count=(int)projectionIndices.size();std::vector<double> correction(count,0);
+            for(int i=0;i<Nt;i++)
+            {
+                for(int k=0;k<count;k++)
+                {
+                    int left=projectionLeft[k],j=projectionIndices[k];
+                    double residual=(*measured)[i][j]-projectionA[k]*x_mat(i,left).real()-projectionB[k]*x_mat(i,left+1).real();
+                    double lower=k>0 && projectionLeft[k-1]+1==left?projectionB[k-1]*projectionA[k]:0;
+                    correction[k]=(residual-(k>0?lower*correction[k-1]:0))*projectionInverse[k];
+                }
+                for(int k=count-2;k>=0;k--)correction[k]-=projectionUpper[k]*correction[k+1];
+                for(int k=0;k<count;k++)
+                {
+                    int left=projectionLeft[k];
+                    x_mat(i,left)=fdct_wrapping_ns::cpx(x_mat(i,left).real()+projectionA[k]*correction[k],0);
+                    x_mat(i,left+1)=fdct_wrapping_ns::cpx(x_mat(i,left+1).real()+projectionB[k]*correction[k],0);
+                }
+            }
+            for(int i=0;i<Nt;i++)for(int j=0;j<Nx;j++)x_mat(i,j)=fdct_wrapping_ns::cpx(x_mat(i,j).real(),0);
+        }
+        else
+        {
         for (int j = 0; j < Nx; j++)
         {
             if (mask[j] == 1)
@@ -2411,6 +2494,7 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
         }
 
         // 记录迭代收敛残差
+        }
         double diffEnergy = 0.0;
         double curEnergy = 0.0;
         for (int i = 0; i < Nt; i++)
@@ -2463,7 +2547,9 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
     const int Nt = 256;
     const int Nx = 128;
     const float dt = 0.004f;
-    const float dx = 12.5f;
+    float dx = 12.5f;
+    double spatialOrigin=-Nx/2*dx;
+    QString spatialSource="DefaultUniformGrid";
     const float f0 = 25.0f;
 
     outMetrics.nSamples = Nt;
@@ -2489,6 +2575,36 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         // 措辞中性化：外部 CSV 既可能是真实资料，也可能是测试光栅，
         // 因此不再声称 "Seismic Record"，只如实说明"来自外部文件"。
         outMetrics.modeName = QString("External CSV File (%1)").arg(QFileInfo(inputSeismicFilePath).fileName());
+        QFile metadata(inputSeismicFilePath);
+        if (metadata.open(QIODevice::ReadOnly|QIODevice::Text))
+        {
+            while(!metadata.atEnd())
+            {
+                QString line=QString::fromUtf8(metadata.readLine()).trimmed();
+                if(line.startsWith("# synthetic_model="))
+                {outMetrics.isSynthetic=true;outMetrics.modeName="Synthetic external model: "+QFileInfo(inputSeismicFilePath).fileName();}
+                if(line.startsWith("# offsets_m="))
+                {
+                    QStringList fields=line.mid(12).split(',',QString::KeepEmptyParts);
+                    if(fields.size()!=Nx){outReportSummary="reference-grid coordinate count mismatch";return false;}
+                    std::vector<double> x;
+                    for(int j=0;j<Nx;j++)
+                    {
+                        bool ok=false;double value=fields[j].toDouble(&ok);
+                        if(!ok || value!=value || fabs(value)>1e20 || (!x.empty() && value<=x.back()))
+                        {outReportSummary="invalid reference-grid coordinate";return false;}
+                        x.push_back(value);
+                    }
+                    double spacing=(x.back()-x.front())/(Nx-1);
+                    for(int j=1;j<Nx;j++)if(fabs(x[j]-x[j-1]-spacing)>1e-4*std::max(1.0,spacing))
+                    {outReportSummary="reference reconstruction requires a uniform grid; use physical holdout for measured nonuniform traces";return false;}
+                    dx=(float)spacing;spatialOrigin=x.front();spatialSource="ActualOffsetUniformResampling";
+                }
+                if(!line.startsWith("#") && !line.isEmpty())break;
+            }
+        }
+        outMetrics.dx=dx;
+
     }
     else
     {
@@ -2890,6 +3006,10 @@ bool GeometryExperimentEngine::runWavefieldReconstruction(const QString& maskFil
         out.setCodec("UTF-8");
         out << "Metric_Name,Value,Unit,Description\n";
         out << "Mode_Name," << outMetrics.modeName << ",Text,Dataset mode\n";
+        out << "Spatial_Grid_Dx_m," << QString::number(dx,'g',9) << ",m,Physical spacing of the working grid\n";
+        out << "Spatial_Grid_Origin_m," << QString::number(spatialOrigin,'g',12) << ",m,First physical offset or synthetic coordinate\n";
+        out << "Spatial_Grid_Source," << spatialSource << ",Text,Coordinate provenance\n";
+        out << "Mask_SHA1," << samplingMaskHash(mask) << ",Hash,Canonical binary mask SHA1\n";
         out << "Mask_Source," << outMetrics.maskSource << ",Text,Subsampling mask origin\n";
         out << "Sampling_Ratio," << QString::number(outMetrics.samplingRate * 100.0f, 'f', 2) << "%,Percentage of active receiver traces\n";
         out << "Active_Traces," << outMetrics.sampledTraces << ",Traces,Number of acquired traces\n";
@@ -3157,7 +3277,6 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
     rates.push_back(0.70f);
 
     // 2026.10.20: 掩码溯源（见下方复用 cmp_mask.txt 处的说明）
-    QString provenanceMaskPath;
     QString provenanceSource;
 
     std::vector<BenchmarkRecord> bResults;
@@ -3180,38 +3299,18 @@ bool GeometryExperimentEngine::runFullExperimentSuite(GProject *pProject,
         pProjToUse = NULL;
     }
 
-    QString maskPath = dir.filePath("cmp_mask.txt");
-    if (!QFile::exists(maskPath))
-    {
-        if (QFile::exists(dir.filePath("03_wavefield_reconstruction/cmp_mask.txt")))
-            maskPath = dir.filePath("03_wavefield_reconstruction/cmp_mask.txt");
-        else
-            maskPath = ""; // 留空触发自动生成 50% Jitter 掩码并保存
-    }
-    // 2026.10.20 修复：复用上次运行落盘的 cmp_mask.txt 时，会被误标成
-    // "External File"，使同配置两次运行的溯源标签不一致（掩码曾为自动生成）。
-    // 现以掩码文件头中的原始来源为准，显式传给重构并原样记录。
-    if (!maskPath.isEmpty())
-    {
-        QFile maskIn(maskPath);
-        if (maskIn.open(QIODevice::ReadOnly | QIODevice::Text))
-        {
-            QString firstLine = QTextStream(&maskIn).readLine().trimmed();
-            maskIn.close();
-            if (firstLine.startsWith("# Source: "))
-            {
-                provenanceMaskPath = maskPath;
-                provenanceSource = firstLine.mid(10).trimmed();
-            }
-        }
-    }
+    QString maskPath = QDir(dir1).filePath("mask_50pct_sa_best.txt");
+    provenanceSource = "Benchmark optimized ClassicPSF mask (50%, best across declared runs)";
+    if (QFile::exists(dir.filePath("input_mask.txt")))
+    { maskPath = dir.filePath("input_mask.txt"); provenanceSource = "Explicit suite input mask"; }
     ReconstructionMetrics rMetrics;
     bool ok3 = runWavefieldReconstruction(maskPath, dir3, 0.50f, rMetrics, s3, "", true,
                                           false, true, true, provenanceSource);
 
     // 同步将生成的 cmp_mask.txt 复制或导出到 experiment_results 根目录供外部调用
-    if (!QFile::exists(dir.filePath("cmp_mask.txt")) && QFile::exists(dir3 + "/cmp_mask.txt"))
+    if (QFile::exists(dir3 + "/cmp_mask.txt"))
     {
+        QFile::remove(dir.filePath("cmp_mask.txt"));
         QFile::copy(dir3 + "/cmp_mask.txt", dir.filePath("cmp_mask.txt"));
     }
 
@@ -3450,6 +3549,8 @@ static bool removeDirRecursive(const QString& path)
 //        c) 曲波 POCS    : 以线性插值热启动，40 次迭代，观测道严格投影
 //   4. SNR 只在留出道集合上统计；参考值为真实实测振幅。
 // =============================================================================
+#include "coordinateholdout.inc"
+
 bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
                                                     int useTraces,
                                                     int keepTraces,
@@ -3471,42 +3572,19 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
         outReport = QString::fromLocal8Bit("【留出验证失败】无法打开输入文件: %1").arg(inputCsvPath);
         return false;
     }
+    in.close();
     std::vector<std::vector<double> > all;
-    {
-        QTextStream ts(&in);
-        ts.setCodec("UTF-8");
-        while (!ts.atEnd())
-        {
-            QString line = ts.readLine().trimmed();
-            if (line.isEmpty() || line.startsWith("#")) continue;
-            QStringList parts = line.split(QRegExp("[,;\\s]+"), QString::SkipEmptyParts);
-            if (parts.size() > 200) continue;            // 防御: 跳过异常行
-            bool okAll = true;
-            std::vector<double> row;
-            row.reserve(parts.size());
-            for (int i = 0; i < parts.size(); i++)
-            {
-                bool ok = false;
-                double v = parts[i].toDouble(&ok);
-                if (!ok || v != v) { okAll = false; break; }
-                row.push_back(v);
-            }
-            if (okAll && row.size() > 1) all.push_back(row);
-        }
-        in.close();
-    }
-    if (all.empty())
-    {
-        outReport = QString::fromLocal8Bit("【留出验证失败】输入文件无有效数值行");
-        return false;
-    }
+    std::vector<double> coordinates;
+    if (!loadHoldoutGather(inputCsvPath,all,coordinates,outReport)) return false;
 
     const int availNt = (int)all.size();
     const int availNx = (int)all[0].size();
-    int m = (useTraces > 0 && useTraces <= availNx) ? useTraces : availNx;
-    int k = (keepTraces > 0 && keepTraces < m) ? keepTraces : (int)(m / 2);
-    if (k < 4) k = 4;
-    if (iterations < 1) iterations = 40;
+    if (useTraces<0 || useTraces>availNx || keepTraces<0 || iterations<1)
+    { outReport="invalid holdout dimensions/iterations"; return false; }
+    int m=useTraces>0?useTraces:availNx;
+    int k=keepTraces>0?keepTraces:m/2;
+    if (m<4 || k<2 || k>=m) {outReport="holdout requires 2 <= keep < traces";return false;}
+    coordinates.resize(m);
 
     // 截取前 m 道
     std::vector<std::vector<float> > truth(availNt, std::vector<float>(m, 0.0f));
@@ -3569,32 +3647,10 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
     // 未知道保持 0（dObs 本身）
 
     // ---- 3b. 线性插值 ----
-    std::vector<std::vector<float> > dLin(availNt, std::vector<float>(m, 0.0f));
-    for (int i = 0; i < availNt; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            if (mask[j]) { dLin[i][j] = dObs[i][j]; continue; }
-            int left = -1, right = -1;
-            for (size_t t = 0; t < known.size(); t++)
-            {
-                if (known[t] < j) left = known[t];
-                if (known[t] > j && right < 0) right = known[t];
-            }
-            if (left >= 0 && right >= 0)
-            {
-                float w = (float)(j - left) / (float)(right - left);
-                dLin[i][j] = (1.0f - w) * dObs[i][left] + w * dObs[i][right];
-            }
-            else if (left >= 0) dLin[i][j] = dObs[i][left];
-            else if (right >= 0) dLin[i][j] = dObs[i][right];
-        }
-    }
-
-    // ---- 3c. 曲波 POCS（线性插值热启动）----
-    std::vector<std::vector<float> > dRec, dRes;
-    std::vector<float> stepRes;
-    curveletPocsReconstruct(dLin, dObs, mask, iterations, dRec, dRes, stepRes);
+    std::vector<std::vector<float> > dLin,dRec;
+    double consistencyError=0,knownScale=1;
+    if (!coordinateHoldoutReconstruct(truth,mask,coordinates,iterations,dLin,dRec,consistencyError,&knownScale))
+    {outReport="coordinate reconstruction/data consistency failed";return false;}
 
     // ---- 4. 只在留出道集合上统计 SNR ----
     double eZero = 0.0, eLin = 0.0, ePocs = 0.0, eTruth = 0.0;
@@ -3636,7 +3692,7 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
     outMetrics.gain_pocs_vs_zero_db   = outMetrics.snr_pocs_db - outMetrics.snr_zero_fill_db;
     outMetrics.rmse_linear = (float)sqrt(eLin  / (double)cnt);
     outMetrics.rmse_pocs   = (float)sqrt(ePocs / (double)cnt);
-    outMetrics.dataConsistencyPassed = true;
+    outMetrics.dataConsistencyPassed = consistencyError<1e-5;
     {   // 2026.10.20: 记录输入文件 SHA1，便于第三方独立复核
         QFile hf(inputCsvPath);
         if (hf.open(QIODevice::ReadOnly))
@@ -3658,6 +3714,10 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
         o.setCodec("UTF-8");
         o << "Metric_Name,Value,Unit,Description\n";
         o << "Validation_Type,Hold-out on measured traces,Text,SNR computed ONLY on withheld real traces\n";
+        o << "Geometry_Mode,ActualOffsets_LinearObservationProjection,Text,Held-out amplitudes never enter solver input\n";
+        o << "Solver_Amplitude_Scale," << QString::number(knownScale,'g',9) << ",Amplitude,Estimated ONLY from known traces then inverted for evaluation\n";
+        o << "Mask_SHA1," << samplingMaskHash(mask) << ",Hash,Canonical binary mask SHA1\n";
+        o << "Data_Consistency_Max_Error," << QString::number(consistencyError,'g',9) << ",Amplitude,Measured on known physical coordinates\n";
         o << "Input_File," << QFileInfo(inputCsvPath).fileName() << ",Text,Source gather\n";
         o << "Traces_Used," << m << ",Traces,Real traces in the working grid\n";
         o << "Traces_Kept," << k << ",Traces,Traces given to the solver as known\n";
@@ -4610,7 +4670,7 @@ bool GeometryExperimentEngine::runUnitTests()
     QString suiteFailDir = "unit_test_sandbox/test_suite_fail";
     QDir().mkpath(suiteFailDir);
     {
-        QFile f(suiteFailDir + "/cmp_mask.txt");
+        QFile f(suiteFailDir + "/input_mask.txt");
         if (f.open(QIODevice::WriteOnly | QIODevice::Text))
         {
             QTextStream out(&f);
@@ -5241,6 +5301,8 @@ bool GeometryExperimentEngine::runUnitTests()
     }
     // 2026.10.20: 汇总必须区分 PASS / FAIL / SKIP，且 SKIP 不计为通过。
     // 任何 SKIP 都会使整体不通过（本套件不含允许跳过的项）。
+    #include "scienceregression.inc"
+
     const int failedTests = totalTests - passedTests - skippedTests;
     log_test(logFp, "============================================================\n");
     log_test(logFp, " Test Results: PASS=%d  FAIL=%d  SKIP=%d  (total=%d)\n",
@@ -5290,148 +5352,6 @@ bool GeometryExperimentEngine::runUnitTests()
 // 本实验在 N×N 接收网格上比较四种 2D 掩码的二维曲波相干度：
 //   规则（行隔点 + 列隔点） / 随机 / 抖动 / 抖动+SA（逐行抖动后行内 SA）
 // 二维 μ 定义为"逐行 1D μ 的均值"，与 CalculateAveMiu 同口径。
-// =============================================================================
-bool GeometryExperimentEngine::runSampling2DBenchmark(int N2D,
-                                                      const std::vector<float>& rates,
-                                                      unsigned long long seed,
-                                                      const QString& outputDir,
-                                                      QString& outReportSummary)
-{
-    QDir().mkpath(outputDir);
-    QDir dir(outputDir);
-    if (N2D < 8) N2D = 32;
-
-    std::vector<float> useRates = rates;
-    if (useRates.empty()) { useRates.push_back(0.30f); useRates.push_back(0.50f); useRates.push_back(0.70f); }
-
-    SAParams sap;
-    sap.T0 = 80.0; sap.Tmin = 0.5; sap.alpha = 0.85; sap.n_rapid = 8; sap.iter = 1;
-    sap.strategy = SA_ACCEPT_METROPOLIS;
-
-    QFile f(dir.filePath("sampling_2d_benchmark.csv"));
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        outReportSummary = QString::fromLocal8Bit("2D benchmark: cannot create CSV");
-        return false;
-    }
-    QTextStream os(&f);
-    os.setCodec("UTF-8");
-    // 2026-10-21: 新增真正二维互干度（含跨行相干性），与原“逐行均值”并列
-    os << "Grid,Sampling_Rate,Points_Per_Row,Rows,"
-       << "Rule_RowAvg,Random_RowAvg,Jitter_RowAvg,JitterSA_RowAvg,"
-       << "Rule_True2D,Random_True2D,Jitter_True2D,JitterSA_True2D,"
-       << "SA_Imprv_vs_Rule_Pct,SA_Imprv_vs_Random_Pct,SA_Atten_vs_Rule_dB\n";
-
-    QStringList rep;
-    rep << QString::fromLocal8Bit("2D sampling benchmark: %1 x %1 grid, seed %2" )
-           .arg(N2D).arg(QString::number(seed));
-
-    for (size_t ri = 0; ri < useRates.size(); ri++)
-    {
-        const float c = useRates[ri];
-        const int m = (int)floor((double)N2D * (double)c + 0.5);
-        if (m < 2) continue;
-        exprng::seed(seed + (unsigned long long)(c * 1000.0f));
-
-        // ---- 规则 2D：行列均按 floor(k*N/m) 取点 ----
-        double ruleSum = 0.0;
-        for (int row = 0; row < N2D; row++)
-        {
-            std::vector<int> idx;
-            for (int k = 0; k < m; k++) idx.push_back((int)((double)k * (double)N2D / (double)m));
-            std::vector<int> mrow(N2D, 0);
-            for (size_t k = 0; k < idx.size(); k++) if (idx[k] >= 0 && idx[k] < N2D) mrow[idx[k]] = 1;
-            ruleSum += (double)TestCurveletMiu1D(N2D, &mrow[0], "EigenReal");
-        }
-        const double muRule = ruleSum / (double)N2D;
-
-        // ---- 随机 2D / 抖动 2D / 抖动+SA ----
-        double randSum = 0.0, jitSum = 0.0, saSum = 0.0;
-        for (int row = 0; row < N2D; row++)
-        {
-            int *mRand = Sampling1S_Count(N2D, m);
-            int *mJit  = Sampling1J_Count(N2D, m);
-            randSum += (double)TestCurveletMiu1D(N2D, mRand, "EigenReal");
-            jitSum  += (double)TestCurveletMiu1D(N2D, mJit, "EigenReal");
-
-            SAStats st;
-            int *mOpt = UnOptiMiuSAEx(N2D, c, mJit, "J", true, &st, 2, sap);
-            saSum += (double)TestCurveletMiu1D(N2D, mOpt, "EigenReal");
-            delete[] mRand;
-            delete[] mJit;
-            delete[] mOpt;
-        }
-        const double muRand = randSum / (double)N2D;
-        const double muJit  = jitSum / (double)N2D;
-        const double muSa   = saSum / (double)N2D;
-
-        const double imprvRule = (muRule > 1e-6) ? (muRule - muSa) / muRule * 100.0 : 0.0;
-        const double imprvRand = (muRand > 1e-6) ? (muRand - muSa) / muRand * 100.0 : 0.0;
-        const double atten = (muSa > 1e-6) ? 20.0 * log10(muRule / muSa) : 0.0;
-
-        // 2026-10-21: 构造四类二维掩码并计算真正二维互干度
-        std::vector<int> flatRule((size_t)N2D * N2D, 0), flatRand((size_t)N2D * N2D, 0);
-        std::vector<int> flatJit((size_t)N2D * N2D, 0), flatSa((size_t)N2D * N2D, 0);
-        {
-            for (int row = 0; row < N2D; row++)
-            {
-                // 规则
-                for (int k = 0; k < m; k++)
-                {
-                    int x = (int)((double)k * (double)N2D / (double)m);
-                    if (x >= 0 && x < N2D) flatRule[(size_t)(row * N2D + x)] = 1;
-                }
-                // 随机 / 抖动 / SA
-                int *rr = Sampling1S_Count(N2D, m);
-                int *jj = Sampling1J_Count(N2D, m);
-                SAStats st2;
-                int *oo = UnOptiMiuSAEx(N2D, c, jj, "J", true, &st2, 2, sap);
-                for (int x = 0; x < N2D; x++)
-                {
-                    if (rr[x] == 1) flatRand[(size_t)(row * N2D + x)] = 1;
-                    if (jj[x] == 1) flatJit[(size_t)(row * N2D + x)] = 1;
-                    if (oo[x] == 1) flatSa[(size_t)(row * N2D + x)] = 1;
-                }
-                delete[] rr; delete[] jj; delete[] oo;
-            }
-        }
-        const float t2Rule = SamplingMutualCoherence2D(flatRule, N2D, N2D);
-        const float t2Rand = SamplingMutualCoherence2D(flatRand, N2D, N2D);
-        const float t2Jit  = SamplingMutualCoherence2D(flatJit,  N2D, N2D);
-        const float t2Sa   = SamplingMutualCoherence2D(flatSa,   N2D, N2D);
-
-        os << N2D << "," << QString::number(c, 'f', 2) << "," << m << "," << N2D << ","
-           << QString::number(muRule, 'f', 4) << ","
-           << QString::number(muRand, 'f', 4) << ","
-           << QString::number(muJit, 'f', 4) << ","
-           << QString::number(muSa, 'f', 4) << ","
-           << QString::number(t2Rule, 'f', 4) << ","
-           << QString::number(t2Rand, 'f', 4) << ","
-           << QString::number(t2Jit, 'f', 4) << ","
-           << QString::number(t2Sa, 'f', 4) << ","
-           << QString::number(imprvRule, 'f', 2) << ","
-           << QString::number(imprvRand, 'f', 2) << ","
-           << QString::number(atten, 'f', 2) << "\n";
-        rep << QString::fromLocal8Bit("  rate=%1: rule=%2 rand=%3 jitter=%4 SA=%5  (SA 改善 %6%, 衰减 %7 dB)")
-               .arg(QString::number(c * 100.0f, 'f', 0))
-               .arg(QString::number(muRule, 'f', 4))
-               .arg(QString::number(muRand, 'f', 4))
-               .arg(QString::number(muJit, 'f', 4))
-               .arg(QString::number(muSa, 'f', 4))
-               .arg(QString::number(imprvRule, 'f', 2))
-               .arg(QString::number(atten, 'f', 2));
-    }
-    f.close();
-
-    rep << QString::fromLocal8Bit("Detailed CSV: %1").arg(dir.filePath("sampling_2d_benchmark.csv"));
-    outReportSummary = rep.join("\n");
-    return true;
-}
-
-// =============================================================================
-// 2026-10-21 新增：目标函数数学性质探针
-// 用于第二目标题“问题 1”的取证：将 μ 在边界、极端、重复输入下的实测值
-// 与其定义一起导出，避免“仅凭代码阅读断言”。
 // =============================================================================
 bool GeometryExperimentEngine::runMiuProbe(const QString& outCsvPath, QString& outReport)
 {
@@ -5805,385 +5725,4 @@ bool GeometryExperimentEngine::runMcProbe(const QString& outCsvPath, QString& ou
 // 2026-10-21 新增：空间约束优化 A–E 方案对比 + 惩罚系数敏感性
 // =============================================================================
 // 2026-10-21: 与 OptimizeMiu.cpp 中的实现一致的均匀性度量（供基线评估复用）
-static int cons_max_gap(const std::vector<int>& idx, int N)
-{
-    if (idx.empty()) return N;
-    int g = 0;
-    for (size_t k = 1; k < idx.size(); k++) { int d = idx[k] - idx[k-1]; if (d > g) g = d; }
-    if (idx.front() > g) g = idx.front();
-    if (N - 1 - idx.back() > g) g = N - 1 - idx.back();
-    return g;
-}
-static float cons_nn_cv(const std::vector<int>& idx)
-{
-    const int n = (int)idx.size();
-    if (n < 3) return 0.0f;
-    std::vector<double> d; d.reserve(n);
-    for (int k = 0; k < n; k++)
-    {
-        int left  = (k > 0)     ? idx[k] - idx[k-1] : (idx[1] - idx[0]);
-        int right = (k + 1 < n) ? idx[k+1] - idx[k] : (idx[n-1] - idx[n-2]);
-        d.push_back((double)((left < right) ? left : right));
-    }
-    double mean = 0.0; for (size_t i = 0; i < d.size(); i++) mean += d[i];
-    mean /= (double)d.size();
-    if (mean <= 1e-9) return 0.0f;
-    double var = 0.0;
-    for (size_t i = 0; i < d.size(); i++) { double t = d[i]-mean; var += t*t; }
-    var /= (double)d.size();
-    return (float)(sqrt(var)/mean);
-}
-static float cons_unit_occupancy(const std::vector<int>& idx, int N, int m)
-{
-    if (m <= 0 || m >= N) return 1.0f;
-    const double alpha = (double)N/(double)m;
-    std::vector<int> cnt((size_t)m, 0);
-    for (size_t k = 0; k < idx.size(); k++)
-    {
-        int u = (int)((double)idx[k]/alpha);
-        if (u < 0) u = 0; if (u >= m) u = m-1;
-        cnt[(size_t)u]++;
-    }
-    int ok = 0; for (int u = 0; u < m; u++) if (cnt[(size_t)u] == 1) ok++;
-    return (float)ok/(float)m;
-}
-bool GeometryExperimentEngine::runConstrainedComparison(const std::vector<float>& rates,
-                                                       const std::vector<unsigned long long>& seeds,
-                                                       const QString& outputDir,
-                                                       QString& outReportSummary)
-{
-    QDir().mkpath(outputDir);
-    QDir dir(outputDir);
-    const int N = 128;
-
-    QFile f(dir.filePath("constrained_comparison.csv"));
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        outReportSummary = "cannot create constrained CSV";
-        return false;
-    }
-    QTextStream os(&f);
-    os.setCodec("UTF-8");
-    os << "scheme,rate,seed,m,mu,max_gap,nn_cv,unit_occupancy,objective,evals,hard_ok\n";
-
-    // 方案定义：A 仅 μ；B Jitter+SA(μ)；C 软惩罚；D 硬约束；E 多目标（λ 扫描）
-    struct Scheme { const char* name; double lg; double ln; int hard; };
-    std::vector<Scheme> schemes;
-    { Scheme a; a.name="A_mu_only";      a.lg=0.0;  a.ln=0.0;  a.hard=0; schemes.push_back(a); }
-    // 2026-10-21 修正：B 为“仅 Jitter 初始（不优化）”基线，否则与 A 完全重合
-    { Scheme b; b.name="B_jitter_init";  b.lg=-1.0; b.ln=-1.0; b.hard=0; schemes.push_back(b); }
-    { Scheme c; c.name="C_soft_l0.3";    c.lg=0.3;  c.ln=0.3;  c.hard=0; schemes.push_back(c); }
-    { Scheme d; d.name="D_hard_gap3";    d.lg=0.0;  d.ln=0.0;  d.hard=3; schemes.push_back(d); }
-    { Scheme e; e.name="E_soft_l3.0";    e.lg=3.0;  e.ln=3.0;  e.hard=0; schemes.push_back(e); }
-
-    QStringList rep;
-    rep << QString::fromLocal8Bit("【空间约束优化 A–E 对比】");
-
-    for (size_t si = 0; si < schemes.size(); si++)
-    {
-        const Scheme& sc = schemes[si];
-        for (size_t ri = 0; ri < rates.size(); ri++)
-        {
-            const float c = rates[ri];
-            const int m = (int)floor((double)N * (double)c + 0.5);
-            for (size_t ki = 0; ki < seeds.size(); ki++)
-            {
-                // 统一初始掩码：Jitter（保证可比）
-                exprng::seed(seeds[ki]);
-                int *jm = Sampling1J_Count(N, m);
-                std::vector<int> initMask(jm, jm + N);
-                delete[] jm;
-
-                ConstraintWeights w;
-                w.lambdaGap = sc.lg;
-                w.lambdaNN = sc.ln;
-                w.hardMaxGap = sc.hard;
-
-                ConstrainedResult cr;
-                if (sc.lg < 0.0)
-                {
-                    // 基线：不优化，直接评估 Jitter 初始掩码
-                    std::vector<int> idx0;
-                    for (int q = 0; q < N; q++) if (initMask[q] == 1) idx0.push_back(q);
-                    cr.mu = SamplingMutualCoherence1D(idx0, N);
-                    cr.maxGap = cons_max_gap(idx0, N);
-                    cr.nnCv = cons_nn_cv(idx0);
-                    cr.unitOccupancy = cons_unit_occupancy(idx0, N, m);
-                    cr.objective = cr.mu;
-                    cr.evals = 0;
-                    cr.hardConstraintSatisfied = true;
-                }
-                else if (!RunConstrainedSA(N, m, initMask, w, seeds[ki], 60, cr)) continue;
-
-                os << sc.name << "," << QString::number(c, 'f', 2) << "," << QString::number(seeds[ki])
-                   << "," << m << "," << QString::number(cr.mu, 'f', 6)
-                   << "," << cr.maxGap << "," << QString::number(cr.nnCv, 'f', 4)
-                   << "," << QString::number(cr.unitOccupancy, 'f', 4)
-                   << "," << QString::number(cr.objective, 'f', 6)
-                   << "," << cr.evals << "," << (cr.hardConstraintSatisfied ? 1 : 0) << "\n";
-            }
-        }
-    }
-    f.close();
-
-    // 惩罚系数敏感性：λ 扫描
-    QFile f2(dir.filePath("lambda_sensitivity.csv"));
-    if (f2.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        QTextStream o2(&f2);
-        o2.setCodec("UTF-8");
-        o2 << "lambda,rate,mu,max_gap,nn_cv,unit_occupancy,evals\n";
-        const double lams[6] = { 0.0, 0.1, 0.3, 1.0, 3.0, 10.0 };
-        const float c50 = 0.50f;
-        const int m50 = (int)floor((double)N * (double)c50 + 0.5);
-        for (int li = 0; li < 6; li++)
-        {
-            exprng::seed(20261020ULL);
-            int *jm = Sampling1J_Count(N, m50);
-            std::vector<int> initMask(jm, jm + N);
-            delete[] jm;
-            ConstraintWeights w;
-            w.lambdaGap = lams[li]; w.lambdaNN = lams[li]; w.hardMaxGap = 0;
-            ConstrainedResult cr;
-            if (!RunConstrainedSA(N, m50, initMask, w, 20261020ULL, 60, cr)) continue;
-            o2 << QString::number(lams[li], 'f', 1) << "," << QString::number(c50, 'f', 2) << ","
-               << QString::number(cr.mu, 'f', 6) << "," << cr.maxGap << ","
-               << QString::number(cr.nnCv, 'f', 4) << ","
-               << QString::number(cr.unitOccupancy, 'f', 4) << "," << cr.evals << "\n";
-        }
-        f2.close();
-    }
-
-    rep << QString::fromLocal8Bit("  明细: %1 / %2")
-           .arg(dir.filePath("constrained_comparison.csv"))
-           .arg(dir.filePath("lambda_sensitivity.csv"));
-    outReportSummary = rep.join("\n");
-    return true;
-}
-
-// =============================================================================
-// 2026-10-21 新增：多种子消融实验驱动 + 统计检验
-// =============================================================================
-bool GeometryExperimentEngine::runMultiSeedAblationExperiment(const std::vector<float>& rates,
-                                                            int nSeeds,
-                                                            unsigned long long baseSeed,
-                                                            const QString& outputDir,
-                                                            QString& outReportSummary)
-{
-    QDir().mkpath(outputDir);
-    QDir dir(outputDir);
-    const int N = 128;
-
-    QFile f(dir.filePath("ablation_multiseed_raw.csv"));
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        outReportSummary = "cannot create multiseed CSV";
-        return false;
-    }
-    QTextStream os(&f);
-    os.setCodec("UTF-8");
-    os << "rate,seed_index,seed,mu_jitter_init,mu_sa_only,mu_local_only,mu_sa_local,"
-       << "mu_restart_best,mu_constrained,evals_sa_only,evals_local_only,evals_sa_local,"
-       << "evals_restart,evals_constrained,max_gap_sa_local,max_gap_constrained,"
-       << "nn_cv_sa_local,nn_cv_constrained\n";
-
-    QStringList rep;
-    rep << QString::fromLocal8Bit("【多种子等预算消融】种子数=%1").arg(nSeeds);
-
-    for (size_t ri = 0; ri < rates.size(); ri++)
-    {
-        const float c = rates[ri];
-        std::vector<AblationRow> rows;
-        if (!RunMultiSeedAblation(N, c, nSeeds, baseSeed, rows)) continue;
-
-        // 原始结果逐行写出（不筛选）
-        for (size_t k = 0; k < rows.size(); k++)
-        {
-            const AblationRow& r = rows[k];
-            os << QString::number(c, 'f', 2) << "," << r.seedIndex << "," << QString::number(r.seed) << ","
-               << QString::number(r.muJitterInit, 'f', 6) << ","
-               << QString::number(r.muSaOnly, 'f', 6) << ","
-               << QString::number(r.muLocalOnly, 'f', 6) << ","
-               << QString::number(r.muSaLocal, 'f', 6) << ","
-               << QString::number(r.muRestartBest, 'f', 6) << ","
-               << QString::number(r.muConstrained, 'f', 6) << ","
-               << r.evalsSaOnly << "," << r.evalsLocalOnly << "," << r.evalsSaLocal << ","
-               << r.evalsRestart << "," << r.evalsConstrained << ","
-               << r.maxGapSaLocal << "," << r.maxGapConstrained << ","
-               << QString::number(r.nnCvSaLocal, 'f', 4) << ","
-               << QString::number(r.nnCvConstrained, 'f', 4) << "\n";
-        }
-
-        // 汇总统计
-        double sumSa = 0, sumLocal = 0, sumSaL = 0, sumRst = 0, sumCon = 0, sumInit = 0;
-        for (size_t k = 0; k < rows.size(); k++)
-        {
-            sumInit += rows[k].muJitterInit;
-            sumSa   += rows[k].muSaOnly;
-            sumLocal+= rows[k].muLocalOnly;
-            sumSaL  += rows[k].muSaLocal;
-            sumRst  += rows[k].muRestartBest;
-            sumCon  += rows[k].muConstrained;
-        }
-        const double n = (double)rows.size();
-        rep << QString::fromLocal8Bit("  rate=%1 (n=%2): init=%3 SA=%4 Local=%5 SA+Local=%6 Restart=%7 Constrained=%8")
-               .arg(QString::number(c * 100.0f, 'f', 0)).arg((int)n)
-               .arg(QString::number(sumInit / n, 'f', 4))
-               .arg(QString::number(sumSa / n, 'f', 4))
-               .arg(QString::number(sumLocal / n, 'f', 4))
-               .arg(QString::number(sumSaL / n, 'f', 4))
-               .arg(QString::number(sumRst / n, 'f', 4))
-               .arg(QString::number(sumCon / n, 'f', 4));
-    }
-    f.close();
-
-    rep << QString::fromLocal8Bit("  原始数据: %1").arg(dir.filePath("ablation_multiseed_raw.csv"));
-    outReportSummary = rep.join("\n");
-    return true;
-}
-
-// =============================================================================
-// 2026-10-21 新增：优化掩码对重构效果的独立验证
-// 同一道集、同一采样率、同一重构参数，每类掩码 10 个实例。
-// 对比：JitterInit / SA / Restart / Constrained / Random
-// =============================================================================
-bool GeometryExperimentEngine::runMaskReconStudy(const QString& outputDir,
-                                                 int masksPerType,
-                                                 unsigned long long baseSeed,
-                                                 QString& outReportSummary)
-{
-    QDir().mkpath(outputDir);
-    QDir dir(outputDir);
-    if (masksPerType < 1) masksPerType = 10;
-    const int N = 128;
-    const float rates[3] = { 0.30f, 0.50f, 0.70f };
-
-    QFile f(dir.filePath("mask_recon_study.csv"));
-    if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
-    {
-        outReportSummary = "cannot create mask_recon CSV";
-        return false;
-    }
-    QTextStream os(&f);
-    os.setCodec("UTF-8");
-    os << "rate,mask_type,instance,m,mu,max_gap,nn_cv,"
-       << "snr_zero_full,snr_linear_full,snr_pocs_full,"
-       << "snr_linear_missing,snr_pocs_missing,gain_vs_linear_missing\n";
-
-    QStringList rep;
-    rep << QString::fromLocal8Bit("【掩码—重构对照】每类 %1 个掩码").arg(masksPerType);
-
-    for (int ri = 0; ri < 3; ri++)
-    {
-        const float c = rates[ri];
-        const int m = (int)floor((double)N * (double)c + 0.5);
-
-        for (int k = 0; k < masksPerType; k++)
-        {
-            const unsigned long long sd = baseSeed + (unsigned long long)(k * 179);
-
-            // 生成五类掩码
-            struct MItem { const char* type; std::vector<int> mask; };
-            std::vector<MItem> items;
-
-            // (1) Jitter 初始
-            {
-                exprng::seed(sd);
-                int *jm = Sampling1J_Count(N, m);
-                MItem it; it.type = "JitterInit"; it.mask.assign(jm, jm + N);
-                items.push_back(it); delete[] jm;
-            }
-            // (2) SA 优化
-            {
-                exprng::seed(sd);
-                int *jm = Sampling1J_Count(N, m);
-                std::vector<int> in(jm, jm + N); delete[] jm;
-                int *arr = new int[N];
-                for (int q = 0; q < N; q++) arr[q] = in[q];
-                SAStats st; SAParams sp;
-                sp.T0 = 80.0; sp.Tmin = 0.5; sp.alpha = 0.85; sp.n_rapid = 8; sp.iter = 1;
-                sp.strategy = SA_ACCEPT_METROPOLIS;
-                int *outm = UnOptiMiuSAEx(N, c, arr, "J", true, &st, 2, sp);
-                MItem it; it.type = "SA"; it.mask.assign(outm, outm + N);
-                items.push_back(it); delete[] outm; delete[] arr;
-            }
-            // (3) 等预算随机重启
-            {
-                float best = 1e9f; std::vector<int> bestMask(N, 0);
-                for (int t = 0; t < 200; t++)
-                {
-                    exprng::seed(sd + 1000ULL + (unsigned long long)t);
-                    int *rm = Sampling1J_Count(N, m);
-                    std::vector<int> idxr;
-                    for (int q = 0; q < N; q++) if (rm[q] == 1) idxr.push_back(q);
-                    float mu = SamplingMutualCoherence1D(idxr, N);
-                    if (mu < best) { best = mu; bestMask.assign(rm, rm + N); }
-                    delete[] rm;
-                }
-                MItem it; it.type = "Restart"; it.mask = bestMask;
-                items.push_back(it);
-            }
-            // (4) 带空间约束
-            {
-                exprng::seed(sd);
-                int *jm = Sampling1J_Count(N, m);
-                std::vector<int> in(jm, jm + N); delete[] jm;
-                ConstraintWeights w; w.lambdaGap = 0.3; w.lambdaNN = 0.3; w.hardMaxGap = 0;
-                ConstrainedResult cr;
-                if (RunConstrainedSA(N, m, in, w, sd, 60, cr))
-                {
-                    // RunConstrainedSA 不返回掩码，用 SA 结果代替近似不可取，这里跳过
-                }
-            }
-            // (5) 纯随机
-            {
-                exprng::seed(sd + 7);
-                int *rm = Sampling1S_Count(N, m);
-                MItem it; it.type = "Random"; it.mask.assign(rm, rm + N);
-                items.push_back(it); delete[] rm;
-            }
-
-            // 对每个掩码跑重构
-            for (size_t ii = 0; ii < items.size(); ii++)
-            {
-                const std::vector<int>& mk = items[ii].mask;
-                // 写临时掩码文件
-                QString mp = dir.filePath(QString("tmp_mask_%1_%2_%3.txt").arg(items[ii].type).arg(k).arg(ri));
-                QFile mf(mp);
-                if (!mf.open(QIODevice::WriteOnly | QIODevice::Text)) continue;
-                {
-                    QTextStream mo(&mf);
-                    mo.setCodec("UTF-8");
-                    for (int q = 0; q < N; q++) mo << mk[q] << "\n";
-                }
-                mf.close();
-
-                ReconstructionMetrics rm2;
-                QString sum2;
-                QString od = dir.filePath(QString("run_%1_%2_%3").arg(items[ii].type).arg(k).arg(ri));
-                bool okr = runWavefieldReconstruction(mp, od, c, rm2, sum2, "", false, false, true, false);
-                QFile::remove(mp);
-                if (!okr) continue;
-
-                std::vector<int> idxm;
-                for (int q = 0; q < N; q++) if (mk[q] == 1) idxm.push_back(q);
-                const float mu = SamplingMutualCoherence1D(idxm, N);
-                os << QString::number(c, 'f', 2) << "," << items[ii].type << "," << k << "," << m << ","
-                   << QString::number(mu, 'f', 6) << "," << cons_max_gap(idxm, N) << ","
-                   << QString::number(cons_nn_cv(idxm), 'f', 4) << ","
-                   << QString::number(rm2.snr_zero_fill_db, 'f', 4) << ","
-                   << QString::number(rm2.snr_linear_interp_db, 'f', 4) << ","
-                   << QString::number(rm2.snr_recovered_db, 'f', 4) << ","
-                   << QString::number(rm2.snr_linear_missing_db, 'f', 4) << ","
-                   << QString::number(rm2.snr_pocs_missing_db, 'f', 4) << ","
-                   << QString::number(rm2.snr_pocs_missing_db - rm2.snr_linear_missing_db, 'f', 4) << "\n";
-            }
-        }
-        rep << QString::fromLocal8Bit("  rate=%1 done").arg(QString::number(c * 100.0f, 'f', 0));
-    }
-    f.close();
-    rep << QString::fromLocal8Bit("  原始数据: %1").arg(dir.filePath("mask_recon_study.csv"));
-    outReportSummary = rep.join("\n");
-    return true;
-}
-
+#include "samplingstudies.inc"

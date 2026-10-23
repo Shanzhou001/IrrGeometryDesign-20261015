@@ -1,0 +1,11 @@
+[build] QTDIR is unavailable; checking qmake.exe on PATH.
+[build] QTDIR = D:\Qt\4.7.4\bin\..
+[build] VC    = C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat  (x86_amd64)
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+Microsoft (R) Visual C++ Project Builder - Command Line Version 9.00.21022
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started: Project: IrrGeometryDesign, Configuration: Release|x64
+IrrGeometryDesign - up-to-date
+
+Build complete: 1 Projects succeeded, 0 Projects failed, 0 Projects skipped

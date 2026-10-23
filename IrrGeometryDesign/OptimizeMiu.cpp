@@ -650,97 +650,39 @@ int *OptiMiuCG(int N, int *Phi, int max_iter) {
 //  所有策略共享同一初始抖动掩码与同一随机种子，保证可比。
 // ==========================================================
 bool RunHybridAblation(int N, float c, unsigned long long seed,
-					   const SAParams &sap, AblationResult &out, int restartTrials)
+                       const SAParams& sap, AblationResult& out, int restartTrials)
 {
-	out = AblationResult();
-	if (N <= 0) return false;
-	int m = (int)floor((double)N * (double)c + 0.5);
-	if (m < 2) m = 2;
-	if (m > N) m = N;
-	out.n = N;
-	out.m = m;
-
-	// ---- 共享的初始抖动掩码 ----
-	exprng::seed(seed);
-	int *phi0 = Sampling1J_Count(N, m);
-	if (!ValidateSamplingMask(N, m, phi0)) { delete[] phi0; return false; }
-	out.mu_init = TestCurveletMiu1D(N, phi0, "EigenReal");
-
-	// ---- 主口径：SA + 局部搜索（同时得到真实评估预算） ----
-	long evalsBefore = miu_eval_count();
-	SAStats stMain;
-	{
-		int *phiIn = new int[N];
-		memcpy(phiIn, phi0, sizeof(int) * N);
-		int *phiOut = UnOptiMiuSAEx(N, c, phiIn, "J", true, &stMain, 2, sap);
-		out.mu_sa_cg = stMain.miu_final;
-		delete[] phiOut;
-		delete[] phiIn;
-	}
-	out.evalBudget = (double)(miu_eval_count() - evalsBefore);
-
-	// ---- SA-only：跳过局部搜索 ----
-	{
-		int *phiIn = new int[N];
-		memcpy(phiIn, phi0, sizeof(int) * N);
-		SAStats st;
-		int *phiOut = UnOptiMiuSAEx(N, c, phiIn, "J", true, &st, 0, sap);
-		out.mu_sa_only = st.miu_final;
-		delete[] phiOut;
-		delete[] phiIn;
-	}
-
-	// ---- CG-only：从同一初始掩码直接做局部搜索 ----
-	{
-		int *phiIn = new int[N];
-		memcpy(phiIn, phi0, sizeof(int) * N);
-		OptiMiuCG(N, phiIn, 2);
-		out.mu_cg_only = TestCurveletMiu1D(N, phiIn, "EigenReal");
-		delete[] phiIn;
-	}
-
-	// ---- 等预算随机重启：K 个抖动掩码取最优，K = SA+CG 的评估次数 ----
-	int K = (restartTrials > 0) ? restartTrials : (int)out.evalBudget;
-	if (K < 1) K = 1;
-	if (K > 2000) K = 2000;   // 防御：避免极端配置下耗时爆炸
-	out.restart_trials = K;
-	{
-		double sum = 0.0;
-		float best = 1e9f;
-		for (int k = 0; k < K; k++)
-		{
-			int *phi = Sampling1J_Count(N, m);
-			if (phi == NULL) continue;
-			float mu = TestCurveletMiu1D(N, phi, "EigenReal");
-			delete[] phi;
-			sum += mu;
-			if (mu < best) best = mu;
-		}
-		out.mu_restart_best = (best < 1e9f) ? best : 0.0f;
-		out.mu_restart_mean = (float)(sum / (double)K);
-	}
-
-	// ---- 等预算纯随机掩码：K 次取最优（第二种对照，排除"抖动先验"的贡献） ----
-	{
-		float best = 1e9f;
-		for (int k = 0; k < K; k++)
-		{
-			int *phi = Sampling1S_Count(N, m);
-			if (phi == NULL) continue;
-			float mu = TestCurveletMiu1D(N, phi, "EigenReal");
-			delete[] phi;
-			if (mu < best) best = mu;
-		}
-		out.mu_rand_best = (best < 1e9f) ? best : 0.0f;
-	}
-
-	delete[] phi0;
-	return true;
+    (void)sap;
+    out=AblationResult(); const int m=(int)floor(N*(double)c+0.5);
+    exprng::seed(seed); int* jm=Sampling1J_Count(N,m);
+    if (!jm) return false;
+    std::vector<int> initial(jm,jm+N); delete[] jm;
+    ConstraintWeights w; ConstrainedResult result[4];
+    const SamplingSearchMethod methods[4]={SEARCH_SA,SEARCH_LOCAL,SEARCH_HYBRID,SEARCH_RESTART};
+    const int budget=restartTrials>0?restartTrials:200;
+    for (int j=0;j<4;j++) if (!RunSamplingSearch(N,m,initial,w,seed+1,budget,methods[j],result[j])) return false;
+    out.n=N;out.m=m;out.mu_init=SamplingMaskCoherence(initial);
+    out.mu_sa_only=result[0].mu;out.mu_cg_only=result[1].mu;out.mu_sa_cg=result[2].mu;
+    out.evalBudget=result[2].evals;out.restart_trials=(int)result[3].evals;
+    out.mu_restart_best=result[3].mu;out.mu_restart_mean=0;
+    // Independent pure-random restart baseline with the same objective and cap.
+    float best=out.mu_init; double sum=0;
+    exprng::seed(seed+1);
+    for(int k=0;k<budget;k++)
+    {
+        int* rm=Sampling1S_Count(N,m);std::vector<int> mk(rm,rm+N);delete[] rm;
+        float mu=SamplingMaskCoherence(mk);sum+=mu;if(mu<best)best=mu;
+    }
+    out.mu_rand_best=best;
+    exprng::seed(seed+1);sum=out.mu_init;
+    for(int k=1;k<budget;k++)
+    {
+        int* bits=Sampling1J_Count(N,m);std::vector<int> mk(bits,bits+N);delete[] bits;
+        sum+=SamplingMaskCoherence(mk);
+    }
+    out.mu_restart_mean=(float)(sum/budget);
+    return true;
 }
-
-// =============================================================================
-// 2026-10-21 新增：带空间约束的模拟退火（任务书问题 2）
-// =============================================================================
 
 static int cons_max_gap(const std::vector<int>& idx, int N)
 {
@@ -806,214 +748,204 @@ static double cons_objective(float mu, int maxGap, float nnCv, int N, int m,
     return (double)mu + w.lambdaGap * pGap + w.lambdaNN * pNn;
 }
 
-bool RunConstrainedSA(int N, int m, const std::vector<int>& initMask,
+float SamplingMaskCoherence(const std::vector<int>& mask)
+{
+    std::vector<int> idx;
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i] == 1) idx.push_back(i);
+    return SamplingMutualCoherence1D(idx, (int)mask.size());
+}
+int SamplingMaxGap(const std::vector<int>& mask)
+{
+    std::vector<int> idx;
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i);
+    return cons_max_gap(idx, (int)mask.size());
+}
+float SamplingNNCv(const std::vector<int>& mask)
+{
+    std::vector<int> idx;
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i);
+    return cons_nn_cv(idx);
+}
+float SamplingUnitOccupancy(const std::vector<int>& mask)
+{
+    std::vector<int> idx;
+    for (int i = 0; i < (int)mask.size(); i++) if (mask[i]) idx.push_back(i);
+    return cons_unit_occupancy(idx, (int)mask.size(), (int)idx.size());
+}
+static void search_measure(const std::vector<int>& mask, const ConstraintWeights& w,
+                            int m, ConstrainedResult& out, int gridRows)
+{
+    out.mask = mask;
+    out.mu = gridRows == 1 ? SamplingMaskCoherence(mask) :
+             SamplingMutualCoherence2D(mask, gridRows, (int)mask.size() / gridRows);
+    out.maxGap = SamplingMaxGap(mask);
+    out.nnCv = SamplingNNCv(mask);
+    out.unitOccupancy = SamplingUnitOccupancy(mask);
+    out.objective = (float)cons_objective(out.mu, out.maxGap, out.nnCv, (int)mask.size(), m, w);
+    out.hardConstraintSatisfied = w.hardMaxGap <= 0 || out.maxGap <= w.hardMaxGap;
+}
+
+bool RunSamplingSearch(int N, int m, const std::vector<int>& initial,
+                       const ConstraintWeights& w, unsigned long long seed,
+                       int budget, SamplingSearchMethod method, ConstrainedResult& out,
+                       int prefixBudget, int gridRows)
+{
+    out = ConstrainedResult();
+    const clock_t started = clock();
+    out.status = "invalid_input";
+    if (gridRows < 1 || N % gridRows != 0 || N <= 1 || m <= 0 || m >= N || budget < 1 || (int)initial.size() != N ||
+        !ValidateSamplingMask(N, m, &initial[0]) || w.lambdaGap < 0 || w.lambdaNN < 0 ||
+        method < SEARCH_SA || method > SEARCH_RESTART) return false;
+    if (w.hardMaxGap > 0 && (long long)(m + 1) * w.hardMaxGap < N - 1)
+    { out.status = "infeasible_hard_gap"; return false; }
+    std::vector<int> cur = initial;
+    if (w.hardMaxGap > 0 && SamplingMaxGap(cur) > w.hardMaxGap)
+    {
+        // Deterministic feasible initialization; retain the exact point count.
+        for (int i = 0; i < N; i++) cur[i] = 0;
+        for (int k = 0; k < m; k++) cur[(int)((long long)(k + 1) * (N - 1) / (m + 1))] = 1;
+        if (!ValidateSamplingMask(N, m, &cur[0]) || SamplingMaxGap(cur) > w.hardMaxGap)
+        { out.status = "no_feasible_initialization"; return false; }
+    }
+    exprng::seed(seed);
+    search_measure(cur, w, m, out, gridRows);
+    if (out.mu < 0) { out.status = "objective_failure"; return false; }
+    out.evals = 1;
+    out.bestTrace.push_back(out.objective);
+    out.currentTrace.push_back(out.objective);
+    double current = out.objective;
+    if (prefixBudget < 1) prefixBudget = 1;
+    if (prefixBudget > budget) prefixBudget = budget;
+    const int saLimit = method == SEARCH_HYBRID ? prefixBudget : budget;
+    int attempts = 0;
+    if (method == SEARCH_SA || method == SEARCH_HYBRID)
+    {
+        while (out.evals < saLimit && attempts < budget * 100)
+        {
+            attempts++;
+            std::vector<int> ones, zeros;
+            for (int i = 0; i < N; i++) (cur[i] ? ones : zeros).push_back(i);
+            std::vector<int> candidate = cur;
+            candidate[ones[exprng::integer() % ones.size()]] = 0;
+            candidate[zeros[exprng::integer() % zeros.size()]] = 1;
+            if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue;
+            ConstrainedResult measured;
+            search_measure(candidate, w, m, measured, gridRows);
+            if (measured.mu < 0) { out.status = "objective_failure"; return false; }
+            out.evals++;
+            // Same temperature schedule and random stream across SA/hybrid prefixes.
+            const double temperature = 0.1 * pow(0.01, (double)(out.evals - 2) / std::max(1, prefixBudget - 1));
+            const double delta = measured.objective - current;
+            if (delta <= 0.0 || exprng::uniform() < exp(-delta / std::max(temperature, 1e-8)))
+            { cur = candidate; current = measured.objective; }
+            if (measured.objective < out.objective)
+            {
+                out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective;
+                out.maxGap = measured.maxGap; out.nnCv = measured.nnCv;
+                out.unitOccupancy = measured.unitOccupancy;
+            }
+            out.bestTrace.push_back(out.objective);
+            out.currentTrace.push_back((float)current);
+            if (out.evals == prefixBudget)
+            { out.saPrefixMask = out.mask; out.saPrefixEvals = out.evals; }
+        }
+        if (out.saPrefixMask.empty()) { out.saPrefixMask = out.mask; out.saPrefixEvals = out.evals; }
+    }
+    if (method == SEARCH_RESTART)
+    {
+        while (out.evals < budget && attempts < budget * 100)
+        {
+            attempts++;
+            int *jitter = Sampling1J_Count(N, m);
+            std::vector<int> candidate(jitter, jitter + N); delete[] jitter;
+            if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue;
+            ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows);
+            if (measured.mu < 0) { out.status = "objective_failure"; return false; }
+            out.evals++;
+            if (measured.objective < out.objective)
+            { out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective;
+              out.maxGap = measured.maxGap; out.nnCv = measured.nnCv; out.unitOccupancy = measured.unitOccupancy; }
+            out.bestTrace.push_back(out.objective);
+            out.currentTrace.push_back(measured.objective);
+        }
+    }
+    if (method == SEARCH_LOCAL || method == SEARCH_HYBRID)
+    {
+        bool improved = true;
+        while (out.evals < budget && improved)
+        {
+            improved = false;
+            for (int i = 0; i < N && out.evals < budget; i++)
+            {
+                if (!out.mask[i]) continue;
+                const int width = N / gridRows;
+                const int shifts[4] = {-1,1,-width,width};
+                for (int d = 0; d < (gridRows == 1 ? 2 : 4) && out.evals < budget; d++)
+                {
+                    if (gridRows > 1 && d < 2 && (i % width + shifts[d] < 0 || i % width + shifts[d] >= width)) continue;
+                    int j = i + shifts[d];
+                    if (j < 0 || j >= N || out.mask[j]) continue;
+                    std::vector<int> candidate = out.mask; candidate[i] = 0; candidate[j] = 1;
+                    if (w.hardMaxGap > 0 && SamplingMaxGap(candidate) > w.hardMaxGap) continue;
+                    ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows);
+                    if (measured.mu < 0) { out.status = "objective_failure"; return false; }
+                    out.evals++;
+                    out.currentTrace.push_back(measured.objective);
+                    if (measured.objective + 1e-8f < out.objective)
+                    {
+                        out.mask = measured.mask; out.mu = measured.mu; out.objective = measured.objective;
+                        out.maxGap = measured.maxGap; out.nnCv = measured.nnCv;
+                        out.unitOccupancy = measured.unitOccupancy; improved = true;
+                        out.bestTrace.push_back(out.objective);
+                        break;
+                    }
+                    out.bestTrace.push_back(out.objective);
+                }
+            }
+        }
+    }
+    out.hardConstraintSatisfied = w.hardMaxGap <= 0 || out.maxGap <= w.hardMaxGap;
+    out.runtimeMs = (double)(clock() - started) * 1000.0 / CLOCKS_PER_SEC;
+    out.status = out.evals >= budget ? "budget_exhausted" : "search_stopped";
+    return out.hardConstraintSatisfied && ValidateSamplingMask(N, m, &out.mask[0]);
+}
+
+bool RunConstrainedSA(int N, int m, const std::vector<int>& initial,
                       const ConstraintWeights& w, unsigned long long seed,
                       int maxSteps, ConstrainedResult& out)
 {
-    out = ConstrainedResult();
-    if (N <= 0 || m <= 0 || m >= N || (int)initMask.size() != N) return false;
-
-    exprng::seed(seed);
-
-    // 当前解与最优解
-    std::vector<int> cur = initMask;
-    std::vector<int> best = initMask;
-    std::vector<int> idxCur, idxBest;
-    for (int i = 0; i < N; i++) if (cur[i] == 1) idxCur.push_back(i);
-    idxBest = idxCur;
-
-    float muCur  = SamplingMutualCoherence1D(idxCur, N);
-    int   gapCur = cons_max_gap(idxCur, N);
-    float cvCur  = cons_nn_cv(idxCur);
-    double objCur = cons_objective(muCur, gapCur, cvCur, N, m, w);
-
-    float muBest = muCur;
-    int   gapBest = gapCur;
-    float cvBest = cvCur;
-    double objBest = objCur;
-    long evals = 1;
-
-    // 温度设定（与主流程一致的两段降温）
-    const double T0 = 0.5, Tmin = 0.005, alpha = 0.92;
-    double T = T0;
-    const int nRapid = 8;
-
-    std::vector<int> ones, zeros;
-    int t = 0;
-    while (T > Tmin && t < maxSteps)
-    {
-        // 单点交换邻域（与主流程一致）
-        ones.clear(); zeros.clear();
-        for (int i = 0; i < N; i++) { if (cur[i] == 1) ones.push_back(i); else zeros.push_back(i); }
-        if (ones.empty() || zeros.empty()) break;
-        int a = ones[exprng::integer() % ones.size()];
-        int b = zeros[exprng::integer() % zeros.size()];
-
-        std::vector<int> cand = cur;
-        cand[a] = 0; cand[b] = 1;
-        std::vector<int> idxCand;
-        for (int i = 0; i < N; i++) if (cand[i] == 1) idxCand.push_back(i);
-
-        const int   gapCand = cons_max_gap(idxCand, N);
-        // 硬约束：不满足则直接拒绝（方案 D）
-        if (w.hardMaxGap > 0 && gapCand > w.hardMaxGap)
-        {
-            t++;
-            if (t < nRapid) T = T0 * exp(-alpha * sqrt((double)t));
-            else T = T * alpha;
-            continue;
-        }
-
-        const float muCand = SamplingMutualCoherence1D(idxCand, N);
-        evals++;
-        const float cvCand = cons_nn_cv(idxCand);
-        const double objCand = cons_objective(muCand, gapCand, cvCand, N, m, w);
-
-        const double delta = objCand - objCur;
-        bool accept = false;
-        if (delta <= 0.0) accept = true;
-        else
-        {
-            double effT = T;
-            if (effT < 1e-12) effT = 1e-12;
-            double expo = -delta / effT;
-            if (expo < -50.0) expo = -50.0;
-            if (exp(-expo * -1.0) >= exprng::uniform()) accept = true;
-        }
-        if (accept)
-        {
-            cur = cand; idxCur = idxCand;
-            muCur = muCand; gapCur = gapCand; cvCur = cvCand; objCur = objCand;
-            if (objCur < objBest)
-            {
-                best = cur; idxBest = idxCur;
-                muBest = muCur; gapBest = gapCur; cvBest = cvCur; objBest = objCur;
-            }
-        }
-
-        t++;
-        if (t < nRapid) T = T0 * exp(-alpha * sqrt((double)t));
-        else T = T * alpha;
-    }
-
-    out.mu = muBest;
-    out.objective = (float)objBest;
-    out.maxGap = gapBest;
-    out.nnCv = cvBest;
-    out.unitOccupancy = cons_unit_occupancy(idxBest, N, m);
-    out.evals = evals;
-    out.hardConstraintSatisfied = (w.hardMaxGap <= 0) || (gapBest <= w.hardMaxGap);
-    return true;
+    return RunSamplingSearch(N, m, initial, w, seed, maxSteps + 1, SEARCH_HYBRID, out,
+                             std::max(1, (maxSteps + 1) / 3));
 }
 
-// =============================================================================
-// 2026-10-21 新增：多种子等预算消融（任务书问题 3）
-// =============================================================================
 bool RunMultiSeedAblation(int N, float c, int nSeeds, unsigned long long baseSeed,
-                          std::vector<AblationRow>& outRows)
+                          std::vector<AblationRow>& rows)
 {
-    outRows.clear();
-    if (N <= 0 || nSeeds <= 0) return false;
-    const int m = (int)floor((double)N * (double)c + 0.5);
-    if (m < 2 || m >= N) return false;
-
+    rows.clear();
+    const int m = (int)floor(N * (double)c + 0.5);
+    if (N <= 1 || m <= 0 || m >= N || nSeeds <= 0) return false;
     for (int k = 0; k < nSeeds; k++)
     {
-        AblationRow row;
-        row.seedIndex = k;
-        row.seed = baseSeed + (unsigned long long)(k * 179);
-
-        // 共享初始解
+        AblationRow row; row.seedIndex = k; row.seed = baseSeed + (unsigned long long)k * 179ULL;
         exprng::seed(row.seed);
-        int *jm = Sampling1J_Count(N, m);
-        std::vector<int> initMask(jm, jm + N);
-        delete[] jm;
-        std::vector<int> idx0;
-        for (int i = 0; i < N; i++) if (initMask[i] == 1) idx0.push_back(i);
-        row.muJitterInit = SamplingMutualCoherence1D(idx0, N);
-
-        // ② SA-only（cg_max_iter=0）
-        {
-            long e0 = miu_eval_count();
-            exprng::seed(row.seed + 1);
-            int *in = new int[N];
-            for (int i = 0; i < N; i++) in[i] = initMask[i];
-            SAStats st; SAParams sp;
-            sp.T0 = 80.0; sp.Tmin = 0.5; sp.alpha = 0.85; sp.n_rapid = 8; sp.iter = 1;
-            sp.strategy = SA_ACCEPT_METROPOLIS;
-            int *outm = UnOptiMiuSAEx(N, c, in, "J", true, &st, 0, sp);
-            std::vector<int> idxo;
-            for (int i = 0; i < N; i++) if (outm[i] == 1) idxo.push_back(i);
-            row.muSaOnly = SamplingMutualCoherence1D(idxo, N);
-            row.evalsSaOnly = miu_eval_count() - e0;
-            delete[] outm; delete[] in;
-        }
-        // ③ 局部搜索-only
-        {
-            long e0 = miu_eval_count();
-            int *work = new int[N];
-            for (int i = 0; i < N; i++) work[i] = initMask[i];
-            OptiMiuCG(N, work, 2);
-            std::vector<int> idxo;
-            for (int i = 0; i < N; i++) if (work[i] == 1) idxo.push_back(i);
-            row.muLocalOnly = SamplingMutualCoherence1D(idxo, N);
-            row.evalsLocalOnly = miu_eval_count() - e0;
-            delete[] work;
-        }
-        // ④ SA+局部搜索
-        {
-            long e0 = miu_eval_count();
-            exprng::seed(row.seed + 2);
-            int *in = new int[N];
-            for (int i = 0; i < N; i++) in[i] = initMask[i];
-            SAStats st; SAParams sp;
-            sp.T0 = 80.0; sp.Tmin = 0.5; sp.alpha = 0.85; sp.n_rapid = 8; sp.iter = 1;
-            sp.strategy = SA_ACCEPT_METROPOLIS;
-            int *outm = UnOptiMiuSAEx(N, c, in, "J", true, &st, 2, sp);
-            std::vector<int> idxo;
-            for (int i = 0; i < N; i++) if (outm[i] == 1) idxo.push_back(i);
-            row.muSaLocal = SamplingMutualCoherence1D(idxo, N);
-            row.maxGapSaLocal = cons_max_gap(idxo, N);
-            row.nnCvSaLocal = cons_nn_cv(idxo);
-            row.evalsSaLocal = miu_eval_count() - e0;
-            delete[] outm; delete[] in;
-        }
-        // ⑤ 等预算随机重启（K = SA+局部搜索的评估次数）
-        {
-            int K = (int)row.evalsSaLocal;
-            if (K < 1) K = 1;
-            if (K > 1000) K = 1000;
-            float best = 1e9f;
-            long ev = 0;
-            for (int t = 0; t < K; t++)
-            {
-                exprng::seed(row.seed + 1000ULL + (unsigned long long)t);
-                int *rm = Sampling1J_Count(N, m);
-                std::vector<int> idxr;
-                for (int i = 0; i < N; i++) if (rm[i] == 1) idxr.push_back(i);
-                delete[] rm;
-                float mu = SamplingMutualCoherence1D(idxr, N);
-                ev++;
-                if (mu < best) best = mu;
-            }
-            row.muRestartBest = best;
-            row.evalsRestart = ev;
-        }
-        // ⑥ 带空间约束的混合（λ=0.3 软惩罚）
-        {
-            ConstraintWeights w;
-            w.lambdaGap = 0.3; w.lambdaNN = 0.3; w.hardMaxGap = 0;
-            ConstrainedResult cr;
-            if (RunConstrainedSA(N, m, initMask, w, row.seed + 3, 60, cr))
-            {
-                row.muConstrained = cr.mu;
-                row.maxGapConstrained = cr.maxGap;
-                row.nnCvConstrained = cr.nnCv;
-                row.evalsConstrained = cr.evals;
-            }
-        }
-        outRows.push_back(row);
+        int *jm = Sampling1J_Count(N, m); std::vector<int> initial(jm, jm + N); delete[] jm;
+        row.muJitterInit = SamplingMaskCoherence(initial);
+        ConstraintWeights w;
+        ConstrainedResult sa, local, hybrid, restart, constrained;
+        if (!RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_SA,sa) ||
+            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_LOCAL,local) ||
+            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_HYBRID,hybrid) ||
+            !RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_RESTART,restart)) return false;
+        if (sa.saPrefixMask != hybrid.saPrefixMask) return false;
+        w.lambdaGap = 0.3; w.lambdaNN = 0.3;
+        if (!RunSamplingSearch(N,m,initial,w,row.seed+1,200,SEARCH_HYBRID,constrained)) return false;
+        row.muSaOnly=sa.mu; row.muLocalOnly=local.mu; row.muSaLocal=hybrid.mu;
+        row.muRestartBest=restart.mu; row.muConstrained=constrained.mu;
+        row.evalsSaOnly=sa.evals; row.evalsLocalOnly=local.evals; row.evalsSaLocal=hybrid.evals;
+        row.evalsRestart=restart.evals; row.evalsConstrained=constrained.evals;
+        row.maxGapSaLocal=hybrid.maxGap; row.maxGapConstrained=constrained.maxGap;
+        row.nnCvSaLocal=hybrid.nnCv; row.nnCvConstrained=constrained.nnCv;
+        rows.push_back(row);
     }
     return true;
 }
-

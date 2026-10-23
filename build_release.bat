@@ -11,6 +11,10 @@ rem    VCARCH   architecture passed to vcvarsall (default: x86_amd64)
 rem =============================================================================
 
 rem ---- 1. locate Qt -----------------------------------------------------------
+if defined QTDIR if not exist "!QTDIR!\bin\qmake.exe" (
+    echo [build] QTDIR is unavailable; checking qmake.exe on PATH.
+    set "QTDIR="
+)
 if not defined QTDIR (
     for /f "delims=" %%Q in ('where qmake.exe 2^>nul') do (
         if not defined QTDIR set "QTDIR=%%~dpQ.."
@@ -55,4 +59,8 @@ if errorlevel 1 (
 cd /d "%~dp0"
 vcbuild IrrGeometryDesign.sln "Release|x64"
 set "BUILD_RC=!ERRORLEVEL!"
+if "!BUILD_RC!"=="0" if not exist "x64\Release\fftw.dll" (
+    copy /Y "IrrGeometryDesign\fftw.dll" "x64\Release\fftw.dll" >nul
+    if errorlevel 1 set "BUILD_RC=4"
+)
 endlocal & exit /b %BUILD_RC%

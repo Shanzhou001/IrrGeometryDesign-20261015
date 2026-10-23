@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-23",
+  "protocol": "classic_psf_v2",
+  "release_build_exit": 0,
+  "binary_sha256": "f7e9d10291deb93f2c0bb4b34c802d0de11ce5e0c25afc930f8b18afc58bcb6a",
+  "binary_matches_experiment": true,
+  "native_sources_match_experiment": true,
+  "cpp_tests": {
+    "pass": 23,
+    "fail": 0,
+    "skip": 0
+  },
+  "python_tests": {
+    "pass": 7,
+    "fail": 0
+  },
+  "independently_verified_rows": 1425,
+  "formal_steps": 11,
+  "all_formal_steps_exit_zero": true,
+  "synthetic_mask_reconstructions": 540,
+  "real_mask_holdouts": 180,
+  "independent_real_sources": 1,
+  "preprocessing_max_error": {
+    "59_traces": 4.999231498215018e-07,
+    "128_traces": 4.99848600121755e-07
+  },
+  "postprocessing_tools_sha256": {
+    "tools\\ablation_stats.py": "9ce111532b7bf7e8d536334961e2be910f0817168430fbaeba7ab2df716e7e3c",
+    "tools\\compare_masks.py": "9f6a6f2d48605ba49bb6bfa471cffabd01e8361f3ea029d9e48ff16a28e55239",
+    "tools\\convert_rraw_to_engine_csv.py": "8e81e9a8aa0ee8c7c742e54c4ea11ef98f87d66d583a00a4e4dd666e5dd134c6",
+    "tools\\make_59x256.py": "37e069a0b27719988d95c0a86b0c469169775fde3f5b99e464403263dc43870a",
+    "tools\\mu_properties_test.py": "e14f273bf570f38d4346a87e21480d191f6b7b946c51e854d29f622f2d1cb1a8",
+    "tools\\run_revised_studies.py": "d0d9467e6b05750639fd5d53c67b5df5a6bd17960487b83da01da7d23740cdd1",
+    "tools\\test_science_tools.py": "a01d207322dcf4d68e8e2151048e64cc3c2ae20976ad193bdfc9b7696ed70d75",
+    "tools\\verify_revised_results.py": "6e9a22e1771eedfe3166c245b68fbee8e301c0d23d48429474bfcbf7c1a38072"
+  },
+  "gallery_refresh": {
+    "report_success_3_of_3": true,
+    "main_figure_source": "same optimized synthetic mask",
+    "real_figures": "figures/revised_20261023/real_reference"
+  }
+}

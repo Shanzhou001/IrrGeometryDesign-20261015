@@ -55,3 +55,9 @@ results/**/recon_residual_slice.csv
 
 # 批量实验的逐次运行目录（只保留顶层汇总 CSV）
 results/mask_recon/run_*/
+
+# Corrected studies: retain masks and aggregate tables, omit re-creatable per-run gathers.
+results/revised_20261023/**/run_*/
+results/revised_20261023_smoke/
+figures/revised_20261023_smoke/
+results/revised_20261023/*.log

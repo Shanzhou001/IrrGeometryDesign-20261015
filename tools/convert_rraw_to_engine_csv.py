@@ -135,8 +135,10 @@ def convert(data, offsets):
         time_rs[:, j] = np.interp(t_dst, t_src, data[:, j])
 
     # 3) 道数 59 -> 128
-    x_src = np.arange(nx)
-    x_dst = np.linspace(0, nx - 1, TARGET_NX)
+    x_src = offsets.astype(float)
+    if not np.all(np.diff(x_src) > 0):
+        raise ValueError("offsets must be distinct and increasing")
+    x_dst = np.linspace(x_src[0], x_src[-1], TARGET_NX)
     trace_rs = np.zeros((TARGET_NT, TARGET_NX))
     for i in range(TARGET_NT):
         trace_rs[i, :] = np.interp(x_dst, x_src, time_rs[i, :])
@@ -170,9 +172,10 @@ def write_csv(path, mat, meta, offsets):
         fh.write("# Source: %d traces x %d samples, dt=%d us, declared format=%d "
                  "(payload is IEEE-LE float32)\n"
                  % (meta["ntraces"], meta["ns"], meta["dt_us"], meta["declared_format"]))
+        fh.write("# offsets_m=" + ",".join("%.9g" % x for x in np.linspace(offsets[0], offsets[-1], TARGET_NX)) + "\n")
         fh.write("# Offsets (m): %s\n" % ", ".join(str(int(o)) for o in offsets))
         fh.write("# Processing: offset-sorted; time 8->4 ms (250->256 via interp); "
-                 "traces 59->128 via interp; bandpass %.0f-%.0f Hz; peak-normalized to 1.0\n"
+                 "traces 59->128 via actual-offset interp; bandpass %.0f-%.0f Hz; peak-normalized to 1.0\n"
                  % (BANDPASS_LO, BANDPASS_HI))
         fh.write("# Time window: 0.000-%.3f s (%d samples @ %.1f ms); "
                  "original record length %.3f s was truncated\n"

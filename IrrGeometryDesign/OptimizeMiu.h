@@ -200,8 +200,16 @@ struct ConstrainedResult // add by shanzhou in 2026.10.21
     float unitOccupancy;
     long  evals;         // 实际 μ 评估次数
     bool  hardConstraintSatisfied;
+    std::vector<int> mask;
+    std::vector<int> saPrefixMask;
+    std::vector<float> bestTrace;
+    std::vector<float> currentTrace;
+    long saPrefixEvals;
+    double runtimeMs;
+    std::string status;
     ConstrainedResult() : mu(0), objective(0), maxGap(0), nnCv(0),
-                           unitOccupancy(0), evals(0), hardConstraintSatisfied(false) {}
+                           unitOccupancy(0), evals(0), hardConstraintSatisfied(false),
+                           saPrefixEvals(0), runtimeMs(0) {}
 };
 
 // =============================================================================
@@ -232,6 +240,17 @@ struct AblationRow // add by shanzhou in 2026.10.21
         evalsSaLocal(0), evalsRestart(0), evalsConstrained(0), maxGapSaLocal(0),
         maxGapConstrained(0), nnCvSaLocal(0), nnCvConstrained(0) {}
 };
+
+// Formal experiments: one PSF objective, identical evaluation caps, explicit constraints.
+enum SamplingSearchMethod { SEARCH_SA, SEARCH_LOCAL, SEARCH_HYBRID, SEARCH_RESTART };
+float SamplingMaskCoherence(const std::vector<int>& mask);
+int SamplingMaxGap(const std::vector<int>& mask);
+float SamplingNNCv(const std::vector<int>& mask);
+float SamplingUnitOccupancy(const std::vector<int>& mask);
+bool RunSamplingSearch(int N, int m, const std::vector<int>& initial,
+                       const ConstraintWeights& weights, unsigned long long seed,
+                       int evalBudget, SamplingSearchMethod method,
+                       ConstrainedResult& out, int saPrefixBudget = 64, int gridRows = 1);
 
 bool RunMultiSeedAblation(int N, float c, int nSeeds, unsigned long long baseSeed,
                           std::vector<AblationRow>& outRows);

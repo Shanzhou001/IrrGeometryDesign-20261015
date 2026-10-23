@@ -991,66 +991,48 @@ float SamplingMutualCoherence1D(const std::vector<int>& idx, int N)
 {
     if (N <= 0 || idx.empty()) return 0.0f;
     const int m = (int)idx.size();
-    if (m >= N) return 0.0f;   // 全采样：西矩阵非对角内积为 0
-
-    // r(Δ) = Σ_{k∈Ω} exp(-2πi·Δ·k/N)，只需 Δ=1..N-1；r(0)=m
-    double maxAbs = 0.0;
-    for (int delta = 1; delta < N; delta++)
+    std::vector<fftw_complex> in(N), out(N);
+    for (int k = 0; k < N; k++) { in[k].re = 0.0; in[k].im = 0.0; }
+    for (int k = 0; k < m; k++)
     {
-        double re = 0.0, im = 0.0;
-        const double w = -2.0 * 3.14159265358979323846 * (double)delta / (double)N;
-        for (int t = 0; t < m; t++)
-        {
-            const double ang = w * (double)idx[t];
-            re += cos(ang);
-            im += sin(ang);
-        }
-        const double a = sqrt(re * re + im * im);
-        if (a > maxAbs) maxAbs = a;
+        if (idx[k] < 0 || idx[k] >= N || in[idx[k]].re != 0.0) return -1.0f;
+        in[idx[k]].re = 1.0;
     }
-    double mu = maxAbs / (double)m;
-    if (mu < 0.0) mu = 0.0;
-    if (mu > 1.0) mu = 1.0;   // 理论上界，防止浮点误差
-    return (float)mu;
+    if (m == N) return 0.0f;
+    fftw_plan plan = fftw_create_plan(N, FFTW_FORWARD, FFTW_ESTIMATE);
+    if (!plan) return -1.0f;
+    fftw_one(plan, &in[0], &out[0]);
+    fftw_destroy_plan(plan);
+    double peak = 0.0;
+    for (int k = 1; k < N; k++)
+    {
+        double v = sqrt(out[k].re * out[k].re + out[k].im * out[k].im);
+        if (v > peak) peak = v;
+    }
+    return (float)std::min(1.0, peak / m);
 }
 
-// =============================================================================
-// 2026-10-21 新增：二维经典互干度（2D PSF 峰值旁瓣）
-// =============================================================================
-float SamplingMutualCoherence2D(const std::vector<int>& maskFlat, int Ny, int Nx)
+float SamplingMutualCoherence2D(const std::vector<int>& mask, int Ny, int Nx)
 {
-    if (Ny <= 0 || Nx <= 0) return 0.0f;
-    if ((int)maskFlat.size() != Ny * Nx) return 0.0f;
-
-    std::vector<int> ys, xs;
-    for (int y = 0; y < Ny; y++)
-        for (int x = 0; x < Nx; x++)
-            if (maskFlat[(size_t)(y * Nx + x)] == 1) { ys.push_back(y); xs.push_back(x); }
-    const int m = (int)ys.size();
-    if (m <= 1) return (m == 1) ? 1.0f : 0.0f;
-    if (m >= Ny * Nx) return 0.0f;   // 全采样 -> 西矩阵 -> 0
-
-    double maxAbs = 0.0;
-    for (int dy = 0; dy < Ny; dy++)
+    if (Ny <= 0 || Nx <= 0 || (int)mask.size() != Ny * Nx) return -1.0f;
+    const int n = Ny * Nx;
+    int m = 0;
+    std::vector<fftw_complex> in(n), out(n);
+    for (int k = 0; k < n; k++)
     {
-        for (int dx = 0; dx < Nx; dx++)
-        {
-            if (dy == 0 && dx == 0) continue;
-            double re = 0.0, im = 0.0;
-            for (int t = 0; t < m; t++)
-            {
-                const double ang = -2.0 * 3.14159265358979323846 *
-                    ((double)dy * (double)ys[t] / (double)Ny + (double)dx * (double)xs[t] / (double)Nx);
-                re += cos(ang);
-                im += sin(ang);
-            }
-            const double a = sqrt(re * re + im * im);
-            if (a > maxAbs) maxAbs = a;
-        }
+        if (mask[k] != 0 && mask[k] != 1) return -1.0f;
+        in[k].re = mask[k]; in[k].im = 0.0; m += mask[k];
     }
-    double mu = maxAbs / (double)m;
-    if (mu < 0.0) mu = 0.0;
-    if (mu > 1.0) mu = 1.0;
-    return (float)mu;
+    if (m == 0 || m == n) return 0.0f;
+    fftwnd_plan plan = fftw2d_create_plan(Ny, Nx, FFTW_FORWARD, FFTW_ESTIMATE);
+    if (!plan) return -1.0f;
+    fftwnd_one(plan, &in[0], &out[0]);
+    fftwnd_destroy_plan(plan);
+    double peak = 0.0;
+    for (int k = 1; k < n; k++)
+    {
+        double v = sqrt(out[k].re * out[k].re + out[k].im * out[k].im);
+        if (v > peak) peak = v;
+    }
+    return (float)std::min(1.0, peak / m);
 }
-
