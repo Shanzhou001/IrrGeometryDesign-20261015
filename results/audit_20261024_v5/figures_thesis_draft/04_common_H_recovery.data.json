@@ -1,0 +1,302 @@
+[
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "Jitter",
+    "mean_snr": 11.306597896093882,
+    "ci_low": 9.267987229074693,
+    "ci_high": 13.036720137464263,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "SAOnly",
+    "mean_snr": 9.22759236580214,
+    "ci_low": 6.538825964967207,
+    "ci_high": 11.505843959995424,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "Hybrid",
+    "mean_snr": 9.867579504158753,
+    "ci_low": 7.196095094989125,
+    "ci_high": 12.093202727937634,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "SA_Budget",
+    "mean_snr": 10.043383095980568,
+    "ci_low": 7.038800233233882,
+    "ci_high": 12.811399724242241,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "Adaptive",
+    "mean_snr": 10.320017982717891,
+    "ci_low": 7.731565155021449,
+    "ci_high": 12.419154752852895,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "Jitter",
+    "mean_snr": 10.316901427871004,
+    "ci_low": 6.400361541919122,
+    "ci_high": 13.57588395342359,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "SAOnly",
+    "mean_snr": 9.22029901326916,
+    "ci_low": 6.298288139761947,
+    "ci_high": 11.721772198831664,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "Hybrid",
+    "mean_snr": 9.575457042076243,
+    "ci_low": 6.2219894562365825,
+    "ci_high": 12.263312262504316,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "SA_Budget",
+    "mean_snr": 9.371021987391783,
+    "ci_low": 6.2166986723721065,
+    "ci_high": 12.164480965353475,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "Adaptive",
+    "mean_snr": 10.46902295848077,
+    "ci_low": 7.452018126522752,
+    "ci_high": 12.977087662213565,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "Jitter",
+    "mean_snr": 12.917845286840214,
+    "ci_low": 11.296614648067385,
+    "ci_high": 14.46965529226163,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "SAOnly",
+    "mean_snr": 11.51503586130697,
+    "ci_low": 9.76902921630942,
+    "ci_high": 13.261042506304525,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "Hybrid",
+    "mean_snr": 12.355858990822275,
+    "ci_low": 10.496642444482163,
+    "ci_high": 14.198556284742823,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "SA_Budget",
+    "mean_snr": 12.853574447080476,
+    "ci_low": 11.54362184125265,
+    "ci_high": 14.009429310417554,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "Adaptive",
+    "mean_snr": 12.561890062919934,
+    "ci_low": 11.070474922941296,
+    "ci_high": 13.843379312563776,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "Jitter",
+    "mean_snr": 13.030985595423495,
+    "ci_low": 11.300460767530458,
+    "ci_high": 14.75415855094267,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "SAOnly",
+    "mean_snr": 11.47966935969209,
+    "ci_low": 9.568920835198865,
+    "ci_high": 13.509594762866927,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "Hybrid",
+    "mean_snr": 12.287774674393065,
+    "ci_low": 10.170446576227814,
+    "ci_high": 14.48744109602235,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "SA_Budget",
+    "mean_snr": 12.794776160310148,
+    "ci_low": 11.081435191229525,
+    "ci_high": 14.295806996648913,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "Adaptive",
+    "mean_snr": 12.43958314746495,
+    "ci_low": 10.638593355433981,
+    "ci_high": 14.140497556189608,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "Jitter",
+    "mean_snr": 13.300873362072474,
+    "ci_low": 11.479942339416006,
+    "ci_high": 15.062043687395246,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "SAOnly",
+    "mean_snr": 13.380387577463784,
+    "ci_low": 11.644252661539788,
+    "ci_high": 15.06601175199206,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "Hybrid",
+    "mean_snr": 13.39318751798268,
+    "ci_low": 11.677061006305415,
+    "ci_high": 15.060222426286328,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "SA_Budget",
+    "mean_snr": 13.388032745024631,
+    "ci_low": 11.932577693281694,
+    "ci_high": 14.802535331364398,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "Adaptive",
+    "mean_snr": 13.748249052825187,
+    "ci_low": 12.179860170976937,
+    "ci_high": 15.216760399006688,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "Jitter",
+    "mean_snr": 13.429555897506674,
+    "ci_low": 11.523277008704149,
+    "ci_high": 15.302222004123955,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "SAOnly",
+    "mean_snr": 13.358866964483312,
+    "ci_low": 11.703110157762874,
+    "ci_high": 14.95745774425265,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "Hybrid",
+    "mean_snr": 13.419511550565893,
+    "ci_low": 11.777204907568125,
+    "ci_high": 14.993692153408261,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "SA_Budget",
+    "mean_snr": 13.330044425632932,
+    "ci_low": 11.753135729066164,
+    "ci_high": 14.86468474484552,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "Adaptive",
+    "mean_snr": 13.797514478576042,
+    "ci_low": 12.234651972423093,
+    "ci_high": 15.284052335900121,
+    "analysis_units": 6,
+    "unit": "clean structural template"
+  }
+]

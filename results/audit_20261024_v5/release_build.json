@@ -1,0 +1,9 @@
+{
+  "command": [
+    "cmd",
+    "/c",
+    "build_release.bat"
+  ],
+  "exit_code": 0,
+  "seconds": 25.9852719999908
+}

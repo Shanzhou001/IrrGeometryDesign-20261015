@@ -1,0 +1,20 @@
+{
+  "generator_sha256": "b1726ba22c932b1886e7afc830b803ad47f7f3858dd84ce591fd488da5424ce5",
+  "inputs": {
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\search_means.csv": "349e87e9eaf0578e8a1cdb57b33981d7e652e0e4092882843e3062dd11c4f197",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\joint_means.csv": "ae089cfe7742433337fe3d6f366cca9e16eb3f1932978061439b7498c788defc",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\joint_pairs.csv": "959d12b8503484fc1dfc448d99cb4abe931a0bff5213d27c8b3f21ef229edcbb",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\search_pairs.csv": "8542ffd41fd83719728b5922f688a1f5e4caa9d3102527af384423fa34521693",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\common_evaluation_pairs.csv": "5734191e6d12191163530634185593c3759a6bc7f6b9254abb66f671644ffab1",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\real_means.csv": "642d6455b55180418fe2f9d1a46071b548f97ea8de106d5d71f71d2b0e3c1213",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\switch_sensitivity.csv": "90c0ca01c3c8dac37b4f30e4f782e4178a823a43e57a9cab0db3add535480111",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\geometry_recovery_associations.csv": "d048b22caeccf4145de8386d32c9fc9eca0d9e06a90ad8f5543d33d6e328cc91",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\analysis_thesis\\time_limit_means.csv": "7d9f566f788b9d02e41f9932df74427ef36bae55898f5d850d05cc264a6aee39",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\final\\real_diagnosis.json": "772c1da500d0ec91edd967ce35dd45f175b9be4cde3e73fc44e8353452d026c2",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\final\\real_nested_summary.csv": "5af722fa7de6a9da5df19da436d7d72431cc820cc8c8073a710d2a5492550a0a"
+  },
+  "outputs": {
+    "docs\\EXPERIMENT_RESULTS.md": "bf3cb9f5b6aff40909435a23629fc543e423e305901b573c6f9298c59b1823fa",
+    "docs\\VALIDATION_REPORT.md": "9cef539140b5c3cbfe229d4260a4f8b611538ba3b37b674419b52b75f716e134"
+  }
+}

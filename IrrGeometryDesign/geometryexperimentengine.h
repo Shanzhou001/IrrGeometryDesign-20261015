@@ -268,6 +268,7 @@ public:
     // 自动化单元测试与回归校验体系 (Task 11) (add by wushanzhou in 2026/10/15)
     static bool runUnitTests();
     static bool runReviewUnitTests(); // add by wushanzhou in 2026/10/24
+    static bool runAuditQueries(const QString& input,const QString& output,QString& report);
 
     static bool runReviewSearch(const QString& inputCsv,const QString& outputDir,int seeds,int budget, // add by wushanzhou in 2026/10/24
         unsigned long long seed,bool tradeoff,QString& report); // add by wushanzhou in 2026/10/24

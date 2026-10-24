@@ -1,0 +1,2 @@
+id,method,n,m,seed,budget,ok,feasible,mu,objective,max_gap,max_gap_m,nn_cv,evals,attempts,wall_ms,native_clock_ms,status,mask
+physical_s9_Adaptive,Adaptive,59,30,20262636,100000,1,1,0.244547441602,0.244547441602,6,416,0.585904061794,661,670,30.03580001,29,wall_limit,11110111000011001000001010011001011001101010100100011011111

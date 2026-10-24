@@ -1,0 +1,272 @@
+[
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "Jitter",
+    "mean_snr": 11.306597896093882,
+    "ci_low": 9.214300684184456,
+    "ci_high": 13.594642750125889,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "SAOnly",
+    "mean_snr": 9.22759236580214,
+    "ci_low": 7.127078134538343,
+    "ci_high": 11.473017807399614,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "Hybrid",
+    "mean_snr": 9.867579504158753,
+    "ci_low": 7.685588337312062,
+    "ci_high": 12.236694600185219,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "SA_Budget",
+    "mean_snr": 10.043383095980571,
+    "ci_low": 7.551703840773281,
+    "ci_high": 12.851758987701585,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "fixed",
+    "method": "Adaptive",
+    "mean_snr": 10.320017982717891,
+    "ci_low": 8.133308089836616,
+    "ci_high": 12.67109247453358,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "Jitter",
+    "mean_snr": 10.316901427871004,
+    "ci_low": 7.20407061186861,
+    "ci_high": 13.692710268126564,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "SAOnly",
+    "mean_snr": 9.220299013269159,
+    "ci_low": 6.946231987557832,
+    "ci_high": 11.666336828563589,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "Hybrid",
+    "mean_snr": 9.575457042076243,
+    "ci_low": 6.968839887025071,
+    "ci_high": 12.323327704152303,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "SA_Budget",
+    "mean_snr": 9.371021987391783,
+    "ci_low": 6.884912900353869,
+    "ci_high": 12.130886354634033,
+    "model_conditions": 12
+  },
+  {
+    "m": "38",
+    "recovery": "selected",
+    "method": "Adaptive",
+    "mean_snr": 10.469022958480766,
+    "ci_low": 7.883889467774799,
+    "ci_high": 13.298375634046941,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "Jitter",
+    "mean_snr": 12.917845286840214,
+    "ci_low": 10.55840390472916,
+    "ci_high": 15.55852722443269,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "SAOnly",
+    "mean_snr": 11.515035861306972,
+    "ci_low": 9.435054231674588,
+    "ci_high": 13.906793611082984,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "Hybrid",
+    "mean_snr": 12.355858990822275,
+    "ci_low": 9.946312765683587,
+    "ci_high": 15.104285222793406,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "SA_Budget",
+    "mean_snr": 12.853574447080476,
+    "ci_low": 10.558143659305994,
+    "ci_high": 15.29370328375451,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "fixed",
+    "method": "Adaptive",
+    "mean_snr": 12.561890062919934,
+    "ci_low": 10.30126062114379,
+    "ci_high": 14.955434164685675,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "Jitter",
+    "mean_snr": 13.030985595423497,
+    "ci_low": 10.521520286874074,
+    "ci_high": 15.850128837385869,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "SAOnly",
+    "mean_snr": 11.47966935969209,
+    "ci_low": 9.282902873945085,
+    "ci_high": 14.10692625328678,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "Hybrid",
+    "mean_snr": 12.287774674393065,
+    "ci_low": 9.76926071602021,
+    "ci_high": 15.245324466952859,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "SA_Budget",
+    "mean_snr": 12.794776160310148,
+    "ci_low": 10.369708555232972,
+    "ci_high": 15.399811292741617,
+    "model_conditions": 12
+  },
+  {
+    "m": "64",
+    "recovery": "selected",
+    "method": "Adaptive",
+    "mean_snr": 12.439583147464951,
+    "ci_low": 10.065272852593974,
+    "ci_high": 15.057298106427487,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "Jitter",
+    "mean_snr": 13.300873362072473,
+    "ci_low": 10.612483750788678,
+    "ci_high": 16.31847067809647,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "SAOnly",
+    "mean_snr": 13.380387577463784,
+    "ci_low": 10.749716121205578,
+    "ci_high": 16.320564880334825,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "Hybrid",
+    "mean_snr": 13.39318751798268,
+    "ci_low": 10.753969976274398,
+    "ci_high": 16.336347116440777,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "SA_Budget",
+    "mean_snr": 13.388032745024631,
+    "ci_low": 10.870034980841188,
+    "ci_high": 16.161038465035308,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "fixed",
+    "method": "Adaptive",
+    "mean_snr": 13.748249052825186,
+    "ci_low": 11.05840398988247,
+    "ci_high": 16.7182295678919,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "Jitter",
+    "mean_snr": 13.429555897506672,
+    "ci_low": 10.655298309318505,
+    "ci_high": 16.536975529171674,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "SAOnly",
+    "mean_snr": 13.358866964483312,
+    "ci_low": 10.709215340171331,
+    "ci_high": 16.302086288119273,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "Hybrid",
+    "mean_snr": 13.419511550565893,
+    "ci_low": 10.765069588595493,
+    "ci_high": 16.37615108786199,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "SA_Budget",
+    "mean_snr": 13.330044425632934,
+    "ci_low": 10.74514639144892,
+    "ci_high": 16.205930447026414,
+    "model_conditions": 12
+  },
+  {
+    "m": "90",
+    "recovery": "selected",
+    "method": "Adaptive",
+    "mean_snr": 13.797514478576042,
+    "ci_low": 11.059167186296177,
+    "ci_high": 16.801002386951293,
+    "model_conditions": 12
+  }
+]

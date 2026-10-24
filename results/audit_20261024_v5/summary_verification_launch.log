@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\verify_audit_summary.py", line 71, in <module>
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('root',type=Path);run(p.parse_args().root.resolve())
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\verify_audit_summary.py", line 63, in run
+    assert digest(actual)==h,p
+           ^^^^^^^^^^^^^^^^^
+AssertionError: figures_thesis\01_v4_search.svg

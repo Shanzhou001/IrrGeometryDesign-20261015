@@ -7,6 +7,7 @@ void CSegyIO::initialize_read(QString file_name)
 	file_size = file_information.size();
 	file_read.open(QIODevice::ReadOnly);
 	in.setDevice(&file_read);
+	in.resetStatus();
 	in.setByteOrder(QDataStream::BigEndian);
 	in.setFloatingPointPrecision(QDataStream::SinglePrecision);
 
@@ -21,6 +22,7 @@ void CSegyIO::initinitialize_ReadWrite(QString file_name)
 	file_size = file_information.size();
 	file_read.open(QIODevice::ReadWrite);
 	in.setDevice(&file_read);
+	in.resetStatus();
 	in.setByteOrder(QDataStream::BigEndian);
 	in.setFloatingPointPrecision(QDataStream::SinglePrecision);
 }
@@ -60,6 +62,9 @@ void CSegyIO::read_binary_header()//读文件头
 	{
 		in>>binary_header.hunass[i];
 	}
+	delete[] data;data=NULL;sample_num_every_trace=0;
+	if(in.status()!=QDataStream::Ok || binary_header.hns==0)
+	{in.setStatus(QDataStream::ReadCorruptData);return;}
 	sample_num_every_trace = binary_header.hns;
 	data = new float[sample_num_every_trace];
 	for (int i=0;i<sample_num_every_trace;i++)
@@ -70,6 +75,8 @@ void CSegyIO::read_binary_header()//读文件头
 //一道往下追加的数据
 void CSegyIO::alloc_append(int appendlen)
 {
+	delete[] appenddata;appenddata=NULL;
+	if(appendlen<=0)return;
 	appenddata=new float[appendlen];
 	for (int i=0;i<appendlen;i++)
 	{
@@ -103,16 +110,21 @@ void CSegyIO::read_trace_header()//读道头
 
 void CSegyIO::read_trace_data(int length)//读道数据
 {
+    // This legacy utility supports BE IBM/IEEE four-byte samples only.
+    if(!data || length<0 || length>sample_num_every_trace ||
+       (binary_header.format!=1 && binary_header.format!=5))
+    {in.setStatus(QDataStream::ReadCorruptData);return;}
     for (int i=0;i<length;i++)
     {
 		in>>data[i];
     }
-	IBM_to_FLOAT((int *) data,(int *) data,length,1);
+	if(in.status()==QDataStream::Ok && binary_header.format==1)
+		IBM_to_FLOAT((int *) data,(int *) data,length,1);
 }
 
 void CSegyIO::colse_read()//关闭数据
 {
-	delete data;
+	delete[] data;data=NULL;sample_num_every_trace=0;
     file_read.close();
 }
 
@@ -130,6 +142,8 @@ void CSegyIO::IBM_to_FLOAT(int from[], int to[], int n, int endian)
 		if (fconv)
 		{
 			fmant = 0x00ffffff & fconv;
+			// A nonzero exponent/sign with a zero fraction is still IBM zero.
+			if(fmant==0){to[i]=0;continue;}
 			/* The next two lines were added by Toralf Foerster */
 			/* to trap non-IBM format data i.e. conv=0 data  */
 

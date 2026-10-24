@@ -1,0 +1,20 @@
+[
+  {
+    "file": "convert_rraw_to_engine_csv.py",
+    "old_sha256": "e7fca7ab31d12ee575a7fb842613432474ad2720bda2635536e0051f81a04940",
+    "new_sha256": "f4f6a5be54a77fdc2b36873f84b6259d8d22852188808c3e5cb3a21686aaa1fd",
+    "read_segy_AST_identical": true,
+    "convert_AST_identical": true
+  },
+  {
+    "file": "make_59x256.py",
+    "old_sha256": "406ff0d331d957fb673863883ccb2d975be60e13e5292f7372bfbfe7609a9e14",
+    "new_sha256": "53e74aa8ef6369da7f52c49bf7aceb492b33c2a8604dee64dd68b4a933561b27",
+    "read_segy_AST_identical": true,
+    "convert_AST_identical": true
+  },
+  {
+    "csv_numeric_values_identical": true,
+    "original_inputs_unchanged": true
+  }
+]

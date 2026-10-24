@@ -5755,3 +5755,4 @@ bool GeometryExperimentEngine::runMcProbe(const QString& outCsvPath, QString& ou
 // 2026-10-21: 与 OptimizeMiu.cpp 中的实现一致的均匀性度量（供基线评估复用）
 #include "samplingstudies.inc" // add by wushanzhou in 2026/10/23
 #include "reviewexperiments.inc" // add by wushanzhou in 2026/10/24
+#include "auditqueries.inc" // v5 independent numerical and research entry.

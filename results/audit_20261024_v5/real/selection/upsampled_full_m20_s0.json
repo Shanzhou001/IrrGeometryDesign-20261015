@@ -1,0 +1,81 @@
+{
+  "selected": {
+    "candidate": "cold",
+    "gain": 0.4478948748316623,
+    "validation_mse": 736391.4288945479,
+    "raw_validation_mse": 769949.6101282656
+  },
+  "candidates": [
+    {
+      "candidate": "zero",
+      "gain": 0.0,
+      "validation_mse": 758476.9191208748,
+      "raw_validation_mse": 758476.9191208748
+    },
+    {
+      "candidate": "linear",
+      "gain": 0.1066358634336455,
+      "validation_mse": 751573.3683885498,
+      "raw_validation_mse": 1236105.9315281925
+    },
+    {
+      "candidate": "default",
+      "gain": 0.15308444561890813,
+      "validation_mse": 748485.5254682141,
+      "raw_validation_mse": 1054290.2261599149
+    },
+    {
+      "candidate": "cold",
+      "gain": 0.4478948748316623,
+      "validation_mse": 736391.4288945479,
+      "raw_validation_mse": 769949.6101282656
+    }
+  ],
+  "known": [
+    1,
+    4,
+    5,
+    9,
+    12,
+    15,
+    17,
+    22,
+    25,
+    27,
+    30,
+    32,
+    35,
+    40,
+    41,
+    45,
+    49,
+    50,
+    55,
+    57
+  ],
+  "validation": [
+    22,
+    35,
+    57,
+    41,
+    1,
+    32
+  ],
+  "train": [
+    4,
+    5,
+    9,
+    12,
+    15,
+    17,
+    25,
+    27,
+    30,
+    40,
+    45,
+    49,
+    50,
+    55
+  ],
+  "seed": 20261933
+}

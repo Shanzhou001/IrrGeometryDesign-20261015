@@ -1,0 +1,36 @@
+[
+  {
+    "name": "python_original",
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tools",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 1.9596480000036536
+  },
+  {
+    "name": "release_original",
+    "command": [
+      "x64/Release/IrrGeometryDesign.exe",
+      "--test"
+    ],
+    "returncode": 0,
+    "seconds": 101.47042159999546
+  },
+  {
+    "name": "debug_original",
+    "command": [
+      "x64/Debug/IrrGeometryDesign.exe",
+      "--test"
+    ],
+    "returncode": 0,
+    "seconds": 166.5688827999984
+  }
+]

@@ -9,6 +9,9 @@
 class CSegyIO
 {
 public:
+	CSegyIO() : file_size(0), sample_num_every_trace(0), data(NULL), appenddata(NULL) {}
+	~CSegyIO() { colse_read(); delete[] appenddata; }
+	bool read_ok() const { return file_read.isOpen() && in.status()==QDataStream::Ok; }
 	long long file_size;
 	char ebcbuf[3200];	/* ebcdic data buffer			*/
 
@@ -452,7 +455,7 @@ public:
 	} thed;
 	thed trace_header;
 
-	short sample_num_every_trace;
+	int sample_num_every_trace;
 	float* data;
 	float* appenddata;
 

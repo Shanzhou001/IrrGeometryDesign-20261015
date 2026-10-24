@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "command": [
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\runtimes\\v5\\bin\\IrrGeometryDesign.exe",
+    "--audit-queries",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\frozen_smoke\\query.txt",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\frozen_smoke\\native"
+  ],
+  "exit_code": 0,
+  "executable_sha256": "8697ac13bfc86dfc80086b1d3157b5edd1ae2f0b5213221b14e029bd121ef8ed",
+  "input_sha256": "6e9b7b12c1916b272821d97a42e59e3d40985362c1edaf4717a226ba5ac9b7a8",
+  "matched_mask": "00001000000000100110010011100000000011110100001001000101000100001100010000011110000000100000000100010000010010111000100100101001",
+  "mu": "0.218105569482"
+}

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\verify_audit_v5.py", line 143, in <module>
+    a=p.parse_args();verify(a.root.resolve(),a.report.resolve())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\verify_audit_v5.py", line 134, in verify
+    baseline=json.loads((root/'baseline_manifest.json').read_text());count=0
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\48198\AppData\Local\Programs\Python\Python312\Lib\pathlib.py", line 1028, in read_text
+    return f.read()
+           ^^^^^^^^
+UnicodeDecodeError: 'gbk' codec can't decode byte 0xae in position 180: illegal multibyte sequence

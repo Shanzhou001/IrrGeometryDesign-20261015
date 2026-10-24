@@ -51,6 +51,13 @@ int main(int argc, char *argv[])
 
 	for (int i = 1; i < argc; i++)
 	{
+        if(strcmp(argv[i],"--audit-queries")==0)
+        {
+            if(i+2>=argc || i+3!=argc)return 2;
+            QString report;
+            bool ok=GeometryExperimentEngine::runAuditQueries(QString::fromLocal8Bit(argv[i+1]),QString::fromLocal8Bit(argv[i+2]),report);
+            fprintf(ok?stdout:stderr,"%s\n",report.toLocal8Bit().constData());return ok?0:1;
+        }
         if(strcmp(argv[i],"--review-tests")==0)return GeometryExperimentEngine::runReviewUnitTests()?0:1; // add by wushanzhou in 2026/10/24
         if(strcmp(argv[i],"--review-search")==0) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24

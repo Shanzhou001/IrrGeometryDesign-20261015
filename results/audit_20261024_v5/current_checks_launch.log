@@ -1,0 +1,3 @@
+{'name': 'release_build', 'command': ['cmd', '/c', 'build_release.bat'], 'exit_code': 0, 'seconds': 18.860274399994523}
+{'name': 'debug_build', 'command': ['cmd', '/c', 'build_debug.bat'], 'exit_code': 0, 'seconds': 19.825537600001553}
+{'name': 'python', 'command': ['python', '-m', 'unittest', 'discover', '-s', 'tools', '-p', 'test_*.py', '-v'], 'exit_code': 0, 'seconds': 6.299965800004429}

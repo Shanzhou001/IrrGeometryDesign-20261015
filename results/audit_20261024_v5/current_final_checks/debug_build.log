@@ -1,0 +1,144 @@
+[build] QTDIR is unavailable; checking qmake.exe on PATH.
+[build] QTDIR = D:\Qt\4.7.4\bin\..
+[build] VC    = C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat  (x86_amd64)
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+Microsoft (R) Visual C++ Project Builder - Command Line Version 9.00.21022
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started: Project: IrrGeometryDesign, Configuration: Debug|x64
+Compiling...
+moc_tspsform.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+moc_datareconstruction.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+tspsform.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=short
+        ]
+        .\spsshow\tspsform.cpp(320) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=short
+        ]
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=float
+        ]
+        .\spsshow\tspsform.cpp(1248) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=float
+        ]
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=float
+        ]
+segyio.cpp
+main.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+datareconstruction.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=short
+        ]
+        .\datareconstruction.cpp(629) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=short
+        ]
+1>d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\irrgeometrydesign\spssegy\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+Generating Code...
+Linking...
+LINK : D:\Desktop\work\IrrGeometryDesign-20261015\x64\Debug\IrrGeometryDesign.exe not found or not built by the last incremental link; performing full link
+   Creating library D:\Desktop\work\IrrGeometryDesign-20261015\x64\Debug\IrrGeometryDesign.lib and object D:\Desktop\work\IrrGeometryDesign-20261015\x64\Debug\IrrGeometryDesign.exp
+Embedding manifest...
+Build log was saved at "file://d:\Desktop\work\IrrGeometryDesign-20261015\IrrGeometryDesign\x64\Debug\BuildLog.htm"
+IrrGeometryDesign - 0 error(s), 36 warning(s)
+
+Build complete: 1 Projects succeeded, 0 Projects failed, 0 Projects skipped

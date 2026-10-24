@@ -1,0 +1,2 @@
+id,method,n,m,seed,budget,ok,feasible,mu,objective,max_gap,max_gap_m,nn_cv,evals,attempts,wall_ms,native_clock_ms,status,mask
+physical_s0_SA_Budget,SA_Budget,59,30,20261025,100000,1,1,0.28570497036,0.28570497036,6,416,0.596262633801,626,625,30.034799993,30,wall_limit,11010110010101001000001110011011100101000011001110111010011

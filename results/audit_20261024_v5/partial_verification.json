@@ -1,0 +1,16 @@
+[
+  {
+    "stage": "search",
+    "native_steps": 1,
+    "hashed_native_outputs": 841,
+    "search_queries": 840,
+    "reconstruction_records": 0
+  },
+  {
+    "stage": "real",
+    "native_steps": 111,
+    "hashed_native_outputs": 444,
+    "search_queries": 0,
+    "reconstruction_records": 24
+  }
+]

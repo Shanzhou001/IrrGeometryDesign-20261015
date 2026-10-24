@@ -34,6 +34,7 @@ int **MulMatrix(int m,int *phi,int col,int **Phi) // add by wushanzhou in 2026/1
 //****** 对一维矩阵进行采样,数据类型为int,采用寻找下标的方式 ******//
 int *MulMatrix_1D(int N,int *phi,int *Phi)
 {
+	if(N<=0 || !phi || !Phi)return NULL;
 	vector<int> idx;
 	// 得到采样矩阵0点的下标
 	for (int i = 0; i < N; i++)
@@ -50,7 +51,8 @@ int *MulMatrix_1D(int N,int *phi,int *Phi)
 		Phi[idx[j]]=0;//完成采样
 	}
 
-	int *d = (int*)malloc(sizeof(int) * N-m);//申请动态空间
+	int *d = (int*)malloc(sizeof(int) * (N-m));//申请动态空间
+	if(N-m>0 && !d)return NULL;
 	for (int i=0;i<N-m;i++)//初始化-可以省略
 	{
 		d[i]=0;
@@ -58,7 +60,7 @@ int *MulMatrix_1D(int N,int *phi,int *Phi)
 	int t=0;
 	for (int i=0;i<N;i++)
 	{
-		if (Phi[i]!=0)
+		if (phi[i]!=0) // Select by mask; coordinate/value zero is a valid observation.
 		{
 			d[t]=Phi[i];t++;//去掉等于0的数据，得到采样后的实际数据
 		}

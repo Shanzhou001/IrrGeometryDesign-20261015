@@ -1,0 +1,740 @@
+{
+  "files": [
+    {
+      "path": "IrrGeometryDesign/adaptivesearch.inc",
+      "sha256": "77f6af1baba97ab9233b32f7a792f058e4c97a6010bdf03f877ddf3b7168822d",
+      "bytes": 11236,
+      "lines": 138
+    },
+    {
+      "path": "IrrGeometryDesign/analyzebindoc.cpp",
+      "sha256": "3da5bf9276a67c021052856e69d81914403109ac5b81eb8a6a20270a75988722",
+      "bytes": 2485,
+      "lines": 112
+    },
+    {
+      "path": "IrrGeometryDesign/analyzebindoc.h",
+      "sha256": "ed9296990b004db4bd6d922d6dbc8530305e9055a413e15e63f3068b0c1eb85a",
+      "bytes": 4502,
+      "lines": 116
+    },
+    {
+      "path": "IrrGeometryDesign/analyzebinform.cpp",
+      "sha256": "fcec446c2ef6b89d1be9137ee61cb7ba6a47c54d6c5cb27ea39a359b5034925d",
+      "bytes": 36612,
+      "lines": 1238
+    },
+    {
+      "path": "IrrGeometryDesign/analyzebinform.h",
+      "sha256": "5e618a8985be5ab960fbed12f921508c45417ae50a941e253bb6fc1e9f3b418a",
+      "bytes": 4793,
+      "lines": 148
+    },
+    {
+      "path": "IrrGeometryDesign/analyzebinview.cpp",
+      "sha256": "a48e5c0c3cd6ae8db26d6b980f0bc056fc3ccaaf059073669371681274283d5d",
+      "bytes": 91744,
+      "lines": 2657
+    },
+    {
+      "path": "IrrGeometryDesign/analyzebinview.h",
+      "sha256": "8c0d99ff631be112ca2c7467914178749f08fd8d5772fc37abbb62c86c356e33",
+      "bytes": 5782,
+      "lines": 159
+    },
+    {
+      "path": "IrrGeometryDesign/auditqueries.inc",
+      "sha256": "3ee170b3e4c3f9c46cfb62ab0eacca987f132609573790ee7a47e9038ec01ce0",
+      "bytes": 5798,
+      "lines": 96
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gmath.cpp",
+      "sha256": "1cc1cece40583a6a9c1a44db0295cb1a71c16371d9bf28f7cedcb474f4379f18",
+      "bytes": 13191,
+      "lines": 683
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gmath.h",
+      "sha256": "5de677bc9360c94e3de600e561d5cda3cb6c5139fabbd95b750393a934ba1396",
+      "bytes": 3225,
+      "lines": 140
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gmatrix3d.cpp",
+      "sha256": "a92b423fd5ed9af3f90f824758b41c7387492e76411e42da44392e1e10bd5a04",
+      "bytes": 4436,
+      "lines": 233
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gmatrix3d.h",
+      "sha256": "cf21641588d92737b953467e23fb1e06ceb7c83ec685750a9858181b2650fd98",
+      "bytes": 1442,
+      "lines": 49
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gpoint3d.cpp",
+      "sha256": "73563732364c613bae82b1243dc1ebc4857e813f31ece3b8b02098591f621aaf",
+      "bytes": 2981,
+      "lines": 130
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gpoint3d.h",
+      "sha256": "fd420324c36a04e5defe06d44c779e08918a75e6c96c6bab2e88a68ae9aeab6e",
+      "bytes": 1574,
+      "lines": 64
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gptrvector.h",
+      "sha256": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+      "bytes": 7849,
+      "lines": 370
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gquaternion3d.cpp",
+      "sha256": "c817ac35b3a0510d490e955a55572ec5d08ed17a4ee4cbb533ed62adc4d51ccf",
+      "bytes": 4283,
+      "lines": 162
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gquaternion3d.h",
+      "sha256": "d286bffb0574c377f35f490ff198460f44c492ddc83cc19fd482d27f41c3410a",
+      "bytes": 1372,
+      "lines": 54
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/grotation3d.cpp",
+      "sha256": "100ea72cb3de3a65ad4fb7711a4c088323e05b4c6ba7e2522ef78d601e7de9c4",
+      "bytes": 2447,
+      "lines": 107
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/grotation3d.h",
+      "sha256": "d1c17da8d2d20c152b8f535604e934a2da0df52eef7838b80d7fa38a6cf09414",
+      "bytes": 1130,
+      "lines": 41
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gutils.cpp",
+      "sha256": "626edcb4747b8d1031e4e48ea034fa95af1a16bfce723202ec5cd8ed06d624ce",
+      "bytes": 6207,
+      "lines": 298
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gutils.h",
+      "sha256": "332a5710a0181bf82926af7ed0d6f44284a9dbfefddea6650c4a4a1c82b9aaa0",
+      "bytes": 4304,
+      "lines": 263
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gvaluevector.h",
+      "sha256": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+      "bytes": 8016,
+      "lines": 358
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gvector3d.cpp",
+      "sha256": "ba611e90680a499b7975234f05e50b1f27514d3c9e6b009c643703e60776e09d",
+      "bytes": 3797,
+      "lines": 166
+    },
+    {
+      "path": "IrrGeometryDesign/baseclass/gvector3d.h",
+      "sha256": "ca2456c3d070a56879f3f63dead6f625c8f1af67b1905876de6378494d5cf3f7",
+      "bytes": 1927,
+      "lines": 77
+    },
+    {
+      "path": "IrrGeometryDesign/CalculateMiu.h",
+      "sha256": "cf21c9778331a94ef157a2e5e87fd5ce08047872b4659c4035dd7abed067520d",
+      "bytes": 7685,
+      "lines": 161
+    },
+    {
+      "path": "IrrGeometryDesign/changecoordinatedlg.cpp",
+      "sha256": "62b4e1b7e1212a1390bb4d59b37583dab39e2ce80b271da34e7b84ba8606b392",
+      "bytes": 513,
+      "lines": 29
+    },
+    {
+      "path": "IrrGeometryDesign/changecoordinatedlg.h",
+      "sha256": "b96e88b159fc1eb9d727a903d8644f2f184ecf56c94bd9c0c5e3f6f01722db4b",
+      "bytes": 675,
+      "lines": 28
+    },
+    {
+      "path": "IrrGeometryDesign/colorview.cpp",
+      "sha256": "e22f3234bbfd225b95d511ec535591997cc43f627356d1a65b0b6b8b52b1439d",
+      "bytes": 10135,
+      "lines": 401
+    },
+    {
+      "path": "IrrGeometryDesign/colorview.h",
+      "sha256": "3a1c0af06935b5080cb616a0ebe793f02a4cff6e0eaf9df22eb3f6c0efb636ff",
+      "bytes": 1557,
+      "lines": 59
+    },
+    {
+      "path": "IrrGeometryDesign/coordinateholdout.inc",
+      "sha256": "159b21fb70306cf77efb126d61b6a58e553b8e1e13b9a60697a168504aaa3f95",
+      "bytes": 10547,
+      "lines": 122
+    },
+    {
+      "path": "IrrGeometryDesign/Curvelet2d/fdct_wrapping.cpp",
+      "sha256": "0351a91d0342993d4c7cccee4ccda175fa93f859aca15b71a3fb74f191419e36",
+      "bytes": 8819,
+      "lines": 258
+    },
+    {
+      "path": "IrrGeometryDesign/Curvelet2d/fdct_wrapping_param.cpp",
+      "sha256": "0f05c075d22edf8bc67b100eca32b56906c325451fbcbf95892c19304df1efca",
+      "bytes": 4841,
+      "lines": 130
+    },
+    {
+      "path": "IrrGeometryDesign/Curvelet2d/fftw.h",
+      "sha256": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+      "bytes": 12440,
+      "lines": 422
+    },
+    {
+      "path": "IrrGeometryDesign/Curvelet2d/ifdct_wrapping.cpp",
+      "sha256": "21b6731ce572e096c9186cd5e2a5c70ba870c834330ea988b93b8208b5ebf09b",
+      "bytes": 8937,
+      "lines": 263
+    },
+    {
+      "path": "IrrGeometryDesign/Curvelet3d/fdct3d_param.cpp",
+      "sha256": "dfe000ca8bebf5214ac961eb2621c6743733488538565abc1779c7bb2f4bc34e",
+      "bytes": 7558,
+      "lines": 188
+    },
+    {
+      "path": "IrrGeometryDesign/Curvelet3d/fftw.h",
+      "sha256": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+      "bytes": 12440,
+      "lines": 422
+    },
+    {
+      "path": "IrrGeometryDesign/CurveletMiu.cpp",
+      "sha256": "a4bd72e126f6d3b5738d92a0831b998052151db538b42238b13b71d8c8505993",
+      "bytes": 31262,
+      "lines": 994
+    },
+    {
+      "path": "IrrGeometryDesign/datareconstruction.cpp",
+      "sha256": "3a6219d2c237d4f2696d4952e2657d0124af834863e57d53f6af395908662af4",
+      "bytes": 22847,
+      "lines": 754
+    },
+    {
+      "path": "IrrGeometryDesign/datareconstruction.h",
+      "sha256": "282a09d56a8eacf289ef56b383aed791fdb6d22cb65da000b35a7de7d011fe18",
+      "bytes": 815,
+      "lines": 38
+    },
+    {
+      "path": "IrrGeometryDesign/Diagmul.cpp",
+      "sha256": "0fe105bbc2f15f252f9dd6b9becbf3a716a98aabc2d84dd487e2f084b7202002",
+      "bytes": 5419,
+      "lines": 232
+    },
+    {
+      "path": "IrrGeometryDesign/DiagMulmatrix.h",
+      "sha256": "418fd403b89868d9ff105421dd787475b4e7b9593fce846b2b2158f76d9aee85",
+      "bytes": 3740,
+      "lines": 99
+    },
+    {
+      "path": "IrrGeometryDesign/draw2dfrm.cpp",
+      "sha256": "b259a1c89c9f2683685e868120c26e7a4aa1c12563a35fbcc0f3ae3f9c8f4a99",
+      "bytes": 2450,
+      "lines": 112
+    },
+    {
+      "path": "IrrGeometryDesign/draw2dfrm.h",
+      "sha256": "20f334bd6587e42435bdde811e301bed82725df9777050f5df598091701a09dc",
+      "bytes": 2436,
+      "lines": 115
+    },
+    {
+      "path": "IrrGeometryDesign/draw2Dview.cpp",
+      "sha256": "f31670e80083def73c5225cea7fdf2d4fba6380d7a8d756e54b2a92060cd5553",
+      "bytes": 10278,
+      "lines": 387
+    },
+    {
+      "path": "IrrGeometryDesign/draw2Dview.h",
+      "sha256": "a6bdb9a23cda83374665949d61bdf037078623fe4233c1271c38e626e7c21a62",
+      "bytes": 1450,
+      "lines": 51
+    },
+    {
+      "path": "IrrGeometryDesign/ExpRng.cpp",
+      "sha256": "cb0c3899dfa30fdb190430245ffe79d9c7f72e4f52abf0da40cb11af3df35d8a",
+      "bytes": 1758,
+      "lines": 81
+    },
+    {
+      "path": "IrrGeometryDesign/ExpRng.h",
+      "sha256": "be45b19566cdbb35bcd967d72df48e664c54216afbee40990fe849e45ef6e47c",
+      "bytes": 1563,
+      "lines": 43
+    },
+    {
+      "path": "IrrGeometryDesign/gAttrAnalyzeParam.cpp",
+      "sha256": "9163e7467c9bd4b9651c0028b0eb62d0a168a74e6f9610a22357dc31c3f92991",
+      "bytes": 2344,
+      "lines": 102
+    },
+    {
+      "path": "IrrGeometryDesign/gAttrAnalyzeParam.h",
+      "sha256": "16c05e0636058e144c79ff136808ebd6b5f9cafcb28e9f894f9e1e33d2793f20",
+      "bytes": 853,
+      "lines": 40
+    },
+    {
+      "path": "IrrGeometryDesign/geometryexperimentengine.cpp",
+      "sha256": "93a50430684975e13dcbf08c27835521b0af516d82fd6ea0588ceb94985ed6c9",
+      "bytes": 281309,
+      "lines": 5758
+    },
+    {
+      "path": "IrrGeometryDesign/geometryexperimentengine.h",
+      "sha256": "c1836fbab5426a31d55aba68d5c5fceb129550269bfad205f03be44c6a2ecbed",
+      "bytes": 21092,
+      "lines": 342
+    },
+    {
+      "path": "IrrGeometryDesign/geometrytemplateparameter.cpp",
+      "sha256": "9d73824c29cecc8bbeabb162b69f54a4cf014b4a0df35b455e152bc3355bec93",
+      "bytes": 3495,
+      "lines": 75
+    },
+    {
+      "path": "IrrGeometryDesign/geometrytemplateparameter.h",
+      "sha256": "5fd5d7df127d1cf42e94bc13e32eb4ba40da4b79bc5651d358f4c383ff1055cc",
+      "bytes": 1538,
+      "lines": 55
+    },
+    {
+      "path": "IrrGeometryDesign/main.cpp",
+      "sha256": "e09aaee45b484d60969d93dae667c06722e602222888cd3395fdb7264fb5f278",
+      "bytes": 26722,
+      "lines": 566
+    },
+    {
+      "path": "IrrGeometryDesign/OptimizeMiu.cpp",
+      "sha256": "e46fbafdb1144fc478dee53d82b0c9cfbe102905f38afa85a73f5ebbedbfb3d4",
+      "bytes": 47569,
+      "lines": 1095
+    },
+    {
+      "path": "IrrGeometryDesign/OptimizeMiu.h",
+      "sha256": "42d8321704356805368707c133a88ee1e215efa9f4ddd82c8f925ce7cf7538ab",
+      "bytes": 16018,
+      "lines": 320
+    },
+    {
+      "path": "IrrGeometryDesign/ovtvolumeattributeview.cpp",
+      "sha256": "05b519984f50f96c50c1720ddf59df7ba95d862594a6b4f87013200540321646",
+      "bytes": 37542,
+      "lines": 760
+    },
+    {
+      "path": "IrrGeometryDesign/ovtvolumeattributeview.h",
+      "sha256": "1cc69aa8aa77b2b0558a65c41bbc5e8c3b6340bd511fc2f529adee565ede44a4",
+      "bytes": 3241,
+      "lines": 78
+    },
+    {
+      "path": "IrrGeometryDesign/qcustomplot.cpp",
+      "sha256": "592ee3226b23394a4fe649dc41b82917937260c31618e38b83b7c7908c6761dd",
+      "bytes": 1118720,
+      "lines": 30121
+    },
+    {
+      "path": "IrrGeometryDesign/qcustomplot.h",
+      "sha256": "d843d0c43af78e0dbb227d42a1d48bb4e56334ee3a4930551a6305fecdb09f8f",
+      "bytes": 273590,
+      "lines": 6662
+    },
+    {
+      "path": "IrrGeometryDesign/reconstructionoptions.h",
+      "sha256": "710f16aaba8b133d7ec149a5b4f0cb4d76e86f494e3c9ebd7bf3611b04feb9c1",
+      "bytes": 761,
+      "lines": 11
+    },
+    {
+      "path": "IrrGeometryDesign/reviewexperiments.inc",
+      "sha256": "836097dbbd4425a223db37a2a1abcc6f2ac09f1f570e6f3919281730694d80db",
+      "bytes": 12595,
+      "lines": 124
+    },
+    {
+      "path": "IrrGeometryDesign/reviewregression.inc",
+      "sha256": "5f5b39c8dd668cb12b79b8bb08710e8092c2143d2ad648cda884325fdb53876e",
+      "bytes": 17787,
+      "lines": 175
+    },
+    {
+      "path": "IrrGeometryDesign/sample.h",
+      "sha256": "60dfbf5346bfcfd28210ec096c3e516fcde9c426fb3e4c4ffbba73ffb619a9a8",
+      "bytes": 3660,
+      "lines": 91
+    },
+    {
+      "path": "IrrGeometryDesign/Sampling.cpp",
+      "sha256": "95a8737757ad365af4a28b863ccc86550ed9296f11899ce62fcb902b77920d5b",
+      "bytes": 14683,
+      "lines": 617
+    },
+    {
+      "path": "IrrGeometryDesign/samplingstudies.inc",
+      "sha256": "37416c91a1512325111ecd8174ada4537521dba04feb025ef7c408ce31bee0a9",
+      "bytes": 25512,
+      "lines": 243
+    },
+    {
+      "path": "IrrGeometryDesign/scienceregression.inc",
+      "sha256": "9894da191f894bf102f9065027de6fdc24da071e2a78d77098725ff5518e9671",
+      "bytes": 15188,
+      "lines": 169
+    },
+    {
+      "path": "IrrGeometryDesign/scientificplotter.h",
+      "sha256": "6319c8779e28118b10e0e649c91791cef1cdd7165326b36b46f936cfd0a22221",
+      "bytes": 60216,
+      "lines": 1126
+    },
+    {
+      "path": "IrrGeometryDesign/spsloadcal.cpp",
+      "sha256": "9ea2f931bdd85b1cc5e7a5f6035cc44257f2040ef2000bb7a5f890ae6c4cbb29",
+      "bytes": 5363,
+      "lines": 79
+    },
+    {
+      "path": "IrrGeometryDesign/spsloadcal.h",
+      "sha256": "735748721256b9fbc65fbd5863c193f30260d6d16896a6f775150986de257a23",
+      "bytes": 741,
+      "lines": 22
+    },
+    {
+      "path": "IrrGeometryDesign/spsmaskbuilder.cpp",
+      "sha256": "eaca63c3ab8e9ceb01216ea638e839b4d3512a00783bc94e9ad23b2f0727e871",
+      "bytes": 12078,
+      "lines": 454
+    },
+    {
+      "path": "IrrGeometryDesign/spsmaskbuilder.h",
+      "sha256": "3a5c3855dc158b9630646d5063acb982e35b70f4fc8d4838dca3b0b9e5f4e93f",
+      "bytes": 3529,
+      "lines": 118
+    },
+    {
+      "path": "IrrGeometryDesign/spssampledlg.cpp",
+      "sha256": "4cf1896ba204be9038f3b56aa0fc87d8142647f82e823a7cdbec9d250284851e",
+      "bytes": 617,
+      "lines": 36
+    },
+    {
+      "path": "IrrGeometryDesign/spssampledlg.h",
+      "sha256": "0925229622d015d35eeace7da7c70a8127eba6cee8ae8ecbc7b88222bb723bc2",
+      "bytes": 474,
+      "lines": 27
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gcmpset.cpp",
+      "sha256": "33ea0a45de3b4d84f0cf2d2d3f9615104711309d36d05d340acf7973a67e9cc6",
+      "bytes": 11179,
+      "lines": 464
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gcmpset.h",
+      "sha256": "5f3a18fee426214cda80de2abd28761f7a241b39043be60813ddf6743c0c3751",
+      "bytes": 5576,
+      "lines": 188
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gproject.cpp",
+      "sha256": "0a976cc96f27ee74b743338b7e4694ecf102079920e942ae0d5488aeb520fa5d",
+      "bytes": 43646,
+      "lines": 1573
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gproject.h",
+      "sha256": "a1baedf989fedfbca3c74c97c3ea0f7ea0d90f934e196af243100554a060701f",
+      "bytes": 16150,
+      "lines": 495
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gptrvector.h",
+      "sha256": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+      "bytes": 7849,
+      "lines": 370
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/grlineset.cpp",
+      "sha256": "fb4bf9621601fc91eeb54779c7d99f19245db502ff84eeff0e25de52d8e60299",
+      "bytes": 16169,
+      "lines": 728
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/grlineset.h",
+      "sha256": "d3c85fa71e93af3b43a39a35850179cac9171f50e7ab315a5a0a3fbfc434346d",
+      "bytes": 9551,
+      "lines": 273
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gsegyfilescanner.cpp",
+      "sha256": "a93c1bb1e79fcc78b64b151b4eddb74fa2f1ab25fa46b8f208746b0a837145b9",
+      "bytes": 9327,
+      "lines": 343
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gsegyfilescanner.h",
+      "sha256": "cce50bf6a6fcf4b44a1d04d2314e18bb42a7a77b7ad742ceab632526a26b0576",
+      "bytes": 937,
+      "lines": 36
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gshotset.cpp",
+      "sha256": "76055b44c60a1597935803bdd0766f5ab71deb01e633dbbd054b15f76fa99f5c",
+      "bytes": 57669,
+      "lines": 2271
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gshotset.h",
+      "sha256": "ccd0f12b970423430fec1f50965b42e9625d871f24bb351ed0ac9d6ad3bc5c0a",
+      "bytes": 17824,
+      "lines": 496
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gslineset.cpp",
+      "sha256": "8314066922681abd493f4ce8c475ce0313d6ea6e6292bb0c857a44bf5457f698",
+      "bytes": 15216,
+      "lines": 672
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gslineset.h",
+      "sha256": "951ed0a106d375369f94f62b1e1a06dc1a54a746601b5f95a246ec830850b332",
+      "bytes": 8528,
+      "lines": 265
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gspsscanner.cpp",
+      "sha256": "2e56e1dfe6bab5f52d1f8aadc48d134bc3cf35edbf0cf1ebc083f2a8a5bcad76",
+      "bytes": 20062,
+      "lines": 669
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gspsscanner.h",
+      "sha256": "71b033c7bdb77c20de3f06356fac29ab5204dc63fe35c8babfc3e63e93c255ca",
+      "bytes": 1102,
+      "lines": 43
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/gvaluevector.h",
+      "sha256": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+      "bytes": 8016,
+      "lines": 358
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/segyio.cpp",
+      "sha256": "481e683c84903c314588f71ff4c715aa34505e14a91be90b2ff6a6665db6323c",
+      "bytes": 10154,
+      "lines": 295
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/segyio.h",
+      "sha256": "2e0b383ebd1ec908e42661095ba081bb27d82580fed04f8287db566488c8cd63",
+      "bytes": 14022,
+      "lines": 503
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/tdatawizardform.cpp",
+      "sha256": "cfd432799c2c497e0f4923bb8b3a3da1f74ff0b541f56033b9832cb16af1fdf2",
+      "bytes": 7893,
+      "lines": 216
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/tdatawizardform.h",
+      "sha256": "819823f9cdc34055c7f153f11542cbfb5c3d62f8edb391c178f38e86209860f9",
+      "bytes": 2880,
+      "lines": 108
+    },
+    {
+      "path": "IrrGeometryDesign/spssegy/tdatawizardform.ui.h",
+      "sha256": "4ff2544affee9e01a0d468ffb9f8e076db1f78ecf429200a4bb6fbd4f48efeaa",
+      "bytes": 4502,
+      "lines": 179
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gcellgrid.cpp",
+      "sha256": "f00ce9b25a18382df253a16a7ac693db4b83c1ba8231696ece54c337f2a00f06",
+      "bytes": 16257,
+      "lines": 646
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gcellgrid.h",
+      "sha256": "e80557259375c70947d81d12b302b37b0f6fdd184fbb70564c0f251f055e1db2",
+      "bytes": 3580,
+      "lines": 142
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gspsparam.cpp",
+      "sha256": "8c1be3a03fe3227834d70ceffd1673b986af5cfb0934ff540acb4a8722f134c6",
+      "bytes": 4617,
+      "lines": 204
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gspsparam.h",
+      "sha256": "7812940e26543e9f08d9423f784e3ccf20f094701644fb3eba1904f1157ccf01",
+      "bytes": 1993,
+      "lines": 70
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gspsview.cpp",
+      "sha256": "d43d2802ac56046dc26e5a9d5a4952772139c1fc2cb0b87fbc758e80ac6ec1a3",
+      "bytes": 29928,
+      "lines": 1196
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gspsview.h",
+      "sha256": "eacfcca02639093065bf2f2992f5f306ce9d344da66641fbb810ee17c1dea3cb",
+      "bytes": 7109,
+      "lines": 224
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/gvaluevector.h",
+      "sha256": "2a81e2c7ea93a4df81bc21d47ae3f30097979d938fa9d5e5b74a315d19c7a41c",
+      "bytes": 8112,
+      "lines": 358
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tcellgridform.cpp",
+      "sha256": "d871cb5eaaa5802e3ce0b05462503e94dedcf0f068b964cb41d5616abe04918a",
+      "bytes": 5433,
+      "lines": 168
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tcellgridform.h",
+      "sha256": "c1cf3ecff9db8e153b47d4c4fae3d0906d3233123c2426faeb0059049c3257f8",
+      "bytes": 1352,
+      "lines": 62
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsdlg.cpp",
+      "sha256": "6a1fbe896924e59bea82ad0ed7a33120fb48181d5c9837ef37cff3e845eeed9c",
+      "bytes": 17802,
+      "lines": 421
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsdlg.h",
+      "sha256": "2d83390383bdd6a92c20afc6db424d65d86afcafd0ed3d7f122d64522cb8b678",
+      "bytes": 1805,
+      "lines": 76
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsform.cpp",
+      "sha256": "9eef53d44ea04298039da627dfdc17eca94b903ee38aa12bf3bf4897f72458f4",
+      "bytes": 104148,
+      "lines": 2704
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsform.h",
+      "sha256": "1678df2a7aa024ab20e1400a105da7415570f5ea05bd2846d8342927794617ae",
+      "bytes": 5002,
+      "lines": 190
+    },
+    {
+      "path": "IrrGeometryDesign/tchangeshowareadlg.cpp",
+      "sha256": "35938d582c959bbb8c9b1c36fc7e26b7b074cdb013cf165a1d8fe7a4487adf21",
+      "bytes": 756,
+      "lines": 35
+    },
+    {
+      "path": "IrrGeometryDesign/tchangeshowareadlg.h",
+      "sha256": "d3c0e71932cda04c505cb60aa1b9a6c8b7559b35f404986ddd94504e5d97fd2f",
+      "bytes": 593,
+      "lines": 29
+    },
+    {
+      "path": "IrrGeometryDesign/tdatawizardform.cpp",
+      "sha256": "26ef4e1502fcdb63a439a64db76c3747db1b8bcb742fd30101f95f3b919959a4",
+      "bytes": 8314,
+      "lines": 255
+    },
+    {
+      "path": "IrrGeometryDesign/tdatawizardform.h",
+      "sha256": "3c4c5f5ad008c7d8c6e9e0098b021ff157c319f6b5c811cfa4630faf1818385d",
+      "bytes": 3372,
+      "lines": 111
+    },
+    {
+      "path": "IrrGeometryDesign/tgeometryimfordlg.cpp",
+      "sha256": "a4f08bc065e382688a256c0b203d7658f3bf131abac8a73630a05ee09cdc54a0",
+      "bytes": 933,
+      "lines": 48
+    },
+    {
+      "path": "IrrGeometryDesign/tgeometryimfordlg.h",
+      "sha256": "dd31164d303b80a3e4d46ccd204c59d2bf412feb6b7a4bc08067875da9b0a0f0",
+      "bytes": 591,
+      "lines": 31
+    },
+    {
+      "path": "IrrGeometryDesign/tqfdividedlg.cpp",
+      "sha256": "c1f1886fb242b63c84607635a3a71cc8fa155c6d0cd8426af7164bed8a4e2e02",
+      "bytes": 833,
+      "lines": 37
+    },
+    {
+      "path": "IrrGeometryDesign/tqfdividedlg.h",
+      "sha256": "3617a336a0b462a4952c918522b2f70b1e26b94c9dfe4d021bdb1a509aaa43f2",
+      "bytes": 764,
+      "lines": 33
+    },
+    {
+      "path": "IrrGeometryDesign/trealovtdlg.cpp",
+      "sha256": "30a2e23eac84d70a900f7f662e679801c7c9d561ffee875735418b076efea407",
+      "bytes": 25286,
+      "lines": 663
+    },
+    {
+      "path": "IrrGeometryDesign/trealovtdlg.h",
+      "sha256": "1aa415bc5801ace9b50ead54e9e046f8a06185e0ea7c1f0d2d476c731a23d5cd",
+      "bytes": 1330,
+      "lines": 71
+    },
+    {
+      "path": "IrrGeometryDesign/trosedividedlg.cpp",
+      "sha256": "d9cb2278020262ca2f2fa09f103ea2f78ee68b2c53d3673736bf0cf32ade41b6",
+      "bytes": 740,
+      "lines": 35
+    },
+    {
+      "path": "IrrGeometryDesign/trosedividedlg.h",
+      "sha256": "ef604ef1df02353354d2a7b9afd9e117d2cb1d0f0924e47edbe2b8c9e5c9834a",
+      "bytes": 657,
+      "lines": 30
+    }
+  ],
+  "total_files": 120,
+  "total_lines": 80898,
+  "manual_focus": [
+    "Sampling.cpp",
+    "CurveletMiu.cpp",
+    "OptimizeMiu.cpp/.h",
+    "adaptivesearch.inc",
+    "coordinateholdout.inc",
+    "geometryexperimentengine.cpp",
+    "reconstructionoptions.h",
+    "spsloadcal.cpp",
+    "spssegy/segyio.cpp/.h",
+    "Diagmul.cpp",
+    "tools/review_studies.py and verifiers/tests"
+  ],
+  "scope": "All listed source bytes inventoried; detailed manual/numerical review focuses on research and ownership paths, not a proof that every GUI or third-party line is safe."
+}

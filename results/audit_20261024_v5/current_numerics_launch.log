@@ -1,0 +1,1 @@
+{"passed": true, "cases": 588, "max_absolute_errors": {"mu": 2.7987364092929568e-08, "max_gap_m": 0.0, "nn_cv": 5.5300842571881503e-08, "objective": 7.055807826894522e-08}, "note": "504 explicit dictionary/coverage/objective cases; 84 DP cases incl full cardinality"}

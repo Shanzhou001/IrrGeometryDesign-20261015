@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-search",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\compatibility\\uniform_200",
+        "--seeds",
+        "2",
+        "--budget",
+        "200",
+        "--tradeoff"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2654333999962546,
+      "matched_rows": 126
+    },
+    {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-search",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\compatibility\\uniform_600",
+        "--seeds",
+        "2",
+        "--budget",
+        "600"
+      ],
+      "exit_code": 0,
+      "seconds": 2.414854699993157,
+      "matched_rows": 72
+    },
+    {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-search",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\compatibility\\physical_200",
+        "--seeds",
+        "2",
+        "--budget",
+        "200",
+        "--tradeoff",
+        "--input",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\data\\real_seismic\\real_gather_59x256.csv"
+      ],
+      "exit_code": 0,
+      "seconds": 2.5241453999915393,
+      "matched_rows": 126
+    },
+    {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-search",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\compatibility\\physical_600",
+        "--seeds",
+        "2",
+        "--budget",
+        "600",
+        "--input",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\data\\real_seismic\\real_gather_59x256.csv"
+      ],
+      "exit_code": 0,
+      "seconds": 2.7682366000080947,
+      "matched_rows": 72
+    }
+  ]
+}

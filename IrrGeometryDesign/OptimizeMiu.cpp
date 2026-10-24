@@ -30,6 +30,25 @@
 #include <cmath>
 #include <cstring>
 #include <limits> // add by wushanzhou in 2026/10/24
+#ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#endif
+
+// Wall clock for the v5 research interface; includes cache construction.
+static double samplingWallMs()
+{
+#ifdef _WIN32
+    LARGE_INTEGER now, frequency;
+    QueryPerformanceFrequency(&frequency);QueryPerformanceCounter(&now);
+    return 1000.0*(double)now.QuadPart/(double)frequency.QuadPart;
+#else
+    struct timespec now;clock_gettime(CLOCK_MONOTONIC,&now);
+    return 1000.0*now.tv_sec+1e-6*now.tv_nsec;
+#endif
+}
 
 #pragma warning(disable:4244)
 
@@ -877,10 +896,12 @@ static void search_measure(const std::vector<int>& mask, const ConstraintWeights
 bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by wushanzhou in 2026/10/23
                        const ConstraintWeights& w, unsigned long long seed, // add by wushanzhou in 2026/10/23
                        int budget, SamplingSearchMethod method, ConstrainedResult& out, // add by wushanzhou in 2026/10/23
-                       int prefixBudget, int gridRows, const std::vector<double>* coordinates) // add by wushanzhou in 2026/10/23
+                       int prefixBudget, int gridRows, const std::vector<double>* coordinates,
+                       const std::vector<int>* eligibility) // add by wushanzhou in 2026/10/23
 { // add by wushanzhou in 2026/10/23
     out = ConstrainedResult(); // add by wushanzhou in 2026/10/23
     const clock_t started = clock(); // add by wushanzhou in 2026/10/23
+    const double wallStarted=samplingWallMs();
     out.status = "invalid_input"; // add by wushanzhou in 2026/10/23
     if (gridRows < 1 || N % gridRows != 0 || N <= 1 || m <= 0 || m >= N || budget < 1 || (int)initial.size() != N || // add by wushanzhou in 2026/10/23
         !ValidateSamplingMask(N, m, &initial[0]) || !search_finite(w.lambdaGap) || !search_finite(w.lambdaNN) || // add by wushanzhou in 2026/10/24
@@ -889,6 +910,17 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
         method < SEARCH_SA || method > SEARCH_RESTART) return false; // add by wushanzhou in 2026/10/23
     if(coordinates && (gridRows!=1 || w.hardMaxGap>0 || !search_coordinates_ok(*coordinates,N))) // add by wushanzhou in 2026/10/24
     {out.status="invalid_physical_coordinates_or_index_hard_bound";return false;} // add by wushanzhou in 2026/10/23
+    std::vector<int> eligibleIndices;
+    if(eligibility)
+    {
+        if((int)eligibility->size()!=N)return false;
+        for(int j=0;j<N;j++)
+        {
+            if(((*eligibility)[j]!=0 && (*eligibility)[j]!=1) || (initial[j] && !(*eligibility)[j]))return false;
+            if((*eligibility)[j])eligibleIndices.push_back(j);
+        }
+        if((int)eligibleIndices.size()<m)return false;
+    }
     if (w.hardMaxGap > 0 && (long long)(m + 1) * w.hardMaxGap < N - 1) // add by wushanzhou in 2026/10/23
     { out.status = "infeasible_hard_gap"; return false; } // add by wushanzhou in 2026/10/23
     std::vector<int> cur = initial; // add by wushanzhou in 2026/10/23
@@ -903,12 +935,18 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
         if (!ValidateSamplingMask(N, m, &cur[0]) || SamplingMaxGap(cur) > w.hardMaxGap) // add by wushanzhou in 2026/10/23
         { out.status = "no_feasible_initialization"; return false; } // add by wushanzhou in 2026/10/23
     } // add by wushanzhou in 2026/10/23
+    if(eligibility)for(int j=0;j<N;j++)if(cur[j] && !(*eligibility)[j])return false;
     exprng::seed(seed); // add by wushanzhou in 2026/10/23
     search_measure(cur, w, m, out, gridRows, coordinates); // add by wushanzhou in 2026/10/23
     if (out.mu<0 || !search_finite(out.objective)) { out.status="objective_failure";return false; } // add by wushanzhou in 2026/10/24
     out.evals = 1; // add by wushanzhou in 2026/10/23
     out.bestTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
     out.currentTrace.push_back(out.objective); // add by wushanzhou in 2026/10/23
+    if(eligibility && (int)eligibleIndices.size()==m)
+    {
+        out.status="single_feasible_mask";out.runtimeWallMs=samplingWallMs()-wallStarted;
+        out.runtimeMs=(double)(clock()-started)*1000.0/CLOCKS_PER_SEC;return true;
+    }
     double current = out.objective; // add by wushanzhou in 2026/10/23
     if (prefixBudget < 1) prefixBudget = 1; // add by wushanzhou in 2026/10/23
     if (prefixBudget > budget) prefixBudget = budget; // add by wushanzhou in 2026/10/23
@@ -920,7 +958,8 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
         { // add by wushanzhou in 2026/10/23
             attempts++; // add by wushanzhou in 2026/10/23
             std::vector<int> ones, zeros; // add by wushanzhou in 2026/10/23
-            for (int i = 0; i < N; i++) (cur[i] ? ones : zeros).push_back(i); // add by wushanzhou in 2026/10/23
+            for (int i = 0; i < N; i++)if(!eligibility || (*eligibility)[i])
+                (cur[i] ? ones : zeros).push_back(i); // add by wushanzhou in 2026/10/23
             std::vector<int> candidate = cur; // add by wushanzhou in 2026/10/23
             candidate[ones[exprng::integer() % ones.size()]] = 0; // add by wushanzhou in 2026/10/23
             candidate[zeros[exprng::integer() % zeros.size()]] = 1; // add by wushanzhou in 2026/10/23
@@ -953,8 +992,11 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
         while (out.evals < budget && attempts < budget * 100) // add by wushanzhou in 2026/10/23
         { // add by wushanzhou in 2026/10/23
             attempts++; // add by wushanzhou in 2026/10/23
-            int *jitter = Sampling1J_Count(N, m); // add by wushanzhou in 2026/10/23
-            std::vector<int> candidate(jitter, jitter + N); delete[] jitter; // add by wushanzhou in 2026/10/23
+            int *jitter = Sampling1J_Count(eligibility?(int)eligibleIndices.size():N, m); // add by wushanzhou in 2026/10/23
+            std::vector<int> candidate(N,0);
+            if(eligibility){for(size_t k=0;k<eligibleIndices.size();k++)candidate[eligibleIndices[k]]=jitter[k];}
+            else candidate.assign(jitter,jitter+N);
+            delete[] jitter; // add by wushanzhou in 2026/10/23
             if(!search_gap_ok(candidate,w,coordinates))continue; // add by wushanzhou in 2026/10/24
             ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows, coordinates); // add by wushanzhou in 2026/10/23
             if(measured.mu<0 || !search_finite(measured.objective)){out.status="objective_failure";return false;} // add by wushanzhou in 2026/10/24
@@ -982,8 +1024,9 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
                 { // add by wushanzhou in 2026/10/23
                     if (gridRows > 1 && d < 2 && (i % width + shifts[d] < 0 || i % width + shifts[d] >= width)) continue; // add by wushanzhou in 2026/10/23
                     int j = i + shifts[d]; // add by wushanzhou in 2026/10/23
-                    if (j < 0 || j >= N || out.mask[j]) continue; // add by wushanzhou in 2026/10/23
+                    if (j < 0 || j >= N || out.mask[j] || (eligibility && !(*eligibility)[j])) continue; // add by wushanzhou in 2026/10/23
                     std::vector<int> candidate = out.mask; candidate[i] = 0; candidate[j] = 1; // add by wushanzhou in 2026/10/23
+                    attempts++;
                     if(!search_gap_ok(candidate,w,coordinates))continue; // add by wushanzhou in 2026/10/24
                     ConstrainedResult measured; search_measure(candidate, w, m, measured, gridRows, coordinates); // add by wushanzhou in 2026/10/23
                     if(measured.mu<0 || !search_finite(measured.objective)){out.status="objective_failure";return false;} // add by wushanzhou in 2026/10/24
@@ -1005,6 +1048,7 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
     } // add by wushanzhou in 2026/10/23
     out.hardConstraintSatisfied=search_gap_ok(out.mask,w,coordinates); // add by wushanzhou in 2026/10/24
     out.runtimeMs = (double)(clock() - started) * 1000.0 / CLOCKS_PER_SEC; // add by wushanzhou in 2026/10/23
+    out.proposalAttempts=attempts;out.runtimeWallMs=samplingWallMs()-wallStarted;
     out.status = out.evals >= budget ? "budget_exhausted" : "search_stopped"; // add by wushanzhou in 2026/10/23
     return out.hardConstraintSatisfied && ValidateSamplingMask(N, m, &out.mask[0]); // add by wushanzhou in 2026/10/23
 } // add by wushanzhou in 2026/10/23

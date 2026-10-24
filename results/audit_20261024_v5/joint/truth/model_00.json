@@ -1,0 +1,28 @@
+{
+  "model": "model_00",
+  "family": "dipping",
+  "structure": 0,
+  "noise": 0.01,
+  "seed": 65100,
+  "events": [
+    {
+      "t0": 0.22,
+      "dip": 3.5e-05,
+      "throw": 0.0,
+      "frequency": 22
+    },
+    {
+      "t0": 0.46,
+      "dip": -3.5e-05,
+      "throw": 0.0,
+      "frequency": 25
+    },
+    {
+      "t0": 0.7,
+      "dip": 3.5e-05,
+      "throw": 0.0,
+      "frequency": 28
+    }
+  ],
+  "truth_sha256": "cf68b9c277cd5709e1f4f5324d50b5752fd2eaa4d7551e869a9100fd86cd0218"
+}

@@ -1,0 +1,5 @@
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+fdct_roundtrip_probe.cpp
+fdct_wrapping.cpp
+ifdct_wrapping.cpp
+Generating Code...

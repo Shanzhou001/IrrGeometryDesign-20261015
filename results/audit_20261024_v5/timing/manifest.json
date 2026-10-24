@@ -1,0 +1,1209 @@
+{
+  "protocol": "audit_joint_v5",
+  "configuration": {
+    "protocol": "audit_joint_v5",
+    "stage": "timing",
+    "search_budget": 300,
+    "seeds": [
+      20261024,
+      20261203,
+      20261382,
+      20261561,
+      20261740,
+      20261919,
+      20262098,
+      20262277,
+      20262456,
+      20262635
+    ],
+    "workers": 4,
+    "methods": [
+      "Jitter",
+      "SAOnly",
+      "Hybrid",
+      "SA_Budget",
+      "Adaptive"
+    ],
+    "common_H": [
+      4,
+      12,
+      20,
+      28,
+      36,
+      44,
+      52,
+      60,
+      68,
+      76,
+      84,
+      92,
+      100,
+      108,
+      116,
+      124
+    ],
+    "models": 12,
+    "real_profile": "RRAW_IEEE_LE_UNCONFIRMED",
+    "configuration_document_sha256": "4fe3980b1df53a705b5765433b824e287f8648b0583bdf62d8807fba6940ec85"
+  },
+  "started_utc": "2026-10-24T08:01:29.771917+00:00",
+  "git_commit": "80ca9303caeb697ff95db52cf5e461c2db335d81",
+  "program": "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+  "executable_sha256": "8697ac13bfc86dfc80086b1d3157b5edd1ae2f0b5213221b14e029bd121ef8ed",
+  "source_sha256": {
+    "IrrGeometryDesign\\adaptivesearch.inc": "77f6af1baba97ab9233b32f7a792f058e4c97a6010bdf03f877ddf3b7168822d",
+    "IrrGeometryDesign\\analyzebindoc.cpp": "3da5bf9276a67c021052856e69d81914403109ac5b81eb8a6a20270a75988722",
+    "IrrGeometryDesign\\analyzebindoc.h": "ed9296990b004db4bd6d922d6dbc8530305e9055a413e15e63f3068b0c1eb85a",
+    "IrrGeometryDesign\\analyzebinform.cpp": "fcec446c2ef6b89d1be9137ee61cb7ba6a47c54d6c5cb27ea39a359b5034925d",
+    "IrrGeometryDesign\\analyzebinform.h": "5e618a8985be5ab960fbed12f921508c45417ae50a941e253bb6fc1e9f3b418a",
+    "IrrGeometryDesign\\analyzebinview.cpp": "a48e5c0c3cd6ae8db26d6b980f0bc056fc3ccaaf059073669371681274283d5d",
+    "IrrGeometryDesign\\analyzebinview.h": "8c0d99ff631be112ca2c7467914178749f08fd8d5772fc37abbb62c86c356e33",
+    "IrrGeometryDesign\\auditqueries.inc": "3ee170b3e4c3f9c46cfb62ab0eacca987f132609573790ee7a47e9038ec01ce0",
+    "IrrGeometryDesign\\baseclass\\gmath.cpp": "1cc1cece40583a6a9c1a44db0295cb1a71c16371d9bf28f7cedcb474f4379f18",
+    "IrrGeometryDesign\\baseclass\\gmath.h": "5de677bc9360c94e3de600e561d5cda3cb6c5139fabbd95b750393a934ba1396",
+    "IrrGeometryDesign\\baseclass\\gmatrix3d.cpp": "a92b423fd5ed9af3f90f824758b41c7387492e76411e42da44392e1e10bd5a04",
+    "IrrGeometryDesign\\baseclass\\gmatrix3d.h": "cf21641588d92737b953467e23fb1e06ceb7c83ec685750a9858181b2650fd98",
+    "IrrGeometryDesign\\baseclass\\gpoint3d.cpp": "73563732364c613bae82b1243dc1ebc4857e813f31ece3b8b02098591f621aaf",
+    "IrrGeometryDesign\\baseclass\\gpoint3d.h": "fd420324c36a04e5defe06d44c779e08918a75e6c96c6bab2e88a68ae9aeab6e",
+    "IrrGeometryDesign\\baseclass\\gptrvector.h": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+    "IrrGeometryDesign\\baseclass\\gquaternion3d.cpp": "c817ac35b3a0510d490e955a55572ec5d08ed17a4ee4cbb533ed62adc4d51ccf",
+    "IrrGeometryDesign\\baseclass\\gquaternion3d.h": "d286bffb0574c377f35f490ff198460f44c492ddc83cc19fd482d27f41c3410a",
+    "IrrGeometryDesign\\baseclass\\grotation3d.cpp": "100ea72cb3de3a65ad4fb7711a4c088323e05b4c6ba7e2522ef78d601e7de9c4",
+    "IrrGeometryDesign\\baseclass\\grotation3d.h": "d1c17da8d2d20c152b8f535604e934a2da0df52eef7838b80d7fa38a6cf09414",
+    "IrrGeometryDesign\\baseclass\\gutils.cpp": "626edcb4747b8d1031e4e48ea034fa95af1a16bfce723202ec5cd8ed06d624ce",
+    "IrrGeometryDesign\\baseclass\\gutils.h": "332a5710a0181bf82926af7ed0d6f44284a9dbfefddea6650c4a4a1c82b9aaa0",
+    "IrrGeometryDesign\\baseclass\\gvaluevector.h": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+    "IrrGeometryDesign\\baseclass\\gvector3d.cpp": "ba611e90680a499b7975234f05e50b1f27514d3c9e6b009c643703e60776e09d",
+    "IrrGeometryDesign\\baseclass\\gvector3d.h": "ca2456c3d070a56879f3f63dead6f625c8f1af67b1905876de6378494d5cf3f7",
+    "IrrGeometryDesign\\CalculateMiu.h": "cf21c9778331a94ef157a2e5e87fd5ce08047872b4659c4035dd7abed067520d",
+    "IrrGeometryDesign\\changecoordinatedlg.cpp": "62b4e1b7e1212a1390bb4d59b37583dab39e2ce80b271da34e7b84ba8606b392",
+    "IrrGeometryDesign\\changecoordinatedlg.h": "b96e88b159fc1eb9d727a903d8644f2f184ecf56c94bd9c0c5e3f6f01722db4b",
+    "IrrGeometryDesign\\colorview.cpp": "e22f3234bbfd225b95d511ec535591997cc43f627356d1a65b0b6b8b52b1439d",
+    "IrrGeometryDesign\\colorview.h": "3a1c0af06935b5080cb616a0ebe793f02a4cff6e0eaf9df22eb3f6c0efb636ff",
+    "IrrGeometryDesign\\coordinateholdout.inc": "159b21fb70306cf77efb126d61b6a58e553b8e1e13b9a60697a168504aaa3f95",
+    "IrrGeometryDesign\\Curvelet2d\\fdct_wrapping.cpp": "0351a91d0342993d4c7cccee4ccda175fa93f859aca15b71a3fb74f191419e36",
+    "IrrGeometryDesign\\Curvelet2d\\fdct_wrapping_param.cpp": "0f05c075d22edf8bc67b100eca32b56906c325451fbcbf95892c19304df1efca",
+    "IrrGeometryDesign\\Curvelet2d\\fftw.h": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+    "IrrGeometryDesign\\Curvelet2d\\ifdct_wrapping.cpp": "21b6731ce572e096c9186cd5e2a5c70ba870c834330ea988b93b8208b5ebf09b",
+    "IrrGeometryDesign\\Curvelet3d\\fdct3d_param.cpp": "dfe000ca8bebf5214ac961eb2621c6743733488538565abc1779c7bb2f4bc34e",
+    "IrrGeometryDesign\\Curvelet3d\\fftw.h": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+    "IrrGeometryDesign\\CurveletMiu.cpp": "a4bd72e126f6d3b5738d92a0831b998052151db538b42238b13b71d8c8505993",
+    "IrrGeometryDesign\\datareconstruction.cpp": "3a6219d2c237d4f2696d4952e2657d0124af834863e57d53f6af395908662af4",
+    "IrrGeometryDesign\\datareconstruction.h": "282a09d56a8eacf289ef56b383aed791fdb6d22cb65da000b35a7de7d011fe18",
+    "IrrGeometryDesign\\Diagmul.cpp": "b3e538db83a98761bf0b6c6bc79910f1781341a47ed49dc3b7fad6ff5058962c",
+    "IrrGeometryDesign\\DiagMulmatrix.h": "418fd403b89868d9ff105421dd787475b4e7b9593fce846b2b2158f76d9aee85",
+    "IrrGeometryDesign\\draw2dfrm.cpp": "b259a1c89c9f2683685e868120c26e7a4aa1c12563a35fbcc0f3ae3f9c8f4a99",
+    "IrrGeometryDesign\\draw2dfrm.h": "20f334bd6587e42435bdde811e301bed82725df9777050f5df598091701a09dc",
+    "IrrGeometryDesign\\draw2Dview.cpp": "f31670e80083def73c5225cea7fdf2d4fba6380d7a8d756e54b2a92060cd5553",
+    "IrrGeometryDesign\\draw2Dview.h": "a6bdb9a23cda83374665949d61bdf037078623fe4233c1271c38e626e7c21a62",
+    "IrrGeometryDesign\\ExpRng.cpp": "cb0c3899dfa30fdb190430245ffe79d9c7f72e4f52abf0da40cb11af3df35d8a",
+    "IrrGeometryDesign\\ExpRng.h": "be45b19566cdbb35bcd967d72df48e664c54216afbee40990fe849e45ef6e47c",
+    "IrrGeometryDesign\\gAttrAnalyzeParam.cpp": "9163e7467c9bd4b9651c0028b0eb62d0a168a74e6f9610a22357dc31c3f92991",
+    "IrrGeometryDesign\\gAttrAnalyzeParam.h": "16c05e0636058e144c79ff136808ebd6b5f9cafcb28e9f894f9e1e33d2793f20",
+    "IrrGeometryDesign\\geometryexperimentengine.cpp": "93a50430684975e13dcbf08c27835521b0af516d82fd6ea0588ceb94985ed6c9",
+    "IrrGeometryDesign\\geometryexperimentengine.h": "c1836fbab5426a31d55aba68d5c5fceb129550269bfad205f03be44c6a2ecbed",
+    "IrrGeometryDesign\\geometrytemplateparameter.cpp": "9d73824c29cecc8bbeabb162b69f54a4cf014b4a0df35b455e152bc3355bec93",
+    "IrrGeometryDesign\\geometrytemplateparameter.h": "5fd5d7df127d1cf42e94bc13e32eb4ba40da4b79bc5651d358f4c383ff1055cc",
+    "IrrGeometryDesign\\main.cpp": "e09aaee45b484d60969d93dae667c06722e602222888cd3395fdb7264fb5f278",
+    "IrrGeometryDesign\\OptimizeMiu.cpp": "e46fbafdb1144fc478dee53d82b0c9cfbe102905f38afa85a73f5ebbedbfb3d4",
+    "IrrGeometryDesign\\OptimizeMiu.h": "42d8321704356805368707c133a88ee1e215efa9f4ddd82c8f925ce7cf7538ab",
+    "IrrGeometryDesign\\ovtvolumeattributeview.cpp": "05b519984f50f96c50c1720ddf59df7ba95d862594a6b4f87013200540321646",
+    "IrrGeometryDesign\\ovtvolumeattributeview.h": "1cc69aa8aa77b2b0558a65c41bbc5e8c3b6340bd511fc2f529adee565ede44a4",
+    "IrrGeometryDesign\\qcustomplot.cpp": "592ee3226b23394a4fe649dc41b82917937260c31618e38b83b7c7908c6761dd",
+    "IrrGeometryDesign\\qcustomplot.h": "d843d0c43af78e0dbb227d42a1d48bb4e56334ee3a4930551a6305fecdb09f8f",
+    "IrrGeometryDesign\\reconstructionoptions.h": "710f16aaba8b133d7ec149a5b4f0cb4d76e86f494e3c9ebd7bf3611b04feb9c1",
+    "IrrGeometryDesign\\reviewexperiments.inc": "836097dbbd4425a223db37a2a1abcc6f2ac09f1f570e6f3919281730694d80db",
+    "IrrGeometryDesign\\reviewregression.inc": "5f5b39c8dd668cb12b79b8bb08710e8092c2143d2ad648cda884325fdb53876e",
+    "IrrGeometryDesign\\sample.h": "60dfbf5346bfcfd28210ec096c3e516fcde9c426fb3e4c4ffbba73ffb619a9a8",
+    "IrrGeometryDesign\\Sampling.cpp": "95a8737757ad365af4a28b863ccc86550ed9296f11899ce62fcb902b77920d5b",
+    "IrrGeometryDesign\\samplingstudies.inc": "37416c91a1512325111ecd8174ada4537521dba04feb025ef7c408ce31bee0a9",
+    "IrrGeometryDesign\\scienceregression.inc": "9894da191f894bf102f9065027de6fdc24da071e2a78d77098725ff5518e9671",
+    "IrrGeometryDesign\\scientificplotter.h": "6319c8779e28118b10e0e649c91791cef1cdd7165326b36b46f936cfd0a22221",
+    "IrrGeometryDesign\\spsloadcal.cpp": "9ea2f931bdd85b1cc5e7a5f6035cc44257f2040ef2000bb7a5f890ae6c4cbb29",
+    "IrrGeometryDesign\\spsloadcal.h": "735748721256b9fbc65fbd5863c193f30260d6d16896a6f775150986de257a23",
+    "IrrGeometryDesign\\spsmaskbuilder.cpp": "eaca63c3ab8e9ceb01216ea638e839b4d3512a00783bc94e9ad23b2f0727e871",
+    "IrrGeometryDesign\\spsmaskbuilder.h": "3a5c3855dc158b9630646d5063acb982e35b70f4fc8d4838dca3b0b9e5f4e93f",
+    "IrrGeometryDesign\\spssampledlg.cpp": "4cf1896ba204be9038f3b56aa0fc87d8142647f82e823a7cdbec9d250284851e",
+    "IrrGeometryDesign\\spssampledlg.h": "0925229622d015d35eeace7da7c70a8127eba6cee8ae8ecbc7b88222bb723bc2",
+    "IrrGeometryDesign\\spssegy\\gcmpset.cpp": "33ea0a45de3b4d84f0cf2d2d3f9615104711309d36d05d340acf7973a67e9cc6",
+    "IrrGeometryDesign\\spssegy\\gcmpset.h": "5f3a18fee426214cda80de2abd28761f7a241b39043be60813ddf6743c0c3751",
+    "IrrGeometryDesign\\spssegy\\gproject.cpp": "0a976cc96f27ee74b743338b7e4694ecf102079920e942ae0d5488aeb520fa5d",
+    "IrrGeometryDesign\\spssegy\\gproject.h": "a1baedf989fedfbca3c74c97c3ea0f7ea0d90f934e196af243100554a060701f",
+    "IrrGeometryDesign\\spssegy\\gptrvector.h": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+    "IrrGeometryDesign\\spssegy\\grlineset.cpp": "fb4bf9621601fc91eeb54779c7d99f19245db502ff84eeff0e25de52d8e60299",
+    "IrrGeometryDesign\\spssegy\\grlineset.h": "d3c85fa71e93af3b43a39a35850179cac9171f50e7ab315a5a0a3fbfc434346d",
+    "IrrGeometryDesign\\spssegy\\gsegyfilescanner.cpp": "a93c1bb1e79fcc78b64b151b4eddb74fa2f1ab25fa46b8f208746b0a837145b9",
+    "IrrGeometryDesign\\spssegy\\gsegyfilescanner.h": "cce50bf6a6fcf4b44a1d04d2314e18bb42a7a77b7ad742ceab632526a26b0576",
+    "IrrGeometryDesign\\spssegy\\gshotset.cpp": "76055b44c60a1597935803bdd0766f5ab71deb01e633dbbd054b15f76fa99f5c",
+    "IrrGeometryDesign\\spssegy\\gshotset.h": "ccd0f12b970423430fec1f50965b42e9625d871f24bb351ed0ac9d6ad3bc5c0a",
+    "IrrGeometryDesign\\spssegy\\gslineset.cpp": "8314066922681abd493f4ce8c475ce0313d6ea6e6292bb0c857a44bf5457f698",
+    "IrrGeometryDesign\\spssegy\\gslineset.h": "951ed0a106d375369f94f62b1e1a06dc1a54a746601b5f95a246ec830850b332",
+    "IrrGeometryDesign\\spssegy\\gspsscanner.cpp": "2e56e1dfe6bab5f52d1f8aadc48d134bc3cf35edbf0cf1ebc083f2a8a5bcad76",
+    "IrrGeometryDesign\\spssegy\\gspsscanner.h": "71b033c7bdb77c20de3f06356fac29ab5204dc63fe35c8babfc3e63e93c255ca",
+    "IrrGeometryDesign\\spssegy\\gvaluevector.h": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+    "IrrGeometryDesign\\spssegy\\segyio.cpp": "3e492bb7338ec70ff1ffeb33eb5dfe9345fe57ae8640850f1396ca75174e3824",
+    "IrrGeometryDesign\\spssegy\\segyio.h": "16403ea55c9306283d6dbe1116efd0edb03a011e7ef36787c0df473c513b47cf",
+    "IrrGeometryDesign\\spssegy\\tdatawizardform.cpp": "cfd432799c2c497e0f4923bb8b3a3da1f74ff0b541f56033b9832cb16af1fdf2",
+    "IrrGeometryDesign\\spssegy\\tdatawizardform.h": "819823f9cdc34055c7f153f11542cbfb5c3d62f8edb391c178f38e86209860f9",
+    "IrrGeometryDesign\\spssegy\\tdatawizardform.ui.h": "4ff2544affee9e01a0d468ffb9f8e076db1f78ecf429200a4bb6fbd4f48efeaa",
+    "IrrGeometryDesign\\spsshow\\gcellgrid.cpp": "f00ce9b25a18382df253a16a7ac693db4b83c1ba8231696ece54c337f2a00f06",
+    "IrrGeometryDesign\\spsshow\\gcellgrid.h": "e80557259375c70947d81d12b302b37b0f6fdd184fbb70564c0f251f055e1db2",
+    "IrrGeometryDesign\\spsshow\\gspsparam.cpp": "8c1be3a03fe3227834d70ceffd1673b986af5cfb0934ff540acb4a8722f134c6",
+    "IrrGeometryDesign\\spsshow\\gspsparam.h": "7812940e26543e9f08d9423f784e3ccf20f094701644fb3eba1904f1157ccf01",
+    "IrrGeometryDesign\\spsshow\\gspsview.cpp": "d43d2802ac56046dc26e5a9d5a4952772139c1fc2cb0b87fbc758e80ac6ec1a3",
+    "IrrGeometryDesign\\spsshow\\gspsview.h": "eacfcca02639093065bf2f2992f5f306ce9d344da66641fbb810ee17c1dea3cb",
+    "IrrGeometryDesign\\spsshow\\gvaluevector.h": "2a81e2c7ea93a4df81bc21d47ae3f30097979d938fa9d5e5b74a315d19c7a41c",
+    "IrrGeometryDesign\\spsshow\\tcellgridform.cpp": "d871cb5eaaa5802e3ce0b05462503e94dedcf0f068b964cb41d5616abe04918a",
+    "IrrGeometryDesign\\spsshow\\tcellgridform.h": "c1cf3ecff9db8e153b47d4c4fae3d0906d3233123c2426faeb0059049c3257f8",
+    "IrrGeometryDesign\\spsshow\\tspsdlg.cpp": "6a1fbe896924e59bea82ad0ed7a33120fb48181d5c9837ef37cff3e845eeed9c",
+    "IrrGeometryDesign\\spsshow\\tspsdlg.h": "2d83390383bdd6a92c20afc6db424d65d86afcafd0ed3d7f122d64522cb8b678",
+    "IrrGeometryDesign\\spsshow\\tspsform.cpp": "9eef53d44ea04298039da627dfdc17eca94b903ee38aa12bf3bf4897f72458f4",
+    "IrrGeometryDesign\\spsshow\\tspsform.h": "1678df2a7aa024ab20e1400a105da7415570f5ea05bd2846d8342927794617ae",
+    "IrrGeometryDesign\\tchangeshowareadlg.cpp": "35938d582c959bbb8c9b1c36fc7e26b7b074cdb013cf165a1d8fe7a4487adf21",
+    "IrrGeometryDesign\\tchangeshowareadlg.h": "d3c0e71932cda04c505cb60aa1b9a6c8b7559b35f404986ddd94504e5d97fd2f",
+    "IrrGeometryDesign\\tdatawizardform.cpp": "26ef4e1502fcdb63a439a64db76c3747db1b8bcb742fd30101f95f3b919959a4",
+    "IrrGeometryDesign\\tdatawizardform.h": "3c4c5f5ad008c7d8c6e9e0098b021ff157c319f6b5c811cfa4630faf1818385d",
+    "IrrGeometryDesign\\tgeometryimfordlg.cpp": "a4f08bc065e382688a256c0b203d7658f3bf131abac8a73630a05ee09cdc54a0",
+    "IrrGeometryDesign\\tgeometryimfordlg.h": "dd31164d303b80a3e4d46ccd204c59d2bf412feb6b7a4bc08067875da9b0a0f0",
+    "IrrGeometryDesign\\tqfdividedlg.cpp": "c1f1886fb242b63c84607635a3a71cc8fa155c6d0cd8426af7164bed8a4e2e02",
+    "IrrGeometryDesign\\tqfdividedlg.h": "3617a336a0b462a4952c918522b2f70b1e26b94c9dfe4d021bdb1a509aaa43f2",
+    "IrrGeometryDesign\\trealovtdlg.cpp": "30a2e23eac84d70a900f7f662e679801c7c9d561ffee875735418b076efea407",
+    "IrrGeometryDesign\\trealovtdlg.h": "1aa415bc5801ace9b50ead54e9e046f8a06185e0ea7c1f0d2d476c731a23d5cd",
+    "IrrGeometryDesign\\trosedividedlg.cpp": "d9cb2278020262ca2f2fa09f103ea2f78ee68b2c53d3673736bf0cf32ade41b6",
+    "IrrGeometryDesign\\trosedividedlg.h": "ef604ef1df02353354d2a7b9afd9e117d2cb1d0f0924e47edbe2b8c9e5c9834a",
+    "tools\\audit_joint_studies.py": "31c30058e6d6aae49aa3c9fab440b46066167e4a3ed992fc15c9b08918528d6a",
+    "tools\\audit_numerics.py": "55058f676939c28d8809513607a2b3677bcb04564a8dcb711dc23c0205349a98",
+    "tools\\run_audit_checks.py": "6303df5d98bad12ca6d8a918bdf159e37eb7d6154e559fadb4e488cb263f45af",
+    "tools\\review_studies.py": "274be886a05c21ccad00283e6ca8e866f5684353c1a2f568b65092ea36af73de",
+    "tools\\convert_rraw_to_engine_csv.py": "e7fca7ab31d12ee575a7fb842613432474ad2720bda2635536e0051f81a04940",
+    "tools\\make_59x256.py": "406ff0d331d957fb673863883ccb2d975be60e13e5292f7372bfbfe7609a9e14"
+  },
+  "raw_sha256": "ddcb311b2406af17cf375b570b3eb8ea7ca2d81cdeb002f972e6d668cd7b2bc2",
+  "python": "3.12.10",
+  "numpy": "2.5.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "steps": {
+    "uniform_s0_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_SA_Budget.txt": "f591c9145997a979977b6dcc56da7c65bb4f75770144d9075ead83e9d891799b"
+      },
+      "exit_code": 0,
+      "seconds": 0.1683709000062663,
+      "outputs": {
+        "uniform_s0_SA_Budget\\queries.csv": "afe20f481ca4eb48565db10ec17c14382b1f309965cae6eaffc4baa620aa8f2f",
+        "uniform_s0_SA_Budget\\uniform_s0_SA_Budget.trace.csv": "dc0b1a72a67267132307f642109ea0560deabfe7430347ddc83fbb9ea80c2e8b"
+      }
+    },
+    "uniform_s0_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_Adaptive.txt": "8a466de75261b1dde78253769e3946deeac8d486344fe7d03a097d1b619c9e14"
+      },
+      "exit_code": 0,
+      "seconds": 0.16478340000321623,
+      "outputs": {
+        "uniform_s0_Adaptive\\queries.csv": "c48b6915654d0959a834672a275bedcd0f2c6dfa6e34c92ca73d01fc8a5ef344",
+        "uniform_s0_Adaptive\\uniform_s0_Adaptive.trace.csv": "191a86292147988c5348625d6c5237ca1ac608efb83b1762ce18d3be997326e9"
+      }
+    },
+    "uniform_s0_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s0_NoPerturb.txt": "5f86d9f4572156f6fe021a3870ae8a06c70174ce87fc0e7998bbd452b2d8f181"
+      },
+      "exit_code": 0,
+      "seconds": 0.16782509999757167,
+      "outputs": {
+        "uniform_s0_NoPerturb\\queries.csv": "0c81f90345ebb0d21eec0a91ba0b5f2520325dd5425b960b5b2393f2fe9d101e",
+        "uniform_s0_NoPerturb\\uniform_s0_NoPerturb.trace.csv": "e9274db8e1273f9c145c472454a347b8da552a7364f4ccf3575d04ea1645cf74"
+      }
+    },
+    "uniform_s1_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_Adaptive.txt": "d5357110289e35c7bb8203549a550f8f6b9a7616377c49cb58da074be979aab2"
+      },
+      "exit_code": 0,
+      "seconds": 0.17090910000842996,
+      "outputs": {
+        "uniform_s1_Adaptive\\queries.csv": "5071549f51da8ba80649561ef16697772fd64737f43b111969341b7b23a0372e",
+        "uniform_s1_Adaptive\\uniform_s1_Adaptive.trace.csv": "598f5976b819bf290f3d3b89791b35cd483e82bb5397cc29fdf8c467c9c5b3f2"
+      }
+    },
+    "uniform_s1_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_NoPerturb.txt": "9adc37881e4ca5dd9f211d23be541882b8c23097e4e59fea2155002d7a3eeb53"
+      },
+      "exit_code": 0,
+      "seconds": 0.1798737000062829,
+      "outputs": {
+        "uniform_s1_NoPerturb\\queries.csv": "f4c34f0bfe88aa40f217ca512679aa0139237282bd465b02d46695da80ef4be6",
+        "uniform_s1_NoPerturb\\uniform_s1_NoPerturb.trace.csv": "5d9885b0537b7f71abffc7e70b45746c9e51a5647a45022450de47f42c413d70"
+      }
+    },
+    "uniform_s1_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s1_SA_Budget.txt": "c0803bf7920575790473d9da1b72c7b9b2123ab3092c31fea2fb780208322da5"
+      },
+      "exit_code": 0,
+      "seconds": 0.16529869999794755,
+      "outputs": {
+        "uniform_s1_SA_Budget\\queries.csv": "b9a5235f1cc2f020a7bf4cb2489b6fa6af0bf5b23609230332a94ac55b3317a3",
+        "uniform_s1_SA_Budget\\uniform_s1_SA_Budget.trace.csv": "253f862ef074f17d54268155c75efa7dae8f584e96a89ef6838840464211b194"
+      }
+    },
+    "uniform_s2_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_NoPerturb.txt": "78a2263597a926d843da155d615b853cf2d8811bf82b9571d41ae46b48a65549"
+      },
+      "exit_code": 0,
+      "seconds": 0.17417790000035893,
+      "outputs": {
+        "uniform_s2_NoPerturb\\queries.csv": "48dbc7715fe2f5f14e7943f25ba5268637e508292695e009b8152370ed9f6a00",
+        "uniform_s2_NoPerturb\\uniform_s2_NoPerturb.trace.csv": "8723d22aae73b4af170d9bce566c2117f465239361710bf23329d569e4c76601"
+      }
+    },
+    "uniform_s2_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_SA_Budget.txt": "6f0ee0b7f1608d5aa2d3c3547d05c1a7bad12404e1af0d304bf5e2fcc5247b3d"
+      },
+      "exit_code": 0,
+      "seconds": 0.32277100000646897,
+      "outputs": {
+        "uniform_s2_SA_Budget\\queries.csv": "5296e81d0fc33c365d733dc0c24dc2070d863722fda746229133b60d92ace6c0",
+        "uniform_s2_SA_Budget\\uniform_s2_SA_Budget.trace.csv": "f2d96594314eba2ede13f2c29d4edd0966d973717b8c06743dc8533d0a7699ff"
+      }
+    },
+    "uniform_s2_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s2_Adaptive.txt": "a146a76319e231db30fd18a9e01ca77b77fcce4b86a3877238848ebb3ca6d8e2"
+      },
+      "exit_code": 0,
+      "seconds": 0.1789645999961067,
+      "outputs": {
+        "uniform_s2_Adaptive\\queries.csv": "ec479e804269083ba167f62add43a44a0f314f37a58b39ee73c19fbd335f50c5",
+        "uniform_s2_Adaptive\\uniform_s2_Adaptive.trace.csv": "ef66145f2b3ebe7bd03a761f3bcab9841cf626e34e24425ce836d5479cf894bc"
+      }
+    },
+    "uniform_s3_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_SA_Budget.txt": "624c3891d663c83926e6a312d58184908c506b659691cbf75ed65ff5a9d29afa"
+      },
+      "exit_code": 0,
+      "seconds": 0.167597100007697,
+      "outputs": {
+        "uniform_s3_SA_Budget\\queries.csv": "fcae6f8c5789d18bc0a0e22de4ce100d72e53ad30379dab4aa0462245804f927",
+        "uniform_s3_SA_Budget\\uniform_s3_SA_Budget.trace.csv": "5fb1900edea1c36cab790268fd20bf86c9f036f218e377f11d0673ef1630af69"
+      }
+    },
+    "uniform_s3_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_Adaptive.txt": "0d000123706dc7a192e4bdcc467703954044025dcc5e1731e6eb83843a5d69a3"
+      },
+      "exit_code": 0,
+      "seconds": 0.1720433000009507,
+      "outputs": {
+        "uniform_s3_Adaptive\\queries.csv": "17b9cce5cdba6048289706fecbedc1d141bb4c63df509be48a0ea21a30fabd2c",
+        "uniform_s3_Adaptive\\uniform_s3_Adaptive.trace.csv": "59fa8169ce6cb0de664fdacd345d7b354c45d50e1bcd5d00c59de99fde8abcc3"
+      }
+    },
+    "uniform_s3_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s3_NoPerturb.txt": "5b72586ed1be8980e8b066b4afd4484ebaf79625a27f6804ed256ffebafbb604"
+      },
+      "exit_code": 0,
+      "seconds": 0.16565529999206774,
+      "outputs": {
+        "uniform_s3_NoPerturb\\queries.csv": "4e45e8db4fb98dceb1eba91251ffaf6139ca0f353297af9345cf1bbfe4b80684",
+        "uniform_s3_NoPerturb\\uniform_s3_NoPerturb.trace.csv": "c8f6680f03a653f04b702f1a5b0c7e2daf7e6cbe55d69b7d4034ab1bd5f8322b"
+      }
+    },
+    "uniform_s4_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_Adaptive.txt": "68a978427bb947bc816a4d2931388c365d256a6194b222b5d7305effa25b9b8d"
+      },
+      "exit_code": 0,
+      "seconds": 0.17778469999029767,
+      "outputs": {
+        "uniform_s4_Adaptive\\queries.csv": "051b4f996aa28e481ab79c248a130b34184157c1739e33eb1b43fe89589b6766",
+        "uniform_s4_Adaptive\\uniform_s4_Adaptive.trace.csv": "e6008fcad31bf0b51d101e94659106b1058937c875d8b1ef2af00f319092d364"
+      }
+    },
+    "uniform_s4_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_NoPerturb.txt": "68336f49ca06983631a970d00dae6123dcda0654cc1434e6e290b05de0566857"
+      },
+      "exit_code": 0,
+      "seconds": 0.1735921000072267,
+      "outputs": {
+        "uniform_s4_NoPerturb\\queries.csv": "99eaa06b065a0f5644d44c218c3e1a7b21e95736645421e1ff719b66b0980b39",
+        "uniform_s4_NoPerturb\\uniform_s4_NoPerturb.trace.csv": "e1b85d375bf78522943fde1284acdd48d3ee651a922efe9665b3357db8a800a7"
+      }
+    },
+    "uniform_s4_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s4_SA_Budget.txt": "2163f4fd5eaca99c264e8168d0270768a7e35258be1574b761b4d1f641e5973a"
+      },
+      "exit_code": 0,
+      "seconds": 0.17004409999935888,
+      "outputs": {
+        "uniform_s4_SA_Budget\\queries.csv": "f0a2ee40e758df638a861355febd5c240c749ac24e11e1880d9848a64763d576",
+        "uniform_s4_SA_Budget\\uniform_s4_SA_Budget.trace.csv": "e9c9535431af0dceea935140b9d48bb470d47181ca3e02909031fbbceb232842"
+      }
+    },
+    "uniform_s5_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_NoPerturb.txt": "6959c02a471b0bcaa82448c194704611d86b61926d8abb07b0121fafff307f31"
+      },
+      "exit_code": 0,
+      "seconds": 0.16828610000084154,
+      "outputs": {
+        "uniform_s5_NoPerturb\\queries.csv": "4dc0c50f36d55d73b0c37b020ce1b99908b62a62cdb09a415bded9938cc1a1d3",
+        "uniform_s5_NoPerturb\\uniform_s5_NoPerturb.trace.csv": "5bc953ef809db52287a1f51d43962dd0773997256e0ac32967c70a35fd7d5b03"
+      }
+    },
+    "uniform_s5_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_SA_Budget.txt": "8ff68fae55a44044cad8de8934d110708f4dbb0cbae8874478cc052e1a44e7bc"
+      },
+      "exit_code": 0,
+      "seconds": 0.18278670001018327,
+      "outputs": {
+        "uniform_s5_SA_Budget\\queries.csv": "a7e38a7bc6b4bf3e1aee8ada9cb3b47bd91778807f8a9883d83e4790e6a57123",
+        "uniform_s5_SA_Budget\\uniform_s5_SA_Budget.trace.csv": "ce4c26b9105ee1ba4f37f7dae6d104f6d9686cadda67a679120397740c2541b7"
+      }
+    },
+    "uniform_s5_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s5_Adaptive.txt": "fdf1a9df4eb3fb1b424e70bc649e42967627bb07f6d3a5ccba135ef4981fe82a"
+      },
+      "exit_code": 0,
+      "seconds": 0.16698589999577962,
+      "outputs": {
+        "uniform_s5_Adaptive\\queries.csv": "cec7399250db8812c98ca052940d9e93ad3592c61f7054595d806bd518411822",
+        "uniform_s5_Adaptive\\uniform_s5_Adaptive.trace.csv": "98ee5e4ca76a6263c2ef108bdd93fe2088da9f74bfccaba8eea267a047d38678"
+      }
+    },
+    "uniform_s6_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_SA_Budget.txt": "db0ca9a02e80939312c6d56e20104e0faf25025edc676ca8aed3ebe64eec05c6"
+      },
+      "exit_code": 0,
+      "seconds": 0.17058710000128485,
+      "outputs": {
+        "uniform_s6_SA_Budget\\queries.csv": "c0874512664698fc319a71428b5099dd1aa02a808fcce090aad54d91d9f47127",
+        "uniform_s6_SA_Budget\\uniform_s6_SA_Budget.trace.csv": "a853ba15b7c3ed65b5e387bd706675f4e815f1936c9d1e18bb975e2c970b388c"
+      }
+    },
+    "uniform_s6_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_Adaptive.txt": "6bbffa457914107e783dfd9417b00b3a4b9fc1f51470a06bb03cf44ae5162d2d"
+      },
+      "exit_code": 0,
+      "seconds": 0.18603270000312477,
+      "outputs": {
+        "uniform_s6_Adaptive\\queries.csv": "0626c6862944b4153adf1ecfa2ba3b2bca46ed1543d5bae53edd25f6efc06dd0",
+        "uniform_s6_Adaptive\\uniform_s6_Adaptive.trace.csv": "ffa6d8fea4e5d287936a70075f1912b51306e05a140165f02ce0207726c01c8f"
+      }
+    },
+    "uniform_s6_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s6_NoPerturb.txt": "8f2b1db9fe909896d46d3fac81e349f8f3a08bd8230cc697d811b128dbc1e3ee"
+      },
+      "exit_code": 0,
+      "seconds": 0.20248980000906158,
+      "outputs": {
+        "uniform_s6_NoPerturb\\queries.csv": "d00ff27aacbccffe3be32b4df91a3a840f034b874872990ea05d663cb704c7c5",
+        "uniform_s6_NoPerturb\\uniform_s6_NoPerturb.trace.csv": "7e1c14d8158db82463c5657a0835f7f8b524f8cf15b1dcdb11a376985f7e4501"
+      }
+    },
+    "uniform_s7_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_Adaptive.txt": "715a054564a14fe704ba154420e069c5ed7ef7eed5dd7dcf193d99ba801dff9e"
+      },
+      "exit_code": 0,
+      "seconds": 0.18289799999911338,
+      "outputs": {
+        "uniform_s7_Adaptive\\queries.csv": "edecfb0073521525b14d9a61ac93a4455424a82c6fc323e1cca4f4b98fa91b2d",
+        "uniform_s7_Adaptive\\uniform_s7_Adaptive.trace.csv": "7def6847dd3ded150772da350b6c51b878f5e2527b4cd7be6a4b39ea6620ee9b"
+      }
+    },
+    "uniform_s7_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_NoPerturb.txt": "6302fcda802c840cf760f02597c453a07dcc25aee06c56b7c6f62143ace0f6d3"
+      },
+      "exit_code": 0,
+      "seconds": 0.16346330000669695,
+      "outputs": {
+        "uniform_s7_NoPerturb\\queries.csv": "2ff6eafd39bf93cef646a70a5803517a3c91c0093cf0e6f1942a035d7aab5992",
+        "uniform_s7_NoPerturb\\uniform_s7_NoPerturb.trace.csv": "2571e5044482ece126722cf467b9ca65f8e7b8b75ca14bf97d9ecc29d375eb83"
+      }
+    },
+    "uniform_s7_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s7_SA_Budget.txt": "f0f233854d2b15b0df34ea8a3f275db216efa58e9498ef1d05f3c5a1bf660599"
+      },
+      "exit_code": 0,
+      "seconds": 0.27177710000250954,
+      "outputs": {
+        "uniform_s7_SA_Budget\\queries.csv": "34495440d5c888309f2b225e99d3d269cc613b210f19980500b8de9b467d1204",
+        "uniform_s7_SA_Budget\\uniform_s7_SA_Budget.trace.csv": "1a8e188dd5c7ed1b1ba2e2cac64d5eaef19af3da4ec12723e080a8dba76f4a5a"
+      }
+    },
+    "uniform_s8_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_NoPerturb.txt": "878d1a6b9cc4f4107cabc1a3a0da3869bed4dc42f2443de25ea86b772e5a67a3"
+      },
+      "exit_code": 0,
+      "seconds": 0.17390560000785626,
+      "outputs": {
+        "uniform_s8_NoPerturb\\queries.csv": "a34768260c25a41a46d2d44911d50e6271ec3930d9266c9a52b8dc8fae8fa100",
+        "uniform_s8_NoPerturb\\uniform_s8_NoPerturb.trace.csv": "a5e8112b67003fa8cdbf65775256e01c69c0f1a25a08885be22f17e294b35845"
+      }
+    },
+    "uniform_s8_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_SA_Budget.txt": "e981b4502d2a6ec4cbf28f23ae3ea7b49ce166f2f8d2146b90a835c92687a6f9"
+      },
+      "exit_code": 0,
+      "seconds": 0.16889089999313,
+      "outputs": {
+        "uniform_s8_SA_Budget\\queries.csv": "a06c707bd1106bb111b3a6848946d2b3c7fcd101ade641142ad3de74528259b8",
+        "uniform_s8_SA_Budget\\uniform_s8_SA_Budget.trace.csv": "bd006764ddf571dd8644790e3a2b5e67e93588b33d6a95fbd51cb7124f036366"
+      }
+    },
+    "uniform_s8_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s8_Adaptive.txt": "ac2588e4d54238326f6930dc11393e9b8dd2318d2ea18165be7b5352cc308233"
+      },
+      "exit_code": 0,
+      "seconds": 0.1669047000032151,
+      "outputs": {
+        "uniform_s8_Adaptive\\queries.csv": "fcf8243cd18ada7195152129624d6ba99713d07886a75fa97357aaee846bcf0f",
+        "uniform_s8_Adaptive\\uniform_s8_Adaptive.trace.csv": "5766a3d54e1fc53590175ff48cacb69232296f9e9347c169c61ceb165dd87ac6"
+      }
+    },
+    "uniform_s9_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_SA_Budget.txt": "aaadbcbfb16b2ea55c1b19f2c9e8255fa96b99739b5cefbcbc9acd0de5962052"
+      },
+      "exit_code": 0,
+      "seconds": 0.17889650000142865,
+      "outputs": {
+        "uniform_s9_SA_Budget\\queries.csv": "32edc66f6afccd06f7b89682eb0d281f271615398c4c136fc13fb513b47c2593",
+        "uniform_s9_SA_Budget\\uniform_s9_SA_Budget.trace.csv": "1d224e3a01a4a61bc7bbb067f7990617fc57ce3debf6c89b4fe69411711003a9"
+      }
+    },
+    "uniform_s9_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_Adaptive.txt": "75d2fef4d6f31ae4f40b6d8eb12d14f871e57f9a0ced81eacb840dabb0940516"
+      },
+      "exit_code": 0,
+      "seconds": 0.17984399999841116,
+      "outputs": {
+        "uniform_s9_Adaptive\\queries.csv": "c2ed4f51978b832b82db41c930977441cbf83517662e7eb4cefa0f8214838790",
+        "uniform_s9_Adaptive\\uniform_s9_Adaptive.trace.csv": "35e218e39965392117c247abaa48bf904b04779e714b6211e4608da4605659f9"
+      }
+    },
+    "uniform_s9_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\uniform_s9_NoPerturb.txt": "5b1477fdf5c139ebf3ba07c9009984cec42c61a4875bd505c0910c54ba67e95f"
+      },
+      "exit_code": 0,
+      "seconds": 0.18263540000771172,
+      "outputs": {
+        "uniform_s9_NoPerturb\\queries.csv": "a8fdcd30d3fcf66b2a5ac2310b792ad3010e32f9b83e2546ba3b83ca710c1052",
+        "uniform_s9_NoPerturb\\uniform_s9_NoPerturb.trace.csv": "6661cf177c0c673de4ea95d2eebd2580ea64dd7924f42ddd5798b238b72e316e"
+      }
+    },
+    "physical_s0_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_SA_Budget.txt": "f57caf192e126d2cd1bbd2c2e4d77abdae810449eb95225053e599db5b20cd3f"
+      },
+      "exit_code": 0,
+      "seconds": 0.16081810000468977,
+      "outputs": {
+        "physical_s0_SA_Budget\\physical_s0_SA_Budget.trace.csv": "d52c1c697ddacb17de462641bf24f11dfb2e16e03083fa336881cc953fc24cb0",
+        "physical_s0_SA_Budget\\queries.csv": "5e87bd9a2d0f9e307933c74813bad43ad9fd4cb355f791be3913b4a34df7fd1a"
+      }
+    },
+    "physical_s0_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_Adaptive.txt": "8df72c409d835c00e6d4a0299e39727c456b6f67823055428c327ed33071af84"
+      },
+      "exit_code": 0,
+      "seconds": 0.1642888999922434,
+      "outputs": {
+        "physical_s0_Adaptive\\physical_s0_Adaptive.trace.csv": "65cc5b2005f9f1591eb40f0b422c0bc1d56b4f61f0f4809352430f2b7fc545e5",
+        "physical_s0_Adaptive\\queries.csv": "fb00c0cc6756fc936d18c5f96dadb0fcbf8e3269454730ac09ce40da46edfee5"
+      }
+    },
+    "physical_s0_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s0_NoPerturb.txt": "84ae16c90ed3b8158f66fd00265dbd78a6d3f401942f67f85e07411b5166ee06"
+      },
+      "exit_code": 0,
+      "seconds": 0.16395180000108667,
+      "outputs": {
+        "physical_s0_NoPerturb\\physical_s0_NoPerturb.trace.csv": "7d7e496bfc58951a226e90ef2ba3eea5e5f267c086cbaf6d5782fa82cc74572d",
+        "physical_s0_NoPerturb\\queries.csv": "36204137e85696d0871c7e90fb37b84e001967faa47b87e5ab5593b1f8a6b4e4"
+      }
+    },
+    "physical_s1_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_Adaptive.txt": "e696531da22b2dbf6deb0cd0bd94aabf27e80e3a3c734cd2f5db7c194bc2e6d4"
+      },
+      "exit_code": 0,
+      "seconds": 0.20170470001176,
+      "outputs": {
+        "physical_s1_Adaptive\\physical_s1_Adaptive.trace.csv": "49261a093705f97680c726001f54026ae97ee684c9e4b6ceb54a3234c42f31d7",
+        "physical_s1_Adaptive\\queries.csv": "e3e5de8d830339728436600d1a8b1dd97b60c4c2b67407fe52dfb8f0abc70b0a"
+      }
+    },
+    "physical_s1_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_NoPerturb.txt": "b275f9d9db3b4c5dda95d89920be1990646116e3c479b179172da6948db41d84"
+      },
+      "exit_code": 0,
+      "seconds": 0.18164890000480227,
+      "outputs": {
+        "physical_s1_NoPerturb\\physical_s1_NoPerturb.trace.csv": "5029ec97b8dda805687f53b4c943ebc07b1c6a4cb9265cdffb9cd5a93026b288",
+        "physical_s1_NoPerturb\\queries.csv": "cf667f7905fb336e025b0c787090de86c2fe1e57abc4a2bd657a40721e3ff8e3"
+      }
+    },
+    "physical_s1_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s1_SA_Budget.txt": "ff5d2a9e32446ca10b696a945810c4be541f74f89eebaf041869a712976780da"
+      },
+      "exit_code": 0,
+      "seconds": 0.1785059999965597,
+      "outputs": {
+        "physical_s1_SA_Budget\\physical_s1_SA_Budget.trace.csv": "f3e7da9da13d98aaeaed4330b28d4812c748b958319e774e8ade5e913d9aa7f2",
+        "physical_s1_SA_Budget\\queries.csv": "7d07e36498349251ee26eb1338392925e77e8c69b9841ac86751e97aec39127d"
+      }
+    },
+    "physical_s2_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_NoPerturb.txt": "b8d964ecafe34d3d9fb4b2fecc080d58628a2faed2fe173a652d2078e4df40e0"
+      },
+      "exit_code": 0,
+      "seconds": 0.17808610000065528,
+      "outputs": {
+        "physical_s2_NoPerturb\\physical_s2_NoPerturb.trace.csv": "ab7f46ca6c7ff6065402728693cc3d41ca288c8da18c1b4da023be2cb0067ac1",
+        "physical_s2_NoPerturb\\queries.csv": "794b2a8a1fd38ba4f64372de3ff5dd3d65de90efa2d3faa214f02b22f659918d"
+      }
+    },
+    "physical_s2_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_SA_Budget.txt": "341f8e05cfb4297d974705d7652a37f7de5a628fd3e3f00c8fa150c37ecee27f"
+      },
+      "exit_code": 0,
+      "seconds": 0.16451670000969898,
+      "outputs": {
+        "physical_s2_SA_Budget\\physical_s2_SA_Budget.trace.csv": "04adc676bd688c839604255058eeb8077a3a42256cb49bfc85c61bd125351156",
+        "physical_s2_SA_Budget\\queries.csv": "dfd737c8472e9fbaea7f42aec10bf8812e7a797d56238dac8f9c0f7335de80dd"
+      }
+    },
+    "physical_s2_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s2_Adaptive.txt": "f5a4925b7ad7b1f0cac6f092ec82d551894eb01a0b5be947ad2bd5099b42b2b0"
+      },
+      "exit_code": 0,
+      "seconds": 0.16909160000795964,
+      "outputs": {
+        "physical_s2_Adaptive\\physical_s2_Adaptive.trace.csv": "e093ce99a6e8b2abb40f4c8cc9980bb0af02695ae4802614b77731dfa39cb14f",
+        "physical_s2_Adaptive\\queries.csv": "70f09e808d15f3b32205a2bf7028c7eb0307e0de58482defeb0ee00266235aa0"
+      }
+    },
+    "physical_s3_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_SA_Budget.txt": "f45cd7946148ef245b84f5eece946768294fff1cbf41ea8fb7d544e68eb14c94"
+      },
+      "exit_code": 0,
+      "seconds": 0.16617739999492187,
+      "outputs": {
+        "physical_s3_SA_Budget\\physical_s3_SA_Budget.trace.csv": "44702e55f205b0b3d3935edceda0886ce5923209aecf2f2f108a15338c48b9dd",
+        "physical_s3_SA_Budget\\queries.csv": "ce05b496347ec5534f031672132bd9bdea48b41114beee5580c53ef365865b27"
+      }
+    },
+    "physical_s3_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_Adaptive.txt": "484df1ac14c3a2fdb288be4bce54f6f922cf18253074fe0f37943a51c53cb7f2"
+      },
+      "exit_code": 0,
+      "seconds": 0.17252419999567792,
+      "outputs": {
+        "physical_s3_Adaptive\\physical_s3_Adaptive.trace.csv": "5715e736cd33f4008069a6e3b24a5700e3f198b04a24bcfc7c111e899ebb29c5",
+        "physical_s3_Adaptive\\queries.csv": "0f10ab35c1e98c3aae6e8ee37fdeedf0d00da2e61ca37efefc36c395d42e796e"
+      }
+    },
+    "physical_s3_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s3_NoPerturb.txt": "2e41e8c9a21728ba5f516d3d3df467e27b766fbe8788b01fe88e92850a709a21"
+      },
+      "exit_code": 0,
+      "seconds": 0.17639800001052208,
+      "outputs": {
+        "physical_s3_NoPerturb\\physical_s3_NoPerturb.trace.csv": "36e8204b6a84f761efbfde56061c53b0c25cd88ae8edd25e48a63b64f585c928",
+        "physical_s3_NoPerturb\\queries.csv": "0d7f9ea6d20fa1be77bc5630860e0359e09f589ef28408127996f683af3814c2"
+      }
+    },
+    "physical_s4_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_Adaptive.txt": "24c80d4a883bc9261d86153a1da7101266da70f68c796beacfb4f03b5090b7e4"
+      },
+      "exit_code": 0,
+      "seconds": 0.176257799990708,
+      "outputs": {
+        "physical_s4_Adaptive\\physical_s4_Adaptive.trace.csv": "1146564c14cb8374e1f15d2c701d98db15233df6c27b428312af6eb3e6cfba11",
+        "physical_s4_Adaptive\\queries.csv": "87f0ffd0d1ffa6537b90046cb85d94db88f46398c8f055a4663818118f73a52a"
+      }
+    },
+    "physical_s4_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_NoPerturb.txt": "90f2a8930f91c0e9d3cfb9170211bfd12139961a3646c19245bbe92cf6169716"
+      },
+      "exit_code": 0,
+      "seconds": 0.1793959999922663,
+      "outputs": {
+        "physical_s4_NoPerturb\\physical_s4_NoPerturb.trace.csv": "9ff77f86b49602c12d866d0ff1a82b0eab9b16f92455452d31bc783fe69c1380",
+        "physical_s4_NoPerturb\\queries.csv": "964622b82d784ed608ec6df240162d7c4caf1dcbb11a2a63801378543b122c1b"
+      }
+    },
+    "physical_s4_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s4_SA_Budget.txt": "e298d5007a31467970d384a5554524a85a5205af57c9f26124833a54cd2bd53e"
+      },
+      "exit_code": 0,
+      "seconds": 0.16834920000110287,
+      "outputs": {
+        "physical_s4_SA_Budget\\physical_s4_SA_Budget.trace.csv": "06711ba53e0af705a892b6ff0cb1c5214293c6928722b88b49ae00dd49d215ed",
+        "physical_s4_SA_Budget\\queries.csv": "41e8d50abcf3ff37be6a3e2f0d3edb6599de20f118aabe23bfbb1639ac9b3e59"
+      }
+    },
+    "physical_s5_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_NoPerturb.txt": "20e8716f4d460e4d98c077370753cf0bff7c9b15bd161d93ade7b76d2b00aefd"
+      },
+      "exit_code": 0,
+      "seconds": 0.17312720000336412,
+      "outputs": {
+        "physical_s5_NoPerturb\\physical_s5_NoPerturb.trace.csv": "6e4604695263f4d0adb2c1da03df7cb588b47562b051c333af21743c9def4728",
+        "physical_s5_NoPerturb\\queries.csv": "546068c80c1bfae3e316ce15af9575506e736d80084521aee87569c7710745c7"
+      }
+    },
+    "physical_s5_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_SA_Budget.txt": "e85da64ed170e25d0df83478db92759b4c2904afd0386d38aeb3032add2cb582"
+      },
+      "exit_code": 0,
+      "seconds": 0.18237899999076035,
+      "outputs": {
+        "physical_s5_SA_Budget\\physical_s5_SA_Budget.trace.csv": "66cbda79e947604ae6828f5fc08587e7920d6a85301249741b77f386220f4340",
+        "physical_s5_SA_Budget\\queries.csv": "4131e726c98d7a9098f4dcaf9bc00221d591fe37afc92ed46262ebcd5e5567c3"
+      }
+    },
+    "physical_s5_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s5_Adaptive.txt": "5b9a17197dfa7382e75232b1cb071e3e0d544b32f52d8956ef8dd33b9cc33595"
+      },
+      "exit_code": 0,
+      "seconds": 0.18043259999831207,
+      "outputs": {
+        "physical_s5_Adaptive\\physical_s5_Adaptive.trace.csv": "62d0341efbea519ad7b4daac2d82baeef842975def360116f5b4d94d06abdc90",
+        "physical_s5_Adaptive\\queries.csv": "b92b58e47697fc83e4683c2f7bada3320c79ec3c776a78552f0f6065d4a8313e"
+      }
+    },
+    "physical_s6_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_SA_Budget.txt": "a92eb05e7c285dd41ba55c7a64b821e1fb963b5a43cc1ae57f6b2e8ed66926ca"
+      },
+      "exit_code": 0,
+      "seconds": 0.16457760000776034,
+      "outputs": {
+        "physical_s6_SA_Budget\\physical_s6_SA_Budget.trace.csv": "a33ed82829228319f51d803de2d04bd705b2bc53686e964da1e24024824400da",
+        "physical_s6_SA_Budget\\queries.csv": "9117fb6ad9c6c20bda754d60f267720c1971025938b1348a1a94d2b701380788"
+      }
+    },
+    "physical_s6_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_Adaptive.txt": "987549a65e37481ac18270940633afe0076807b63bc99a5126d935d2be4bd093"
+      },
+      "exit_code": 0,
+      "seconds": 0.17462150000210386,
+      "outputs": {
+        "physical_s6_Adaptive\\physical_s6_Adaptive.trace.csv": "dfff5b620427ed6926ae391f3a2b999613e23b4cd1a6d4c88db646492fe88932",
+        "physical_s6_Adaptive\\queries.csv": "f447e8a452bdf5964dc3cde1439c8cd6d419e61c45244b19224bbb888e9c66bb"
+      }
+    },
+    "physical_s6_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s6_NoPerturb.txt": "39bfbe2e50b993109ae338d5052b89eb638b95988a94787ea1c25c8cf3b25cb1"
+      },
+      "exit_code": 0,
+      "seconds": 0.175482100006775,
+      "outputs": {
+        "physical_s6_NoPerturb\\physical_s6_NoPerturb.trace.csv": "f55f05974ba8599633c4410815489d101680332478d1324b7c3cb5aeb4609142",
+        "physical_s6_NoPerturb\\queries.csv": "0dfd10f596aff1983280dcf5cba643d6e8cdb272d2f7e140bd89770271bf82e5"
+      }
+    },
+    "physical_s7_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_Adaptive.txt": "d29f6aeafac7f4d396d7d6d41631c455cfc95a46c8a791aed68f5aff8b0631bd"
+      },
+      "exit_code": 0,
+      "seconds": 0.1667926000081934,
+      "outputs": {
+        "physical_s7_Adaptive\\physical_s7_Adaptive.trace.csv": "ded0e0d6cfa496bdcdd4ba94185e9714bdd57f904dd577f0592c80be24d60710",
+        "physical_s7_Adaptive\\queries.csv": "ee449d9280be58e8fbac4f5f059f74dbd0f5ec5996f3ac0c1cb3984c70003c9e"
+      }
+    },
+    "physical_s7_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_NoPerturb.txt": "5aa17531a085e22ee77bb414f91d1ce1a8149668ee62b6417269d5a135b9e03c"
+      },
+      "exit_code": 0,
+      "seconds": 0.1662860000069486,
+      "outputs": {
+        "physical_s7_NoPerturb\\physical_s7_NoPerturb.trace.csv": "c9289b84d87ce229e309c39152b26c15abab2f51d7f3137c3043101a5bc43f29",
+        "physical_s7_NoPerturb\\queries.csv": "ab5ddcd0249d9fad943a0c5d0166386c245c076c780db8cd468c48dd85a3c042"
+      }
+    },
+    "physical_s7_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s7_SA_Budget.txt": "4c40ee56506f9222631f96d8755cac42571e1ecfea7d2e76f5f056c307031fba"
+      },
+      "exit_code": 0,
+      "seconds": 0.16523600000073202,
+      "outputs": {
+        "physical_s7_SA_Budget\\physical_s7_SA_Budget.trace.csv": "427e061a44fd374619e72e29e2a1b72458d1d0ab6d889ac6a339d516b98e927a",
+        "physical_s7_SA_Budget\\queries.csv": "09f089d17279a156d1f04606041fda1a3ebd09ba2a9be07d570b9e1fe4f5fb63"
+      }
+    },
+    "physical_s8_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_NoPerturb.txt": "68b11a62e6b7a70835c680db1522e74b109faf2fba6eb31483e375fc5f6efdcc"
+      },
+      "exit_code": 0,
+      "seconds": 0.17908889999671374,
+      "outputs": {
+        "physical_s8_NoPerturb\\physical_s8_NoPerturb.trace.csv": "ef18ad45789d3026704700c29a739ed17e6cb016833c44ca0c734935db67e0c2",
+        "physical_s8_NoPerturb\\queries.csv": "7bf4e544a0c7a2466a75c46c459f86b4f6dd9250900b11709aa2429d1a5b24c1"
+      }
+    },
+    "physical_s8_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_SA_Budget.txt": "0c9438963daee5d96698ec21f6fab3bf0d5b25455b61cef999f0865681d90362"
+      },
+      "exit_code": 0,
+      "seconds": 0.16337739999289624,
+      "outputs": {
+        "physical_s8_SA_Budget\\physical_s8_SA_Budget.trace.csv": "5aea330a296de830c520e1f339d74876916cbe5b81e1b11d5381ed2973dd4c91",
+        "physical_s8_SA_Budget\\queries.csv": "847fed36779bf774c80524e5d762654cc9992f58a4cc1da2055851c659917747"
+      }
+    },
+    "physical_s8_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s8_Adaptive.txt": "4a206d777a45702ded83cb7bfaeada5e3993db5f5a08589d0c62a381fe9f0232"
+      },
+      "exit_code": 0,
+      "seconds": 0.20465880000847392,
+      "outputs": {
+        "physical_s8_Adaptive\\physical_s8_Adaptive.trace.csv": "1976c1b14d1d03b9ed8abb1c4d19cb206811cdffa83e91225c5c2e9d04d748c2",
+        "physical_s8_Adaptive\\queries.csv": "542a4cfe79555af1f1d4400a33f28d58f4d73d7d5791451ecb9d5f444c6a7e3b"
+      }
+    },
+    "physical_s9_SA_Budget": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_SA_Budget.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_SA_Budget"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_SA_Budget.txt": "6b1f5a2930e5dcfe0924dceedfebaea8cec570d750a3efd9bad272db50c486bc"
+      },
+      "exit_code": 0,
+      "seconds": 0.17201460000069346,
+      "outputs": {
+        "physical_s9_SA_Budget\\physical_s9_SA_Budget.trace.csv": "faf101a55d6ec33cfe2d4ad683940c6b41b1c38c0f4ab2f9ed81f2bd97db3f2e",
+        "physical_s9_SA_Budget\\queries.csv": "991e4ad26b637d3fd814b956b52593b73a445071371c7f7030d1bbf7040d8428"
+      }
+    },
+    "physical_s9_Adaptive": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_Adaptive.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_Adaptive"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_Adaptive.txt": "ca81bd9433b50f886b44a5f4498ab70a41bfdeb26a3ba1d2efca35e2ed3a3bbc"
+      },
+      "exit_code": 0,
+      "seconds": 0.18494229999487288,
+      "outputs": {
+        "physical_s9_Adaptive\\physical_s9_Adaptive.trace.csv": "fa6adfab1f0d90cf783117237226d0cfac2e89fd0ee61a673e18ed60c659b3c6",
+        "physical_s9_Adaptive\\queries.csv": "78d0e3439c23840b66409ee908b7696a035426f0d6bf3856f56a75a58839772f"
+      }
+    },
+    "physical_s9_NoPerturb": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--audit-queries",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_NoPerturb.txt",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_NoPerturb"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\timing\\physical_s9_NoPerturb.txt": "324f76eb70ec90cb9fe7aa81790b618c4363ff0c71ff3dd3d3eed664f5adc90e"
+      },
+      "exit_code": 0,
+      "seconds": 0.162857500006794,
+      "outputs": {
+        "physical_s9_NoPerturb\\physical_s9_NoPerturb.trace.csv": "88ea35e554d96710f840612e36e7eb934c8b6a8cea29c1515a95e974def74afe",
+        "physical_s9_NoPerturb\\queries.csv": "284363cdb1191570ae0387a8d55ee4e373d4066cdc25a97625c2b05e61979ee4"
+      }
+    }
+  },
+  "completed_utc": "2026-10-24T08:01:41.876122+00:00",
+  "completed": true
+}

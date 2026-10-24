@@ -1,0 +1,5 @@
+{'name': 'release_build', 'command': ['cmd', '/c', 'build_release.bat'], 'exit_code': 0, 'seconds': 19.158680900000036}
+{'name': 'debug_build', 'command': ['cmd', '/c', 'build_debug.bat'], 'exit_code': 0, 'seconds': 20.212106599996332}
+{'name': 'python', 'command': ['python', '-m', 'unittest', 'discover', '-s', 'tools', '-p', 'test_*.py', '-v'], 'exit_code': 0, 'seconds': 5.939151800004765}
+{'name': 'release_regression', 'command': ['D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe', '--test'], 'exit_code': 0, 'seconds': 106.28947789999074, 'program_sha256': 'fdba65670dc35381ef8378d0222843f5cf765ecfee3c71c66d01ef4220865d58'}
+{'name': 'debug_regression', 'command': ['D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Debug\\IrrGeometryDesign.exe', '--test'], 'exit_code': 0, 'seconds': 165.34949320000305, 'program_sha256': '1f712393d0302730bc614daec87061e433cbe2c69f4e04e7e4b2a3005c38d8d2'}

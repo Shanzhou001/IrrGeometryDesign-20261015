@@ -1,0 +1,11 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "numpy": "2.5.3",
+  "matplotlib": "3.11.2",
+  "logical_processors": 24,
+  "timezone_user": "Asia/Shanghai",
+  "compiler_file_version": "15.00.30729.01",
+  "compiler_product_version": "9.00.30729.01",
+  "qt": "4.7.4"
+}

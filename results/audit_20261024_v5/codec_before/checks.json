@@ -1,0 +1,82 @@
+{
+  "source_sha256": {
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\IrrGeometryDesign\\spssegy\\segyio.cpp": "3e492bb7338ec70ff1ffeb33eb5dfe9345fe57ae8640850f1396ca75174e3824",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\IrrGeometryDesign\\spssegy\\segyio.h": "16403ea55c9306283d6dbe1116efd0edb03a011e7ef36787c0df473c513b47cf",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\tools\\legacy_codec_regression.cpp": "e053dbda529eb3d21dcf1013fd2d9ac07ed1cc4c55522a158ab86419af4e62e4",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\tools\\run_legacy_codec_checks.py": "a4d9b8503e7896edded380b8e7fafaf0800833fedaf2d81c8e17564d63009a27"
+  },
+  "results": [
+    {
+      "build": "Release",
+      "case": "ibm_known",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_before\\Release\\legacy_codec_tests.exe",
+        "ibm_known"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.12493039999390021
+    },
+    {
+      "build": "Release",
+      "case": "ibm_zero",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_before\\Release\\legacy_codec_tests.exe",
+        "ibm_zero"
+      ],
+      "exit_code": null,
+      "status": "TIMEOUT",
+      "terminated_by_harness": true,
+      "seconds": 5.049093999987235
+    },
+    {
+      "build": "Release",
+      "case": "ieee_file",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_before\\Release\\legacy_codec_tests.exe",
+        "ieee_file"
+      ],
+      "exit_code": null,
+      "status": "TIMEOUT",
+      "terminated_by_harness": true,
+      "seconds": 5.021649399990565
+    },
+    {
+      "build": "Debug",
+      "case": "ibm_known",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_before\\Debug\\legacy_codec_tests.exe",
+        "ibm_known"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.10255110000434797
+    },
+    {
+      "build": "Debug",
+      "case": "ibm_zero",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_before\\Debug\\legacy_codec_tests.exe",
+        "ibm_zero"
+      ],
+      "exit_code": null,
+      "status": "TIMEOUT",
+      "terminated_by_harness": true,
+      "seconds": 5.051700600000913
+    },
+    {
+      "build": "Debug",
+      "case": "ieee_file",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_before\\Debug\\legacy_codec_tests.exe",
+        "ieee_file"
+      ],
+      "exit_code": null,
+      "status": "TIMEOUT",
+      "terminated_by_harness": true,
+      "seconds": 5.009359100004076
+    }
+  ],
+  "expected_broken": true,
+  "all_passed": false
+}
