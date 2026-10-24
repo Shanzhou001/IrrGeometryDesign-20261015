@@ -1,0 +1,1030 @@
+{
+  "git_commit": "c191e6c5bdd4715a7edf6a5d0a36b63f5200474f",
+  "git_status": "",
+  "images": {
+    "IrrGeometryDesign/Resources/AAVR.png": {
+      "sha256": "0fd5d6a0fe9b0396324276189225138685b90470aa061f113a20e6ec6442d52b",
+      "bytes": 10279
+    },
+    "IrrGeometryDesign/Resources/ADIS.png": {
+      "sha256": "0f59de74e5f036f1e62e867a1ff7f16ba254e82ce5e7584fe26231995bf67015",
+      "bytes": 10066
+    },
+    "IrrGeometryDesign/Resources/AMAX.png": {
+      "sha256": "c34f9d2adb9c0db498ed46764bc095d8313760bb61c021d8f4ebc2ac6359ca5f",
+      "bytes": 10520
+    },
+    "IrrGeometryDesign/Resources/AMIN.png": {
+      "sha256": "1bc893aad4bd92312cbee0ed0089abdad92d1cfde62c3ebf8e184cbf5f03eac2",
+      "bytes": 9399
+    },
+    "IrrGeometryDesign/Resources/ATOL.png": {
+      "sha256": "9348681d8c6235430a9ceb08c4bd6872eac3ea0f3cb8a9ec1a714bae224ee8e8",
+      "bytes": 8668
+    },
+    "IrrGeometryDesign/Resources/AzimuthNonfor.png": {
+      "sha256": "4a589324715659de1b37dac8a692ddb7ad7f3286b51c902f3af0e87f6bebd22a",
+      "bytes": 3257
+    },
+    "IrrGeometryDesign/Resources/CSQF.png": {
+      "sha256": "e3895dcd1d3fe89502d65ecd44ea5726c40d2514bd3887ce7fca03bbe42fe696",
+      "bytes": 88020
+    },
+    "IrrGeometryDesign/Resources/GeometryAT.png": {
+      "sha256": "9d8f6ed5678f86ef3b8313d123838913f78298a7926bb1a5ae2b88bcdf66a41e",
+      "bytes": 1516
+    },
+    "IrrGeometryDesign/Resources/OAVR.png": {
+      "sha256": "430048fe95194568a7cbed87a2c84045022f2bf806a2a9ae7706c1063084cff4",
+      "bytes": 5702
+    },
+    "IrrGeometryDesign/Resources/ODIS.png": {
+      "sha256": "9be1c4f3cb383523cdc31431fde9967029f1f6b040fb35b9efab1550ef075c96",
+      "bytes": 5909
+    },
+    "IrrGeometryDesign/Resources/OMAX.png": {
+      "sha256": "63e968bed21be4d10d5854b8828573c2ab6db561e9f2e2a992649a8cfb93b88f",
+      "bytes": 6082
+    },
+    "IrrGeometryDesign/Resources/OMIN.png": {
+      "sha256": "d355829d691013a4db300bd2e312dfd5b678c0124a06a5ba1b02a513a239f0dc",
+      "bytes": 4499
+    },
+    "IrrGeometryDesign/Resources/OTOL.png": {
+      "sha256": "4dc8ce19a27c1e4eab9bc0231f0077955e89df8f582fc6fafac0e45b48dbee78",
+      "bytes": 4047
+    },
+    "IrrGeometryDesign/Resources/OVTPT.png": {
+      "sha256": "e0db95f5b3cddefd8dd9d30325a326d620bbba78508727b4b8a6c834602e6960",
+      "bytes": 156
+    },
+    "IrrGeometryDesign/Resources/OVTVL.png": {
+      "sha256": "31c097b443df640b193f67c82ed9bac45e0256705034e8a0e0928cb8cd62ba67",
+      "bytes": 7204
+    },
+    "IrrGeometryDesign/Resources/Offset_Nonuniform.png": {
+      "sha256": "9d711d704ca9a63db12661c6c3d8c782bac935c8232401fcfef9861986f42686",
+      "bytes": 181
+    },
+    "IrrGeometryDesign/Resources/Surveyinfos.png": {
+      "sha256": "c52ca659e7c5ab8bc119d3bbf809fd6e0bc724eb6e5395e2ae0023b2e5addef7",
+      "bytes": 4743
+    },
+    "IrrGeometryDesign/Resources/azimuthVStraces.PNG": {
+      "sha256": "0ea81c2d3c776d44189917f6439879fc37173231245e3f52b6f84b03cd17d43d",
+      "bytes": 296
+    },
+    "IrrGeometryDesign/Resources/binfold.png": {
+      "sha256": "94a4fd29e5f9a846b82d08928920fc595eb4b79998ed248050a20c6c94ae2aad",
+      "bytes": 189
+    },
+    "IrrGeometryDesign/Resources/editshot.png": {
+      "sha256": "2cca26a06020b420f19819a459972ab290b663aba4338fa42d43d9abf4db69ac",
+      "bytes": 503
+    },
+    "IrrGeometryDesign/Resources/filesave.png": {
+      "sha256": "9d0c54fe0b78ad853edde3f70b45053e9745db9efd99114e3a9cc43bd123ff45",
+      "bytes": 1029
+    },
+    "IrrGeometryDesign/Resources/foldVSBINS.PNG": {
+      "sha256": "4a23b56112c4b78978d95095f713ebc9905bf35dbb0c9889ab064e4f811e78bf",
+      "bytes": 140
+    },
+    "IrrGeometryDesign/Resources/foot_factor.png": {
+      "sha256": "7709cf4230eb2ab53ca93add63126ff7f5f2f018f117f9c20c0d27ead6d581ea",
+      "bytes": 128699
+    },
+    "IrrGeometryDesign/Resources/griding.png": {
+      "sha256": "b96ddab752d2c3c46078101c6c5cea254efc9bf749ae9d8f44a7839bc197e479",
+      "bytes": 520
+    },
+    "IrrGeometryDesign/Resources/mouse_zoom.png": {
+      "sha256": "0a615a41cb84a72cd1a3900573f6f8de3923227b2265e252c542e61c2c91c7d4",
+      "bytes": 495
+    },
+    "IrrGeometryDesign/Resources/newsps.png": {
+      "sha256": "8890e255510797f143aaadff4ec9fe9ef705e88be5577296c2266f607826a4f0",
+      "bytes": 3263
+    },
+    "IrrGeometryDesign/Resources/offsetVSfold-bins.PNG": {
+      "sha256": "9807e35253643374c61b613220fe4f052c2160f175632f13ac9b4a26779f7861",
+      "bytes": 211
+    },
+    "IrrGeometryDesign/Resources/offsetVStraces.PNG": {
+      "sha256": "82ed7d04225eb10c2630f3215de1e1a4e1a19541d4b7aca6d6cf3bfc745feb75",
+      "bytes": 167
+    },
+    "IrrGeometryDesign/Resources/refresh.png": {
+      "sha256": "eba046140e23838218aee6cc6359ce5d2dc9a8d5c9af6d3dd3e472a4f4d7f627",
+      "bytes": 1030
+    },
+    "IrrGeometryDesign/Resources/rose.PNG": {
+      "sha256": "1be3c61713305e47cfa1b932ae370831bcdae03be3a4fc3073ca5b68e3281851",
+      "bytes": 311
+    },
+    "figures/00_research_workflow_summary.png": {
+      "sha256": "a2d836b9cbbde7b227143ba165aea7e185cecdce1737a58b0942492f612df6a9",
+      "bytes": 65125
+    },
+    "figures/01_sa_convergence_curve.png": {
+      "sha256": "29b279cba093ccd7f8cfeffca38458bc26e397d4ee12158111e53d710c224b25",
+      "bytes": 43081
+    },
+    "figures/02_sampling_benchmark_bars.png": {
+      "sha256": "8948c95722f688f36a78ded364286ce8ccea9ad415c35b5d4d90a7e5df2a0577",
+      "bytes": 34777
+    },
+    "figures/03_cmp_fold_distribution_map.png": {
+      "sha256": "e559e981109e602e63fd9842c03179f81e93665d70b4ac306d75f7437356d70d",
+      "bytes": 135286
+    },
+    "figures/04_offset_azimuth_rose_charts.png": {
+      "sha256": "5bf345b4e498699232dfdcee3dc0cb1f76cc3c9f45a032188222179df0fc3100",
+      "bytes": 49180
+    },
+    "figures/05_wavefield_reconstruction_quad.png": {
+      "sha256": "06c338b15feb3106fe0dd1b09d088e83f71376e0aca35d061656ac845ab8c7cf",
+      "bytes": 247793
+    },
+    "figures/06_recon_convergence_trace_comparison.png": {
+      "sha256": "5a711e28ff38c3ac04dc1c9f9ef303407238b7c86f5daab2d1e57908bd04a8e7",
+      "bytes": 26761
+    },
+    "figures/enhanced_20261023/00_research_workflow_summary.png": {
+      "sha256": "aaf886a9ded5dab30782f6ddcd56c913ae61dc192dccbc8abb15c4325b02a87c",
+      "bytes": 63384
+    },
+    "figures/enhanced_20261023/01_sa_convergence_curve.png": {
+      "sha256": "7fb781de6ecd4329e8bc64af4e67f430b83c9ac7dbac43e5aaf464d2116e8bbe",
+      "bytes": 43963
+    },
+    "figures/enhanced_20261023/02_sampling_benchmark_bars.png": {
+      "sha256": "b92d004b4ad59832866b8531af71b390e2a797e562f79495a2102f9efdfb6dfd",
+      "bytes": 34257
+    },
+    "figures/enhanced_20261023/03_cmp_fold_distribution_map.png": {
+      "sha256": "e559e981109e602e63fd9842c03179f81e93665d70b4ac306d75f7437356d70d",
+      "bytes": 135286
+    },
+    "figures/enhanced_20261023/04_offset_azimuth_rose_charts.png": {
+      "sha256": "5bf345b4e498699232dfdcee3dc0cb1f76cc3c9f45a032188222179df0fc3100",
+      "bytes": 49180
+    },
+    "figures/enhanced_20261023/05_wavefield_reconstruction_quad.png": {
+      "sha256": "4aa86d93ab2a12e4253f9839e4fbd715fe84e80619315749dffcbab8e595f4e4",
+      "bytes": 231993
+    },
+    "figures/enhanced_20261023/06_recon_convergence_trace_comparison.png": {
+      "sha256": "4912d7dff72c169d80a0b8f278a4beae0797af67af13a87a86f7871c52e9e1e6",
+      "bytes": 26545
+    },
+    "figures/enhanced_20261023/mask_builtin/05_wavefield_reconstruction_quad.png": {
+      "sha256": "39ff4f77418b6a705a2794ac1f7f10ba2dc97106abb4fb5ba77f1f58d1884ecc",
+      "bytes": 198448
+    },
+    "figures/enhanced_20261023/mask_builtin/06_recon_convergence_trace_comparison.png": {
+      "sha256": "96e16cc0bf9a1c53e99495b1bd5b1febd59c439042cd096f82b4f14643e00920",
+      "bytes": 26377
+    },
+    "figures/enhanced_20261023/mask_dipping/05_wavefield_reconstruction_quad.png": {
+      "sha256": "eeee3ba00de7ba97250da988e1b996c27e30424cfcda1e28148f1fd57981f0d8",
+      "bytes": 199123
+    },
+    "figures/enhanced_20261023/mask_dipping/06_recon_convergence_trace_comparison.png": {
+      "sha256": "9d8251b5928c460103aa2054e1fe7b375b510ef3a6542e510623b4820755aa33",
+      "bytes": 26168
+    },
+    "figures/enhanced_20261023/mask_faulted/05_wavefield_reconstruction_quad.png": {
+      "sha256": "c7b27f68785aea18024a508cc5951dd65bb4c36183578277c7a2aaa3ffddc2f9",
+      "bytes": 201926
+    },
+    "figures/enhanced_20261023/mask_faulted/06_recon_convergence_trace_comparison.png": {
+      "sha256": "3a53b5f3d639d7b5067356a7502cc70de28618bc8edc73f295663915fc3fd961",
+      "bytes": 26625
+    },
+    "figures/enhanced_20261023/real_reference/05_wavefield_reconstruction_quad.png": {
+      "sha256": "252a1d26083da8465790251505a20822e157f091ddfb6477a1671c28858fe461",
+      "bytes": 262059
+    },
+    "figures/enhanced_20261023/real_reference/06_recon_convergence_trace_comparison.png": {
+      "sha256": "5b2979b739e182a94a694b6cda2fc796ae406ab987da66ecb491e25d4c6538b4",
+      "bytes": 33986
+    },
+    "figures/enhanced_20261023/validation/00_research_workflow_summary.png": {
+      "sha256": "861b7a86dfd35c79e9796a53e2ee098ae580d1aa24b856aada83fa146d8c5f06",
+      "bytes": 63414
+    },
+    "figures/enhanced_20261023/validation/01_sa_convergence_curve.png": {
+      "sha256": "7fb781de6ecd4329e8bc64af4e67f430b83c9ac7dbac43e5aaf464d2116e8bbe",
+      "bytes": 43963
+    },
+    "figures/enhanced_20261023/validation/02_sampling_benchmark_bars.png": {
+      "sha256": "cbd8779f45c1e93e9acc10cf7122e37196bc568e24794e6c51c849cb1e8c2afc",
+      "bytes": 34273
+    },
+    "figures/enhanced_20261023/validation/03_cmp_fold_distribution_map.png": {
+      "sha256": "e559e981109e602e63fd9842c03179f81e93665d70b4ac306d75f7437356d70d",
+      "bytes": 135286
+    },
+    "figures/enhanced_20261023/validation/04_offset_azimuth_rose_charts.png": {
+      "sha256": "5bf345b4e498699232dfdcee3dc0cb1f76cc3c9f45a032188222179df0fc3100",
+      "bytes": 49180
+    },
+    "figures/enhanced_20261023/validation/05_wavefield_reconstruction_quad.png": {
+      "sha256": "252a1d26083da8465790251505a20822e157f091ddfb6477a1671c28858fe461",
+      "bytes": 262059
+    },
+    "figures/enhanced_20261023/validation/06_recon_convergence_trace_comparison.png": {
+      "sha256": "5b2979b739e182a94a694b6cda2fc796ae406ab987da66ecb491e25d4c6538b4",
+      "bytes": 33986
+    },
+    "figures/gui/01_main_window.png": {
+      "sha256": "9f673233c19868dd9a51e2fd8377e085c33aced1fac1bba0c8d3313f26ee438d",
+      "bytes": 14273
+    },
+    "figures/gui/02_survey_loaded.png": {
+      "sha256": "0d08ea06727151ad7723d77203ab84e180eb23bbc252d78c340953083e197e32",
+      "bytes": 38485
+    },
+    "figures/gui/03_dlg_sps_parameters.png": {
+      "sha256": "2f6b8fee6c0aac0b459bdbc9903fd76e606bda072b95a3b2400867e549de860c",
+      "bytes": 40636
+    },
+    "figures/gui/04_dlg_cell_grid.png": {
+      "sha256": "9fc16759491fd8e1b8645486d61902850c4bd1f58b5e183932e700c6180c124d",
+      "bytes": 11355
+    },
+    "figures/gui/05_dlg_sps_sampling.png": {
+      "sha256": "ada07cab9e637f7b06cae1ddd67af75faf403a6d4e60953b3657f1266b91e2d7",
+      "bytes": 11212
+    },
+    "figures/gui/06_dlg_show_area.png": {
+      "sha256": "e63ca23d47fa6477aa279a219658f616b8e6342e02c2b4be1099f7f92c248601",
+      "bytes": 5322
+    },
+    "figures/gui/07_dlg_ovt_attributes.png": {
+      "sha256": "b679796709e40448ca28a36536980570a40faac534535126f947fc8581fb4498",
+      "bytes": 12365
+    },
+    "figures/gui/08_dlg_figure_gallery.png": {
+      "sha256": "e337bfd083730f5e37245c2a0dc6c985b0403a70e90fffd52e7d623e1db3e455",
+      "bytes": 108271
+    },
+    "figures/real/05_wavefield_reconstruction_quad.png": {
+      "sha256": "2759c34e1611fa9b8da49bc8ea82e5ecf4f5ea004647e2f1f621ab355cd560a9",
+      "bytes": 259993
+    },
+    "figures/real/06_recon_convergence_trace_comparison.png": {
+      "sha256": "270319310b08d38b27caa9b1b177f3b6fd3b59c4237f9d815f4380bdd741d932",
+      "bytes": 33029
+    },
+    "figures/revised_20261023/00_research_workflow_summary.png": {
+      "sha256": "aaf886a9ded5dab30782f6ddcd56c913ae61dc192dccbc8abb15c4325b02a87c",
+      "bytes": 63384
+    },
+    "figures/revised_20261023/01_sa_convergence_curve.png": {
+      "sha256": "7fb781de6ecd4329e8bc64af4e67f430b83c9ac7dbac43e5aaf464d2116e8bbe",
+      "bytes": 43963
+    },
+    "figures/revised_20261023/02_sampling_benchmark_bars.png": {
+      "sha256": "bd95c7fa91affa429f1d355635feab439eb19965e67724f9f488ded48a435432",
+      "bytes": 34265
+    },
+    "figures/revised_20261023/03_cmp_fold_distribution_map.png": {
+      "sha256": "e559e981109e602e63fd9842c03179f81e93665d70b4ac306d75f7437356d70d",
+      "bytes": 135286
+    },
+    "figures/revised_20261023/04_offset_azimuth_rose_charts.png": {
+      "sha256": "5bf345b4e498699232dfdcee3dc0cb1f76cc3c9f45a032188222179df0fc3100",
+      "bytes": 49180
+    },
+    "figures/revised_20261023/05_wavefield_reconstruction_quad.png": {
+      "sha256": "91cd9010160f0a46d343d19a330bcaac05dde012b10b981bbbaab7378c4b154c",
+      "bytes": 232091
+    },
+    "figures/revised_20261023/06_recon_convergence_trace_comparison.png": {
+      "sha256": "a6046b19c91333ecc12231fc3c4f684ae7c9b101e75fc3b802d919cb7410706a",
+      "bytes": 26706
+    },
+    "figures/revised_20261023/real_reference/05_wavefield_reconstruction_quad.png": {
+      "sha256": "bbd06aba9fd601783553418a5117a62eeae583a138f51bdf8a9126b393c6012b",
+      "bytes": 262185
+    },
+    "figures/revised_20261023/real_reference/06_recon_convergence_trace_comparison.png": {
+      "sha256": "ee26b7107a8a5501f49c304b62400d93653fc2877c34e6b731225468f451f0e2",
+      "bytes": 34123
+    },
+    "results/audit_20261024_v5/figures/01_v4_search.png": {
+      "sha256": "756473ccf3b65fb548790a8b941ad88af14dee64f37bdc32436fa36240452eb0",
+      "bytes": 395446
+    },
+    "results/audit_20261024_v5/figures/01_v4_search.svg": {
+      "sha256": "6bd43566a707ad7521bfd50be7084326002cdfcff7457680af5fa6e2f3ccc545",
+      "bytes": 76182
+    },
+    "results/audit_20261024_v5/figures/02_common_budget.png": {
+      "sha256": "c71a1b03528d973a52d590d63178c8ef0c4af4fccd1379eaf543588eea213632",
+      "bytes": 183102
+    },
+    "results/audit_20261024_v5/figures/02_common_budget.svg": {
+      "sha256": "3f1cb26dbe4016d4b3376efff071d19df2e241c0b46ff5b759f096e355b99b77",
+      "bytes": 39478
+    },
+    "results/audit_20261024_v5/figures/03_v4_nested_real.png": {
+      "sha256": "585b54cd2c3510b6a72bc921c3469df68ab7af27b6eaf064ae5a7bcb42d480c3",
+      "bytes": 354281
+    },
+    "results/audit_20261024_v5/figures/03_v4_nested_real.svg": {
+      "sha256": "35fbda0afc0e16efb62a591fea06e6c7186b89546eb5edc22b028836cf32c8a1",
+      "bytes": 35189
+    },
+    "results/audit_20261024_v5/figures/04_common_H_recovery.png": {
+      "sha256": "37a96dc8ff92cc937efd526ea8d443f5343c8816869f47d0cf3894aa20b99e2f",
+      "bytes": 182757
+    },
+    "results/audit_20261024_v5/figures/04_common_H_recovery.svg": {
+      "sha256": "ab93089189ce1c2c765d361ffc75edaf40920554e1b1335e344b8e0c9e8f9264",
+      "bytes": 46639
+    },
+    "results/audit_20261024_v5/figures/05_v4_weight_tradeoff.png": {
+      "sha256": "89658d56b1728beaa1715180bf42c0e32702fca4f1ee6f302f052de9a5abfa72",
+      "bytes": 165824
+    },
+    "results/audit_20261024_v5/figures/05_v4_weight_tradeoff.svg": {
+      "sha256": "b6af689e9b358b5d532a229ba603ef74910b8bf07ea609410363089786e4ff73",
+      "bytes": 31170
+    },
+    "results/audit_20261024_v5/figures/06_real_windows_and_failure.png": {
+      "sha256": "e281e0090a18fb5ae435cc588a3aafd8ca2ae1b0f9c8ba6d45fe095024624c9f",
+      "bytes": 282285
+    },
+    "results/audit_20261024_v5/figures/06_real_windows_and_failure.svg": {
+      "sha256": "2544b7f5b92beeabb85a5df4618dbff4ce54b0e03ed56d307e5fe31bdf637c77",
+      "bytes": 27879
+    },
+    "results/audit_20261024_v5/figures/07_band_sensitivity.png": {
+      "sha256": "8d0d826acc123a9fa8ee44d954950a3e11eee79710916f66e7cf2ae08f0d053e",
+      "bytes": 142040
+    },
+    "results/audit_20261024_v5/figures/07_band_sensitivity.svg": {
+      "sha256": "ea394446f8984cedf7928a4a8456dd1f1ddda3e1bab68741e60af6caee1286e7",
+      "bytes": 24217
+    },
+    "results/audit_20261024_v5/figures_structural/01_v4_search.png": {
+      "sha256": "756473ccf3b65fb548790a8b941ad88af14dee64f37bdc32436fa36240452eb0",
+      "bytes": 395446
+    },
+    "results/audit_20261024_v5/figures_structural/01_v4_search.svg": {
+      "sha256": "cbc17d6690a1c7212ebbaa0a6e6b4402ebe50c816e9e063dc0aaef1354b45f6d",
+      "bytes": 76182
+    },
+    "results/audit_20261024_v5/figures_structural/02_common_budget.png": {
+      "sha256": "c71a1b03528d973a52d590d63178c8ef0c4af4fccd1379eaf543588eea213632",
+      "bytes": 183102
+    },
+    "results/audit_20261024_v5/figures_structural/02_common_budget.svg": {
+      "sha256": "66a27b4ab0e0b6c136d9075fe22e21e04bbf18d134cf122477d8fc0c8ac4ea4d",
+      "bytes": 39478
+    },
+    "results/audit_20261024_v5/figures_structural/03_v4_nested_real.png": {
+      "sha256": "585b54cd2c3510b6a72bc921c3469df68ab7af27b6eaf064ae5a7bcb42d480c3",
+      "bytes": 354281
+    },
+    "results/audit_20261024_v5/figures_structural/03_v4_nested_real.svg": {
+      "sha256": "7f831b4e9773279aa5ae4d13ab2c7e37bc5cefca3f7d27ee2a5ee1336a8a7313",
+      "bytes": 35189
+    },
+    "results/audit_20261024_v5/figures_structural/04_common_H_recovery.png": {
+      "sha256": "ea6221cbf00584ee64e6ba72059fad2c1afcb360b8bcc737507c0d5b62f04faa",
+      "bytes": 182022
+    },
+    "results/audit_20261024_v5/figures_structural/04_common_H_recovery.svg": {
+      "sha256": "eb7a6feacc99589c628d4e467ca013790ccdc084f14f1e4676872c71cf9285b5",
+      "bytes": 47127
+    },
+    "results/audit_20261024_v5/figures_structural/05_v4_weight_tradeoff.png": {
+      "sha256": "89658d56b1728beaa1715180bf42c0e32702fca4f1ee6f302f052de9a5abfa72",
+      "bytes": 165824
+    },
+    "results/audit_20261024_v5/figures_structural/05_v4_weight_tradeoff.svg": {
+      "sha256": "1b8681201842d1a02743725c0b9d61f40ed8fb5214474ec4697afda7be88baa8",
+      "bytes": 31170
+    },
+    "results/audit_20261024_v5/figures_structural/06_real_windows_and_failure.png": {
+      "sha256": "e281e0090a18fb5ae435cc588a3aafd8ca2ae1b0f9c8ba6d45fe095024624c9f",
+      "bytes": 282285
+    },
+    "results/audit_20261024_v5/figures_structural/06_real_windows_and_failure.svg": {
+      "sha256": "8a8f92cabb1da3bb4d5319f91db2ba3a39ed8d8fee05b87f2b6022f31f863030",
+      "bytes": 27879
+    },
+    "results/audit_20261024_v5/figures_structural/07_band_sensitivity.png": {
+      "sha256": "c9170057f7550b8675905412540746e4e67148880a0db64463c72bc7e46c0519",
+      "bytes": 146050
+    },
+    "results/audit_20261024_v5/figures_structural/07_band_sensitivity.svg": {
+      "sha256": "7c54011d336934eec59b714abfc42d1c763fdef3ebee570cfd053f6a6a47427a",
+      "bytes": 23719
+    },
+    "results/audit_20261024_v5/figures_thesis/01_v4_search.png": {
+      "sha256": "0a9f0c8bdd8d1807ecf2e89ad2bea20e94a611fa289edf48e3913c4db8b5c742",
+      "bytes": 319254
+    },
+    "results/audit_20261024_v5/figures_thesis/01_v4_search.svg": {
+      "sha256": "ae1f0aa9aecbb01cab0c3de0b2b2266900c98d5e9c6e50bc3116ed3a1178cb7d",
+      "bytes": 76575
+    },
+    "results/audit_20261024_v5/figures_thesis/02_common_budget.png": {
+      "sha256": "57b544a9c1f6322d058a402dc8fa464b6911197c0e46ac2a6548cc827e257228",
+      "bytes": 146193
+    },
+    "results/audit_20261024_v5/figures_thesis/02_common_budget.svg": {
+      "sha256": "f99edb8aab41f53ae59efcc2d49941248daf79d03ee997fdbc4719748de0e62a",
+      "bytes": 32049
+    },
+    "results/audit_20261024_v5/figures_thesis/03_v4_nested_real.png": {
+      "sha256": "585b54cd2c3510b6a72bc921c3469df68ab7af27b6eaf064ae5a7bcb42d480c3",
+      "bytes": 354281
+    },
+    "results/audit_20261024_v5/figures_thesis/03_v4_nested_real.svg": {
+      "sha256": "78e031a620754797611bbdf85cb10bbe604b9ab0c620b68cf43fd9fa601579b9",
+      "bytes": 35189
+    },
+    "results/audit_20261024_v5/figures_thesis/04_common_H_recovery.png": {
+      "sha256": "630ff960eadc3ad1ad2f29ed1cc9a5e0b0531ac3fda8182cec62f96890ef3441",
+      "bytes": 191484
+    },
+    "results/audit_20261024_v5/figures_thesis/04_common_H_recovery.svg": {
+      "sha256": "cbafb624e4119cb40ec887d421ad44943fb05f361d9a3dac359dcac0cf675c9c",
+      "bytes": 47286
+    },
+    "results/audit_20261024_v5/figures_thesis/05_v4_weight_tradeoff.png": {
+      "sha256": "4bb6d2ebbe430253d3fa53dac7ba1b5ba43cbc1023d46775af807331227daf94",
+      "bytes": 165215
+    },
+    "results/audit_20261024_v5/figures_thesis/05_v4_weight_tradeoff.svg": {
+      "sha256": "450791f118825858c01dc6d15fb0ff8b73bec6e18d56986de0b5b76120ae69fd",
+      "bytes": 31216
+    },
+    "results/audit_20261024_v5/figures_thesis/06_real_windows_and_failure.png": {
+      "sha256": "7daebc26e8e494999e6a7643ab97c4f7bf2517b8daec7b11e450b278f788c1e6",
+      "bytes": 287510
+    },
+    "results/audit_20261024_v5/figures_thesis/06_real_windows_and_failure.svg": {
+      "sha256": "f953d36828d74c1093a4a8a5563f04e74b397c9a9375374e9796d4f6609b5ecb",
+      "bytes": 27901
+    },
+    "results/audit_20261024_v5/figures_thesis/07_band_sensitivity.png": {
+      "sha256": "9230cc225b5bcf36108873b42ab14e82e304cd8f74fc6c19d35608bb0940ba79",
+      "bytes": 154555
+    },
+    "results/audit_20261024_v5/figures_thesis/07_band_sensitivity.svg": {
+      "sha256": "d670be0b9c7904fd989e083e607583b4a54fa0affef35d6ee95300fddc03efbd",
+      "bytes": 23769
+    },
+    "results/audit_20261024_v5/figures_thesis/08_v4_convergence.png": {
+      "sha256": "d51b317dd20bac07927bc55a84b0297ae5f4e2bad02e708657c095fc77c614b2",
+      "bytes": 184232
+    },
+    "results/audit_20261024_v5/figures_thesis/08_v4_convergence.svg": {
+      "sha256": "5380859e8108ce11b98a71fbc1cd13b3a25c6379567c0fcea57d390274673ab9",
+      "bytes": 130420
+    },
+    "results/audit_20261024_v5/figures_thesis/09_v4_geometry_pareto.png": {
+      "sha256": "773a8d07569a1390054394b18f975a0064ea2e0344efd2124cb2805c5ca06213",
+      "bytes": 145392
+    },
+    "results/audit_20261024_v5/figures_thesis/09_v4_geometry_pareto.svg": {
+      "sha256": "aef98097d0cddcc8ad6cb6b47619ea6f63a118b2429343466b862f6ed99c9bc7",
+      "bytes": 55327
+    },
+    "results/audit_20261024_v5/figures_thesis/10_real_failure_waveforms.png": {
+      "sha256": "40fee9a5121dcee8ca41d5c584f1ba1c44d91735bee0bcfdd2be25c71b72b746",
+      "bytes": 578512
+    },
+    "results/audit_20261024_v5/figures_thesis/10_real_failure_waveforms.svg": {
+      "sha256": "de0df38c35aa9d20626e44a6f76d596fcf78112223b220c9bb9ed78dcdc1051c",
+      "bytes": 79163
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/01_v4_search.png": {
+      "sha256": "0a9f0c8bdd8d1807ecf2e89ad2bea20e94a611fa289edf48e3913c4db8b5c742",
+      "bytes": 319254
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/01_v4_search.svg": {
+      "sha256": "bc24b3d8b0c36fa54758a70e8585b9b2dbb322f2cf35ff11a900d9415a014bd5",
+      "bytes": 76575
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/02_common_budget.png": {
+      "sha256": "c71a1b03528d973a52d590d63178c8ef0c4af4fccd1379eaf543588eea213632",
+      "bytes": 183102
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/02_common_budget.svg": {
+      "sha256": "bd1e75bc540d851da3ef5b27aeed28ae911a8a62bdc718c8e20a54b0e969394f",
+      "bytes": 39478
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/03_v4_nested_real.png": {
+      "sha256": "585b54cd2c3510b6a72bc921c3469df68ab7af27b6eaf064ae5a7bcb42d480c3",
+      "bytes": 354281
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/03_v4_nested_real.svg": {
+      "sha256": "a35ccb831b2e174385afbeda561e7968ccbd25eeaff629f153ce719b0dcd430b",
+      "bytes": 35189
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/04_common_H_recovery.png": {
+      "sha256": "ea6221cbf00584ee64e6ba72059fad2c1afcb360b8bcc737507c0d5b62f04faa",
+      "bytes": 182022
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/04_common_H_recovery.svg": {
+      "sha256": "ea561d6644fa6c71cdd4d8adbf1072d2de4edd1cc6d72f3e05b57201a5e82ea3",
+      "bytes": 47127
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/05_v4_weight_tradeoff.png": {
+      "sha256": "89658d56b1728beaa1715180bf42c0e32702fca4f1ee6f302f052de9a5abfa72",
+      "bytes": 165824
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/05_v4_weight_tradeoff.svg": {
+      "sha256": "7957323a8215bf413cfa2fb42dc140f9a7c41762ef2a8fc7071dbc4de2b83704",
+      "bytes": 31170
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/06_real_windows_and_failure.png": {
+      "sha256": "e281e0090a18fb5ae435cc588a3aafd8ca2ae1b0f9c8ba6d45fe095024624c9f",
+      "bytes": 282285
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/06_real_windows_and_failure.svg": {
+      "sha256": "ac8cc1d5308ad47bad166b8f9dfd6633f5ad4bb266ebe4a7f6e1e2348a383f64",
+      "bytes": 27879
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/07_band_sensitivity.png": {
+      "sha256": "c9170057f7550b8675905412540746e4e67148880a0db64463c72bc7e46c0519",
+      "bytes": 146050
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/07_band_sensitivity.svg": {
+      "sha256": "e71df5cbabbf0d348879fb0562049cb5b68dd87e545ecafea96621cbc5a4f0d1",
+      "bytes": 23719
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/08_v4_convergence.png": {
+      "sha256": "5a082768c607553697219d5ec6af12922dc7dbf17767fff38e207d3e4a0a7561",
+      "bytes": 226004
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/08_v4_convergence.svg": {
+      "sha256": "c3840930506e12846a40123ebe836eb2cadb8118708f43e39912f5781c2bb88d",
+      "bytes": 135333
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/09_v4_geometry_pareto.png": {
+      "sha256": "773a8d07569a1390054394b18f975a0064ea2e0344efd2124cb2805c5ca06213",
+      "bytes": 145392
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/09_v4_geometry_pareto.svg": {
+      "sha256": "edf11694f24823e2596fc1f08c66192a5f39ac8e5ff8a27a9d9491e1742c1901",
+      "bytes": 55327
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/10_real_failure_waveforms.png": {
+      "sha256": "40fee9a5121dcee8ca41d5c584f1ba1c44d91735bee0bcfdd2be25c71b72b746",
+      "bytes": 578512
+    },
+    "results/audit_20261024_v5/figures_thesis_draft/10_real_failure_waveforms.svg": {
+      "sha256": "650cdc97db5267b7b3749f09c99fc0a5f11118d48d72ad6724f757b2049a0d88",
+      "bytes": 79163
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/01_v4_search.png": {
+      "sha256": "0a9f0c8bdd8d1807ecf2e89ad2bea20e94a611fa289edf48e3913c4db8b5c742",
+      "bytes": 319254
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/01_v4_search.svg": {
+      "sha256": "d81788cb80ca6381b906de243157b7b7962b99ac0bf21e1f8fd52d96f20cc1a8",
+      "bytes": 76575
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/02_common_budget.png": {
+      "sha256": "0970f7865f0a6375f1933e1f0122a27e6d6a8699ee469e9d3aa8c292ebb70889",
+      "bytes": 182510
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/02_common_budget.svg": {
+      "sha256": "8d69263cb56068e17228b12a6934dce2719c69e88c5e4f2187d1155c771a96fb",
+      "bytes": 39469
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/03_v4_nested_real.png": {
+      "sha256": "585b54cd2c3510b6a72bc921c3469df68ab7af27b6eaf064ae5a7bcb42d480c3",
+      "bytes": 354281
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/03_v4_nested_real.svg": {
+      "sha256": "d1abf1816c981ae370aa4cb2bfba1be04dd14f06fe0d616580f6a69210c49966",
+      "bytes": 35189
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/04_common_H_recovery.png": {
+      "sha256": "630ff960eadc3ad1ad2f29ed1cc9a5e0b0531ac3fda8182cec62f96890ef3441",
+      "bytes": 191484
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/04_common_H_recovery.svg": {
+      "sha256": "35dc42515a20a8a0d2f4f39d6749cca229396d6e9d0010e5c5ac7a5d67d193f1",
+      "bytes": 47286
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/05_v4_weight_tradeoff.png": {
+      "sha256": "4bb6d2ebbe430253d3fa53dac7ba1b5ba43cbc1023d46775af807331227daf94",
+      "bytes": 165215
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/05_v4_weight_tradeoff.svg": {
+      "sha256": "2af4e5a4cf323164f28202c2eae5ce766e28dfd531fa114f1f9fe5b950925c2c",
+      "bytes": 31216
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/06_real_windows_and_failure.png": {
+      "sha256": "7daebc26e8e494999e6a7643ab97c4f7bf2517b8daec7b11e450b278f788c1e6",
+      "bytes": 287510
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/06_real_windows_and_failure.svg": {
+      "sha256": "6e689406733ea277cff0d3195a2f23b923c56e0b0c66a73f0090de2874c7f523",
+      "bytes": 27901
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/07_band_sensitivity.png": {
+      "sha256": "9230cc225b5bcf36108873b42ab14e82e304cd8f74fc6c19d35608bb0940ba79",
+      "bytes": 154555
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/07_band_sensitivity.svg": {
+      "sha256": "130e83f5af5620e7a434302a8977398be79a277914a717deb82cf1ddf61f3638",
+      "bytes": 23769
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/08_v4_convergence.png": {
+      "sha256": "a1acfff323230b7f1dd71a9a3d64f30d77dd3d880c95f05a992cc17d4224924e",
+      "bytes": 227535
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/08_v4_convergence.svg": {
+      "sha256": "1c0e72bab8a6ee3973d62f3d75a283f63fc490bb080ac76a86e8fa7f6a449ce7",
+      "bytes": 135297
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/09_v4_geometry_pareto.png": {
+      "sha256": "773a8d07569a1390054394b18f975a0064ea2e0344efd2124cb2805c5ca06213",
+      "bytes": 145392
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/09_v4_geometry_pareto.svg": {
+      "sha256": "e118ecc28bd6617274a9d71c6f1879c715504a9650ce11e77e40bd3a4b935f2f",
+      "bytes": 55327
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/10_real_failure_waveforms.png": {
+      "sha256": "40fee9a5121dcee8ca41d5c584f1ba1c44d91735bee0bcfdd2be25c71b72b746",
+      "bytes": 578512
+    },
+    "results/audit_20261024_v5/figures_thesis_revision1/10_real_failure_waveforms.svg": {
+      "sha256": "bc28e029ce2574d02eb881be8befc2e320770737ad23cae300b3bd908356bd46",
+      "bytes": 79163
+    },
+    "results/review_20261024_v4/final/figures/01_search_comparison.png": {
+      "sha256": "391c690c620c26493a63d42653f7c9e8f928f414d9a797b722129339077b7ade",
+      "bytes": 304459
+    },
+    "results/review_20261024_v4/final/figures/01_search_comparison.svg": {
+      "sha256": "63969bd23aa214d4af8352ac82578b266a824e4d9cc3039dbe4e2e956df05802",
+      "bytes": 127062
+    },
+    "results/review_20261024_v4/final/figures/02_convergence.png": {
+      "sha256": "bd7d7d8d4ce55d7ef55813058b4e48cfc5b0567a9b2062975f8ed40798c14358",
+      "bytes": 121034
+    },
+    "results/review_20261024_v4/final/figures/02_convergence.svg": {
+      "sha256": "5112dc4511dfb974db724fda75737f21a01f297ed62baa095b62929f1b43cf75",
+      "bytes": 84535
+    },
+    "results/review_20261024_v4/final/figures/03_nested_real.png": {
+      "sha256": "6f08785d46f2535bb67c248a18fc5ca58ab5828f194395e9162d955e710aa4ea",
+      "bytes": 242378
+    },
+    "results/review_20261024_v4/final/figures/03_nested_real.svg": {
+      "sha256": "3899d415e1ddaf6cccda515df546e0b3ce712ad9bc1bac2bfbd53cd9c5f741c1",
+      "bytes": 65007
+    },
+    "results/review_20261024_v4/final/figures/04_synthetic_snr.png": {
+      "sha256": "b10aaa0e7c24114ca914c5e48526a9d0f84fd8edbcfe81c02526f0bf43163841",
+      "bytes": 71189
+    },
+    "results/review_20261024_v4/final/figures/04_synthetic_snr.svg": {
+      "sha256": "34576e3b18971c210631dadfe2a0a24665fbe1a3346cfaa55f3b98b663e26952",
+      "bytes": 50132
+    },
+    "results/review_20261024_v4/final/figures/05_weight_tradeoff.png": {
+      "sha256": "0dd8bab63a0ba5fd72df5c9d1aeecf3901ceac98fa2f6a256b19bad2c6facd8e",
+      "bytes": 304275
+    },
+    "results/review_20261024_v4/final/figures/05_weight_tradeoff.svg": {
+      "sha256": "8035bc37166be1b9aaef2ef85b59387209150f02f4f25f8ee55e1fdf8c1e219b",
+      "bytes": 151837
+    },
+    "results/review_20261024_v4/final/figures/06_real_diagnosis.png": {
+      "sha256": "e8eb4a93a6d2c156d334e2aafe93c707949728db57ad653a684f34feaa97d400",
+      "bytes": 108422
+    },
+    "results/review_20261024_v4/final/figures/06_real_diagnosis.svg": {
+      "sha256": "6723dae0071321de3532900450f43348b73ad0f92129b0e7bc7ee3862e83f916",
+      "bytes": 70141
+    },
+    "results/review_20261024_v4/formal/figures/01_search_comparison.png": {
+      "sha256": "391c690c620c26493a63d42653f7c9e8f928f414d9a797b722129339077b7ade",
+      "bytes": 304459
+    },
+    "results/review_20261024_v4/formal/figures/01_search_comparison.svg": {
+      "sha256": "eada347eebabe22674a4cb5549ad46a8930ce6ca032a1a227cd3fe2525d9253e",
+      "bytes": 127062
+    },
+    "results/review_20261024_v4/formal/figures/02_convergence.png": {
+      "sha256": "bd7d7d8d4ce55d7ef55813058b4e48cfc5b0567a9b2062975f8ed40798c14358",
+      "bytes": 121034
+    },
+    "results/review_20261024_v4/formal/figures/02_convergence.svg": {
+      "sha256": "46454e50613d1f145beef445f93f53265918be296bc45fc3bab5dc6d8ee008e4",
+      "bytes": 84535
+    },
+    "results/review_20261024_v4/formal/figures/03_nested_real.png": {
+      "sha256": "6f08785d46f2535bb67c248a18fc5ca58ab5828f194395e9162d955e710aa4ea",
+      "bytes": 242378
+    },
+    "results/review_20261024_v4/formal/figures/03_nested_real.svg": {
+      "sha256": "c57980ae120339d67701b8c893531607e988e231d95c74f004cf3da4ced2e287",
+      "bytes": 65007
+    },
+    "results/review_20261024_v4/formal/figures/04_synthetic_snr.png": {
+      "sha256": "b10aaa0e7c24114ca914c5e48526a9d0f84fd8edbcfe81c02526f0bf43163841",
+      "bytes": 71189
+    },
+    "results/review_20261024_v4/formal/figures/04_synthetic_snr.svg": {
+      "sha256": "5f37c48555781b358f8ef65f6d8c2d5deff1547871bd5030cf3258399425a9ff",
+      "bytes": 50132
+    },
+    "results/review_20261024_v4/formal/figures/05_weight_tradeoff.png": {
+      "sha256": "0dd8bab63a0ba5fd72df5c9d1aeecf3901ceac98fa2f6a256b19bad2c6facd8e",
+      "bytes": 304275
+    },
+    "results/review_20261024_v4/formal/figures/05_weight_tradeoff.svg": {
+      "sha256": "de367120589addbd52f6a7d6569a7059ca6eb82f1d482c134b11838f2559397c",
+      "bytes": 151837
+    },
+    "results/review_20261024_v4/formal/figures/06_real_diagnosis.png": {
+      "sha256": "b8bc465e9a133de5ae757cce9a9e27ac48eda64448594d78b5093a1f158330af",
+      "bytes": 101511
+    },
+    "results/review_20261024_v4/formal/figures/06_real_diagnosis.svg": {
+      "sha256": "fcce546d46a9a339cbf03c35686af640d96d3fdd4e335b55c62047cd3b1879e0",
+      "bytes": 64735
+    }
+  },
+  "source": {
+    "IrrGeometryDesign/CalculateMiu.h": "cf21c9778331a94ef157a2e5e87fd5ce08047872b4659c4035dd7abed067520d",
+    "IrrGeometryDesign/Curvelet2d/fdct_wrapping.cpp": "0351a91d0342993d4c7cccee4ccda175fa93f859aca15b71a3fb74f191419e36",
+    "IrrGeometryDesign/Curvelet2d/fdct_wrapping.hpp": "9970b011b7b34c69f2a1a7e9a1f0418480ed8b579df64be76134d76b80e3c425",
+    "IrrGeometryDesign/Curvelet2d/fdct_wrapping_inc.hpp": "09ec52ba50a671686207707e43099191537756f652e38ec862cb1ec0088a81ab",
+    "IrrGeometryDesign/Curvelet2d/fdct_wrapping_inline.hpp": "5c5b401bc09a26a89fa55ac133cbc75bc2a96c1225c85db9daca588f5cdeb8da",
+    "IrrGeometryDesign/Curvelet2d/fdct_wrapping_param.cpp": "0f05c075d22edf8bc67b100eca32b56906c325451fbcbf95892c19304df1efca",
+    "IrrGeometryDesign/Curvelet2d/fftw.dll": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f",
+    "IrrGeometryDesign/Curvelet2d/fftw.h": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+    "IrrGeometryDesign/Curvelet2d/fftw.lib": "10a41e2ecb2a6d5b1362c5d4ac5d7a4b4721de8329c95f1cac7453e3ae3eb0e6",
+    "IrrGeometryDesign/Curvelet2d/ifdct_wrapping.cpp": "21b6731ce572e096c9186cd5e2a5c70ba870c834330ea988b93b8208b5ebf09b",
+    "IrrGeometryDesign/Curvelet2d/mexaux.hpp": "933f9fed6bd1721b23fe15c0340c7f881900fe4f4e15c6efdb923c15e666e570",
+    "IrrGeometryDesign/Curvelet2d/nummat.hpp": "3cc283501d56d6cfb532dd629215b214f9d855492a36e9cfa500189953aa4375",
+    "IrrGeometryDesign/Curvelet2d/numvec.hpp": "5a0c0c3d2ac6b68c953c361439d5a09bd24036f7b15e25f62a6463bb9690373d",
+    "IrrGeometryDesign/Curvelet2d/offmat.hpp": "2fd5f4140e3848b92d92247e642df46aeded069f40727461d4c50b355b3fe253",
+    "IrrGeometryDesign/Curvelet2d/offvec.hpp": "4794965ee29ab133b31c807d13a0acb67c1b97f391bb7a784a85d58aaa33716d",
+    "IrrGeometryDesign/Curvelet3d/commoninc.hpp": "d808a45f3740fede0c46ca8cc9bd29da923992e3e79e4fbd5e702b18058e9e6f",
+    "IrrGeometryDesign/Curvelet3d/fdct3d.hpp": "a1f5b0d8be61bc392099d22318897e4e5710fc14662f845084959e22a2a6c946",
+    "IrrGeometryDesign/Curvelet3d/fdct3d_param.cpp": "dfe000ca8bebf5214ac961eb2621c6743733488538565abc1779c7bb2f4bc34e",
+    "IrrGeometryDesign/Curvelet3d/fdct3dinline.hpp": "4ed9229ef97a31db56c6fa3a969ee8ef021663a5a64057243c278581ea40a1d3",
+    "IrrGeometryDesign/Curvelet3d/fftw.dll": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f",
+    "IrrGeometryDesign/Curvelet3d/fftw.h": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+    "IrrGeometryDesign/Curvelet3d/fftw.lib": "10a41e2ecb2a6d5b1362c5d4ac5d7a4b4721de8329c95f1cac7453e3ae3eb0e6",
+    "IrrGeometryDesign/Curvelet3d/mexaux.hpp": "340b5f2f101703f0950b6214f5ab2042338fac09767bbd60e56fbc48c67c62d8",
+    "IrrGeometryDesign/Curvelet3d/nummat.hpp": "570bbfb655183f5b9f0bc3267dea7995d0d1e8fd76e7d10f0c487236c6e47c14",
+    "IrrGeometryDesign/Curvelet3d/numtns.hpp": "3324ce0bea69171671f818f5470511f22276d687a72014873ea6c4f379f66280",
+    "IrrGeometryDesign/Curvelet3d/numvec.hpp": "2c91b9636399516a47111a0b2ff0390f50577b8152edab06f058c606dd0a4ad8",
+    "IrrGeometryDesign/Curvelet3d/offmat.hpp": "ede64b2316cf0980953461d09eea6d2697314b27f37c409c00291a4218625350",
+    "IrrGeometryDesign/Curvelet3d/offtns.hpp": "e912484910933464b2658e57b66a6b8e6b6acfc0fe3e2be0c287c8596f4076c0",
+    "IrrGeometryDesign/Curvelet3d/offvec.hpp": "657d6678ec30d50fc20f79853f54d884da2caec2edaa74b4e2be3498893817e7",
+    "IrrGeometryDesign/CurveletMiu.cpp": "a4bd72e126f6d3b5738d92a0831b998052151db538b42238b13b71d8c8505993",
+    "IrrGeometryDesign/DataReconstruction.pri": "407ca807ad1af4b8e096180c8f24a1359722f885f593327aa788e81bee1f4659",
+    "IrrGeometryDesign/DataReconstruction.pro": "8860775e18686e4d9a6ab1a3d2c6ff3788232b33d38a9fd80dec08531da6b7e5",
+    "IrrGeometryDesign/DataReconstruction_zh.ts": "7fa278338a12a1075b87fa28251d582fa971d6964005012c4f9abc34203272f3",
+    "IrrGeometryDesign/DiagMulmatrix.h": "418fd403b89868d9ff105421dd787475b4e7b9593fce846b2b2158f76d9aee85",
+    "IrrGeometryDesign/Diagmul.cpp": "0fe105bbc2f15f252f9dd6b9becbf3a716a98aabc2d84dd487e2f084b7202002",
+    "IrrGeometryDesign/ExpRng.cpp": "cb0c3899dfa30fdb190430245ffe79d9c7f72e4f52abf0da40cb11af3df35d8a",
+    "IrrGeometryDesign/ExpRng.h": "be45b19566cdbb35bcd967d72df48e664c54216afbee40990fe849e45ef6e47c",
+    "IrrGeometryDesign/GeneratedFiles/qrc_datareconstruction.cpp": "45c895f2593b812055d90194d7048615bda53b0202d04762609787f4912cc161",
+    "IrrGeometryDesign/GeneratedFiles/ui_analyzebinform.h": "51827175b60ea1eaa894c64031731f27e3b72b0b8b051f148033db99565c21b9",
+    "IrrGeometryDesign/GeneratedFiles/ui_changecoordinatedlg.h": "059e931750fd713299a02a119c9495b8d9344d861069d615354f86d3318c1a03",
+    "IrrGeometryDesign/GeneratedFiles/ui_datareconstruction.h": "09bcc31e09b73b97e733c70c829ea1de55cf8b633de44fe04a28a51abff87b50",
+    "IrrGeometryDesign/GeneratedFiles/ui_draw2dfrm.h": "d7449ea6dbabce188a626d41fb5529f42445698f4309087f0f4fe78b0735cfe0",
+    "IrrGeometryDesign/GeneratedFiles/ui_geometrytemplateparameter.h": "af60d1cb761ea0bd8ba3a3fdf5fa5e6ff0f95c36f27c4d34af285ed4ce200d63",
+    "IrrGeometryDesign/GeneratedFiles/ui_ovtvolumeattributeview.h": "0875c611d4ebe0a5c677b1162b9ad018d1ffd9427b10d8e0bb6fde9916c359f7",
+    "IrrGeometryDesign/GeneratedFiles/ui_spssampledlg.h": "319ef87b563dffa99c077199a8a8db92dfd798523929550fe9a4af3fc3918d10",
+    "IrrGeometryDesign/GeneratedFiles/ui_tcellgridform.h": "de04ea3247788570994468c34eee14b75fcaf830ae3ec78e41d50908d79aad4f",
+    "IrrGeometryDesign/GeneratedFiles/ui_tchangeshowareadlg.h": "30092e1542a0defe125ee000b4c218010aa1b1dd61cd07091db8c9a220a5ae33",
+    "IrrGeometryDesign/GeneratedFiles/ui_tdatawizardform.h": "d439b637093c2241323d42c594cf1b87296ace5cbd66c4167fded63d3cef906f",
+    "IrrGeometryDesign/GeneratedFiles/ui_tgeometryimfordlg.h": "e7d0f356f49f4493af327586f1e28c3a1908a4abe25de5e2a87bccbe1c4b42e4",
+    "IrrGeometryDesign/GeneratedFiles/ui_tqfdividedlg.h": "d4887f29aa6bd9cd3e8bb92d44b4b508c2a206bc30423cc6b2eb7f1c9faf50ea",
+    "IrrGeometryDesign/GeneratedFiles/ui_trealovtdlg.h": "c0ccf5c862e4c918c310eb1020906a6975d033b20d82df1be9908eaa644dadc0",
+    "IrrGeometryDesign/GeneratedFiles/ui_trosedividedlg.h": "4adc52667e97de834025ad9184d4027c3d6f9a5693199a31acff403ecc0f9cfb",
+    "IrrGeometryDesign/GeneratedFiles/ui_tspsdlg.h": "0bad66d370166e30139e6d72223ce9fc28875113e6982af8482c79d0023bc83f",
+    "IrrGeometryDesign/GeneratedFiles/ui_tspsform.h": "1e0514f352abe7c9c53321f8a874d864b0d16f849591e0929eea5684aa3e0397",
+    "IrrGeometryDesign/IrrGeometryDesign.vcproj": "24ab9738ec8c305f3b6d8ae91abea83f1717b98b4d1b411bca5fd02001c2ae4b",
+    "IrrGeometryDesign/IrrGeometryDesign_zh.qm": "b98a6312657f4c99662d96b2814314bf86d9cd3764c8d91f659fd2a92d9bfc82",
+    "IrrGeometryDesign/OptimizeMiu.cpp": "e46fbafdb1144fc478dee53d82b0c9cfbe102905f38afa85a73f5ebbedbfb3d4",
+    "IrrGeometryDesign/OptimizeMiu.h": "42d8321704356805368707c133a88ee1e215efa9f4ddd82c8f925ce7cf7538ab",
+    "IrrGeometryDesign/Resources/AAVR.png": "0fd5d6a0fe9b0396324276189225138685b90470aa061f113a20e6ec6442d52b",
+    "IrrGeometryDesign/Resources/ADIS.png": "0f59de74e5f036f1e62e867a1ff7f16ba254e82ce5e7584fe26231995bf67015",
+    "IrrGeometryDesign/Resources/AMAX.png": "c34f9d2adb9c0db498ed46764bc095d8313760bb61c021d8f4ebc2ac6359ca5f",
+    "IrrGeometryDesign/Resources/AMIN.png": "1bc893aad4bd92312cbee0ed0089abdad92d1cfde62c3ebf8e184cbf5f03eac2",
+    "IrrGeometryDesign/Resources/ATOL.png": "9348681d8c6235430a9ceb08c4bd6872eac3ea0f3cb8a9ec1a714bae224ee8e8",
+    "IrrGeometryDesign/Resources/AzimuthNonfor.png": "4a589324715659de1b37dac8a692ddb7ad7f3286b51c902f3af0e87f6bebd22a",
+    "IrrGeometryDesign/Resources/CSQF.png": "e3895dcd1d3fe89502d65ecd44ea5726c40d2514bd3887ce7fca03bbe42fe696",
+    "IrrGeometryDesign/Resources/GeometryAT.png": "9d8f6ed5678f86ef3b8313d123838913f78298a7926bb1a5ae2b88bcdf66a41e",
+    "IrrGeometryDesign/Resources/OAVR.png": "430048fe95194568a7cbed87a2c84045022f2bf806a2a9ae7706c1063084cff4",
+    "IrrGeometryDesign/Resources/ODIS.png": "9be1c4f3cb383523cdc31431fde9967029f1f6b040fb35b9efab1550ef075c96",
+    "IrrGeometryDesign/Resources/OMAX.png": "63e968bed21be4d10d5854b8828573c2ab6db561e9f2e2a992649a8cfb93b88f",
+    "IrrGeometryDesign/Resources/OMIN.png": "d355829d691013a4db300bd2e312dfd5b678c0124a06a5ba1b02a513a239f0dc",
+    "IrrGeometryDesign/Resources/OTOL.png": "4dc8ce19a27c1e4eab9bc0231f0077955e89df8f582fc6fafac0e45b48dbee78",
+    "IrrGeometryDesign/Resources/OVTPT.png": "e0db95f5b3cddefd8dd9d30325a326d620bbba78508727b4b8a6c834602e6960",
+    "IrrGeometryDesign/Resources/OVTVL.png": "31c097b443df640b193f67c82ed9bac45e0256705034e8a0e0928cb8cd62ba67",
+    "IrrGeometryDesign/Resources/Offset_Nonuniform.png": "9d711d704ca9a63db12661c6c3d8c782bac935c8232401fcfef9861986f42686",
+    "IrrGeometryDesign/Resources/Surveyinfos.png": "c52ca659e7c5ab8bc119d3bbf809fd6e0bc724eb6e5395e2ae0023b2e5addef7",
+    "IrrGeometryDesign/Resources/azimuthVStraces.PNG": "0ea81c2d3c776d44189917f6439879fc37173231245e3f52b6f84b03cd17d43d",
+    "IrrGeometryDesign/Resources/binfold.png": "94a4fd29e5f9a846b82d08928920fc595eb4b79998ed248050a20c6c94ae2aad",
+    "IrrGeometryDesign/Resources/editshot.png": "2cca26a06020b420f19819a459972ab290b663aba4338fa42d43d9abf4db69ac",
+    "IrrGeometryDesign/Resources/filesave.png": "9d0c54fe0b78ad853edde3f70b45053e9745db9efd99114e3a9cc43bd123ff45",
+    "IrrGeometryDesign/Resources/foldVSBINS.PNG": "4a23b56112c4b78978d95095f713ebc9905bf35dbb0c9889ab064e4f811e78bf",
+    "IrrGeometryDesign/Resources/foot_factor.png": "7709cf4230eb2ab53ca93add63126ff7f5f2f018f117f9c20c0d27ead6d581ea",
+    "IrrGeometryDesign/Resources/griding.png": "b96ddab752d2c3c46078101c6c5cea254efc9bf749ae9d8f44a7839bc197e479",
+    "IrrGeometryDesign/Resources/mouse_zoom.png": "0a615a41cb84a72cd1a3900573f6f8de3923227b2265e252c542e61c2c91c7d4",
+    "IrrGeometryDesign/Resources/newsps.png": "8890e255510797f143aaadff4ec9fe9ef705e88be5577296c2266f607826a4f0",
+    "IrrGeometryDesign/Resources/offsetVSfold-bins.PNG": "9807e35253643374c61b613220fe4f052c2160f175632f13ac9b4a26779f7861",
+    "IrrGeometryDesign/Resources/offsetVStraces.PNG": "82ed7d04225eb10c2630f3215de1e1a4e1a19541d4b7aca6d6cf3bfc745feb75",
+    "IrrGeometryDesign/Resources/refresh.png": "eba046140e23838218aee6cc6359ce5d2dc9a8d5c9af6d3dd3e472a4f4d7f627",
+    "IrrGeometryDesign/Resources/rose.PNG": "1be3c61713305e47cfa1b932ae370831bcdae03be3a4fc3073ca5b68e3281851",
+    "IrrGeometryDesign/Sampling.cpp": "95a8737757ad365af4a28b863ccc86550ed9296f11899ce62fcb902b77920d5b",
+    "IrrGeometryDesign/adaptivesearch.inc": "77f6af1baba97ab9233b32f7a792f058e4c97a6010bdf03f877ddf3b7168822d",
+    "IrrGeometryDesign/analyzebindoc.cpp": "3da5bf9276a67c021052856e69d81914403109ac5b81eb8a6a20270a75988722",
+    "IrrGeometryDesign/analyzebindoc.h": "ed9296990b004db4bd6d922d6dbc8530305e9055a413e15e63f3068b0c1eb85a",
+    "IrrGeometryDesign/analyzebinform.cpp": "fcec446c2ef6b89d1be9137ee61cb7ba6a47c54d6c5cb27ea39a359b5034925d",
+    "IrrGeometryDesign/analyzebinform.h": "5e618a8985be5ab960fbed12f921508c45417ae50a941e253bb6fc1e9f3b418a",
+    "IrrGeometryDesign/analyzebinform.ui": "bba0d4a87eafa59866a5d2a7e7cd1a6ad1d9c432f82ace6d0b2a704771145213",
+    "IrrGeometryDesign/analyzebinview.cpp": "a48e5c0c3cd6ae8db26d6b980f0bc056fc3ccaaf059073669371681274283d5d",
+    "IrrGeometryDesign/analyzebinview.h": "8c0d99ff631be112ca2c7467914178749f08fd8d5772fc37abbb62c86c356e33",
+    "IrrGeometryDesign/auditqueries.inc": "3ee170b3e4c3f9c46cfb62ab0eacca987f132609573790ee7a47e9038ec01ce0",
+    "IrrGeometryDesign/baseclass/gmath.cpp": "1cc1cece40583a6a9c1a44db0295cb1a71c16371d9bf28f7cedcb474f4379f18",
+    "IrrGeometryDesign/baseclass/gmath.h": "5de677bc9360c94e3de600e561d5cda3cb6c5139fabbd95b750393a934ba1396",
+    "IrrGeometryDesign/baseclass/gmatrix3d.cpp": "a92b423fd5ed9af3f90f824758b41c7387492e76411e42da44392e1e10bd5a04",
+    "IrrGeometryDesign/baseclass/gmatrix3d.h": "cf21641588d92737b953467e23fb1e06ceb7c83ec685750a9858181b2650fd98",
+    "IrrGeometryDesign/baseclass/gpoint3d.cpp": "73563732364c613bae82b1243dc1ebc4857e813f31ece3b8b02098591f621aaf",
+    "IrrGeometryDesign/baseclass/gpoint3d.h": "fd420324c36a04e5defe06d44c779e08918a75e6c96c6bab2e88a68ae9aeab6e",
+    "IrrGeometryDesign/baseclass/gptrvector.h": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+    "IrrGeometryDesign/baseclass/gquaternion3d.cpp": "c817ac35b3a0510d490e955a55572ec5d08ed17a4ee4cbb533ed62adc4d51ccf",
+    "IrrGeometryDesign/baseclass/gquaternion3d.h": "d286bffb0574c377f35f490ff198460f44c492ddc83cc19fd482d27f41c3410a",
+    "IrrGeometryDesign/baseclass/grotation3d.cpp": "100ea72cb3de3a65ad4fb7711a4c088323e05b4c6ba7e2522ef78d601e7de9c4",
+    "IrrGeometryDesign/baseclass/grotation3d.h": "d1c17da8d2d20c152b8f535604e934a2da0df52eef7838b80d7fa38a6cf09414",
+    "IrrGeometryDesign/baseclass/gutils.cpp": "626edcb4747b8d1031e4e48ea034fa95af1a16bfce723202ec5cd8ed06d624ce",
+    "IrrGeometryDesign/baseclass/gutils.h": "332a5710a0181bf82926af7ed0d6f44284a9dbfefddea6650c4a4a1c82b9aaa0",
+    "IrrGeometryDesign/baseclass/gvaluevector.h": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+    "IrrGeometryDesign/baseclass/gvector3d.cpp": "ba611e90680a499b7975234f05e50b1f27514d3c9e6b009c643703e60776e09d",
+    "IrrGeometryDesign/baseclass/gvector3d.h": "ca2456c3d070a56879f3f63dead6f625c8f1af67b1905876de6378494d5cf3f7",
+    "IrrGeometryDesign/changecoordinatedlg.cpp": "62b4e1b7e1212a1390bb4d59b37583dab39e2ce80b271da34e7b84ba8606b392",
+    "IrrGeometryDesign/changecoordinatedlg.h": "b96e88b159fc1eb9d727a903d8644f2f184ecf56c94bd9c0c5e3f6f01722db4b",
+    "IrrGeometryDesign/changecoordinatedlg.ui": "1cea08769bba1bac02780652e3d8c6e1ee9117bda13bedf03eb28189f2c8cfdf",
+    "IrrGeometryDesign/colorview.cpp": "e22f3234bbfd225b95d511ec535591997cc43f627356d1a65b0b6b8b52b1439d",
+    "IrrGeometryDesign/colorview.h": "3a1c0af06935b5080cb616a0ebe793f02a4cff6e0eaf9df22eb3f6c0efb636ff",
+    "IrrGeometryDesign/coordinateholdout.inc": "159b21fb70306cf77efb126d61b6a58e553b8e1e13b9a60697a168504aaa3f95",
+    "IrrGeometryDesign/datareconstruction.cpp": "3a6219d2c237d4f2696d4952e2657d0124af834863e57d53f6af395908662af4",
+    "IrrGeometryDesign/datareconstruction.h": "282a09d56a8eacf289ef56b383aed791fdb6d22cb65da000b35a7de7d011fe18",
+    "IrrGeometryDesign/datareconstruction.qrc": "57ef6f0075e6c506ca45cf3c08e274acaf0f38500ea8302d28b87667735ea238",
+    "IrrGeometryDesign/datareconstruction.ui": "b39eba9f994aa4213dc10715e3c36fa6d9639bd9360efe544da56ff258006786",
+    "IrrGeometryDesign/draw2Dview.cpp": "f31670e80083def73c5225cea7fdf2d4fba6380d7a8d756e54b2a92060cd5553",
+    "IrrGeometryDesign/draw2Dview.h": "a6bdb9a23cda83374665949d61bdf037078623fe4233c1271c38e626e7c21a62",
+    "IrrGeometryDesign/draw2dfrm.cpp": "b259a1c89c9f2683685e868120c26e7a4aa1c12563a35fbcc0f3ae3f9c8f4a99",
+    "IrrGeometryDesign/draw2dfrm.h": "20f334bd6587e42435bdde811e301bed82725df9777050f5df598091701a09dc",
+    "IrrGeometryDesign/draw2dfrm.ui": "67d73366bec46f47aa469d770e58389de4a36217f7adb7e376fe6416b195dad7",
+    "IrrGeometryDesign/fdct_wrapping_param.dll": "07388f9624270e2df9b126ab28ee5dbb3fcdcf18e144543196613dcea53af3ac",
+    "IrrGeometryDesign/fdct_wrapping_param.lib": "c77f61db5e8f0507be57b87e8451c2be8edea467afdce10cb7ff31c9b8ddaf48",
+    "IrrGeometryDesign/fftw.dll": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f",
+    "IrrGeometryDesign/fftw.lib": "10a41e2ecb2a6d5b1362c5d4ac5d7a4b4721de8329c95f1cac7453e3ae3eb0e6",
+    "IrrGeometryDesign/gAttrAnalyzeParam.cpp": "9163e7467c9bd4b9651c0028b0eb62d0a168a74e6f9610a22357dc31c3f92991",
+    "IrrGeometryDesign/gAttrAnalyzeParam.h": "16c05e0636058e144c79ff136808ebd6b5f9cafcb28e9f894f9e1e33d2793f20",
+    "IrrGeometryDesign/geometryexperimentengine.cpp": "93a50430684975e13dcbf08c27835521b0af516d82fd6ea0588ceb94985ed6c9",
+    "IrrGeometryDesign/geometryexperimentengine.h": "c1836fbab5426a31d55aba68d5c5fceb129550269bfad205f03be44c6a2ecbed",
+    "IrrGeometryDesign/geometrytemplateparameter.cpp": "9d73824c29cecc8bbeabb162b69f54a4cf014b4a0df35b455e152bc3355bec93",
+    "IrrGeometryDesign/geometrytemplateparameter.h": "5fd5d7df127d1cf42e94bc13e32eb4ba40da4b79bc5651d358f4c383ff1055cc",
+    "IrrGeometryDesign/geometrytemplateparameter.ui": "569941dc850e7c72469b413e581c863b47f9f2ea802dabfbece8b28cbc23eeea",
+    "IrrGeometryDesign/libfftw3-3.def": "e666cf0abd5d00f934d3986779c28b5339523a51435cf854b0dfa1598fe25f23",
+    "IrrGeometryDesign/libfftw3-3.dll": "001a835d2f25ac0661580d67db5622157c28481c06a7f3ef45ad939839bf54a1",
+    "IrrGeometryDesign/libfftw3-3.lib": "75efa11723fa4b914668592d530f613b426b22d488ebfca3aa8b586bbb1ebbc0",
+    "IrrGeometryDesign/libfftw3f-3.def": "86cc4e9a9d4ca0ff117934c202fb8371bdf2373c48431dc94976a50f802caa27",
+    "IrrGeometryDesign/libfftw3f-3.dll": "42ca18fff35dd12890e04478bc990005b3969cb744f6843976bd436ccd7f0a4c",
+    "IrrGeometryDesign/libfftw3f-3.lib": "40689e0e155507291ee916c179b5e63b175b9910e4ee0836ecec98e7f72c3a92",
+    "IrrGeometryDesign/libfftw3l-3.def": "ca0d48140544cd61a30f4bb821fde47999ac07cb00e3ac7855854dcf1c0a280c",
+    "IrrGeometryDesign/libfftw3l-3.dll": "ce78fcd1866e7a5ebec3fdd50b3c7cd58c738059d16877ad01649b725bb72a9a",
+    "IrrGeometryDesign/libfftw3l-3.lib": "e8ae129edd37f786f6c49a3319736500021d23bfc472d97ba5f6242ed8a062de",
+    "IrrGeometryDesign/main.cpp": "e09aaee45b484d60969d93dae667c06722e602222888cd3395fdb7264fb5f278",
+    "IrrGeometryDesign/ovtvolumeattributeview.cpp": "05b519984f50f96c50c1720ddf59df7ba95d862594a6b4f87013200540321646",
+    "IrrGeometryDesign/ovtvolumeattributeview.h": "1cc69aa8aa77b2b0558a65c41bbc5e8c3b6340bd511fc2f529adee565ede44a4",
+    "IrrGeometryDesign/ovtvolumeattributeview.ui": "89649e78dd07a5451b5b0a74858a791ec1ed53dd0239cef8ab340a1fa31ca2a0",
+    "IrrGeometryDesign/qcustomplot.cpp": "592ee3226b23394a4fe649dc41b82917937260c31618e38b83b7c7908c6761dd",
+    "IrrGeometryDesign/qcustomplot.h": "d843d0c43af78e0dbb227d42a1d48bb4e56334ee3a4930551a6305fecdb09f8f",
+    "IrrGeometryDesign/reconstructionoptions.h": "710f16aaba8b133d7ec149a5b4f0cb4d76e86f494e3c9ebd7bf3611b04feb9c1",
+    "IrrGeometryDesign/reviewexperiments.inc": "836097dbbd4425a223db37a2a1abcc6f2ac09f1f570e6f3919281730694d80db",
+    "IrrGeometryDesign/reviewregression.inc": "5f5b39c8dd668cb12b79b8bb08710e8092c2143d2ad648cda884325fdb53876e",
+    "IrrGeometryDesign/sample.h": "60dfbf5346bfcfd28210ec096c3e516fcde9c426fb3e4c4ffbba73ffb619a9a8",
+    "IrrGeometryDesign/samplingstudies.inc": "37416c91a1512325111ecd8174ada4537521dba04feb025ef7c408ce31bee0a9",
+    "IrrGeometryDesign/scienceregression.inc": "9894da191f894bf102f9065027de6fdc24da071e2a78d77098725ff5518e9671",
+    "IrrGeometryDesign/scientificplotter.h": "6319c8779e28118b10e0e649c91791cef1cdd7165326b36b46f936cfd0a22221",
+    "IrrGeometryDesign/spsloadcal.cpp": "9ea2f931bdd85b1cc5e7a5f6035cc44257f2040ef2000bb7a5f890ae6c4cbb29",
+    "IrrGeometryDesign/spsloadcal.h": "735748721256b9fbc65fbd5863c193f30260d6d16896a6f775150986de257a23",
+    "IrrGeometryDesign/spsmaskbuilder.cpp": "eaca63c3ab8e9ceb01216ea638e839b4d3512a00783bc94e9ad23b2f0727e871",
+    "IrrGeometryDesign/spsmaskbuilder.h": "3a5c3855dc158b9630646d5063acb982e35b70f4fc8d4838dca3b0b9e5f4e93f",
+    "IrrGeometryDesign/spssampledlg.cpp": "4cf1896ba204be9038f3b56aa0fc87d8142647f82e823a7cdbec9d250284851e",
+    "IrrGeometryDesign/spssampledlg.h": "0925229622d015d35eeace7da7c70a8127eba6cee8ae8ecbc7b88222bb723bc2",
+    "IrrGeometryDesign/spssampledlg.ui": "5e217c7dc22ef720f8c959703368789a0c5d4ed2c3b4f658fd12cf032f3c1927",
+    "IrrGeometryDesign/spssegy/gcmpset.cpp": "33ea0a45de3b4d84f0cf2d2d3f9615104711309d36d05d340acf7973a67e9cc6",
+    "IrrGeometryDesign/spssegy/gcmpset.h": "5f3a18fee426214cda80de2abd28761f7a241b39043be60813ddf6743c0c3751",
+    "IrrGeometryDesign/spssegy/gproject.cpp": "0a976cc96f27ee74b743338b7e4694ecf102079920e942ae0d5488aeb520fa5d",
+    "IrrGeometryDesign/spssegy/gproject.h": "a1baedf989fedfbca3c74c97c3ea0f7ea0d90f934e196af243100554a060701f",
+    "IrrGeometryDesign/spssegy/gptrvector.h": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+    "IrrGeometryDesign/spssegy/grlineset.cpp": "fb4bf9621601fc91eeb54779c7d99f19245db502ff84eeff0e25de52d8e60299",
+    "IrrGeometryDesign/spssegy/grlineset.h": "d3c85fa71e93af3b43a39a35850179cac9171f50e7ab315a5a0a3fbfc434346d",
+    "IrrGeometryDesign/spssegy/gsegyfilescanner.cpp": "a93c1bb1e79fcc78b64b151b4eddb74fa2f1ab25fa46b8f208746b0a837145b9",
+    "IrrGeometryDesign/spssegy/gsegyfilescanner.h": "cce50bf6a6fcf4b44a1d04d2314e18bb42a7a77b7ad742ceab632526a26b0576",
+    "IrrGeometryDesign/spssegy/gshotset.cpp": "76055b44c60a1597935803bdd0766f5ab71deb01e633dbbd054b15f76fa99f5c",
+    "IrrGeometryDesign/spssegy/gshotset.h": "ccd0f12b970423430fec1f50965b42e9625d871f24bb351ed0ac9d6ad3bc5c0a",
+    "IrrGeometryDesign/spssegy/gslineset.cpp": "8314066922681abd493f4ce8c475ce0313d6ea6e6292bb0c857a44bf5457f698",
+    "IrrGeometryDesign/spssegy/gslineset.h": "951ed0a106d375369f94f62b1e1a06dc1a54a746601b5f95a246ec830850b332",
+    "IrrGeometryDesign/spssegy/gspsscanner.cpp": "2e56e1dfe6bab5f52d1f8aadc48d134bc3cf35edbf0cf1ebc083f2a8a5bcad76",
+    "IrrGeometryDesign/spssegy/gspsscanner.h": "71b033c7bdb77c20de3f06356fac29ab5204dc63fe35c8babfc3e63e93c255ca",
+    "IrrGeometryDesign/spssegy/gvaluevector.h": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+    "IrrGeometryDesign/spssegy/segyio.cpp": "481e683c84903c314588f71ff4c715aa34505e14a91be90b2ff6a6665db6323c",
+    "IrrGeometryDesign/spssegy/segyio.h": "2e0b383ebd1ec908e42661095ba081bb27d82580fed04f8287db566488c8cd63",
+    "IrrGeometryDesign/spssegy/spssegy.pro": "8452aef02f73f2e9235bf3793e9e95b47c79899607b77e7ab147b5ae47251470",
+    "IrrGeometryDesign/spssegy/tdatawizardform.cpp": "cfd432799c2c497e0f4923bb8b3a3da1f74ff0b541f56033b9832cb16af1fdf2",
+    "IrrGeometryDesign/spssegy/tdatawizardform.h": "819823f9cdc34055c7f153f11542cbfb5c3d62f8edb391c178f38e86209860f9",
+    "IrrGeometryDesign/spssegy/tdatawizardform.ui": "5fb0c9c9f48c0f9657584133f1fb9800e7e3f4db123a7e97c8b875b944715dd3",
+    "IrrGeometryDesign/spssegy/tdatawizardform.ui.h": "4ff2544affee9e01a0d468ffb9f8e076db1f78ecf429200a4bb6fbd4f48efeaa",
+    "IrrGeometryDesign/spsshow/gcellgrid.cpp": "f00ce9b25a18382df253a16a7ac693db4b83c1ba8231696ece54c337f2a00f06",
+    "IrrGeometryDesign/spsshow/gcellgrid.h": "e80557259375c70947d81d12b302b37b0f6fdd184fbb70564c0f251f055e1db2",
+    "IrrGeometryDesign/spsshow/gspsparam.cpp": "8c1be3a03fe3227834d70ceffd1673b986af5cfb0934ff540acb4a8722f134c6",
+    "IrrGeometryDesign/spsshow/gspsparam.h": "7812940e26543e9f08d9423f784e3ccf20f094701644fb3eba1904f1157ccf01",
+    "IrrGeometryDesign/spsshow/gspsview.cpp": "d43d2802ac56046dc26e5a9d5a4952772139c1fc2cb0b87fbc758e80ac6ec1a3",
+    "IrrGeometryDesign/spsshow/gspsview.h": "eacfcca02639093065bf2f2992f5f306ce9d344da66641fbb810ee17c1dea3cb",
+    "IrrGeometryDesign/spsshow/gvaluevector.h": "2a81e2c7ea93a4df81bc21d47ae3f30097979d938fa9d5e5b74a315d19c7a41c",
+    "IrrGeometryDesign/spsshow/tcellgridform.cpp": "d871cb5eaaa5802e3ce0b05462503e94dedcf0f068b964cb41d5616abe04918a",
+    "IrrGeometryDesign/spsshow/tcellgridform.h": "c1cf3ecff9db8e153b47d4c4fae3d0906d3233123c2426faeb0059049c3257f8",
+    "IrrGeometryDesign/spsshow/tcellgridform.ui": "0fab25022ccacc6b7b4bccf34ad4cfcd2a7ddcb2df1f6421f661b55e265951b8",
+    "IrrGeometryDesign/spsshow/tspsdlg.cpp": "6a1fbe896924e59bea82ad0ed7a33120fb48181d5c9837ef37cff3e845eeed9c",
+    "IrrGeometryDesign/spsshow/tspsdlg.h": "2d83390383bdd6a92c20afc6db424d65d86afcafd0ed3d7f122d64522cb8b678",
+    "IrrGeometryDesign/spsshow/tspsdlg.ui": "ea31048a97f9f54042d83362bb961246538a4fbd7cd961901ab038c5df71e080",
+    "IrrGeometryDesign/spsshow/tspsform.cpp": "9eef53d44ea04298039da627dfdc17eca94b903ee38aa12bf3bf4897f72458f4",
+    "IrrGeometryDesign/spsshow/tspsform.h": "1678df2a7aa024ab20e1400a105da7415570f5ea05bd2846d8342927794617ae",
+    "IrrGeometryDesign/spsshow/tspsform.ui": "f576b44f4feec1f293d67dbe7bfc3894cb160d42fba16f5bb11aeccb3dc270d2",
+    "IrrGeometryDesign/tchangeshowareadlg.cpp": "35938d582c959bbb8c9b1c36fc7e26b7b074cdb013cf165a1d8fe7a4487adf21",
+    "IrrGeometryDesign/tchangeshowareadlg.h": "d3c0e71932cda04c505cb60aa1b9a6c8b7559b35f404986ddd94504e5d97fd2f",
+    "IrrGeometryDesign/tchangeshowareadlg.ui": "2b3216730f122669282a9de0a34bf1ac856ab6c08195f89886dc26af1f645ebd",
+    "IrrGeometryDesign/tdatawizardform.cpp": "26ef4e1502fcdb63a439a64db76c3747db1b8bcb742fd30101f95f3b919959a4",
+    "IrrGeometryDesign/tdatawizardform.h": "3c4c5f5ad008c7d8c6e9e0098b021ff157c319f6b5c811cfa4630faf1818385d",
+    "IrrGeometryDesign/tdatawizardform.ui": "ba5835543718a03a8473430addf288bd7c20f60aca3034271cfd3b2e425237e3",
+    "IrrGeometryDesign/tgeometryimfordlg.cpp": "a4f08bc065e382688a256c0b203d7658f3bf131abac8a73630a05ee09cdc54a0",
+    "IrrGeometryDesign/tgeometryimfordlg.h": "dd31164d303b80a3e4d46ccd204c59d2bf412feb6b7a4bc08067875da9b0a0f0",
+    "IrrGeometryDesign/tgeometryimfordlg.ui": "24e1910983d8699f394c7df6805af6c97a163cd05ba39ba147c10b7f75c7a820",
+    "IrrGeometryDesign/tqfdividedlg.cpp": "c1f1886fb242b63c84607635a3a71cc8fa155c6d0cd8426af7164bed8a4e2e02",
+    "IrrGeometryDesign/tqfdividedlg.h": "3617a336a0b462a4952c918522b2f70b1e26b94c9dfe4d021bdb1a509aaa43f2",
+    "IrrGeometryDesign/tqfdividedlg.ui": "8b7cc8a0a56707b20b05cacbfe5bb30f817dd708e6e586b827dbc52127fb179f",
+    "IrrGeometryDesign/trealovtdlg.cpp": "30a2e23eac84d70a900f7f662e679801c7c9d561ffee875735418b076efea407",
+    "IrrGeometryDesign/trealovtdlg.h": "1aa415bc5801ace9b50ead54e9e046f8a06185e0ea7c1f0d2d476c731a23d5cd",
+    "IrrGeometryDesign/trealovtdlg.ui": "fd66d338d66f24e13960a165dc6a4f0dd24763b688471f4291f69239dc2598b2",
+    "IrrGeometryDesign/trosedividedlg.cpp": "d9cb2278020262ca2f2fa09f103ea2f78ee68b2c53d3673736bf0cf32ade41b6",
+    "IrrGeometryDesign/trosedividedlg.h": "ef604ef1df02353354d2a7b9afd9e117d2cb1d0f0924e47edbe2b8c9e5c9834a",
+    "IrrGeometryDesign/trosedividedlg.ui": "1a79e6d0ec07314eb9c488b0cbba21cbe9a1a16cc0aee4e63fd68437c6b9fd8e",
+    "IrrGeometryDesign/tt.rules": "645e270e42ef78044745f93465e3b81a75a5ff5fa64f49a21d65f23d23e92136",
+    "tools/ablation_stats.py": "f781f5aa0d490946db72fa7467148f358f4b0a83c23c64b7a6fb928110a4e7f6",
+    "tools/audit_change_annotations.py": "71055b12e3bd12ac695347f446331b66ac2df480e9fd997178eff3de1e3fa334",
+    "tools/audit_joint_studies.py": "31c30058e6d6aae49aa3c9fab440b46066167e4a3ed992fc15c9b08918528d6a",
+    "tools/audit_numerics.py": "55058f676939c28d8809513607a2b3677bcb04564a8dcb711dc23c0205349a98",
+    "tools/audit_preprocessing_isolation.py": "3e2629dddb2e077d30e55d0a8f3e6f1faabbe3ae7f9c9c06e661a16be1c77086",
+    "tools/audit_projection.py": "cfbe2b9cf13ab5d4f7e24672ff73bf6b419c8dbb950f331e5a3c524ce5c2904f",
+    "tools/audit_real_gather.py": "d87261930590840c22c1acf301413b6273568558dd1417d535af8a8279e870ec",
+    "tools/audit_segy_bytes.py": "3cbb2e4ca7381ece4e22eb00a80999b1af27e51e2de3a9562be6eab82a6893fb",
+    "tools/compare_masks.py": "9f6a6f2d48605ba49bb6bfa471cffabd01e8361f3ea029d9e48ff16a28e55239",
+    "tools/convert_rraw_to_engine_csv.py": "f4f6a5be54a77fdc2b36873f84b6259d8d22852188808c3e5cb3a21686aaa1fd",
+    "tools/fdct_roundtrip_probe.cpp": "31f39539a16db6af9899658668dd41d999eb1ea9131eed91fd6d8a0d13e715c0",
+    "tools/finalize_audit_delivery.py": "7efd1235f889b803e43fdd1db699c5e6519e9ffb06510836e15314da62e8435f",
+    "tools/freeze_audit_runtime.py": "d43d59419c4679a49f607a7c37ec32342b24a1b1073abc1be60ee39083e523b6",
+    "tools/legacy_codec_regression.cpp": "3bd1173ac80766e6b006348911fef7742b4f9863c2fdc5111f0550f03c21642c",
+    "tools/make_59x256.py": "53e74aa8ef6369da7f52c49bf7aceb492b33c2a8604dee64dd68b4a933561b27",
+    "tools/make_audit_reports.py": "b1726ba22c932b1886e7afc830b803ad47f7f3858dd84ce591fd488da5424ce5",
+    "tools/mu_properties_test.py": "e14f273bf570f38d4346a87e21480d191f6b7b946c51e854d29f622f2d1cb1a8",
+    "tools/render_audit_figures.py": "d66ac725fe06c9ab8f47674e483e0d916e3cd5602a08fa3a7611bab447fc485d",
+    "tools/replay_audit_science.py": "84415a5025ecd3c5e4d0befd3806184713bbd25361f4a099f4954e3c9dcf1835",
+    "tools/review_diagnostics.py": "7d96fc7bea69317736dbb10c0a68dd7e43745135530dedb79ba20b3c43dfb8b7",
+    "tools/review_studies.py": "274be886a05c21ccad00283e6ca8e866f5684353c1a2f568b65092ea36af73de",
+    "tools/review_window_study.py": "75182fce1a9a753e82faab1744707e466489e32100c6a45c3943ca99f7679f7e",
+    "tools/run_audit_checks.py": "6303df5d98bad12ca6d8a918bdf159e37eb7d6154e559fadb4e488cb263f45af",
+    "tools/run_fdct_probe.py": "320898d844b6ff88d8b81f0802670251cf3c2fb003bfb72a01051f7dcd4889c9",
+    "tools/run_legacy_codec_checks.py": "896503f7dab94ee00b74208543f9b037bb31b96f866c6049821818c441cd1518",
+    "tools/run_revised_studies.py": "56ab9f968a1b51eb3406c70d095143a521a76f011afafc070ea64f801fe1e095",
+    "tools/summarize_audit_v5.py": "b672fb9dc2e7d103accfbefaea907af8679f9b7ff4e357435fe5784aee833d7c",
+    "tools/summarize_review.py": "2ed61e9e72bfa08c1e4633310f4060ddc4b8e250c74eda1906f55ce5b189ad3a",
+    "tools/test_audit_v5.py": "889a1cdb7ab688400337ef3964c4a9750e1decafa80ff5b25ca90256b9c9bbbf",
+    "tools/test_review_science.py": "44eda986dbaf20162f33a3c195de86feff8ba30be23b656165127bf8649b129a",
+    "tools/test_science_tools.py": "3dab9a2342dc8003bc9cbd93c8c8d674b696e83d13ee406c8de1745de766e381",
+    "tools/verify_audit_summary.py": "f0ec482fbc4a8368574ff514d4550e28def0186cc38631aa522e6e47f5d87daa",
+    "tools/verify_audit_v5.py": "fa8a8d811c5dd385df3d0fb597a4f3f8f5693043bf327720bed6148c8b627f44",
+    "tools/verify_review_results.py": "4f20372722ee0b610352fe7e5eb8338c4ffc633d2b2b890c8438638b1f1a9ba2",
+    "tools/verify_revised_results.py": "6f4a3e63d353ee5bff05c28480d6cd7bb839657182c572fc1c078ca03c970635"
+  }
+}

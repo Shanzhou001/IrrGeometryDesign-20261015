@@ -59,12 +59,12 @@ v5四阶段：2344步，10180个原生输出哈希通过；其中1104条恢复�
 所有原生命令和输入/输出哈希保存在各阶段manifest中。主要入口：
 
 ```powershell
-python tools/run_audit_checks.py --build --out results/new_validation
-python tools/audit_numerics.py --out results/new_numerics
-python tools/audit_projection.py --out results/new_projection
-python tools/run_legacy_codec_checks.py --out results/new_codec_checks
-python tools/verify_audit_v5.py results/audit_20261024_v5 --runtime results/audit_20261024_v5/runtimes/v5 --report results/new_frozen_verification.json
-python tools/replay_audit_science.py results/audit_20261024_v5 --out results/new_replay
+python -m research.validation.run_audit_checks --build --out results/new_validation
+python -m research.validation.audit_numerics --out results/new_numerics
+python -m research.validation.audit_projection --out results/new_projection
+python -m research.validation.run_legacy_codec_checks --out results/new_codec_checks
+python -m research.validation.verify_audit_v5 results/audit_20261024_v5 --runtime results/audit_20261024_v5/runtimes/v5 --report results/new_frozen_verification.json
+python -m research.validation.replay_audit_science results/audit_20261024_v5 --out results/new_replay
 ```
 
 完整重跑研究使用audit_joint_studies.py的search/joint/real/timing四阶段，各--out必须是新目录；先冻结协议和匹配程序/源码，计时阶段顺序单独运行。

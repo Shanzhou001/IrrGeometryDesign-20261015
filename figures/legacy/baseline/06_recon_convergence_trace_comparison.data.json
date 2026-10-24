@@ -1,0 +1,12 @@
+{
+  "input_sha256": {
+    "results\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "bc199bbc7f8021d23adf0eba4d47142d4e95f59780b72a8deb2fb58b3dda6f92",
+    "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+  },
+  "source_mode": "current deterministic replay; original matrices were not archived",
+  "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+  "replay_max_abs_prediction_difference": 0.0,
+  "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+  "hidden_snr_db": 10.89820382319636,
+  "trace_column": 64
+}

@@ -29,7 +29,7 @@
 论文材料入口：[方法](THESIS_METHODS.md)、[数据](DATA_VALIDATION_REPORT.md)、
 [算法](ALGORITHM_REVIEW.md)、[协议](EXPERIMENT_PROTOCOL.md)、[结果](EXPERIMENT_RESULTS.md)、
 [验证](VALIDATION_REPORT.md)、[贡献](THESIS_CONTRIBUTIONS.md)、
-[最终图件](../results/audit_20261024_v5/figures_thesis/index.html)。
+[最终图件](../figures/research/v5/index.html)。
 
 ---
 
@@ -125,7 +125,7 @@
 
 ## 6. 论文材料与后续重点
 
-已同步 [README](../README.md)、[方法稿](THESIS_METHODS.md)、[实际结果](../results/review_20261024_v4/final/RESULTS.md)、[统计与表格数据](../results/review_20261024_v4/final/summary.json) 和 [六组图件](../results/review_20261024_v4/final/figures/index.html)。原始与历史材料保留，当前代码尚未替代完整论文写作与文献论证。
+已同步 [README](../README.md)、[方法稿](THESIS_METHODS.md)、[实际结果](../results/review_20261024_v4/final/RESULTS.md)、[统计与表格数据](../results/review_20261024_v4/final/summary.json) 和 [六组图件](../figures/research/v4/index.html)。原始与历史材料保留，当前代码尚未替代完整论文写作与文献论证。
 
 可以据实总结的贡献是：面向受限评价预算的停滞切换／预算回收筛选方案；实际坐标目标、空间覆盖与米制可行性统一；在严格测试隔离下，建立采样目标—覆盖—恢复的可复核比较并报告真实失败条件。通用 SA、局部搜索和扰动机制已有研究基础，不声称首次提出这些通用方法。
 

@@ -57,7 +57,7 @@ E形成论文研究材料和图表，不能代替完整学位论文。源码库�
 - [冻结协议](EXPERIMENT_PROTOCOL.md)及[结构依赖性追加说明](EXPERIMENT_PROTOCOL_STRUCTURAL_ADDENDUM.md)。
 - [新实验结果](EXPERIMENT_RESULTS.md)、[最终验证](VALIDATION_REPORT.md)。
 - [论文进展](PROJECT_PROGRESS_20261024.md)、[贡献边界](THESIS_CONTRIBUTIONS.md)、[方法](THESIS_METHODS.md)。
-- [未解决项](UNRESOLVED_ISSUES.md)、[10组最终图件](../results/audit_20261024_v5/figures_thesis/index.html)。
+- [未解决项](UNRESOLVED_ISSUES.md)、[10组最终图件](../figures/research/v5/index.html)。
 
 所有新实验在 `results/audit_20261024_v5/`，正式运行程序/源码在 `runtimes/v5/`。
 旧v4/final/RESULTS.md保持字节不变，其勘误写在本轮报告和旧报告前言。

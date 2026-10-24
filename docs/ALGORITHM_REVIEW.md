@@ -23,7 +23,7 @@ CV 使用总体标准差，m≤1 按实现约定为 0，m=2 自然为 0。
 无量纲不等于采样率无关：改变 m 会改变问题、惩罚分布和统计基线，不能直接跨档排名 J。
 这也勘误了旧 `ConstraintWeights` 上方“与采样率无关、可跨档比较”的过强注释。
 
-`tools/audit_numerics.py` 用 NumPy 显式复字典 Gram 而非共享 C++ PSF 公式，
+`research/validation/audit_numerics.py` 用 NumPy 显式复字典 Gram 而非共享 C++ PSF 公式，
 复核七点所有非空非满掩码的两域/两权重，共 504 例；再以枚举核验 84 个 DP 问题。
 μ/CV/J 最大误差分别约 2.80e−8/5.53e−8/7.06e−8，gap 精确一致。
 当前最终程序再次执行相同 588 例通过，不把重跑算新增独立测试。

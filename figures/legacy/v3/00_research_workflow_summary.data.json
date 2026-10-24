@@ -1,0 +1,39 @@
+{
+  "input_sha256": {
+    "results\\enhanced_20261023\\synthetic\\01_sampling_benchmark\\benchmark_comparison_table.csv": "58b2fe56de211900215ef351a920ab8313b2f0dfcd33ef21403ce4615e2874d4",
+    "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "cbe7aeacdc68a4c98de51ce7c0df99d15489af4f752cc4b5810e70b2fe72b338",
+    "results\\enhanced_20261023\\real_sps\\attribute_evaluation\\attribute_fold_map_matrix.csv": "0d103e049d1823efdb1ddb9ca7ac7124f726c4b54887cb44f507a6ca85d34a92"
+  },
+  "archived_metrics": {
+    "Mode_Name": "Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)",
+    "Spatial_Grid_Dx_m": "12.5",
+    "Spatial_Grid_Origin_m": "-800",
+    "Spatial_Grid_Source": "DefaultUniformGrid",
+    "Mask_SHA1": "f0f94631a8c205178c48851e28dc54aff0fd0270",
+    "Mask_Source": "Benchmark optimized ClassicPSF mask (50%",
+    "Sampling_Ratio": "50.00%",
+    "Active_Traces": "64",
+    "Total_Traces": "128",
+    "Time_Samples": "256",
+    "POCS_Iterations": "40",
+    "SNR_Zero_Fill": "3.02",
+    "SNR_Linear_Interp": "10.67",
+    "SNR_POCS_CS": "13.19",
+    "SNR_Improvement_vs_Zero": "10.18",
+    "SNR_Imprv_vs_Linear": "2.52",
+    "SNR_Linear_MissingOnly": "7.65",
+    "SNR_POCS_MissingOnly": "10.18",
+    "Initialization_Mode": "WarmStart (Linear Interpolation)",
+    "SNR_POCS_ColdStart": "6.89",
+    "SNR_POCS_WarmStart": "13.19",
+    "SNR_WarmGain_over_Cold": "6.31",
+    "SNR_POCS_IterGain_Cold": "3.87",
+    "SNR_POCS_IterGain_Warm": "2.52",
+    "RMSE_ColdStart": "0.071924",
+    "RMSE_WarmStart": "0.034800",
+    "RMSE": "0.034800",
+    "Pearson_Correlation": "0.9758",
+    "Data_Consistency_Passed": "PASSED",
+    "Runtime_ms": "3287.0"
+  }
+}

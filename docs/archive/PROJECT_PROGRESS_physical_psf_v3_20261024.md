@@ -14,12 +14,12 @@
 
 |模块|主要实现|当前状态与边界|
 |---|---|---|
-|采样构造|`IrrGeometryDesign/Sampling.cpp`|规则、随机和抖动 Count 路径严格保留 `round(Nc)` 个点；固定种子、无重复点。分形等历史接口尚未全部进入系统对照。|
-|一维及二维指标|`IrrGeometryDesign/CurveletMiu.cpp`|正式目标是 Fourier/PSF 互干度，二维使用真正的二维 FFT。历史曲波 Gram 诊断与该指标含义不同。|
-|搜索及约束|`IrrGeometryDesign/OptimizeMiu.cpp/.h`|共享 SA-only、Local、Hybrid、Restart 实现，支持软覆盖惩罚和均匀网格硬间隔约束；保存掩码、轨迹、实际评价次数及耗时。|
-|实际坐标选点|`IrrGeometryDesign/OptimizeMiu.cpp`、`samplingstudies.inc`|真实资料的搜索目标与软惩罚使用实际 offset；优化的是既有候选实测道的二值子集。|
-|重构及实验编排|`IrrGeometryDesign/geometryexperimentengine.cpp/.h`|优化后归档的同一掩码进入曲波重构，保存哈希关联；支持冷/热启动、全幅及缺失道评价。|
-|实际坐标留出|`IrrGeometryDesign/coordinateholdout.inc`|物理坐标观测算子、已知道标定、观测一致性投影、隐藏幅度隔离和严格 CSV 校验。|
+|采样构造|`src/native/sampling/Sampling.cpp`|规则、随机和抖动 Count 路径严格保留 `round(Nc)` 个点；固定种子、无重复点。分形等历史接口尚未全部进入系统对照。|
+|一维及二维指标|`src/native/sampling/CurveletMiu.cpp`|正式目标是 Fourier/PSF 互干度，二维使用真正的二维 FFT。历史曲波 Gram 诊断与该指标含义不同。|
+|搜索及约束|`src/native/optimization/OptimizeMiu.cpp/.h`|共享 SA-only、Local、Hybrid、Restart 实现，支持软覆盖惩罚和均匀网格硬间隔约束；保存掩码、轨迹、实际评价次数及耗时。|
+|实际坐标选点|`src/native/optimization/OptimizeMiu.cpp`、`samplingstudies.inc`|真实资料的搜索目标与软惩罚使用实际 offset；优化的是既有候选实测道的二值子集。|
+|重构及实验编排|`src/native/experiments/geometryexperimentengine.cpp/.h`|优化后归档的同一掩码进入曲波重构，保存哈希关联；支持冷/热启动、全幅及缺失道评价。|
+|实际坐标留出|`src/native/reconstruction/coordinateholdout.cpp`|物理坐标观测算子、已知道标定、观测一致性投影、隐藏幅度隔离和严格 CSV 校验。|
 |SPS 几何|`spsloadcal.*`、`spsmaskbuilder.*` 等|读取炮检关系，统计覆盖、偏移距、方位与抽稀属性；未与唯一波形文件建立同工区映射。|
 |科研工具|`tools/` 中 10 个 Python 脚本|批次执行、缓存指纹、配对统计、独立指标复核、SEG-Y 结构诊断和修改注释审计。|
 |展示与论文材料|图件目录、`docs/THESIS_METHODS.md`|GUI 优先打开增强版图件，已有方法和讨论草稿；部分正文仍是 v2 快照，需要按 v3 更新。|
@@ -210,7 +210,7 @@ Hybrid 相对 Restart 的 μ 改善通过同目标家族的 Holm 校正；SA-onl
 - 最终验证：`results/enhanced_20261023/validation/validation_summary.json`。
 - 后续修复细节：`docs/REPAIR_NOTES_20261023.md`。
 - 真实结构诊断：`results/enhanced_20261023/real_data_audit/AUDIT.md`、`audit.json`。
-- 图件入口：`figures/enhanced_20261023/index.html`。
+- 图件入口：`figures/legacy/v3/index.html`。
 - 修改署名审计：`docs/CHANGE_ANNOTATIONS_20261023.json`。
 
 <!-- add by wushanzhou in 2026/10/24 -->

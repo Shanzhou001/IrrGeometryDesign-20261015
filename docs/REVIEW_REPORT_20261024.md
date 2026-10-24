@@ -213,26 +213,26 @@ SEG-Y 的格式码 1 声明 IBM 浮点，现有资料专用读取配置使用小
 
 |文件|修改要点|
 |---|---|
-|`IrrGeometryDesign/OptimizeMiu.h`|自适应选项／结果、物理硬间隔接口与约束字段。|
-|`IrrGeometryDesign/OptimizeMiu.cpp`|物理可行性 DP、目标／单位／数值入口校验、删除冗余物理评分、接入新搜索。|
-|`IrrGeometryDesign/adaptivesearch.inc`（新）|停滞切换、混合邻域、预算回收、扰动、缓存／FFT 后端及轨迹。|
-|`IrrGeometryDesign/reconstructionoptions.h`（新）|兼容旧默认值的可配置恢复选项。|
-|`IrrGeometryDesign/geometryexperimentengine.cpp`|选项传递、恢复尺寸保护、变换对象生命周期、阈值／迭代日志。|
-|`IrrGeometryDesign/geometryexperimentengine.h`|新增研究接口声明，保留旧调用方式。|
-|`IrrGeometryDesign/coordinateholdout.inc`|实际坐标恢复选项、入口校验及网格端点舍入保护。|
-|`IrrGeometryDesign/reviewexperiments.inc`（新）|新搜索与独立掩码恢复 CLI 实验接口、输入检查和输出参数。|
-|`IrrGeometryDesign/reviewregression.inc`（新）|新增数值／边界回归 25～33。|
-|`IrrGeometryDesign/main.cpp`|专用 CLI 参数解析、专项回归入口与完整回归连接。|
-|`IrrGeometryDesign/CurveletMiu.cpp`|FFT shift、Gram 下标、分配／尺寸保护及手工析构修复。|
-|`IrrGeometryDesign/spsloadcal.cpp`|公共有界 SPS 映射，修复越界及空／非规则输入。|
-|`IrrGeometryDesign/spsshow/tspsform.cpp`|历史诊断标签、失败清理与大矩阵保护，删除无证据的恢复效果措辞。|
-|`tools/convert_rraw_to_engine_csv.py`|ns／dt／长度／有限性检查；修正非标准编码、采样率与可识别性说明。|
-|`tools/review_studies.py`（新）|固定协议、模型生成、独立批次、并行、哈希缓存、内层选择和泄漏检查。|
-|`tools/verify_review_results.py`（新）|独立目标、恢复、内部选择与原始／历史归档复核。|
-|`tools/summarize_review.py`（新）|72 项校正、模型层统计、共同实际预算、Pareto、关联、表格和图件。|
-|`tools/review_diagnostics.py`（新）|读取／频谱／相干性／误差分解／窗口诊断，不反馈优化或参数选择。|
-|`tools/review_window_study.py`（新）|同来源全记录六例、独立版本及求解／指标核验。|
-|`tools/test_review_science.py`（新）|内部选择隔离、数值评分、预算缓存、合成实现等 12 项 Python 回归。|
+|`src/native/optimization/OptimizeMiu.h`|自适应选项／结果、物理硬间隔接口与约束字段。|
+|`src/native/optimization/OptimizeMiu.cpp`|物理可行性 DP、目标／单位／数值入口校验、删除冗余物理评分、接入新搜索。|
+|`src/native/optimization/adaptivesearch.inc`（新）|停滞切换、混合邻域、预算回收、扰动、缓存／FFT 后端及轨迹。|
+|`src/native/reconstruction/reconstructionoptions.h`（新）|兼容旧默认值的可配置恢复选项。|
+|`src/native/experiments/geometryexperimentengine.cpp`|选项传递、恢复尺寸保护、变换对象生命周期、阈值／迭代日志。|
+|`src/native/experiments/geometryexperimentengine.h`|新增研究接口声明，保留旧调用方式。|
+|`src/native/reconstruction/coordinateholdout.cpp`|实际坐标恢复选项、入口校验及网格端点舍入保护。|
+|`src/native/experiments/reviewexperiments.cpp`（新）|新搜索与独立掩码恢复 CLI 实验接口、输入检查和输出参数。|
+|`src/native/tests/reviewregression.inc`（新）|新增数值／边界回归 25～33。|
+|`src/native/app/main.cpp`|专用 CLI 参数解析、专项回归入口与完整回归连接。|
+|`src/native/sampling/CurveletMiu.cpp`|FFT shift、Gram 下标、分配／尺寸保护及手工析构修复。|
+|`src/native/geometry/spsloadcal.cpp`|公共有界 SPS 映射，修复越界及空／非规则输入。|
+|`src/native/gui/survey/tspsform.cpp`|历史诊断标签、失败清理与大矩阵保护，删除无证据的恢复效果措辞。|
+|`research/data/convert_rraw_to_engine_csv.py`|ns／dt／长度／有限性检查；修正非标准编码、采样率与可识别性说明。|
+|`research/experiments/review_studies.py`（新）|固定协议、模型生成、独立批次、并行、哈希缓存、内层选择和泄漏检查。|
+|`research/validation/verify_review_results.py`（新）|独立目标、恢复、内部选择与原始／历史归档复核。|
+|`research/analysis/summarize_review.py`（新）|72 项校正、模型层统计、共同实际预算、Pareto、关联、表格和图件。|
+|`research/analysis/review_diagnostics.py`（新）|读取／频谱／相干性／误差分解／窗口诊断，不反馈优化或参数选择。|
+|`research/experiments/review_window_study.py`（新）|同来源全记录六例、独立版本及求解／指标核验。|
+|`tests/python/test_review_science.py`（新）|内部选择隔离、数值评分、预算缓存、合成实现等 12 项 Python 回归。|
 |`requirements-research.txt`（新）|研究绘图依赖，保留基础环境依赖。|
 |`README.md`|当前协议、模块、构建／复现、数据边界与文档入口。|
 |`docs/THESIS_METHODS.md`|实际坐标公式、算法、约束、恢复、隔离、统计及贡献边界重写。|
@@ -266,6 +266,6 @@ SEG-Y 的格式码 1 声明 IBM 浮点，现有资料专用读取配置使用小
 
 下一步最有价值的工作是确认原始 SEG-Y 的真实编码／采集语义，并在新独立道集上预先固定协议验证。若继续做 NMO／时差校正或学习型重构，速度／参数估计仍须只使用外层已知道，并作为独立新协议，不能用当前隐藏道试到满意后回报同一测试集。二维实际坐标、施工限制及成像评价是后续扩展，未在此次用无依据的新功能替代核心结论审查。
 
-完整数据入口：[结果汇总](../results/review_20261024_v4/final/RESULTS.md)、[结构化结果](../results/review_20261024_v4/final/summary.json)、[图件入口](../results/review_20261024_v4/final/figures/index.html)、[机器核验](../results/review_20261024_v4/validation_summary.json)。
+完整数据入口：[结果汇总](../results/review_20261024_v4/final/RESULTS.md)、[结构化结果](../results/review_20261024_v4/final/summary.json)、[图件入口](../figures/research/v4/index.html)、[机器核验](../results/review_20261024_v4/validation_summary.json)。
 
 <!-- add by wushanzhou in 2026/10/24 -->

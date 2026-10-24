@@ -11,3 +11,10 @@ build/legacy/** -text
 build/qt/** -text
 figures/** -text
 results/refactor_20261024/** -text
+third_party/curvelet/** -text
+third_party/qcustomplot/** -text
+third_party/legacy-libs/** -text
+pipeline.py -text
+build_release.bat -text
+build_debug.bat -text
+IrrGeometryDesign.sln -text

@@ -85,7 +85,7 @@
 
 本轮及上一轮相对 `63d1408` 的改动，按代码位置补齐 `add by wushanzhou in 2026/10/23`。C++ 使用行注释，Python 使用 `#`，批处理用独立 `rem`；多行字符串及续行在安全位置补注。Python 补注前后检查 AST 相同；旧文件的非 ASCII 字节不会被作为换行拆开。
 
-`tools/audit_change_annotations.py` 检查覆盖，`--apply` 会修改源码；逐文件记录见 `docs/CHANGE_ANNOTATIONS_20261023.json`。此检查覆盖源码、脚本和相关构建配置，不向二进制图件、严格 JSON、实验数值表和历史数据注入注释。
+`research/maintenance/audit_change_annotations.py` 检查覆盖，`--apply` 会修改源码；逐文件记录见 `docs/CHANGE_ANNOTATIONS_20261023.json`。此检查覆盖源码、脚本和相关构建配置，不向二进制图件、严格 JSON、实验数值表和历史数据注入注释。
 
 <!-- add by wushanzhou in 2026/10/23 -->
 
@@ -100,7 +100,7 @@
 ```bat
 build_release.bat
 build_debug.bat
-x64\Release\IrrGeometryDesign.exe --test
+build\bin\Release\IrrGeometryDesign.exe --test
 python tools\test_science_tools.py
 python tools\audit_change_annotations.py
 python tools\run_revised_studies.py

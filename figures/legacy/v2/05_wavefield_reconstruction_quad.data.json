@@ -1,0 +1,19 @@
+{
+  "input_sha256": {
+    "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "204ebd5015bb9d8bd3106b8d2dd3b28411cd2769d98149d818f87f2b02b58fc9",
+    "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+    "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_original_gather.csv": "5617f2f6f5854e2da28086b05ddf18b62fcf0b34ac0ce15b61a3422f3a832bc8",
+    "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_recovered_gather.csv": "c03c50dcc7b6ecdc67fafd5b1564a2e03cfb06027eebcdfc92337a1325e8fd5d",
+    "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+  },
+  "source_mode": "archived exported matrices",
+  "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+  "replay_max_abs_prediction_difference": 0.0,
+  "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+  "hidden_snr_db": 10.176023349629052,
+  "archived_export_shape": [
+    256,
+    128
+  ],
+  "replay_difference_on_archived_grid": 0.0
+}

@@ -1,0 +1,43 @@
+{
+  "statistical_generator_sha256": "89b4fe0b238c45610d8f2ec014e175afb776ad2191eef97d59464d9f4ccc8146",
+  "statistical_source_snapshot": "runtimes/analysis_thesis_v1.py",
+  "figure_generator_sha256": "7f636e878079169ec168eed4dd2c6cf3f0e730c5d335d92c215345a4081346d4",
+  "render_driver_sha256": "19acae8a156a637414fb08f34250ec77e033da0249a8b95e371b12182ff521cd",
+  "image_policy": "one PNG per figure; overwrite canonical output; statistical archives read only",
+  "input_analysis_manifest_sha256": "2fe66e9879494978a5d7ccba4be1da875f45fa642f986292c8281ff8e73e0dc2",
+  "plots": [
+    "01_v4_search",
+    "02_common_budget",
+    "03_v4_nested_real",
+    "04_common_H_recovery",
+    "05_v4_weight_tradeoff",
+    "06_real_windows_and_failure",
+    "07_band_sensitivity",
+    "08_v4_convergence",
+    "09_v4_geometry_pareto",
+    "10_real_failure_waveforms"
+  ],
+  "output_sha256": {
+    "figures\\research\\v5\\01_v4_search.data.json": "6c565840a4bf96d6847c8b8f52366ace47a8f92f3e207b2e42f1db19108c40f5",
+    "figures\\research\\v5\\01_v4_search.png": "0a9f0c8bdd8d1807ecf2e89ad2bea20e94a611fa289edf48e3913c4db8b5c742",
+    "figures\\research\\v5\\02_common_budget.data.json": "3ec213e1bd56b02039e51b961f8210b2514074c62bbc236be07293f653f1b514",
+    "figures\\research\\v5\\02_common_budget.png": "57b544a9c1f6322d058a402dc8fa464b6911197c0e46ac2a6548cc827e257228",
+    "figures\\research\\v5\\03_v4_nested_real.data.json": "948264282db02c73aad31bdac3af1c6bf7e48fde6a19236b804bcd0d9f0e9065",
+    "figures\\research\\v5\\03_v4_nested_real.png": "585b54cd2c3510b6a72bc921c3469df68ab7af27b6eaf064ae5a7bcb42d480c3",
+    "figures\\research\\v5\\04_common_H_recovery.data.json": "64ee128bfa06aa11d06809b4309d8d03eb14bb69dff91f9016e54d61cd40a0c8",
+    "figures\\research\\v5\\04_common_H_recovery.png": "630ff960eadc3ad1ad2f29ed1cc9a5e0b0531ac3fda8182cec62f96890ef3441",
+    "figures\\research\\v5\\05_v4_weight_tradeoff.data.json": "888581a18ed4f0e9d64940cec39b34c1fe4d7b5a0a285361e03ad9e001398502",
+    "figures\\research\\v5\\05_v4_weight_tradeoff.png": "4bb6d2ebbe430253d3fa53dac7ba1b5ba43cbc1023d46775af807331227daf94",
+    "figures\\research\\v5\\06_real_windows_and_failure.data.json": "3fb288d23e4769888f10c57c9467f2bc0a6b0580f8ba10ba0926a87e98e371e9",
+    "figures\\research\\v5\\06_real_windows_and_failure.png": "7daebc26e8e494999e6a7643ab97c4f7bf2517b8daec7b11e450b278f788c1e6",
+    "figures\\research\\v5\\07_band_sensitivity.data.json": "5e974e41379265f0dedf7d537fce4da43147fc72f831df25943c04ecefa327f6",
+    "figures\\research\\v5\\07_band_sensitivity.png": "9230cc225b5bcf36108873b42ab14e82e304cd8f74fc6c19d35608bb0940ba79",
+    "figures\\research\\v5\\08_v4_convergence.data.json": "1be35aaf8f9a390343e74ff81d6a0b993af69fa9c56a62538314f14fd6a45096",
+    "figures\\research\\v5\\08_v4_convergence.png": "d51b317dd20bac07927bc55a84b0297ae5f4e2bad02e708657c095fc77c614b2",
+    "figures\\research\\v5\\09_v4_geometry_pareto.data.json": "a6cb6041e818ed57439cb0b8d88da88db9f4428ac8a67ea904c73f1382ef3d06",
+    "figures\\research\\v5\\09_v4_geometry_pareto.png": "773a8d07569a1390054394b18f975a0064ea2e0344efd2124cb2805c5ca06213",
+    "figures\\research\\v5\\10_real_failure_waveforms.data.json": "0e2f8ac118284ed4466366e123bbd88079061cfda52503c7dad20632a1888f63",
+    "figures\\research\\v5\\10_real_failure_waveforms.png": "40fee9a5121dcee8ca41d5c584f1ba1c44d91735bee0bcfdd2be25c71b72b746",
+    "figures\\research\\v5\\index.html": "0fe7abb45d938bb8f100b61bdbe39b6a02044a3c7622c12c4aa0d5f5e93d03c9"
+  }
+}

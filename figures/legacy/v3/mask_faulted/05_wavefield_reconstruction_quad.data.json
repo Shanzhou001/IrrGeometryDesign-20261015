@@ -1,0 +1,19 @@
+{
+  "input_sha256": {
+    "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_metrics_summary.csv": "0c42610b2639b37f5ca38e4ea61bfd3ff0efdac80755b2220a2fd55445fc2eba",
+    "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\cmp_mask.txt": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+    "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_original_gather.csv": "e91026b13eecd90b2bc64ecac0b412d5a51929e7a2e3e87c0d0b717b3ef0be97",
+    "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_recovered_gather.csv": "9f41c492179ccd66dfeb17927f1f139a2b3dc49c13d4dd84937235d3e098cb48",
+    "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
+  },
+  "source_mode": "current full-resolution replay; old display export was decimated",
+  "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+  "replay_max_abs_prediction_difference": 0.0,
+  "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+  "hidden_snr_db": 10.993514299990512,
+  "archived_export_shape": [
+    64,
+    32
+  ],
+  "replay_difference_on_archived_grid": 0.0
+}

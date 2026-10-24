@@ -204,21 +204,21 @@ SPS 抽稀应在同一份 `attribute_thinning_comparison.csv` 的网格内比较
 - `results/revised_20261023/validation/validation_summary.json`
 - `results/revised_20261023/validation/cpp_regression.txt`
 - `results/revised_20261023/run_manifest.json`
-- `tools/test_science_tools.py`
-- `tools/verify_revised_results.py`
+- `tests/python/test_science_tools.py`
+- `research/validation/verify_revised_results.py`
 
 复现顺序（Windows 项目根目录）：
 
 ```bat
 build_release.bat
-x64\Release\IrrGeometryDesign.exe --test
+build\bin\Release\IrrGeometryDesign.exe --test
 python -m pip install -r requirements.txt
 python tools\test_science_tools.py
 python tools\run_revised_studies.py
 python tools\verify_revised_results.py results\revised_20261023
 ```
 
-已验证 Python 3.12.10、NumPy 2.5.3。`--quick` 单独输出 smoke 目录；`--resume` 按复现脚本规则复用匹配的成功步骤。逐次大矩阵和运行子目录可重建，未全部进入 Git；汇总、掩码、轨迹和验证材料已保留。正式图件为 `figures/revised_20261023/index.html`，包含 7 张主图，真实参考场图另存 `real_reference/`。
+已验证 Python 3.12.10、NumPy 2.5.3。`--quick` 单独输出 smoke 目录；`--resume` 按复现脚本规则复用匹配的成功步骤。逐次大矩阵和运行子目录可重建，未全部进入 Git；汇总、掩码、轨迹和验证材料已保留。正式图件为 `figures/legacy/v2/index.html`，包含 7 张主图，真实参考场图另存 `real_reference/`。
 
 ## 8. 尚未完成与下一步优先级
 
@@ -250,6 +250,6 @@ python tools\verify_revised_results.py results\revised_20261023
 |真实掩码研究|`results/revised_20261023/real_mask_study/`|
 |独立 SPS 抽稀对照|`results/revised_20261023/real_sps/attribute_evaluation/attribute_thinning_comparison.csv`|
 |运行与验证证据|`results/revised_20261023/run_manifest.json`、`validation/validation_summary.json`|
-|正式图件|`figures/revised_20261023/index.html`|
+|正式图件|`figures/legacy/v2/index.html`|
 
 当前已有充分材料撰写系统实现、实验设计、同目标优化对照、空间约束权衡和有限资料下的重构效果分析。论文的真实应用优势、连续坐标优化和成像收益，仍需后续工作提供证据。

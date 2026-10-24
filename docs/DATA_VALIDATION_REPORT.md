@@ -8,10 +8,10 @@
 
 原文件 `data/real_seismic/Data/RRAW.SGY`，76,760 bytes，SHA-256：
 `ddcb311b2406af17cf375b570b3eb8ea7ca2d81cdeb002f972e6d668cd7b2bc2`。
-只读程序 `tools/audit_segy_bytes.py`，命令：
+只读程序 `research/data/audit_segy_bytes.py`，命令：
 
 ```powershell
-python tools/audit_segy_bytes.py --out results/new_byte_audit
+python -m research.data.audit_segy_bytes --out results/new_byte_audit
 ```
 
 实际输出归档 `results/audit_20261024_v5/segy_bytes/`。`trace_headers.csv` 保存全部

@@ -1,6 +1,6 @@
 # audit_joint_v5 实际结果与统计复核
 
-本报告由 `tools/make_audit_reports.py` 从归档 CSV 生成。原生实验版本 `80ca9303`，运行程序 SHA-256 8697ac13bfc86dfc80086b1d3157b5edd1ae2f0b5213221b14e029bd121ef8ed。
+本报告由 `research/analysis/make_audit_reports.py` 从归档 CSV 生成。原生实验版本 `80ca9303`，运行程序 SHA-256 8697ac13bfc86dfc80086b1d3157b5edd1ae2f0b5213221b14e029bd121ef8ed。
 后续旧工具类修复没有覆盖本批结果；原程序/源码在 `runtimes/v5/`，当前程序的独立重放另存 `final_replay/`。
 
 主要四阶段共 2,344 次原生步骤：840 个搜索敏感性案例、90 个联合掩码生成案例、1080 条合成恢复记录、24 条真实窗口记录、60 次限时搜索。

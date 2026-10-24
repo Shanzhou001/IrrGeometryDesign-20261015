@@ -1,0 +1,35 @@
+{
+  "input_sha256": {
+    "results\\synthetic\\01_sampling_benchmark\\benchmark_comparison_table.csv": "9be925d19e26889e8c3190bddf4263359722958323fe907117d1e75e12157c47",
+    "results\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "bc199bbc7f8021d23adf0eba4d47142d4e95f59780b72a8deb2fb58b3dda6f92",
+    "results\\real_sps\\attribute_evaluation\\attribute_fold_map_matrix.csv": "0d103e049d1823efdb1ddb9ca7ac7124f726c4b54887cb44f507a6ca85d34a92"
+  },
+  "archived_metrics": {
+    "Mode_Name": "Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)",
+    "Mask_Source": "Auto-Generated Jitter Mask (m=64/128",
+    "Sampling_Ratio": "50.00%",
+    "Active_Traces": "64",
+    "Total_Traces": "128",
+    "Time_Samples": "256",
+    "POCS_Iterations": "40",
+    "SNR_Zero_Fill": "3.00",
+    "SNR_Linear_Interp": "11.83",
+    "SNR_POCS_CS": "13.90",
+    "SNR_Improvement_vs_Zero": "10.90",
+    "SNR_Imprv_vs_Linear": "2.07",
+    "SNR_Linear_MissingOnly": "8.82",
+    "SNR_POCS_MissingOnly": "10.90",
+    "Initialization_Mode": "WarmStart (Linear Interpolation)",
+    "SNR_POCS_ColdStart": "6.24",
+    "SNR_POCS_WarmStart": "13.90",
+    "SNR_WarmGain_over_Cold": "7.66",
+    "SNR_POCS_IterGain_Cold": "3.24",
+    "SNR_POCS_IterGain_Warm": "2.07",
+    "RMSE_ColdStart": "0.077459",
+    "RMSE_WarmStart": "0.032070",
+    "RMSE": "0.032070",
+    "Pearson_Correlation": "0.9794",
+    "Data_Consistency_Passed": "PASSED",
+    "Runtime_ms": "3513.0"
+  }
+}

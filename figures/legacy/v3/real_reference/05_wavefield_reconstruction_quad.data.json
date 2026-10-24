@@ -1,0 +1,19 @@
+{
+  "input_sha256": {
+    "results\\enhanced_20261023\\real_field\\recon_metrics_summary.csv": "9f73edb396101495c2350a212834ad3f340bca2e387bf2a3dab0fbc59cb81f21",
+    "results\\enhanced_20261023\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+    "results\\enhanced_20261023\\real_field\\recon_original_gather.csv": "e38ae38018f30ee70878fe93b6d2b9546ddc078dbd7bf53b639b32517005fca5",
+    "results\\enhanced_20261023\\real_field\\recon_recovered_gather.csv": "6ff8c1880ddf8b912232d6282919a2b709b137b4738608e0b74e751ae3e2759c",
+    "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+  },
+  "source_mode": "archived exported matrices",
+  "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\real_field",
+  "replay_max_abs_prediction_difference": 0.0,
+  "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+  "hidden_snr_db": 4.182381809335205,
+  "archived_export_shape": [
+    256,
+    128
+  ],
+  "replay_difference_on_archived_grid": 0.0
+}

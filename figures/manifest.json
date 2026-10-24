@@ -1,0 +1,992 @@
+{
+  "command": [
+    "C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "pipeline.py",
+    "figures",
+    "--out",
+    "results/refactor_20261024/figures_retry"
+  ],
+  "image_format": "PNG",
+  "duplicates": 0,
+  "images": {
+    "figures/assets/AAVR.png": {
+      "sha256": "0fd5d6a0fe9b0396324276189225138685b90470aa061f113a20e6ec6442d52b",
+      "bytes": 10279,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/ADIS.png": {
+      "sha256": "0f59de74e5f036f1e62e867a1ff7f16ba254e82ce5e7584fe26231995bf67015",
+      "bytes": 10066,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/AMAX.png": {
+      "sha256": "c34f9d2adb9c0db498ed46764bc095d8313760bb61c021d8f4ebc2ac6359ca5f",
+      "bytes": 10520,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/AMIN.png": {
+      "sha256": "1bc893aad4bd92312cbee0ed0089abdad92d1cfde62c3ebf8e184cbf5f03eac2",
+      "bytes": 9399,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/ATOL.png": {
+      "sha256": "9348681d8c6235430a9ceb08c4bd6872eac3ea0f3cb8a9ec1a714bae224ee8e8",
+      "bytes": 8668,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/AzimuthNonfor.png": {
+      "sha256": "4a589324715659de1b37dac8a692ddb7ad7f3286b51c902f3af0e87f6bebd22a",
+      "bytes": 3257,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/CSQF.png": {
+      "sha256": "e3895dcd1d3fe89502d65ecd44ea5726c40d2514bd3887ce7fca03bbe42fe696",
+      "bytes": 88020,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/GeometryAT.png": {
+      "sha256": "9d8f6ed5678f86ef3b8313d123838913f78298a7926bb1a5ae2b88bcdf66a41e",
+      "bytes": 1516,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/OAVR.png": {
+      "sha256": "430048fe95194568a7cbed87a2c84045022f2bf806a2a9ae7706c1063084cff4",
+      "bytes": 5702,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/ODIS.png": {
+      "sha256": "9be1c4f3cb383523cdc31431fde9967029f1f6b040fb35b9efab1550ef075c96",
+      "bytes": 5909,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/OMAX.png": {
+      "sha256": "63e968bed21be4d10d5854b8828573c2ab6db561e9f2e2a992649a8cfb93b88f",
+      "bytes": 6082,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/OMIN.png": {
+      "sha256": "d355829d691013a4db300bd2e312dfd5b678c0124a06a5ba1b02a513a239f0dc",
+      "bytes": 4499,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/OTOL.png": {
+      "sha256": "4dc8ce19a27c1e4eab9bc0231f0077955e89df8f582fc6fafac0e45b48dbee78",
+      "bytes": 4047,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/OVTPT.png": {
+      "sha256": "e0db95f5b3cddefd8dd9d30325a326d620bbba78508727b4b8a6c834602e6960",
+      "bytes": 156,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/OVTVL.png": {
+      "sha256": "31c097b443df640b193f67c82ed9bac45e0256705034e8a0e0928cb8cd62ba67",
+      "bytes": 7204,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/Offset_Nonuniform.png": {
+      "sha256": "9d711d704ca9a63db12661c6c3d8c782bac935c8232401fcfef9861986f42686",
+      "bytes": 181,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/Surveyinfos.png": {
+      "sha256": "c52ca659e7c5ab8bc119d3bbf809fd6e0bc724eb6e5395e2ae0023b2e5addef7",
+      "bytes": 4743,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/azimuthVStraces.PNG": {
+      "sha256": "0ea81c2d3c776d44189917f6439879fc37173231245e3f52b6f84b03cd17d43d",
+      "bytes": 296,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/binfold.png": {
+      "sha256": "94a4fd29e5f9a846b82d08928920fc595eb4b79998ed248050a20c6c94ae2aad",
+      "bytes": 189,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/editshot.png": {
+      "sha256": "2cca26a06020b420f19819a459972ab290b663aba4338fa42d43d9abf4db69ac",
+      "bytes": 503,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/filesave.png": {
+      "sha256": "9d0c54fe0b78ad853edde3f70b45053e9745db9efd99114e3a9cc43bd123ff45",
+      "bytes": 1029,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/foldVSBINS.PNG": {
+      "sha256": "4a23b56112c4b78978d95095f713ebc9905bf35dbb0c9889ab064e4f811e78bf",
+      "bytes": 140,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/foot_factor.png": {
+      "sha256": "7709cf4230eb2ab53ca93add63126ff7f5f2f018f117f9c20c0d27ead6d581ea",
+      "bytes": 128699,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/griding.png": {
+      "sha256": "b96ddab752d2c3c46078101c6c5cea254efc9bf749ae9d8f44a7839bc197e479",
+      "bytes": 520,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/mouse_zoom.png": {
+      "sha256": "0a615a41cb84a72cd1a3900573f6f8de3923227b2265e252c542e61c2c91c7d4",
+      "bytes": 495,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/newsps.png": {
+      "sha256": "8890e255510797f143aaadff4ec9fe9ef705e88be5577296c2266f607826a4f0",
+      "bytes": 3263,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/offsetVSfold-bins.PNG": {
+      "sha256": "9807e35253643374c61b613220fe4f052c2160f175632f13ac9b4a26779f7861",
+      "bytes": 211,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/offsetVStraces.PNG": {
+      "sha256": "82ed7d04225eb10c2630f3215de1e1a4e1a19541d4b7aca6d6cf3bfc745feb75",
+      "bytes": 167,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/refresh.png": {
+      "sha256": "eba046140e23838218aee6cc6359ce5d2dc9a8d5c9af6d3dd3e472a4f4d7f627",
+      "bytes": 1030,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/assets/rose.PNG": {
+      "sha256": "1be3c61713305e47cfa1b932ae370831bcdae03be3a4fc3073ca5b68e3281851",
+      "bytes": 311,
+      "kind": "source_asset",
+      "generated_this_pass": 0
+    },
+    "figures/gui/01_main_window.png": {
+      "sha256": "9f673233c19868dd9a51e2fd8377e085c33aced1fac1bba0c8d3313f26ee438d",
+      "bytes": 14273,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/gui/02_survey_loaded.png": {
+      "sha256": "0d08ea06727151ad7723d77203ab84e180eb23bbc252d78c340953083e197e32",
+      "bytes": 38485,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/gui/03_dlg_sps_parameters.png": {
+      "sha256": "2f6b8fee6c0aac0b459bdbc9903fd76e606bda072b95a3b2400867e549de860c",
+      "bytes": 40636,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/gui/04_dlg_cell_grid.png": {
+      "sha256": "9fc16759491fd8e1b8645486d61902850c4bd1f58b5e183932e700c6180c124d",
+      "bytes": 11355,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/gui/05_dlg_sps_sampling.png": {
+      "sha256": "ada07cab9e637f7b06cae1ddd67af75faf403a6d4e60953b3657f1266b91e2d7",
+      "bytes": 11212,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/gui/06_dlg_show_area.png": {
+      "sha256": "e63ca23d47fa6477aa279a219658f616b8e6342e02c2b4be1099f7f92c248601",
+      "bytes": 5322,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/gui/07_dlg_ovt_attributes.png": {
+      "sha256": "b679796709e40448ca28a36536980570a40faac534535126f947fc8581fb4498",
+      "bytes": 12365,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/gui/08_dlg_figure_gallery.png": {
+      "sha256": "94e5edca52597d1d7cc6518f37c6617a9071640fc528c2d9fece3c6c244f0825",
+      "bytes": 80770,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/baseline/00_research_workflow_summary.png": {
+      "sha256": "ee992ec57309b354fd79e0fdc6cbc675e5cf365b5d499eff00388b973eb2ef4b",
+      "bytes": 74345,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/baseline/01_sa_convergence_curve.png": {
+      "sha256": "e7031d9f809fe03b562b5943261beb12467ed52afed8fb12d193535c0e55fa67",
+      "bytes": 69681,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/baseline/02_sampling_benchmark_bars.png": {
+      "sha256": "74343fb484df302b566f9408b32d425a9f03511227dbee64352f3c36a2cae1dc",
+      "bytes": 49724,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/baseline/05_wavefield_reconstruction_quad.png": {
+      "sha256": "44a05777d2de51c21824b6e54ee49c583d5e07e9ee70cf57a4d93a471ae802bf",
+      "bytes": 375455,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/baseline/06_recon_convergence_trace_comparison.png": {
+      "sha256": "f42f7ee85e69c9394f6515f76e8a455e87036aa67e42062f8f80f71e59e9c815",
+      "bytes": 169985,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/real/05_wavefield_reconstruction_quad.png": {
+      "sha256": "97890c106a40389b83bc8df996b49baeeeb77e71e5ed33401a1b36180e793f43",
+      "bytes": 452133,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/real/06_recon_convergence_trace_comparison.png": {
+      "sha256": "225e36137873a1b6d0e00f3fc10fab7fa1e250c7c5cba0f95ccd6055160da636",
+      "bytes": 232719,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v2/00_research_workflow_summary.png": {
+      "sha256": "8fb4ff3e48b8293732e04fd3460b9b02576a0e1d8982fb28dcfbaa4c1fefa30a",
+      "bytes": 72372,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v2/05_wavefield_reconstruction_quad.png": {
+      "sha256": "d19250494a3f12f76436c1b60eb42024973742a55b1600d62faebb683d3f0ea2",
+      "bytes": 359137,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v2/06_recon_convergence_trace_comparison.png": {
+      "sha256": "eb0e03ebb75ab28db855b43131ba25eaca7e91306bbc9b60a87acda897333ba0",
+      "bytes": 167792,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.png": {
+      "sha256": "deb62f8daea4cc126bbd9ec29ad403f7cf6981caf78e4cf2d1c569bc2d46451e",
+      "bytes": 454951,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.png": {
+      "sha256": "6815b83da6d43268e63cf63f8a666e627b86a57845036cf90b3aabea3a8b94e1",
+      "bytes": 234307,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/00_research_workflow_summary.png": {
+      "sha256": "2ced60b070f88c504f4855ad1c56058306bf069fa23b731e24ff163acf78f372",
+      "bytes": 72420,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/01_sa_convergence_curve.png": {
+      "sha256": "cc15642d2b12de21ff75983ad6d5dd6bc9710c913f433e715c7579d011822ae2",
+      "bytes": 66945,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/02_sampling_benchmark_bars.png": {
+      "sha256": "6c821b9c117d55f2b3d18213b4acab2df8c50abd09eca434b77380391b7db392",
+      "bytes": 48353,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/03_cmp_fold_distribution_map.png": {
+      "sha256": "d66aae17d292ee29f9bc11a9de6ae72e8cbf153bbb9108701961dfd9f063de73",
+      "bytes": 142375,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/04_offset_azimuth_rose_charts.png": {
+      "sha256": "514488cab799b7195d0f28ee2236f616093c6bd2342262898f17d9413fcd7191",
+      "bytes": 171512,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/05_wavefield_reconstruction_quad.png": {
+      "sha256": "9a132f388ce393d5053b2fbfdc38637fa99d15557906e45095a67471816fa6e0",
+      "bytes": 359559,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/06_recon_convergence_trace_comparison.png": {
+      "sha256": "a5d3d9376773ea09a293008b376dfb6c5bd6155572434bf4492136949f8f1f3c",
+      "bytes": 167890,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.png": {
+      "sha256": "9d18490ec5378282fe8767e712f88a70446a77177761c5e095cd9a4a362c611f",
+      "bytes": 333222,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.png": {
+      "sha256": "bd80f0b0b6885fc16a3e80cbe5d8a6760bc1981c3fa8ac57a0ef93fbe177ea58",
+      "bytes": 175464,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.png": {
+      "sha256": "88f0f54a29653d90964c7c1c4f48a0bddac0fd1cc8b1030833a1e71861664197",
+      "bytes": 330835,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.png": {
+      "sha256": "21cf077de93ef8995a30720230aa66f29c6e472cecedf748b42f40ec8604ac48",
+      "bytes": 165025,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.png": {
+      "sha256": "e3d3dc5feaadfbdacfa3ef08ede9c0631fe1f9809b9f196119228bf8af4e9792",
+      "bytes": 333918,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.png": {
+      "sha256": "e9123754e5bea59d6c34d1d10dc80756e4ea5877e355435d9e10d9f29c04a576",
+      "bytes": 167421,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.png": {
+      "sha256": "00892b61b2116aaf7051839b8ed592a925f2c54cd4571e2bbafe7e7743dac1a1",
+      "bytes": 455016,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.png": {
+      "sha256": "14b16852e991cca42d66da51627b54d7c179fc510c987edf4ebd98f6fae7e8fa",
+      "bytes": 234341,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v4/01_search_comparison.png": {
+      "sha256": "d59daa81e9abd288b2396fbadb6c9592745d0a8137f29f61a547016d97354b72",
+      "bytes": 308607,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v4/02_convergence.png": {
+      "sha256": "3be23e323c8726c095c932a82709589f1465d131e3b74ab5dd4e2536fb5130b2",
+      "bytes": 128151,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v4/03_nested_real.png": {
+      "sha256": "2c94754914e4b6f6f9920f4a8099cf8903129771330790a7ebf59b883f0b60c7",
+      "bytes": 257915,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v4/04_synthetic_snr.png": {
+      "sha256": "930ec833e10d4c874edb9d16f0fb5442056d11c3a3761777fdebe84bf44801a0",
+      "bytes": 71800,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v4/05_weight_tradeoff.png": {
+      "sha256": "89ca40dfd85565c9dcb09dc7a59a6fa994d5903c44c12932ffdea9f71f5a80a7",
+      "bytes": 311015,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v4/06_real_diagnosis.png": {
+      "sha256": "ffcee20f13ba42599e441cfb28fb1e26588d1a8246720c67b443af01916f82f5",
+      "bytes": 112452,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/01_v4_search.png": {
+      "sha256": "0a9f0c8bdd8d1807ecf2e89ad2bea20e94a611fa289edf48e3913c4db8b5c742",
+      "bytes": 319254,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/02_common_budget.png": {
+      "sha256": "57b544a9c1f6322d058a402dc8fa464b6911197c0e46ac2a6548cc827e257228",
+      "bytes": 146193,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/03_v4_nested_real.png": {
+      "sha256": "585b54cd2c3510b6a72bc921c3469df68ab7af27b6eaf064ae5a7bcb42d480c3",
+      "bytes": 354281,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/04_common_H_recovery.png": {
+      "sha256": "630ff960eadc3ad1ad2f29ed1cc9a5e0b0531ac3fda8182cec62f96890ef3441",
+      "bytes": 191484,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/05_v4_weight_tradeoff.png": {
+      "sha256": "4bb6d2ebbe430253d3fa53dac7ba1b5ba43cbc1023d46775af807331227daf94",
+      "bytes": 165215,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/06_real_windows_and_failure.png": {
+      "sha256": "7daebc26e8e494999e6a7643ab97c4f7bf2517b8daec7b11e450b278f788c1e6",
+      "bytes": 287510,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/07_band_sensitivity.png": {
+      "sha256": "9230cc225b5bcf36108873b42ab14e82e304cd8f74fc6c19d35608bb0940ba79",
+      "bytes": 154555,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/08_v4_convergence.png": {
+      "sha256": "d51b317dd20bac07927bc55a84b0297ae5f4e2bad02e708657c095fc77c614b2",
+      "bytes": 184232,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/09_v4_geometry_pareto.png": {
+      "sha256": "773a8d07569a1390054394b18f975a0064ea2e0344efd2124cb2805c5ca06213",
+      "bytes": 145392,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/research/v5/10_real_failure_waveforms.png": {
+      "sha256": "40fee9a5121dcee8ca41d5c584f1ba1c44d91735bee0bcfdd2be25c71b72b746",
+      "bytes": 578512,
+      "kind": "generated",
+      "generated_this_pass": 1
+    }
+  },
+  "legacy_source_records": [
+    {
+      "path": "figures/legacy/v3/00_research_workflow_summary.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\synthetic\\01_sampling_benchmark\\benchmark_comparison_table.csv": "58b2fe56de211900215ef351a920ab8313b2f0dfcd33ef21403ce4615e2874d4",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "cbe7aeacdc68a4c98de51ce7c0df99d15489af4f752cc4b5810e70b2fe72b338",
+        "results\\enhanced_20261023\\real_sps\\attribute_evaluation\\attribute_fold_map_matrix.csv": "0d103e049d1823efdb1ddb9ca7ac7124f726c4b54887cb44f507a6ca85d34a92"
+      },
+      "archived_metrics": {
+        "Mode_Name": "Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)",
+        "Spatial_Grid_Dx_m": "12.5",
+        "Spatial_Grid_Origin_m": "-800",
+        "Spatial_Grid_Source": "DefaultUniformGrid",
+        "Mask_SHA1": "f0f94631a8c205178c48851e28dc54aff0fd0270",
+        "Mask_Source": "Benchmark optimized ClassicPSF mask (50%",
+        "Sampling_Ratio": "50.00%",
+        "Active_Traces": "64",
+        "Total_Traces": "128",
+        "Time_Samples": "256",
+        "POCS_Iterations": "40",
+        "SNR_Zero_Fill": "3.02",
+        "SNR_Linear_Interp": "10.67",
+        "SNR_POCS_CS": "13.19",
+        "SNR_Improvement_vs_Zero": "10.18",
+        "SNR_Imprv_vs_Linear": "2.52",
+        "SNR_Linear_MissingOnly": "7.65",
+        "SNR_POCS_MissingOnly": "10.18",
+        "Initialization_Mode": "WarmStart (Linear Interpolation)",
+        "SNR_POCS_ColdStart": "6.89",
+        "SNR_POCS_WarmStart": "13.19",
+        "SNR_WarmGain_over_Cold": "6.31",
+        "SNR_POCS_IterGain_Cold": "3.87",
+        "SNR_POCS_IterGain_Warm": "2.52",
+        "RMSE_ColdStart": "0.071924",
+        "RMSE_WarmStart": "0.034800",
+        "RMSE": "0.034800",
+        "Pearson_Correlation": "0.9758",
+        "Data_Consistency_Passed": "PASSED",
+        "Runtime_ms": "3287.0"
+      }
+    },
+    {
+      "path": "figures/legacy/v3/01_sa_convergence_curve.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\synthetic\\01_sampling_benchmark\\benchmark_convergence_curves.csv": "16f00bb6ef1baaeacf301eca4b96953f25d504e07227dbfa09e9b1ef3854fb10"
+      }
+    },
+    {
+      "path": "figures/legacy/v3/02_sampling_benchmark_bars.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\synthetic\\01_sampling_benchmark\\benchmark_comparison_table.csv": "58b2fe56de211900215ef351a920ab8313b2f0dfcd33ef21403ce4615e2874d4"
+      }
+    },
+    {
+      "path": "figures/legacy/v3/03_cmp_fold_distribution_map.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\real_sps\\attribute_evaluation\\attribute_fold_map_matrix.csv": "0d103e049d1823efdb1ddb9ca7ac7124f726c4b54887cb44f507a6ca85d34a92"
+      }
+    },
+    {
+      "path": "figures/legacy/v3/04_offset_azimuth_rose_charts.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\real_sps\\attribute_evaluation\\attribute_offset_distribution.csv": "d1a2d63083f43ebeffa7308ceaa3f4c85499d28a6d05a2c39fdfe678d9d43ad3",
+        "results\\enhanced_20261023\\real_sps\\attribute_evaluation\\attribute_azimuth_rose.csv": "2b2c1137e4f6101d1bcface838241cbf3045e08cb65fd2fe1b9f7e7911294351"
+      }
+    },
+    {
+      "path": "figures/legacy/v3/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "cbe7aeacdc68a4c98de51ce7c0df99d15489af4f752cc4b5810e70b2fe72b338",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_original_gather.csv": "83a07b9cdc0c43bc3fd2eaf66e568cb4e0829c1688cee6f6095e9d11ad9b265f",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_recovered_gather.csv": "c03c50dcc7b6ecdc67fafd5b1564a2e03cfb06027eebcdfc92337a1325e8fd5d",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+      "hidden_snr_db": 10.176023349629052,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0
+    },
+    {
+      "path": "figures/legacy/v3/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "cbe7aeacdc68a4c98de51ce7c0df99d15489af4f752cc4b5810e70b2fe72b338",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_original_gather.csv": "83a07b9cdc0c43bc3fd2eaf66e568cb4e0829c1688cee6f6095e9d11ad9b265f",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_recovered_gather.csv": "c03c50dcc7b6ecdc67fafd5b1564a2e03cfb06027eebcdfc92337a1325e8fd5d",
+        "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+      "hidden_snr_db": 10.176023349629052,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0,
+      "trace_column": 64
+    },
+    {
+      "path": "figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_metrics_summary.csv": "3ad4f529ad7596e648dbb276dc46962ea99251f0f14049a32207e6222613e766",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\cmp_mask.txt": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_original_gather.csv": "3868704926f85215837591c5ef1c7ea3a1380c861de2237a684a93202ba469b1",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_recovered_gather.csv": "ca38c75271106860baea2ef60a8eee827e0ef0511cf75dfc7f2454026012bc87",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
+      },
+      "source_mode": "current full-resolution replay; old display export was decimated",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+      "hidden_snr_db": 10.748282600335736,
+      "archived_export_shape": [
+        64,
+        32
+      ],
+      "replay_difference_on_archived_grid": 0.0
+    },
+    {
+      "path": "figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_metrics_summary.csv": "3ad4f529ad7596e648dbb276dc46962ea99251f0f14049a32207e6222613e766",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\cmp_mask.txt": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_original_gather.csv": "3868704926f85215837591c5ef1c7ea3a1380c861de2237a684a93202ba469b1",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_recovered_gather.csv": "ca38c75271106860baea2ef60a8eee827e0ef0511cf75dfc7f2454026012bc87",
+        "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
+      },
+      "source_mode": "current full-resolution replay; old display export was decimated",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+      "hidden_snr_db": 10.748282600335736,
+      "archived_export_shape": [
+        64,
+        32
+      ],
+      "replay_difference_on_archived_grid": 0.0,
+      "trace_column": 51
+    },
+    {
+      "path": "figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_metrics_summary.csv": "58935512bd8e9b27d12d50fd06fd0785f0093bf916e7dbe31a163890effb0106",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\cmp_mask.txt": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_original_gather.csv": "a4fc92bd326df568fa4cff323721daa5d61e3addb95033a567b7c83bb36a16a5",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_recovered_gather.csv": "9606486c2065eb01e7fa5082483d9d4d4e272df36b2ccae0b90f3361af5b3fff",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
+      },
+      "source_mode": "current full-resolution replay; old display export was decimated",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+      "hidden_snr_db": 13.320693419656532,
+      "archived_export_shape": [
+        64,
+        32
+      ],
+      "replay_difference_on_archived_grid": 0.0
+    },
+    {
+      "path": "figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_metrics_summary.csv": "58935512bd8e9b27d12d50fd06fd0785f0093bf916e7dbe31a163890effb0106",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\cmp_mask.txt": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_original_gather.csv": "a4fc92bd326df568fa4cff323721daa5d61e3addb95033a567b7c83bb36a16a5",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_recovered_gather.csv": "9606486c2065eb01e7fa5082483d9d4d4e272df36b2ccae0b90f3361af5b3fff",
+        "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
+      },
+      "source_mode": "current full-resolution replay; old display export was decimated",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+      "hidden_snr_db": 13.320693419656532,
+      "archived_export_shape": [
+        64,
+        32
+      ],
+      "replay_difference_on_archived_grid": 0.0,
+      "trace_column": 51
+    },
+    {
+      "path": "figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_metrics_summary.csv": "0c42610b2639b37f5ca38e4ea61bfd3ff0efdac80755b2220a2fd55445fc2eba",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\cmp_mask.txt": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_original_gather.csv": "e91026b13eecd90b2bc64ecac0b412d5a51929e7a2e3e87c0d0b717b3ef0be97",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_recovered_gather.csv": "9f41c492179ccd66dfeb17927f1f139a2b3dc49c13d4dd84937235d3e098cb48",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
+      },
+      "source_mode": "current full-resolution replay; old display export was decimated",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+      "hidden_snr_db": 10.993514299990512,
+      "archived_export_shape": [
+        64,
+        32
+      ],
+      "replay_difference_on_archived_grid": 0.0
+    },
+    {
+      "path": "figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_metrics_summary.csv": "0c42610b2639b37f5ca38e4ea61bfd3ff0efdac80755b2220a2fd55445fc2eba",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\cmp_mask.txt": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_original_gather.csv": "e91026b13eecd90b2bc64ecac0b412d5a51929e7a2e3e87c0d0b717b3ef0be97",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_recovered_gather.csv": "9f41c492179ccd66dfeb17927f1f139a2b3dc49c13d4dd84937235d3e098cb48",
+        "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
+      },
+      "source_mode": "current full-resolution replay; old display export was decimated",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+      "hidden_snr_db": 10.993514299990512,
+      "archived_export_shape": [
+        64,
+        32
+      ],
+      "replay_difference_on_archived_grid": 0.0,
+      "trace_column": 51
+    },
+    {
+      "path": "figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\real_field\\recon_metrics_summary.csv": "9f73edb396101495c2350a212834ad3f340bca2e387bf2a3dab0fbc59cb81f21",
+        "results\\enhanced_20261023\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+        "results\\enhanced_20261023\\real_field\\recon_original_gather.csv": "e38ae38018f30ee70878fe93b6d2b9546ddc078dbd7bf53b639b32517005fca5",
+        "results\\enhanced_20261023\\real_field\\recon_recovered_gather.csv": "6ff8c1880ddf8b912232d6282919a2b709b137b4738608e0b74e751ae3e2759c",
+        "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\real_field",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 4.182381809335205,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0
+    },
+    {
+      "path": "figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\enhanced_20261023\\real_field\\recon_metrics_summary.csv": "9f73edb396101495c2350a212834ad3f340bca2e387bf2a3dab0fbc59cb81f21",
+        "results\\enhanced_20261023\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+        "results\\enhanced_20261023\\real_field\\recon_original_gather.csv": "e38ae38018f30ee70878fe93b6d2b9546ddc078dbd7bf53b639b32517005fca5",
+        "results\\enhanced_20261023\\real_field\\recon_recovered_gather.csv": "6ff8c1880ddf8b912232d6282919a2b709b137b4738608e0b74e751ae3e2759c",
+        "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\real_field",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 4.182381809335205,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0,
+      "trace_column": 64
+    },
+    {
+      "path": "figures/legacy/v2/00_research_workflow_summary.png",
+      "input_sha256": {
+        "results\\revised_20261023\\synthetic\\01_sampling_benchmark\\benchmark_comparison_table.csv": "58b2fe56de211900215ef351a920ab8313b2f0dfcd33ef21403ce4615e2874d4",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "204ebd5015bb9d8bd3106b8d2dd3b28411cd2769d98149d818f87f2b02b58fc9",
+        "results\\revised_20261023\\real_sps\\attribute_evaluation\\attribute_fold_map_matrix.csv": "0d103e049d1823efdb1ddb9ca7ac7124f726c4b54887cb44f507a6ca85d34a92"
+      },
+      "archived_metrics": {
+        "Mode_Name": "Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)",
+        "Spatial_Grid_Dx_m": "12.5",
+        "Spatial_Grid_Origin_m": "-800",
+        "Spatial_Grid_Source": "DefaultUniformGrid",
+        "Mask_SHA1": "f0f94631a8c205178c48851e28dc54aff0fd0270",
+        "Mask_Source": "Benchmark optimized ClassicPSF mask (50%",
+        "Sampling_Ratio": "50.00%",
+        "Active_Traces": "64",
+        "Total_Traces": "128",
+        "Time_Samples": "256",
+        "POCS_Iterations": "40",
+        "SNR_Zero_Fill": "3.02",
+        "SNR_Linear_Interp": "10.67",
+        "SNR_POCS_CS": "13.19",
+        "SNR_Improvement_vs_Zero": "10.18",
+        "SNR_Imprv_vs_Linear": "2.52",
+        "SNR_Linear_MissingOnly": "7.65",
+        "SNR_POCS_MissingOnly": "10.18",
+        "Initialization_Mode": "WarmStart (Linear Interpolation)",
+        "SNR_POCS_ColdStart": "6.89",
+        "SNR_POCS_WarmStart": "13.19",
+        "SNR_WarmGain_over_Cold": "6.31",
+        "SNR_POCS_IterGain_Cold": "3.87",
+        "SNR_POCS_IterGain_Warm": "2.52",
+        "RMSE_ColdStart": "0.071924",
+        "RMSE_WarmStart": "0.034800",
+        "RMSE": "0.034800",
+        "Pearson_Correlation": "0.9758",
+        "Data_Consistency_Passed": "PASSED",
+        "Runtime_ms": "3319.0"
+      }
+    },
+    {
+      "path": "figures/legacy/v2/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "204ebd5015bb9d8bd3106b8d2dd3b28411cd2769d98149d818f87f2b02b58fc9",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_original_gather.csv": "5617f2f6f5854e2da28086b05ddf18b62fcf0b34ac0ce15b61a3422f3a832bc8",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_recovered_gather.csv": "c03c50dcc7b6ecdc67fafd5b1564a2e03cfb06027eebcdfc92337a1325e8fd5d",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+      "hidden_snr_db": 10.176023349629052,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0
+    },
+    {
+      "path": "figures/legacy/v2/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "204ebd5015bb9d8bd3106b8d2dd3b28411cd2769d98149d818f87f2b02b58fc9",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_original_gather.csv": "5617f2f6f5854e2da28086b05ddf18b62fcf0b34ac0ce15b61a3422f3a832bc8",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_recovered_gather.csv": "c03c50dcc7b6ecdc67fafd5b1564a2e03cfb06027eebcdfc92337a1325e8fd5d",
+        "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+      "hidden_snr_db": 10.176023349629052,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0,
+      "trace_column": 64
+    },
+    {
+      "path": "figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\revised_20261023\\real_field\\recon_metrics_summary.csv": "e4189f473e0090be460fe8bf1d1e26c6f01ca521c092d6c85eb2296888ea652c",
+        "results\\revised_20261023\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+        "results\\revised_20261023\\real_field\\recon_original_gather.csv": "c4a0d88e258a22c1e8c2777cb6d394d172f9dd086f59397f54983196f516fdfe",
+        "results\\revised_20261023\\real_field\\recon_recovered_gather.csv": "6ff8c1880ddf8b912232d6282919a2b709b137b4738608e0b74e751ae3e2759c",
+        "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\real_field",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 4.182381809335205,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0
+    },
+    {
+      "path": "figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\revised_20261023\\real_field\\recon_metrics_summary.csv": "e4189f473e0090be460fe8bf1d1e26c6f01ca521c092d6c85eb2296888ea652c",
+        "results\\revised_20261023\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+        "results\\revised_20261023\\real_field\\recon_original_gather.csv": "c4a0d88e258a22c1e8c2777cb6d394d172f9dd086f59397f54983196f516fdfe",
+        "results\\revised_20261023\\real_field\\recon_recovered_gather.csv": "6ff8c1880ddf8b912232d6282919a2b709b137b4738608e0b74e751ae3e2759c",
+        "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+      },
+      "source_mode": "archived exported matrices",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\real_field",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 4.182381809335205,
+      "archived_export_shape": [
+        256,
+        128
+      ],
+      "replay_difference_on_archived_grid": 0.0,
+      "trace_column": 64
+    },
+    {
+      "path": "figures/legacy/baseline/00_research_workflow_summary.png",
+      "input_sha256": {
+        "results\\synthetic\\01_sampling_benchmark\\benchmark_comparison_table.csv": "9be925d19e26889e8c3190bddf4263359722958323fe907117d1e75e12157c47",
+        "results\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "bc199bbc7f8021d23adf0eba4d47142d4e95f59780b72a8deb2fb58b3dda6f92",
+        "results\\real_sps\\attribute_evaluation\\attribute_fold_map_matrix.csv": "0d103e049d1823efdb1ddb9ca7ac7124f726c4b54887cb44f507a6ca85d34a92"
+      },
+      "archived_metrics": {
+        "Mode_Name": "Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)",
+        "Mask_Source": "Auto-Generated Jitter Mask (m=64/128",
+        "Sampling_Ratio": "50.00%",
+        "Active_Traces": "64",
+        "Total_Traces": "128",
+        "Time_Samples": "256",
+        "POCS_Iterations": "40",
+        "SNR_Zero_Fill": "3.00",
+        "SNR_Linear_Interp": "11.83",
+        "SNR_POCS_CS": "13.90",
+        "SNR_Improvement_vs_Zero": "10.90",
+        "SNR_Imprv_vs_Linear": "2.07",
+        "SNR_Linear_MissingOnly": "8.82",
+        "SNR_POCS_MissingOnly": "10.90",
+        "Initialization_Mode": "WarmStart (Linear Interpolation)",
+        "SNR_POCS_ColdStart": "6.24",
+        "SNR_POCS_WarmStart": "13.90",
+        "SNR_WarmGain_over_Cold": "7.66",
+        "SNR_POCS_IterGain_Cold": "3.24",
+        "SNR_POCS_IterGain_Warm": "2.07",
+        "RMSE_ColdStart": "0.077459",
+        "RMSE_WarmStart": "0.032070",
+        "RMSE": "0.032070",
+        "Pearson_Correlation": "0.9794",
+        "Data_Consistency_Passed": "PASSED",
+        "Runtime_ms": "3513.0"
+      }
+    },
+    {
+      "path": "figures/legacy/baseline/01_sa_convergence_curve.png",
+      "input_sha256": {
+        "results\\synthetic\\01_sampling_benchmark\\benchmark_convergence_curves.csv": "6930ef45cda9e4bbd0dc60e65431658de51d5a44999aad4bbe92ee3e16cf5fa7"
+      }
+    },
+    {
+      "path": "figures/legacy/baseline/02_sampling_benchmark_bars.png",
+      "input_sha256": {
+        "results\\synthetic\\01_sampling_benchmark\\benchmark_comparison_table.csv": "9be925d19e26889e8c3190bddf4263359722958323fe907117d1e75e12157c47"
+      }
+    },
+    {
+      "path": "figures/legacy/baseline/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "bc199bbc7f8021d23adf0eba4d47142d4e95f59780b72a8deb2fb58b3dda6f92",
+        "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+      },
+      "source_mode": "current deterministic replay; original matrices were not archived",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 10.89820382319636
+    },
+    {
+      "path": "figures/legacy/baseline/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\synthetic\\03_wavefield_reconstruction\\recon_metrics_summary.csv": "bc199bbc7f8021d23adf0eba4d47142d4e95f59780b72a8deb2fb58b3dda6f92",
+        "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+      },
+      "source_mode": "current deterministic replay; original matrices were not archived",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 10.89820382319636,
+      "trace_column": 64
+    },
+    {
+      "path": "figures/legacy/real/05_wavefield_reconstruction_quad.png",
+      "input_sha256": {
+        "results\\real_field\\recon_metrics_summary.csv": "c1cde4f8276eacf278d2edc90d29d8e33c418c8a7736861da1378894a6a43f4a",
+        "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+      },
+      "source_mode": "current deterministic replay; original matrices were not archived",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\real_field",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 4.182381809335205
+    },
+    {
+      "path": "figures/legacy/real/06_recon_convergence_trace_comparison.png",
+      "input_sha256": {
+        "results\\real_field\\recon_metrics_summary.csv": "c1cde4f8276eacf278d2edc90d29d8e33c418c8a7736861da1378894a6a43f4a",
+        "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+      },
+      "source_mode": "current deterministic replay; original matrices were not archived",
+      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\real_field",
+      "replay_max_abs_prediction_difference": 0.0,
+      "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+      "hidden_snr_db": 4.182381809335205,
+      "trace_column": 64
+    }
+  ],
+  "note": "Static Qt icons are original source assets. Each generated image is saved once in this pass; existing canonical paths are overwritten."
+}
