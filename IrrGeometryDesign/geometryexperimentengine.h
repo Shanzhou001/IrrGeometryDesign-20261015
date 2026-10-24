@@ -267,6 +267,12 @@ public:
 
     // 自动化单元测试与回归校验体系 (Task 11) (add by wushanzhou in 2026/10/15)
     static bool runUnitTests();
+    static bool runReviewUnitTests(); // add by wushanzhou in 2026/10/24
+
+    static bool runReviewSearch(const QString& inputCsv,const QString& outputDir,int seeds,int budget, // add by wushanzhou in 2026/10/24
+        unsigned long long seed,bool tradeoff,QString& report); // add by wushanzhou in 2026/10/24
+    static bool runConfiguredReconstruction(const QString& inputCsv,const QString& maskFile,const QString& outputDir, // add by wushanzhou in 2026/10/24
+        int iterations,double thresholdStart,double thresholdEnd,int scales,int angles,bool warmStart,QString& report); // add by wushanzhou in 2026/10/24
 
     // 批量留出验证并归档 (2026.10.20 新增)
     // 对 keep x seed 组合逐一执行，写出机器可读的汇总 CSV，

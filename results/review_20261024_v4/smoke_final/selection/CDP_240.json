@@ -1,0 +1,59 @@
+{
+  "selected": {
+    "candidate": "zero",
+    "gain": 0.0,
+    "validation_mse": 0.008349730272658439,
+    "raw_validation_mse": 0.008349730272658439
+  },
+  "candidates": [
+    {
+      "candidate": "zero",
+      "gain": 0.0,
+      "validation_mse": 0.008349730272658439,
+      "raw_validation_mse": 0.008349730272658439
+    },
+    {
+      "candidate": "linear",
+      "gain": 0.0,
+      "validation_mse": 0.008349730272658439,
+      "raw_validation_mse": 0.020607886953097846
+    },
+    {
+      "candidate": "legacy",
+      "gain": 0.0,
+      "validation_mse": 0.008349730272658439,
+      "raw_validation_mse": 0.016598019733015057
+    },
+    {
+      "candidate": "cold",
+      "gain": 0.0,
+      "validation_mse": 0.008349730272658439,
+      "raw_validation_mse": 0.009940181785957987
+    }
+  ],
+  "outer_known": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    8,
+    9,
+    10,
+    12
+  ],
+  "inner_train": [
+    0,
+    1,
+    4,
+    5,
+    8,
+    10
+  ],
+  "validation": [
+    12,
+    3,
+    9
+  ],
+  "seed": 20261025
+}

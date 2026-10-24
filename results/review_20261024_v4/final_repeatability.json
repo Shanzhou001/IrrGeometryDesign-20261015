@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "tables": {
+    "synthetic_reconstruction.csv": {
+      "rows": 1638,
+      "scientific_columns_identical": true,
+      "excluded_path_columns": []
+    },
+    "real_mask_reconstruction.csv": {
+      "rows": 210,
+      "scientific_columns_identical": true,
+      "excluded_path_columns": []
+    },
+    "real_nested.csv": {
+      "rows": 30,
+      "scientific_columns_identical": true,
+      "excluded_path_columns": []
+    },
+    "cdp_nested.csv": {
+      "rows": 5,
+      "scientific_columns_identical": true,
+      "excluded_path_columns": [
+        "input"
+      ]
+    }
+  },
+  "native_step_sets_identical": true,
+  "prediction_linear_convergence_sha256_matches": 6594,
+  "solver_scientific_columns_matches": 2198,
+  "excluded_solver_column": "runtime_ms",
+  "timing_and_fingerprints_intentionally_differ": true
+}

@@ -1,0 +1,4 @@
+declared format code : 1 (1 = IBM float)
+decoded as IEEE-LE   : peak |amp| = 7155.0
+IEEE-LE plausibility : PASS
+This check does not identify the encoding or resolve the header/profile conflict.

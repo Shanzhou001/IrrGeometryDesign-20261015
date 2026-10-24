@@ -1,0 +1,4 @@
+keep,scope,mean_difference,p_raw,n_effective,paired_rank_biserial,p_holm,family_size,significant_005
+20,conditional_random_splits_one_fixed_source,1.4333692829583498,0.001953125,10,1.0,0.005859375,3,True
+30,conditional_random_splits_one_fixed_source,1.2771029425587357,0.001953125,10,1.0,0.005859375,3,True
+40,conditional_random_splits_one_fixed_source,1.3056460576096098,0.001953125,10,1.0,0.005859375,3,True

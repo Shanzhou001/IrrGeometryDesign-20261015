@@ -51,6 +51,50 @@ int main(int argc, char *argv[])
 
 	for (int i = 1; i < argc; i++)
 	{
+        if(strcmp(argv[i],"--review-tests")==0)return GeometryExperimentEngine::runReviewUnitTests()?0:1; // add by wushanzhou in 2026/10/24
+        if(strcmp(argv[i],"--review-search")==0) // add by wushanzhou in 2026/10/24
+        { // add by wushanzhou in 2026/10/24
+            if(i+1>=argc)return 2; // add by wushanzhou in 2026/10/24
+            QString output=QString::fromLocal8Bit(argv[i+1]),input,report; // add by wushanzhou in 2026/10/24
+            int seeds=20,budget=200;unsigned long long seed=20261024ULL;bool tradeoff=false,valid=true; // add by wushanzhou in 2026/10/24
+            for(int j=i+2;j<argc;j++) // add by wushanzhou in 2026/10/24
+            { // add by wushanzhou in 2026/10/24
+                if(strcmp(argv[j],"--tradeoff")==0)tradeoff=true; // add by wushanzhou in 2026/10/24
+                else if(j+1>=argc){valid=false;break;} // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--input")==0)input=QString::fromLocal8Bit(argv[++j]); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--seeds")==0)seeds=QString::fromLocal8Bit(argv[++j]).toInt(&valid); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--budget")==0)budget=QString::fromLocal8Bit(argv[++j]).toInt(&valid); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--seed")==0)seed=QString::fromLocal8Bit(argv[++j]).toULongLong(&valid); // add by wushanzhou in 2026/10/24
+                else valid=false; // add by wushanzhou in 2026/10/24
+                if(!valid)break; // add by wushanzhou in 2026/10/24
+            } // add by wushanzhou in 2026/10/24
+            if(!valid)return 2; // add by wushanzhou in 2026/10/24
+            bool ok=GeometryExperimentEngine::runReviewSearch(input,output,seeds,budget,seed,tradeoff,report); // add by wushanzhou in 2026/10/24
+            fprintf(ok?stdout:stderr,"%s\n",report.toLocal8Bit().constData());return ok?0:1; // add by wushanzhou in 2026/10/24
+        } // add by wushanzhou in 2026/10/24
+        if(strcmp(argv[i],"--review-reconstruct")==0) // add by wushanzhou in 2026/10/24
+        { // add by wushanzhou in 2026/10/24
+            if(i+1>=argc)return 2; // add by wushanzhou in 2026/10/24
+            QString input=QString::fromLocal8Bit(argv[i+1]),output,mask,report; // add by wushanzhou in 2026/10/24
+            int iterations=40,scales=4,angles=16;double start=.0265,end=.0005;bool warm=true,valid=true; // add by wushanzhou in 2026/10/24
+            for(int j=i+2;j<argc;j++) // add by wushanzhou in 2026/10/24
+            { // add by wushanzhou in 2026/10/24
+                if(strcmp(argv[j],"--cold")==0)warm=false; // add by wushanzhou in 2026/10/24
+                else if(j+1>=argc){valid=false;break;} // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--out")==0)output=QString::fromLocal8Bit(argv[++j]); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--mask")==0)mask=QString::fromLocal8Bit(argv[++j]); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--iter")==0)iterations=QString::fromLocal8Bit(argv[++j]).toInt(&valid); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--scales")==0)scales=QString::fromLocal8Bit(argv[++j]).toInt(&valid); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--angles")==0)angles=QString::fromLocal8Bit(argv[++j]).toInt(&valid); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--threshold-start")==0)start=QString::fromLocal8Bit(argv[++j]).toDouble(&valid); // add by wushanzhou in 2026/10/24
+                else if(strcmp(argv[j],"--threshold-end")==0)end=QString::fromLocal8Bit(argv[++j]).toDouble(&valid); // add by wushanzhou in 2026/10/24
+                else valid=false; // add by wushanzhou in 2026/10/24
+                if(!valid)break; // add by wushanzhou in 2026/10/24
+            } // add by wushanzhou in 2026/10/24
+            if(!valid || output.isEmpty() || mask.isEmpty())return 2; // add by wushanzhou in 2026/10/24
+            bool ok=GeometryExperimentEngine::runConfiguredReconstruction(input,mask,output,iterations,start,end,scales,angles,warm,report); // add by wushanzhou in 2026/10/24
+            fprintf(ok?stdout:stderr,"%s\n",report.toLocal8Bit().constData());return ok?0:1; // add by wushanzhou in 2026/10/24
+        } // add by wushanzhou in 2026/10/24
 		if (strcmp(argv[i], "--test") == 0 || strcmp(argv[i], "--run-tests") == 0 || strcmp(argv[i], "-t") == 0)
 		{
 			bool ok = GeometryExperimentEngine::runUnitTests();

@@ -1,0 +1,1 @@
+{"passed": true, "counts": {"search_rows": 3960, "synthetic_rows": 1638, "real_mask_rows": 210, "nested_rows": 35, "archived_files": 0}, "native_steps": 2202, "hashed_output_files": 16716, "post_launch_cli_only_tool_changes": ["tools\\convert_rraw_to_engine_csv.py"], "independent_real_sources": 1}

@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "rows": 60,
+  "unchanged_scientific_columns": [
+    "rate",
+    "seed_index",
+    "seed",
+    "mu_jitter_init",
+    "mu_sa_only",
+    "mu_local_only",
+    "mu_sa_local",
+    "mu_restart_best",
+    "mu_constrained",
+    "evals_sa_only",
+    "evals_local_only",
+    "evals_sa_local",
+    "evals_restart",
+    "evals_constrained",
+    "max_gap_sa_local",
+    "max_gap_constrained",
+    "nn_cv_sa_local",
+    "nn_cv_constrained",
+    "protocol",
+    "budget_cap",
+    "sa_prefix_mu",
+    "sa_prefix_equal",
+    "sa_prefix_sha1"
+  ],
+  "excluded_timing_columns": [
+    "runtime_sa_ms",
+    "runtime_local_ms",
+    "runtime_hybrid_ms",
+    "runtime_restart_ms",
+    "runtime_constrained_ms"
+  ]
+}

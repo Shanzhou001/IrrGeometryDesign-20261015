@@ -1,0 +1,2844 @@
+{
+  "fingerprint": {
+    "protocol": "adaptive_hybrid_v4",
+    "executable_sha256": "efc82999bf8b476ad92415c4a09d08c403b6d3c07975108e315dba59b6820aef",
+    "source_sha256": {
+      "IrrGeometryDesign\\adaptivesearch.inc": "9c1662970da5668c7e11eb8920c3da9f789eacd6e88222a0de1f64197e19540e",
+      "IrrGeometryDesign\\analyzebindoc.cpp": "3da5bf9276a67c021052856e69d81914403109ac5b81eb8a6a20270a75988722",
+      "IrrGeometryDesign\\analyzebindoc.h": "ed9296990b004db4bd6d922d6dbc8530305e9055a413e15e63f3068b0c1eb85a",
+      "IrrGeometryDesign\\analyzebinform.cpp": "fcec446c2ef6b89d1be9137ee61cb7ba6a47c54d6c5cb27ea39a359b5034925d",
+      "IrrGeometryDesign\\analyzebinform.h": "5e618a8985be5ab960fbed12f921508c45417ae50a941e253bb6fc1e9f3b418a",
+      "IrrGeometryDesign\\analyzebinview.cpp": "a48e5c0c3cd6ae8db26d6b980f0bc056fc3ccaaf059073669371681274283d5d",
+      "IrrGeometryDesign\\analyzebinview.h": "8c0d99ff631be112ca2c7467914178749f08fd8d5772fc37abbb62c86c356e33",
+      "IrrGeometryDesign\\baseclass\\gmath.cpp": "1cc1cece40583a6a9c1a44db0295cb1a71c16371d9bf28f7cedcb474f4379f18",
+      "IrrGeometryDesign\\baseclass\\gmath.h": "5de677bc9360c94e3de600e561d5cda3cb6c5139fabbd95b750393a934ba1396",
+      "IrrGeometryDesign\\baseclass\\gmatrix3d.cpp": "a92b423fd5ed9af3f90f824758b41c7387492e76411e42da44392e1e10bd5a04",
+      "IrrGeometryDesign\\baseclass\\gmatrix3d.h": "cf21641588d92737b953467e23fb1e06ceb7c83ec685750a9858181b2650fd98",
+      "IrrGeometryDesign\\baseclass\\gpoint3d.cpp": "73563732364c613bae82b1243dc1ebc4857e813f31ece3b8b02098591f621aaf",
+      "IrrGeometryDesign\\baseclass\\gpoint3d.h": "fd420324c36a04e5defe06d44c779e08918a75e6c96c6bab2e88a68ae9aeab6e",
+      "IrrGeometryDesign\\baseclass\\gptrvector.h": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+      "IrrGeometryDesign\\baseclass\\gquaternion3d.cpp": "c817ac35b3a0510d490e955a55572ec5d08ed17a4ee4cbb533ed62adc4d51ccf",
+      "IrrGeometryDesign\\baseclass\\gquaternion3d.h": "d286bffb0574c377f35f490ff198460f44c492ddc83cc19fd482d27f41c3410a",
+      "IrrGeometryDesign\\baseclass\\grotation3d.cpp": "100ea72cb3de3a65ad4fb7711a4c088323e05b4c6ba7e2522ef78d601e7de9c4",
+      "IrrGeometryDesign\\baseclass\\grotation3d.h": "d1c17da8d2d20c152b8f535604e934a2da0df52eef7838b80d7fa38a6cf09414",
+      "IrrGeometryDesign\\baseclass\\gutils.cpp": "626edcb4747b8d1031e4e48ea034fa95af1a16bfce723202ec5cd8ed06d624ce",
+      "IrrGeometryDesign\\baseclass\\gutils.h": "332a5710a0181bf82926af7ed0d6f44284a9dbfefddea6650c4a4a1c82b9aaa0",
+      "IrrGeometryDesign\\baseclass\\gvaluevector.h": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+      "IrrGeometryDesign\\baseclass\\gvector3d.cpp": "ba611e90680a499b7975234f05e50b1f27514d3c9e6b009c643703e60776e09d",
+      "IrrGeometryDesign\\baseclass\\gvector3d.h": "ca2456c3d070a56879f3f63dead6f625c8f1af67b1905876de6378494d5cf3f7",
+      "IrrGeometryDesign\\CalculateMiu.h": "cf21c9778331a94ef157a2e5e87fd5ce08047872b4659c4035dd7abed067520d",
+      "IrrGeometryDesign\\changecoordinatedlg.cpp": "62b4e1b7e1212a1390bb4d59b37583dab39e2ce80b271da34e7b84ba8606b392",
+      "IrrGeometryDesign\\changecoordinatedlg.h": "b96e88b159fc1eb9d727a903d8644f2f184ecf56c94bd9c0c5e3f6f01722db4b",
+      "IrrGeometryDesign\\colorview.cpp": "e22f3234bbfd225b95d511ec535591997cc43f627356d1a65b0b6b8b52b1439d",
+      "IrrGeometryDesign\\colorview.h": "3a1c0af06935b5080cb616a0ebe793f02a4cff6e0eaf9df22eb3f6c0efb636ff",
+      "IrrGeometryDesign\\coordinateholdout.inc": "b3b4da3edeb6e53cdffa899358c3ad21c5463844c9b7d47a969a1b1adcd3fb11",
+      "IrrGeometryDesign\\Curvelet2d\\fdct_wrapping.cpp": "0351a91d0342993d4c7cccee4ccda175fa93f859aca15b71a3fb74f191419e36",
+      "IrrGeometryDesign\\Curvelet2d\\fdct_wrapping_param.cpp": "0f05c075d22edf8bc67b100eca32b56906c325451fbcbf95892c19304df1efca",
+      "IrrGeometryDesign\\Curvelet2d\\fftw.h": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+      "IrrGeometryDesign\\Curvelet2d\\ifdct_wrapping.cpp": "21b6731ce572e096c9186cd5e2a5c70ba870c834330ea988b93b8208b5ebf09b",
+      "IrrGeometryDesign\\Curvelet3d\\fdct3d_param.cpp": "dfe000ca8bebf5214ac961eb2621c6743733488538565abc1779c7bb2f4bc34e",
+      "IrrGeometryDesign\\Curvelet3d\\fftw.h": "803dae67992deea8043df616e8985c68f5480da150ca92065af195e043a35a69",
+      "IrrGeometryDesign\\CurveletMiu.cpp": "a4bd72e126f6d3b5738d92a0831b998052151db538b42238b13b71d8c8505993",
+      "IrrGeometryDesign\\datareconstruction.cpp": "3a6219d2c237d4f2696d4952e2657d0124af834863e57d53f6af395908662af4",
+      "IrrGeometryDesign\\datareconstruction.h": "282a09d56a8eacf289ef56b383aed791fdb6d22cb65da000b35a7de7d011fe18",
+      "IrrGeometryDesign\\Diagmul.cpp": "b3e538db83a98761bf0b6c6bc79910f1781341a47ed49dc3b7fad6ff5058962c",
+      "IrrGeometryDesign\\DiagMulmatrix.h": "418fd403b89868d9ff105421dd787475b4e7b9593fce846b2b2158f76d9aee85",
+      "IrrGeometryDesign\\draw2dfrm.cpp": "b259a1c89c9f2683685e868120c26e7a4aa1c12563a35fbcc0f3ae3f9c8f4a99",
+      "IrrGeometryDesign\\draw2dfrm.h": "20f334bd6587e42435bdde811e301bed82725df9777050f5df598091701a09dc",
+      "IrrGeometryDesign\\draw2Dview.cpp": "f31670e80083def73c5225cea7fdf2d4fba6380d7a8d756e54b2a92060cd5553",
+      "IrrGeometryDesign\\draw2Dview.h": "a6bdb9a23cda83374665949d61bdf037078623fe4233c1271c38e626e7c21a62",
+      "IrrGeometryDesign\\ExpRng.cpp": "cb0c3899dfa30fdb190430245ffe79d9c7f72e4f52abf0da40cb11af3df35d8a",
+      "IrrGeometryDesign\\ExpRng.h": "be45b19566cdbb35bcd967d72df48e664c54216afbee40990fe849e45ef6e47c",
+      "IrrGeometryDesign\\gAttrAnalyzeParam.cpp": "9163e7467c9bd4b9651c0028b0eb62d0a168a74e6f9610a22357dc31c3f92991",
+      "IrrGeometryDesign\\gAttrAnalyzeParam.h": "16c05e0636058e144c79ff136808ebd6b5f9cafcb28e9f894f9e1e33d2793f20",
+      "IrrGeometryDesign\\geometryexperimentengine.cpp": "addc3929e5ea2bf020528ccfa7d44f550e3674bb736a48c39ba8ee4a8a598ac4",
+      "IrrGeometryDesign\\geometryexperimentengine.h": "7a3d47150f7da49c53a9318b0153d37d0c550710ede2b584235a515f2527b0f4",
+      "IrrGeometryDesign\\geometrytemplateparameter.cpp": "9d73824c29cecc8bbeabb162b69f54a4cf014b4a0df35b455e152bc3355bec93",
+      "IrrGeometryDesign\\geometrytemplateparameter.h": "5fd5d7df127d1cf42e94bc13e32eb4ba40da4b79bc5651d358f4c383ff1055cc",
+      "IrrGeometryDesign\\main.cpp": "da8081ff6288ad21f753da72bd02b4bd00cbcdac1cb2396bc1af9ab2dca9b642",
+      "IrrGeometryDesign\\OptimizeMiu.cpp": "ef4ce1aecfb19c027ca19cd003528fe62542e714806b5f9475ad01e40bf1cb45",
+      "IrrGeometryDesign\\OptimizeMiu.h": "3a83b1e1ecb978e9a31a4142bf7e5fa270efe4e41b648eb05954e3ee52a85f20",
+      "IrrGeometryDesign\\ovtvolumeattributeview.cpp": "05b519984f50f96c50c1720ddf59df7ba95d862594a6b4f87013200540321646",
+      "IrrGeometryDesign\\ovtvolumeattributeview.h": "1cc69aa8aa77b2b0558a65c41bbc5e8c3b6340bd511fc2f529adee565ede44a4",
+      "IrrGeometryDesign\\qcustomplot.cpp": "592ee3226b23394a4fe649dc41b82917937260c31618e38b83b7c7908c6761dd",
+      "IrrGeometryDesign\\qcustomplot.h": "d843d0c43af78e0dbb227d42a1d48bb4e56334ee3a4930551a6305fecdb09f8f",
+      "IrrGeometryDesign\\reconstructionoptions.h": "710f16aaba8b133d7ec149a5b4f0cb4d76e86f494e3c9ebd7bf3611b04feb9c1",
+      "IrrGeometryDesign\\reviewexperiments.inc": "836097dbbd4425a223db37a2a1abcc6f2ac09f1f570e6f3919281730694d80db",
+      "IrrGeometryDesign\\reviewregression.inc": "5f5b39c8dd668cb12b79b8bb08710e8092c2143d2ad648cda884325fdb53876e",
+      "IrrGeometryDesign\\sample.h": "60dfbf5346bfcfd28210ec096c3e516fcde9c426fb3e4c4ffbba73ffb619a9a8",
+      "IrrGeometryDesign\\Sampling.cpp": "95a8737757ad365af4a28b863ccc86550ed9296f11899ce62fcb902b77920d5b",
+      "IrrGeometryDesign\\samplingstudies.inc": "37416c91a1512325111ecd8174ada4537521dba04feb025ef7c408ce31bee0a9",
+      "IrrGeometryDesign\\scienceregression.inc": "9894da191f894bf102f9065027de6fdc24da071e2a78d77098725ff5518e9671",
+      "IrrGeometryDesign\\scientificplotter.h": "6319c8779e28118b10e0e649c91791cef1cdd7165326b36b46f936cfd0a22221",
+      "IrrGeometryDesign\\spsloadcal.cpp": "9ea2f931bdd85b1cc5e7a5f6035cc44257f2040ef2000bb7a5f890ae6c4cbb29",
+      "IrrGeometryDesign\\spsloadcal.h": "735748721256b9fbc65fbd5863c193f30260d6d16896a6f775150986de257a23",
+      "IrrGeometryDesign\\spsmaskbuilder.cpp": "eaca63c3ab8e9ceb01216ea638e839b4d3512a00783bc94e9ad23b2f0727e871",
+      "IrrGeometryDesign\\spsmaskbuilder.h": "3a5c3855dc158b9630646d5063acb982e35b70f4fc8d4838dca3b0b9e5f4e93f",
+      "IrrGeometryDesign\\spssampledlg.cpp": "4cf1896ba204be9038f3b56aa0fc87d8142647f82e823a7cdbec9d250284851e",
+      "IrrGeometryDesign\\spssampledlg.h": "0925229622d015d35eeace7da7c70a8127eba6cee8ae8ecbc7b88222bb723bc2",
+      "IrrGeometryDesign\\spssegy\\gcmpset.cpp": "33ea0a45de3b4d84f0cf2d2d3f9615104711309d36d05d340acf7973a67e9cc6",
+      "IrrGeometryDesign\\spssegy\\gcmpset.h": "5f3a18fee426214cda80de2abd28761f7a241b39043be60813ddf6743c0c3751",
+      "IrrGeometryDesign\\spssegy\\gproject.cpp": "0a976cc96f27ee74b743338b7e4694ecf102079920e942ae0d5488aeb520fa5d",
+      "IrrGeometryDesign\\spssegy\\gproject.h": "a1baedf989fedfbca3c74c97c3ea0f7ea0d90f934e196af243100554a060701f",
+      "IrrGeometryDesign\\spssegy\\gptrvector.h": "b1681698ad71cf90e77e4bded366a367726e351bc629134f22135efdda14ebc1",
+      "IrrGeometryDesign\\spssegy\\grlineset.cpp": "fb4bf9621601fc91eeb54779c7d99f19245db502ff84eeff0e25de52d8e60299",
+      "IrrGeometryDesign\\spssegy\\grlineset.h": "d3c85fa71e93af3b43a39a35850179cac9171f50e7ab315a5a0a3fbfc434346d",
+      "IrrGeometryDesign\\spssegy\\gsegyfilescanner.cpp": "a93c1bb1e79fcc78b64b151b4eddb74fa2f1ab25fa46b8f208746b0a837145b9",
+      "IrrGeometryDesign\\spssegy\\gsegyfilescanner.h": "cce50bf6a6fcf4b44a1d04d2314e18bb42a7a77b7ad742ceab632526a26b0576",
+      "IrrGeometryDesign\\spssegy\\gshotset.cpp": "76055b44c60a1597935803bdd0766f5ab71deb01e633dbbd054b15f76fa99f5c",
+      "IrrGeometryDesign\\spssegy\\gshotset.h": "ccd0f12b970423430fec1f50965b42e9625d871f24bb351ed0ac9d6ad3bc5c0a",
+      "IrrGeometryDesign\\spssegy\\gslineset.cpp": "8314066922681abd493f4ce8c475ce0313d6ea6e6292bb0c857a44bf5457f698",
+      "IrrGeometryDesign\\spssegy\\gslineset.h": "951ed0a106d375369f94f62b1e1a06dc1a54a746601b5f95a246ec830850b332",
+      "IrrGeometryDesign\\spssegy\\gspsscanner.cpp": "2e56e1dfe6bab5f52d1f8aadc48d134bc3cf35edbf0cf1ebc083f2a8a5bcad76",
+      "IrrGeometryDesign\\spssegy\\gspsscanner.h": "71b033c7bdb77c20de3f06356fac29ab5204dc63fe35c8babfc3e63e93c255ca",
+      "IrrGeometryDesign\\spssegy\\gvaluevector.h": "6cdbcb53527894163a2dadd0cda584318bd7bc644eb15cfe48dae2de9b6e6bc4",
+      "IrrGeometryDesign\\spssegy\\segyio.cpp": "3e492bb7338ec70ff1ffeb33eb5dfe9345fe57ae8640850f1396ca75174e3824",
+      "IrrGeometryDesign\\spssegy\\segyio.h": "16403ea55c9306283d6dbe1116efd0edb03a011e7ef36787c0df473c513b47cf",
+      "IrrGeometryDesign\\spssegy\\tdatawizardform.cpp": "cfd432799c2c497e0f4923bb8b3a3da1f74ff0b541f56033b9832cb16af1fdf2",
+      "IrrGeometryDesign\\spssegy\\tdatawizardform.h": "819823f9cdc34055c7f153f11542cbfb5c3d62f8edb391c178f38e86209860f9",
+      "IrrGeometryDesign\\spssegy\\tdatawizardform.ui.h": "4ff2544affee9e01a0d468ffb9f8e076db1f78ecf429200a4bb6fbd4f48efeaa",
+      "IrrGeometryDesign\\spsshow\\gcellgrid.cpp": "f00ce9b25a18382df253a16a7ac693db4b83c1ba8231696ece54c337f2a00f06",
+      "IrrGeometryDesign\\spsshow\\gcellgrid.h": "e80557259375c70947d81d12b302b37b0f6fdd184fbb70564c0f251f055e1db2",
+      "IrrGeometryDesign\\spsshow\\gspsparam.cpp": "8c1be3a03fe3227834d70ceffd1673b986af5cfb0934ff540acb4a8722f134c6",
+      "IrrGeometryDesign\\spsshow\\gspsparam.h": "7812940e26543e9f08d9423f784e3ccf20f094701644fb3eba1904f1157ccf01",
+      "IrrGeometryDesign\\spsshow\\gspsview.cpp": "d43d2802ac56046dc26e5a9d5a4952772139c1fc2cb0b87fbc758e80ac6ec1a3",
+      "IrrGeometryDesign\\spsshow\\gspsview.h": "eacfcca02639093065bf2f2992f5f306ce9d344da66641fbb810ee17c1dea3cb",
+      "IrrGeometryDesign\\spsshow\\gvaluevector.h": "2a81e2c7ea93a4df81bc21d47ae3f30097979d938fa9d5e5b74a315d19c7a41c",
+      "IrrGeometryDesign\\spsshow\\tcellgridform.cpp": "d871cb5eaaa5802e3ce0b05462503e94dedcf0f068b964cb41d5616abe04918a",
+      "IrrGeometryDesign\\spsshow\\tcellgridform.h": "c1cf3ecff9db8e153b47d4c4fae3d0906d3233123c2426faeb0059049c3257f8",
+      "IrrGeometryDesign\\spsshow\\tspsdlg.cpp": "6a1fbe896924e59bea82ad0ed7a33120fb48181d5c9837ef37cff3e845eeed9c",
+      "IrrGeometryDesign\\spsshow\\tspsdlg.h": "2d83390383bdd6a92c20afc6db424d65d86afcafd0ed3d7f122d64522cb8b678",
+      "IrrGeometryDesign\\spsshow\\tspsform.cpp": "9eef53d44ea04298039da627dfdc17eca94b903ee38aa12bf3bf4897f72458f4",
+      "IrrGeometryDesign\\spsshow\\tspsform.h": "1678df2a7aa024ab20e1400a105da7415570f5ea05bd2846d8342927794617ae",
+      "IrrGeometryDesign\\tchangeshowareadlg.cpp": "35938d582c959bbb8c9b1c36fc7e26b7b074cdb013cf165a1d8fe7a4487adf21",
+      "IrrGeometryDesign\\tchangeshowareadlg.h": "d3c0e71932cda04c505cb60aa1b9a6c8b7559b35f404986ddd94504e5d97fd2f",
+      "IrrGeometryDesign\\tdatawizardform.cpp": "26ef4e1502fcdb63a439a64db76c3747db1b8bcb742fd30101f95f3b919959a4",
+      "IrrGeometryDesign\\tdatawizardform.h": "3c4c5f5ad008c7d8c6e9e0098b021ff157c319f6b5c811cfa4630faf1818385d",
+      "IrrGeometryDesign\\tgeometryimfordlg.cpp": "a4f08bc065e382688a256c0b203d7658f3bf131abac8a73630a05ee09cdc54a0",
+      "IrrGeometryDesign\\tgeometryimfordlg.h": "dd31164d303b80a3e4d46ccd204c59d2bf412feb6b7a4bc08067875da9b0a0f0",
+      "IrrGeometryDesign\\tqfdividedlg.cpp": "c1f1886fb242b63c84607635a3a71cc8fa155c6d0cd8426af7164bed8a4e2e02",
+      "IrrGeometryDesign\\tqfdividedlg.h": "3617a336a0b462a4952c918522b2f70b1e26b94c9dfe4d021bdb1a509aaa43f2",
+      "IrrGeometryDesign\\trealovtdlg.cpp": "30a2e23eac84d70a900f7f662e679801c7c9d561ffee875735418b076efea407",
+      "IrrGeometryDesign\\trealovtdlg.h": "1aa415bc5801ace9b50ead54e9e046f8a06185e0ea7c1f0d2d476c731a23d5cd",
+      "IrrGeometryDesign\\trosedividedlg.cpp": "d9cb2278020262ca2f2fa09f103ea2f78ee68b2c53d3673736bf0cf32ade41b6",
+      "IrrGeometryDesign\\trosedividedlg.h": "ef604ef1df02353354d2a7b9afd9e117d2cb1d0f0924e47edbe2b8c9e5c9834a"
+    },
+    "tool_sha256": {
+      "tools\\review_studies.py": "274be886a05c21ccad00283e6ca8e866f5684353c1a2f568b65092ea36af73de",
+      "tools\\convert_rraw_to_engine_csv.py": "e7fca7ab31d12ee575a7fb842613432474ad2720bda2635536e0051f81a04940",
+      "tools\\make_59x256.py": "406ff0d331d957fb673863883ccb2d975be60e13e5292f7372bfbfe7609a9e14",
+      "tools\\ablation_stats.py": "f781f5aa0d490946db72fa7467148f358f4b0a83c23c64b7a6fb928110a4e7f6"
+    },
+    "real_input_sha256": "9a50ae5189c1c2ff67a9704830129678d22b0da3ed9e7dfe41284157f65eb329",
+    "configuration": {
+      "study": "full_record_window_diagnostic",
+      "independent_real_sources": 1,
+      "driver_sha256": "75182fce1a9a753e82faab1744707e466489e32100c6a45c3943ca99f7679f7e",
+      "input_sha256": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+      "source_sha256": "ddcb311b2406af17cf375b570b3eb8ea7ca2d81cdeb002f972e6d668cd7b2bc2",
+      "shape": [
+        499,
+        59
+      ],
+      "prefix_max_error": 4.999231498215018e-07,
+      "outer_seeds": 2,
+      "keeps": [
+        20,
+        30,
+        40
+      ],
+      "configurations": [
+        {
+          "name": "legacy",
+          "iterations": 40,
+          "start": 0.0265,
+          "end": 0.0005,
+          "scales": 4,
+          "angles": 16,
+          "warm": true
+        },
+        {
+          "name": "cold",
+          "iterations": 40,
+          "start": 0.0265,
+          "end": 0.0005,
+          "scales": 4,
+          "angles": 16,
+          "warm": false
+        },
+        {
+          "name": "iter20",
+          "iterations": 20,
+          "start": 0.0265,
+          "end": 0.0005,
+          "scales": 4,
+          "angles": 16,
+          "warm": true
+        },
+        {
+          "name": "iter80",
+          "iterations": 80,
+          "start": 0.0265,
+          "end": 0.0005,
+          "scales": 4,
+          "angles": 16,
+          "warm": true
+        },
+        {
+          "name": "weak",
+          "iterations": 40,
+          "start": 0.008,
+          "end": 0.0002,
+          "scales": 4,
+          "angles": 16,
+          "warm": true
+        },
+        {
+          "name": "strong",
+          "iterations": 40,
+          "start": 0.08,
+          "end": 0.002,
+          "scales": 4,
+          "angles": 16,
+          "warm": true
+        },
+        {
+          "name": "scale3_angle8",
+          "iterations": 40,
+          "start": 0.0265,
+          "end": 0.0005,
+          "scales": 3,
+          "angles": 8,
+          "warm": true
+        },
+        {
+          "name": "scale3_angle16",
+          "iterations": 40,
+          "start": 0.0265,
+          "end": 0.0005,
+          "scales": 3,
+          "angles": 16,
+          "warm": true
+        },
+        {
+          "name": "angle8",
+          "iterations": 40,
+          "start": 0.0265,
+          "end": 0.0005,
+          "scales": 4,
+          "angles": 8,
+          "warm": true
+        },
+        {
+          "name": "constant",
+          "iterations": 40,
+          "start": 0.005,
+          "end": 0.005,
+          "scales": 4,
+          "angles": 16,
+          "warm": true
+        },
+        {
+          "name": "no_shrink",
+          "iterations": 1,
+          "start": 0.0,
+          "end": 0.0,
+          "scales": 4,
+          "angles": 16,
+          "warm": true
+        }
+      ],
+      "no_window_selection_by_test": true
+    },
+    "python": "3.12.10",
+    "numpy": "2.5.3"
+  },
+  "started_at": "2026-10-24T12:18:57",
+  "steps": {
+    "reconstruct/full_keep20_seed2026102579_inner_legacy": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_legacy",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 5.048078599997098,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_legacy\\convergence.csv": "7c9f2e17c31dbf85eabe3aed3c704b1ace4c1a3aab123eb207c01d910e010484",
+        "reconstruction\\full_keep20_seed2026102579_inner_legacy\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_legacy\\prediction.csv": "86e7966a8384d38b679875b71c2ac2c2ae20a9ee02c63674c7f42bd7e5261beb",
+        "reconstruction\\full_keep20_seed2026102579_inner_legacy\\solver.csv": "81291bed6e6f8944042f8ac80f6352dc401b36aaccee7a789a106679eb22046e"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_legacy": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_legacy",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 5.079839300000458,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_legacy\\convergence.csv": "39160eef23a028332261fd4d4af4bc15769cd47324330e5f434d92e59cb7bd16",
+        "reconstruction\\full_keep20_seed2026102400_inner_legacy\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_legacy\\prediction.csv": "145e9460974be2b1f4434043fda30575d1ddfb57f8ae566168ee8cd9e7102ccc",
+        "reconstruction\\full_keep20_seed2026102400_inner_legacy\\solver.csv": "315b87dcca83e6ee514e0b2676cccf55b210d0f6420937fabc365736b6abf340"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_cold": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_cold",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 5.002872199998819,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_cold\\convergence.csv": "5402902eedbed448b9c570414346ea3d1beb50f7b79c9098e3f9fa4126cb044b",
+        "reconstruction\\full_keep20_seed2026102400_inner_cold\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_cold\\prediction.csv": "adb88f2d02827e723eb8efa6f2251159da9ac1d558cb8ca7473ce33e1c998aa8",
+        "reconstruction\\full_keep20_seed2026102400_inner_cold\\solver.csv": "8991a1040b7d03ba42942192334d4cc0acad4a5f72d80c3edf147ea03e9893de"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_cold": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_cold",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 5.078721199999563,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_cold\\convergence.csv": "084796b6dcc2ded081e695aed35e4483ba3466350096d4c4920623bb4d17d575",
+        "reconstruction\\full_keep20_seed2026102579_inner_cold\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_cold\\prediction.csv": "b3944560e5a7cb36f08e3e1f8673258d6d7c3289bd6c5680248e41d593e4bbb4",
+        "reconstruction\\full_keep20_seed2026102579_inner_cold\\solver.csv": "7ac93cabdc1b5f157c1fa6e89c306030b92ec4e9c4cb7931b854c2256cea8a4f"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_iter20": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_iter20",
+        "--iter",
+        "20",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 2.637956499995198,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_iter20\\convergence.csv": "992430ad0f69d97ffbc4925a1293b613872ad145a66bf500379b6b44beee4c8e",
+        "reconstruction\\full_keep20_seed2026102579_inner_iter20\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_iter20\\prediction.csv": "4cca880f4730cbb976d8fb2e8d7852fedf3dc14af52d9ab377e9a3c91e36abb3",
+        "reconstruction\\full_keep20_seed2026102579_inner_iter20\\solver.csv": "69e9054e7e2f157b4067a37e70c4cc48b5e05f69d1e47cc0c98fb36232143bc4"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_iter20": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_iter20",
+        "--iter",
+        "20",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 2.696752199990442,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_iter20\\convergence.csv": "e198262bdef0f615851e66efe5ad34fff480315525375ef8a6070a40005aa04a",
+        "reconstruction\\full_keep20_seed2026102400_inner_iter20\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_iter20\\prediction.csv": "d6e38d20ef988fe613458504a7dca8ac6dcee48bfb11eeb68bbbe4e0f5876ded",
+        "reconstruction\\full_keep20_seed2026102400_inner_iter20\\solver.csv": "e5decfc1f82edc094eaa8d326246c4e116f9183f6279b888b0474ee1590cdbb4"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_iter80": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_iter80",
+        "--iter",
+        "80",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 9.73685440000554,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_iter80\\convergence.csv": "c79189887048b4290bbe6846418ad6d24d54867b2adc8bd73ce378d626f688c1",
+        "reconstruction\\full_keep20_seed2026102400_inner_iter80\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_iter80\\prediction.csv": "f3ab235901e53538e79a7855db00fe846f6c5d45123c11da2e61d947ece7e987",
+        "reconstruction\\full_keep20_seed2026102400_inner_iter80\\solver.csv": "b34cc2d2e0cfcaf37ed9e9b94b8304b009280d286730fc8d1ae6fd621fa89a2f"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_iter80": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_iter80",
+        "--iter",
+        "80",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 9.80267659999663,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_iter80\\convergence.csv": "96448c49454efb3531cb67622c0916483deae8199402506b2f08cac51921902a",
+        "reconstruction\\full_keep20_seed2026102579_inner_iter80\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_iter80\\prediction.csv": "e57b961852a2ecc7d7117b03d6d10ef8a7e9fa3c7c9ad69902c017f564dd95ea",
+        "reconstruction\\full_keep20_seed2026102579_inner_iter80\\solver.csv": "fa16da93b73a8f346e86c2d92cf206874d6013648de2f96ff44e1026a7fd5d7c"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_weak": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_weak",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.008",
+        "--threshold-end",
+        "0.0002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 5.115130099991802,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_weak\\convergence.csv": "4a87f7aa651838413ea90fb1e1a4cbab29f3caf481bb01b4c227a8f604aaa2dc",
+        "reconstruction\\full_keep20_seed2026102579_inner_weak\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_weak\\prediction.csv": "36a24929a150e3295b1e271632efcc15cc85cd8699734241b6796f769e14ca29",
+        "reconstruction\\full_keep20_seed2026102579_inner_weak\\solver.csv": "a5af23d26407f4d36c40ad39899dad4ac6cd40d0e5ced3e7c2dc8c7b19b1803a"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_weak": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_weak",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.008",
+        "--threshold-end",
+        "0.0002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 5.19589500001166,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_weak\\convergence.csv": "7ddc2f00a83936c6a15d8a4a314111f0817ccf4996118c2a7a679a76c00a0235",
+        "reconstruction\\full_keep20_seed2026102400_inner_weak\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_weak\\prediction.csv": "ba9b9100e9a61bfcdca0a09416fa37faab7b8f75b50b4f68e4857c55497816df",
+        "reconstruction\\full_keep20_seed2026102400_inner_weak\\solver.csv": "ffd91f995ff315e7551d7b1f69f25d08c9bf094d2a8586453015db4e76bef508"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_strong": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_strong",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.08",
+        "--threshold-end",
+        "0.002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 5.100818599996273,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_strong\\convergence.csv": "0d191fe35bd87ed8dfff21cf6131fa454e9ba8662264a3ccc99910d4aeca850f",
+        "reconstruction\\full_keep20_seed2026102400_inner_strong\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_strong\\prediction.csv": "be83dd1f8396365ab7d3eddc3cfd8b80e4db30955c214697300c066434a9e189",
+        "reconstruction\\full_keep20_seed2026102400_inner_strong\\solver.csv": "8d4a8d508c2d8947261ac0f303e3b8685bbfac85702d13eb6b7b65ab2693b4cf"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_strong": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_strong",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.08",
+        "--threshold-end",
+        "0.002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 5.149405000003753,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_strong\\convergence.csv": "5131c63434e2ec74d9a03f9efdd32a219bae7542cab8784de5fb34f59186ca9f",
+        "reconstruction\\full_keep20_seed2026102579_inner_strong\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_strong\\prediction.csv": "5d67d55dda388caee929f4d0decbac876121c66aa6f4cf0d3973e803b099556f",
+        "reconstruction\\full_keep20_seed2026102579_inner_strong\\solver.csv": "a347436c271732f2ccfbda86fb95ca94deb40f5b71615ed37db7c888a36ae25a"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_scale3_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_scale3_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 4.751547599997139,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle8\\convergence.csv": "3d9ddaeca92afcaec68268f40f2b3680d6193e55ff6027e0ec0faa363296544d",
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle8\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle8\\prediction.csv": "11e0d83333371c765bc29aef0b0ca9a70c69b76d238f067f59a3c5fc157fac99",
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle8\\solver.csv": "d86060d6b84ad56e44a8454d0c8043b50fe0f8a93f195016df3b54af7d4a8313"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_scale3_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_scale3_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 4.886738199988031,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle8\\convergence.csv": "0e2f90f32881430aea32dba4672b2db72e4bff9193db996cba521ed77fb01643",
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle8\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle8\\prediction.csv": "be8b2da703a886f3354ea6c9b2a9ea582892ff7e842dd205f6769702267a1b71",
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle8\\solver.csv": "9176445949b17b63e2530d0e268ba64ac7ef78f1d8b0a12246dc84c98c63c5bf"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_scale3_angle16": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_scale3_angle16",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 5.3284181999915745,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle16\\convergence.csv": "79518678624c2e298f6163e68f3a00db97a81f91eda1a47156beec104c2258f1",
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle16\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle16\\prediction.csv": "504de813963e96758385f8099bb69d84e4bf0fb466160d09ec86c0bdaaf53898",
+        "reconstruction\\full_keep20_seed2026102400_inner_scale3_angle16\\solver.csv": "452525e7e55728b41ad7af225551ad25ffe01a7486fa5a8f283f18d4f46efa02"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_scale3_angle16": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_scale3_angle16",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 5.376127600000473,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle16\\convergence.csv": "b0d241c7016ba4b9ff97024d653012fa35f3c862bb11df09237ef7f2de40b434",
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle16\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle16\\prediction.csv": "5cedd8668ed8d8af2720cc797623faaf35c73409e3aaf82aa62d0f1ccae9ae3c",
+        "reconstruction\\full_keep20_seed2026102579_inner_scale3_angle16\\solver.csv": "0a6ba4a996398885c6bb6e183eaccea401011c66ad04352886da9972c44d9f8f"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 5.962184799995157,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_angle8\\convergence.csv": "2ddd1ec0039ce0f12dfd43f265c019c3677976c49922181d5816d18d2cf11865",
+        "reconstruction\\full_keep20_seed2026102400_inner_angle8\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_angle8\\prediction.csv": "c3c6980f907b697ff4c43372e84926bd5a3b9f5d45f01d2b396188513ba9d333",
+        "reconstruction\\full_keep20_seed2026102400_inner_angle8\\solver.csv": "4a5df9ec792e29087ee7d2215badbe4da7604d07a3be24d0c4afd4b80e50d5d4"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 5.83481159999792,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_angle8\\convergence.csv": "3ed53bbd219cbee64a60c0b73c06b9b5a095f1a0fdd8c7211528addbf1f26f07",
+        "reconstruction\\full_keep20_seed2026102579_inner_angle8\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_angle8\\prediction.csv": "5162a358f4734935e1fc6828febd7fb34a4a43f0b5392445425777b5269d7f92",
+        "reconstruction\\full_keep20_seed2026102579_inner_angle8\\solver.csv": "a61557760c14402d68a4476318617282d9f4fe5ad678621a1dbfbe19b66b5589"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_constant": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_constant",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.005",
+        "--threshold-end",
+        "0.005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 5.21076030000404,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_constant\\convergence.csv": "8f25aaa71bff2d0173b0545de5caacc2c71d1ccf387da3ce04f2f8bbb802c23e",
+        "reconstruction\\full_keep20_seed2026102400_inner_constant\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_constant\\prediction.csv": "b44729f34cd1bb3a3917189d2b4d41a6af66950172613adbcbd6f60fb3fb6be9",
+        "reconstruction\\full_keep20_seed2026102400_inner_constant\\solver.csv": "0b9861d1a8407a9aca7647f008135ca4b23acb388c8693b58c6acd2cb96a4ab7"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_constant": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_constant",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.005",
+        "--threshold-end",
+        "0.005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 5.13952949999657,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_constant\\convergence.csv": "baeffd9bd0135e7d9c3b9721baaefd2c395df8864069e8903b23842a09079aa8",
+        "reconstruction\\full_keep20_seed2026102579_inner_constant\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_constant\\prediction.csv": "9fe7352541d561e7373098350c6ef78587b2faed7374f153426066aaf53281fd",
+        "reconstruction\\full_keep20_seed2026102579_inner_constant\\solver.csv": "9a3a2168bc7c5a4503fa7f2bdefe298a3c347fcb78a700d982a91f72a5a27ddc"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_inner_no_shrink": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_inner_no_shrink",
+        "--iter",
+        "1",
+        "--threshold-start",
+        "0.0",
+        "--threshold-end",
+        "0.0",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_inner.txt": "1b320229021380b413795cc6ee871b1848c11beffcb4f5e7583a39879cc7e16d"
+      },
+      "exit_code": 0,
+      "seconds": 0.4407969000021694,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_inner_no_shrink\\convergence.csv": "378c404647ea61fd2952a5c2055b5212ca032525de742b645d17f09d036712c2",
+        "reconstruction\\full_keep20_seed2026102579_inner_no_shrink\\linear.csv": "030fbf38144c4098e4a3678eccbd9237134ea1aec71e277a13a4601d0cb582f9",
+        "reconstruction\\full_keep20_seed2026102579_inner_no_shrink\\prediction.csv": "592e0b0ba9113015c40431f6ebcc33338a490b3bb185499c9a41a4cc5ff4400d",
+        "reconstruction\\full_keep20_seed2026102579_inner_no_shrink\\solver.csv": "acbd20cb8bc98bece2a651e11fc35a8d4438b54a8b7fa04ddde85677cbc65cd1"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_inner_no_shrink": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_inner_no_shrink",
+        "--iter",
+        "1",
+        "--threshold-start",
+        "0.0",
+        "--threshold-end",
+        "0.0",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_inner.txt": "f49ec1e39d8f0f40fd8b0344b3eb45500f5f3737541b79a79447e8e2b16bbe21"
+      },
+      "exit_code": 0,
+      "seconds": 0.46652000000176486,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_inner_no_shrink\\convergence.csv": "950d8bff2b50b23d39b4508ddd86a3b3ad6f819ea351bf5a5db990424f80f0b5",
+        "reconstruction\\full_keep20_seed2026102400_inner_no_shrink\\linear.csv": "d97f5e747dc3f8a473cfd9652d1017aef892ad75f1e1f47668daa56814fd1e89",
+        "reconstruction\\full_keep20_seed2026102400_inner_no_shrink\\prediction.csv": "d3956006e91e4333d4a0e571d26c1af730722d564ef1f354ae6bac7359dbb923",
+        "reconstruction\\full_keep20_seed2026102400_inner_no_shrink\\solver.csv": "bd4d6888fdd2f9afe1389407ebf3b7dee3af9b8c38df9d2d0aa18f13ae8080b5"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_outer_fixed": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_outer_fixed",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_outer.txt": "b24c03560c2954391c7d8a73fa62f957c278afc4922e6fd5deaa72f6e76083d6"
+      },
+      "exit_code": 0,
+      "seconds": 5.163748200007831,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_outer_fixed\\convergence.csv": "d46332c12ac1bc62f5fc7de48ac949f651d327feebf01eebef4ccb011aa7eea8",
+        "reconstruction\\full_keep20_seed2026102579_outer_fixed\\linear.csv": "78141fed55ed39bf30f2b8e0baa821d14d232fc655c6739b2a8ade7e65602f41",
+        "reconstruction\\full_keep20_seed2026102579_outer_fixed\\prediction.csv": "b7afc613fe903566e18553c366d440a74633ff0c6bff61546f942c270ff6db4f",
+        "reconstruction\\full_keep20_seed2026102579_outer_fixed\\solver.csv": "2055d4f94cb6a94a3995f3df48df893fe245086a58059ca6aaa3d4ec02e4cebf"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_outer_fixed": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_outer_fixed",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_outer.txt": "e400cd024032b6aa3de1b9439feabb5c8b1de4161e10811562daff1a89b3f342"
+      },
+      "exit_code": 0,
+      "seconds": 5.198142399996868,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_outer_fixed\\convergence.csv": "db16553adb93bb2e57f978129ee724bec6f7dc3c2221b571fb6b565ff7f9491c",
+        "reconstruction\\full_keep20_seed2026102400_outer_fixed\\linear.csv": "c04c3825d893ed5cef3aac8161de8151eba182384f2a5a0eb23b0d656e9186ff",
+        "reconstruction\\full_keep20_seed2026102400_outer_fixed\\prediction.csv": "ae30c4e3c99a1db79d8c99890b02ed604799074ba462729714bc380ff6a40b63",
+        "reconstruction\\full_keep20_seed2026102400_outer_fixed\\solver.csv": "a33520679a52263bd56d7bfee755968a44d0d5a8c08252940d534cf4e207bddd"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102400_outer_selected": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102400_outer_selected",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102400_outer.txt": "e400cd024032b6aa3de1b9439feabb5c8b1de4161e10811562daff1a89b3f342"
+      },
+      "exit_code": 0,
+      "seconds": 4.972835599997779,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102400_outer_selected\\convergence.csv": "d2a7fea94da6b078995a1260a23fad80802ee1f8687bf881c8f4b3dc78f7977e",
+        "reconstruction\\full_keep20_seed2026102400_outer_selected\\linear.csv": "c04c3825d893ed5cef3aac8161de8151eba182384f2a5a0eb23b0d656e9186ff",
+        "reconstruction\\full_keep20_seed2026102400_outer_selected\\prediction.csv": "7c41b4b77190b6790b40c57d5a9710197ec10b208807f183f17e4a37dea91948",
+        "reconstruction\\full_keep20_seed2026102400_outer_selected\\solver.csv": "4239c01b1701a6ed7c02005dad8893a6386b796153eba5ca765134f5a3b09d86"
+      }
+    },
+    "reconstruct/full_keep20_seed2026102579_outer_selected": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep20_seed2026102579_outer_selected",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep20_seed2026102579_outer.txt": "b24c03560c2954391c7d8a73fa62f957c278afc4922e6fd5deaa72f6e76083d6"
+      },
+      "exit_code": 0,
+      "seconds": 5.197385099992971,
+      "outputs": {
+        "reconstruction\\full_keep20_seed2026102579_outer_selected\\convergence.csv": "e5903bc022fca489659f3c4df66433c5c6b49421fe3b9805cc46025a4737fb3e",
+        "reconstruction\\full_keep20_seed2026102579_outer_selected\\linear.csv": "78141fed55ed39bf30f2b8e0baa821d14d232fc655c6739b2a8ade7e65602f41",
+        "reconstruction\\full_keep20_seed2026102579_outer_selected\\prediction.csv": "8fa96cbe784328695738bbd1025c46086c2db2d77be6d1ededcc6c5ced37d29c",
+        "reconstruction\\full_keep20_seed2026102579_outer_selected\\solver.csv": "698da631c6f33ee89b6781721eb14e89e5de35ab27d382d8ead09580e9477fd4"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_legacy": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_legacy",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 5.245764399995096,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_legacy\\convergence.csv": "2fd7c5db721f18d446df1f86085c40174e345cbcab8d995933bbaa475d88c580",
+        "reconstruction\\full_keep30_seed2026102400_inner_legacy\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_legacy\\prediction.csv": "cd6d8a746934ebf7db6b239dba82a2fe42127d0975ef4fae72e01a39a2436c56",
+        "reconstruction\\full_keep30_seed2026102400_inner_legacy\\solver.csv": "b2026f05d42f1f5282017996fa049f89f5833aa5f79003eb51c494dff5d79604"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_legacy": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_legacy",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 5.293705799995223,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_legacy\\convergence.csv": "66964eeaf4f74256bc66f763b181f0b26ffe4048b1e0c2382edc2193f00f1297",
+        "reconstruction\\full_keep30_seed2026102579_inner_legacy\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_legacy\\prediction.csv": "56dae1dd241a680714915a45b6da0f9b5d0081584e93764a671c6d8448a0ee79",
+        "reconstruction\\full_keep30_seed2026102579_inner_legacy\\solver.csv": "50cca2e9b1f51ff1ba763c5771cffb372e5dc11d7aef726b3965fdda0fade6dc"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_cold": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_cold",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 5.261636700000963,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_cold\\convergence.csv": "f8a1ab1edb51e05204e576b40e208734f8a265f5f4bb770eded868d52c49bd0b",
+        "reconstruction\\full_keep30_seed2026102400_inner_cold\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_cold\\prediction.csv": "78f62999c8a2329a39fb12a2aaef5fa353f1965a9921235c000927020aedba4d",
+        "reconstruction\\full_keep30_seed2026102400_inner_cold\\solver.csv": "e0b68b79569d15df6a5bd3aac38d0ea6b162e46fe6b7c6073b705fccca70f6cb"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_cold": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_cold",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 5.263147100005881,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_cold\\convergence.csv": "f83e54f55d03aff3a0d464c1c19fa914c68dec3997c3e246b27a75d2318ea056",
+        "reconstruction\\full_keep30_seed2026102579_inner_cold\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_cold\\prediction.csv": "5b4875ae2158e478fcfe863afe56851509bb802984e1e5940bb49b5fbdccc5d4",
+        "reconstruction\\full_keep30_seed2026102579_inner_cold\\solver.csv": "3884b9d804847552a479bd1487d469c4f66685f4b06b244935ca007e9854a7db"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_iter20": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_iter20",
+        "--iter",
+        "20",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 2.9346197999984724,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_iter20\\convergence.csv": "05af4fe7014474c2896b5225ea37215bdc5dc312a287b29053a4f062cc651f54",
+        "reconstruction\\full_keep30_seed2026102400_inner_iter20\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_iter20\\prediction.csv": "86a305f9dbd6238150d6e1bbbc1640d6c1bb79557c814b0986cb05543573ce0e",
+        "reconstruction\\full_keep30_seed2026102400_inner_iter20\\solver.csv": "c7b648673c67df088887fc33d72bb1042883c410ace1e6563bc3b4fe8c49dcba"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_iter20": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_iter20",
+        "--iter",
+        "20",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 2.868377499995404,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_iter20\\convergence.csv": "9190c95f0f39c3bb680ca89aa8cf465d0fdca033d5e63150d972bc63ded8d1ac",
+        "reconstruction\\full_keep30_seed2026102579_inner_iter20\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_iter20\\prediction.csv": "76cb9ca00868f040a9bc303def78924004d2be22c94e7acf1f1e389a75d4d76a",
+        "reconstruction\\full_keep30_seed2026102579_inner_iter20\\solver.csv": "77634568f588a7c35a0bcc39cea1d7f9bd69752591c96177abb1af272f690957"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_iter80": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_iter80",
+        "--iter",
+        "80",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 10.21781080000801,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_iter80\\convergence.csv": "952c4b8e05c9ae1c03547209f0b9b611b1f5373e61ade86397bc17d11baf8c2e",
+        "reconstruction\\full_keep30_seed2026102400_inner_iter80\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_iter80\\prediction.csv": "aea03e37b2c75923179c1c930c36236e90efc589a60787a73dc87100cdb91cf3",
+        "reconstruction\\full_keep30_seed2026102400_inner_iter80\\solver.csv": "544841bf7ab24b1741ad3c28c2f59e9f7f66b9019062f90b3f3903a715ec6177"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_iter80": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_iter80",
+        "--iter",
+        "80",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 10.271837000007508,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_iter80\\convergence.csv": "47f909d29e306c798c367326974b89bcc26ba448c53bf5837d19c87a0664a83b",
+        "reconstruction\\full_keep30_seed2026102579_inner_iter80\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_iter80\\prediction.csv": "644dfe65ac37b53f5df587607e4f1afedfdef8f0d9dcdf6d12d47f29fe40b0bc",
+        "reconstruction\\full_keep30_seed2026102579_inner_iter80\\solver.csv": "dd6f44e58738b9b69580282d185a9004daf3895a86e1a1b7225683bedb463111"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_weak": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_weak",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.008",
+        "--threshold-end",
+        "0.0002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 5.219306400002097,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_weak\\convergence.csv": "495551594043c8e053d45a09328dbf896ec1a46b5d4da5c4589faf31e14ff300",
+        "reconstruction\\full_keep30_seed2026102400_inner_weak\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_weak\\prediction.csv": "37f9fe59002cdc0a43f162b96078c53a0eea4a4c5d14e162206a0c3246a15f15",
+        "reconstruction\\full_keep30_seed2026102400_inner_weak\\solver.csv": "d5bc8fcefbf1aaafd49bb056fe954890f990b738f083bedb9c39af99fe304a20"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_weak": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_weak",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.008",
+        "--threshold-end",
+        "0.0002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 5.273172200002591,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_weak\\convergence.csv": "5d41b36c6d1e28446670594eabd7757b7181ab0f44297cd97e06d90aa74f788d",
+        "reconstruction\\full_keep30_seed2026102579_inner_weak\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_weak\\prediction.csv": "7cad49ffa772fe63bf9fafc8ba41d4f3406f86caac813f962e0adc5373daa42f",
+        "reconstruction\\full_keep30_seed2026102579_inner_weak\\solver.csv": "0bc3b99f15e5c0673f3d3a8718ab90f09f2dfcff841e2967062d779f9e30fb8d"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_strong": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_strong",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.08",
+        "--threshold-end",
+        "0.002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 5.314657099996111,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_strong\\convergence.csv": "451df3be25ced3478e5ac633f9a6a3a5e2735cdce3b641e49c5e3620bbb46a36",
+        "reconstruction\\full_keep30_seed2026102400_inner_strong\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_strong\\prediction.csv": "7692bf004f7cd5381a7b947cfe2fd6b7e724128ac43b47d790a6ccb1ac84e826",
+        "reconstruction\\full_keep30_seed2026102400_inner_strong\\solver.csv": "ba542824b3e31c2f8c511141c6cbb01fec0a651df024a06e30638582ce0b8987"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_strong": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_strong",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.08",
+        "--threshold-end",
+        "0.002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 5.324668700006441,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_strong\\convergence.csv": "08cfb78203cbec575100447f96c013ccf37f38b1232b97a21115a980b0357bd0",
+        "reconstruction\\full_keep30_seed2026102579_inner_strong\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_strong\\prediction.csv": "4233a4c521fd25f3db1388af1f76ec1b607647abb72183467df2560176da6cb8",
+        "reconstruction\\full_keep30_seed2026102579_inner_strong\\solver.csv": "2b488fea1805fc19337b8e3f7273660635cfed797a066f8bfae8028475723145"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_scale3_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_scale3_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 4.8274361999938264,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle8\\convergence.csv": "57c76013f68ec03678a99f740f288641d0916d171819a26cadd9b201054dd3df",
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle8\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle8\\prediction.csv": "63a71daec1e7d7fa9d884ca230b2853f230f7d9666ce851579d08373d6f0bb99",
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle8\\solver.csv": "c0eef0baec538c9a47c638846841b9b4f4f2b0d9258f6e619807a593d8745dde"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_scale3_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_scale3_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 4.889616700005718,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle8\\convergence.csv": "f008a524798422e88c544addad80958c4d5bf288540abe8c1da296a65c956a05",
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle8\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle8\\prediction.csv": "69130b6716c294ed7daf711acf983a677b643c990506bf1e079517220892645b",
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle8\\solver.csv": "a4bfe03502b6a57827bcc1c1b9bea4d60e794693f8c5e1e0bbc0c5b90f4c7100"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_scale3_angle16": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_scale3_angle16",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 5.571693799996865,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle16\\convergence.csv": "446fafa9a3465a21b258d9fba6d27de95a94a085f8825fe87c07154b9a473bda",
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle16\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle16\\prediction.csv": "e723feec622b18c15c73840f1057ef8f3982783297698c32ac71c16365dbeeab",
+        "reconstruction\\full_keep30_seed2026102400_inner_scale3_angle16\\solver.csv": "c4f1824d956c63ee95f3aa04ca6eaff2c8e4b7d5119ecd9f6209aa698952e553"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_scale3_angle16": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_scale3_angle16",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 5.526460400011274,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle16\\convergence.csv": "ec16229ae3ec36a4b276fdba628790142a45c8c07952ad54f3f4c5a23f0ff79e",
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle16\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle16\\prediction.csv": "598c571e75b16d85c65645a6995a59a80275e210605b1594a8bd495fc467713c",
+        "reconstruction\\full_keep30_seed2026102579_inner_scale3_angle16\\solver.csv": "ad0231153c1eff05580d6d36b84870f430185ea83f5fa4a68d27fc6bb62275f7"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 5.984377500004484,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_angle8\\convergence.csv": "e86b1f3e17dbf7ea7dcf0cbf4fc8ba6105dd4c6650743c2b55729a0515d56326",
+        "reconstruction\\full_keep30_seed2026102400_inner_angle8\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_angle8\\prediction.csv": "896ec9eeab54b4346bc9cc7f61331507d76da513c85465d9bd18503e564d805b",
+        "reconstruction\\full_keep30_seed2026102400_inner_angle8\\solver.csv": "438583b075191584bbd23474e87f13ff360e231cfc062cdd0f4a9b3c19063c89"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 5.987776800000574,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_angle8\\convergence.csv": "99d54ee56fb05480e8e2a6b45a930543eff1392993b85f2ca0f062f6913ebdab",
+        "reconstruction\\full_keep30_seed2026102579_inner_angle8\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_angle8\\prediction.csv": "45ea69c89f4319690302d9b938fe177f88c791ec53555bc4aaec834209a34542",
+        "reconstruction\\full_keep30_seed2026102579_inner_angle8\\solver.csv": "1f35fcea3d7dfdc6b2a2eba2d9ca4f08e746f189bbf1c08e30bc97dd843308d3"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_constant": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_constant",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.005",
+        "--threshold-end",
+        "0.005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 5.358430199994473,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_constant\\convergence.csv": "f7bdd80a81743a2992f4031e8bcd9b7aec16ac68ed261f9fe565d53c81e40499",
+        "reconstruction\\full_keep30_seed2026102400_inner_constant\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_constant\\prediction.csv": "0714ad94a99e0fe98908c4b60edd81347982ff90a6f7aa37db8db782ab528c94",
+        "reconstruction\\full_keep30_seed2026102400_inner_constant\\solver.csv": "ade4890e2c99e12216ce0e27a7e307a59144c3c9594f9897a608aaa844d16def"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_constant": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_constant",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.005",
+        "--threshold-end",
+        "0.005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 5.427055699998164,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_constant\\convergence.csv": "ba9b8f3a1b85637af0bcaf386c19df83099b5ecd390b756ba9557d21e70801a3",
+        "reconstruction\\full_keep30_seed2026102579_inner_constant\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_constant\\prediction.csv": "3bc698340ffb0f86e17d6badf7eee87bd92daac735766ffd90cdb3b158e5c4e3",
+        "reconstruction\\full_keep30_seed2026102579_inner_constant\\solver.csv": "0cb9021ab27f370ad330bcc66c52cb6a3e0ac22fbf5df873fac1d87b3a4948e1"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_inner_no_shrink": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_inner_no_shrink",
+        "--iter",
+        "1",
+        "--threshold-start",
+        "0.0",
+        "--threshold-end",
+        "0.0",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_inner.txt": "9d97a01f2bddfebc7b29dde5f0d2d5d636385863b81a4892c2b03daf3f13eb13"
+      },
+      "exit_code": 0,
+      "seconds": 0.4304279000061797,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_inner_no_shrink\\convergence.csv": "247213610568dabc0e97e2b7c205f90ff8de898128a8739311bc10c80dc4de65",
+        "reconstruction\\full_keep30_seed2026102400_inner_no_shrink\\linear.csv": "ebf68e7359569c54ce8c0319f34094aedb9411c630bb8a14f85061a4845848d6",
+        "reconstruction\\full_keep30_seed2026102400_inner_no_shrink\\prediction.csv": "569075e6e1fb90155df4585cc4c1cea02c25201b1bee03f792045ba98b07a910",
+        "reconstruction\\full_keep30_seed2026102400_inner_no_shrink\\solver.csv": "b77f20548e33b920070995cd423a1d8c3ec47f3ac7082d78a954f42af78dd0cc"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_inner_no_shrink": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_inner_no_shrink",
+        "--iter",
+        "1",
+        "--threshold-start",
+        "0.0",
+        "--threshold-end",
+        "0.0",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_inner.txt": "b214e7dd079d6dc2b30b075387949dd0d4e7e6cfa4c6be98c1cead7d0c683fbe"
+      },
+      "exit_code": 0,
+      "seconds": 0.4274769000039669,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_inner_no_shrink\\convergence.csv": "bfd989ebb8790fd0aac789c1b06c4af472411c479cbf0f9d70d18029230bebba",
+        "reconstruction\\full_keep30_seed2026102579_inner_no_shrink\\linear.csv": "daa8f795834db6f9382b74f88482d5493241a0d16c57df889025fd7e773c77cc",
+        "reconstruction\\full_keep30_seed2026102579_inner_no_shrink\\prediction.csv": "9d55f9862eb16b5ff7ebf37bc1a6f5fd18b635bcf77c417178243a2d733cd31e",
+        "reconstruction\\full_keep30_seed2026102579_inner_no_shrink\\solver.csv": "6c0e293687e65825a124e358373f8a45b366075781049fab53527922daa04405"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_outer_fixed": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_outer_fixed",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_outer.txt": "7cb6f7ec3f9d6599c52fbc938e4054980904ae6d51aef86c48ff3b51dce4cb66"
+      },
+      "exit_code": 0,
+      "seconds": 5.523766700003762,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_outer_fixed\\convergence.csv": "dffc560fe8831202ab8a83bf964e9d573aa0bbc5e7071347cf8ebf185483337c",
+        "reconstruction\\full_keep30_seed2026102400_outer_fixed\\linear.csv": "5e7ad666ce0d75240478c6cfdefa05fab3edd035df7f96dd102262187a38c544",
+        "reconstruction\\full_keep30_seed2026102400_outer_fixed\\prediction.csv": "4c5d4fb8804acecdca0399354a9d33673d1c18cfc81e1d0db0eb8a5d24431263",
+        "reconstruction\\full_keep30_seed2026102400_outer_fixed\\solver.csv": "ce669c9fa66766c5da59f22923ac708b939d1d7b5f6b29c7e5602bce40c05fe8"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_outer_fixed": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_outer_fixed",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_outer.txt": "80757c37e144d107c14080bafa1c4388bb433f1d29445a211a0f4881c32a13f1"
+      },
+      "exit_code": 0,
+      "seconds": 5.386952100001508,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_outer_fixed\\convergence.csv": "f5f716593e4ac1373ca1096251db19a3b5c6578d013fa9a8b3bc8032ca3a1ff4",
+        "reconstruction\\full_keep30_seed2026102579_outer_fixed\\linear.csv": "f15d33139e2ce8d63bf93e21ea0cd556239734f2cbb6cef10f9ec73d8048e5af",
+        "reconstruction\\full_keep30_seed2026102579_outer_fixed\\prediction.csv": "fe9fcbc85c258b4dd6b7b1da9154918376603ad05b02eb99194a8512962744b5",
+        "reconstruction\\full_keep30_seed2026102579_outer_fixed\\solver.csv": "f97e638e09f4532518e269a7795e7950af2783eda8e50a2c397ee886420822df"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102400_outer_selected": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102400_outer_selected",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.08",
+        "--threshold-end",
+        "0.002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102400_outer.txt": "7cb6f7ec3f9d6599c52fbc938e4054980904ae6d51aef86c48ff3b51dce4cb66"
+      },
+      "exit_code": 0,
+      "seconds": 5.412664300005417,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102400_outer_selected\\convergence.csv": "c415deb33ff10f452c064fd0128dc222361c9989cdca15a59d9652ded06452d6",
+        "reconstruction\\full_keep30_seed2026102400_outer_selected\\linear.csv": "5e7ad666ce0d75240478c6cfdefa05fab3edd035df7f96dd102262187a38c544",
+        "reconstruction\\full_keep30_seed2026102400_outer_selected\\prediction.csv": "f840906f420cdb89a13e48ab3cb2eaa554598ee3a931c11de19f56c57bc40ca6",
+        "reconstruction\\full_keep30_seed2026102400_outer_selected\\solver.csv": "7b1579691a2ee8ab420dd4cf2911730ad63a89ad100c82bfd7df5837deb1542b"
+      }
+    },
+    "reconstruct/full_keep30_seed2026102579_outer_selected": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep30_seed2026102579_outer_selected",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep30_seed2026102579_outer.txt": "80757c37e144d107c14080bafa1c4388bb433f1d29445a211a0f4881c32a13f1"
+      },
+      "exit_code": 0,
+      "seconds": 5.37548180000158,
+      "outputs": {
+        "reconstruction\\full_keep30_seed2026102579_outer_selected\\convergence.csv": "f5f716593e4ac1373ca1096251db19a3b5c6578d013fa9a8b3bc8032ca3a1ff4",
+        "reconstruction\\full_keep30_seed2026102579_outer_selected\\linear.csv": "f15d33139e2ce8d63bf93e21ea0cd556239734f2cbb6cef10f9ec73d8048e5af",
+        "reconstruction\\full_keep30_seed2026102579_outer_selected\\prediction.csv": "fe9fcbc85c258b4dd6b7b1da9154918376603ad05b02eb99194a8512962744b5",
+        "reconstruction\\full_keep30_seed2026102579_outer_selected\\solver.csv": "a2b29c56b8ab0be8a32e62ccd88d00cd04577d20c6ff7ad7af4d62404183e5ca"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_legacy": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_legacy",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 5.305530500001623,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_legacy\\convergence.csv": "d40b6dfa56d46cc84c9be86402461fd9ce6514d3877b53c173182c71ed2921c9",
+        "reconstruction\\full_keep40_seed2026102400_inner_legacy\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_legacy\\prediction.csv": "2c866ab8a6cccfe0669465b349a4646cc212610ba9bbc2877be035e9c5c5c081",
+        "reconstruction\\full_keep40_seed2026102400_inner_legacy\\solver.csv": "62b57f7212274b8b1b8e40c7fa334559d75473570031c5f1ab8efd971a24a7bb"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_legacy": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_legacy",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 5.329015700001037,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_legacy\\convergence.csv": "fe535f75df3bdf25a3461c09d8bd56e58d512fb4645a9c2e4026a96927c0ca35",
+        "reconstruction\\full_keep40_seed2026102579_inner_legacy\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_legacy\\prediction.csv": "fe91ef238f9184f95c114ccca3af27bd7bad4c3fbeb49c56c3a020a1b750b84c",
+        "reconstruction\\full_keep40_seed2026102579_inner_legacy\\solver.csv": "5353b75487c23ad283bbf4a87ef77be0b2e59a7a62eda5c50ae179e42cc7e0d1"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_cold": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_cold",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 5.2849806999875,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_cold\\convergence.csv": "ce13aa35ea4302d66cf28b3e0f2c1c16f604c135b820d6c42b9ac9821f3bb3d5",
+        "reconstruction\\full_keep40_seed2026102400_inner_cold\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_cold\\prediction.csv": "8ceefcc7b8f2bf5aad9da027fb27e9310b6dc258245d3d9443e51e3e405e1fc0",
+        "reconstruction\\full_keep40_seed2026102400_inner_cold\\solver.csv": "1e866476436cbb3c1d9af6dbb9585225c34b08e8a889753639fe2eb4d69ea57a"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_cold": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_cold",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 5.268815799994627,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_cold\\convergence.csv": "1eb2cfd0c33ceb8efd5470581e474f3214338ca7ae7241d5dd2c27014be96feb",
+        "reconstruction\\full_keep40_seed2026102579_inner_cold\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_cold\\prediction.csv": "5c843f7a4d9a9f72740b78a00af25fbe25bc9b05c752526407bf5571659cfab4",
+        "reconstruction\\full_keep40_seed2026102579_inner_cold\\solver.csv": "9069f085d9d46bcc28af9f6681477df6a87b8d3bfe4e7ccd3c73c2bf80a84e79"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_iter20": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_iter20",
+        "--iter",
+        "20",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 2.8574421999946935,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_iter20\\convergence.csv": "2ade1ca5bb93abbf75a278de1d616795c7f9ee68300fcc578d344debb396e56e",
+        "reconstruction\\full_keep40_seed2026102400_inner_iter20\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_iter20\\prediction.csv": "149c407396cb5eee13e567648763b4a1b153f8fe5bf2a4cb7bb24c730b4e4a01",
+        "reconstruction\\full_keep40_seed2026102400_inner_iter20\\solver.csv": "19833203b2a471bfb65307a2994d19aedce6b5ddb6b94591ac0421f43b5cfee4"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_iter20": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_iter20",
+        "--iter",
+        "20",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 2.840067500001169,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_iter20\\convergence.csv": "cb70ebb45154baaa4a5660b0552887b43bc228da0e2414aa1be11fc65f9d535a",
+        "reconstruction\\full_keep40_seed2026102579_inner_iter20\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_iter20\\prediction.csv": "a20e2286d4e0524ca69b8caa046ffed081e91ff5ba6069fd85f87429c2028426",
+        "reconstruction\\full_keep40_seed2026102579_inner_iter20\\solver.csv": "58ea4c8ca4ce54592f6746d2ff1ead254e290d7d7da0235f158a953240e70c55"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_iter80": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_iter80",
+        "--iter",
+        "80",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 10.260742400001618,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_iter80\\convergence.csv": "f428c4864ac4d97b18b72c9a856623b0d69d331e301e3a5bd44cfd386f09d36e",
+        "reconstruction\\full_keep40_seed2026102400_inner_iter80\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_iter80\\prediction.csv": "2d08ac7ede823191a09c8b0e20837bfcbe7009a114bda544b1124c1176356e6a",
+        "reconstruction\\full_keep40_seed2026102400_inner_iter80\\solver.csv": "ef502447871b0ea813d20d6390f3960fb1a2e1318e58d581d75911c5b17e4a72"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_iter80": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_iter80",
+        "--iter",
+        "80",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 10.185433599996031,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_iter80\\convergence.csv": "4431921df78222891f8f7f4628a230603f91a6a7458c0b0c0b8ec7a04bb3250b",
+        "reconstruction\\full_keep40_seed2026102579_inner_iter80\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_iter80\\prediction.csv": "bd6460d7e6bdc0c6a0fdeec3c940c344af8ab5b8de471630001456adb0a3c755",
+        "reconstruction\\full_keep40_seed2026102579_inner_iter80\\solver.csv": "9133c1c1d0ae71d76fbfee0dade3d5e2250fe6de37c093bc8a42859ee0a9337d"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_weak": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_weak",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.008",
+        "--threshold-end",
+        "0.0002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 5.331475800005137,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_weak\\convergence.csv": "721adafab056bbc4b1ccf650be9aa98ff9f05435363bc140ecfd2d82bf237f92",
+        "reconstruction\\full_keep40_seed2026102400_inner_weak\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_weak\\prediction.csv": "da2e6f63f79bb4916e75a2acbd313b90830b1cefd0e976897a93b2572db8ea93",
+        "reconstruction\\full_keep40_seed2026102400_inner_weak\\solver.csv": "2ad479977217b2d8c020893ee7575bc24e7f3ed316b66e1a9eca55e8261be8bf"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_weak": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_weak",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.008",
+        "--threshold-end",
+        "0.0002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 5.318026200009626,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_weak\\convergence.csv": "7e60564f0477d023be799251827f077ed0d53603b976f87023bec074ef529923",
+        "reconstruction\\full_keep40_seed2026102579_inner_weak\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_weak\\prediction.csv": "b658ae94bf20aa4045a4b3b31f960b5998a41206a731a565078da1a05c1e65d0",
+        "reconstruction\\full_keep40_seed2026102579_inner_weak\\solver.csv": "b0d850a61727c4456cddeebb41448fba890d9673941fba92d43a17beef14f983"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_strong": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_strong",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.08",
+        "--threshold-end",
+        "0.002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 5.21990850000293,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_strong\\convergence.csv": "7f9e0a606ef2258b5359e74a8570dfa9aa0af66ec1d8fa03e574b15d9deda6df",
+        "reconstruction\\full_keep40_seed2026102400_inner_strong\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_strong\\prediction.csv": "baa378a3232db9a6e24e6e55fa00a760b18a4f0b50a73ac5ca1b24982ee8c41e",
+        "reconstruction\\full_keep40_seed2026102400_inner_strong\\solver.csv": "39336201dcd8bfd9ce11739133bccc79d1598b75c5886974d8eaebf2c70d225a"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_strong": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_strong",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.08",
+        "--threshold-end",
+        "0.002",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 5.309987499989802,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_strong\\convergence.csv": "a10c38902f79706f3f65c88a74aab27eb0ab757a18d90c7c9fbf2554503f05cd",
+        "reconstruction\\full_keep40_seed2026102579_inner_strong\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_strong\\prediction.csv": "aa9aa91b123f871b0849266b09ccf93f4581670ec2fee8621927e2484e1d4551",
+        "reconstruction\\full_keep40_seed2026102579_inner_strong\\solver.csv": "8e03945860520f88943308404ed82ed4f18b9815161dd0ce6fabecb21b87b11a"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_scale3_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_scale3_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 4.966442700009793,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle8\\convergence.csv": "b69642afc7c1b3ec690ada62ffea6eb9d673cb98929dba17069efaa93b6cbb41",
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle8\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle8\\prediction.csv": "d4ddb9021d1dbe16d089b67f09e8005b6d2e5bfce62284833addec1fa2fb979d",
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle8\\solver.csv": "8157a8cc5ee882ff9b88114188c475384d22247c09ee287229da83e9b469b685"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_scale3_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_scale3_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 5.03121590000228,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle8\\convergence.csv": "4052b45c4daf8ba3ca4cea2661c72d76807ab471dfb236439244a265fc59166e",
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle8\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle8\\prediction.csv": "ad0df93d91fb06dab5963c81df54ad11d8f1972be091afab012675385da2dc7f",
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle8\\solver.csv": "937ad78c8e2748a4cb8e91e39c57d3435db05bb3fa5d180fcd873cbac3120818"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_scale3_angle16": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_scale3_angle16",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 5.58540300000459,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle16\\convergence.csv": "2b5bf3be4bdd6b17087f6930740bda3a8044f0a880bb56622529289d59e1ffdc",
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle16\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle16\\prediction.csv": "918f4bf9f4804fb4f7208614268323aa8e4bee0647eff8d8dea170670b04bd6b",
+        "reconstruction\\full_keep40_seed2026102400_inner_scale3_angle16\\solver.csv": "51343b2ea136e1685897e05c9371cbf539bf57c446eb45fb47aa905d92378343"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_scale3_angle16": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_scale3_angle16",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "3",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 5.507332699999097,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle16\\convergence.csv": "6b132c3438fb41861cf55c2777c498021d79c2cbb7b15f967d0ef1fbd634c1cc",
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle16\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle16\\prediction.csv": "1ec0882e71ceaf0e1ef95094a4d9589978289baba8ac856062a8af958ef8bc4c",
+        "reconstruction\\full_keep40_seed2026102579_inner_scale3_angle16\\solver.csv": "1e5521dcdff6c4af5deffd937c55365aad3da15e6deb0cd8e4fb3a39dff45217"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 6.019562899993616,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_angle8\\convergence.csv": "cbf25d15540770058b81f594540bae40af054e455ff082ebbab05c650fb19f9b",
+        "reconstruction\\full_keep40_seed2026102400_inner_angle8\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_angle8\\prediction.csv": "cfa30c5f3574f289aa985f1b79920935bb51d9a7dfcbc66e6cacfb228a33d13e",
+        "reconstruction\\full_keep40_seed2026102400_inner_angle8\\solver.csv": "29642adc33bde701e0b285804c0a0ae5dd3573e76de4cf45e18ef1590307aea4"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_angle8": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_angle8",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "8"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 6.013834400000633,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_angle8\\convergence.csv": "3d71250097ec953ca285e81c784f01d6e2f0aa27753be622fdb022aee81dde56",
+        "reconstruction\\full_keep40_seed2026102579_inner_angle8\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_angle8\\prediction.csv": "4e316b0448111243e7a6837b47dd526f897d30ed9b9623b4b9bee501969a5d71",
+        "reconstruction\\full_keep40_seed2026102579_inner_angle8\\solver.csv": "7c8c1a4a3b56909e0b05020d46ebe244fc6c370ca0ed9b5e837d47d7000e5482"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_constant": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_constant",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.005",
+        "--threshold-end",
+        "0.005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 5.346924099998432,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_constant\\convergence.csv": "d38b6807a79f8b67474591ef1cd36f72a51e7d118cdbd02a332855f7c8966255",
+        "reconstruction\\full_keep40_seed2026102400_inner_constant\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_constant\\prediction.csv": "590e2da5b93f040aad09f468223da3456cc9a678cce6895661831e78eb31ce3f",
+        "reconstruction\\full_keep40_seed2026102400_inner_constant\\solver.csv": "1013fdafd94e4d36e23a1baf328de294f032b26ca3e647a97fbf29b7525e4946"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_constant": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_constant",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.005",
+        "--threshold-end",
+        "0.005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 5.323003500001505,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_constant\\convergence.csv": "612f8bc57e032bb0c77fbb15eebc0a0c8e02f704beb9f9b0652ef1ae31794808",
+        "reconstruction\\full_keep40_seed2026102579_inner_constant\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_constant\\prediction.csv": "f541760cc8c27ddf0f18ff2365052d5652c1fe844d65e85c6243d43644d2856e",
+        "reconstruction\\full_keep40_seed2026102579_inner_constant\\solver.csv": "60d4d5cc32ebbd16d2e2230218f98ebbed962384d2acb27e559e1e6fe73ae320"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_inner_no_shrink": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_inner_no_shrink",
+        "--iter",
+        "1",
+        "--threshold-start",
+        "0.0",
+        "--threshold-end",
+        "0.0",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_inner.txt": "acc32a67e49a4c01e3cbdd3e0d6561ae9375fb43de7930217b58bd27734c94ba"
+      },
+      "exit_code": 0,
+      "seconds": 0.4744997000088915,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_inner_no_shrink\\convergence.csv": "bf282ae9725f9ec7cb414f1ce3dc639bc2dce62fad1b327b30927a6bd3721814",
+        "reconstruction\\full_keep40_seed2026102400_inner_no_shrink\\linear.csv": "c13397e5035fb4939bf02a090d2d219d2befb63ce58ccd74f32522d45a69ad00",
+        "reconstruction\\full_keep40_seed2026102400_inner_no_shrink\\prediction.csv": "cf27fdeb57bb04e0d7c244db3123aa6119a151f23531f9429297a16acecb5eba",
+        "reconstruction\\full_keep40_seed2026102400_inner_no_shrink\\solver.csv": "1edfc67e967a74915129ab2777395e6ffcb20885ed749165fb35e83fc38f59ee"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_inner_no_shrink": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_inner_no_shrink",
+        "--iter",
+        "1",
+        "--threshold-start",
+        "0.0",
+        "--threshold-end",
+        "0.0",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_inner.txt": "bfe3c1a7ad31c24235488dd8fb54727bfece8624fd292bd5cae5b3b1f16fdd2a"
+      },
+      "exit_code": 0,
+      "seconds": 0.4383720999903744,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_inner_no_shrink\\convergence.csv": "27bd3277aec885a83aef58327b1e79ce0e98263367d441207dd617caf953d7f5",
+        "reconstruction\\full_keep40_seed2026102579_inner_no_shrink\\linear.csv": "c0453433245d65f7c73d201e0c8dc0e67dc2826258784adf7f5a8ccf0611c552",
+        "reconstruction\\full_keep40_seed2026102579_inner_no_shrink\\prediction.csv": "6940a1afcbf43825566b29a7557e2e6782ed5e433d64008a5d48c01881bec7db",
+        "reconstruction\\full_keep40_seed2026102579_inner_no_shrink\\solver.csv": "b9bfe217a02ddbf3390f2d8f61264bd51ec78bacd34696caacc3b9abd924621f"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_outer_fixed": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_outer_fixed",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_outer.txt": "ed8e3608bbbe35d57b75e98e99f6c8d191d769970b78ed4f223f631c4b184f05"
+      },
+      "exit_code": 0,
+      "seconds": 5.306887300001108,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_outer_fixed\\convergence.csv": "c76081c53677408769367875ef92251661f19cb80fac28d76b0aa78d4eb4bae8",
+        "reconstruction\\full_keep40_seed2026102579_outer_fixed\\linear.csv": "1b00a819e547038d7c989ad937b604d9a24894b6616bdf0238bd6dd1fdf33a33",
+        "reconstruction\\full_keep40_seed2026102579_outer_fixed\\prediction.csv": "f2ab98fa4df4e87262b9f297568c4abba104c5fbd3b97a57c946cc646467d42d",
+        "reconstruction\\full_keep40_seed2026102579_outer_fixed\\solver.csv": "5a00a376caa055e7d9d7a55bc60daa1d5e949d2429de57884551a569da835d11"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_outer_fixed": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_outer_fixed",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_outer.txt": "b7bd76b7ef0c04282a0a196fa356f66bdf18035550784a87721fbfdacbcf7f9c"
+      },
+      "exit_code": 0,
+      "seconds": 5.4238143999973545,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_outer_fixed\\convergence.csv": "3ddbccea164a1477fe7816e55dc8f51fc835efbc685322409ad8e79b2d8a9941",
+        "reconstruction\\full_keep40_seed2026102400_outer_fixed\\linear.csv": "82ae38e4feff6e86465be554d7e62b8c5f3c4456863732a1675a9c8c820130cd",
+        "reconstruction\\full_keep40_seed2026102400_outer_fixed\\prediction.csv": "259915414a46bb549d9cc8bd1507d1e4acecd2d9894c9c9caaf7d2a9179bdafc",
+        "reconstruction\\full_keep40_seed2026102400_outer_fixed\\solver.csv": "dc6a77b9a5279f0ab66ff422fdeaf29f34e1969b4ec48fba5eb167072e218e0f"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102579_outer_selected": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102579_outer_selected",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102579_outer.txt": "ed8e3608bbbe35d57b75e98e99f6c8d191d769970b78ed4f223f631c4b184f05"
+      },
+      "exit_code": 0,
+      "seconds": 5.342930800004979,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102579_outer_selected\\convergence.csv": "81b3ec090d3db302f84732739641645823411d5c89b794deec13932a035be7ed",
+        "reconstruction\\full_keep40_seed2026102579_outer_selected\\linear.csv": "1b00a819e547038d7c989ad937b604d9a24894b6616bdf0238bd6dd1fdf33a33",
+        "reconstruction\\full_keep40_seed2026102579_outer_selected\\prediction.csv": "75e4d052b2a94d93e92094b97b8d495e8a58493a4828f6914021e4178c935066",
+        "reconstruction\\full_keep40_seed2026102579_outer_selected\\solver.csv": "df909dfe9a45dc4a1288c7aea9442f77d61f5e69bf323789c1b584bc48010c0f"
+      }
+    },
+    "reconstruct/full_keep40_seed2026102400_outer_selected": {
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+        "--review-reconstruct",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv",
+        "--mask",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_outer.txt",
+        "--out",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\reconstruction\\full_keep40_seed2026102400_outer_selected",
+        "--iter",
+        "40",
+        "--threshold-start",
+        "0.0265",
+        "--threshold-end",
+        "0.0005",
+        "--scales",
+        "4",
+        "--angles",
+        "16",
+        "--cold"
+      ],
+      "inputs": {
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\full_499x59.csv": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\review_20261024_v4\\full_window_final\\masks\\full_keep40_seed2026102400_outer.txt": "b7bd76b7ef0c04282a0a196fa356f66bdf18035550784a87721fbfdacbcf7f9c"
+      },
+      "exit_code": 0,
+      "seconds": 5.348778100000345,
+      "outputs": {
+        "reconstruction\\full_keep40_seed2026102400_outer_selected\\convergence.csv": "201da7e944da6829d3061d62622ce9890064da38fc7d80a59e47caae7aad9833",
+        "reconstruction\\full_keep40_seed2026102400_outer_selected\\linear.csv": "82ae38e4feff6e86465be554d7e62b8c5f3c4456863732a1675a9c8c820130cd",
+        "reconstruction\\full_keep40_seed2026102400_outer_selected\\prediction.csv": "ab60f1ab764e4c9eddb24f4d64bde73703467bfdbb4cd9367d9d52d5fbaf7242",
+        "reconstruction\\full_keep40_seed2026102400_outer_selected\\solver.csv": "37a51325b3b5d1026ac6d95ea73cc9ed97837184b55e898390044bbb7d70618f"
+      }
+    }
+  },
+  "completed": true
+}

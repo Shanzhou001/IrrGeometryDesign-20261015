@@ -1,0 +1,17 @@
+test_binary_change_aborts_before_launch (__main__.ReviewScienceTests.test_binary_change_aborts_before_launch) ... ok
+test_cache_reuse_requires_intact_outputs (__main__.ReviewScienceTests.test_cache_reuse_requires_intact_outputs) ... ok
+test_calibration_uses_only_validation_targets (__main__.ReviewScienceTests.test_calibration_uses_only_validation_targets) ... ok
+test_fractional_masks_are_rejected (__main__.ReviewScienceTests.test_fractional_masks_are_rejected) ... ok
+test_physical_interpolation_reads_only_known_columns (__main__.ReviewScienceTests.test_physical_interpolation_reads_only_known_columns) ... ok
+test_reject_inconsistent_and_unsupported_sampling_headers (__main__.ReviewScienceTests.test_reject_inconsistent_and_unsupported_sampling_headers) ... ok
+test_reject_nonfinite_payload_after_valid_headers (__main__.ReviewScienceTests.test_reject_nonfinite_payload_after_valid_headers) ... ok
+test_snr_is_missing_only_and_keeps_negative_values (__main__.ReviewScienceTests.test_snr_is_missing_only_and_keeps_negative_values) ... ok
+test_synthetic_realizations_are_deterministic_and_distinct (__main__.ReviewScienceTests.test_synthetic_realizations_are_deterministic_and_distinct) ... ok
+test_trace_headers_are_authoritative (__main__.ReviewScienceTests.test_trace_headers_are_authoritative) ... ok
+test_validation_selection_is_scale_equivariant (__main__.ReviewScienceTests.test_validation_selection_is_scale_equivariant) ... ok
+test_zero_tie_breaker_and_negative_correlation (__main__.ReviewScienceTests.test_zero_tie_breaker_and_negative_correlation) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.325s
+
+OK

@@ -1,0 +1,43 @@
+============================================================
+   [Regression Test Suite] IrrGeometryDesign Scientific QC   
+============================================================
+ [PASS] Test 1: Exact Point Counts & Binary Legality (30%->38, 50%->64, 70%->90)
+ [PASS] Test 2: Regular Decimation Spatial Distribution (i_k = int(k*N/m) & Coverage)
+ [PASS] Test 3: ExpRng Deterministic Seeding & Derived Seed Independence
+ [PASS] Test 4: Multi-run Repeatability & Statistical Aggregation (repeatRuns=3)
+ [PASS] Test 5: SA Monotonic Best Trace & CG Degradation Fallback Protection
+ [PASS] Test 6: Strict Mask File Validation (All 9 Edge Cases & Quad-Field Error Messages)
+ [PASS] Test 7: Wavefield Reconstruction Failure State Propagation (Consistency & IO Checks)
+ [PASS] Test 8: External Seismic CSV Strict Validation & Anti-Silent-Fallback
+ [PASS] Test 9: Real SPS Survey Mode Strict Rejection & File Integrity Audit
+ [PASS] Test 10: Full Experiment Suite Failure State Propagation & Verification
+ [PASS] Test 11: Cold/Warm-Start Ablation & Initialization Contribution Decomposition
+   [INFO] robustness ordering: 4 stable / 7 total (reported, not asserted)
+ [PASS] Test 12: Curvelet Transform Parameter Robustness of Mu Ordering
+ [PASS] Test 13: Data-Driven Report Conclusion (positive / negative / near-zero gain)
+ [PASS] Test 14: Held-Out Validation on Measured Real Traces (6 configs)
+   [OK] maskA linear=0.04 dB vs maskB linear=9.01 dB (delta 8.97 dB) - mask IS applied
+ [PASS] Test 15: External Mask Actually Applied + Invalid Masks Rejected
+   [INFO] documented limitation: clustered mu=0.6367 < uniform mu=1.0000 (mu does NOT penalise gaps)
+ [PASS] Test 16: Classic Mutual Coherence Math Properties
+ [PASS] Test 17: Shared PSF objective / cap / SA prefix / Jitter cells / reproducibility
+ [PASS] Test 18: Infeasible hard constraints rejected; feasible initialization and saved optimum
+ [PASS] Test 19: FFT PSF matches independent DFT, including rectangular 2D search
+ [PASS] Test 20: Strict physical-coordinate CSV rejects ragged / NaN / Inf / empty / duplicate metadata
+ [PASS] Test 21: Held-out amplitudes never affect solver; physical observation projection is consistent
+ [PASS] Test 22: One-click reconstruction consumes the exact optimized benchmark mask
+ [PASS] Test 23: Real reference-grid metadata uses actual offset spacing
+ [PASS] Test 24: Physical Fourier dictionary / uniform equivalence / affine invariance / meter penalties
+ [PASS] Test 25: Adaptive determinism / counts / caps / objective / monotone incumbent
+ [PASS] Test 26: Physical hard-gap DP matches exhaustive feasibility and unit scaling
+ [PASS] Test 27: Nonfinite weights / invalid constraint units are rejected
+ [PASS] Test 28: Configurable solver isolates hidden values and rejects malformed inputs
+ [PASS] Test 29: Zero-threshold FDCT/projection roundtrip and legacy default equivalence
+ [PASS] Test 30: Physical grid endpoint rounding stays within the observation domain
+ [PASS] Test 31: Legacy FFT shift matches direct DFT for rectangular odd/even grids
+ [PASS] Test 32: Legacy SPS ragged/empty/descending/zero/nonfinite geometry is safe
+ [PASS] Test 33: Legacy Gram scan above 64 columns matches explicit normalized magnitude Gram
+============================================================
+ Test Results: PASS=33  FAIL=0  SKIP=0  (total=33)
+ Status: ALL PASS (33/33)
+============================================================

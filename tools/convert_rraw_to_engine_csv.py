@@ -3,20 +3,21 @@
 """
 convert_rraw_to_engine_csv.py
 =============================
-将真实野外 SEG-Y 单炮道集转换为 IrrGeometryDesign 引擎要求的 256x128 CSV。
+将当前 RRAW SEG-Y 资料（含五个 CDP）转换为引擎使用的 256x128 CSV。
 
 背景
 ----
-引擎 runWavefieldReconstruction 严格要求 Nt=256 (dt=4 ms) x Nx=128 (dx=12.5 m)
-的纯数值矩阵。原始资料为 59 道 / 250 样点 / 8 ms，必须经过显式的重采样，
+主重构接口要求 Nt=256 (dt=4 ms) x Nx=128 的数值矩阵。空间间距由实际 offset
+生成，本资料为约 23.5433 m；12.5 m 是合成场的默认值。原资料为 59 道 / 250 样点 / 8 ms，
 因此本脚本的每一步都写死参数并记录到 CSV 头部，保证任何人可逐位复现。
 
 数据格式说明（重要）
 --------------------
 RRAW.SGY 的二进制头 bytes 3225-3226 声明 format code = 1（IBM 浮点），
-但实测 payload 为 **IEEE-754 little-endian float32**。按 IBM 解码会得到
-1e25 量级的荒谬值（本脚本提供 --check-encoding 自动判定并打印证据）。
-解码方式以实际字节为准，不以头部声明为准。
+既有处理明确采用 **IEEE-754 little-endian float32 配置**。IBM 大端解释会得到
+约 1e25 量级，但这不能排除所有其他字节解释。--check-encoding 仅检查当前配置的
+幅值合理性，不自动鉴定编码；格式冲突及不同配置的描述性证据见 v4 诊断记录。
+不得根据隐藏测试 SNR 选择解码配置，源格式最终仍宜由资料提供方确认。
 
 处理流程（参数固定）
 --------------------
@@ -35,7 +36,7 @@ RRAW.SGY 的二进制头 bytes 3225-3226 声明 format code = 1（IBM 浮点）�
 
     # 仅检查编码判定
     python tools/convert_rraw_to_engine_csv.py --input ... --check-encoding
-"""
+"""  # add by wushanzhou in 2026/10/24
 
 import argparse
 import hashlib
@@ -71,15 +72,14 @@ def read_segy(path):
     # big-endian 相反）。字节级核对证据：
     #   idx 3220-3221 (1-based 3221) LE = 250 -> samples per trace，合理
     #   idx 3224-3225 (1-based 3225) LE = 1   -> format code，合理
-    # 若按大端读取会得到 ns=0 / format=0，导致解析直接失败。
+    # 同一字段按大端会解释为 ns=64000、format=256；不是原注释所称的两个零。 # add by wushanzhou in 2026/10/24
     bin_hdr = raw[SEGY_TEXT_HDR:SEGY_TEXT_HDR + SEGY_BIN_HDR]
     ns = struct.unpack_from("<H", bin_hdr, 20)[0]        # 1-based 3221-3222
     dt_raw = struct.unpack_from("<H", bin_hdr, 16)[0]    # 1-based 3217-3218
     fmt = struct.unpack_from("<H", bin_hdr, 24)[0]       # 1-based 3225-3226
 
-    # 采样间隔字段在本文件中为 64（非标准 us 值，不可直接使用）。
-    # 真实采样间隔由文本头 "Resampled 8.0 ms" 与道头 ns=250 共同印证为 8 ms。
-    dt_us = 8000
+    # Actual bytes: binary dt and all 59 trace dt fields are 8000 us. The old "64" comment was wrong.  # add by wushanzhou in 2026/10/24
+    dt_us = None  # add by wushanzhou in 2026/10/24
 
     trace_bytes = TRACE_HDR + ns * 4
     avail = len(raw) - (SEGY_TEXT_HDR + SEGY_BIN_HDR)
@@ -94,6 +94,11 @@ def read_segy(path):
 
     for t in range(ntraces):
         off = SEGY_TEXT_HDR + SEGY_BIN_HDR + t * trace_bytes
+        trace_ns = struct.unpack_from("<H", raw, off + 114)[0]  # add by wushanzhou in 2026/10/24
+        trace_dt = struct.unpack_from("<H", raw, off + 116)[0]  # add by wushanzhou in 2026/10/24
+        if trace_ns != ns or trace_dt <= 0 or (dt_us is not None and trace_dt != dt_us):  # add by wushanzhou in 2026/10/24
+            raise ValueError(f"inconsistent trace ns/dt at trace {t}")  # add by wushanzhou in 2026/10/24
+        dt_us = trace_dt  # add by wushanzhou in 2026/10/24
         cdps[t] = struct.unpack_from("<i", raw, off + 20)[0]
         offsets[t] = struct.unpack_from("<i", raw, off + 36)[0]
         # payload 按 IEEE-754 little-endian 解码（见模块说明）
@@ -103,10 +108,17 @@ def read_segy(path):
         raise ValueError("non-finite SEG-Y sample")  # add by wushanzhou in 2026/10/23
     # add by wushanzhou in 2026/10/23
 
+    if dt_us != 8000:  # add by wushanzhou in 2026/10/24
+        raise ValueError("This RRAW conversion profile requires trace-header dt=8000 us; resampling constants would otherwise be incorrect")  # add by wushanzhou in 2026/10/24
+    if dt_raw not in (0, dt_us):  # add by wushanzhou in 2026/10/24
+        raise ValueError("binary and trace-header sampling intervals disagree")  # add by wushanzhou in 2026/10/24
     meta = {
         "ns": ns,
         "dt_us": dt_us,
         "dt_raw_field": dt_raw,
+        "dt_trace_field": dt_us,  # add by wushanzhou in 2026/10/24
+        "trace_headers_checked": ntraces,  # add by wushanzhou in 2026/10/24
+        "payload_profile": "RRAW_IEEE_LE_override",  # add by wushanzhou in 2026/10/24
         "declared_format": fmt,
         "ntraces": ntraces,
         "file_bytes": len(raw),
@@ -116,15 +128,14 @@ def read_segy(path):
 
 
 def check_encoding(path):
-    """验证 payload 到底是 IBM 浮点还是 IEEE 小端浮点。"""
+    """检查既定 IEEE-LE 配置的幅值合理性；不鉴定有争议的源格式。""" # add by wushanzhou in 2026/10/24
     data, offsets, cdps, meta = read_segy(path)
     finite = data[np.isfinite(data)]
     peak = float(np.abs(finite).max()) if finite.size else 0.0
     print("declared format code : %d (1 = IBM float)" % meta["declared_format"])
     print("decoded as IEEE-LE   : peak |amp| = %.1f" % peak)
-    print("plausible            : %s" % ("YES" if peak < 1e6 else "NO"))
-    print("-> payload is %s" % ("IEEE-754 little-endian float32"
-                                if peak < 1e6 else "NOT IEEE-LE; investigate"))
+    print("IEEE-LE plausibility : %s" % ("PASS" if peak < 1e6 else "FAIL")) # add by wushanzhou in 2026/10/24
+    print("This check does not identify the encoding or resolve the header/profile conflict.") # add by wushanzhou in 2026/10/24
     return peak < 1e6
 
 
@@ -203,7 +214,7 @@ def main():
     ap.add_argument("--input", required=True, help="input SEG-Y path")
     ap.add_argument("--output", help="output CSV path")
     ap.add_argument("--check-encoding", action="store_true",
-                    help="only verify the sample encoding")
+                    help="check fixed IEEE-LE profile plausibility, not encoding identification") # add by wushanzhou in 2026/10/24
     args = ap.parse_args()
 
     if not os.path.exists(args.input):

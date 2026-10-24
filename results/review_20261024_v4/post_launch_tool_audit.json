@@ -1,0 +1,12 @@
+{
+  "path": "tools\\convert_rraw_to_engine_csv.py",
+  "snapshot": "source_snapshots\\convert_rraw_to_engine_csv.launch.py",
+  "launch_sha256": "4382da8819f886072a517ed0d5ff9322a8b063373980a394ed4ce203e1b862bd",
+  "current_sha256": "e7fca7ab31d12ee575a7fb842613432474ad2720bda2635536e0051f81a04940",
+  "excluded_cli_functions": [
+    "check_encoding",
+    "main"
+  ],
+  "scientific_ast_unchanged": true,
+  "reason": "After the full batch, corrected only CLI plausibility wording/help, module documentation and comments. Imported read_segy, convert, write_csv and all other scientific code are AST-identical to the saved launch tool."
+}

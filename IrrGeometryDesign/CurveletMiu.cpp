@@ -61,7 +61,7 @@ float CurveletMiu1DComplex(vector<int> idx, int N)
 	vector< vector<CpxNumMat> > CI;
 	fdct_wrapping(N, N, 1, 4, 1, X, C);   //C 为采样矩阵
 	fdct_wrapping(N, N, 1, 4, 1, FH, CI); //CI为单位矩阵
-	clear(X); clear(FH); X.~NumMat(); FH.~NumMat();
+	X.resize(0,0); FH.resize(0,0); // add by wushanzhou in 2026/10/24
 
 	/// 互相干度参数μ公式 ///
 	int col = C[0][0].m();
@@ -150,7 +150,7 @@ float CurveletMiu1DComplex(vector<int> idx, int N)
 	{
 		for (int j = 0; j < col; j++)
 		{
-			float temp = (float)abs(miuMatA[i][j] - miuMatAI[i][j]);
+			float temp = (float)abs(miuMatA[j][i] - miuMatAI[j][i]); // Scan the columns actually filled above. add by wushanzhou in 2026/10/24
 			if (temp >= Miu)
 				Miu = temp;
 		}
@@ -207,7 +207,7 @@ float CurveletMiu1DReal(vector<int> idx, int N)
 	vector< vector<CpxNumMat> > CI;
 	fdct_wrapping(N, N, 1, 4, 1, X, C);   //C 为采样矩阵
 	fdct_wrapping(N, N, 1, 4, 1, FH, CI); //CI为单位矩阵
-	clear(X); clear(FH); X.~NumMat(); FH.~NumMat();
+	X.resize(0,0); FH.resize(0,0); // add by wushanzhou in 2026/10/24
 
 	/// 互相干度参数μ公式 ///
 	int col = C[0][0].m();
@@ -292,7 +292,7 @@ float CurveletMiu1DReal(vector<int> idx, int N)
 	{
 		for (int j = 0; j < col; j++)
 		{
-			float temp = (float)abs(miuMatA[i][j] - miuMatAI[i][j]);
+			float temp = (float)abs(miuMatA[j][i] - miuMatAI[j][i]); // Scan the columns actually filled above. add by wushanzhou in 2026/10/24
 			if (temp >= Miu)
 				Miu = temp;
 		}
@@ -393,6 +393,9 @@ float CurveletAveMiu2D(int row, int col, int **Phi, string calctype)
 //------ 复数二维数组的一维傅里叶变换(零频点在中心) Based on FFTW_2.1.5 -------//
 void FFT1D_fftshift(int **inMat, CpxNumMat& bMat, int Nx, int Nt)
 {
+    if(!inMat || Nx<=0 || Nt<=0){bMat.resize(0,0);return;} // add by wushanzhou in 2026/10/24
+    for(int row=0;row<Nx;row++)if(!inMat[row]){bMat.resize(0,0);return;} // add by wushanzhou in 2026/10/24
+    bMat.resize(Nx,Nt); // add by wushanzhou in 2026/10/24
 	/*----------------------------------*
 	 * 输入: inMat
 	 * 输出: bMat
@@ -403,6 +406,10 @@ void FFT1D_fftshift(int **inMat, CpxNumMat& bMat, int Nx, int Nt)
 	in = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) * Nt);
 	out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex)* Nt);
 	p = fftw_create_plan(Nt, FFTW_FORWARD, FFTW_ESTIMATE);
+    if(!in || !out || !p) // add by wushanzhou in 2026/10/24
+    { // add by wushanzhou in 2026/10/24
+        if(p)fftw_destroy_plan(p);if(in)fftw_free(in);if(out)fftw_free(out);bMat.resize(0,0);return; // add by wushanzhou in 2026/10/24
+    } // add by wushanzhou in 2026/10/24
 
 	/// fft1D
 	CpxNumMat aMat(Nx, Nt); clear(aMat);
@@ -422,62 +429,11 @@ void FFT1D_fftshift(int **inMat, CpxNumMat& bMat, int Nx, int Nt)
 	fftw_free(in);
 	fftw_free(out);
 
-	// 实现fftshift
-	int X0, Y0;
-	if (Nx % 2 == 0)	X0 = Nx/2 + 1;
-	else        		X0 = (Nx + 1)/2;
-	if (Nt % 2 == 0)    Y0 = Nt/2 + 1;
-	else         		Y0 = (Nt + 1)/2;
+    // One shift handles rectangular grids and all odd/even combinations. // add by wushanzhou in 2026/10/24
+    for(int i=0;i<Nx;i++)for(int j=0;j<Nt;j++) // add by wushanzhou in 2026/10/24
+        bMat((i+Nx/2)%Nx,(j+Nt/2)%Nt)=aMat(i,j); // add by wushanzhou in 2026/10/24
 
-	// Nx为偶数 Nt为偶数
-	if (Nx%2 == 0 && Nt%2 == 0)
-	{
-		for (int i = 0; i < X0-1; i++)
-		{
-			for (int j = 0; j < Y0-1; j++)
-			{
-				bMat(i,j) = aMat(i+X0-1,j+Y0-1);
-				bMat(i+X0-1,j) = aMat(i,j+Y0-1);
-				bMat(i,j+Y0-1) = aMat(i+X0-1,j);
-				bMat(i+X0-1,j+Y0-1) = aMat(i,j);
-			}
-		}
-	}
-
-	// Nx为奇数 Nt为奇数
-	if (Nx%2 !=0 && Nt%2 !=0)
-	{
-		for (int i=0; i<X0; i++)
-		{
-			for (int j=0; j<Y0; j++)
-			{
-				bMat(i+X0-1,j+Y0-1) = aMat(i,j);
-			}
-		}
-		for (int i=X0; i<Nx; i++)
-		{
-			for (int j=0; j<Y0; j++)
-			{
-				bMat(i-X0,j+Y0-1) = aMat(i,j);
-			}
-		}
-		for (int i=0; i<X0; i++)
-		{
-			for (int j=Y0; j<Nx; j++)
-			{
-				bMat(i+X0-1,j-Y0) = aMat(i,j);
-			}
-		}
-		for (int i=X0; i<Nx; i++)
-		{
-			for (int j=Y0; j<Nx; j++)
-			{
-				bMat(i-X0,j-Y0) = aMat(i,j);
-			}
-		}
-	}
-	clear(aMat); aMat.~NumMat();
-}
+} // add by wushanzhou in 2026/10/24
 
 //==================== 单位阵参考变换缓存 ====================
 // μ 定义中的参考项只依赖 (N, 曲波参数)：单位阵 I --FFT--> 曲波变换 --> 归一化 Gram G4。
@@ -540,7 +496,7 @@ static bool miu_ref_build(int N, int col, int datatype, int sc, int an)
 	/// 曲波变换（参数化）///
 	vector< vector<CpxNumMat> > CI;
 	fdct_wrapping(N, N, sc, an, 1, FH, CI);
-	clear(FH); FH.~NumMat();
+	FH.resize(0,0); // add by wushanzhou in 2026/10/24
 
 	if ((int)CI.size() == 0 || (int)CI[0].size() == 0 || CI[0][0].m() != col)
 	{
@@ -674,7 +630,7 @@ float CurveletMiu1DEigenParam(vector<int> idx, int N, int datatype, int nbscales
 	/// 曲波变换（参数化）///
 	vector< vector<CpxNumMat> > C;
 	fdct_wrapping(N, N, nbscales, nbangles, 1, X, C);   //C 为采样矩阵
-	clear(X); X.~NumMat();
+	X.resize(0,0); // add by wushanzhou in 2026/10/24
 
 	// ---------------------------------------------------------------------
 	// 2026.10.20 修复（取代 2026.10.19 的做法）：多尺度 μ 真正随参数变化
@@ -709,7 +665,7 @@ float CurveletMiu1DEigenParam(vector<int> idx, int N, int datatype, int nbscales
 				for (int i = 0; i < N; i++) { free(I2[i]); I2[i] = NULL; }
 				free(I2);
 				fdct_wrapping(N, N, nbscales, nbangles, 1, FH, CI);
-				clear(FH); FH.~NumMat();
+				FH.resize(0,0); // add by wushanzhou in 2026/10/24
 			}
 			bool okAll = ((int)CI.size() == (int)C.size());
 			float muMax = 0.0f;
@@ -845,7 +801,7 @@ float CurveletMiu1DEigenParam(vector<int> idx, int N, int datatype, int nbscales
 			free(I);
 			vector< vector<CpxNumMat> > CI;
 			fdct_wrapping(N, N, 1, 4, 1, FH, CI);
-			clear(FH); FH.~NumMat();
+			FH.resize(0,0); // add by wushanzhou in 2026/10/24
 			MatrixXcf CIMat(col, col);  CIMat.setZero();
 			MatrixXcf G2(col, col);     G2.setZero();
 			for (int i = 0; i < col; i++)
@@ -936,7 +892,7 @@ float CurveletMiu1DEigenParam(vector<int> idx, int N, int datatype, int nbscales
 			free(I);
 			vector< vector<CpxNumMat> > CI;
 			fdct_wrapping(N, N, 1, 4, 1, FH, CI);
-			clear(FH); FH.~NumMat();
+			FH.resize(0,0); // add by wushanzhou in 2026/10/24
 			MatrixXf CIMat(col, col);  CIMat.setZero();
 			MatrixXf G2(col, col);     G2.setZero();
 			for (int i = 0; i < col; i++)

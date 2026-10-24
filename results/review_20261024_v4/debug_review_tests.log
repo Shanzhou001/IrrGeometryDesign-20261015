@@ -1,0 +1,10 @@
+Qt: Untested Windows version 6.2 detected!
+ [PASS] Test 25: Adaptive determinism / counts / caps / objective / monotone incumbent
+ [PASS] Test 26: Physical hard-gap DP matches exhaustive feasibility and unit scaling
+ [PASS] Test 27: Nonfinite weights / invalid constraint units are rejected
+ [PASS] Test 28: Configurable solver isolates hidden values and rejects malformed inputs
+ [PASS] Test 29: Zero-threshold FDCT/projection roundtrip and legacy default equivalence
+ [PASS] Test 30: Physical grid endpoint rounding stays within the observation domain
+ [PASS] Test 31: Legacy FFT shift matches direct DFT for rectangular odd/even grids
+ [PASS] Test 32: Legacy SPS ragged/empty/descending/zero/nonfinite geometry is safe
+ [PASS] Test 33: Legacy Gram scan above 64 columns matches explicit normalized magnitude Gram

@@ -1,0 +1,64 @@
+# protocol=adaptive_hybrid_v4 objective=PhysicalFourierPSF
+# seed=20262278 budget_cap=600 evals=600
+# mu=0.24864915 objective_value=0.24864915 max_gap=5 nn_cv=0.736788
+# max_gap_m=286 nn_cv_units=physical
+# mask_sha1=f0a37bd9a6ec8b8a46b59dacedf95ef45e8425c2 status=budget_exhausted
+1
+0
+1
+0
+1
+1
+1
+0
+0
+1
+1
+0
+0
+1
+0
+0
+0
+1
+1
+0
+0
+1
+0
+1
+1
+0
+0
+1
+1
+0
+0
+0
+0
+1
+1
+0
+0
+1
+1
+1
+0
+0
+1
+0
+0
+0
+1
+0
+0
+1
+1
+1
+1
+1
+0
+0
+1
+1
+1

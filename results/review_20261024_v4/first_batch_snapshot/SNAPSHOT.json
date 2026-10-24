@@ -1,0 +1,5 @@
+{
+  "protocol": "adaptive_hybrid_v4",
+  "source_manifest": "../formal/run_manifest.json",
+  "reason": "Exact source/tool/binary snapshot of first verified batch before selecting FFT for uniform candidates."
+}

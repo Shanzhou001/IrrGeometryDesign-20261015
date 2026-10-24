@@ -6,6 +6,8 @@
 #include "CalculateMiu.h"
 #include "OptimizeMiu.h"
 #include "ExpRng.h"
+#include "reconstructionoptions.h" // add by wushanzhou in 2026/10/24
+#include "spsloadcal.h" // add by wushanzhou in 2026/10/24
 #include "Curvelet2d/fdct_wrapping.hpp"
 #include <QFile>
 #include <QTextStream>
@@ -27,6 +29,9 @@
 #include <complex>
 #include <map>
 #include <utility>
+#include <limits> // add by wushanzhou in 2026/10/24
+
+static bool reconstructionFinite(double v){return v==v && fabs(v)<=std::numeric_limits<double>::max();} // add by wushanzhou in 2026/10/24
 
 static const float PI_CONST = 3.14159265358979323846f;
 
@@ -37,13 +42,13 @@ static QString samplingMaskHash(const std::vector<int>& mask) // add by wushanzh
     return QString(QCryptographicHash::hash(bits, QCryptographicHash::Sha1).toHex()); // add by wushanzhou in 2026/10/23
 } // add by wushanzhou in 2026/10/23
 static bool saveSamplingMask(const QString& path, const ConstrainedResult& result, // add by wushanzhou in 2026/10/23
-                              unsigned long long seed, int budget, const QString& objective) // add by wushanzhou in 2026/10/23
+                              unsigned long long seed, int budget, const QString& objective, const QString& protocol=QString()) // add by wushanzhou in 2026/10/24
 { // add by wushanzhou in 2026/10/23
     QDir().mkpath(QFileInfo(path).absolutePath()); // add by wushanzhou in 2026/10/23
     QFile f(path); // add by wushanzhou in 2026/10/23
     if (result.mask.empty() || !f.open(QIODevice::WriteOnly | QIODevice::Text)) return false; // add by wushanzhou in 2026/10/23
     QTextStream os(&f); os.setCodec("UTF-8"); // add by wushanzhou in 2026/10/23
-    os << "# protocol=" << (objective.startsWith("Physical")?"physical_psf_v3":"classic_psf_v2") << " objective=" << objective << "\n"; // add by wushanzhou in 2026/10/23
+    os << "# protocol=" << (protocol.isEmpty()?(objective.startsWith("Physical")?"physical_psf_v3":"classic_psf_v2"):protocol) << " objective=" << objective << "\n"; // add by wushanzhou in 2026/10/24
     os << "# seed=" << QString::number(seed) << " budget_cap=" << budget << " evals=" << result.evals << "\n"; // add by wushanzhou in 2026/10/23
     os << "# mu=" << QString::number(result.mu, 'g', 9) << " objective_value=" << QString::number(result.objective, 'g', 9) // add by wushanzhou in 2026/10/23
        << " max_gap=" << result.maxGap << " nn_cv=" << result.nnCv << "\n"; // add by wushanzhou in 2026/10/23
@@ -55,8 +60,13 @@ static bool saveSamplingMask(const QString& path, const ConstrainedResult& resul
     f.close(); // add by wushanzhou in 2026/10/23
     QFile trace(path + ".trace.csv"); // add by wushanzhou in 2026/10/23
     if (!trace.open(QIODevice::WriteOnly | QIODevice::Text)) return false; // add by wushanzhou in 2026/10/23
-    QTextStream ts(&trace); ts << "evaluation,best_objective,current_or_candidate_objective\n"; // add by wushanzhou in 2026/10/23
-    for (size_t i = 0; i < result.bestTrace.size(); i++) ts << (int)i + 1 << "," << QString::number(result.bestTrace[i], 'g', 9) << "," << QString::number(i<result.currentTrace.size()?result.currentTrace[i]:result.bestTrace[i],'g',9) << "\n"; // add by wushanzhou in 2026/10/23
+    QTextStream ts(&trace); ts << "evaluation,best_objective,current_or_candidate_objective" << (protocol.isEmpty()?"\n":",phase\n"); // add by wushanzhou in 2026/10/24
+    for(size_t i=0;i<result.bestTrace.size();i++) // add by wushanzhou in 2026/10/24
+    { // add by wushanzhou in 2026/10/24
+        ts << (int)i+1 << "," << QString::number(result.bestTrace[i],'g',9) << "," << QString::number(i<result.currentTrace.size()?result.currentTrace[i]:result.bestTrace[i],'g',9); // add by wushanzhou in 2026/10/24
+        if(!protocol.isEmpty())ts << "," << (i<result.phaseTrace.size()?result.phaseTrace[i]:-1); // add by wushanzhou in 2026/10/24
+        ts << "\n"; // add by wushanzhou in 2026/10/24
+    } // add by wushanzhou in 2026/10/24
     ts.flush(); return trace.error() == QFile::NoError; // add by wushanzhou in 2026/10/23
 } // add by wushanzhou in 2026/10/23
 
@@ -2366,10 +2376,25 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
                                     std::vector<float>& outStepRes, // add by wushanzhou in 2026/10/23
                                     const std::vector<double>* positions = NULL, // add by wushanzhou in 2026/10/23
                                     const std::vector<std::vector<float> >* measured = NULL, // add by wushanzhou in 2026/10/23
-                                    const std::vector<int>* measuredMask = NULL) // add by wushanzhou in 2026/10/23
+                                    const std::vector<int>* measuredMask = NULL, // add by wushanzhou in 2026/10/24
+                                    const ReconstructionOptions* options = NULL) // add by wushanzhou in 2026/10/24
 {
+    outRecon.clear();outResidual.clear();outStepRes.clear(); // add by wushanzhou in 2026/10/24
     const int Nt = (int)initGather.size();
+    if(Nt<32 || initGather[0].size()<32 || numIter<1)return; // add by wushanzhou in 2026/10/24
     const int Nx = (int)initGather[0].size();
+    if((int)mask.size()!=Nx || (int)dObs.size()!=Nt)return; // add by wushanzhou in 2026/10/24
+    for(int row=0;row<Nt;row++)if((int)initGather[row].size()!=Nx || (int)dObs[row].size()!=Nx)return; // add by wushanzhou in 2026/10/24
+    if(options && (!reconstructionFinite(options->thresholdStart) || !reconstructionFinite(options->thresholdEnd) || // add by wushanzhou in 2026/10/24
+        options->thresholdEnd<0 || options->thresholdStart<options->thresholdEnd || options->scales<2 || options->scales>4 || // add by wushanzhou in 2026/10/24
+        (options->angles!=8 && options->angles!=16)))return; // add by wushanzhou in 2026/10/24
+    if((positions || measured || measuredMask) && !(positions && measured && measuredMask))return; // add by wushanzhou in 2026/10/24
+    if(positions) // add by wushanzhou in 2026/10/24
+    { // add by wushanzhou in 2026/10/24
+        if(positions->size()!=measuredMask->size() || (int)measured->size()!=Nt)return; // add by wushanzhou in 2026/10/24
+        for(int row=0;row<Nt;row++)if((*measured)[row].size()!=positions->size())return; // add by wushanzhou in 2026/10/24
+        for(size_t j=0;j<positions->size();j++)if(!reconstructionFinite((*positions)[j]) || (*positions)[j]<0 || (*positions)[j]>Nx-1 || (j && (*positions)[j]<=(*positions)[j-1]))return; // add by wushanzhou in 2026/10/24
+    } // add by wushanzhou in 2026/10/24
 
     fdct_wrapping_ns::CpxNumMat x_mat(Nt, Nx);
     for (int i = 0; i < Nt; i++)
@@ -2380,8 +2405,8 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
         }
     }
 
-    const int nbscales = 4;
-    const int nbangles_coarse = 16;
+    const int nbscales=options?options->scales:4; // add by wushanzhou in 2026/10/24
+    const int nbangles_coarse=options?options->angles:16; // add by wushanzhou in 2026/10/24
     const int ac = 0; // 最高频尺度使用小波基，抑制高频角度伪影
     const double l_max = 0.026;
     const double l_min = 0.0005;
@@ -2424,6 +2449,7 @@ static void curveletPocsReconstruct(const std::vector<std::vector<float> >& init
         double progress = (numIter > 1) ? (double)it / (double)(numIter - 1) : 0.0;
         double factor = 0.5 * (1.0 + cos(PI_CONST * progress));
         double lambda = l_max * factor + l_min;
+        if(options)lambda=(options->thresholdStart-options->thresholdEnd)*factor+options->thresholdEnd; // add by wushanzhou in 2026/10/24
 
         for (size_t s = 0; s < c.size(); s++)
         {
@@ -5303,6 +5329,7 @@ bool GeometryExperimentEngine::runUnitTests()
     // 2026.10.20: 汇总必须区分 PASS / FAIL / SKIP，且 SKIP 不计为通过。
     // 任何 SKIP 都会使整体不通过（本套件不含允许跳过的项）。
     #include "scienceregression.inc" // add by wushanzhou in 2026/10/23
+    #include "reviewregression.inc" // add by wushanzhou in 2026/10/24
 
     const int failedTests = totalTests - passedTests - skippedTests;
     log_test(logFp, "============================================================\n");
@@ -5727,3 +5754,4 @@ bool GeometryExperimentEngine::runMcProbe(const QString& outCsvPath, QString& ou
 // =============================================================================
 // 2026-10-21: 与 OptimizeMiu.cpp 中的实现一致的均匀性度量（供基线评估复用）
 #include "samplingstudies.inc" // add by wushanzhou in 2026/10/23
+#include "reviewexperiments.inc" // add by wushanzhou in 2026/10/24

@@ -58,9 +58,14 @@ static float interpolateKnown(const std::vector<float>& values,const std::vector
 static bool coordinateHoldoutReconstruct(const std::vector<std::vector<float> >& truth, // add by wushanzhou in 2026/10/23
     const std::vector<int>& mask,const std::vector<double>& x,int iterations, // add by wushanzhou in 2026/10/23
     std::vector<std::vector<float> >& linear,std::vector<std::vector<float> >& reconstructed, // add by wushanzhou in 2026/10/23
-    double& consistencyError,double* outputScale=NULL) // add by wushanzhou in 2026/10/23
+    double& consistencyError,double* outputScale=NULL,const ReconstructionOptions* options=NULL, // add by wushanzhou in 2026/10/24
+    std::vector<float>* convergence=NULL) // add by wushanzhou in 2026/10/24
 { // add by wushanzhou in 2026/10/23
     const int nt=(int)truth.size(),m=(int)x.size(); // add by wushanzhou in 2026/10/23
+    linear.clear();reconstructed.clear();consistencyError=0; // add by wushanzhou in 2026/10/24
+    if(nt<32 || m<2 || (int)mask.size()!=m || iterations<1)return false; // add by wushanzhou in 2026/10/24
+    for(int j=0;j<m;j++)if(!reconstructionFinite(x[j]) || (j && x[j]<=x[j-1]) || (mask[j]!=0 && mask[j]!=1))return false; // add by wushanzhou in 2026/10/24
+    for(int i=0;i<nt;i++)if((int)truth[i].size()!=m)return false; // add by wushanzhou in 2026/10/24
     double spacing=x.back()-x.front(); // add by wushanzhou in 2026/10/23
     for (int j=1;j<m;j++) spacing=std::min(spacing,x[j]-x[j-1]); // add by wushanzhou in 2026/10/23
     int nx=32; // add by wushanzhou in 2026/10/23
@@ -70,7 +75,11 @@ static bool coordinateHoldoutReconstruct(const std::vector<std::vector<float> >&
     const double dx=(x.back()-x.front())/(nx-1); // add by wushanzhou in 2026/10/23
     std::vector<double> positions(m); // add by wushanzhou in 2026/10/23
     std::vector<int> known; // add by wushanzhou in 2026/10/23
-    for (int j=0;j<m;j++) { positions[j]=(x[j]-x.front())/dx; if(mask[j])known.push_back(j); } // add by wushanzhou in 2026/10/23
+    for(int j=0;j<m;j++) // add by wushanzhou in 2026/10/24
+    { // add by wushanzhou in 2026/10/24
+        positions[j]=j==m-1?(double)(nx-1):std::max(0.0,std::min((double)(nx-1),(x[j]-x.front())/dx)); // add by wushanzhou in 2026/10/24
+        if(mask[j])known.push_back(j); // add by wushanzhou in 2026/10/24
+    } // add by wushanzhou in 2026/10/24
     if (known.size()<2) return false; // add by wushanzhou in 2026/10/23
     double knownScale=0; // add by wushanzhou in 2026/10/23
     for(int i=0;i<nt;i++)for(size_t k=0;k<known.size();k++) // add by wushanzhou in 2026/10/23
@@ -91,7 +100,9 @@ static bool coordinateHoldoutReconstruct(const std::vector<std::vector<float> >&
     } // add by wushanzhou in 2026/10/23
     std::vector<std::vector<float> > unused(nt,std::vector<float>(nx,0)),grid,residual; // add by wushanzhou in 2026/10/23
     std::vector<int> gridMask(nx,0);std::vector<float> trace; // add by wushanzhou in 2026/10/23
-    curveletPocsReconstruct(initial,unused,gridMask,iterations,grid,residual,trace,&positions,&observed,&mask); // add by wushanzhou in 2026/10/23
+    if(options && !options->warmStart)for(int i=0;i<nt;i++)std::fill(initial[i].begin(),initial[i].end(),0.0f); // add by wushanzhou in 2026/10/24
+    curveletPocsReconstruct(initial,unused,gridMask,iterations,grid,residual,trace,&positions,&observed,&mask,options); // add by wushanzhou in 2026/10/24
+    if(convergence)*convergence=trace; // add by wushanzhou in 2026/10/24
     if(grid.size()!=(size_t)nt || grid.empty() || grid[0].size()!=(size_t)nx)return false; // add by wushanzhou in 2026/10/23
     reconstructed.assign(nt,std::vector<float>(m,0));consistencyError=0; // add by wushanzhou in 2026/10/23
     for (int j=0;j<m;j++) // add by wushanzhou in 2026/10/23
@@ -101,6 +112,7 @@ static bool coordinateHoldoutReconstruct(const std::vector<std::vector<float> >&
         for(int i=0;i<nt;i++) // add by wushanzhou in 2026/10/23
         { // add by wushanzhou in 2026/10/23
             reconstructed[i][j]=(float)(knownScale*((1-weight)*grid[i][a]+weight*grid[i][a+1])); // add by wushanzhou in 2026/10/23
+            if(!reconstructionFinite(reconstructed[i][j]))return false; // add by wushanzhou in 2026/10/24
             if(mask[j]) consistencyError=std::max(consistencyError,fabs((double)reconstructed[i][j]-truth[i][j])); // add by wushanzhou in 2026/10/23
         } // add by wushanzhou in 2026/10/23
     } // add by wushanzhou in 2026/10/23

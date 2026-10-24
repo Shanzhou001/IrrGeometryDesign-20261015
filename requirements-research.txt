@@ -1,0 +1,4 @@
+-r requirements.txt
+# add by wushanzhou in 2026/10/24
+matplotlib==3.11.2
+# add by wushanzhou in 2026/10/24

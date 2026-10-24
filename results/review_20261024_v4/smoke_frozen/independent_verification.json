@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "counts": {
+    "search_rows": 378,
+    "synthetic_rows": 63,
+    "real_mask_rows": 42,
+    "nested_rows": 8,
+    "archived_files": 0
+  },
+  "native_steps": 138,
+  "hashed_output_files": 1302,
+  "independent_real_sources": 1
+}

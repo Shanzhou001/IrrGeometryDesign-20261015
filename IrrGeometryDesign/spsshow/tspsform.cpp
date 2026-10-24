@@ -2335,6 +2335,14 @@ void TSPSForm::on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered()
 	int Slm = ArrayLineNum(mSLineSet_y, "S");
 	int **arraySPhi = SpsArrayTrans(mSLineSet_y, "S");
 
+    if(Rlm<=0 || Slm<=0 || Rlm>1024 || Slm>1024 || !arrayRPhi || !arraySPhi) // add by wushanzhou in 2026/10/24
+    { // add by wushanzhou in 2026/10/24
+        if(arrayRPhi){for(int row=0;row<mRLineSet_x.size();row++)free(arrayRPhi[row]);free(arrayRPhi);} // add by wushanzhou in 2026/10/24
+        if(arraySPhi){for(int row=0;row<mSLineSet_y.size();row++)free(arraySPhi[row]);free(arraySPhi);} // add by wushanzhou in 2026/10/24
+        QMessageBox::warning(this,QString::fromLocal8Bit("坐标诊断无法执行"),QString::fromLocal8Bit("请检查空坐标、非有限值和栅格跨度。历史稠密 Gram 诊断仅支持最多 1024 列；大规模观测系统请使用正式 Fourier/PSF 实验。")); // add by wushanzhou in 2026/10/24
+        return; // add by wushanzhou in 2026/10/24
+    } // add by wushanzhou in 2026/10/24
+
 	float miu_r = 1.0f, miu_s = 1.0f;
 	if (Rlm > 0 && arrayRPhi)
 	{
@@ -2364,13 +2372,13 @@ void TSPSForm::on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered()
 	}
 
 	float miu_avg = 0.5f * (miu_r + miu_s);
-	QString info_str = QString::fromLocal8Bit("当前观测系统曲波域互相关度 (Incoherence Metric μ) 评测结果：\n\n") +
+	QString info_str = QString::fromLocal8Bit("当前观测系统历史曲波 Gram 诊断结果：\n\n") + // add by wushanzhou in 2026/10/24
 		QString::fromLocal8Bit("● 检波排列相干度 (μ_r): ") + QString::number(miu_r, 'f', 4) + QString::fromLocal8Bit("\n") +
 		QString::fromLocal8Bit("● 震源排列相干度 (μ_s): ") + QString::number(miu_s, 'f', 4) + QString::fromLocal8Bit("\n") +
 		QString::fromLocal8Bit("● 综合平均相干度 (μ_avg): ") + QString::number(miu_avg, 'f', 4) + QString::fromLocal8Bit("\n\n") +
-		QString::fromLocal8Bit("统计基础：检波线 ") + QString::number(mRLineSet_x.size()) + QString::fromLocal8Bit(" 条，最大道数 ") + QString::number(Rlm) +
-		QString::fromLocal8Bit("；激发线 ") + QString::number(mSLineSet_y.size()) + QString::fromLocal8Bit(" 条，最大炮数 ") + QString::number(Slm) + QString::fromLocal8Bit("。\n") +
-		QString::fromLocal8Bit("注：相干度越低，说明观测系统在Curvelet变换域的能量聚集与非规则抗混叠恢复能力越强。");
+		QString::fromLocal8Bit("统计基础：检波线 ") + QString::number(mRLineSet_x.size()) + QString::fromLocal8Bit(" 条，10 m 栅格列数 ") + QString::number(Rlm) + // add by wushanzhou in 2026/10/24
+		QString::fromLocal8Bit("；激发线 ") + QString::number(mSLineSet_y.size()) + QString::fromLocal8Bit(" 条，栅格列数 ") + QString::number(Slm) + QString::fromLocal8Bit("。\n") + // add by wushanzhou in 2026/10/24
+		QString::fromLocal8Bit("注：此处为历史曲波 Gram 差值诊断。正式论文实验使用独立的 Fourier/PSF 指标；该诊断值不能直接证明重构或抗混叠效果改善。"); // add by wushanzhou in 2026/10/24
 	QMessageBox::information(this, QString::fromLocal8Bit("相干度计算完成"), info_str);
 }
 

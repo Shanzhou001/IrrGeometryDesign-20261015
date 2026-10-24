@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-24",
+  "base_commit": "72d79a2",
+  "protocol": "adaptive_hybrid_v4",
+  "formal_directory": "results/review_20261024_v4/final",
+  "executable_sha256": "efc82999bf8b476ad92415c4a09d08c403b6d3c07975108e315dba59b6820aef",
+  "native_source_fingerprints": 119,
+  "builds": {
+    "release_exit_code": 0,
+    "debug_exit_code": 0,
+    "logs": [
+      "release_build_final.log",
+      "debug_build_final.log"
+    ],
+    "last_incremental_errors": 0,
+    "last_incremental_warnings": 0,
+    "compiler_file_version": "15.00.30729.01 built by: SP",
+    "compiler_product_version": "9.00.30729.01",
+    "compiler_path": "C:/Program Files (x86)/Microsoft Visual Studio 9.0/VC/bin/x86_amd64/cl.exe"
+  },
+  "tests": {
+    "cpp_full_unique_pass": 33,
+    "cpp_full_fail": 0,
+    "cpp_full_skip": 0,
+    "cpp_new_release_pass": 9,
+    "cpp_new_debug_pass": 9,
+    "python_unique_pass": 24,
+    "python_combined_log": "python_combined_final.log",
+    "legacy_v3_numeric_rows": 1680,
+    "legacy_compatibility_rows": 60,
+    "legacy_unchanged_scientific_columns": 23
+  },
+  "independent_verification": {
+    "passed": true,
+    "counts": {
+      "search_rows": 3960,
+      "synthetic_rows": 1638,
+      "real_mask_rows": 210,
+      "nested_rows": 35,
+      "archived_files": 15393
+    },
+    "native_steps": 2202,
+    "hashed_output_files": 16716,
+    "post_launch_cli_only_tool_changes": [],
+    "independent_real_sources": 1
+  },
+  "additional_full_record_cases": 6,
+  "full_record_verification_passed": true,
+  "leakage_check": {
+    "passed": true,
+    "max_prediction_difference": 4.983513601786171e-13,
+    "selected_unchanged": true
+  },
+  "annotations": {
+    "code_files": 20,
+    "pending": 0,
+    "old_author_remaining": []
+  },
+  "backend_search_equivalence": {
+    "checked_rows": 3960,
+    "different_rows": [],
+    "passed": true
+  },
+  "repeatability": {
+    "passed": true,
+    "tables": {
+      "synthetic_reconstruction.csv": {
+        "rows": 1638,
+        "scientific_columns_identical": true,
+        "excluded_path_columns": []
+      },
+      "real_mask_reconstruction.csv": {
+        "rows": 210,
+        "scientific_columns_identical": true,
+        "excluded_path_columns": []
+      },
+      "real_nested.csv": {
+        "rows": 30,
+        "scientific_columns_identical": true,
+        "excluded_path_columns": []
+      },
+      "cdp_nested.csv": {
+        "rows": 5,
+        "scientific_columns_identical": true,
+        "excluded_path_columns": [
+          "input"
+        ]
+      }
+    },
+    "native_step_sets_identical": true,
+    "prediction_linear_convergence_sha256_matches": 6594,
+    "solver_scientific_columns_matches": 2198,
+    "excluded_solver_column": "runtime_ms",
+    "timing_and_fingerprints_intentionally_differ": true
+  },
+  "figures": {
+    "png_count": 6,
+    "svg_count": 6,
+    "all_six_pngs_visually_inspected": true
+  },
+  "timing": {
+    "workers": 6,
+    "approximate_batch_wall_seconds": 808.706,
+    "summed_concurrent_step_seconds": 4217.946604099867,
+    "note": "wall time estimated from final manifest modification time; not an isolated algorithm timing comparison"
+  },
+  "not_run": [
+    "manual interactive GUI workflows",
+    "full Debug 33-test suite (new 9 tests run)",
+    "ASan/Valgrind (legacy VS2008 environment)",
+    "independent multi-survey real data validation (one source available)"
+  ],
+  "additional_full_record_hashed_outputs": 312,
+  "additional_full_record_native_steps": 78,
+  "delivery_checks": {
+    "current_native_and_tool_fingerprints_match": true,
+    "postprocessing_artifacts_match": true,
+    "local_document_links_checked": 25,
+    "broken_local_document_links": [],
+    "prior_documents_archived_byte_identically": true,
+    "git_diff_check_exit_code": 0
+  }
+}

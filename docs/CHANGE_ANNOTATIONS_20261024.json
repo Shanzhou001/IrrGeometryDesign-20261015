@@ -1,0 +1,110 @@
+{
+  "base_commit": "72d79a2",
+  "annotation_date": "2026/10/24",
+  "files": [
+    {
+      "path": "IrrGeometryDesign/CurveletMiu.cpp",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 20
+    },
+    {
+      "path": "IrrGeometryDesign/OptimizeMiu.cpp",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 64
+    },
+    {
+      "path": "IrrGeometryDesign/OptimizeMiu.h",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 19
+    },
+    {
+      "path": "IrrGeometryDesign/coordinateholdout.inc",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 15
+    },
+    {
+      "path": "IrrGeometryDesign/geometryexperimentengine.cpp",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 34
+    },
+    {
+      "path": "IrrGeometryDesign/geometryexperimentengine.h",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 5
+    },
+    {
+      "path": "IrrGeometryDesign/main.cpp",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 44
+    },
+    {
+      "path": "IrrGeometryDesign/spsloadcal.cpp",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 66
+    },
+    {
+      "path": "IrrGeometryDesign/spsshow/tspsform.cpp",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 11
+    },
+    {
+      "path": "tools/convert_rraw_to_engine_csv.py",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 27
+    },
+    {
+      "path": "IrrGeometryDesign/adaptivesearch.inc",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 111
+    },
+    {
+      "path": "IrrGeometryDesign/reconstructionoptions.h",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 11
+    },
+    {
+      "path": "IrrGeometryDesign/reviewexperiments.inc",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 123
+    },
+    {
+      "path": "IrrGeometryDesign/reviewregression.inc",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 167
+    },
+    {
+      "path": "tools/review_diagnostics.py",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 119
+    },
+    {
+      "path": "tools/review_studies.py",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 445
+    },
+    {
+      "path": "tools/review_window_study.py",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 61
+    },
+    {
+      "path": "tools/summarize_review.py",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 275
+    },
+    {
+      "path": "tools/test_review_science.py",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 128
+    },
+    {
+      "path": "tools/verify_review_results.py",
+      "pending_annotations": 0,
+      "already_annotated_changed_lines": 212
+    }
+  ],
+  "old_author_remaining": [],
+  "pending": 0,
+  "mode": "read-only audit; no source mutation",
+  "requirements_research_dated": true
+}

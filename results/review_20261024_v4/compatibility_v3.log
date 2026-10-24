@@ -1,0 +1,3 @@
+Qt: Untested Windows version 6.2 detected!
+Multi-seed ablation: 20 seeds, base=20261023
+ClassicPSF ablation complete; common cap=200; shared SA prefix=64; constrained objective reported separately.

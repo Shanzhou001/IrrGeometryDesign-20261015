@@ -1,0 +1,53 @@
+{
+  "protocol": "adaptive_hybrid_v4",
+  "base_commit": "72d79a2",
+  "code_files": {
+    "IrrGeometryDesign/CurveletMiu.cpp": "a4bd72e126f6d3b5738d92a0831b998052151db538b42238b13b71d8c8505993",
+    "IrrGeometryDesign/OptimizeMiu.cpp": "ef4ce1aecfb19c027ca19cd003528fe62542e714806b5f9475ad01e40bf1cb45",
+    "IrrGeometryDesign/OptimizeMiu.h": "3a83b1e1ecb978e9a31a4142bf7e5fa270efe4e41b648eb05954e3ee52a85f20",
+    "IrrGeometryDesign/coordinateholdout.inc": "b3b4da3edeb6e53cdffa899358c3ad21c5463844c9b7d47a969a1b1adcd3fb11",
+    "IrrGeometryDesign/geometryexperimentengine.cpp": "addc3929e5ea2bf020528ccfa7d44f550e3674bb736a48c39ba8ee4a8a598ac4",
+    "IrrGeometryDesign/geometryexperimentengine.h": "7a3d47150f7da49c53a9318b0153d37d0c550710ede2b584235a515f2527b0f4",
+    "IrrGeometryDesign/main.cpp": "da8081ff6288ad21f753da72bd02b4bd00cbcdac1cb2396bc1af9ab2dca9b642",
+    "IrrGeometryDesign/spsloadcal.cpp": "9ea2f931bdd85b1cc5e7a5f6035cc44257f2040ef2000bb7a5f890ae6c4cbb29",
+    "IrrGeometryDesign/spsshow/tspsform.cpp": "9eef53d44ea04298039da627dfdc17eca94b903ee38aa12bf3bf4897f72458f4",
+    "tools/convert_rraw_to_engine_csv.py": "e7fca7ab31d12ee575a7fb842613432474ad2720bda2635536e0051f81a04940",
+    "IrrGeometryDesign/adaptivesearch.inc": "9c1662970da5668c7e11eb8920c3da9f789eacd6e88222a0de1f64197e19540e",
+    "IrrGeometryDesign/reconstructionoptions.h": "710f16aaba8b133d7ec149a5b4f0cb4d76e86f494e3c9ebd7bf3611b04feb9c1",
+    "IrrGeometryDesign/reviewexperiments.inc": "836097dbbd4425a223db37a2a1abcc6f2ac09f1f570e6f3919281730694d80db",
+    "IrrGeometryDesign/reviewregression.inc": "5f5b39c8dd668cb12b79b8bb08710e8092c2143d2ad648cda884325fdb53876e",
+    "tools/review_diagnostics.py": "7d96fc7bea69317736dbb10c0a68dd7e43745135530dedb79ba20b3c43dfb8b7",
+    "tools/review_studies.py": "274be886a05c21ccad00283e6ca8e866f5684353c1a2f568b65092ea36af73de",
+    "tools/review_window_study.py": "75182fce1a9a753e82faab1744707e466489e32100c6a45c3943ca99f7679f7e",
+    "tools/summarize_review.py": "2ed61e9e72bfa08c1e4633310f4060ddc4b8e250c74eda1906f55ce5b189ad3a",
+    "tools/test_review_science.py": "44eda986dbaf20162f33a3c195de86feff8ba30be23b656165127bf8649b129a",
+    "tools/verify_review_results.py": "4f20372722ee0b610352fe7e5eb8338c4ffc633d2b2b890c8438638b1f1a9ba2"
+  },
+  "documents": {
+    "README.md": "425d0886cc1524933bec063319b88f737c3bbed2f2b9a59f6720393a40d3b1b0",
+    "docs\\THESIS_METHODS.md": "c2aca66a8a0fb61b5bd37233fc89de99bf7f448b055aa83ef34f85dbee1d7553",
+    "docs\\REVIEW_PLAN_20261024.md": "609ad6e11693ce8a002c4884c08ab53c7498902bf7578095b36c58801684fc87",
+    "docs\\REVIEW_REPORT_20261024.md": "de796bc68ede3f27e7ae127bf8fc1ef106fcf521bc0f60b7da1171e69b06484e",
+    "docs\\PROJECT_PROGRESS_20261024.md": "aa338e3a99781f42f6d1f46d206b1bf22eee4530b4e3096f6d1f0b01ff780ea2",
+    "docs\\CHANGE_ANNOTATIONS_20261024.json": "47f1bb7955b538dd53eed77597eb37f47290e4fdfd24c2a01546a3575ab91dc9",
+    "requirements-research.txt": "af00d9603685f7b60ddbba10fc5751401b02ad1468334f6b894c01d931f9cdcf"
+  },
+  "evidence": {
+    "validation_summary.json": "383078cf8459ee5286e736f92408489132121189afc34019f090f80de5b0ae43",
+    "final\\run_manifest.json": "d256e8a46f345bca79a24c3f0aa6462c6c407f5edf9d76829d1581dc336689cf",
+    "final\\independent_verification.json": "1044a975e879d7037fa39152d815d5cb44e56b85b6f20d4f9c96d3aef65d3a51",
+    "final\\postprocessing_manifest.json": "f599833ee1f9c8a7166c7eca2bef4c67e89abefd83db3b1837991ae5974a4096",
+    "backward_compatibility_final.json": "b32d4ccad56bd46a5d61a14200ae8b3e0cb6c7207306e6e688daf525c4e203c9",
+    "backend_numeric_compatibility.json": "462af52dcfaaad1944993a442dd8843ad453df167933b7d97808706c6cfc0e4e",
+    "final_repeatability.json": "556558419a151950c5d8a19c8c177686f8facdf865c005508b5faa91bda7da89",
+    "full_window_final\\verification.json": "c9112e0c62d3da1d0dc2bf50d556f452f29bae90f0f2c36173ae1bd5ae771449"
+  },
+  "checks": {
+    "current_native_and_tool_fingerprints_match": true,
+    "postprocessing_artifacts_match": true,
+    "local_document_links_checked": 25,
+    "broken_local_document_links": [],
+    "prior_documents_archived_byte_identically": true,
+    "git_diff_check_exit_code": 0
+  }
+}

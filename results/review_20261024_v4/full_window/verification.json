@@ -1,0 +1,134 @@
+{
+  "passed": true,
+  "cases": [
+    "full_keep20_seed2026102400",
+    "full_keep20_seed2026102579",
+    "full_keep30_seed2026102400",
+    "full_keep30_seed2026102579",
+    "full_keep40_seed2026102400",
+    "full_keep40_seed2026102579"
+  ],
+  "configuration": {
+    "study": "full_record_window_diagnostic",
+    "independent_real_sources": 1,
+    "input_sha256": "0c93276bdeb0535b2b2a1ab9b2ee6fd0c9f6f2594c21164ac736e9fe0da9cd42",
+    "source_sha256": "ddcb311b2406af17cf375b570b3eb8ea7ca2d81cdeb002f972e6d668cd7b2bc2",
+    "shape": [
+      499,
+      59
+    ],
+    "prefix_max_error": 4.999231498215018e-07,
+    "outer_seeds": 2,
+    "keeps": [
+      20,
+      30,
+      40
+    ],
+    "configurations": [
+      {
+        "name": "legacy",
+        "iterations": 40,
+        "start": 0.0265,
+        "end": 0.0005,
+        "scales": 4,
+        "angles": 16,
+        "warm": true
+      },
+      {
+        "name": "cold",
+        "iterations": 40,
+        "start": 0.0265,
+        "end": 0.0005,
+        "scales": 4,
+        "angles": 16,
+        "warm": false
+      },
+      {
+        "name": "iter20",
+        "iterations": 20,
+        "start": 0.0265,
+        "end": 0.0005,
+        "scales": 4,
+        "angles": 16,
+        "warm": true
+      },
+      {
+        "name": "iter80",
+        "iterations": 80,
+        "start": 0.0265,
+        "end": 0.0005,
+        "scales": 4,
+        "angles": 16,
+        "warm": true
+      },
+      {
+        "name": "weak",
+        "iterations": 40,
+        "start": 0.008,
+        "end": 0.0002,
+        "scales": 4,
+        "angles": 16,
+        "warm": true
+      },
+      {
+        "name": "strong",
+        "iterations": 40,
+        "start": 0.08,
+        "end": 0.002,
+        "scales": 4,
+        "angles": 16,
+        "warm": true
+      },
+      {
+        "name": "scale3_angle8",
+        "iterations": 40,
+        "start": 0.0265,
+        "end": 0.0005,
+        "scales": 3,
+        "angles": 8,
+        "warm": true
+      },
+      {
+        "name": "scale3_angle16",
+        "iterations": 40,
+        "start": 0.0265,
+        "end": 0.0005,
+        "scales": 3,
+        "angles": 16,
+        "warm": true
+      },
+      {
+        "name": "angle8",
+        "iterations": 40,
+        "start": 0.0265,
+        "end": 0.0005,
+        "scales": 4,
+        "angles": 8,
+        "warm": true
+      },
+      {
+        "name": "constant",
+        "iterations": 40,
+        "start": 0.005,
+        "end": 0.005,
+        "scales": 4,
+        "angles": 16,
+        "warm": true
+      },
+      {
+        "name": "no_shrink",
+        "iterations": 1,
+        "start": 0.0,
+        "end": 0.0,
+        "scales": 4,
+        "angles": 16,
+        "warm": true
+      }
+    ],
+    "no_window_selection_by_test": true
+  },
+  "limitation": "Same source and same geometry splits. Different time windows have different target energies; SNR differences across windows are not method gains on the same target.",
+  "driver_snapshot_sha256": "8fe147e93cad04c531e93335fcb7ea9cb43e4d84955f86f38410a01d562a045d",
+  "current_driver_sha256": "5bf8ecc636cf6437185c8c4f20456da2f4a60e4ae2d886c584a6d63aae06450e",
+  "annotation_only_ast_unchanged": true
+}

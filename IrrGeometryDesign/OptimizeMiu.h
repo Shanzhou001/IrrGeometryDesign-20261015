@@ -188,7 +188,8 @@ struct ConstraintWeights // add by wushanzhou in 2026.10.21
     double lambdaGap;   // P_gap 权重
     double lambdaNN;    // P_nn 权重
     int    hardMaxGap;  // >0 时作为硬约束（方案 D）；0 表示仅软惩罚
-    ConstraintWeights() : lambdaGap(0.0), lambdaNN(0.0), hardMaxGap(0) {}
+    double hardMaxGapM; // Maximum physical gap, including boundary gaps; requires coordinates. add by wushanzhou in 2026/10/24
+    ConstraintWeights() : lambdaGap(0.0), lambdaNN(0.0), hardMaxGap(0), hardMaxGapM(0) {} // add by wushanzhou in 2026/10/24
 };
 
 struct ConstrainedResult // add by wushanzhou in 2026.10.21
@@ -208,9 +209,12 @@ struct ConstrainedResult // add by wushanzhou in 2026.10.21
     double runtimeMs; // add by wushanzhou in 2026/10/23
     double maxGapM; // Physical-coordinate gap when coordinates are supplied. add by wushanzhou in 2026/10/23
     std::string status; // add by wushanzhou in 2026/10/23
+    int saEvaluations, localEvaluations, restartEvaluations, switches; // add by wushanzhou in 2026/10/24
+    std::vector<int> phaseTrace; // 0 initial, 1 SA, 2 local, 3 perturbation. add by wushanzhou in 2026/10/24
     ConstrainedResult() : mu(0), objective(0), maxGap(0), nnCv(0),
                            unitOccupancy(0), evals(0), hardConstraintSatisfied(false), // add by wushanzhou in 2026/10/23
-                           saPrefixEvals(0), runtimeMs(0), maxGapM(0) {} // add by wushanzhou in 2026/10/23
+                           saPrefixEvals(0), runtimeMs(0), maxGapM(0), saEvaluations(0), // add by wushanzhou in 2026/10/24
+                           localEvaluations(0), restartEvaluations(0), switches(0) {} // add by wushanzhou in 2026/10/24
 };
 
 // =============================================================================
@@ -254,6 +258,20 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
                        ConstrainedResult& out, int saPrefixBudget = 64, int gridRows = 1, // add by wushanzhou in 2026/10/23
                        const std::vector<double>* coordinates = NULL); // add by wushanzhou in 2026/10/23
 float SamplingPhysicalCoherence(const std::vector<int>& mask, const std::vector<double>& coordinates); // add by wushanzhou in 2026/10/23
+
+// Separately versioned adaptive method; legacy search defaults remain available. add by wushanzhou in 2026/10/24
+struct AdaptiveSearchOptions // add by wushanzhou in 2026/10/24
+{ // add by wushanzhou in 2026/10/24
+    bool adaptiveSwitch, recycleBudget, mixedNeighborhood, localSearch; // add by wushanzhou in 2026/10/24
+    int minimumSa, stagnationWindow; // add by wushanzhou in 2026/10/24
+    AdaptiveSearchOptions() : adaptiveSwitch(true), recycleBudget(true), mixedNeighborhood(true), // add by wushanzhou in 2026/10/24
+        localSearch(true), minimumSa(32), stagnationWindow(12) {} // add by wushanzhou in 2026/10/24
+}; // add by wushanzhou in 2026/10/24
+double SamplingPhysicalMaxGap(const std::vector<int>& mask,const std::vector<double>& x); // add by wushanzhou in 2026/10/24
+bool SamplingPhysicalFeasibleMask(const std::vector<double>& x,int m,double bound,std::vector<int>& mask); // add by wushanzhou in 2026/10/24
+bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const ConstraintWeights& weights, // add by wushanzhou in 2026/10/24
+    unsigned long long seed,int budget,const AdaptiveSearchOptions& options,ConstrainedResult& out, // add by wushanzhou in 2026/10/24
+    const std::vector<double>* coordinates=NULL); // add by wushanzhou in 2026/10/24
 
 bool RunMultiSeedAblation(int N, float c, int nSeeds, unsigned long long baseSeed,
                           std::vector<AblationRow>& outRows);

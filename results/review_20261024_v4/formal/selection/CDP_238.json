@@ -1,0 +1,115 @@
+{
+  "selected": {
+    "candidate": "linear",
+    "gain": 0.01133085020322932,
+    "validation_mse": 0.014815156324087966,
+    "raw_validation_mse": 0.02491843830948347
+  },
+  "candidates": [
+    {
+      "candidate": "zero",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.014816483368645335
+    },
+    {
+      "candidate": "linear",
+      "gain": 0.01133085020322932,
+      "validation_mse": 0.014815156324087966,
+      "raw_validation_mse": 0.02491843830948347
+    },
+    {
+      "candidate": "legacy",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.018491837487639426
+    },
+    {
+      "candidate": "cold",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.016381692865933693
+    },
+    {
+      "candidate": "iter20",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.019198569513282415
+    },
+    {
+      "candidate": "iter80",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.018494598433569504
+    },
+    {
+      "candidate": "weak",
+      "gain": 0.01003314712259822,
+      "validation_mse": 0.014815738426829081,
+      "raw_validation_mse": 0.022068264501101397
+    },
+    {
+      "candidate": "strong",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.016603598341748682
+    },
+    {
+      "candidate": "scale3_angle8",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.02047200680375086
+    },
+    {
+      "candidate": "scale3_angle16",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.020434166318436156
+    },
+    {
+      "candidate": "angle8",
+      "gain": 0.0,
+      "validation_mse": 0.014816483368645335,
+      "raw_validation_mse": 0.01795575530136263
+    },
+    {
+      "candidate": "constant",
+      "gain": 0.012103374834386877,
+      "validation_mse": 0.01481540578638911,
+      "raw_validation_mse": 0.02199434818120166
+    },
+    {
+      "candidate": "no_shrink",
+      "gain": 0.011330850203148541,
+      "validation_mse": 0.014815156324094825,
+      "raw_validation_mse": 0.02491843825741964
+    }
+  ],
+  "outer_known": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    8,
+    9,
+    10,
+    12,
+    14
+  ],
+  "inner_train": [
+    0,
+    1,
+    5,
+    8,
+    9,
+    10,
+    12
+  ],
+  "validation": [
+    4,
+    3,
+    14
+  ],
+  "seed": 20261025
+}
