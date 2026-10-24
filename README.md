@@ -6,6 +6,17 @@
 
 旧 GUI 和原有 CLI 的 Hybrid 仍保留固定 SA 前缀，保证历史入口可用。新增自适应算法通过专用研究入口调用；新版图件通过本页链接打开。
 
+本轮补充审查为 **`audit_joint_v5`**，结果独立保存在 `results/audit_20261024_v5/`，
+v4/final及v2/v3全部冻结。已修复原幅度投影判据、旧SEG-Y工具类零字/格式/所有权、
+旧整数采样丢失零坐标及轨迹记录口径问题；新增共同外层H、预处理干预和结构模板统计复核。
+真实编码与几何仍未被提供方证实，不能将结果写成跨工区高保真恢复。
+
+本轮权威入口：[问题台账](docs/AUDIT_ISSUES.md)、[资料验证](docs/DATA_VALIDATION_REPORT.md)、
+[算法审查](docs/ALGORITHM_REVIEW.md)、[新结果](docs/EXPERIMENT_RESULTS.md)、
+[实际验证](docs/VALIDATION_REPORT.md)、[贡献边界](docs/THESIS_CONTRIBUTIONS.md)、
+[未解决项](docs/UNRESOLVED_ISSUES.md)、[10组论文图](results/audit_20261024_v5/figures_thesis/index.html)。
+新 CSV 导出头已明确标注未确认 profile；既有数值和历史 CSV 不改。
+
 <!-- add by wushanzhou in 2026/10/24 -->
 
 ## 方法和代码入口
