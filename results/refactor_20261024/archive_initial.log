@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\validation\archives.py", line 48, in <module>
+    run(parser.parse_args().out.resolve())
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\validation\archives.py", line 24, in run
+    counts[archive.check(name,record['sha256'])]+=1
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\common\archives.py", line 59, in check
+    if actual!=expected:raise AssertionError('archive hash mismatch: '+name)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: archive hash mismatch: results/review_20261024_v4/final/figures/01_search_comparison.svg

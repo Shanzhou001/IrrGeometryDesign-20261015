@@ -1,0 +1,6 @@
+{
+  "superseded_manifest": "delivery_manifest.before_report_update.json",
+  "superseded_sha256": "20cd84603a5a21b73af8007cd84c6641d14e17660661c15fbb2f08729bf89d86",
+  "reason": "Documentation completion added cleanup details and updated report provenance; scientific outputs, source code and pipeline execution are unchanged.",
+  "authoritative_manifest": "delivery_manifest.json"
+}

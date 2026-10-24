@@ -1,0 +1,1232 @@
+{
+  "completed": true,
+  "resolved_targets": [
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\IrrGeometryDesign",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\tools"
+  ],
+  "generated_build_files": [
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\qrc_datareconstruction.cpp",
+      "bytes": 1657527,
+      "sha256": "45c895f2593b812055d90194d7048615bda53b0202d04762609787f4912cc161"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_analyzebinform.h",
+      "bytes": 11138,
+      "sha256": "51827175b60ea1eaa894c64031731f27e3b72b0b8b051f148033db99565c21b9"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_changecoordinatedlg.h",
+      "bytes": 3412,
+      "sha256": "059e931750fd713299a02a119c9495b8d9344d861069d615354f86d3318c1a03"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_datareconstruction.h",
+      "bytes": 12296,
+      "sha256": "09bcc31e09b73b97e733c70c829ea1de55cf8b633de44fe04a28a51abff87b50"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_draw2dfrm.h",
+      "bytes": 5018,
+      "sha256": "d7449ea6dbabce188a626d41fb5529f42445698f4309087f0f4fe78b0735cfe0"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_geometrytemplateparameter.h",
+      "bytes": 13514,
+      "sha256": "af60d1cb761ea0bd8ba3a3fdf5fa5e6ff0f95c36f27c4d34af285ed4ce200d63"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_ovtvolumeattributeview.h",
+      "bytes": 11377,
+      "sha256": "0875c611d4ebe0a5c677b1162b9ad018d1ffd9427b10d8e0bb6fde9916c359f7"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_spssampledlg.h",
+      "bytes": 6059,
+      "sha256": "319ef87b563dffa99c077199a8a8db92dfd798523929550fe9a4af3fc3918d10"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_tcellgridform.h",
+      "bytes": 8255,
+      "sha256": "de04ea3247788570994468c34eee14b75fcaf830ae3ec78e41d50908d79aad4f"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_tchangeshowareadlg.h",
+      "bytes": 3761,
+      "sha256": "30092e1542a0defe125ee000b4c218010aa1b1dd61cd07091db8c9a220a5ae33"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_tdatawizardform.h",
+      "bytes": 9823,
+      "sha256": "d439b637093c2241323d42c594cf1b87296ace5cbd66c4167fded63d3cef906f"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_tgeometryimfordlg.h",
+      "bytes": 12989,
+      "sha256": "e7d0f356f49f4493af327586f1e28c3a1908a4abe25de5e2a87bccbe1c4b42e4"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_tqfdividedlg.h",
+      "bytes": 4162,
+      "sha256": "d4887f29aa6bd9cd3e8bb92d44b4b508c2a206bc30423cc6b2eb7f1c9faf50ea"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_trealovtdlg.h",
+      "bytes": 9253,
+      "sha256": "c0ccf5c862e4c918c310eb1020906a6975d033b20d82df1be9908eaa644dadc0"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_trosedividedlg.h",
+      "bytes": 4042,
+      "sha256": "4adc52667e97de834025ad9184d4027c3d6f9a5693199a31acff403ecc0f9cfb"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_tspsdlg.h",
+      "bytes": 19182,
+      "sha256": "0bad66d370166e30139e6d72223ce9fc28875113e6982af8482c79d0023bc83f"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\ui_tspsform.h",
+      "bytes": 15625,
+      "sha256": "1e0514f352abe7c9c53321f8a874d864b0d16f849591e0929eea5684aa3e0397"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_analyzebindoc.cpp",
+      "bytes": 2173,
+      "sha256": "7a6a0c1026189b88c832c00dc5e6f5aa6c187078cad1644fd75d6f86fdea7bba"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_analyzebinform.cpp",
+      "bytes": 4098,
+      "sha256": "9047f882fdfffedd01cadba2a28d9ae2f5d32f7c6ec014740ceb861aa69670dc"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_changecoordinatedlg.cpp",
+      "bytes": 2901,
+      "sha256": "9d3cfae89fa8b594a3b2587ff19adb07cfac398c76307ea15fdb36843bc84178"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_datareconstruction.cpp",
+      "bytes": 2945,
+      "sha256": "3b426cd63cbd64c9b9dcaa9906ba900f198a0708aef9a47d2e70eba76052d39d"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_draw2dfrm.cpp",
+      "bytes": 2834,
+      "sha256": "0d4bd4c1ac50fdb963b02a63ee1dd28e957b10ec55d30b186955f956c994ac22"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_geometrytemplateparameter.cpp",
+      "bytes": 2950,
+      "sha256": "fa171c525c37f31e5c374660e6611c9c5950c2cd680aaa323814c7fd9d29dd11"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_gproject.cpp",
+      "bytes": 2106,
+      "sha256": "07c3e2f627ff3feb3604e350ee1fac09d4e7f27521ba94635acdfb19ea7968b7"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_gspsview.cpp",
+      "bytes": 3059,
+      "sha256": "7b16c3caa8ae47d62551b00d000afa29d1d4ba5ba99ebaa7a83ac6c36040b023"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_ovtvolumeattributeview.cpp",
+      "bytes": 3914,
+      "sha256": "be464605a7863d656ba29e481ed91419984a9a9601d3f71ee0f4299305ac7819"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_qcustomplot.cpp",
+      "bytes": 178838,
+      "sha256": "786aff7cb176f73f7d8d2b5dd303507f22d30d4023d746986643ed294a229614"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_spssampledlg.cpp",
+      "bytes": 2589,
+      "sha256": "4a91cb700363693da4ba975fe18b021424647f687ae4b7f88c619a6a6e604f5f"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_tcellgridform.cpp",
+      "bytes": 2804,
+      "sha256": "fc7c81693131695caf6b5e2f92a8c91508ffde74526b2dd766eaafbec8a34331"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_tchangeshowareadlg.cpp",
+      "bytes": 2635,
+      "sha256": "b316695a36b8e88436a9b9ba201b59b4767ffb45b3862945698a72dc4671e8a7"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_tdatawizardform.cpp",
+      "bytes": 3870,
+      "sha256": "518e0d206f55c58156de7cbca3c4f486058742ea2c47a704ad629dd5d158351a"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_tgeometryimfordlg.cpp",
+      "bytes": 2690,
+      "sha256": "cccadc4582bf74af112eb38b67f3d6ccf0b8c9879fb51e7f6ac7c07f37f90259"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_tqfdividedlg.cpp",
+      "bytes": 2545,
+      "sha256": "8d0505260925b959335398cd1177071c3b6a946d89af25e4859fb9071b0d7d1e"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_trealovtdlg.cpp",
+      "bytes": 2554,
+      "sha256": "50f452c68885a03ddd68bea6e3351eeeb0122b7886fc7ba9275bc40595cc6266"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_trosedividedlg.cpp",
+      "bytes": 2575,
+      "sha256": "08053563761978c5384057eb98bb5720c3a130b63a9c9faacdb9d17af156237e"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_tspsdlg.cpp",
+      "bytes": 3468,
+      "sha256": "49a9d0e0bd5da8b78d59338ebb1dddaabde50b1159c0db21f71be3a62c986c37"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Debug\\moc_tspsform.cpp",
+      "bytes": 9287,
+      "sha256": "c5d6904310ad38fc22b4e80ade0c3ef3b6e15ce6bb958e685cfb6f3418415c62"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_analyzebindoc.cpp",
+      "bytes": 2173,
+      "sha256": "cbf9e54f12d3df0e3f4864a4353888d048b8c338e29a2fac18b89c8c685db179"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_analyzebinform.cpp",
+      "bytes": 4098,
+      "sha256": "b387c907bf1240e89cb9d1e0618c6473182b45cb40455d89ba5e4133b3f40a28"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_changecoordinatedlg.cpp",
+      "bytes": 2901,
+      "sha256": "f69535bec818096758d946440a5fc7918f96a3fc0907236e503427526f9b2caf"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_datareconstruction.cpp",
+      "bytes": 2945,
+      "sha256": "25bc0521e0289f9823973dd049f705850047e69cf6684020532d7b631ed44c51"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_draw2dfrm.cpp",
+      "bytes": 2834,
+      "sha256": "2c817fe05b1a5c94771081805bec73db696c49aee1700e06fd9d1f4834c0343c"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_geometrytemplateparameter.cpp",
+      "bytes": 2950,
+      "sha256": "2076bee7d079933d78aec87375d9664ec095bd3df2c98b0bbc106068fe333eae"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_gproject.cpp",
+      "bytes": 2106,
+      "sha256": "48c3c067f97f97746db8d0f7a7e5f0337180171ed9880d40a66f8f50d7f13bb2"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_gspsview.cpp",
+      "bytes": 3059,
+      "sha256": "ba8892849190e934f513172b5f15db3c759cc83cdc1fe17fd9b016ecf3c2e6ed"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_ovtvolumeattributeview.cpp",
+      "bytes": 3914,
+      "sha256": "48c65549f32aaf13c096454a5c9dd36e488fa99960a5cc9e09e1304f70905c8d"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_qcustomplot.cpp",
+      "bytes": 178838,
+      "sha256": "73e1d47960e173e8ae4266a07ab394c3cae163cb935336f69ec5a89aae527650"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_spssampledlg.cpp",
+      "bytes": 2589,
+      "sha256": "d0f8ac6561595941fd870af6b5548518d213009ee8f735db9029bc97edbc47ad"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_tcellgridform.cpp",
+      "bytes": 2804,
+      "sha256": "c7db0d58941445cdb275733f3b6ef30fb70f40bccd165407e0e922d32c7a0fa0"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_tchangeshowareadlg.cpp",
+      "bytes": 2635,
+      "sha256": "8c3866c0c7662fd6e91e0d179ea8f5c91ec0a093d02cff12c05a032e2a7f4b43"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_tdatawizardform.cpp",
+      "bytes": 3870,
+      "sha256": "433ad611d5dad396d20530946b3da8641c1fdc92899cd5cb50150c3e0a841b24"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_tgeometryimfordlg.cpp",
+      "bytes": 2690,
+      "sha256": "0fb6a58bbbebe10a49cb0fe749920205c3709721508fc938c57d55989e8cb2ab"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_tqfdividedlg.cpp",
+      "bytes": 2545,
+      "sha256": "7e6d9d807bae03778ea3ce4d4b62c619c397a4f13fdf5d1e2d85d764636793ad"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_trealovtdlg.cpp",
+      "bytes": 2554,
+      "sha256": "b13c7bb0f83729b8c2688e8e440c6bc6337c8f146f064f10de1c1d0b18b0996e"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_trosedividedlg.cpp",
+      "bytes": 2575,
+      "sha256": "1f0c5a4ab5320ad88c49fdeba3eab64c61a8fcf279cd6e153404001d74553f90"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_tspsdlg.cpp",
+      "bytes": 3468,
+      "sha256": "72430357df6c30385543083defe5cfc21e9ec44e32021197c1562c0d33975003"
+    },
+    {
+      "path": "IrrGeometryDesign\\GeneratedFiles\\Release\\moc_tspsform.cpp",
+      "bytes": 9287,
+      "sha256": "552da2f547351c2601576bc0b0ea3204231c3d37106276f6445b581334fdd39e"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\analyzebindoc.obj",
+      "bytes": 61934,
+      "sha256": "83ef73a2517e7f41af549d6065542359dd2f30c9212aafb6816a0dd4c95d28ec"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\analyzebinform.obj",
+      "bytes": 353213,
+      "sha256": "cf4074e3bee8b1a7f79dbf48cf41aa70259a8516bf097aa354201a16715bf873"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\analyzebinview.obj",
+      "bytes": 621708,
+      "sha256": "5dec899e4100329c2c2414760eceb4cadb2895acdc5450c82c407d6f8bd22f5b"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\BuildLog.htm",
+      "bytes": 16320,
+      "sha256": "71afa9adb39c9726ef2044b2a20e785d8c330f5d55ae574fe106987909d774e8"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\changecoordinatedlg.obj",
+      "bytes": 124166,
+      "sha256": "e5909baed4abd86d07cb34e61dea1ff16c00409934c92b73dec24d5e0020a4f8"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\colorview.obj",
+      "bytes": 122407,
+      "sha256": "b76b4ad7449b1d0f38f5613ba87f468834259912c5c5b95b70934ae49ce9a671"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\CurveletMiu.obj",
+      "bytes": 1801003,
+      "sha256": "10fd76b9e77ebd5aa81a92e4e67330b8a83d95605cb9a0097426911fb5a91e1c"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\datareconstruction.obj",
+      "bytes": 561722,
+      "sha256": "96700b7b000b13251e95e4f4d12b6fd9a9eb78676fbda9d21ae125d441c4a8d4"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\Diagmul.obj",
+      "bytes": 160110,
+      "sha256": "e623b4f45b1c0bb4e09589f6457eae4467850293ae749da3aa3d6016b41aa518"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\draw2dfrm.obj",
+      "bytes": 191923,
+      "sha256": "722ed937ac923fc0b05aa3069de008edba388dd9ec5ab7a72112094bda7ed025"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\draw2Dview.obj",
+      "bytes": 138850,
+      "sha256": "70c570e4dd666500102a9f67a57ce047fd247ab98b4aef82d35e77bc55df2385"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\ExpRng.obj",
+      "bytes": 10524,
+      "sha256": "85dceb8ba9bbac7a54501b4f20677371bfed92436731fb3a0e4f1e4527a01f40"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\fdct_wrapping.obj",
+      "bytes": 1296383,
+      "sha256": "81ed12668ee3928d25a503b669d6dc32d7f12df1f89040d4f5094e55d8df6ab9"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gAttrAnalyzeParam.obj",
+      "bytes": 39347,
+      "sha256": "aff5398bdffc6e2f7551429929b02272a30209a6d66eae5c37704b8c290ff48b"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gcellgrid.obj",
+      "bytes": 161202,
+      "sha256": "7c06569cf24d0a8ca72ce82ba4d3fe2375ee9c20b653a29dbd438054802fee60"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gcmpset.obj",
+      "bytes": 152491,
+      "sha256": "e069e752041a28bd7cbd036ca055b9285516411f96aa562b9c3cf1511f7fae84"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\geometryexperimentengine.obj",
+      "bytes": 7581720,
+      "sha256": "171a329cb594fb6711f3fbff53777f4a7d2209c39245b7c3f4d83a265fae792f"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\geometrytemplateparameter.obj",
+      "bytes": 271959,
+      "sha256": "4d4bf67b84522a64c3dd48b5cfee8feefb298c58eedb55cbc229e3743c061ae1"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gmath.obj",
+      "bytes": 102009,
+      "sha256": "cff95923968b50359027143adf6b06b2a388fbadd56a9f2fec6e514104b20988"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gmatrix3d.obj",
+      "bytes": 34551,
+      "sha256": "a984aa3bf9854ca1452fd05b0480ef8898c4f5bba0a3905aa880a168e7c6255f"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gpoint3d.obj",
+      "bytes": 25274,
+      "sha256": "0b97beda871e701444e02c6bede4121a327eb2c37244aac974ca3c87a1efb9bc"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gproject.obj",
+      "bytes": 318397,
+      "sha256": "8f195118467007f62b854cfedff045501fe4294df325c586254620ec355f1205"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gquaternion3d.obj",
+      "bytes": 25816,
+      "sha256": "6c3393c4fd6d25b1b9f2810c608eaa009b5429bba91c7fdfd8f444dfcfb69c23"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\grlineset.obj",
+      "bytes": 218175,
+      "sha256": "02bfec2914d969700cb16eb50d91f0e6ae735328f3961666003c40099e235281"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\grotation3d.obj",
+      "bytes": 28622,
+      "sha256": "0860a2dbf8b5701dc4099d6f73b01600eda426cdbd707ccb423c11951e58af89"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gsegyfilescanner.obj",
+      "bytes": 133718,
+      "sha256": "b57aef42c5d12d0817dd58e973bf70744112c239b26dc8baf5000f0b08bf46d5"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gshotset.obj",
+      "bytes": 392098,
+      "sha256": "cd57ebed83133f4fc1a70ca070427ecf4a70ee26aa6a868394ee9468cc7de36f"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gslineset.obj",
+      "bytes": 211081,
+      "sha256": "91132bb03b8784b1ceead7c38b918b9e00bca5c6de341fe4601dd2d0ba501eca"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gspsparam.obj",
+      "bytes": 56815,
+      "sha256": "6711f2eec7930c83195e89d381c7c9fbcde2a456832b5ddbe2874425dffb3780"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gspsscanner.obj",
+      "bytes": 289894,
+      "sha256": "241e276ec26c3564afa93625f49956be7a3f5b079e6c22b9c8dfea1d6d003799"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gspsview.obj",
+      "bytes": 188536,
+      "sha256": "c5ad5c3df194f287be57a1d933370ad793a1438727b94b171b26cff02083778b"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gutils.obj",
+      "bytes": 97479,
+      "sha256": "450b9faaf015ea34421a84800cbfd2b6ac67232051920b777a075d5c1047a956"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\gvector3d.obj",
+      "bytes": 34405,
+      "sha256": "88165d1006d0f7d467ec0152d293ff6ea1eb8a72bb4722c39f24d2b7e9b8d55d"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\ifdct_wrapping.obj",
+      "bytes": 733011,
+      "sha256": "8821a748c8e833e15709fdfd66cddec42ea1ad83d3b41def57dc78f2ef78c091"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\IrrGeometryDesign.exe.intermediate.manifest",
+      "bytes": 868,
+      "sha256": "2de9d68c3c5d56e4902582d039869cc3a013f27e20a5b18c8989b1929ad258b7"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\main.obj",
+      "bytes": 600794,
+      "sha256": "3335def8c1ad87168eee74f6f66685d417b8bae491eafd5bf1bcd5aa535bf6ab"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_analyzebindoc.obj",
+      "bytes": 39340,
+      "sha256": "78492c30e8337abff18697098b633c7d30f2b11d464e7e36b9d454efd913df86"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_analyzebinform.obj",
+      "bytes": 86234,
+      "sha256": "24010c6316a6a1f610d81a9b86882a47bd88549ed164e0cf8636567ce4d323fa"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_changecoordinatedlg.obj",
+      "bytes": 69351,
+      "sha256": "a80ab7f0d99508c768b5f56170db0f694fe2983cb8d806adaa3c80a101f42df7"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_datareconstruction.obj",
+      "bytes": 82939,
+      "sha256": "80002d014baf11187146d1c84bf21906b0405d78ae1d9c0e96f2b52f97cd63cc"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_draw2dfrm.obj",
+      "bytes": 74587,
+      "sha256": "8ad35b10c826bac011e4bdf2d1800201a9543247d3969e537ca5c3f26174bdb4"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_geometrytemplateparameter.obj",
+      "bytes": 70795,
+      "sha256": "fded61c1369500b13a86c1ba83e364d57e94136a3867c512612b37b620d923f1"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_gproject.obj",
+      "bytes": 66567,
+      "sha256": "05a7602ca97f0e94db72e9d2406a7641b17da3d256196ee6a18bb0ee46ae4e9f"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_gspsview.obj",
+      "bytes": 72003,
+      "sha256": "082a0d1a21775a6124b986f7bbabe0292ca6bec985a0bc8ff254e5c1a047718d"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_ovtvolumeattributeview.obj",
+      "bytes": 107306,
+      "sha256": "b3dac5daa689a1fb2aea356954d0c2c9b4c13ac90fb1779ccedbc6e22dcf1a99"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_qcustomplot.obj",
+      "bytes": 727819,
+      "sha256": "581812f30692d67679f011aa681879336b7348b2149b54207881000e4c4446ae"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_spssampledlg.obj",
+      "bytes": 93900,
+      "sha256": "8bfb3a7fef7416a8e789079d763790fa590bf9d85aba955cb2f31240ca7492b2"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_tcellgridform.obj",
+      "bytes": 70801,
+      "sha256": "4c109e9ff26014b9926236208747b1310c08c18b30c82abca458057ded7f924c"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_tchangeshowareadlg.obj",
+      "bytes": 68861,
+      "sha256": "25ce1d80505881910facbc0b25ef7737fd6b19261c283747ca01aa953764833d"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_tdatawizardform.obj",
+      "bytes": 88459,
+      "sha256": "fcfd4ed40a817ab8b86f08e7eb3cdc2e9582c2f05c373754a706b710d68c17cf"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_tgeometryimfordlg.obj",
+      "bytes": 68888,
+      "sha256": "90a7e01fa42894c52e15e3deb03b61c44ee1071d5f13443ecfb11165b15d83ab"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_tqfdividedlg.obj",
+      "bytes": 68665,
+      "sha256": "1b9369cb3a54b64d86f92c6dc7beb6421512212d7c2d7809623412a9ea1a96a2"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_trealovtdlg.obj",
+      "bytes": 112074,
+      "sha256": "7f8fef4781381cd9ed228028f56a2e18862f9f8a1d3f12e31e01476d28fc4ec1"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_trosedividedlg.obj",
+      "bytes": 69589,
+      "sha256": "bce9cd27b118d8b118f10152ac6507c450f9d50c482ff273f7b977086f74ad98"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_tspsdlg.obj",
+      "bytes": 73252,
+      "sha256": "0a3cf3fcca4a4db6a21f8eedd8ede8fa3ac52b863a1f2c90ad8556136f117014"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\moc_tspsform.obj",
+      "bytes": 157418,
+      "sha256": "6b7d58369b2e34805b59e6accf2a97bb62a0b51cdd1b66370a555ca0af27d48e"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\mt.dep",
+      "bytes": 67,
+      "sha256": "721fc9ac7707490a38b7265ed75c75ad1371ddaa6a1922933f31dd813d8ecc75"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\OptimizeMiu.obj",
+      "bytes": 1267992,
+      "sha256": "d01b4a51b1291b2fc263e4ecfeae3415195f664fc09c0edff478f0928cfd4da8"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\ovtvolumeattributeview.obj",
+      "bytes": 374374,
+      "sha256": "0d51d93981813a3619e4d1c19e964c2736c0d4a2b482987dfc2aaf84f3d3174c"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\qcustomplot.obj",
+      "bytes": 7095569,
+      "sha256": "aedaa773c9cf995965ba1657b8e8b4ff3ed3ab3c6dea015b043a00fddbc4b6d9"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\qrc_datareconstruction.obj",
+      "bytes": 330410,
+      "sha256": "e83e788d2a0912bf91522390d75382dcc587a8b177e0eaf88e5fa18006cf1df5"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\Sampling.obj",
+      "bytes": 287536,
+      "sha256": "8f2ffddf3425c2351f8399eb8b43ed7f1bda8a539488e3742fcdaafb8c5ba9c5"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\segyio.obj",
+      "bytes": 68676,
+      "sha256": "f0107da5e3bd327146dee4f48bb26f223995dcdfd21d93b960363d00d931f154"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\spsloadcal.obj",
+      "bytes": 505682,
+      "sha256": "dfdceea540861dff2cd98b4ac43fa53a834e524d63064fae7141b2697db8d4a8"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\spsmaskbuilder.obj",
+      "bytes": 196017,
+      "sha256": "831cebc4ca7a962e35e216a9e6b090ab8be1f7bb5865b4349f78236ecdd88946"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\spssampledlg.obj",
+      "bytes": 222387,
+      "sha256": "430f2391fc92db1192e43baba6f782c72167f06c43ed196f230d4534255caba5"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\tcellgridform.obj",
+      "bytes": 224261,
+      "sha256": "be036299311da46afa2b3b7f50ea0dd006f66fc44ae860b9b6b91df33eb4e19e"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\tchangeshowareadlg.obj",
+      "bytes": 131551,
+      "sha256": "bf0cc9de346269b6f1dceb27a4a6369e5e1285b06c5ec1936cbc806b3837a7e9"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\tdatawizardform.obj",
+      "bytes": 300540,
+      "sha256": "987bec7caedba86c3d6bfd317143552bde0acdb5a6c5a2f91dd5d11d4509bb01"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\tgeometryimfordlg.obj",
+      "bytes": 219971,
+      "sha256": "510fc9f519c6faaaf047fff1e53b2be60fc6a7315ebac14a337c302f772dd608"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\tqfdividedlg.obj",
+      "bytes": 136667,
+      "sha256": "e83d8400ddc1f5fbca1f05f1524f105b69ea50932fb01113e7b4fcf48098b8c3"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\trealovtdlg.obj",
+      "bytes": 313692,
+      "sha256": "80d360b2e35d7b923883d3741808949043e034a7be55811ecc9590167a303693"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\trosedividedlg.obj",
+      "bytes": 140762,
+      "sha256": "27a4df2ccde8a13a12df43c1cd79375e29d6772afa892228e11d78c6f943a114"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\tspsdlg.obj",
+      "bytes": 372826,
+      "sha256": "33820009954ce99d64716ae4b81261169d5e3dd81f98c9f6375fed570cfa0f5c"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\tspsform.obj",
+      "bytes": 960216,
+      "sha256": "84186c98c09a04ebffe13d44d9d3df6f75bc1034161d1551d1011e9dff0f21c9"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\vc90.idb",
+      "bytes": 2067456,
+      "sha256": "c65483b6d8981157f6b5a0415a63138a4ef32099e92709018c04cc668d599422"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Debug\\vc90.pdb",
+      "bytes": 3756032,
+      "sha256": "bbdd77d49862b00035c3702ff8e4ae42e331efe0baa20e9dd1cdd954a24c816d"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\analyzebindoc.obj",
+      "bytes": 19517,
+      "sha256": "edf510697ed9a2848f83003d3c851ccf985acca6f5a0b0bfdaf07e9f1abec4ad"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\analyzebinform.obj",
+      "bytes": 207350,
+      "sha256": "2d43a8e159b8b33e3e1264cc4386ffdf8061438c320d405a9bf3958cfc4bf022"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\analyzebinview.obj",
+      "bytes": 420191,
+      "sha256": "08bb2b1bcabe1afb7845a1d02c760f29723fcdddb00cbb3889bc31df8e743b70"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\BuildLog.htm",
+      "bytes": 16196,
+      "sha256": "e1502f74d7e8ab08b9f6863555db689a490975ac8e59601296b713bf98cc0127"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\changecoordinatedlg.obj",
+      "bytes": 60901,
+      "sha256": "9a6598c6b0d9415ca4463653a65bc49f0f2dd9412863fae9188d078abe461166"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\colorview.obj",
+      "bytes": 61006,
+      "sha256": "e7ca4ebf084a59e09b46df2633ddb1b26067b05d33700a113d08e9660343efd4"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\CurveletMiu.obj",
+      "bytes": 1010964,
+      "sha256": "9708bec7e38614ede845ea1e31fb7a8e789594c952725632019de838f8525cd7"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\datareconstruction.obj",
+      "bytes": 292620,
+      "sha256": "8df0cb78bca8c9aedc76a524cda66953bb275074b71792aa11a753459b81e1b1"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\Diagmul.obj",
+      "bytes": 78278,
+      "sha256": "09bd7f9d5be9c8208ef67795757953fb3c5743f35a4a7d09205b1f4f85515add"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\draw2dfrm.obj",
+      "bytes": 105966,
+      "sha256": "0dd990da10e8da0a676858a83e2a863d446575f5feec893bc2236c593653a861"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\draw2Dview.obj",
+      "bytes": 74989,
+      "sha256": "8fd24f46c67ec6b66ab1dc7a941a7b0af0fb3b7d8a40ab076ae6b1bd9bd75ad4"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\ExpRng.obj",
+      "bytes": 4621,
+      "sha256": "e275d39cf75d19377938a6773a102ea345410bd2a69b959fc50f1917f995bf9e"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\fdct_wrapping.obj",
+      "bytes": 644403,
+      "sha256": "76bef157fd5dc85c67012ff86b85606df5c19c4284c9dba72f29dbf788c35133"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gAttrAnalyzeParam.obj",
+      "bytes": 10674,
+      "sha256": "73c4398c4e86888975bd49845976b0ce4bbf752f08fc28dd57a3f24f1dda52ec"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gcellgrid.obj",
+      "bytes": 74237,
+      "sha256": "5661537ff513ac11ea9e85b1e4f19df8deb7863b3b06780c22f2429dd1136484"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gcmpset.obj",
+      "bytes": 63254,
+      "sha256": "dc27f6f6a443b02dd49af35400e80bb7de7a32fd38dbdadf263169ff339d6f85"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\geometryexperimentengine.obj",
+      "bytes": 4590571,
+      "sha256": "49e8b4a0cf8bea99a6b2e1df3198779cc36247f7401cef835ec55a6cb607031d"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\geometrytemplateparameter.obj",
+      "bytes": 182045,
+      "sha256": "237994bb58e9996efa30d0d87793d68bbbd4c21093411035589777ea5dc271f2"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gmath.obj",
+      "bytes": 44554,
+      "sha256": "ecb8a56a45ac844c18ac9d0ba456690e0a774434ebd0ce2d8fb21e8c939528ee"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gmatrix3d.obj",
+      "bytes": 13854,
+      "sha256": "4a2feb5b0a4311093254702a617bcdc3edd0ca881a271d5e1d1aacca7c10e8cb"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gpoint3d.obj",
+      "bytes": 7233,
+      "sha256": "b17a96d81d31d15de867a86f5495f070c390903082b62643a2d6cdbc632f9f5d"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gproject.obj",
+      "bytes": 195476,
+      "sha256": "a8b7c8b952e3fc35a688e807813a4e6be284e6fe50ba75e301fed5033c039ff3"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gquaternion3d.obj",
+      "bytes": 7767,
+      "sha256": "36ae2184e80703653f8a4fb6483ee0143368e71025bf671d81c5bb7f0e7f3bea"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\grlineset.obj",
+      "bytes": 107157,
+      "sha256": "edf39281e13f7cc2b4901fd2de788992931f3a5f0cef5070a77e5ba029fd3bd6"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\grotation3d.obj",
+      "bytes": 9449,
+      "sha256": "b32e185965f18833093d8a6e1b86ee4593fd0eced012cbedc2985ef3b3a8b0ef"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gsegyfilescanner.obj",
+      "bytes": 60477,
+      "sha256": "3ca7770a6f823642da2057123cb9e8c375fa3cdf6167108f879095765cb8fa14"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gshotset.obj",
+      "bytes": 233439,
+      "sha256": "74d47713a0f538c05c478303d1ba406aa3a988e69fdd184b3773ef51c107ce36"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gslineset.obj",
+      "bytes": 112171,
+      "sha256": "2314ab7ccb18d3a14956ab915511c5efba77a8623427aef809736d9af63b1988"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gspsparam.obj",
+      "bytes": 14313,
+      "sha256": "64426442c6c758ef973145d317ae167bec6ba6c7f2f4c90619b36797564e6dab"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gspsscanner.obj",
+      "bytes": 182119,
+      "sha256": "ef0a0d84dc890b92bdc5137d98db3453cca956c5dedf450e0a29eefab7454897"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gspsview.obj",
+      "bytes": 96055,
+      "sha256": "c661d093601293fa340c99e988973eb313801539888e277835d33b1b356204c9"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gutils.obj",
+      "bytes": 44418,
+      "sha256": "479576f0d25d80b4a3ecf655fc8fbad6582674d1e58cf8e4e0b625dcd09bcc75"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\gvector3d.obj",
+      "bytes": 12912,
+      "sha256": "be193a9790fd812210defe85eabe5fbe6dffad26b838be711d2b89244a3f2894"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\ifdct_wrapping.obj",
+      "bytes": 380855,
+      "sha256": "b0e42773e41f2e811300df2808deb4071ce4542f871deb6555fdfe626ab6c831"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\IrrGeometryDesign.exe.intermediate.manifest",
+      "bytes": 858,
+      "sha256": "ffab53e933c7c6718c1c1ed964af140d90d9d00866f964e15c572c32ce402537"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\main.obj",
+      "bytes": 284488,
+      "sha256": "13616edfa579862c9e51d7396e7bf5116d65d7b27e3d80b12761c8ab35edb18d"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_analyzebindoc.obj",
+      "bytes": 10718,
+      "sha256": "415a4a4bb32867739fd458771dccf146df3d8df446d2f90e85761e03b7930b56"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_analyzebinform.obj",
+      "bytes": 13191,
+      "sha256": "6a43637062b478320b207e673c396d4f66b69eb9dc0a09b54c4d8c084ba08f50"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_changecoordinatedlg.obj",
+      "bytes": 11355,
+      "sha256": "732deb4eac879b29312b5b4692a6a7be9ceb2c03558c381d4fc147634708f7f1"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_datareconstruction.obj",
+      "bytes": 11444,
+      "sha256": "85b1f3d5776c6bf42e8f8575e1eb1d29ad5b7bfbac9b53df73abb5638f915403"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_draw2dfrm.obj",
+      "bytes": 11289,
+      "sha256": "7bb2cac8fec54be181a5884d8921b063ef39f0ad1fc43f325415b833b2d1e6ae"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_geometrytemplateparameter.obj",
+      "bytes": 11493,
+      "sha256": "20256d738eeaa92e4e97cc95cca9be0edea0823883bd5d58b10f76729b1c1f05"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_gproject.obj",
+      "bytes": 10639,
+      "sha256": "261c81b35c5fc7dc77e4c0fb80aa4863d2c6704d8a949540388462cd5a27399f"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_gspsview.obj",
+      "bytes": 11380,
+      "sha256": "796339ddf7da3555f60066bcaaf5794ed5d6008e55b9e7ce214d8141d9cc8962"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_ovtvolumeattributeview.obj",
+      "bytes": 17368,
+      "sha256": "b45d2d369675963db64127d5b64f219a8e619615bb193c8522c53c4f16dc408a"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_qcustomplot.obj",
+      "bytes": 432251,
+      "sha256": "4bc1c0f65e3eb5c912605494a5e544f3256184950276d233f64332022bb2dc32"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_spssampledlg.obj",
+      "bytes": 12254,
+      "sha256": "11a37c0db936f44564d0cde63bbad1d9d1a0880ab6a49d86bbdb95c2756cd756"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_tcellgridform.obj",
+      "bytes": 11158,
+      "sha256": "08481d350f70cdacf289a0dd146c4e89766f968a73ce53b96be779b7c8fc675e"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_tchangeshowareadlg.obj",
+      "bytes": 11084,
+      "sha256": "f76ed03fa8ab8f1511c5ef62771917196f1f0558b8eb474948de8b9fb8f2df5a"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_tdatawizardform.obj",
+      "bytes": 12117,
+      "sha256": "e5b5d16945f17ada608637edf7db68fa938f5a2a78273a08f18d1c603eef8ed5"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_tgeometryimfordlg.obj",
+      "bytes": 11122,
+      "sha256": "f9253a61666bac813b7226d49dbdd61fac1d78416ab135fdd1274b7d346f7110"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_tqfdividedlg.obj",
+      "bytes": 10978,
+      "sha256": "fa5c5dba5a61041ae30a3382fcca6b66a680692755ecd103d373a6e416c62202"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_trealovtdlg.obj",
+      "bytes": 12209,
+      "sha256": "6d6e33acc4ea05156e1938e245e638207dc3c85b874b5e7e6973b0f364469325"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_trosedividedlg.obj",
+      "bytes": 11012,
+      "sha256": "2f0f7d0baf3b8f2267b8259ab18415d29773493d395d5995179eae0d2c24cda0"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_tspsdlg.obj",
+      "bytes": 12137,
+      "sha256": "8806a3d6172b74a8200def254e82869bd89f7071e753a4aa2a58510ae2cd9181"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\moc_tspsform.obj",
+      "bytes": 24615,
+      "sha256": "f7947ff49e51cb3d7adfb738ddcb7457a05ad026ecd76f99ddc7e459dfbfdac4"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\mt.dep",
+      "bytes": 67,
+      "sha256": "0ec5a68eefd8297147b0e0f563269ada12652f6b48931239b63c420736f663e6"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\OptimizeMiu.obj",
+      "bytes": 569547,
+      "sha256": "505f7f4f05b4647c5000c023f4962cab21d7b32b50b311d250dfc36ee64711aa"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\ovtvolumeattributeview.obj",
+      "bytes": 227918,
+      "sha256": "bbdcc35786a63af3ca76e2794d1b57fda18ac613129d03ac6e77fe7d7c2beca2"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\qcustomplot.obj",
+      "bytes": 4727102,
+      "sha256": "db5cb331b537bf17a55e9b93b51367e1bcd9e8c46fa7657dc87145f9f5070e5c"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\qrc_datareconstruction.obj",
+      "bytes": 323591,
+      "sha256": "e9fcde78cf2535706e8bcf7f8338a6037985114c3435dba037f72e3a9d5cd67b"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\Sampling.obj",
+      "bytes": 137028,
+      "sha256": "fd2c42c1350aa2e8eb979fd78f2b0e8beca3ffde75109c603cd6d91650e19ffe"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\segyio.obj",
+      "bytes": 32187,
+      "sha256": "1c6f0c4f131d4d9952fa0c084f295884baedf66122d14830297e892683f2a774"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\spsloadcal.obj",
+      "bytes": 228317,
+      "sha256": "b34776d93e6c0509b7be9635ed7f4905171bf366c28a241590b4445d6fa69e57"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\spsmaskbuilder.obj",
+      "bytes": 97492,
+      "sha256": "fbc57b02965b7aed2745978439a6cf61dd7796c811f8b79f81b47f6b4c22169a"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\spssampledlg.obj",
+      "bytes": 118557,
+      "sha256": "94d624689cffa314e9f7456c9e1caee24cb1daea6254cbd7f4ba3df62eb5b4ce"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\tcellgridform.obj",
+      "bytes": 130801,
+      "sha256": "fda208c624080df3d0e30deb088e7bca8eee5d73482d93af0e5e8091205716c5"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\tchangeshowareadlg.obj",
+      "bytes": 66502,
+      "sha256": "d85e6e1b792b9736679dd0d2ae6c9209e3a8fcd79e9f7cc4ad257acc53d899ae"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\tdatawizardform.obj",
+      "bytes": 186891,
+      "sha256": "dea4d2e1026ff4451f4c777c76b611b1cd4722f629d45bfc1f727bad34c5563c"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\tgeometryimfordlg.obj",
+      "bytes": 140878,
+      "sha256": "8a246b5f7d43f841c94b151890f4835da4d075605f4fedf8149e98bba2260a1f"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\tqfdividedlg.obj",
+      "bytes": 70886,
+      "sha256": "2e8589c3c91d32701a72a6f6e473ffab1ed7e1f2cd57f5cc07631bf11b2c38f9"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\trealovtdlg.obj",
+      "bytes": 170729,
+      "sha256": "eb2ae63246b8ce8860a51aabd590675977f4f94b9e3c292b51ca61e0478ffbc9"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\trosedividedlg.obj",
+      "bytes": 73933,
+      "sha256": "c5b088bc0c777ef351cf8be1d652e56fd702be37e397eb63987bb410473e2774"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\tspsdlg.obj",
+      "bytes": 249338,
+      "sha256": "126bdd2089a9ca58fc5398e240236af4089aec7d908e2173725a43b9c113a9d1"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\tspsform.obj",
+      "bytes": 620665,
+      "sha256": "c9a8b9ad5d5ebbc5c99039b76fa9cb987d855114fd7fdc3ad9b94b291cfcd1c3"
+    },
+    {
+      "path": "IrrGeometryDesign\\x64\\Release\\vc90.idb",
+      "bytes": 2059264,
+      "sha256": "af4d6246e4f5d10ab3785272e4ac6e5a1d0652dfc1e3f0b5983f2f10ad724122"
+    },
+    {
+      "path": "x64\\fdct_wrapping_param.dll",
+      "bytes": 142848,
+      "sha256": "07388f9624270e2df9b126ab28ee5dbb3fcdcf18e144543196613dcea53af3ac"
+    },
+    {
+      "path": "x64\\fftw.dll",
+      "bytes": 630318,
+      "sha256": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f"
+    },
+    {
+      "path": "x64\\Debug\\fftw.dll",
+      "bytes": 630318,
+      "sha256": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f"
+    },
+    {
+      "path": "x64\\Debug\\IrrGeometryDesign_zh.qm",
+      "bytes": 18700,
+      "sha256": "b98a6312657f4c99662d96b2814314bf86d9cd3764c8d91f659fd2a92d9bfc82"
+    },
+    {
+      "path": "x64\\Debug\\IrrGeometryDesign.exe",
+      "bytes": 5379584,
+      "sha256": "50a84feda650266bb6c6eb9038c1316d6257111c0f1fba5e2077305296d48bfc"
+    },
+    {
+      "path": "x64\\Debug\\IrrGeometryDesign.exp",
+      "bytes": 804,
+      "sha256": "2d245a952e38c7534602fa673f22e06942f6d3e707b08deadd736f4e2cab3fa4"
+    },
+    {
+      "path": "x64\\Debug\\IrrGeometryDesign.ilk",
+      "bytes": 11788812,
+      "sha256": "82093f57498e7ebe74efa98c656a4f718191b517f07b3f427693de68b3cf01b0"
+    },
+    {
+      "path": "x64\\Debug\\IrrGeometryDesign.lib",
+      "bytes": 2064,
+      "sha256": "613d7c2b3ba10407f7d60cfc3f6a651237df95bad512e42eef9390b35dad4122"
+    },
+    {
+      "path": "x64\\Debug\\IrrGeometryDesign.pdb",
+      "bytes": 14838784,
+      "sha256": "f38c94aa6302efa944a6f3549da1bd8453a33dd194baf5cc1cef6dc9735ffdbe"
+    },
+    {
+      "path": "x64\\Release\\fftw.dll",
+      "bytes": 630318,
+      "sha256": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f"
+    },
+    {
+      "path": "x64\\Release\\IrrGeometryDesign_zh.qm",
+      "bytes": 18700,
+      "sha256": "b98a6312657f4c99662d96b2814314bf86d9cd3764c8d91f659fd2a92d9bfc82"
+    },
+    {
+      "path": "x64\\Release\\IrrGeometryDesign.exe",
+      "bytes": 3702272,
+      "sha256": "5947bacb58c30a3dca40aaa4c272154afbc447e7b0173053b3e5c1340298d30a"
+    },
+    {
+      "path": "x64\\Release\\IrrGeometryDesign.exp",
+      "bytes": 806,
+      "sha256": "e16eead0f1d88a9f823368c07c6031c7d35b8e0f982535cd274e52efb30cea01"
+    },
+    {
+      "path": "x64\\Release\\IrrGeometryDesign.lib",
+      "bytes": 2064,
+      "sha256": "40c625aa595cfbb0af66ddb3d2dbf9ce96ef51908e28872212764a422ce2164b"
+    },
+    {
+      "path": "tools\\__pycache__\\ablation_stats.cpython-312.pyc",
+      "bytes": 15820,
+      "sha256": "63e431a400b415de5f2b6cda2488451a9c5325a31fab05e0c82facf394f749b9"
+    },
+    {
+      "path": "tools\\__pycache__\\audit_change_annotations.cpython-312.pyc",
+      "bytes": 10897,
+      "sha256": "7bdc5f9a6cb580daaa6408dd789580040b2d678510c9375b73f26336016821f6"
+    },
+    {
+      "path": "tools\\__pycache__\\audit_joint_studies.cpython-312.pyc",
+      "bytes": 35220,
+      "sha256": "b09f843358afc20ee6a5284f8d784ca35bbe8d97afb21d4642e0550c8a860d29"
+    },
+    {
+      "path": "tools\\__pycache__\\audit_numerics.cpython-312.pyc",
+      "bytes": 9901,
+      "sha256": "aef44e3f9407c4bfaf13cebb98b2a87b9d8ba5a6e7b5156ded3c69859066c16b"
+    },
+    {
+      "path": "tools\\__pycache__\\audit_segy_bytes.cpython-312.pyc",
+      "bytes": 11416,
+      "sha256": "c477667ae6edaf8a321717b292d10f5883efa5a854ba90daa8e3d1d794a25b86"
+    },
+    {
+      "path": "tools\\__pycache__\\convert_rraw_to_engine_csv.cpython-312.pyc",
+      "bytes": 15091,
+      "sha256": "f365f97d6435b265494758d7f3d436e2377c9c4698e2e55ab05236121f6081ab"
+    },
+    {
+      "path": "tools\\__pycache__\\make_59x256.cpython-312.pyc",
+      "bytes": 8035,
+      "sha256": "70d0a7d95ed16d7bf4e02d7b5c24e8ca5209b58207aff19ed53871947cd1a8d5"
+    },
+    {
+      "path": "tools\\__pycache__\\review_diagnostics.cpython-312.pyc",
+      "bytes": 15621,
+      "sha256": "b5c76e501df449105f7ca6cfb59b1ee86e3dd20b792fb4836ecb26315e975d58"
+    },
+    {
+      "path": "tools\\__pycache__\\review_studies.cpython-312.pyc",
+      "bytes": 44061,
+      "sha256": "3874ed2163ade446623da3dc797bba6a9ba1135d9555b3f2ba4ea3851472a27d"
+    },
+    {
+      "path": "tools\\__pycache__\\run_audit_checks.cpython-312.pyc",
+      "bytes": 3885,
+      "sha256": "bbc2871dd8a3e04c68227744660bd9338cb70961df5933d0bf66134013621a6e"
+    },
+    {
+      "path": "tools\\__pycache__\\run_revised_studies.cpython-312.pyc",
+      "bytes": 27827,
+      "sha256": "5d0215e713ed45bb5d08682f4462a26e4fd699e6419e21b69b6c9ea970b2ca4e"
+    },
+    {
+      "path": "tools\\__pycache__\\summarize_audit_v5.cpython-312.pyc",
+      "bytes": 48989,
+      "sha256": "b9c2af704d017f058b10d69a49a99c5acb16810ae88cc4f0ceed1e10d813735a"
+    },
+    {
+      "path": "tools\\__pycache__\\test_audit_v5.cpython-312.pyc",
+      "bytes": 14650,
+      "sha256": "386bd3aa8ace906a14f92c48c9eb5634d20a9848f4b4d3032cd8c9d0a2c1b2f3"
+    },
+    {
+      "path": "tools\\__pycache__\\test_review_science.cpython-312.pyc",
+      "bytes": 15644,
+      "sha256": "cef1676100b6c17f6f025b736fbbb424a9cd31e9a855b288c5b03de9cbabb0e9"
+    },
+    {
+      "path": "tools\\__pycache__\\test_science_tools.cpython-312.pyc",
+      "bytes": 13691,
+      "sha256": "d246e4a2ec9515bef037b77032da513685c3a2a9e5a5d7e8bd64955afc4f2121"
+    },
+    {
+      "path": "tools\\__pycache__\\verify_audit_v5.cpython-312.pyc",
+      "bytes": 18760,
+      "sha256": "1155dca3b46a208f98270bcdbd0f7f1f4b096680b49796d86a8c805630697324"
+    },
+    {
+      "path": "tools\\__pycache__\\verify_review_results.cpython-312.pyc",
+      "bytes": 24473,
+      "sha256": "ed372b5f73e8d0bbde580b26e90c0c5b628d226c0b77fab25f38422f2ee2734a"
+    },
+    {
+      "path": "tools\\__pycache__\\verify_revised_results.cpython-312.pyc",
+      "bytes": 15853,
+      "sha256": "6c319eda4a81ef7dd6b5cf7acc2a6f72e3b777bbde5cd706de08fb0b304002fb"
+    }
+  ],
+  "root_logs": [
+    {
+      "path": "build_release_20261023.log",
+      "destination": "results\\refactor_20261024\\legacy_root_logs\\build_release_20261023.log",
+      "sha256": "2423a782bc3cf5e09a670060d7c79e78ec0040a781a9139e22a3f4c7ca0e4376"
+    },
+    {
+      "path": "build_release_20261023_final.log",
+      "destination": "results\\refactor_20261024\\legacy_root_logs\\build_release_20261023_final.log",
+      "sha256": "57f11967d2668521c9526353a6d316ba3a07f763a0484fb75e7dd450b922b496"
+    }
+  ]
+}

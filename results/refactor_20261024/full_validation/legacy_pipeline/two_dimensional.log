@@ -1,0 +1,3 @@
+Qt: Untested Windows version 6.2 detected!
+2D sampling benchmark (16x16 grid, seed 42)
+True two-dimensional objective used for selection and reporting; masks are identical to the measured masks.

@@ -1,0 +1,38 @@
+usage: compare_masks.py [-h] --gather GATHER --sa SA --jitter JITTER
+                        [--auto AUTO] [--out OUT]
+
+compare_masks.py
+================
+��ͬһ������ͬһ�����ʡ�ͬһ POCS ���������£��Աȶ�� 50% ������ع�������
+
+����
+----
+2026-10-20 ֮ǰ��`--run-experiments` ������� Jitter-SA ��������Ӳ����̣�
+����ع��õ�����һ���Զ����ɵ���ͨ Jitter ���룬���"�����Ż� -> �ع�"
+�ıջ��޷���֤������ `--run-experiments` �ᵼ����
+
+    results/synthetic/01_sampling_benchmark/mask_50pct_sa_best.txt
+    results/synthetic/01_sampling_benchmark/mask_50pct_jitter_init.txt
+
+���ű��� SA ���š��� Jitter ��ʼ���Զ� Jitter������������������������
+���������ع���������**ȱʧ���ھ�** SNR��`SNR_POCS_MissingOnly`����
+��Ϊȫ�� SNR ������ȷ�ûصĵ������ȱʧ����Լ 3 dB���ڸ�������졣
+
+�÷�
+----
+    python research/experiments/compare_masks.py ^
+      --gather results\synthetic\03_wavefield_reconstruction\recon_original_gather.csv ^
+      --sa     results\synthetic\01_sampling_benchmark\mask_50pct_sa_best.txt ^
+      --jitter results\synthetic\01_sampling_benchmark\mask_50pct_jitter_init.txt ^
+      --auto   results\synthetic\03_wavefield_reconstruction\cmp_mask.txt ^
+      --out    results\mask_compare
+
+�����<out>/mask_comparison.csv �����̨����
+
+options:
+  -h, --help       show this help message and exit
+  --gather GATHER  256x128 gather CSV
+  --sa SA          SA-optimized mask (50%)
+  --jitter JITTER  Jitter init mask of the best SA run
+  --auto AUTO      auto-generated jitter mask (optional)
+  --out OUT

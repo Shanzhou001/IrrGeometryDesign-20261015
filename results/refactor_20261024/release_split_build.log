@@ -1,0 +1,279 @@
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+Microsoft (R) Visual C++ Project Builder - Command Line Version 9.00.21022
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started: Project: IrrGeometryDesign, Configuration: Release|x64
+Performing Pre-Build Event...
+Rcc'ing datareconstruction.qrc...
+Qt: Untested Windows version 6.2 detected!
+Compiling...
+qrc_datareconstruction.cpp
+workflow.cpp
+..\..\src\native\experiments\workflow.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C2143: syntax error : missing ';' before 'string'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\experiments\workflow.cpp(81) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(82) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(83) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(85) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(86) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(87) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(88) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(90) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(91) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(92) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(93) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(94) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(95) : error C3861: 'checkFileExistsAndNonEmpty': identifier not found
+..\..\src\native\experiments\workflow.cpp(152) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\experiments\workflow.cpp(152) : error C3861: 'plotWorkflowSummaryDashboard': identifier not found
+..\..\src\native\experiments\workflow.cpp(175) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\experiments\workflow.cpp(175) : error C3861: 'exportFiguresGalleryHtml': identifier not found
+wavefield_experiments.cpp
+..\..\src\native\reconstruction\wavefield_experiments.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\reconstruction\../experiments/experiment_internal.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\reconstruction\../experiments/experiment_internal.h(3) : error C2143: syntax error : missing ';' before 'string'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\reconstruction\../experiments/experiment_internal.h(3) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>..\..\src\native\reconstruction\wavefield_experiments.cpp(585) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\reconstruction\wavefield_experiments.cpp(837) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\reconstruction\wavefield_experiments.cpp(837) : error C3861: 'plotWavefieldReconstructionQuad': identifier not found
+..\..\src\native\reconstruction\wavefield_experiments.cpp(859) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\reconstruction\wavefield_experiments.cpp(859) : error C3861: 'plotReconConvergenceAndTrace': identifier not found
+geometry_experiments.cpp
+..\..\src\native\experiments\geometry_experiments.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C2143: syntax error : missing ';' before 'string'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\experiments\geometry_experiments.cpp(44) : error C2001: newline in constant
+..\..\src\native\experiments\geometry_experiments.cpp(45) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\experiments\geometry_experiments.cpp(178) : error C2001: newline in constant
+..\..\src\native\experiments\geometry_experiments.cpp(179) : error C2143: syntax error : missing ')' before 'return'
+1>..\..\src\native\experiments\geometry_experiments.cpp(598) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\experiments\geometry_experiments.cpp(853) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\experiments\geometry_experiments.cpp(853) : error C3861: 'plotCmpFoldDistributionMap': identifier not found
+..\..\src\native\experiments\geometry_experiments.cpp(866) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\experiments\geometry_experiments.cpp(866) : error C3861: 'plotOffsetAzimuthCharts': identifier not found
+..\..\src\native\experiments\geometry_experiments.cpp(888) : error C2001: newline in constant
+sampling_experiments.cpp
+..\..\src\native\experiments\sampling_experiments.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C2143: syntax error : missing ';' before 'string'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\experiments\sampling_experiments.cpp(42) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(43) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\experiments\sampling_experiments.cpp(99) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(100) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\experiments\sampling_experiments.cpp(112) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(113) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\experiments\sampling_experiments.cpp(145) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(146) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\experiments\sampling_experiments.cpp(512) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\experiments\sampling_experiments.cpp(512) : error C3861: 'plotSamplingConvergenceCurve': identifier not found
+1>..\..\src\native\experiments\sampling_experiments.cpp(535) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\experiments\sampling_experiments.cpp(535) : error C2653: 'ScientificPlotter' : is not a class or namespace name
+..\..\src\native\experiments\sampling_experiments.cpp(535) : error C3861: 'plotSamplingRatesComparison': identifier not found
+..\..\src\native\experiments\sampling_experiments.cpp(563) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(686) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(687) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(691) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(692) : error C2228: left of '.arg' must have class/struct/union
+        type is 'const char [27]'
+..\..\src\native\experiments\sampling_experiments.cpp(692) : error C2143: syntax error : missing ')' before ';'
+..\..\src\native\experiments\sampling_experiments.cpp(692) : error C2143: syntax error : missing ')' before ';'
+..\..\src\native\experiments\sampling_experiments.cpp(697) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(698) : error C2143: syntax error : missing ')' before '}'
+..\..\src\native\experiments\sampling_experiments.cpp(698) : error C2143: syntax error : missing ';' before '}'
+..\..\src\native\experiments\sampling_experiments.cpp(812) : error C2001: newline in constant
+..\..\src\native\experiments\sampling_experiments.cpp(813) : error C2146: syntax error : missing ')' before identifier 'rep'
+tspsform.cpp
+..\..\src\native\gui\survey\tspsform.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\gui\survey\tspsform.cpp(2) : error C2143: syntax error : missing ';' before '*'
+..\..\src\native\gui\survey\tspsform.cpp(2) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+..\..\src\native\gui\survey\tspsform.cpp(3) : error C2143: syntax error : missing ';' before '.'
+..\..\src\native\gui\survey\tspsform.cpp(3) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+..\..\src\native\gui\survey\tspsform.cpp(10) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(10) : error C2015: too many characters in constant
+1>..\..\src\native\gui\survey\tspsform.cpp(12) : warning C4138: '*/' found outside of comment
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\gui\survey\tspsform.cpp(82) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(83) : error C2146: syntax error : missing ')' before identifier 'mBtnNext'
+..\..\src\native\gui\survey\tspsform.cpp(95) : error C2065: 'splitter' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(95) : error C2275: 'QSplitter' : illegal use of this type as an expression
+        d:\qt\4.7.4\include\qtgui\../../src/gui/widgets/qsplitter.h(62) : see declaration of 'QSplitter'
+..\..\src\native\gui\survey\tspsform.cpp(96) : error C2065: 'splitter' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(96) : error C2227: left of '->setChildrenCollapsible' must point to class/struct/union/generic type
+        type is ''unknown-type''
+..\..\src\native\gui\survey\tspsform.cpp(98) : error C2065: 'splitter' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(106) : error C2065: 'splitter' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(109) : error C2146: syntax error : missing ';' before identifier 'pal'
+..\..\src\native\gui\survey\tspsform.cpp(109) : error C2275: 'QPalette' : illegal use of this type as an expression
+        d:\qt\4.7.4\include\qtgui\../../src/gui/kernel/qpalette.h(62) : see declaration of 'QPalette'
+..\..\src\native\gui\survey\tspsform.cpp(109) : error C2065: 'pal' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(110) : error C2065: 'pal' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(110) : error C2228: left of '.setColor' must have class/struct/union
+        type is ''unknown-type''
+..\..\src\native\gui\survey\tspsform.cpp(111) : error C2065: 'pal' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(113) : error C2146: syntax error : missing ';' before identifier 'splitSizes'
+..\..\src\native\gui\survey\tspsform.cpp(113) : error C2275: 'QList<T>' : illegal use of this type as an expression
+        with
+        [
+            T=int
+        ]
+..\..\src\native\gui\survey\tspsform.cpp(113) : error C2065: 'splitSizes' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(114) : error C2065: 'splitSizes' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(115) : error C2065: 'splitter' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(115) : error C2227: left of '->setSizes' must point to class/struct/union/generic type
+        type is ''unknown-type''
+..\..\src\native\gui\survey\tspsform.cpp(115) : error C2065: 'splitSizes' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(117) : error C2065: 'splitter' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(127) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(134) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(141) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(148) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(155) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(162) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(169) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(172) : error C2143: syntax error : missing ')' before ';'
+..\..\src\native\gui\survey\tspsform.cpp(172) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(172) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(172) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(172) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(172) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(172) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(173) : error C2143: syntax error : missing ';' before '{'
+..\..\src\native\gui\survey\tspsform.cpp(174) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(225) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(226) : error C2143: syntax error : missing ')' before 'QString::fromLocal8Bit'
+..\..\src\native\gui\survey\tspsform.cpp(629) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(630) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\gui\survey\tspsform.cpp(631) : error C2143: syntax error : missing ')' before '}'
+..\..\src\native\gui\survey\tspsform.cpp(631) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(641) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(642) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\gui\survey\tspsform.cpp(643) : error C2143: syntax error : missing ')' before '}'
+..\..\src\native\gui\survey\tspsform.cpp(643) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(661) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(662) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\gui\survey\tspsform.cpp(663) : error C2143: syntax error : missing ')' before '}'
+..\..\src\native\gui\survey\tspsform.cpp(663) : error C2143: syntax error : missing ';' before ')'
+1>..\..\src\native\gui\survey\tspsform.cpp(694) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\gui\survey\tspsform.cpp(1064) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(1065) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\gui\survey\tspsform.cpp(1066) : error C2143: syntax error : missing ')' before '}'
+..\..\src\native\gui\survey\tspsform.cpp(1066) : error C2143: syntax error : missing ';' before ')'
+1>..\..\src\native\gui\survey\tspsform.cpp(1484) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\gui\survey\tspsform.cpp(1614) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(1615) : error C2143: syntax error : missing ')' before 'QMessageBox::information'
+..\..\src\native\gui\survey\tspsform.cpp(1975) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(1976) : error C2143: syntax error : missing ')' before 'QMessageBox::information'
+..\..\src\native\gui\survey\tspsform.cpp(1976) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(1979) : error C2143: syntax error : missing ')' before ';'
+..\..\src\native\gui\survey\tspsform.cpp(1980) : error C2065: 'pShotSetNew' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1980) : error C2275: 'GShotSet' : illegal use of this type as an expression
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\../../io/sps/gshotset.h(408) : see declaration of 'GShotSet'
+..\..\src\native\gui\survey\tspsform.cpp(1981) : error C2065: 'pShotSetNew' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1981) : error C2227: left of '->create' must point to class/struct/union/generic type
+        type is ''unknown-type''
+..\..\src\native\gui\survey\tspsform.cpp(1981) : error C2065: 'pSLineSetNew' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1984) : error C2143: syntax error : missing ')' before ';'
+..\..\src\native\gui\survey\tspsform.cpp(1984) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(1984) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(1984) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1984) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1984) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(1984) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(1985) : error C2143: syntax error : missing ';' before '{'
+..\..\src\native\gui\survey\tspsform.cpp(1986) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1987) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1988) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(1989) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(2206) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(2207) : error C2143: syntax error : missing ')' before 'QMessageBox::information'
+..\..\src\native\gui\survey\tspsform.cpp(2207) : error C2001: newline in constant
+..\..\src\native\gui\survey\tspsform.cpp(2210) : error C2143: syntax error : missing ')' before ';'
+..\..\src\native\gui\survey\tspsform.cpp(2211) : error C2065: 'pShotSetNew' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(2211) : error C2275: 'GShotSet' : illegal use of this type as an expression
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\../../io/sps/gshotset.h(408) : see declaration of 'GShotSet'
+..\..\src\native\gui\survey\tspsform.cpp(2212) : error C2065: 'pShotSetNew' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(2212) : error C2227: left of '->create' must point to class/struct/union/generic type
+        type is ''unknown-type''
+..\..\src\native\gui\survey\tspsform.cpp(2212) : error C2065: 'pRLineSetNew' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(2216) : error C2143: syntax error : missing ')' before ';'
+..\..\src\native\gui\survey\tspsform.cpp(2216) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(2216) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(2216) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(2216) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(2216) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(2216) : error C2143: syntax error : missing ';' before ')'
+..\..\src\native\gui\survey\tspsform.cpp(2217) : error C2143: syntax error : missing ';' before '{'
+..\..\src\native\gui\survey\tspsform.cpp(2218) : error C2065: 'i' : undeclared identifier
+..\..\src\native\gui\survey\tspsform.cpp(2218) : fatal error C1003: error count exceeds 100; stopping compilation
+geometryexperimentengine.cpp
+..\..\src\native\experiments\geometryexperimentengine.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C2143: syntax error : missing ';' before 'string'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\experiment_internal.h(3) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\experiments\geometryexperimentengine.cpp(65) : error C2653: 'FigurePaths' : is not a class or namespace name
+..\..\src\native\experiments\geometryexperimentengine.cpp(65) : error C3861: 'directory': identifier not found
+..\..\src\native\experiments\geometryexperimentengine.cpp(230) : error C2001: newline in constant
+..\..\src\native\experiments\geometryexperimentengine.cpp(232) : error C2143: syntax error : missing ')' before 'if'
+..\..\src\native\experiments\geometryexperimentengine.cpp(233) : error C2143: syntax error : missing ';' before '{'
+1>..\..\src\native\experiments\geometryexperimentengine.cpp(660) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\experiments\geometryexperimentengine.cpp(818) : error C2001: newline in constant
+..\..\src\native\experiments\geometryexperimentengine.cpp(819) : error C2143: syntax error : missing ')' before 'return'
+..\..\src\native\experiments\geometryexperimentengine.cpp(910) : error C2001: newline in constant
+..\..\src\native\experiments\geometryexperimentengine.cpp(911) : error C2143: syntax error : missing ')' before 'return'
+1>..\..\src\native\experiments\geometryexperimentengine.cpp(1284) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+1>..\..\src\native\experiments\geometryexperimentengine.cpp(1954) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+1>..\..\src\native\experiments\geometryexperimentengine.cpp(2555) : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+main.cpp
+..\..\src\native\app\main.cpp : warning C4819: The file contains a character that cannot be represented in the current code page (936). Save the file in Unicode format to prevent data loss
+..\..\src\native\app\main.cpp(2) : error C2143: syntax error : missing ';' before '/'
+..\..\src\native\app\main.cpp(2) : error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+Generating Code...
+Build log was saved at "file://d:\Desktop\work\IrrGeometryDesign-20261015\build\obj\x64\Release\BuildLog.htm"
+IrrGeometryDesign - 179 error(s), 64 warning(s)
+
+Build complete: 0 Projects succeeded, 1 Projects failed, 0 Projects skipped

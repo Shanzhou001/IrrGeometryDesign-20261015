@@ -1,3 +1,7 @@
+<!-- LAYOUT_NOTE_BEGIN -->
+最新目录重构和图片管理验证见 [REFACTOR_VALIDATION.md](REFACTOR_VALIDATION.md)。本页原研究统计与当时执行记录继续保留；当前活动代码/图片位置以新架构和迁移映射为准。
+<!-- LAYOUT_NOTE_END -->
+
 # 构建、验证与结果追溯报告
 
 基线提交72240bbf2a9ad02fec97fd250789d188d9db50fa，初始工作区干净；分阶段提交和独立输出，没有覆盖历史科学文件。

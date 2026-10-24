@@ -1,0 +1,1465 @@
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" -f Makefile.Release
+
+Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\app\datareconstruction.ui -o generated\ui_datareconstruction.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\analyzebinform.ui -o generated\ui_analyzebinform.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\changecoordinatedlg.ui -o generated\ui_changecoordinatedlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\draw2dfrm.ui -o generated\ui_draw2dfrm.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\geometrytemplateparameter.ui -o generated\ui_geometrytemplateparameter.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\ovtvolumeattributeview.ui -o generated\ui_ovtvolumeattributeview.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\spssampledlg.ui -o generated\ui_spssampledlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\tchangeshowareadlg.ui -o generated\ui_tchangeshowareadlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\tdatawizardform.ui -o generated\ui_tdatawizardform.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\tgeometryimfordlg.ui -o generated\ui_tgeometryimfordlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\tqfdividedlg.ui -o generated\ui_tqfdividedlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\trealovtdlg.ui -o generated\ui_trealovtdlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\dialogs\trosedividedlg.ui -o generated\ui_trosedividedlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\survey\tcellgridform.ui -o generated\ui_tcellgridform.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\survey\tspsdlg.ui -o generated\ui_tspsdlg.h
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\uic.exe ..\..\src\native\gui\survey\tspsform.ui -o generated\ui_tspsform.h
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\app\datareconstruction.h -o generated\moc\moc_datareconstruction.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\analyzebinform.h -o generated\moc\moc_analyzebinform.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\changecoordinatedlg.h -o generated\moc\moc_changecoordinatedlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\draw2dfrm.h -o generated\moc\moc_draw2dfrm.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\geometrytemplateparameter.h -o generated\moc\moc_geometrytemplateparameter.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\ovtvolumeattributeview.h -o generated\moc\moc_ovtvolumeattributeview.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\spssampledlg.h -o generated\moc\moc_spssampledlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\tchangeshowareadlg.h -o generated\moc\moc_tchangeshowareadlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\tdatawizardform.h -o generated\moc\moc_tdatawizardform.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\tgeometryimfordlg.h -o generated\moc\moc_tgeometryimfordlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\tqfdividedlg.h -o generated\moc\moc_tqfdividedlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\trealovtdlg.h -o generated\moc\moc_trealovtdlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\dialogs\trosedividedlg.h -o generated\moc\moc_trosedividedlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\survey\gspsview.h -o generated\moc\moc_gspsview.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\survey\tcellgridform.h -o generated\moc\moc_tcellgridform.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\survey\tspsdlg.h -o generated\moc\moc_tspsdlg.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\survey\tspsform.h -o generated\moc\moc_tspsform.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\gui\views\analyzebindoc.h -o generated\moc\moc_analyzebindoc.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\src\native\io\sps\gproject.h -o generated\moc\moc_gproject.cpp
+Qt: Untested Windows version 6.2 detected!
+	D:\Qt\4.7.4\bin\moc.exe -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -D_MSC_VER=1500 -DWIN32 ..\..\third_party\qcustomplot\qcustomplot.h -o generated\moc\moc_qcustomplot.cpp
+Qt: Untested Windows version 6.2 detected!
+	d:\Qt\4.7.4\bin\rcc.exe -name datareconstruction ..\..\resources\qt\datareconstruction.qrc -o generated\qrc_datareconstruction.cpp
+Qt: Untested Windows version 6.2 detected!
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmCD1C.tmp
+datareconstruction.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+..\..\src\native\app\datareconstruction.cpp(563) : warning C4101: 'Hxi_receiver' : unreferenced local variable
+..\..\src\native\app\datareconstruction.cpp(563) : warning C4101: 'Vyi_receiver' : unreferenced local variable
+..\..\src\native\app\datareconstruction.cpp(563) : warning C4101: 'Vyi_shot' : unreferenced local variable
+..\..\src\native\app\datareconstruction.cpp(563) : warning C4101: 'Hxi_shot' : unreferenced local variable
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=short
+        ]
+        ..\..\src\native\app\datareconstruction.cpp(629) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=short
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+main.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmE921.tmp
+ExpRng.cpp
+gmath.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\core\gmath.cpp(572) : warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+gmatrix3d.cpp
+gpoint3d.cpp
+gquaternion3d.cpp
+grotation3d.cpp
+gutils.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\core\gutils.cpp(176) : warning C4267: 'initializing' : conversion from 'size_t' to 'int', possible loss of data
+gvector3d.cpp
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm14E5.tmp
+auditqueries.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+geometry_experiments.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+geometryexperimentengine.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\experiments\geometryexperimentengine.cpp(447) : warning C4100: 'Nx' : unreferenced formal parameter
+..\..\src\native\experiments\geometryexperimentengine.cpp(447) : warning C4100: 'Nt' : unreferenced formal parameter
+reviewexperiments.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+sampling_experiments.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+samplingstudies.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+workflow.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm6A1A.tmp
+gAttrAnalyzeParam.cpp
+spsloadcal.cpp
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm797D.tmp
+analyzebinform.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\gui\dialogs\analyzebinform.cpp(518) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(572) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(638) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(670) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(701) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(494) : warning C4100: 'foldData' : unreferenced formal parameter
+..\..\src\native\gui\dialogs\analyzebinform.cpp(867) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(797) : warning C4100: 'zline' : unreferenced formal parameter
+..\..\src\native\gui\dialogs\analyzebinform.cpp(955) : warning C4018: '>' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(971) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1039) : warning C4018: '>' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1055) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1127) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1127) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1136) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1137) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1146) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\analyzebinform.cpp(1107) : warning C4100: 'zline' : unreferenced formal parameter
+changecoordinatedlg.cpp
+draw2dfrm.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+..\..\src\native\gui\dialogs\draw2dfrm.cpp(51) : warning C4100: 'array1' : unreferenced formal parameter
+..\..\src\native\gui\dialogs\draw2dfrm.cpp(56) : warning C4100: 'lx' : unreferenced formal parameter
+geometrytemplateparameter.cpp
+ovtvolumeattributeview.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\../../core/gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\../../core/gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\../../core/gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\gui\dialogs\ovtvolumeattributeview.cpp(264) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\ovtvolumeattributeview.cpp(319) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\dialogs\ovtvolumeattributeview.cpp(405) : warning C4018: '<' : signed/unsigned mismatch
+spssampledlg.cpp
+tchangeshowareadlg.cpp
+tdatawizardform.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+tgeometryimfordlg.cpp
+tqfdividedlg.cpp
+trealovtdlg.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+..\..\src\native\gui\dialogs\trealovtdlg.cpp(73) : warning C4305: '=' : truncation from 'long' to 'float'
+..\..\src\native\gui\dialogs\trealovtdlg.cpp(75) : warning C4305: '=' : truncation from 'long' to 'float'
+..\..\src\native\gui\dialogs\trealovtdlg.cpp(98) : warning C4101: 'Hxi_receiver' : unreferenced local variable
+..\..\src\native\gui\dialogs\trealovtdlg.cpp(98) : warning C4101: 'Vyi_receiver' : unreferenced local variable
+..\..\src\native\gui\dialogs\trealovtdlg.cpp(98) : warning C4101: 'Vyi_shot' : unreferenced local variable
+..\..\src\native\gui\dialogs\trealovtdlg.cpp(98) : warning C4101: 'Hxi_shot' : unreferenced local variable
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=short
+        ]
+        ..\..\src\native\gui\dialogs\trealovtdlg.cpp(236) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=short
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+trosedividedlg.cpp
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmF3AF.tmp
+gcellgrid.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(63) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(71) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(80) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+..\..\src\native\gui\survey\gcellgrid.cpp(555) : warning C4189: 'test_count' : local variable is initialized but not referenced
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(63) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=GCellRPt
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(64) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=GCellRPt
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(90) : while compiling class template member function 'void GValueVector<type>::clear(void)'
+        with
+        [
+            type=GCellRPt
+        ]
+        ..\..\src\native\gui\survey\gcellgrid.cpp(60) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=GCellRPt
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(80) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=GCellRPt
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\survey\gvaluevector.h(81) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=GCellRPt
+        ]
+gspsparam.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\core\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\gui\survey\gspsparam.cpp(39) : warning C4305: '=' : truncation from 'double' to 'float'
+gspsview.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+..\..\src\native\gui\survey\gspsview.cpp(728) : warning C4100: 'bColor' : unreferenced formal parameter
+tcellgridform.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\gui\survey\tcellgridform.cpp(40) : warning C4189: 'pCellGrid' : local variable is initialized but not referenced
+tspsdlg.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+tspsform.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+..\..\src\native\gui\survey\tspsform.cpp(737) : warning C4100: 'preZoomScaleY' : unreferenced formal parameter
+..\..\src\native\gui\survey\tspsform.cpp(737) : warning C4100: 'preZoomScaleX' : unreferenced formal parameter
+..\..\src\native\gui\survey\tspsform.cpp(736) : warning C4100: 'zoomScaleY' : unreferenced formal parameter
+..\..\src\native\gui\survey\tspsform.cpp(859) : warning C4305: '=' : truncation from 'long' to 'float'
+..\..\src\native\gui\survey\tspsform.cpp(861) : warning C4305: '=' : truncation from 'long' to 'float'
+..\..\src\native\gui\survey\tspsform.cpp(1012) : warning C4018: '<' : signed/unsigned mismatch
+..\..\src\native\gui\survey\tspsform.cpp(1066) : warning C4305: '=' : truncation from 'long' to 'float'
+..\..\src\native\gui\survey\tspsform.cpp(1068) : warning C4305: '=' : truncation from 'long' to 'float'
+..\..\src\native\gui\survey\tspsform.cpp(1092) : warning C4101: 'Hxi_receiver' : unreferenced local variable
+..\..\src\native\gui\survey\tspsform.cpp(1092) : warning C4101: 'Vyi_receiver' : unreferenced local variable
+..\..\src\native\gui\survey\tspsform.cpp(1092) : warning C4101: 'Vyi_shot' : unreferenced local variable
+..\..\src\native\gui\survey\tspsform.cpp(1092) : warning C4101: 'Hxi_shot' : unreferenced local variable
+..\..\src\native\gui\survey\tspsform.cpp(1877) : warning C4189: 'miu_xj_before' : local variable is initialized but not referenced
+..\..\src\native\gui\survey\tspsform.cpp(1870) : warning C4189: 'miu1' : local variable is initialized but not referenced
+..\..\src\native\gui\survey\tspsform.cpp(1878) : warning C4189: 'miu_xj_after' : local variable is initialized but not referenced
+..\..\src\native\gui\survey\tspsform.cpp(2106) : warning C4189: 'miu_xj_before' : local variable is initialized but not referenced
+..\..\src\native\gui\survey\tspsform.cpp(2099) : warning C4189: 'miu1' : local variable is initialized but not referenced
+..\..\src\native\gui\survey\tspsform.cpp(2107) : warning C4189: 'miu_xj_after' : local variable is initialized but not referenced
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=short
+        ]
+        ..\..\src\native\gui\survey\tspsform.cpp(316) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=short
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=float
+        ]
+        ..\..\src\native\gui\survey\tspsform.cpp(1244) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=float
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=float
+        ]
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm3A2F.tmp
+analyzebindoc.cpp
+analyzebinview.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\gui\views\analyzebinview.cpp(36) : warning C4305: '=' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(37) : warning C4305: '=' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(306) : warning C4189: 'value' : local variable is initialized but not referenced
+..\..\src\native\gui\views\analyzebinview.cpp(671) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(1145) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(1345) : warning C4189: 'value' : local variable is initialized but not referenced
+..\..\src\native\gui\views\analyzebinview.cpp(1545) : warning C4305: '=' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(1546) : warning C4305: '=' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(1711) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(1712) : warning C4305: 'initializing' : truncation from 'double' to 'float'
+..\..\src\native\gui\views\analyzebinview.cpp(1928) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\analyzebinview.cpp(1933) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\analyzebinview.cpp(2055) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\analyzebinview.cpp(2395) : warning C4100: 'NonuniformBiny' : unreferenced formal parameter
+..\..\src\native\gui\views\analyzebinview.cpp(2395) : warning C4100: 'NonuniformBinx' : unreferenced formal parameter
+colorview.cpp
+..\..\src\native\gui\views\colorview.cpp(69) : warning C4189: 'x' : local variable is initialized but not referenced
+..\..\src\native\gui\views\colorview.cpp(289) : warning C4189: 'value1' : local variable is initialized but not referenced
+..\..\src\native\gui\views\colorview.cpp(318) : warning C4189: 'x' : local variable is initialized but not referenced
+..\..\src\native\gui\views\colorview.cpp(384) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\colorview.cpp(389) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\colorview.cpp(394) : warning C4100: 'e' : unreferenced formal parameter
+draw2Dview.cpp
+..\..\src\native\gui\views\draw2Dview.cpp(45) : warning C4189: 'colorspac' : local variable is initialized but not referenced
+..\..\src\native\gui\views\draw2Dview.cpp(195) : warning C4189: 'cx' : local variable is initialized but not referenced
+..\..\src\native\gui\views\draw2Dview.cpp(364) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\draw2Dview.cpp(369) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\draw2Dview.cpp(374) : warning C4100: 'e' : unreferenced formal parameter
+..\..\src\native\gui\views\draw2Dview.cpp(379) : warning C4100: 'e' : unreferenced formal parameter
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm5F0D.tmp
+gcmpset.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\io\sps\gcmpset.cpp(348) : warning C4189: 'pProject' : local variable is initialized but not referenced
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GCMPItem
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GCMPItem
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gcmpset.h(104) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GCMPItem
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GCMPItem
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GCMPItem
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GCMPPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GCMPPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gcmpset.h(141) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GCMPPoint
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GCMPPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GCMPPoint
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GCMPLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GCMPLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gcmpset.h(166) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GCMPLine
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GCMPLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GCMPLine
+        ]
+gproject.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\io\sps\gproject.cpp(69) : warning C4305: '=' : truncation from 'double' to 'float'
+..\..\src\native\io\sps\gproject.cpp(616) : warning C4100: 'dlg' : unreferenced formal parameter
+..\..\src\native\io\sps\gproject.cpp(727) : warning C4100: 'lineBindNo' : unreferenced formal parameter
+..\..\src\native\io\sps\gproject.cpp(748) : warning C4305: '=' : truncation from 'double' to 'float'
+..\..\src\native\io\sps\gproject.cpp(750) : warning C4305: '=' : truncation from 'double' to 'float'
+..\..\src\native\io\sps\gproject.cpp(782) : warning C4189: 'fbtqc' : local variable is initialized but not referenced
+..\..\src\native\io\sps\gproject.cpp(1114) : warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\stdio.h(324) : see declaration of 'sscanf'
+..\..\src\native\io\sps\gproject.cpp(1106) : warning C4189: 'tempTrcCount' : local variable is initialized but not referenced
+..\..\src\native\io\sps\gproject.cpp(1508) : warning C4189: 'i' : local variable is initialized but not referenced
+..\..\src\native\io\sps\gproject.cpp(1499) : warning C4189: 'fileLong' : local variable is initialized but not referenced
+grlineset.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+..\..\src\native\io\sps\grlineset.cpp(453) : warning C4100: 'dlg' : unreferenced formal parameter
+..\..\src\native\io\sps\grlineset.cpp(452) : warning C4100: 'lineBindNo' : unreferenced formal parameter
+..\..\src\native\io\sps\grlineset.cpp(452) : warning C4100: 'workAreaNo' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=Q_INT32
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=Q_INT32
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\grlineset.h(92) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=Q_INT32
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=Q_INT32
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=Q_INT32
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GRPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GRPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\grlineset.h(171) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GRPoint
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GRPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GRPoint
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GRLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GRLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\grlineset.h(221) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GRLine
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GRLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GRLine
+        ]
+gsegyfilescanner.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\io\sps\gsegyfilescanner.cpp(20) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(20) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(20) : warning C4566: character represented by universal-character-name '\u0632' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(20) : warning C4566: character represented by universal-character-name '\u04BB' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(22) : warning C4566: character represented by universal-character-name '\u00FB' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(22) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(22) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(24) : warning C4566: character represented by universal-character-name '\u0231' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(24) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(24) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(24) : warning C4566: character represented by universal-character-name '\u0139' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(24) : warning C4566: character represented by universal-character-name '\u03F5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(24) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(73) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(73) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(230) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(230) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(267) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(267) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(309) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(309) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gsegyfilescanner.cpp(261) : warning C4101: 'cpInv' : unreferenced local variable
+..\..\src\native\io\sps\gsegyfilescanner.cpp(263) : warning C4101: 'trcNum' : unreferenced local variable
+..\..\src\native\io\sps\gsegyfilescanner.cpp(320) : warning C4100: 'fileName' : unreferenced formal parameter
+gshotset.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\io\sps\gshotset.cpp(1435) : warning C4566: character represented by universal-character-name '\u06B5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1435) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1460) : warning C4566: character represented by universal-character-name '\u00FB' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1460) : warning C4566: character represented by universal-character-name '\u06B5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1460) : warning C4566: character represented by universal-character-name '\u04B0' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1460) : warning C4566: character represented by universal-character-name '\u00BC' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1461) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1462) : warning C4566: character represented by universal-character-name '\u027E' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1462) : warning C4566: character represented by universal-character-name '\u04B0' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1462) : warning C4566: character represented by universal-character-name '\u00BC' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1463) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1463) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1471) : warning C4566: character represented by universal-character-name '\u06B5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1471) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1490) : warning C4566: character represented by universal-character-name '\uCCA8' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1490) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1548) : warning C4566: character represented by universal-character-name '\u00FB' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1548) : warning C4566: character represented by universal-character-name '\uCCA8' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1548) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1548) : warning C4566: character represented by universal-character-name '\u04B0' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1548) : warning C4566: character represented by universal-character-name '\u00BC' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1549) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1550) : warning C4566: character represented by universal-character-name '\u027E' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1550) : warning C4566: character represented by universal-character-name '\u04B0' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1550) : warning C4566: character represented by universal-character-name '\u00BC' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1551) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1551) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1558) : warning C4566: character represented by universal-character-name '\uCCA8' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1558) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1570) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1570) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1579) : warning C4566: character represented by universal-character-name '\u00FB' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1579) : warning C4566: character represented by universal-character-name '\u04B0' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1579) : warning C4566: character represented by universal-character-name '\u00BC' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1580) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1581) : warning C4566: character represented by universal-character-name '\u027E' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1581) : warning C4566: character represented by universal-character-name '\u04B0' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1581) : warning C4566: character represented by universal-character-name '\u00BC' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1582) : warning C4566: character represented by universal-character-name '\u04E6' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1582) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1590) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1590) : warning C4566: character represented by universal-character-name '\u03E2' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(1846) : warning C4566: character represented by universal-character-name '\u0221' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gshotset.cpp(2170) : warning C4018: '<' : signed/unsigned mismatch
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GShotXArray
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GShotXArray
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gshotset.h(159) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GShotXArray
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GShotXArray
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GShotXArray
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GShotXLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GShotXLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gshotset.h(306) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GShotXLine
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GShotXLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GShotXLine
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GShot
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GShot
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gshotset.h(387) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GShot
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GShot
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GShot
+        ]
+gslineset.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\io\sps\gslineset.cpp(545) : warning C4101: 'cosAf' : unreferenced local variable
+..\..\src\native\io\sps\gslineset.cpp(545) : warning C4101: 'y' : unreferenced local variable
+..\..\src\native\io\sps\gslineset.cpp(545) : warning C4101: 'x' : unreferenced local variable
+..\..\src\native\io\sps\gslineset.cpp(545) : warning C4101: 'sinAf' : unreferenced local variable
+..\..\src\native\io\sps\gslineset.cpp(582) : warning C4018: '<' : signed/unsigned mismatch
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=Q_INT32
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=Q_INT32
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gslineset.h(102) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=Q_INT32
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=Q_INT32
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=Q_INT32
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GSPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GSPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gslineset.h(172) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GSPoint
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GSPoint
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GSPoint
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+        with
+        [
+            type=GSLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(78) : while compiling class template member function 'GPtrVector<type>::GPtrVector(uint)'
+        with
+        [
+            type=GSLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gslineset.h(216) : see reference to class template instantiation 'GPtrVector<type>' being compiled
+        with
+        [
+            type=GSLine
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+        with
+        [
+            type=GSLine
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(88) : while compiling class template member function 'GPtrVector<type>::~GPtrVector(void)'
+        with
+        [
+            type=GSLine
+        ]
+gspsscanner.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\io\sps\gspsscanner.cpp(309) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(309) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(309) : warning C4566: character represented by universal-character-name '\u02A7' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(309) : warning C4566: character represented by universal-character-name '\u0723' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(309) : warning C4566: character represented by universal-character-name '\u0336' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(309) : warning C4566: character represented by universal-character-name '\u06BC' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(309) : warning C4566: character represented by universal-character-name '\u03AA' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(317) : warning C4566: character represented by universal-character-name '\u07B7' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(317) : warning C4566: character represented by universal-character-name '\UDEB9DABE' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(317) : warning C4566: character represented by universal-character-name '\u03F5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(317) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(327) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(327) : warning C4566: character represented by universal-character-name '\u03F5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(327) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(349) : warning C4566: character represented by universal-character-name '\u052D' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(350) : warning C4566: character represented by universal-character-name '\u03F5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(350) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(350) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(350) : warning C4566: character represented by universal-character-name '\u02A7' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(394) : warning C4566: character represented by universal-character-name '\u03F5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(394) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(394) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(394) : warning C4566: character represented by universal-character-name '\u0279' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(412) : warning C4566: character represented by universal-character-name '\u07B7' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(412) : warning C4566: character represented by universal-character-name '\u06B5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(412) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(428) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(428) : warning C4566: character represented by universal-character-name '\u06B5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(428) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(533) : warning C4566: character represented by universal-character-name '\u06B5' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(533) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(533) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(552) : warning C4566: character represented by universal-character-name '\u07B7' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(552) : warning C4566: character represented by universal-character-name '\UDEBCDABE' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(552) : warning C4566: character represented by universal-character-name '\uCCA8' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(552) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(569) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(569) : warning C4566: character represented by universal-character-name '\uCCA8' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(569) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(664) : warning C4566: character represented by universal-character-name '\uCCA8' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(664) : warning C4566: character represented by universal-character-name '\u013C' cannot be represented in the current code page (936)
+..\..\src\native\io\sps\gspsscanner.cpp(664) : warning C4566: character represented by universal-character-name '\u0268' cannot be represented in the current code page (936)
+segyio.cpp
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmA02E.tmp
+OptimizeMiu.cpp
+..\..\src\native\optimization\OptimizeMiu.cpp(120) : warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\stdlib.h(447) : see declaration of 'getenv'
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmAB3B.tmp
+coordinateholdout.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+wavefield_experiments.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmC77F.tmp
+CurveletMiu.cpp
+..\..\src\native\sampling\CurveletMiu.cpp(84) : warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(85) : warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(86) : warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(87) : warning C4244: 'argument' : conversion from 'double' to 'const float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(230) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(231) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(555) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(686) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(687) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(838) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\src\native\sampling\CurveletMiu.cpp(900) : warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+Diagmul.cpp
+..\..\src\native\sampling\Diagmul.cpp(101) : warning C4189: 'N' : local variable is initialized but not referenced
+..\..\src\native\sampling\Diagmul.cpp(128) : warning C4189: 'N' : local variable is initialized but not referenced
+..\..\src\native\sampling\Diagmul.cpp(153) : warning C4189: 'N' : local variable is initialized but not referenced
+..\..\src\native\sampling\Diagmul.cpp(179) : warning C4189: 'N' : local variable is initialized but not referenced
+Sampling.cpp
+..\..\src\native\sampling\Sampling.cpp(384) : warning C4100: 'c' : unreferenced formal parameter
+spsmaskbuilder.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmE8A4.tmp
+engine_regression.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+..\..\src\native\tests\engine_regression.cpp(70) : warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\stdio.h(237) : see declaration of 'fopen'
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm322.tmp
+fdct_wrapping.cpp
+..\..\third_party\curvelet\Curvelet2d\fdct_wrapping.cpp(20) : warning C4189: 'F2' : local variable is initialized but not referenced
+..\..\third_party\curvelet\Curvelet2d\fdct_wrapping.cpp(20) : warning C4189: 'F1' : local variable is initialized but not referenced
+..\..\third_party\curvelet\Curvelet2d\fdct_wrapping.cpp(242) : warning C4189: 'F2' : local variable is initialized but not referenced
+..\..\third_party\curvelet\Curvelet2d\fdct_wrapping.cpp(242) : warning C4189: 'F1' : local variable is initialized but not referenced
+ifdct_wrapping.cpp
+..\..\third_party\curvelet\Curvelet2d\ifdct_wrapping.cpp(19) : warning C4189: 'F2' : local variable is initialized but not referenced
+..\..\third_party\curvelet\Curvelet2d\ifdct_wrapping.cpp(19) : warning C4189: 'F1' : local variable is initialized but not referenced
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm1266.tmp
+qcustomplot.cpp
+..\..\third_party\qcustomplot\qcustomplot.cpp(20927) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+..\..\third_party\qcustomplot\qcustomplot.cpp(21374) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+..\..\third_party\qcustomplot\qcustomplot.cpp(21414) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+..\..\third_party\qcustomplot\qcustomplot.cpp(21415) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2714) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2697) : while compiling class template member function 'void QCPDataContainer<DataType>::add(const QVector<T> &,bool)'
+        with
+        [
+            DataType=QCPGraphData,
+            T=QCPGraphData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5225) : see reference to class template instantiation 'QCPDataContainer<DataType>' being compiled
+        with
+        [
+            DataType=QCPGraphData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2718) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2714) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2697) : while compiling class template member function 'void QCPDataContainer<DataType>::add(const QVector<T> &,bool)'
+        with
+        [
+            DataType=QCPCurveData,
+            T=QCPCurveData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5362) : see reference to class template instantiation 'QCPDataContainer<DataType>' being compiled
+        with
+        [
+            DataType=QCPCurveData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2718) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2714) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2697) : while compiling class template member function 'void QCPDataContainer<DataType>::add(const QVector<T> &,bool)'
+        with
+        [
+            DataType=QCPBarsData,
+            T=QCPBarsData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5545) : see reference to class template instantiation 'QCPDataContainer<DataType>' being compiled
+        with
+        [
+            DataType=QCPBarsData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2718) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2714) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2697) : while compiling class template member function 'void QCPDataContainer<DataType>::add(const QVector<T> &,bool)'
+        with
+        [
+            DataType=QCPStatisticalBoxData,
+            T=QCPStatisticalBoxData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5662) : see reference to class template instantiation 'QCPDataContainer<DataType>' being compiled
+        with
+        [
+            DataType=QCPStatisticalBoxData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2718) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2714) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2697) : while compiling class template member function 'void QCPDataContainer<DataType>::add(const QVector<T> &,bool)'
+        with
+        [
+            DataType=QCPFinancialData,
+            T=QCPFinancialData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5936) : see reference to class template instantiation 'QCPDataContainer<DataType>' being compiled
+        with
+        [
+            DataType=QCPFinancialData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(2718) : warning C4996: 'std::copy': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2576) : see declaration of 'std::copy'
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3192) : warning C4996: 'std::copy_backward': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2729) : see declaration of 'std::copy_backward'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3182) : while compiling class template member function 'void QCPDataContainer<DataType>::preallocateGrow(int)'
+        with
+        [
+            DataType=QCPGraphData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(4096) : while compiling class template member function 'QCPAbstractPlottable1D<DataType>::QCPAbstractPlottable1D(QCPAxis *,QCPAxis *)'
+        with
+        [
+            DataType=QCPGraphData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5153) : see reference to class template instantiation 'QCPAbstractPlottable1D<DataType>' being compiled
+        with
+        [
+            DataType=QCPGraphData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3192) : warning C4996: 'std::copy_backward': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2729) : see declaration of 'std::copy_backward'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3182) : while compiling class template member function 'void QCPDataContainer<DataType>::preallocateGrow(int)'
+        with
+        [
+            DataType=QCPCurveData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(4096) : while compiling class template member function 'QCPAbstractPlottable1D<DataType>::QCPAbstractPlottable1D(QCPAxis *,QCPAxis *)'
+        with
+        [
+            DataType=QCPCurveData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5293) : see reference to class template instantiation 'QCPAbstractPlottable1D<DataType>' being compiled
+        with
+        [
+            DataType=QCPCurveData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3192) : warning C4996: 'std::copy_backward': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2729) : see declaration of 'std::copy_backward'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3182) : while compiling class template member function 'void QCPDataContainer<DataType>::preallocateGrow(int)'
+        with
+        [
+            DataType=QCPBarsData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(4096) : while compiling class template member function 'QCPAbstractPlottable1D<DataType>::QCPAbstractPlottable1D(QCPAxis *,QCPAxis *)'
+        with
+        [
+            DataType=QCPBarsData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5472) : see reference to class template instantiation 'QCPAbstractPlottable1D<DataType>' being compiled
+        with
+        [
+            DataType=QCPBarsData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3192) : warning C4996: 'std::copy_backward': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2729) : see declaration of 'std::copy_backward'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3182) : while compiling class template member function 'void QCPDataContainer<DataType>::preallocateGrow(int)'
+        with
+        [
+            DataType=QCPStatisticalBoxData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(4096) : while compiling class template member function 'QCPAbstractPlottable1D<DataType>::QCPAbstractPlottable1D(QCPAxis *,QCPAxis *)'
+        with
+        [
+            DataType=QCPStatisticalBoxData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5603) : see reference to class template instantiation 'QCPAbstractPlottable1D<DataType>' being compiled
+        with
+        [
+            DataType=QCPStatisticalBoxData
+        ]
+d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3192) : warning C4996: 'std::copy_backward': Function call with parameters that may be unsafe - this call relies on the caller to check that the passed values are correct. To disable this warning, use -D_SCL_SECURE_NO_WARNINGS. See documentation on how to use Visual C++ 'Checked Iterators'
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\xutility(2729) : see declaration of 'std::copy_backward'
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(3182) : while compiling class template member function 'void QCPDataContainer<DataType>::preallocateGrow(int)'
+        with
+        [
+            DataType=QCPFinancialData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(4096) : while compiling class template member function 'QCPAbstractPlottable1D<DataType>::QCPAbstractPlottable1D(QCPAxis *,QCPAxis *)'
+        with
+        [
+            DataType=QCPFinancialData
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\third_party\qcustomplot\qcustomplot.h(5848) : see reference to class template instantiation 'QCPAbstractPlottable1D<DataType>' being compiled
+        with
+        [
+            DataType=QCPFinancialData
+        ]
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3172) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3187) : see reference to function template instantiation 'void std::_Median<_RanIt,bool(__cdecl *)(const QCPDataRange &,const QCPDataRange &)>(_RanIt,_RanIt,_RanIt,_Pr)' being compiled
+        with
+        [
+            _RanIt=QList<QCPDataRange>::iterator,
+            _Pr=bool (__cdecl *)(const QCPDataRange &,const QCPDataRange &)
+        ]
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3249) : see reference to function template instantiation 'std::pair<_Ty1,_Ty2> std::_Unguarded_partition<_RanIt,bool(__cdecl *)(const QCPDataRange &,const QCPDataRange &)>(_RanIt,_RanIt,_Pr)' being compiled
+        with
+        [
+            _Ty1=QList<QCPDataRange>::iterator,
+            _Ty2=QList<QCPDataRange>::iterator,
+            _RanIt=QList<QCPDataRange>::iterator,
+            _Pr=bool (__cdecl *)(const QCPDataRange &,const QCPDataRange &)
+        ]
+        C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3279) : see reference to function template instantiation 'void std::_Sort<QList<T>::iterator,int,bool(__cdecl *)(const QCPDataRange &,const QCPDataRange &)>(_RanIt,_RanIt,_Diff,_Pr)' being compiled
+        with
+        [
+            T=QCPDataRange,
+            _RanIt=QList<QCPDataRange>::iterator,
+            _Diff=int,
+            _Pr=bool (__cdecl *)(const QCPDataRange &,const QCPDataRange &)
+        ]
+        ..\..\third_party\qcustomplot\qcustomplot.cpp(2580) : see reference to function template instantiation 'void std::sort<QList<T>::iterator,bool(__cdecl *)(const QCPDataRange &,const QCPDataRange &)>(_RanIt,_RanIt,_Pr)' being compiled
+        with
+        [
+            T=QCPDataRange,
+            _RanIt=QList<QCPDataRange>::iterator,
+            _Pr=bool (__cdecl *)(const QCPDataRange &,const QCPDataRange &)
+        ]
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3172) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3173) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3173) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3174) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3174) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3175) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\INCLUDE\algorithm(3175) : warning C4267: 'argument' : conversion from 'size_t' to 'int', possible loss of data
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm2979.tmp
+moc_datareconstruction.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+moc_analyzebinform.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+moc_changecoordinatedlg.cpp
+moc_draw2dfrm.cpp
+d:\desktop\work\irrgeometrydesign-20261015\build\qt-check\generated\moc\../../../../src/native/gui/dialogs/draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\build\qt-check\generated\moc\../../../../src/native/gui/dialogs/draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\build\qt-check\generated\moc\../../../../src/native/gui/dialogs/draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\build\qt-check\generated\moc\../../../../src/native/gui/dialogs/draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\build\qt-check\generated\moc\../../../../src/native/gui/dialogs/draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+moc_geometrytemplateparameter.cpp
+moc_ovtvolumeattributeview.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\../../core/gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\../../core/gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\../../core/gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+moc_spssampledlg.cpp
+moc_tchangeshowareadlg.cpp
+moc_tdatawizardform.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+moc_tgeometryimfordlg.cpp
+moc_tqfdividedlg.cpp
+moc_trealovtdlg.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+moc_trosedividedlg.cpp
+moc_gspsview.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+moc_tcellgridform.cpp
+moc_tspsdlg.cpp
+moc_tspsform.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+moc_analyzebindoc.cpp
+moc_gproject.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+moc_qcustomplot.cpp
+Generating Code...
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmC963.tmp
+qrc_datareconstruction.cpp
+	link /LIBPATH:"d:\Qt\4.7.4\lib" /NOLOGO /INCREMENTAL:NO /MANIFEST /MANIFESTFILE:"D:/Desktop/work/IrrGeometryDesign-20261015/build/qt-check/obj\IrrGeometryDesign.intermediate.manifest" /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /OUT:bin\IrrGeometryDesign.exe @C:\Users\48198\AppData\Local\Temp\nmCA3F.tmp 
+   Creating library bin\IrrGeometryDesign.lib and object bin\IrrGeometryDesign.exp
+	mt.exe -nologo -manifest "D:\Desktop\work\IrrGeometryDesign-20261015\build\qt-check\obj\IrrGeometryDesign.intermediate.manifest" -outputresource:bin\IrrGeometryDesign.exe;1

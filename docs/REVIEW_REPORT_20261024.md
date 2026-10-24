@@ -1,3 +1,7 @@
+<!-- LAYOUT_NOTE_BEGIN -->
+最新目录重构和图片管理验证见 [REFACTOR_VALIDATION.md](REFACTOR_VALIDATION.md)。本页原研究统计与当时执行记录继续保留；当前活动代码/图片位置以新架构和迁移映射为准。
+<!-- LAYOUT_NOTE_END -->
+
 # 硕士论文项目全面审查、修改及实测报告
 
 > 本文件主体是此前v4批次的历史报告。基线72240bbf后的再审查见

@@ -7,7 +7,7 @@
     "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
   },
   "source_mode": "archived exported matrices",
-  "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
   "replay_max_abs_prediction_difference": 0.0,
   "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
   "hidden_snr_db": 10.176023349629052,

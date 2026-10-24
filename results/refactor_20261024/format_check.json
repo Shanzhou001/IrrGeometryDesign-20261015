@@ -1,0 +1,5 @@
+{
+  "command": "git -c core.whitespace=cr-at-eol diff --check HEAD^ HEAD -- research/common research/pipeline.py research/validation/layout.py scripts pipeline.py",
+  "scope": "New control modules; original source encoding/line endings and existing legacy whitespace are retained.",
+  "exit_code": 0
+}

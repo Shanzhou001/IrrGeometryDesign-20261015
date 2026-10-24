@@ -1,3 +1,7 @@
+<!-- LAYOUT_NOTE_BEGIN -->
+最新目录重构和图片管理验证见 [REFACTOR_VALIDATION.md](REFACTOR_VALIDATION.md)。本页原研究统计与当时执行记录继续保留；当前活动代码/图片位置以新架构和迁移映射为准。
+<!-- LAYOUT_NOTE_END -->
+
 # 论文项目进展总览（2026-10-24，全面审查后）
 
 ## 最新再审查补记：audit_joint_v5

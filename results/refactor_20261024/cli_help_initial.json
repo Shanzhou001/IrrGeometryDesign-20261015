@@ -1,0 +1,162 @@
+[
+  {
+    "module": "research.analysis.ablation_stats",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.analysis.make_audit_reports",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.analysis.render_audit_figures",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.analysis.summarize_audit_v5",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.analysis.summarize_review",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.data.audit_real_gather",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.data.audit_segy_bytes",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.data.convert_rraw_to_engine_csv",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.data.make_59x256",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.experiments.audit_joint_studies",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.experiments.compare_masks",
+    "exit_code": 1,
+    "stderr": "^^^^^^^^^^^\r\n  File \"C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\argparse.py\", line 217, in format_help\r\n    item_help = join([func(*args) for func, args in self.items])\r\n                      ^^^^^^^^^^^\r\n  File \"C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\argparse.py\", line 217, in format_help\r\n    item_help = join([func(*args) for func, args in self.items])\r\n                      ^^^^^^^^^^^\r\n  File \"C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\argparse.py\", line 546, in _format_action\r\n    help_text = self._expand_help(action)\r\n                ^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\argparse.py\", line 640, in _expand_help\r\n    return self._get_help_string(action) % params\r\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~\r\nValueError: unsupported format character ')' (0x29) at index 22\r\n"
+  },
+  {
+    "module": "research.experiments.review_studies",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.experiments.review_window_study",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.experiments.run_revised_studies",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.maintenance.audit_change_annotations",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.maintenance.finalize_audit_delivery",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.maintenance.freeze_audit_runtime",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.archives",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.audit_numerics",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.audit_preprocessing_isolation",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.audit_projection",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.layout",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.mu_properties_test",
+    "exit_code": 1,
+    "stderr": "Traceback (most recent call last):\r\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\r\n  File \"<frozen runpy>\", line 88, in _run_code\r\n  File \"D:\\Desktop\\work\\IrrGeometryDesign-20261015\\research\\validation\\mu_properties_test.py\", line 61, in <module>\r\n    main()\r\n  File \"D:\\Desktop\\work\\IrrGeometryDesign-20261015\\research\\validation\\mu_properties_test.py\", line 43, in main\r\n    ap.add_argument(\"--exe\", default=str(ROOT / \"build/bin/Release/IrrGeometryDesign.exe\"))\r\n                                         ^^^^\r\nNameError: name 'ROOT' is not defined\r\n"
+  },
+  {
+    "module": "research.validation.pipeline_smoke",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.replay_audit_science",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.run_audit_checks",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.run_fdct_probe",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.run_legacy_codec_checks",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.verify_audit_summary",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.verify_audit_v5",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.verify_review_results",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "module": "research.validation.verify_revised_results",
+    "exit_code": 0,
+    "stderr": ""
+  }
+]

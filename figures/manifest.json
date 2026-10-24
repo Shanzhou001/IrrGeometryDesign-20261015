@@ -2,9 +2,9 @@
   "command": [
     "C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
     "pipeline.py",
-    "figures",
+    "all",
     "--out",
-    "results/refactor_20261024/figures_retry"
+    "results/refactor_20261024/full_validation"
   ],
   "image_format": "PNG",
   "duplicates": 0,
@@ -572,7 +572,7 @@
         "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -592,7 +592,7 @@
         "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -613,7 +613,7 @@
         "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.748282600335736,
@@ -633,7 +633,7 @@
         "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.748282600335736,
@@ -654,7 +654,7 @@
         "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 13.320693419656532,
@@ -674,7 +674,7 @@
         "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 13.320693419656532,
@@ -695,7 +695,7 @@
         "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.993514299990512,
@@ -715,7 +715,7 @@
         "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.993514299990512,
@@ -736,7 +736,7 @@
         "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\real_field",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -756,7 +756,7 @@
         "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\enhanced_20261023\\real_field",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -817,7 +817,7 @@
         "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -837,7 +837,7 @@
         "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -858,7 +858,7 @@
         "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\real_field",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -878,7 +878,7 @@
         "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\revised_20261023\\real_field",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -944,7 +944,7 @@
         "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 10.89820382319636
@@ -956,7 +956,7 @@
         "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 10.89820382319636,
@@ -969,7 +969,7 @@
         "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\real_field",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205
@@ -981,7 +981,7 @@
         "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\figures_retry\\legacy_replay\\real_field",
+      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,

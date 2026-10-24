@@ -1,0 +1,134 @@
+[
+  {
+    "path": "figures/enhanced_20261023_smoke/00_research_workflow_summary.png",
+    "sha256": "4761eced56ed1283daf232ab0ea20b49836fbf631e3bcd031863fcd0f806f171",
+    "bytes": 63681,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/01_sa_convergence_curve.png",
+    "sha256": "7fb781de6ecd4329e8bc64af4e67f430b83c9ac7dbac43e5aaf464d2116e8bbe",
+    "bytes": 43963,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/02_sampling_benchmark_bars.png",
+    "sha256": "d6831cbd9d712b5da49be997974972a7fe07653bb54bdf9422a7ffe2803a6170",
+    "bytes": 34211,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/03_cmp_fold_distribution_map.png",
+    "sha256": "e559e981109e602e63fd9842c03179f81e93665d70b4ac306d75f7437356d70d",
+    "bytes": 135286,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/04_offset_azimuth_rose_charts.png",
+    "sha256": "5bf345b4e498699232dfdcee3dc0cb1f76cc3c9f45a032188222179df0fc3100",
+    "bytes": 49180,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/05_wavefield_reconstruction_quad.png",
+    "sha256": "4a5c4cc0174f644b0c51fcb6ab99baedb6c6d207e530ae09015b6d123b0ed54b",
+    "bytes": 234630,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/06_recon_convergence_trace_comparison.png",
+    "sha256": "f86bc4b913666618ed2b64036bed67be0f0f36935b138ec9e5bb935874683aa3",
+    "bytes": 26511,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/mask_builtin/05_wavefield_reconstruction_quad.png",
+    "sha256": "4fec5b30ef7a6ab2da6334386626af678422837b964d9e86e1dafa11d3c8a2d5",
+    "bytes": 199332,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/mask_builtin/06_recon_convergence_trace_comparison.png",
+    "sha256": "0e6ebefb0eb2aa2cf3579e871730ba8e8449be0142bcc9360de345091d5ab7f9",
+    "bytes": 26481,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/mask_dipping/05_wavefield_reconstruction_quad.png",
+    "sha256": "17b51b614b5861e7afa7c386f50a618158c14db3039141841511c86ad14cffb6",
+    "bytes": 199445,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/mask_dipping/06_recon_convergence_trace_comparison.png",
+    "sha256": "80bff7edfc3f095100ecab6dfa91f53342139ffbb32dc16b86d3e10960ee6cb9",
+    "bytes": 26340,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/mask_faulted/05_wavefield_reconstruction_quad.png",
+    "sha256": "7d4ddf2cd3789d4e1cf3423c054b4f4ac7a3a89d8366af2c53a999dc0d3b2769",
+    "bytes": 201977,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/mask_faulted/06_recon_convergence_trace_comparison.png",
+    "sha256": "02e441cbd872715b725e21f7ea3c16cbc2ba58fd4024f87d5beee32b9bce82fe",
+    "bytes": 26575,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/real_reference/05_wavefield_reconstruction_quad.png",
+    "sha256": "252a1d26083da8465790251505a20822e157f091ddfb6477a1671c28858fe461",
+    "bytes": 262059,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/real_reference/06_recon_convergence_trace_comparison.png",
+    "sha256": "5b2979b739e182a94a694b6cda2fc796ae406ab987da66ecb491e25d4c6538b4",
+    "bytes": 33986,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/00_research_workflow_summary.png",
+    "sha256": "c07c8b8749f1fcedc63d12529440f588c4195249337c71e993184354578bcba8",
+    "bytes": 65317,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/01_sa_convergence_curve.png",
+    "sha256": "5efe8dab05bcf061b9cece43e140874c4053085eeadb10c44b987155b22ea4af",
+    "bytes": 40226,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/02_sampling_benchmark_bars.png",
+    "sha256": "ca8f4d1d219b73595485700eeaa52a9fdf5d56cc7ff2de78a6242978e47fab0c",
+    "bytes": 33953,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/03_cmp_fold_distribution_map.png",
+    "sha256": "e559e981109e602e63fd9842c03179f81e93665d70b4ac306d75f7437356d70d",
+    "bytes": 135286,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/04_offset_azimuth_rose_charts.png",
+    "sha256": "5bf345b4e498699232dfdcee3dc0cb1f76cc3c9f45a032188222179df0fc3100",
+    "bytes": 49180,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/05_wavefield_reconstruction_quad.png",
+    "sha256": "bbd06aba9fd601783553418a5117a62eeae583a138f51bdf8a9126b393c6012b",
+    "bytes": 262185,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/06_recon_convergence_trace_comparison.png",
+    "sha256": "ee26b7107a8a5501f49c304b62400d93653fc2877c34e6b731225468f451f0e2",
+    "bytes": 34123,
+    "reason": "superseded nonformal smoke display; raw smoke results remain"
+  }
+]

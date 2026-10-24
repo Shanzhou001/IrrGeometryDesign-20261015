@@ -22,6 +22,7 @@ python pipeline.py inspect
 - `inspect`：检查 Python 导入、依赖环、C++ 包含路径、Qt 图标资源及科学核心代码迁移等价性。
 
 每次命令在 `results/validation/<时间>/` 保存命令、日志、退出码、程序/源码/输入/输出哈希；可以用 `--out` 指定一个**尚不存在**的验证目录。
+独立探针的构建与执行产物随验证记录归档；日常应用构建产物保存在 `build/`。
 测试失败返回非零；跳过不计通过。需要完整执行记录时，以生成的 `pipeline.json` 和各专项 JSON 为准。
 
 ## 目录
@@ -31,6 +32,7 @@ src/native/              C++/Qt 的活动源码
   app/                   程序启动与原窗口
   core/                  数学基础、随机数
   geometry/              SPS 属性与几何加载
+  io/                    SPS 数据模型、扫描与既有 SEG-Y 工具
   sampling/              固定点数采样、互干度与掩码
   optimization/          SA、历史 Hybrid、自适应搜索
   reconstruction/        FDCT 恢复与实际坐标观测算子

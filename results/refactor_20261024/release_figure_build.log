@@ -1,0 +1,159 @@
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+Microsoft (R) Visual C++ Project Builder - Command Line Version 9.00.21022
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started: Project: IrrGeometryDesign, Configuration: Release|x64
+Performing Pre-Build Event...
+Compiling...
+auditqueries.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+reviewexperiments.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+samplingstudies.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+coordinateholdout.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+engine_regression.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+workflow.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+wavefield_experiments.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+geometry_experiments.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+sampling_experiments.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+geometryexperimentengine.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+main.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+tspsform.cpp
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=short
+        ]
+        ..\..\src\native\gui\survey\tspsform.cpp(316) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=short
+        ]
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=short
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=short
+        ]
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(63) : while compiling class template member function 'GValueVector<type>::GValueVector(void)'
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(128) : while compiling class template member function 'bool GValueVector<type>::append(type)'
+        with
+        [
+            type=float
+        ]
+        ..\..\src\native\gui\survey\tspsform.cpp(1244) : see reference to class template instantiation 'GValueVector<type>' being compiled
+        with
+        [
+            type=float
+        ]
+1>d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+        with
+        [
+            type=float
+        ]
+        d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(80) : while compiling class template member function 'GValueVector<type>::~GValueVector(void)'
+        with
+        [
+            type=float
+        ]
+Generating Code...
+Linking...
+   Creating library D:\Desktop\work\IrrGeometryDesign-20261015\build\bin\Release\IrrGeometryDesign.lib and object D:\Desktop\work\IrrGeometryDesign-20261015\build\bin\Release\IrrGeometryDesign.exp
+Embedding manifest...
+Build log was saved at "file://d:\Desktop\work\IrrGeometryDesign-20261015\build\obj\x64\Release\BuildLog.htm"
+IrrGeometryDesign - 0 error(s), 76 warning(s)
+
+Build complete: 1 Projects succeeded, 0 Projects failed, 0 Projects skipped

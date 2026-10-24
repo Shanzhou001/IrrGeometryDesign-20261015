@@ -1,0 +1,98 @@
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+Qt: Untested Windows version 6.2 detected!
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" -f Makefile.Release
+
+Microsoft (R) Program Maintenance Utility Version 9.00.30729.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nmF6FB.tmp
+main.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm5C1.tmp
+wavefield_experiments.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(584) : warning C4100: 'farRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(583) : warning C4100: 'midRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(582) : warning C4100: 'nearRatio' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(711) : warning C4100: 'snr_linear' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(824) : warning C4100: 'snr_recon' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(957) : warning C4100: 'snr_gain' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\experiments\../plotting/scientificplotter.h(1070) : warning C4100: 'centralFiguresDir' : unreferenced formal parameter
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm1487.tmp
+commandline.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+	cl -c -nologo -Zm200 -Zc:wchar_t- /openmp -O2 -MD -W3 -w34100 -w34189 -GR -EHsc -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT3_SUPPORT -DQT_QT3SUPPORT_LIB -DQT_DLL -DQT_NO_DEBUG -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -I"d:\Qt\4.7.4\include\QtCore" -I"d:\Qt\4.7.4\include\QtGui" -I"d:\Qt\4.7.4\include\QtOpenGL" -I"d:\Qt\4.7.4\include\Qt3Support" -I"d:\Qt\4.7.4\include" -I"generated" -I"..\..\third_party\eigen-x64" -I"..\..\src\native\app" -I"..\..\src\native\core" -I"..\..\src\native\experiments" -I"..\..\src\native\geometry" -I"..\..\src\native\gui\dialogs" -I"..\..\src\native\gui\survey" -I"..\..\src\native\gui\views" -I"..\..\src\native\io\sps" -I"..\..\src\native\optimization" -I"..\..\src\native\plotting" -I"..\..\src\native\reconstruction" -I"..\..\src\native\sampling" -I"..\..\third_party\curvelet\Curvelet2d" -I"..\..\third_party\curvelet\Curvelet3d" -I"..\..\third_party\qcustomplot" -I"d:\Qt\4.7.4\include\ActiveQt" -I"generated\moc" -I"generated" -I"." -I"d:\Qt\4.7.4\mkspecs\win32-msvc2008" -Foobj\ @C:\Users\48198\AppData\Local\Temp\nm22A2.tmp
+capture.cpp
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(62) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(70) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gvaluevector.h(79) : warning C4812: obsolete declaration style: please use 'GValueVector<type>::~GValueVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(68) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(77) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\io\sps\gptrvector.h(87) : warning C4812: obsolete declaration style: please use 'GPtrVector<type>::~GPtrVector' instead
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4305: '=' : truncation from '__int64' to 'int'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(54) : warning C4309: '=' : truncation of constant value
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(69) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(83) : warning C4305: '=' : truncation from '__int64' to 'float'
+d:\desktop\work\irrgeometrydesign-20261015\src\native\gui\dialogs\draw2dfrm.h(96) : warning C4305: '=' : truncation from '__int64' to 'float'
+	link /LIBPATH:"d:\Qt\4.7.4\lib" /NOLOGO /INCREMENTAL:NO /MANIFEST /MANIFESTFILE:"D:/Desktop/work/IrrGeometryDesign-20261015/build/qt-check/obj\IrrGeometryDesign.intermediate.manifest" /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" /OUT:bin\IrrGeometryDesign.exe @C:\Users\48198\AppData\Local\Temp\nm2FA3.tmp 
+   Creating library bin\IrrGeometryDesign.lib and object bin\IrrGeometryDesign.exp
+	mt.exe -nologo -manifest "D:\Desktop\work\IrrGeometryDesign-20261015\build\qt-check\obj\IrrGeometryDesign.intermediate.manifest" -outputresource:bin\IrrGeometryDesign.exe;1

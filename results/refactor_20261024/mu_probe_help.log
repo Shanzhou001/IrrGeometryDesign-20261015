@@ -1,0 +1,6 @@
+usage: mu_properties_test.py [-h] [--exe EXE] [--out OUT]
+
+options:
+  -h, --help  show this help message and exit
+  --exe EXE
+  --out OUT

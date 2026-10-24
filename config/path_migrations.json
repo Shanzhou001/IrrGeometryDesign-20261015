@@ -439,7 +439,24 @@
     "results/review_20261024_v4/final/figures/index.html": "figures/research/v4/index.html",
     "results/review_20261024_v4/formal/figures/index.html": "figures/research/v4/index.html",
     "figures/enhanced_20261023/index.html": "figures/legacy/v3/index.html",
-    "figures/revised_20261023/index.html": "figures/legacy/v2/index.html"
+    "figures/revised_20261023/index.html": "figures/legacy/v2/index.html",
+    "IrrGeometryDesign/GeneratedFiles/qrc_datareconstruction.cpp": "build/generated/qrc_datareconstruction.cpp",
+    "IrrGeometryDesign/GeneratedFiles/ui_analyzebinform.h": "build/generated/ui_analyzebinform.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_changecoordinatedlg.h": "build/generated/ui_changecoordinatedlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_datareconstruction.h": "build/generated/ui_datareconstruction.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_draw2dfrm.h": "build/generated/ui_draw2dfrm.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_geometrytemplateparameter.h": "build/generated/ui_geometrytemplateparameter.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_ovtvolumeattributeview.h": "build/generated/ui_ovtvolumeattributeview.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_spssampledlg.h": "build/generated/ui_spssampledlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tcellgridform.h": "build/generated/ui_tcellgridform.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tchangeshowareadlg.h": "build/generated/ui_tchangeshowareadlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tdatawizardform.h": "build/generated/ui_tdatawizardform.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tgeometryimfordlg.h": "build/generated/ui_tgeometryimfordlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tqfdividedlg.h": "build/generated/ui_tqfdividedlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_trealovtdlg.h": "build/generated/ui_trealovtdlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_trosedividedlg.h": "build/generated/ui_trosedividedlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tspsdlg.h": "build/generated/ui_tspsdlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tspsform.h": "build/generated/ui_tspsform.h"
   },
   "python_modules": {
     "convert_rraw_to_engine_csv": "research.data.convert_rraw_to_engine_csv",
@@ -825,7 +842,7 @@
   "rewritten_references": {
     "README.md": {
       "before_sha256": "c12461a7c38713741ca99cf4d16151d2f0dbaaf2c20c95826742f2c1c1aad2cb",
-      "after_sha256": "6082dfd4370808843d41dde997933d05ca916cc6550e1b941037399d0b78dd57",
+      "after_sha256": "59a47a7dade9614e553bf3e53be38895d3bbf90730e3605a6be5cdad1a7c6e7c",
       "reason": "source/module/image reference relocation only"
     },
     "docs/ALGORITHM_REVIEW.md": {
@@ -855,12 +872,12 @@
     },
     "docs/REVIEW_REPORT_20261024.md": {
       "before_sha256": "742f1a8d5eb912b25d0af90955d08bad957c5bd0984b90d0ae9362a50578ba7f",
-      "after_sha256": "0ef27805575df8365e5d4bc7b216d9d850329e64fb438d3feba178806a344f70",
+      "after_sha256": "ba88981b894eeebb883e008e8a268463c5fd965876a38ea2c90261323f26ce1a",
       "reason": "source/module/image reference relocation only"
     },
     "docs/VALIDATION_REPORT.md": {
       "before_sha256": "9cef539140b5c3cbfe229d4260a4f8b611538ba3b37b674419b52b75f716e134",
-      "after_sha256": "1fba6548d95b3493bb496a543db9e62a4c637c595bae046ef134999790acd9ea",
+      "after_sha256": "c9c1a48b93c160379c110e25d2c7fa39c0bd3e9f4bb99820b26c38172a37f0e6",
       "reason": "source/module/image reference relocation only"
     },
     "docs/archive/PROJECT_PROGRESS_physical_psf_v3_20261024.md": {
@@ -905,13 +922,32 @@
     },
     "docs/AUDIT_ISSUES.md": {
       "before_sha256": "9285beead5aac8eafd591afcfe849145c17ae0806d85a9153525cd223eeee63b",
-      "after_sha256": "851130afbec11660d4c8e965b65fea4925b57afc3992d0ea18f40606426e3286",
+      "after_sha256": "98cd6a4741cf3085c34028533e9bdc4c1860145715d84d45ae0c832158b469b2",
       "reason": "source/module/image reference relocation only"
     },
     "docs/PROJECT_PROGRESS_20261024.md": {
       "before_sha256": "5b27b74ff9d6d084b1089a9aafa04f3d3603f9f188a1dcd5bf12f016cd7db985",
-      "after_sha256": "e144b3a3e90193a2cd644e70e61056bb8e5696e7bc3b05609b62f22c2752eb40",
+      "after_sha256": "f5f0ba133c464f189c0f5d59643140f4364819927cef5361f55ae7758a56cbee",
       "reason": "source/module/image reference relocation only"
     }
+  },
+  "regenerated_build_files": {
+    "IrrGeometryDesign/GeneratedFiles/qrc_datareconstruction.cpp": "build/generated/qrc_datareconstruction.cpp",
+    "IrrGeometryDesign/GeneratedFiles/ui_analyzebinform.h": "build/generated/ui_analyzebinform.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_changecoordinatedlg.h": "build/generated/ui_changecoordinatedlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_datareconstruction.h": "build/generated/ui_datareconstruction.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_draw2dfrm.h": "build/generated/ui_draw2dfrm.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_geometrytemplateparameter.h": "build/generated/ui_geometrytemplateparameter.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_ovtvolumeattributeview.h": "build/generated/ui_ovtvolumeattributeview.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_spssampledlg.h": "build/generated/ui_spssampledlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tcellgridform.h": "build/generated/ui_tcellgridform.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tchangeshowareadlg.h": "build/generated/ui_tchangeshowareadlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tdatawizardform.h": "build/generated/ui_tdatawizardform.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tgeometryimfordlg.h": "build/generated/ui_tgeometryimfordlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tqfdividedlg.h": "build/generated/ui_tqfdividedlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_trealovtdlg.h": "build/generated/ui_trealovtdlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_trosedividedlg.h": "build/generated/ui_trosedividedlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tspsdlg.h": "build/generated/ui_tspsdlg.h",
+    "IrrGeometryDesign/GeneratedFiles/ui_tspsform.h": "build/generated/ui_tspsform.h"
   }
 }

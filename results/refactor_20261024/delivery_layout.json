@@ -1,0 +1,240 @@
+{
+  "passed": true,
+  "code": {
+    "imported_modules": 41,
+    "dependency_graph": {
+      "research.analysis.ablation_stats": [],
+      "research.analysis.legacy_figures": [
+        "research.common.figures",
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.analysis.make_audit_reports": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.tabular"
+      ],
+      "research.analysis.render_audit_figures": [
+        "research.analysis.summarize_audit_v5",
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.tabular"
+      ],
+      "research.analysis.review_diagnostics": [
+        "research.common.figures",
+        "research.common.paths",
+        "research.data.convert_rraw_to_engine_csv",
+        "research.experiments.review_studies"
+      ],
+      "research.analysis.summarize_audit_v5": [
+        "research.analysis.ablation_stats",
+        "research.common.figures",
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.tabular"
+      ],
+      "research.analysis.summarize_review": [
+        "research.analysis.ablation_stats",
+        "research.analysis.review_diagnostics",
+        "research.common.figures",
+        "research.experiments.review_studies"
+      ],
+      "research.common.archives": [
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.common.figures": [
+        "research.common.paths"
+      ],
+      "research.common.hashing": [],
+      "research.common.paths": [],
+      "research.common.processes": [],
+      "research.common.tabular": [],
+      "research.data.audit_real_gather": [
+        "research.common.paths",
+        "research.data.convert_rraw_to_engine_csv",
+        "research.data.make_59x256"
+      ],
+      "research.data.audit_segy_bytes": [],
+      "research.data.convert_rraw_to_engine_csv": [],
+      "research.data.make_59x256": [
+        "research.data.convert_rraw_to_engine_csv"
+      ],
+      "research.experiments.audit_joint_studies": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.processes",
+        "research.common.tabular",
+        "research.data.convert_rraw_to_engine_csv",
+        "research.data.make_59x256",
+        "research.experiments.review_studies",
+        "research.validation.audit_numerics"
+      ],
+      "research.experiments.compare_masks": [
+        "research.common.paths",
+        "research.common.processes"
+      ],
+      "research.experiments.review_studies": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.processes",
+        "research.common.tabular",
+        "research.data.convert_rraw_to_engine_csv",
+        "research.data.make_59x256"
+      ],
+      "research.experiments.review_window_study": [
+        "research.common.paths",
+        "research.data.convert_rraw_to_engine_csv",
+        "research.experiments.review_studies"
+      ],
+      "research.experiments.run_revised_studies": [
+        "research.analysis.ablation_stats",
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.processes"
+      ],
+      "research.maintenance.audit_change_annotations": [
+        "research.common.paths"
+      ],
+      "research.maintenance.finalize_audit_delivery": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.validation.layout"
+      ],
+      "research.maintenance.freeze_audit_runtime": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.processes"
+      ],
+      "research.pipeline": [
+        "research.analysis.legacy_figures",
+        "research.analysis.render_audit_figures",
+        "research.analysis.review_diagnostics",
+        "research.analysis.summarize_review",
+        "research.common.figures",
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.processes",
+        "research.common.tabular"
+      ],
+      "research.validation.archives": [
+        "research.common.archives",
+        "research.common.hashing",
+        "research.common.paths",
+        "research.validation.verify_audit_summary",
+        "research.validation.verify_audit_v5",
+        "research.validation.verify_review_results"
+      ],
+      "research.validation.audit_numerics": [
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.validation.audit_preprocessing_isolation": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.data.make_59x256",
+        "research.experiments.audit_joint_studies"
+      ],
+      "research.validation.audit_projection": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.experiments.audit_joint_studies"
+      ],
+      "research.validation.layout": [
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.validation.mu_properties_test": [
+        "research.common.paths"
+      ],
+      "research.validation.pipeline_smoke": [
+        "research.common.paths",
+        "research.common.tabular",
+        "research.experiments.audit_joint_studies",
+        "research.experiments.review_studies",
+        "research.validation.audit_numerics"
+      ],
+      "research.validation.replay_audit_science": [
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.validation.run_audit_checks": [
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.validation.run_fdct_probe": [
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.validation.run_legacy_codec_checks": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.processes"
+      ],
+      "research.validation.verify_audit_summary": [
+        "research.common.hashing",
+        "research.common.paths",
+        "research.common.tabular"
+      ],
+      "research.validation.verify_audit_v5": [
+        "research.common.hashing",
+        "research.common.paths"
+      ],
+      "research.validation.verify_review_results": [
+        "research.common.paths"
+      ],
+      "research.validation.verify_revised_results": [
+        "research.common.paths"
+      ]
+    },
+    "acyclic": true,
+    "native_include_files": 121,
+    "qt_resource_aliases": [
+      "Resources/AAVR.png",
+      "Resources/ADIS.png",
+      "Resources/AMAX.png",
+      "Resources/AMIN.png",
+      "Resources/ATOL.png",
+      "Resources/AzimuthNonfor.png",
+      "Resources/CSQF.png",
+      "Resources/GeometryAT.png",
+      "Resources/OAVR.png",
+      "Resources/ODIS.png",
+      "Resources/OMAX.png",
+      "Resources/OMIN.png",
+      "Resources/OTOL.png",
+      "Resources/OVTPT.png",
+      "Resources/OVTVL.png",
+      "Resources/Offset_Nonuniform.png",
+      "Resources/Surveyinfos.png",
+      "Resources/azimuthVStraces.PNG",
+      "Resources/binfold.png",
+      "Resources/editshot.png",
+      "Resources/filesave.png",
+      "Resources/foldVSBINS.PNG",
+      "Resources/foot_factor.png",
+      "Resources/griding.png",
+      "Resources/mouse_zoom.png",
+      "Resources/newsps.png",
+      "Resources/offsetVSfold-bins.PNG",
+      "Resources/offsetVStraces.PNG",
+      "Resources/refresh.png",
+      "Resources/rose.PNG"
+    ]
+  },
+  "scientific_source_equivalence": {
+    "compared_files": 16,
+    "same_except_include_paths_and_line_endings": true
+  },
+  "references": {
+    "local_links": 66,
+    "missing": 0
+  },
+  "figures": {
+    "total_images": 81,
+    "source_assets": 30,
+    "generated_once": 51,
+    "images_outside_figures": 0,
+    "duplicate_hashes": 0
+  }
+}

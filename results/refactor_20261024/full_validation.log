@@ -1,0 +1,51 @@
+START regression
+END regression 0
+START qmake_build
+END qmake_build 0
+START legacy_pipeline
+END legacy_pipeline 0
+START numeric
+END numeric 0
+START projection
+END projection 0
+START fdct
+END fdct 0
+START legacy_safety
+END legacy_safety 0
+START smoke
+END smoke 0
+START replay
+END replay 0
+START revised_20261023
+END revised_20261023 0
+START enhanced_20261023
+END enhanced_20261023 0
+START archives
+END archives 0
+['01_v4_search', '02_common_budget', '03_v4_nested_real', '04_common_H_recovery', '05_v4_weight_tradeoff', '06_real_windows_and_failure', '07_band_sensitivity', '08_v4_convergence', '09_v4_geometry_pareto', '10_real_failure_waveforms']
+START legacy_0
+END legacy_0 0
+START legacy_1
+END legacy_1 0
+START legacy_2
+END legacy_2 0
+START legacy_3
+END legacy_3 0
+START legacy_4
+END legacy_4 0
+START legacy_5
+END legacy_5 0
+START legacy_6
+END legacy_6 0
+START legacy_7
+END legacy_7 0
+START legacy_8
+END legacy_8 0
+START gui_screenshots
+END gui_screenshots 0
+START gui_survey
+END gui_survey 0
+Generated 51 PNGs once; source assets 30
+START layout
+END layout 0
+PASS D:\Desktop\work\IrrGeometryDesign-20261015\results\refactor_20261024\full_validation

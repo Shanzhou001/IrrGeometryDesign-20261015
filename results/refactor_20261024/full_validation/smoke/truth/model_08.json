@@ -1,0 +1,28 @@
+{
+  "model": "model_08",
+  "family": "faulted",
+  "structure": 0,
+  "noise": 0.01,
+  "seed": 65108,
+  "events": [
+    {
+      "t0": 0.22,
+      "dip": 3.5e-05,
+      "throw": 0.025,
+      "frequency": 22
+    },
+    {
+      "t0": 0.46,
+      "dip": -3.5e-05,
+      "throw": 0.025,
+      "frequency": 25
+    },
+    {
+      "t0": 0.7,
+      "dip": 3.5e-05,
+      "throw": 0.025,
+      "frequency": 28
+    }
+  ],
+  "truth_sha256": "b98d454393cc89636ebc2febd61a8b52bc99c92669dff52714433596afd3448c"
+}

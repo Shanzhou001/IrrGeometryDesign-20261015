@@ -1,0 +1,27 @@
+[
+  {
+    "path": "figures/enhanced_20261023/index.html",
+    "sha256": "d5c32ccf0a26dfd879143b03eaea9a1ba5c3ed0f14be7b3c5976da59d18dae34",
+    "reason": "obsolete gallery; canonical gallery replaces it"
+  },
+  {
+    "path": "figures/enhanced_20261023/validation/index.html",
+    "sha256": "d5c32ccf0a26dfd879143b03eaea9a1ba5c3ed0f14be7b3c5976da59d18dae34",
+    "reason": "obsolete gallery; canonical gallery replaces it"
+  },
+  {
+    "path": "figures/enhanced_20261023_smoke/index.html",
+    "sha256": "d5c32ccf0a26dfd879143b03eaea9a1ba5c3ed0f14be7b3c5976da59d18dae34",
+    "reason": "obsolete gallery; canonical gallery replaces it"
+  },
+  {
+    "path": "figures/revised_20261023/index.html",
+    "sha256": "858fe2f9a12b01bd03de12601e9c34f87099315ff0ddd197f54b31c533869bf5",
+    "reason": "obsolete gallery; canonical gallery replaces it"
+  },
+  {
+    "path": "figures/revised_20261023_smoke/index.html",
+    "sha256": "858fe2f9a12b01bd03de12601e9c34f87099315ff0ddd197f54b31c533869bf5",
+    "reason": "obsolete gallery; canonical gallery replaces it"
+  }
+]

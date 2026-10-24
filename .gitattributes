@@ -11,6 +11,7 @@ build/legacy/** -text
 build/qt/** -text
 figures/** -text
 results/refactor_20261024/** -text
+results/validation/** -text
 third_party/curvelet/** -text
 third_party/qcustomplot/** -text
 third_party/legacy-libs/** -text

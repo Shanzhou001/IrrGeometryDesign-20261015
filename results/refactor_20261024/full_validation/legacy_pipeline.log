@@ -1,0 +1,13 @@
+[run] sampling_suite
+[run] ablation
+[run] statistics
+[run] constraints
+[run] two_dimensional
+[run] mask_builtin
+[run] mask_dipping
+[run] mask_faulted
+[run] real_data_audit
+[run] real_reference
+[run] real_holdout_batch
+[run] real_masks
+[complete] D:\Desktop\work\IrrGeometryDesign-20261015\results\refactor_20261024\full_validation\legacy_pipeline

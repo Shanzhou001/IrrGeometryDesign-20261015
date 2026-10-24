@@ -1,0 +1,23 @@
+['01_v4_search', '02_common_budget', '03_v4_nested_real', '04_common_H_recovery', '05_v4_weight_tradeoff', '06_real_windows_and_failure', '07_band_sensitivity', '08_v4_convergence', '09_v4_geometry_pareto', '10_real_failure_waveforms']
+START legacy_0
+END legacy_0 0
+START legacy_1
+END legacy_1 1
+Traceback (most recent call last):
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\pipeline.py", line 4, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\pipeline.py", line 146, in main
+    render(run);run.module('layout','research.validation.layout','--report',run.out/'layout.json','--figures')
+    ^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\pipeline.py", line 95, in render
+    legacy_records,_=legacy(run.out,run.native)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\analysis\legacy_figures.py", line 105, in render
+    run_native('legacy_' + str(len(replay)),arguments)
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\pipeline.py", line 45, in native
+    self.command(name,[executable(),*args],render)
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\pipeline.py", line 39, in command
+    if result.returncode:raise RuntimeError(name+' failed; see '+str(self.out/(name+'.log')))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: legacy_1 failed; see D:\Desktop\work\IrrGeometryDesign-20261015\results\refactor_20261024\figures_preview\legacy_1.log

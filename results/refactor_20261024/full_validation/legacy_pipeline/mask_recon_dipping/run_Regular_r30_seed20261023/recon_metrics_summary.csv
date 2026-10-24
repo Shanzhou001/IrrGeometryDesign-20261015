@@ -1,0 +1,31 @@
+Metric_Name,Value,Unit,Description
+Mode_Name,Synthetic external model: dipping.csv,Text,Dataset mode
+Spatial_Grid_Dx_m,12.5,m,Physical spacing of the working grid
+Spatial_Grid_Origin_m,-800,m,First physical offset or synthetic coordinate
+Spatial_Grid_Source,DefaultUniformGrid,Text,Coordinate provenance
+Mask_SHA1,0a0e4a4f54c0a11885773858f0a63175757caea6,Hash,Canonical binary mask SHA1
+Mask_Source,External File (Regular_r30_seed20261023.txt),Text,Subsampling mask origin
+Sampling_Ratio,29.69%,Percentage of active receiver traces
+Active_Traces,38,Traces,Number of acquired traces
+Total_Traces,128,Traces,Full grid aperture traces
+Time_Samples,256,Samples,Time axis discrete length
+POCS_Iterations,40,Iterations,Nonlinear curvelet shrinkage and observation projection iterations
+SNR_Zero_Fill,1.53,dB,Baseline 1: Zero-fill unmeasured traces
+SNR_Linear_Interp,16.54,dB,Baseline 2: 1D Spatial linear interpolation
+SNR_POCS_CS,16.06,dB,Compressive sensing POCS recovered SNR (main pipeline)
+SNR_Improvement_vs_Zero,14.54,dB,Net SNR gain over zero fill baseline
+SNR_Imprv_vs_Linear,-0.47,dB,Net SNR gain over linear interp baseline
+SNR_Linear_MissingOnly,15.01,dB,Linear interp SNR on unsampled traces only
+SNR_POCS_MissingOnly,14.54,dB,POCS SNR on unsampled traces only (zero-fill = 0 dB by definition)
+Initialization_Mode,WarmStart (Linear Interpolation),Text,POCS initial solution used by main pipeline
+SNR_POCS_ColdStart,0.00,dB,POCS from zero-fill init (standard POCS reference)
+SNR_POCS_WarmStart,0.00,dB,POCS from linear-interp init
+SNR_WarmGain_over_Cold,0.00,dB,Isolated contribution of warm-start initialization
+SNR_POCS_IterGain_Cold,-1.53,dB,Isolated contribution of POCS iterations from cold start
+SNR_POCS_IterGain_Warm,-16.54,dB,Isolated contribution of POCS iterations from warm start
+RMSE_ColdStart,0.000000,Amplitude,RMSE of cold-start POCS
+RMSE_WarmStart,0.000000,Amplitude,RMSE of warm-start POCS
+RMSE,0.023360,Amplitude,Root mean square error across gather
+Pearson_Correlation,0.9876,Ratio,Linear correlation with the declared reference
+Data_Consistency_Passed,PASSED,Bool,Exact equality on sampled traces
+Runtime_ms,1673.0,ms,Execution wall time

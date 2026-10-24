@@ -1,0 +1,22 @@
+{
+  "original_lines": 5758,
+  "retained_lines": 3048,
+  "translation_units": {
+    "src/native/experiments/sampling_experiments.cpp": {
+      "lines": 837,
+      "body_sha256": "be477969d523645a13d14427430e9fcb910765fce17a62b84c32750e97ac61d9"
+    },
+    "src/native/experiments/geometry_experiments.cpp": {
+      "lines": 949,
+      "body_sha256": "55482f8622568fe8a4b4d5a818ee69a4964d81bf8bbe52858ba08db01cf49bb6"
+    },
+    "src/native/reconstruction/wavefield_experiments.cpp": {
+      "lines": 931,
+      "body_sha256": "0fbd4f5fa0d3af17323ee7fb812eb7461076e7a26068744af99c3d0166cdea35"
+    },
+    "src/native/experiments/workflow.cpp": {
+      "lines": 220,
+      "body_sha256": "9a721819c5a1e1ab51201393f91e0de8e0d2ca234f7cc0d86ea2a0a453e66e83"
+    }
+  }
+}

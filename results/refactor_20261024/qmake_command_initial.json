@@ -1,0 +1,7 @@
+{
+  "command": "cmd /c build/qmake_check.bat",
+  "observed_exit_code": 1,
+  "observed_output": "'build' is not recognized as an internal or external command, operable program or batch file.",
+  "record_source": "Observed tool output. The first log filename was reused by the corrected backslash command; no original elapsed time is claimed.",
+  "corrected_command": "cmd /c build\\qmake_check.bat"
+}

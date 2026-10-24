@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\validation\layout.py", line 126, in <module>
+    args=parser.parse_args();run(args.report.resolve(),args.figures)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\validation\layout.py", line 118, in run
+    if figures:result['figures']=inspect_images()
+                                 ^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\research\validation\layout.py", line 97, in inspect_images
+    assert actual==expected,(sorted(actual-expected),sorted(expected-actual))
+           ^^^^^^^^^^^^^^^^
+AssertionError: (['figures/enhanced_20261023_smoke/00_research_workflow_summary.png', 'figures/enhanced_20261023_smoke/01_sa_convergence_curve.png', 'figures/enhanced_20261023_smoke/02_sampling_benchmark_bars.png', 'figures/enhanced_20261023_smoke/03_cmp_fold_distribution_map.png', 'figures/enhanced_20261023_smoke/04_offset_azimuth_rose_charts.png', 'figures/enhanced_20261023_smoke/05_wavefield_reconstruction_quad.png', 'figures/enhanced_20261023_smoke/06_recon_convergence_trace_comparison.png', 'figures/enhanced_20261023_smoke/mask_builtin/05_wavefield_reconstruction_quad.png', 'figures/enhanced_20261023_smoke/mask_builtin/06_recon_convergence_trace_comparison.png', 'figures/enhanced_20261023_smoke/mask_dipping/05_wavefield_reconstruction_quad.png', 'figures/enhanced_20261023_smoke/mask_dipping/06_recon_convergence_trace_comparison.png', 'figures/enhanced_20261023_smoke/mask_faulted/05_wavefield_reconstruction_quad.png', 'figures/enhanced_20261023_smoke/mask_faulted/06_recon_convergence_trace_comparison.png', 'figures/enhanced_20261023_smoke/real_reference/05_wavefield_reconstruction_quad.png', 'figures/enhanced_20261023_smoke/real_reference/06_recon_convergence_trace_comparison.png', 'figures/revised_20261023_smoke/00_research_workflow_summary.png', 'figures/revised_20261023_smoke/01_sa_convergence_curve.png', 'figures/revised_20261023_smoke/02_sampling_benchmark_bars.png', 'figures/revised_20261023_smoke/03_cmp_fold_distribution_map.png', 'figures/revised_20261023_smoke/04_offset_azimuth_rose_charts.png', 'figures/revised_20261023_smoke/05_wavefield_reconstruction_quad.png', 'figures/revised_20261023_smoke/06_recon_convergence_trace_comparison.png'], [])

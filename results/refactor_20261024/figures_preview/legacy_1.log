@@ -1,0 +1,2 @@
+Qt: Untested Windows version 6.2 detected!
+【波场重构失败】：外部地震数据加载校验失败 - 外部地震数据列维度不符合约定 (第 6 行包含 33 列, 严格期望为 128 列纯道数据或 129 列含时间道数据; 文件: D:\Desktop\work\IrrGeometryDesign-20261015\results\enhanced_20261023\mask_recon_builtin\run_SAOnly_r70_seed20262634\recon_original_gather.csv)

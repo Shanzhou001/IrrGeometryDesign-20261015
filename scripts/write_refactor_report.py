@@ -52,6 +52,13 @@ def write(out):
             ('本地文档链接',f"{layout['references']['local_links']}处存在"),
             ('命令帮助入口',f"{len(layout['cli_help'])}个全部退出0")]
     lines += ['|'+a+'|'+b+'|' for a,b in values]
+    cleanup=out.parent/'cleanup.json';post=out.parent/'after_cleanup_layout.json'
+    if cleanup.exists():
+        cleaned=read(cleanup);assert cleaned['completed']
+        lines += ['',f"交付前已清理{len(cleaned['generated_build_files'])}个旧生成/编译缓存文件，移走{len(cleaned['root_logs'])}个根目录旧构建日志；活动生成文件统一在build目录。清理对象及原哈希见cleanup.json。"]
+    if post.exists():
+        final=read(post);assert final['passed']
+        lines += [f"报告及引用完成后再次检查：{final['references']['local_links']}处本地链接均存在；图片仍为{final['figures']['total_images']}张、重复0、目录外0。"]
     counts=archive['protected_files'];figure=layout['figures']
     lines += ['', '## 图片集中、重新生成及去重','',
               f"当前共{figure['total_images']}张PNG：{figure['generated_once']}张生成图片本次各保存1次，{figure['source_assets']}张Qt静态图标保留原素材。",

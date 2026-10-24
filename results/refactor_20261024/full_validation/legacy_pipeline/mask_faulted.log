@@ -1,0 +1,3 @@
+Qt: Untested Windows version 6.2 detected!
+Mask-reconstruction study: 1 masks per type
+Seven mask types reconstructed, including distinct SAOnly, Hybrid and constrained optima. See mask_recon_study.csv.

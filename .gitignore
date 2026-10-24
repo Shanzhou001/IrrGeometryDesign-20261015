@@ -91,6 +91,11 @@ results/enhanced_20261023/**/*.log
 results/enhanced_20261023_smoke/
 # add by wushanzhou in 2026/10/23
 figures/enhanced_20261023_smoke/
+
+# Completed validation directories are complete evidence archives, including
+# reference/recovered gathers and the standalone probes bound by their manifests.
+!results/refactor_20261024/**
+!results/validation/**
 # add by wushanzhou in 2026/10/23
 results/enhanced_*.log
 # add by wushanzhou in 2026/10/23

@@ -1,0 +1,32 @@
+{
+  "seed": 3102,
+  "noise_std": 0.015,
+  "events": [
+    {
+      "t0": 0.22,
+      "velocity": 1900,
+      "fault_shift": 0.035,
+      "amplitude": 1.0
+    },
+    {
+      "t0": 0.45,
+      "velocity": 2600,
+      "fault_shift": 0.06,
+      "amplitude": 0.8
+    },
+    {
+      "t0": 0.67,
+      "velocity": 3300,
+      "fault_shift": 0.045,
+      "amplitude": 0.6
+    }
+  ],
+  "shape": [
+    256,
+    128
+  ],
+  "dt_s": 0.004,
+  "dx_m": 12.5,
+  "wavelet_hz": 25,
+  "csv_sha256": "968ad066675afe15514be75d314910d76f732dc5fad7b0b6c1bc6c936bcd54a6"
+}
