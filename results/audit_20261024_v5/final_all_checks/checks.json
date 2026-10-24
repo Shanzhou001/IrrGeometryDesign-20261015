@@ -1,0 +1,58 @@
+[
+  {
+    "name": "release_build",
+    "command": [
+      "cmd",
+      "/c",
+      "build_release.bat"
+    ],
+    "exit_code": 0,
+    "seconds": 2.5998349000001326
+  },
+  {
+    "name": "debug_build",
+    "command": [
+      "cmd",
+      "/c",
+      "build_debug.bat"
+    ],
+    "exit_code": 0,
+    "seconds": 2.907388000006904
+  },
+  {
+    "name": "python",
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tools",
+      "-p",
+      "test_*.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "seconds": 6.455771399996593
+  },
+  {
+    "name": "release_regression",
+    "command": [
+      "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+      "--test"
+    ],
+    "exit_code": 0,
+    "seconds": 103.65411070000846,
+    "program_sha256": "5947bacb58c30a3dca40aaa4c272154afbc447e7b0173053b3e5c1340298d30a"
+  },
+  {
+    "name": "debug_regression",
+    "command": [
+      "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Debug\\IrrGeometryDesign.exe",
+      "--test"
+    ],
+    "exit_code": 0,
+    "seconds": 168.79832509999687,
+    "program_sha256": "50a84feda650266bb6c6eb9038c1316d6257111c0f1fba5e2077305296d48bfc"
+  }
+]

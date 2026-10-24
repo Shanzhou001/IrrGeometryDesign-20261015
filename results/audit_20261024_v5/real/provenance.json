@@ -1,0 +1,110 @@
+{
+  "profile": "RRAW_IEEE_LE_UNCONFIRMED",
+  "source_sha256": "ddcb311b2406af17cf375b570b3eb8ea7ca2d81cdeb002f972e6d668cd7b2bc2",
+  "offset_units": "header-declared metres; geometry conflicts unresolved",
+  "amplitude_units": "unknown raw units",
+  "source_sample_rate_hz": 125.0,
+  "cdp_order": [
+    237,
+    238,
+    239,
+    240,
+    241,
+    237,
+    238,
+    239,
+    240,
+    241,
+    238,
+    239,
+    240,
+    237,
+    238,
+    239,
+    240,
+    238,
+    239,
+    240,
+    238,
+    239,
+    240,
+    241,
+    238,
+    239,
+    240,
+    241,
+    237,
+    238,
+    239,
+    238,
+    239,
+    240,
+    237,
+    238,
+    239,
+    240,
+    237,
+    238,
+    239,
+    240,
+    241,
+    237,
+    238,
+    239,
+    240,
+    241,
+    238,
+    239,
+    240,
+    241,
+    237,
+    238,
+    239,
+    240,
+    238,
+    239,
+    240
+  ],
+  "windows": [
+    {
+      "name": "native_full",
+      "dt_s": 0.008,
+      "time_end_s": 1.992,
+      "shape": [
+        250,
+        59
+      ],
+      "sha256": "5952fb6ad9c14ff7881c0a342743f722a17a3fe629d58bd85bb7a4bb7dc42cc1"
+    },
+    {
+      "name": "native_crop",
+      "dt_s": 0.008,
+      "time_end_s": 1.016,
+      "shape": [
+        128,
+        59
+      ],
+      "sha256": "31b1e090f4044514e67e6a6b251b3fb18b9d482ea0eac0b7240b0dbdfc901622"
+    },
+    {
+      "name": "upsampled_full",
+      "dt_s": 0.004,
+      "time_end_s": 1.992,
+      "shape": [
+        499,
+        59
+      ],
+      "sha256": "ed2386ed414b5a994b4ebeea63212ff38f18e33aa0abb9bec87beafafd5c1366"
+    },
+    {
+      "name": "upsampled_crop",
+      "dt_s": 0.004,
+      "time_end_s": 1.02,
+      "shape": [
+        256,
+        59
+      ],
+      "sha256": "47e28fd8337f2a4a93bd3b0676485693c14dbc4ac25c0fc2a8515e53ebbffc46"
+    }
+  ]
+}

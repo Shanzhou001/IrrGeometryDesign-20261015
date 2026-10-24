@@ -1,0 +1,21 @@
+{
+  "changed_files_since_v5": [
+    "IrrGeometryDesign\\Diagmul.cpp",
+    "IrrGeometryDesign\\spssegy\\segyio.cpp",
+    "IrrGeometryDesign\\spssegy\\segyio.h",
+    "tools\\convert_rraw_to_engine_csv.py",
+    "tools\\make_59x256.py"
+  ],
+  "changes_explained": {
+    "native_legacy": [
+      "Diagmul.cpp",
+      "spssegy/segyio.cpp",
+      "spssegy/segyio.h"
+    ],
+    "python_metadata": [
+      "convert_rraw_to_engine_csv.py",
+      "make_59x256.py"
+    ]
+  },
+  "scientific_native_search_and_reconstruction_sources_unchanged": true
+}

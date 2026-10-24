@@ -1,0 +1,14 @@
+{
+  "command": [
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\x64\\Release\\IrrGeometryDesign.exe",
+    "--review-reconstruct",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\reproduction_raw_scale\\observed.csv",
+    "--mask",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\reproduction_raw_scale\\mask.txt",
+    "--out",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\reproduction_raw_scale\\native",
+    "--iter",
+    "40"
+  ],
+  "exit_code": 1
+}

@@ -1,0 +1,33 @@
+test_complete_layout_and_all_headers (test_audit_v5.ByteAuditTests.test_complete_layout_and_all_headers) ... ok
+test_ibm_analytic_words_and_endian (test_audit_v5.ByteAuditTests.test_ibm_analytic_words_and_endian) ... ok
+test_truncated_layout_fails_and_does_not_overwrite (test_audit_v5.ByteAuditTests.test_truncated_layout_fails_and_does_not_overwrite) ... ok
+test_all_stages_exclude_hidden_and_reproduce (test_audit_v5.NativeAuditTests.test_all_stages_exclude_hidden_and_reproduce) ... ok
+test_candidate_current_and_count_semantics (test_audit_v5.NativeAuditTests.test_candidate_current_and_count_semantics) ... ok
+test_invalid_queries_fail_nonzero (test_audit_v5.NativeAuditTests.test_invalid_queries_fail_nonzero) ... ok
+test_only_one_eligible_mask_stops_without_sampling_empty_set (test_audit_v5.NativeAuditTests.test_only_one_eligible_mask_stops_without_sampling_empty_set) ... FAIL
+test_raw_amplitude_consistency_is_scale_relative (test_audit_v5.NativeAuditTests.test_raw_amplitude_consistency_is_scale_relative) ... FAIL
+test_wall_stop_is_reported (test_audit_v5.NativeAuditTests.test_wall_stop_is_reported) ... ok
+
+======================================================================
+FAIL: test_only_one_eligible_mask_stops_without_sampling_empty_set (test_audit_v5.NativeAuditTests.test_only_one_eligible_mask_stops_without_sampling_empty_set)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\test_audit_v5.py", line 95, in test_only_one_eligible_mask_stops_without_sampling_empty_set
+    rows,_=self.invoke([query('unique',mask,method='Adaptive',eligible=mask,budget=200)])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\test_audit_v5.py", line 51, in invoke
+    self.assertEqual(r.returncode,expected,r.stdout)
+AssertionError: 1 != 0 : b'Qt: Untested Windows version 6.2 detected!\r\naudit_v5 processed 1 queries; success=0\r\n'
+
+======================================================================
+FAIL: test_raw_amplitude_consistency_is_scale_relative (test_audit_v5.NativeAuditTests.test_raw_amplitude_consistency_is_scale_relative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\test_audit_v5.py", line 108, in test_raw_amplitude_consistency_is_scale_relative
+    self.assertEqual(r.returncode,0,r.stdout)
+AssertionError: 1 != 0 : b'Qt: Untested Windows version 6.2 detected!\r\ninvalid reconstruction configuration, geometry, or projection\r\n'
+
+----------------------------------------------------------------------
+Ran 9 tests in 4.269s
+
+FAILED (failures=2)

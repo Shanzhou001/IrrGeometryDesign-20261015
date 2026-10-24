@@ -1,0 +1,144 @@
+{
+  "source_sha256": {
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\IrrGeometryDesign\\spssegy\\segyio.cpp": "481e683c84903c314588f71ff4c715aa34505e14a91be90b2ff6a6665db6323c",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\IrrGeometryDesign\\spssegy\\segyio.h": "2e0b383ebd1ec908e42661095ba081bb27d82580fed04f8287db566488c8cd63",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\tools\\legacy_codec_regression.cpp": "c230ec11a6bd1a64938f6241a043ca9263fa05402973333c25962677bd03d407",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\tools\\run_legacy_codec_checks.py": "a4d9b8503e7896edded380b8e7fafaf0800833fedaf2d81c8e17564d63009a27"
+  },
+  "results": [
+    {
+      "build": "Release",
+      "case": "ibm_known",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Release\\legacy_codec_tests.exe",
+        "ibm_known"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.09872829999949317
+    },
+    {
+      "build": "Release",
+      "case": "ibm_zero",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Release\\legacy_codec_tests.exe",
+        "ibm_zero"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.07813389999500941
+    },
+    {
+      "build": "Release",
+      "case": "ieee_file",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Release\\legacy_codec_tests.exe",
+        "ieee_file"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.0402652000047965
+    },
+    {
+      "build": "Release",
+      "case": "ibm_file",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Release\\legacy_codec_tests.exe",
+        "ibm_file"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.050584800002980046
+    },
+    {
+      "build": "Release",
+      "case": "bounds",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Release\\legacy_codec_tests.exe",
+        "bounds"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.04384559999743942
+    },
+    {
+      "build": "Release",
+      "case": "lifetime",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Release\\legacy_codec_tests.exe",
+        "lifetime"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.04112780001014471
+    },
+    {
+      "build": "Debug",
+      "case": "ibm_known",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Debug\\legacy_codec_tests.exe",
+        "ibm_known"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.11059699999168515
+    },
+    {
+      "build": "Debug",
+      "case": "ibm_zero",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Debug\\legacy_codec_tests.exe",
+        "ibm_zero"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.0697263999900315
+    },
+    {
+      "build": "Debug",
+      "case": "ieee_file",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Debug\\legacy_codec_tests.exe",
+        "ieee_file"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.05638290000206325
+    },
+    {
+      "build": "Debug",
+      "case": "ibm_file",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Debug\\legacy_codec_tests.exe",
+        "ibm_file"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.043234500000835396
+    },
+    {
+      "build": "Debug",
+      "case": "bounds",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Debug\\legacy_codec_tests.exe",
+        "bounds"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.05451429999084212
+    },
+    {
+      "build": "Debug",
+      "case": "lifetime",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\audit_20261024_v5\\codec_final\\Debug\\legacy_codec_tests.exe",
+        "lifetime"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 0.04253029999381397
+    }
+  ],
+  "expected_broken": false,
+  "all_passed": true
+}

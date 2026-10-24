@@ -1,0 +1,6 @@
+Setting environment for using Microsoft Visual Studio 2008 Beta2 x64 cross tools.
+legacy_codec_regression.cpp
+D:\Desktop\work\IrrGeometryDesign-20261015\tools\legacy_codec_regression.cpp(48) : error C2039: 'read_ok' : is not a member of 'CSegyIO'
+        D:\Desktop\work\IrrGeometryDesign-20261015\IrrGeometryDesign\spssegy/segyio.h(10) : see declaration of 'CSegyIO'
+segyio.cpp
+Generating Code...

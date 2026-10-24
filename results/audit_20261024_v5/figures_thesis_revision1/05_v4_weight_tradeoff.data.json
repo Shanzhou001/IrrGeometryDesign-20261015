@@ -1,0 +1,218 @@
+[
+  {
+    "rate": 0,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.0,
+    "snr": 10.308273880839927,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.1,
+    "snr": 11.031831990039578,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.3,
+    "snr": 11.55423464054979,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.0,
+    "snr": 11.945761441260398,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.1,
+    "snr": 12.120467492584346,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.3,
+    "snr": 12.295276641914931,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.0,
+    "snr": 11.880533147869166,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.1,
+    "snr": 11.789673609200396,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 0,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.3,
+    "snr": 12.982663449795282,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.0,
+    "snr": 12.633495145956868,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.1,
+    "snr": 13.168864396386049,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.3,
+    "snr": 13.645149908649426,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.0,
+    "snr": 13.72525919529911,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.1,
+    "snr": 13.951915812965035,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.3,
+    "snr": 14.130704314471272,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.0,
+    "snr": 13.961963756093319,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.1,
+    "snr": 13.839178800171046,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 1,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.3,
+    "snr": 14.065638344688324,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.0,
+    "snr": 13.72809527982828,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.1,
+    "snr": 12.93300012756592,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.0,
+    "lambda_nn": 0.3,
+    "snr": 13.510179896873119,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.0,
+    "snr": 13.435958678199084,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.1,
+    "snr": 13.470587967290124,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.1,
+    "lambda_nn": 0.3,
+    "snr": 14.05013312283153,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.0,
+    "snr": 13.546648499023389,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.1,
+    "snr": 13.37984827855724,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  },
+  {
+    "rate": 2,
+    "lambda_gap": 0.3,
+    "lambda_nn": 0.3,
+    "snr": 14.381233956190487,
+    "n_models": 6,
+    "n_masks_per_model": 3
+  }
+]

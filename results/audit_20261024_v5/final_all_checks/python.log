@@ -1,0 +1,38 @@
+test_complete_layout_and_all_headers (test_audit_v5.ByteAuditTests.test_complete_layout_and_all_headers) ... ok
+test_ibm_analytic_words_and_endian (test_audit_v5.ByteAuditTests.test_ibm_analytic_words_and_endian) ... ok
+test_truncated_layout_fails_and_does_not_overwrite (test_audit_v5.ByteAuditTests.test_truncated_layout_fails_and_does_not_overwrite) ... ok
+test_all_stages_exclude_hidden_and_reproduce (test_audit_v5.NativeAuditTests.test_all_stages_exclude_hidden_and_reproduce) ... ok
+test_candidate_current_and_count_semantics (test_audit_v5.NativeAuditTests.test_candidate_current_and_count_semantics) ... ok
+test_invalid_queries_fail_nonzero (test_audit_v5.NativeAuditTests.test_invalid_queries_fail_nonzero) ... ok
+test_only_one_eligible_mask_stops_without_sampling_empty_set (test_audit_v5.NativeAuditTests.test_only_one_eligible_mask_stops_without_sampling_empty_set) ... ok
+test_raw_amplitude_consistency_is_scale_relative (test_audit_v5.NativeAuditTests.test_raw_amplitude_consistency_is_scale_relative) ... ok
+test_wall_stop_is_reported (test_audit_v5.NativeAuditTests.test_wall_stop_is_reported) ... ok
+test_binary_change_aborts_before_launch (test_review_science.ReviewScienceTests.test_binary_change_aborts_before_launch) ... ok
+test_cache_reuse_requires_intact_outputs (test_review_science.ReviewScienceTests.test_cache_reuse_requires_intact_outputs) ... ok
+test_calibration_uses_only_validation_targets (test_review_science.ReviewScienceTests.test_calibration_uses_only_validation_targets) ... ok
+test_fractional_masks_are_rejected (test_review_science.ReviewScienceTests.test_fractional_masks_are_rejected) ... ok
+test_physical_interpolation_reads_only_known_columns (test_review_science.ReviewScienceTests.test_physical_interpolation_reads_only_known_columns) ... ok
+test_reject_inconsistent_and_unsupported_sampling_headers (test_review_science.ReviewScienceTests.test_reject_inconsistent_and_unsupported_sampling_headers) ... ok
+test_reject_nonfinite_payload_after_valid_headers (test_review_science.ReviewScienceTests.test_reject_nonfinite_payload_after_valid_headers) ... ok
+test_snr_is_missing_only_and_keeps_negative_values (test_review_science.ReviewScienceTests.test_snr_is_missing_only_and_keeps_negative_values) ... ok
+test_synthetic_realizations_are_deterministic_and_distinct (test_review_science.ReviewScienceTests.test_synthetic_realizations_are_deterministic_and_distinct) ... ok
+test_trace_headers_are_authoritative (test_review_science.ReviewScienceTests.test_trace_headers_are_authoritative) ... ok
+test_validation_selection_is_scale_equivariant (test_review_science.ReviewScienceTests.test_validation_selection_is_scale_equivariant) ... ok
+test_zero_tie_breaker_and_negative_correlation (test_review_science.ReviewScienceTests.test_zero_tie_breaker_and_negative_correlation) ... ok
+test_annotation_preserves_legacy_bytes_and_is_idempotent (test_science_tools.StatisticsTests.test_annotation_preserves_legacy_bytes_and_is_idempotent) ... ok
+test_cache_invalidation_and_missing_outputs (test_science_tools.StatisticsTests.test_cache_invalidation_and_missing_outputs) ... ok
+test_correlation_ranks_include_ties (test_science_tools.StatisticsTests.test_correlation_ranks_include_ties) ... ok
+test_degenerate_paired_differences (test_science_tools.StatisticsTests.test_degenerate_paired_differences) ... ok
+test_float_export_comparison_uses_recorded_precision (test_science_tools.StatisticsTests.test_float_export_comparison_uses_recorded_precision) ... ok
+test_holm (test_science_tools.StatisticsTests.test_holm) ... ok
+test_physical_dictionary_uniform_equivalence_and_gram (test_science_tools.StatisticsTests.test_physical_dictionary_uniform_equivalence_and_gram) ... ok
+test_resampling_uses_physical_offsets (test_science_tools.StatisticsTests.test_resampling_uses_physical_offsets) ... ok
+test_segy_rejects_truncation_and_nonfinite_samples (test_science_tools.StatisticsTests.test_segy_rejects_truncation_and_nonfinite_samples) ... ok
+test_signed_rank_ties_matches_exhaustive_distribution (test_science_tools.StatisticsTests.test_signed_rank_ties_matches_exhaustive_distribution) ... ok
+test_t_cauchy_analytic (test_science_tools.StatisticsTests.test_t_cauchy_analytic) ... ok
+test_t_known_critical_values (test_science_tools.StatisticsTests.test_t_known_critical_values) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 5.921s
+
+OK

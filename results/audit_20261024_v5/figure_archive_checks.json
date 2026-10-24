@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "command": [
+    "C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/finalize_audit_delivery.py",
+    "results/audit_20261024_v5"
+  ],
+  "staged_archive_blobs_checked": 23240,
+  "png_decode_svg_xml_data_json": [
+    {
+      "name": "01_v4_search",
+      "pixels": [
+        2445,
+        1565
+      ],
+      "unchanged_from_prior": true
+    },
+    {
+      "name": "02_common_budget",
+      "pixels": [
+        2445,
+        905
+      ],
+      "unchanged_from_prior": false
+    },
+    {
+      "name": "03_v4_nested_real",
+      "pixels": [
+        2445,
+        905
+      ],
+      "unchanged_from_prior": true
+    },
+    {
+      "name": "04_common_H_recovery",
+      "pixels": [
+        2445,
+        1015
+      ],
+      "unchanged_from_prior": true
+    },
+    {
+      "name": "05_v4_weight_tradeoff",
+      "pixels": [
+        2659,
+        987
+      ],
+      "unchanged_from_prior": true
+    },
+    {
+      "name": "06_real_windows_and_failure",
+      "pixels": [
+        2445,
+        1015
+      ],
+      "unchanged_from_prior": true
+    },
+    {
+      "name": "07_band_sensitivity",
+      "pixels": [
+        2445,
+        905
+      ],
+      "unchanged_from_prior": true
+    },
+    {
+      "name": "08_v4_convergence",
+      "pixels": [
+        2445,
+        905
+      ],
+      "unchanged_from_prior": false
+    },
+    {
+      "name": "09_v4_geometry_pareto",
+      "pixels": [
+        1562,
+        905
+      ],
+      "unchanged_from_prior": true
+    },
+    {
+      "name": "10_real_failure_waveforms",
+      "pixels": [
+        2225,
+        1565
+      ],
+      "unchanged_from_prior": true
+    }
+  ],
+  "visual_review": "All ten groups were viewed during the session; final changed groups 02 and 08 were viewed again. This script checks file integrity, not visual quality."
+}

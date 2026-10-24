@@ -1,0 +1,1 @@
+{"script_sha256": "689578dc4186da6ed1d266a700402fbacc5b48d2ada23da413be0440de7b3b18", "plots": ["01_v4_search", "02_common_budget", "03_v4_nested_real", "04_common_H_recovery", "05_v4_weight_tradeoff", "06_real_windows_and_failure", "07_band_sensitivity"], "search_holm_tests": 42, "joint_holm_tests": 24, "n_model_conditions": 12, "independent_real_sources": 1}

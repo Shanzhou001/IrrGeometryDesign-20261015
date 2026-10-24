@@ -1,0 +1,13 @@
+Qt: Untested Windows version 6.2 detected!
+============================================================
+   [Regression Test Suite] IrrGeometryDesign Scientific QC   
+============================================================
+ [PASS] Test 1: Exact Point Counts & Binary Legality (30%->38, 50%->64, 70%->90)
+ [PASS] Test 2: Regular Decimation Spatial Distribution (i_k = int(k*N/m) & Coverage)
+ [PASS] Test 3: ExpRng Deterministic Seeding & Derived Seed Independence
+ [PASS] Test 4: Multi-run Repeatability & Statistical Aggregation (repeatRuns=3)
+ [PASS] Test 5: SA Monotonic Best Trace & CG Degradation Fallback Protection
+ [PASS] Test 6: Strict Mask File Validation (All 9 Edge Cases & Quad-Field Error Messages)
+ [PASS] Test 7: Wavefield Reconstruction Failure State Propagation (Consistency & IO Checks)
+ [PASS] Test 8: External Seismic CSV Strict Validation & Anti-Silent-Fallback
+ [PASS] Test 9: Real SPS Survey Mode Strict Rejection & File Integrity Audit

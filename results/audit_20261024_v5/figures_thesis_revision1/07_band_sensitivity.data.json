@@ -1,0 +1,170 @@
+[
+  {
+    "domain": "physical",
+    "rate": "0",
+    "profile": "default",
+    "masks": "394",
+    "rho_default": 1.0
+  },
+  {
+    "domain": "physical",
+    "rate": "0",
+    "profile": "half_band",
+    "masks": "394",
+    "rho_default": 0.31974515794703917
+  },
+  {
+    "domain": "physical",
+    "rate": "0",
+    "profile": "wide_band",
+    "masks": "394",
+    "rho_default": 0.2746801598820455
+  },
+  {
+    "domain": "physical",
+    "rate": "0",
+    "profile": "aperture_period",
+    "masks": "394",
+    "rho_default": 0.3671506062774647
+  },
+  {
+    "domain": "physical",
+    "rate": "1",
+    "profile": "default",
+    "masks": "394",
+    "rho_default": 1.0
+  },
+  {
+    "domain": "physical",
+    "rate": "1",
+    "profile": "half_band",
+    "masks": "394",
+    "rho_default": 0.6788060152455938
+  },
+  {
+    "domain": "physical",
+    "rate": "1",
+    "profile": "wide_band",
+    "masks": "394",
+    "rho_default": 0.25975731243559175
+  },
+  {
+    "domain": "physical",
+    "rate": "1",
+    "profile": "aperture_period",
+    "masks": "394",
+    "rho_default": 0.5858672433590533
+  },
+  {
+    "domain": "physical",
+    "rate": "2",
+    "profile": "default",
+    "masks": "388",
+    "rho_default": 0.9999999999999999
+  },
+  {
+    "domain": "physical",
+    "rate": "2",
+    "profile": "half_band",
+    "masks": "388",
+    "rho_default": 0.8738463668735671
+  },
+  {
+    "domain": "physical",
+    "rate": "2",
+    "profile": "wide_band",
+    "masks": "388",
+    "rho_default": 0.3033063608705558
+  },
+  {
+    "domain": "physical",
+    "rate": "2",
+    "profile": "aperture_period",
+    "masks": "388",
+    "rho_default": 0.6919304694326126
+  },
+  {
+    "domain": "uniform",
+    "rate": "0",
+    "profile": "default",
+    "masks": "385",
+    "rho_default": 1.0
+  },
+  {
+    "domain": "uniform",
+    "rate": "0",
+    "profile": "half_band",
+    "masks": "385",
+    "rho_default": -0.09873862242054951
+  },
+  {
+    "domain": "uniform",
+    "rate": "0",
+    "profile": "wide_band",
+    "masks": "385",
+    "rho_default": -0.09873862242054951
+  },
+  {
+    "domain": "uniform",
+    "rate": "0",
+    "profile": "aperture_period",
+    "masks": "385",
+    "rho_default": null
+  },
+  {
+    "domain": "uniform",
+    "rate": "1",
+    "profile": "default",
+    "masks": "396",
+    "rho_default": 1.0
+  },
+  {
+    "domain": "uniform",
+    "rate": "1",
+    "profile": "half_band",
+    "masks": "396",
+    "rho_default": 0.1500364814182938
+  },
+  {
+    "domain": "uniform",
+    "rate": "1",
+    "profile": "wide_band",
+    "masks": "396",
+    "rho_default": 0.1500364814182938
+  },
+  {
+    "domain": "uniform",
+    "rate": "1",
+    "profile": "aperture_period",
+    "masks": "396",
+    "rho_default": null
+  },
+  {
+    "domain": "uniform",
+    "rate": "2",
+    "profile": "default",
+    "masks": "390",
+    "rho_default": 1.0
+  },
+  {
+    "domain": "uniform",
+    "rate": "2",
+    "profile": "half_band",
+    "masks": "390",
+    "rho_default": 0.011209618850921522
+  },
+  {
+    "domain": "uniform",
+    "rate": "2",
+    "profile": "wide_band",
+    "masks": "390",
+    "rho_default": 0.011209618850921522
+  },
+  {
+    "domain": "uniform",
+    "rate": "2",
+    "profile": "aperture_period",
+    "masks": "390",
+    "rho_default": null
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "changed_checkout_rejected": true,
+  "note": "A changed checkout is refused; frozen runtime must be requested explicitly."
+}

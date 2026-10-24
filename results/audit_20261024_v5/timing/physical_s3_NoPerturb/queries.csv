@@ -1,0 +1,2 @@
+id,method,n,m,seed,budget,ok,feasible,mu,objective,max_gap,max_gap_m,nn_cv,evals,attempts,wall_ms,native_clock_ms,status,mask
+physical_s3_NoPerturb,NoPerturb,59,30,20261562,100000,1,1,0.261910319328,0.261910319328,11,468,0.777966499329,609,618,30.0503000021,29,wall_limit,10110110010011110100100100011010011100000000001111011011111

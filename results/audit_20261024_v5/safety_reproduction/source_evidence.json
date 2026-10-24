@@ -1,0 +1,6 @@
+{
+  "source": "IrrGeometryDesign/spssegy/segyio.cpp",
+  "begin": 4113,
+  "end": 4908,
+  "purpose": "exact extracted function; noncanonical IBM zero must terminate"
+}

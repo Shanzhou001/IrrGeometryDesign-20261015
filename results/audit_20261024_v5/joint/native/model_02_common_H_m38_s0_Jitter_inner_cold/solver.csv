@@ -1,0 +1,2 @@
+known_scale,consistency_error,runtime_ms,iterations,threshold_start,threshold_end,scales,angles,warm_start,mask_sha1
+1.0889185667,5.96046447754e-08,1874,40,0.0265,0.0005,4,16,0,fb0d6e014ff4296a2b5b3ce901cc75245ab7a54d

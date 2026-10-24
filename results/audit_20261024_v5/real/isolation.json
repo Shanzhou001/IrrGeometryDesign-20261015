@@ -1,0 +1,11 @@
+{
+  "raw_prediction_max_abs_difference": 0.0,
+  "raw_selection_unchanged": true,
+  "legacy_physical_prediction_max_abs_difference": 0.0001621358289867203,
+  "legacy_selection_same_candidate": true,
+  "legacy_gains": [
+    0.4713187429944867,
+    0.47131874926310946
+  ],
+  "note": "legacy comparison here is unrounded; text export rounding is evaluated separately"
+}

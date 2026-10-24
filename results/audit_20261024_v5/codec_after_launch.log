@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\run_legacy_codec_checks.py", line 47, in <module>
+    p.add_argument('--expect-broken',action='store_true');a=p.parse_args();run(a.out,a.expect_broken)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Desktop\work\IrrGeometryDesign-20261015\tools\run_legacy_codec_checks.py", line 29, in run
+    if r.returncode:raise RuntimeError('codec build failed: '+mode)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: codec build failed: Release
