@@ -33,9 +33,24 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
     const std::vector<double>* x) // add by wushanzhou in 2026/10/24
 { // add by wushanzhou in 2026/10/24
     const clock_t started=clock(); // add by wushanzhou in 2026/10/24
-    if(N>2048 || options.minimumSa<1 || options.stagnationWindow<1 || budget<1 || budget>10000000) // add by wushanzhou in 2026/10/24
+    const double wallStarted=samplingWallMs();
+    if(N>2048 || options.minimumSa<1 || options.stagnationWindow<1 || budget<1 || budget>10000000 ||
+       !search_finite(options.wallLimitMs) || options.wallLimitMs<0) // add by wushanzhou in 2026/10/24
     {out=ConstrainedResult();out.status="invalid_adaptive_options";return false;} // add by wushanzhou in 2026/10/24
-    if(!RunSamplingSearch(N,m,initial,w,seed,1,SEARCH_SA,out,1,1,x))return false; // add by wushanzhou in 2026/10/24
+    if(!options.eligible.empty())
+    {
+        int available=0;
+        if((int)options.eligible.size()!=N || (int)initial.size()!=N)return false;
+        for(int j=0;j<N;j++)
+        {
+            if((options.eligible[j]!=0 && options.eligible[j]!=1) || (initial[j] && !options.eligible[j]))return false;
+            available+=options.eligible[j];
+        }
+        if(available<m)return false;
+    }
+    if(!RunSamplingSearch(N,m,initial,w,seed,1,SEARCH_SA,out,1,1,x,
+        options.eligible.empty()?NULL:&options.eligible))return false; // add by wushanzhou in 2026/10/24
+    for(int j=0;j<N;j++)if(out.mask[j] && !options.eligible.empty() && !options.eligible[j])return false;
     // Precomputation time is included; every complete candidate objective is counted. // add by wushanzhou in 2026/10/24
     CachedSamplingObjective objective(N,m,x); // add by wushanzhou in 2026/10/24
     std::vector<int> cur=out.mask; // add by wushanzhou in 2026/10/24
@@ -43,14 +58,21 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
     int phase=1,phaseEvals=0,stagnant=0,localFailures=0; // add by wushanzhou in 2026/10/24
     bool perturb=false; // add by wushanzhou in 2026/10/24
     out.phaseTrace.push_back(0); // add by wushanzhou in 2026/10/24
+    out.acceptedTrace.push_back(out.objective);out.temperatureTrace.push_back(0);
+    out.wallTraceMs.push_back(samplingWallMs()-wallStarted);
+    if(out.status=="single_feasible_mask")
+    {out.runtimeWallMs=samplingWallMs()-wallStarted;return true;}
     exprng::seed(seed); // add by wushanzhou in 2026/10/24
     const long long attemptLimit=(long long)budget*100; // add by wushanzhou in 2026/10/24
     long long attempts=0; // add by wushanzhou in 2026/10/24
-    while(out.evals<budget && attempts++<attemptLimit) // add by wushanzhou in 2026/10/24
+    while(out.evals<budget && attempts<attemptLimit) // add by wushanzhou in 2026/10/24
     { // add by wushanzhou in 2026/10/24
+        if(options.wallLimitMs>0 && samplingWallMs()-wallStarted>=options.wallLimitMs)break;
+        attempts++;
         std::vector<int> candidate=phase==2?out.mask:cur; // add by wushanzhou in 2026/10/24
         std::vector<int> ones,zeros; // add by wushanzhou in 2026/10/24
-        for(int j=0;j<N;j++)(candidate[j]?ones:zeros).push_back(j); // add by wushanzhou in 2026/10/24
+        for(int j=0;j<N;j++)if(options.eligible.empty() || options.eligible[j])
+            (candidate[j]?ones:zeros).push_back(j); // add by wushanzhou in 2026/10/24
         const int source=ones[exprng::integer()%ones.size()]; // add by wushanzhou in 2026/10/24
         int target=zeros[exprng::integer()%zeros.size()]; // add by wushanzhou in 2026/10/24
         const int evaluatedPhase=perturb?3:phase; // add by wushanzhou in 2026/10/24
@@ -59,7 +81,7 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
             // Symmetric nearest-empty moves alternate with full exchanges; no free objective screening. // add by wushanzhou in 2026/10/24
             int direction=exprng::integer()%2?1:-1; // add by wushanzhou in 2026/10/24
             target=source+direction; // add by wushanzhou in 2026/10/24
-            while(target>=0 && target<N && candidate[target])target+=direction; // add by wushanzhou in 2026/10/24
+            while(target>=0 && target<N && (candidate[target] || (!options.eligible.empty() && !options.eligible[target])))target+=direction; // add by wushanzhou in 2026/10/24
             if(target<0 || target>=N)continue; // add by wushanzhou in 2026/10/24
             if(!options.mixedNeighborhood && abs(target-source)!=1)continue; // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
@@ -93,6 +115,8 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         else{stagnant++;if(phase==2)localFailures++;} // add by wushanzhou in 2026/10/24
         out.bestTrace.push_back(out.objective);out.currentTrace.push_back(measured.objective); // add by wushanzhou in 2026/10/24
         out.phaseTrace.push_back(evaluatedPhase);perturb=false; // add by wushanzhou in 2026/10/24
+        out.acceptedTrace.push_back((float)current);out.temperatureTrace.push_back(temperature);
+        out.wallTraceMs.push_back(samplingWallMs()-wallStarted);
         if(options.localSearch && phase==1 && // add by wushanzhou in 2026/10/24
            (options.adaptiveSwitch?(phaseEvals>=options.minimumSa && stagnant>=options.stagnationWindow):phaseEvals>=64)) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24
@@ -102,11 +126,13 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         { // add by wushanzhou in 2026/10/24
             if(!options.recycleBudget)break; // add by wushanzhou in 2026/10/24
             // Local stagnation returns remaining budget to SA with a counted two-exchange escape. // add by wushanzhou in 2026/10/24
-            phase=1;phaseEvals=0;stagnant=0;out.switches++;cur=out.mask;current=out.objective;perturb=true; // add by wushanzhou in 2026/10/24
+            phase=1;phaseEvals=0;stagnant=0;out.switches++;cur=out.mask;current=out.objective;perturb=options.perturbation; // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
     } // add by wushanzhou in 2026/10/24
     out.hardConstraintSatisfied=search_gap_ok(out.mask,w,x); // add by wushanzhou in 2026/10/24
     out.runtimeMs=(double)(clock()-started)*1000.0/CLOCKS_PER_SEC; // add by wushanzhou in 2026/10/24
+    out.proposalAttempts=attempts;out.runtimeWallMs=samplingWallMs()-wallStarted;
     out.status=out.evals>=budget?"budget_exhausted":attempts>=attemptLimit?"feasible_proposals_exhausted":"local_stagnation"; // add by wushanzhou in 2026/10/24
+    if(out.evals<budget && options.wallLimitMs>0 && out.runtimeWallMs>=options.wallLimitMs)out.status="wall_limit";
     return out.hardConstraintSatisfied && ValidateSamplingMask(N,m,&out.mask[0]); // add by wushanzhou in 2026/10/24
 } // add by wushanzhou in 2026/10/24

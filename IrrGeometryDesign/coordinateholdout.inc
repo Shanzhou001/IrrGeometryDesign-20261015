@@ -116,5 +116,7 @@ static bool coordinateHoldoutReconstruct(const std::vector<std::vector<float> >&
             if(mask[j]) consistencyError=std::max(consistencyError,fabs((double)reconstructed[i][j]-truth[i][j])); // add by wushanzhou in 2026/10/23
         } // add by wushanzhou in 2026/10/23
     } // add by wushanzhou in 2026/10/23
-    return consistencyError<1e-5; // add by wushanzhou in 2026/10/23
+    // Projection works in knownScale-normalized units. Float output roundoff in
+    // raw amplitude units must be compared with the same normalized tolerance.
+    return consistencyError<1e-5*std::max(1.0,knownScale); // add by wushanzhou in 2026/10/24
 } // add by wushanzhou in 2026/10/23
