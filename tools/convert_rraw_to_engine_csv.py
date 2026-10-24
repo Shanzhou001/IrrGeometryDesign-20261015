@@ -25,7 +25,7 @@ RRAW.SGY 的二进制头 bytes 3225-3226 声明 format code = 1（IBM 浮点）�
 2. 时间轴重采样 8 ms -> 4 ms：250 点线性插值到 256 点，覆盖 0 ~ 1.020 s；
    （原始 2.0 s 记录中 1.02 s 之后的内容被裁掉，依据见 README 第 8 节）
 3. 道数重采样 59 -> 128：沿道方向线性插值（上采样 2.17x）；
-4. 8-70 Hz 带通（余弦斜坡 8-12 Hz / 60-70 Hz，用于压制地滚波与高频噪声）；
+4. 8-70 Hz 固定频带滤波（FFT 分箱上的线性斜坡 8-12 Hz / 60-70 Hz）；
 5. 全局峰值归一化到 max|amp| = 1.0。
 
 用法
@@ -189,10 +189,11 @@ def convert(data, offsets):
 def write_csv(path, mat, meta, offsets):
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", newline="\n") as fh:
-        fh.write("# Real field common-shot gather converted from RRAW.SGY\n")
+        fh.write("# RRAW reference field; common-shot semantics and physical geometry unconfirmed\n")
+        fh.write("# payload_profile=RRAW_IEEE_LE_UNCONFIRMED; declared IBM header conflicts with assumed IEEE-LE\n")
         fh.write("# Source SHA256: %s\n" % meta["sha256"])
         fh.write("# Source: %d traces x %d samples, dt=%d us, declared format=%d "
-                 "(payload is IEEE-LE float32)\n"
+                 "(payload interpreted using unconfirmed IEEE-LE float32 profile)\n"
                  % (meta["ntraces"], meta["ns"], meta["dt_us"], meta["declared_format"]))
         fh.write("# offsets_m=" + ",".join("%.9g" % x for x in np.linspace(offsets[0], offsets[-1], TARGET_NX)) + "\n")  # add by wushanzhou in 2026/10/23
         fh.write("# Offsets (m): %s\n" % ", ".join(str(int(o)) for o in offsets))

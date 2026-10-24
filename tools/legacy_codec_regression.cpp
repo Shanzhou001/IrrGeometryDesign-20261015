@@ -1,10 +1,12 @@
 // Targeted standalone checks for the preserved Qt 4 SEG-Y utility class.
 #include "spssegy/segyio.h"
+#include "DiagMulmatrix.h"
 #include <QFile>
 #include <QByteArray>
 #include <cmath>
 #include <cstring>
 #include <cstdio>
+#include <cstdlib>
 
 static void put16(QByteArray& bytes,int offset,unsigned value)
 {bytes[offset]=(char)(value>>8);bytes[offset+1]=(char)value;}
@@ -25,6 +27,12 @@ int main(int argc,char** argv)
 {
     if(argc!=2)return 2;
     const char* mode=argv[1];CSegyIO io;
+    if(strcmp(mode,"matrix_selection")==0)
+    {
+        int mask[4]={1,1,0,1},values[4]={0,10,20,-7};int* selected=MulMatrix_1D(4,mask,values);
+        bool ok=selected && selected[0]==0 && selected[1]==10 && selected[2]==-7 && values[2]==0;
+        free(selected);return ok?0:1;
+    }
     if(strcmp(mode,"ibm_zero")==0)
     {
         int words[3]={0,0x41000000,(int)0x80000000U},output[3]={1,1,1};

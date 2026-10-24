@@ -17,7 +17,7 @@ make_59x256.py
 
 处理步骤（固定参数，与已提交文件一致）
 --------------------------------------
-1. IEEE-LE float32 解码（该 SEG-Y 头声明 format=1/IBM，但 payload 实为 IEEE-LE）；
+1. 沿用未证实的 IEEE-LE float32 解释（SEG-Y 头声明 format=1/IBM，编码冲突未解决）；
 2. 8 ms -> 4 ms 线性重采样：250 -> 256 点；
 3. 峰值归一化。
 
@@ -64,6 +64,7 @@ def write_csv(path, mat, meta, offsets):  # add by wushanzhou in 2026/10/23
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", newline="\n") as fh:
         fh.write("# Real field gather, ORIGINAL %d traces (NO trace interpolation)\n" % mat.shape[1])
+        fh.write("# payload_profile=RRAW_IEEE_LE_UNCONFIRMED; geometry and amplitude units require provider confirmation\n")
         fh.write("# time 8->4 ms resample only (%d->%d samples); offset-sorted; peak normalized\n"
                  % (meta["ns"], TARGET_NT))
         fh.write("# offsets_m=" + ",".join(str(int(x)) for x in offsets) + "\n")  # add by wushanzhou in 2026/10/23
