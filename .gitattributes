@@ -1,0 +1,2 @@
+# Preserve the exact bytes bound by new audit input/output/runtime manifests.
+results/audit_20261024_v5/** -text

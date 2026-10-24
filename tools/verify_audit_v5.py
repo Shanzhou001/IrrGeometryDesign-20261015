@@ -49,11 +49,12 @@ def snr(truth,prediction,h):
     return float(10*np.log10(energy/max(error,1e-30)))
 
 
-def verify_stage(path):
+def verify_stage(path,runtime=None):
     manifest=json.loads((path/'manifest.json').read_text());assert manifest.get('completed')
     assert manifest['protocol']=='audit_joint_v5'
-    assert digest(manifest['program'])==manifest['executable_sha256']
-    for name,value in manifest['source_sha256'].items():assert digest(ROOT/name)==value,name
+    program=runtime/'bin/IrrGeometryDesign.exe' if runtime else Path(manifest['program'])
+    assert digest(program)==manifest['executable_sha256']
+    for name,value in manifest['source_sha256'].items():assert digest((runtime/'sources' if runtime else ROOT)/name)==value,name
     hashed=0
     for step in manifest['steps'].values():
         assert step['exit_code']==0 and step['outputs']
@@ -128,9 +129,13 @@ def verify_stage(path):
     return checks
 
 
-def verify(root,report):
+def verify(root,report,runtime=None):
     assert not report.exists(),'verification report output already exists'
-    result={'passed':True,'stages':[verify_stage(root/name) for name in ['search','joint','real','timing']]}
+    if runtime:
+        snapshot=json.loads((runtime/'snapshot.json').read_text(encoding='utf-8'))
+        for original,value in snapshot['dependency_sha256'].items():assert digest(runtime/'bin'/Path(original).name)==value
+    result={'passed':True,'verified_runtime':str(runtime) if runtime else 'current checkout',
+            'stages':[verify_stage(root/name,runtime) for name in ['search','joint','real','timing']]}
     baseline=json.loads((root/'baseline_manifest.json').read_text(encoding='utf-8'));count=0
     for name,value in baseline['protected_files'].items():
         assert digest(ROOT/name)==value['sha256'],name;count+=1
@@ -140,4 +145,5 @@ def verify(root,report):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('root',type=Path);p.add_argument('--report',type=Path,required=True)
-    a=p.parse_args();verify(a.root.resolve(),a.report.resolve())
+    p.add_argument('--runtime',type=Path,help='Explicit immutable source/binary snapshot; never silently substitute for a changed checkout')
+    a=p.parse_args();verify(a.root.resolve(),a.report.resolve(),a.runtime.resolve() if a.runtime else None)
