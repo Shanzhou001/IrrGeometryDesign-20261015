@@ -1,2 +1,13 @@
 # Preserve the exact bytes bound by new audit input/output/runtime manifests.
 results/audit_20261024_v5/** -text
+# Preserve migrated source encodings and the bytes bound by new manifests.
+src/native/** -text
+research/** -text
+tests/** -text
+resources/** -text
+scripts/** -text
+build/*.bat -text
+build/legacy/** -text
+build/qt/** -text
+figures/** -text
+results/refactor_20261024/** -text

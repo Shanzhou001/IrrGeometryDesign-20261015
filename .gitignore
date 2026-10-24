@@ -11,6 +11,7 @@
 *.ilk
 *.exp
 *.lib
+!third_party/legacy-libs/*.lib
 *.obj
 *.htm
 BuildLog.htm
@@ -43,6 +44,12 @@ unit_test_sandbox/
 __pycache__/
 *.pyc
 *.pyo
+
+# All generated build products live under build; project definitions stay tracked.
+build/bin/
+build/obj/
+build/generated/
+build/qt-check/
 
 # ---------------------------------------------------------------------------
 # 结果目录：只保留汇总 CSV / 报告 / 掩码，忽略可重跑生成的中间道集

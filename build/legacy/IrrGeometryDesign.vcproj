@@ -1,0 +1,1341 @@
+<?xml version='1.0' encoding='Windows-1252'?>
+<VisualStudioProject ProjectType="Visual C++" Version="9.00" Name="IrrGeometryDesign" ProjectGUID="{AD376B56-DF28-42C4-8DC6-87AA85807C87}" RootNamespace="IrrGeometryDesign" Keyword="Qt4VSv1.0" TargetFrameworkVersion="0">
+  <Platforms>
+    <Platform Name="Win32" />
+    <Platform Name="x64" />
+  </Platforms>
+  <ToolFiles />
+  <Configurations>
+    <Configuration Name="Release|Win32" OutputDirectory="$(SolutionDir)build\bin\$(ConfigurationName)" IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)" ConfigurationType="1">
+      <Tool Name="VCPreBuildEventTool" CommandLine="if not exist &quot;..\generated\$(ConfigurationName)&quot; mkdir &quot;..\generated\$(ConfigurationName)&quot;" />
+      <Tool Name="VCCustomBuildTool" />
+      <Tool Name="VCXMLDataGeneratorTool" />
+      <Tool Name="VCWebServiceProxyGeneratorTool" />
+      <Tool Name="VCMIDLTool" />
+      <Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..\..\src\native\app&quot;;&quot;..\..\src\native\core&quot;;&quot;..\..\src\native\experiments&quot;;&quot;..\..\src\native\geometry&quot;;&quot;..\..\src\native\gui\dialogs&quot;;&quot;..\..\src\native\gui\survey&quot;;&quot;..\..\src\native\gui\views&quot;;&quot;..\..\src\native\io\sps&quot;;&quot;..\..\src\native\optimization&quot;;&quot;..\..\src\native\plotting&quot;;&quot;..\..\src\native\reconstruction&quot;;&quot;..\..\src\native\sampling&quot;;&quot;..\..\third_party\curvelet\Curvelet2d&quot;;&quot;..\..\third_party\curvelet\Curvelet3d&quot;;&quot;..\..\third_party\qcustomplot&quot;;&quot;..\..\third_party\eigen-x64&quot;;&quot;..\generated&quot;;&quot;..\generated\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;" PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,QT_OPENGL_LIB,QT_QT3SUPPORT_LIB,QT3_SUPPORT;QT_DLL" RuntimeLibrary="2" TreatWChar_tAsBuiltInType="false" DebugInformationFormat="0" />
+      <Tool Name="VCManagedResourceCompilerTool" />
+      <Tool Name="VCResourceCompilerTool" />
+      <Tool Name="VCPreLinkEventTool" />
+      <Tool Name="VCLinkerTool" AdditionalDependencies=" qtmain.lib QtCore4.lib QtGui4.lib QtOpenGL4.lib opengl32.lib glu32.lib Qt3Support4.lib comdlg32.lib" OutputFile="$(OutDir)\$(ProjectName).exe" AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\third_party\legacy-libs" GenerateDebugInformation="false" SubSystem="2" />
+      <Tool Name="VCALinkTool" />
+      <Tool Name="VCManifestTool" />
+      <Tool Name="VCXDCMakeTool" />
+      <Tool Name="VCBscMakeTool" />
+      <Tool Name="VCFxCopTool" />
+      <Tool Name="VCAppVerifierTool" />
+      <Tool Name="VCPostBuildEventTool" />
+    </Configuration>
+    <Configuration Name="Release|x64" OutputDirectory="$(SolutionDir)build\bin\$(ConfigurationName)" IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)" ConfigurationType="1">
+      <Tool Name="VCPreBuildEventTool" CommandLine="if not exist &quot;..\generated\$(ConfigurationName)&quot; mkdir &quot;..\generated\$(ConfigurationName)&quot;" />
+      <Tool Name="VCCustomBuildTool" />
+      <Tool Name="VCXMLDataGeneratorTool" />
+      <Tool Name="VCWebServiceProxyGeneratorTool" />
+      <Tool Name="VCMIDLTool" TargetEnvironment="3" />
+      <Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..\..\src\native\app&quot;;&quot;..\..\src\native\core&quot;;&quot;..\..\src\native\experiments&quot;;&quot;..\..\src\native\geometry&quot;;&quot;..\..\src\native\gui\dialogs&quot;;&quot;..\..\src\native\gui\survey&quot;;&quot;..\..\src\native\gui\views&quot;;&quot;..\..\src\native\io\sps&quot;;&quot;..\..\src\native\optimization&quot;;&quot;..\..\src\native\plotting&quot;;&quot;..\..\src\native\reconstruction&quot;;&quot;..\..\src\native\sampling&quot;;&quot;..\..\third_party\curvelet\Curvelet2d&quot;;&quot;..\..\third_party\curvelet\Curvelet3d&quot;;&quot;..\..\third_party\qcustomplot&quot;;&quot;..\..\third_party\eigen-x64&quot;;&quot;..\generated&quot;;&quot;..\generated\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;" PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,QT_CORE_LIB,QT_GUI_LIB,QT_OPENGL_LIB,QT_QT3SUPPORT_LIB,QT3_SUPPORT;QT_DLL" RuntimeLibrary="2" TreatWChar_tAsBuiltInType="false" OpenMP="true" DebugInformationFormat="0" />
+      <Tool Name="VCManagedResourceCompilerTool" />
+      <Tool Name="VCResourceCompilerTool" />
+      <Tool Name="VCPreLinkEventTool" />
+      <Tool Name="VCLinkerTool" AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib QtOpenGL4.lib opengl32.lib glu32.lib Qt3Support4.lib comdlg32.lib fftw.lib fdct_wrapping_param.lib" OutputFile="$(OutDir)\$(ProjectName).exe" AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\third_party\legacy-libs" GenerateDebugInformation="false" SubSystem="2" StackReserveSize="16777216" StackCommitSize="16777216" TargetMachine="17" />
+      <Tool Name="VCALinkTool" />
+      <Tool Name="VCManifestTool" />
+      <Tool Name="VCXDCMakeTool" />
+      <Tool Name="VCBscMakeTool" />
+      <Tool Name="VCFxCopTool" />
+      <Tool Name="VCAppVerifierTool" />
+      <Tool Name="VCPostBuildEventTool" />
+    </Configuration>
+    <Configuration Name="Debug|Win32" OutputDirectory="$(SolutionDir)build\bin\$(ConfigurationName)" IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)" ConfigurationType="1">
+      <Tool Name="VCPreBuildEventTool" CommandLine="if not exist &quot;..\generated\$(ConfigurationName)&quot; mkdir &quot;..\generated\$(ConfigurationName)&quot;" />
+      <Tool Name="VCCustomBuildTool" />
+      <Tool Name="VCXMLDataGeneratorTool" />
+      <Tool Name="VCWebServiceProxyGeneratorTool" />
+      <Tool Name="VCMIDLTool" />
+      <Tool Name="VCCLCompilerTool" Optimization="0" AdditionalIncludeDirectories="&quot;..\..\src\native\app&quot;;&quot;..\..\src\native\core&quot;;&quot;..\..\src\native\experiments&quot;;&quot;..\..\src\native\geometry&quot;;&quot;..\..\src\native\gui\dialogs&quot;;&quot;..\..\src\native\gui\survey&quot;;&quot;..\..\src\native\gui\views&quot;;&quot;..\..\src\native\io\sps&quot;;&quot;..\..\src\native\optimization&quot;;&quot;..\..\src\native\plotting&quot;;&quot;..\..\src\native\reconstruction&quot;;&quot;..\..\src\native\sampling&quot;;&quot;..\..\third_party\curvelet\Curvelet2d&quot;;&quot;..\..\third_party\curvelet\Curvelet3d&quot;;&quot;..\..\third_party\qcustomplot&quot;;&quot;..\..\third_party\eigen-x64&quot;;&quot;..\generated&quot;;&quot;..\generated\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;" PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB,QT_OPENGL_LIB,QT_QT3SUPPORT_LIB,QT3_SUPPORT;QT_DLL" RuntimeLibrary="3" TreatWChar_tAsBuiltInType="false" DebugInformationFormat="3" />
+      <Tool Name="VCManagedResourceCompilerTool" />
+      <Tool Name="VCResourceCompilerTool" />
+      <Tool Name="VCPreLinkEventTool" />
+      <Tool Name="VCLinkerTool" AdditionalDependencies=" qtmaind.lib QtCored4.lib QtGuid4.lib QtOpenGLd4.lib opengl32.lib glu32.lib Qt3Supportd4.lib comdlg32.lib" OutputFile="$(OutDir)\$(ProjectName).exe" AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\third_party\legacy-libs" GenerateDebugInformation="true" SubSystem="2" />
+      <Tool Name="VCALinkTool" />
+      <Tool Name="VCManifestTool" />
+      <Tool Name="VCXDCMakeTool" />
+      <Tool Name="VCBscMakeTool" />
+      <Tool Name="VCFxCopTool" />
+      <Tool Name="VCAppVerifierTool" />
+      <Tool Name="VCPostBuildEventTool" />
+    </Configuration>
+    <Configuration Name="Debug|x64" OutputDirectory="$(SolutionDir)build\bin\$(ConfigurationName)" IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)" ConfigurationType="1">
+      <Tool Name="VCPreBuildEventTool" CommandLine="if not exist &quot;..\generated\$(ConfigurationName)&quot; mkdir &quot;..\generated\$(ConfigurationName)&quot;" />
+      <Tool Name="VCCustomBuildTool" />
+      <Tool Name="VCXMLDataGeneratorTool" />
+      <Tool Name="VCWebServiceProxyGeneratorTool" />
+      <Tool Name="VCMIDLTool" TargetEnvironment="3" />
+      <Tool Name="VCCLCompilerTool" Optimization="0" AdditionalIncludeDirectories="&quot;..\..\src\native\app&quot;;&quot;..\..\src\native\core&quot;;&quot;..\..\src\native\experiments&quot;;&quot;..\..\src\native\geometry&quot;;&quot;..\..\src\native\gui\dialogs&quot;;&quot;..\..\src\native\gui\survey&quot;;&quot;..\..\src\native\gui\views&quot;;&quot;..\..\src\native\io\sps&quot;;&quot;..\..\src\native\optimization&quot;;&quot;..\..\src\native\plotting&quot;;&quot;..\..\src\native\reconstruction&quot;;&quot;..\..\src\native\sampling&quot;;&quot;..\..\third_party\curvelet\Curvelet2d&quot;;&quot;..\..\third_party\curvelet\Curvelet3d&quot;;&quot;..\..\third_party\qcustomplot&quot;;&quot;..\..\third_party\eigen-x64&quot;;&quot;..\generated&quot;;&quot;..\generated\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;" PreprocessorDefinitions="UNICODE,WIN32,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB,QT_OPENGL_LIB,QT_QT3SUPPORT_LIB,QT3_SUPPORT;QT_DLL" RuntimeLibrary="3" TreatWChar_tAsBuiltInType="false" OpenMP="true" DebugInformationFormat="3" />
+      <Tool Name="VCManagedResourceCompilerTool" />
+      <Tool Name="VCResourceCompilerTool" />
+      <Tool Name="VCPreLinkEventTool" />
+      <Tool Name="VCLinkerTool" AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtOpenGLd4.lib opengl32.lib glu32.lib Qt3Supportd4.lib comdlg32.lib fftw.lib fdct_wrapping_param.lib" OutputFile="$(OutDir)\$(ProjectName).exe" AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\third_party\legacy-libs" UACExecutionLevel="0" GenerateDebugInformation="true" SubSystem="2" StackReserveSize="16777216" StackCommitSize="16777216" TargetMachine="17" />
+      <Tool Name="VCALinkTool" />
+      <Tool Name="VCManifestTool" />
+      <Tool Name="VCXDCMakeTool" />
+      <Tool Name="VCBscMakeTool" />
+      <Tool Name="VCFxCopTool" />
+      <Tool Name="VCAppVerifierTool" />
+      <Tool Name="VCPostBuildEventTool" />
+    </Configuration>
+  </Configurations>
+  <References>
+	</References>
+  <Files>
+    <Filter Name="src/native/gui/views">
+      <File RelativePath="..\..\src\native\gui\views\analyzebindoc.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\views\analyzebinview.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\views\colorview.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\views\draw2Dview.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\views\analyzebindoc.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebindoc.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebindoc.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebindoc.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebindoc.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\views\analyzebinview.h">
+			</File>
+      <File RelativePath="..\..\src\native\gui\views\colorview.h">
+			</File>
+      <File RelativePath="..\..\src\native\gui\views\draw2Dview.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/gui/dialogs">
+      <File RelativePath="..\..\src\native\gui\dialogs\analyzebinform.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\changecoordinatedlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\draw2dfrm.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\geometrytemplateparameter.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\ovtvolumeattributeview.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\spssampledlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tchangeshowareadlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tdatawizardform.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tgeometryimfordlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tqfdividedlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\trealovtdlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\trosedividedlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\dialogs\analyzebinform.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebinform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebinform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebinform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing analyzebinform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\changecoordinatedlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing changecoordinatedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing changecoordinatedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing changecoordinatedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing changecoordinatedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\draw2dfrm.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing draw2dfrm.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing draw2dfrm.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing draw2dfrm.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing draw2dfrm.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\geometrytemplateparameter.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing geometrytemplateparameter.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing geometrytemplateparameter.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing geometrytemplateparameter.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing geometrytemplateparameter.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\ovtvolumeattributeview.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing ovtvolumeattributeview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing ovtvolumeattributeview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing ovtvolumeattributeview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing ovtvolumeattributeview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\spssampledlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing spssampledlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing spssampledlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing spssampledlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing spssampledlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tchangeshowareadlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tchangeshowareadlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tchangeshowareadlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tchangeshowareadlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tchangeshowareadlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tdatawizardform.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tdatawizardform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tdatawizardform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tdatawizardform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tdatawizardform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tgeometryimfordlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tgeometryimfordlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tgeometryimfordlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tgeometryimfordlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tgeometryimfordlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tqfdividedlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tqfdividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tqfdividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tqfdividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tqfdividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\trealovtdlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trealovtdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trealovtdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trealovtdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trealovtdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\trosedividedlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trosedividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trosedividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trosedividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing trosedividedlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\analyzebinform.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\changecoordinatedlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\draw2dfrm.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\geometrytemplateparameter.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\ovtvolumeattributeview.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\spssampledlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tchangeshowareadlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tdatawizardform.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tgeometryimfordlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\tqfdividedlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\trealovtdlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\dialogs\trosedividedlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+    </Filter>
+    <Filter Name="src/native/sampling/CurveletMiu.cpp">
+      <File RelativePath="..\..\src\native\sampling\CurveletMiu.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/app/datareconstruction.cpp">
+      <File RelativePath="..\..\src\native\app\datareconstruction.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/sampling/Diagmul.cpp">
+      <File RelativePath="..\..\src\native\sampling\Diagmul.cpp">
+			</File>
+    </Filter>
+    <Filter Name="third_party/curvelet">
+      <File RelativePath="..\..\third_party\curvelet\Curvelet2d\fdct_wrapping.cpp">
+			</File>
+      <File RelativePath="..\..\third_party\curvelet\Curvelet2d\fdct_wrapping.hpp">
+			</File>
+      <File RelativePath="..\..\third_party\curvelet\Curvelet2d\ifdct_wrapping.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/geometry/gAttrAnalyzeParam.cpp">
+      <File RelativePath="..\..\src\native\geometry\gAttrAnalyzeParam.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/gui/survey">
+      <File RelativePath="..\..\src\native\gui\survey\gcellgrid.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\gspsparam.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\gspsview.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\tcellgridform.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\tspsdlg.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\tspsform.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\gcellgrid.h">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\gspsparam.h">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\gspsview.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gspsview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gspsview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gspsview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gspsview.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\survey\gvaluevector.h">
+			</File>
+      <File RelativePath="..\..\src\native\gui\survey\tcellgridform.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tcellgridform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tcellgridform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tcellgridform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tcellgridform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\survey\tspsdlg.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsdlg.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\survey\tspsform.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing tspsform.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\survey\tcellgridform.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\survey\tspsdlg.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\gui\survey\tspsform.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+    </Filter>
+    <Filter Name="src/native/io/sps">
+      <File RelativePath="..\..\src\native\io\sps\gcmpset.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gproject.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\grlineset.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gsegyfilescanner.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gshotset.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gslineset.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gspsscanner.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\segyio.cpp">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gcmpset.h">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gproject.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gproject.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gproject.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gproject.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing gproject.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\src\native\io\sps\grlineset.h">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gsegyfilescanner.h">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gshotset.h">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gslineset.h">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\gspsscanner.h">
+			</File>
+      <File RelativePath="..\..\src\native\io\sps\segyio.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gmath.cpp">
+      <File RelativePath="..\..\src\native\core\gmath.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gmatrix3d.cpp">
+      <File RelativePath="..\..\src\native\core\gmatrix3d.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gpoint3d.cpp">
+      <File RelativePath="..\..\src\native\core\gpoint3d.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gquaternion3d.cpp">
+      <File RelativePath="..\..\src\native\core\gquaternion3d.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/grotation3d.cpp">
+      <File RelativePath="..\..\src\native\core\grotation3d.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gutils.cpp">
+      <File RelativePath="..\..\src\native\core\gutils.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gvector3d.cpp">
+      <File RelativePath="..\..\src\native\core\gvector3d.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/app/main.cpp">
+      <File RelativePath="..\..\src\native\app\main.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/optimization/OptimizeMiu.cpp">
+      <File RelativePath="..\..\src\native\optimization\OptimizeMiu.cpp">
+			</File>
+    </Filter>
+    <Filter Name="third_party/qcustomplot">
+      <File RelativePath="..\..\third_party\qcustomplot\qcustomplot.cpp">
+			</File>
+      <File RelativePath="..\..\third_party\qcustomplot\qcustomplot.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing qcustomplot.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing qcustomplot.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing qcustomplot.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing qcustomplot.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+    </Filter>
+    <Filter Name="src/native/sampling/Sampling.cpp">
+      <File RelativePath="..\..\src\native\sampling\Sampling.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/ExpRng.cpp">
+      <File RelativePath="..\..\src\native\core\ExpRng.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/sampling/spsmaskbuilder.cpp">
+      <File RelativePath="..\..\src\native\sampling\spsmaskbuilder.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/experiments/geometryexperimentengine.cpp">
+      <File RelativePath="..\..\src\native\experiments\geometryexperimentengine.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/geometry/spsloadcal.cpp">
+      <File RelativePath="..\..\src\native\geometry\spsloadcal.cpp">
+			</File>
+    </Filter>
+    <Filter Name="src/native/experiments/sampling_experiments.cpp">
+      <File RelativePath="..\..\src\native\experiments\sampling_experiments.cpp" />
+    </Filter>
+    <Filter Name="src/native/experiments/geometry_experiments.cpp">
+      <File RelativePath="..\..\src\native\experiments\geometry_experiments.cpp" />
+    </Filter>
+    <Filter Name="src/native/reconstruction/wavefield_experiments.cpp">
+      <File RelativePath="..\..\src\native\reconstruction\wavefield_experiments.cpp" />
+    </Filter>
+    <Filter Name="src/native/experiments/workflow.cpp">
+      <File RelativePath="..\..\src\native\experiments\workflow.cpp" />
+    </Filter>
+    <Filter Name="src/native/tests/engine_regression.cpp">
+      <File RelativePath="..\..\src\native\tests\engine_regression.cpp" />
+    </Filter>
+    <Filter Name="src/native/reconstruction/coordinateholdout.cpp">
+      <File RelativePath="..\..\src\native\reconstruction\coordinateholdout.cpp" />
+    </Filter>
+    <Filter Name="src/native/experiments/samplingstudies.cpp">
+      <File RelativePath="..\..\src\native\experiments\samplingstudies.cpp" />
+    </Filter>
+    <Filter Name="src/native/experiments/reviewexperiments.cpp">
+      <File RelativePath="..\..\src\native\experiments\reviewexperiments.cpp" />
+    </Filter>
+    <Filter Name="src/native/experiments/auditqueries.cpp">
+      <File RelativePath="..\..\src\native\experiments\auditqueries.cpp" />
+    </Filter>
+    <Filter Name="src/native/sampling/CalculateMiu.h">
+      <File RelativePath="..\..\src\native\sampling\CalculateMiu.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/app/datareconstruction.h">
+      <File RelativePath="..\..\src\native\app\datareconstruction.h">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing datareconstruction.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing datareconstruction.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing datareconstruction.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Moc'ing datareconstruction.h..." CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\moc.exe" Outputs="..\generated\$(ConfigurationName)\moc_$(InputName).cpp" />
+        </FileConfiguration>
+      </File>
+    </Filter>
+    <Filter Name="src/native/sampling/DiagMulmatrix.h">
+      <File RelativePath="..\..\src\native\sampling\DiagMulmatrix.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/geometry/gAttrAnalyzeParam.h">
+      <File RelativePath="..\..\src\native\geometry\gAttrAnalyzeParam.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gmath.h">
+      <File RelativePath="..\..\src\native\core\gmath.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gmatrix3d.h">
+      <File RelativePath="..\..\src\native\core\gmatrix3d.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gpoint3d.h">
+      <File RelativePath="..\..\src\native\core\gpoint3d.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gptrvector.h">
+      <File RelativePath="..\..\src\native\core\gptrvector.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gquaternion3d.h">
+      <File RelativePath="..\..\src\native\core\gquaternion3d.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/grotation3d.h">
+      <File RelativePath="..\..\src\native\core\grotation3d.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gutils.h">
+      <File RelativePath="..\..\src\native\core\gutils.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gvaluevector.h">
+      <File RelativePath="..\..\src\native\core\gvaluevector.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/gvector3d.h">
+      <File RelativePath="..\..\src\native\core\gvector3d.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/optimization/OptimizeMiu.h">
+      <File RelativePath="..\..\src\native\optimization\OptimizeMiu.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/sampling/sample.h">
+      <File RelativePath="..\..\src\native\sampling\sample.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/core/ExpRng.h">
+      <File RelativePath="..\..\src\native\core\ExpRng.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/sampling/spsmaskbuilder.h">
+      <File RelativePath="..\..\src\native\sampling\spsmaskbuilder.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/experiments/geometryexperimentengine.h">
+      <File RelativePath="..\..\src\native\experiments\geometryexperimentengine.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/geometry/spsloadcal.h">
+      <File RelativePath="..\..\src\native\geometry\spsloadcal.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/experiments/experiment_internal.h">
+      <File RelativePath="..\..\src\native\experiments\experiment_internal.h" />
+    </Filter>
+    <Filter Name="src/native/app/datareconstruction.ui">
+      <File RelativePath="..\..\src\native\app\datareconstruction.ui">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Uic'ing $(InputPath)..." CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; &quot;$(InputPath)&quot; -o &quot;..\generated\ui_$(InputName).h&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);$(QTDIR)\bin\uic.exe" Outputs="..\generated\ui_$(InputName).h" />
+        </FileConfiguration>
+      </File>
+    </Filter>
+    <Filter Name="figures/assets">
+      <File RelativePath="..\..\figures\assets\AAVR.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\ADIS.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\AMAX.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\AMIN.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\ATOL.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\AzimuthNonfor.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\azimuthVStraces.PNG">
+			</File>
+      <File RelativePath="..\..\figures\assets\binfold.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\CSQF.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\editshot.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\filesave.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\foldVSBINS.PNG">
+			</File>
+      <File RelativePath="..\..\figures\assets\foot_factor.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\GeometryAT.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\griding.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\mouse_zoom.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\newsps.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\OAVR.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\ODIS.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\Offset_Nonuniform.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\offsetVSfold-bins.PNG">
+			</File>
+      <File RelativePath="..\..\figures\assets\offsetVStraces.PNG">
+			</File>
+      <File RelativePath="..\..\figures\assets\OMAX.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\OMIN.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\OTOL.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\OVTPT.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\OVTVL.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\refresh.png">
+			</File>
+      <File RelativePath="..\..\figures\assets\rose.PNG">
+			</File>
+      <File RelativePath="..\..\figures\assets\Surveyinfos.png">
+			</File>
+    </Filter>
+    <Filter Name="resources/qt">
+      <File RelativePath="..\..\resources\qt\datareconstruction.qrc">
+        <FileConfiguration Name="Release|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Rcc'ing datareconstruction.qrc..." CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name datareconstruction -no-compress &quot;$(InputPath)&quot; -o &quot;..\generated\qrc_datareconstruction.cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);..\..\figures\assets\AAVR.png;..\..\figures\assets\ADIS.png;..\..\figures\assets\AMAX.png;..\..\figures\assets\AMIN.png;..\..\figures\assets\ATOL.png;..\..\figures\assets\AzimuthNonfor.png;..\..\figures\assets\CSQF.png;..\..\figures\assets\GeometryAT.png;..\..\figures\assets\OAVR.png;..\..\figures\assets\ODIS.png;..\..\figures\assets\OMAX.png;..\..\figures\assets\OMIN.png;..\..\figures\assets\OTOL.png;..\..\figures\assets\OVTPT.png;..\..\figures\assets\OVTVL.png;..\..\figures\assets\Offset_Nonuniform.png;..\..\figures\assets\Surveyinfos.png;..\..\figures\assets\azimuthVStraces.PNG;..\..\figures\assets\binfold.png;..\..\figures\assets\editshot.png;..\..\figures\assets\filesave.png;..\..\figures\assets\foldVSBINS.PNG;..\..\figures\assets\foot_factor.png;..\..\figures\assets\griding.png;..\..\figures\assets\mouse_zoom.png;..\..\figures\assets\newsps.png;..\..\figures\assets\offsetVSfold-bins.PNG;..\..\figures\assets\offsetVStraces.PNG;..\..\figures\assets\refresh.png;..\..\figures\assets\rose.PNG" Outputs="..\generated\qrc_datareconstruction.cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64">
+          <Tool Name="VCCustomBuildTool" Description="Rcc'ing datareconstruction.qrc..." CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name datareconstruction -no-compress &quot;$(InputPath)&quot; -o &quot;..\generated\qrc_datareconstruction.cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);..\..\figures\assets\AAVR.png;..\..\figures\assets\ADIS.png;..\..\figures\assets\AMAX.png;..\..\figures\assets\AMIN.png;..\..\figures\assets\ATOL.png;..\..\figures\assets\AzimuthNonfor.png;..\..\figures\assets\CSQF.png;..\..\figures\assets\GeometryAT.png;..\..\figures\assets\OAVR.png;..\..\figures\assets\ODIS.png;..\..\figures\assets\OMAX.png;..\..\figures\assets\OMIN.png;..\..\figures\assets\OTOL.png;..\..\figures\assets\OVTPT.png;..\..\figures\assets\OVTVL.png;..\..\figures\assets\Offset_Nonuniform.png;..\..\figures\assets\Surveyinfos.png;..\..\figures\assets\azimuthVStraces.PNG;..\..\figures\assets\binfold.png;..\..\figures\assets\editshot.png;..\..\figures\assets\filesave.png;..\..\figures\assets\foldVSBINS.PNG;..\..\figures\assets\foot_factor.png;..\..\figures\assets\griding.png;..\..\figures\assets\mouse_zoom.png;..\..\figures\assets\newsps.png;..\..\figures\assets\offsetVSfold-bins.PNG;..\..\figures\assets\offsetVStraces.PNG;..\..\figures\assets\refresh.png;..\..\figures\assets\rose.PNG" Outputs="..\generated\qrc_datareconstruction.cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|Win32">
+          <Tool Name="VCCustomBuildTool" Description="Rcc'ing datareconstruction.qrc..." CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name datareconstruction -no-compress &quot;$(InputPath)&quot; -o &quot;..\generated\qrc_datareconstruction.cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);..\..\figures\assets\AAVR.png;..\..\figures\assets\ADIS.png;..\..\figures\assets\AMAX.png;..\..\figures\assets\AMIN.png;..\..\figures\assets\ATOL.png;..\..\figures\assets\AzimuthNonfor.png;..\..\figures\assets\CSQF.png;..\..\figures\assets\GeometryAT.png;..\..\figures\assets\OAVR.png;..\..\figures\assets\ODIS.png;..\..\figures\assets\OMAX.png;..\..\figures\assets\OMIN.png;..\..\figures\assets\OTOL.png;..\..\figures\assets\OVTPT.png;..\..\figures\assets\OVTVL.png;..\..\figures\assets\Offset_Nonuniform.png;..\..\figures\assets\Surveyinfos.png;..\..\figures\assets\azimuthVStraces.PNG;..\..\figures\assets\binfold.png;..\..\figures\assets\editshot.png;..\..\figures\assets\filesave.png;..\..\figures\assets\foldVSBINS.PNG;..\..\figures\assets\foot_factor.png;..\..\figures\assets\griding.png;..\..\figures\assets\mouse_zoom.png;..\..\figures\assets\newsps.png;..\..\figures\assets\offsetVSfold-bins.PNG;..\..\figures\assets\offsetVStraces.PNG;..\..\figures\assets\refresh.png;..\..\figures\assets\rose.PNG" Outputs="..\generated\qrc_datareconstruction.cpp" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64">
+          <Tool Name="VCCustomBuildTool" Description="Rcc'ing datareconstruction.qrc..." CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name datareconstruction -no-compress &quot;$(InputPath)&quot; -o &quot;..\generated\qrc_datareconstruction.cpp&quot;&#13;&#10;" AdditionalDependencies="$(InputPath);..\..\figures\assets\AAVR.png;..\..\figures\assets\ADIS.png;..\..\figures\assets\AMAX.png;..\..\figures\assets\AMIN.png;..\..\figures\assets\ATOL.png;..\..\figures\assets\AzimuthNonfor.png;..\..\figures\assets\CSQF.png;..\..\figures\assets\GeometryAT.png;..\..\figures\assets\OAVR.png;..\..\figures\assets\ODIS.png;..\..\figures\assets\OMAX.png;..\..\figures\assets\OMIN.png;..\..\figures\assets\OTOL.png;..\..\figures\assets\OVTPT.png;..\..\figures\assets\OVTVL.png;..\..\figures\assets\Offset_Nonuniform.png;..\..\figures\assets\Surveyinfos.png;..\..\figures\assets\azimuthVStraces.PNG;..\..\figures\assets\binfold.png;..\..\figures\assets\editshot.png;..\..\figures\assets\filesave.png;..\..\figures\assets\foldVSBINS.PNG;..\..\figures\assets\foot_factor.png;..\..\figures\assets\griding.png;..\..\figures\assets\mouse_zoom.png;..\..\figures\assets\newsps.png;..\..\figures\assets\offsetVSfold-bins.PNG;..\..\figures\assets\offsetVStraces.PNG;..\..\figures\assets\refresh.png;..\..\figures\assets\rose.PNG" Outputs="..\generated\qrc_datareconstruction.cpp" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\..\resources\qt\DataReconstruction_zh.ts">
+			</File>
+    </Filter>
+    <Filter Name="build/generated">
+      <File RelativePath="..\generated\Release\moc_analyzebindoc.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_analyzebindoc.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_analyzebinform.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_analyzebinform.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_changecoordinatedlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_changecoordinatedlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_datareconstruction.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_datareconstruction.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_draw2dfrm.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_draw2dfrm.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_geometrytemplateparameter.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_geometrytemplateparameter.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_gproject.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_gproject.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_gspsview.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_gspsview.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_ovtvolumeattributeview.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_ovtvolumeattributeview.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_qcustomplot.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_qcustomplot.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_spssampledlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_spssampledlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_tcellgridform.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_tcellgridform.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_tchangeshowareadlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_tchangeshowareadlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_tdatawizardform.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_tdatawizardform.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_tgeometryimfordlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_tgeometryimfordlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_tqfdividedlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_tqfdividedlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_trealovtdlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_trealovtdlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_trosedividedlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_trosedividedlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_tspsdlg.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_tspsdlg.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Release\moc_tspsform.cpp">
+        <FileConfiguration Name="Debug|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Debug|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\Debug\moc_tspsform.cpp">
+        <FileConfiguration Name="Release|Win32" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+        <FileConfiguration Name="Release|x64" ExcludedFromBuild="true">
+          <Tool Name="VCCLCompilerTool" />
+        </FileConfiguration>
+      </File>
+      <File RelativePath="..\generated\qrc_datareconstruction.cpp">
+			</File>
+      <File RelativePath="..\generated\ui_analyzebinform.h">
+			</File>
+      <File RelativePath="..\generated\ui_changecoordinatedlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_datareconstruction.h">
+			</File>
+      <File RelativePath="..\generated\ui_draw2dfrm.h">
+			</File>
+      <File RelativePath="..\generated\ui_geometrytemplateparameter.h">
+			</File>
+      <File RelativePath="..\generated\ui_ovtvolumeattributeview.h">
+			</File>
+      <File RelativePath="..\generated\ui_spssampledlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_tcellgridform.h">
+			</File>
+      <File RelativePath="..\generated\ui_tchangeshowareadlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_tdatawizardform.h">
+			</File>
+      <File RelativePath="..\generated\ui_tgeometryimfordlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_tqfdividedlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_trealovtdlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_trosedividedlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_tspsdlg.h">
+			</File>
+      <File RelativePath="..\generated\ui_tspsform.h">
+			</File>
+    </Filter>
+    <Filter Name="src/native/optimization/adaptivesearch.inc">
+      <File RelativePath="..\..\src\native\optimization\adaptivesearch.inc" />
+    </Filter>
+    <Filter Name="src/native/tests/reviewregression.inc">
+      <File RelativePath="..\..\src\native\tests\reviewregression.inc" />
+    </Filter>
+    <Filter Name="src/native/tests/scienceregression.inc">
+      <File RelativePath="..\..\src\native\tests\scienceregression.inc" />
+    </Filter>
+    <Filter Name="src/native/plotting/figurepaths.h">
+      <File RelativePath="..\..\src\native\plotting\figurepaths.h" />
+    </Filter>
+    <Filter Name="src/native/cli">
+      <File RelativePath="..\..\src\native\cli\commandline.cpp" />
+      <File RelativePath="..\..\src\native\cli\commandline.h" />
+    </Filter>
+    <Filter Name="src/native/gui">
+      <File RelativePath="..\..\src\native\gui\capture.cpp" />
+      <File RelativePath="..\..\src\native\gui\capture.h" />
+    </Filter>
+  </Files>
+  <Globals>
+    <Global Name="MocDir" Value=".\GeneratedFiles\$(ConfigurationName)" />
+    <Global Name="QtVersion" Value="qt4.6.4" />
+    <Global Name="QtVersion x64" Value="4.7.4" />
+    <Global Name="RccDir" Value=".\GeneratedFiles" />
+    <Global Name="UicDir" Value=".\GeneratedFiles" />
+  </Globals>
+</VisualStudioProject>
