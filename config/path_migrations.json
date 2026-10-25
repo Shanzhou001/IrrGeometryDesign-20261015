@@ -492,7 +492,7 @@
   },
   "images": {
     "old_paths": 190,
-    "canonical_images": 81,
+    "canonical_images": 85,
     "policy": "PNG only for generated figures; latest v5 thesis and v4 final editions supersede image drafts; exact byte duplicates have one owner; static icons are source assets.",
     "original_revision": "c191e6c5",
     "aliases": {
@@ -801,7 +801,11 @@
       "figures/legacy/baseline/05_wavefield_reconstruction_quad.png": "figures/05_wavefield_reconstruction_quad.png",
       "figures/legacy/baseline/06_recon_convergence_trace_comparison.png": "figures/06_recon_convergence_trace_comparison.png",
       "figures/legacy/real/05_wavefield_reconstruction_quad.png": "figures/real/05_wavefield_reconstruction_quad.png",
-      "figures/legacy/real/06_recon_convergence_trace_comparison.png": "figures/real/06_recon_convergence_trace_comparison.png"
+      "figures/legacy/real/06_recon_convergence_trace_comparison.png": "figures/real/06_recon_convergence_trace_comparison.png",
+      "figures/paper/search.png": "research.analysis.paper_figures",
+      "figures/paper/budget.png": "research.analysis.paper_figures",
+      "figures/paper/recovery.png": "research.analysis.paper_figures",
+      "figures/paper/real_windows.png": "research.analysis.paper_figures"
     },
     "deduplication": "figure kind and actual source hashes; old equal PNG bytes can be stale copies"
   },

@@ -1,0 +1,24 @@
+note: Running TeX ...
+Fontconfig error: Cannot load default config file: No such file: (null)
+note: downloading balance.sty
+warning: tgrs_trace_selection.tex:216: Underfull \vbox (badness 1448) has occurred while \output is active
+warning: tgrs_trace_selection.tex:225: Underfull \hbox (badness 1490) in paragraph at lines 224--225
+warning: tgrs_trace_selection.tex:229: Underfull \vbox (badness 1082) has occurred while \output is active
+warning: tgrs_trace_selection.tex:238: Underfull \hbox (badness 1895) in paragraph at lines 237--238
+warning: tgrs_trace_selection.tex:244: Underfull \hbox (badness 10000) in paragraph at lines 243--244
+warning: tgrs_trace_selection.tex:244: Underfull \hbox (badness 2799) in paragraph at lines 243--244
+warning: tgrs_trace_selection.tex:247: Underfull \hbox (badness 1859) in paragraph at lines 246--247
+note: Rerunning TeX because "tgrs_trace_selection.aux" changed ...
+warning: tgrs_trace_selection.tex:216: Underfull \vbox (badness 1448) has occurred while \output is active
+warning: tgrs_trace_selection.tex:225: Underfull \hbox (badness 1490) in paragraph at lines 224--225
+warning: tgrs_trace_selection.tex:229: Underfull \vbox (badness 1082) has occurred while \output is active
+warning: tgrs_trace_selection.tex:238: Underfull \hbox (badness 1895) in paragraph at lines 237--238
+warning: tgrs_trace_selection.tex:244: Underfull \hbox (badness 10000) in paragraph at lines 243--244
+warning: tgrs_trace_selection.tex:244: Underfull \hbox (badness 2799) in paragraph at lines 243--244
+warning: tgrs_trace_selection.tex:247: Underfull \hbox (badness 1859) in paragraph at lines 246--247
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184403679430Z\tgrs_trace_selection.pdf` (563.62109375 KiB)
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184403679430Z\tgrs_trace_selection.aux` (7.447265625 KiB)
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184403679430Z\tgrs_trace_selection.log` (16.7421875 KiB)
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184403679430Z\tgrs_trace_selection.out` (3.771484375 KiB)

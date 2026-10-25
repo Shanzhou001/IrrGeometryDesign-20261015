@@ -7,7 +7,7 @@
     "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
   },
   "source_mode": "archived exported matrices",
-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
+  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\real_field",
   "replay_max_abs_prediction_difference": 0.0,
   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
   "hidden_snr_db": 4.182381809335205,

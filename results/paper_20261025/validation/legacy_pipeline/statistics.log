@@ -1,0 +1,18 @@
+rate   A            vs B               meanA    meanB    p_holm    delta    sig
+0.30   SA+Local     vs Restart      0.214501 0.246454         1  -1.0000     NO
+0.30   SA+Local     vs SA-only      0.214501 0.212487         1   0.1111     NO
+0.30   SA+Local     vs Local-only   0.214501 0.235772         1  -1.0000     NO
+0.30   SA+Local     vs JitterInit   0.214501 0.321227         1  -1.0000     NO
+0.50   SA+Local     vs Restart      0.138867 0.176266         1  -1.0000     NO
+0.50   SA+Local     vs SA-only      0.138867 0.133970         1   1.0000     NO
+0.50   SA+Local     vs Local-only   0.138867 0.151663         1  -1.0000     NO
+0.50   SA+Local     vs JitterInit   0.138867 0.210219         1  -1.0000     NO
+0.70   SA+Local     vs Restart      0.090755 0.164099         1  -1.0000     NO
+0.70   SA+Local     vs SA-only      0.090755 0.088613         1   0.3333     NO
+0.70   SA+Local     vs Local-only   0.090755 0.103279         1  -1.0000     NO
+0.70   SA+Local     vs JitterInit   0.090755 0.235447         1  -1.0000     NO
+
+written: D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\validation\legacy_pipeline\ablation_multiseed\ablation_stats.csv
+
+[Method note] Wilcoxon signed-rank (exact conditional sign distribution for n<=60, ties included) + Holm-Bonferroni;
+              paired t-test given as reference only (normality assumed).

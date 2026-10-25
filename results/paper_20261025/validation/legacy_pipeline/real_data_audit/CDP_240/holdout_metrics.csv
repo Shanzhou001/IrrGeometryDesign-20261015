@@ -1,0 +1,22 @@
+Metric_Name,Value,Unit,Description
+Validation_Type,Hold-out on measured traces,Text,SNR computed ONLY on withheld real traces
+Geometry_Mode,ActualOffsets_LinearObservationProjection,Text,Held-out amplitudes never enter solver input
+Solver_Amplitude_Scale,1,Amplitude,Estimated ONLY from known traces then inverted for evaluation
+Mask_SHA1,ce7afc4c39e9517b3fc5c953e28b4259c3ff67b8,Hash,Canonical binary mask SHA1
+Data_Consistency_Max_Error,5.96046448e-08,Amplitude,Measured on known physical coordinates
+Input_File,CDP_240.csv,Text,Source gather
+Traces_Used,14,Traces,Real traces in the working grid
+Traces_Kept,9,Traces,Traces given to the solver as known
+Traces_HeldOut,5,Traces,Measured traces used as truth only
+Time_Samples,256,Samples,Samples per trace
+POCS_Iterations,40,Iterations,POCS iterations
+Random_Seed,20261023,Seed,Seed selecting kept traces
+SNR_Zero_Fill_HeldOut,0.00,dB,On held-out traces
+SNR_Linear_HeldOut,-2.61,dB,On held-out traces
+SNR_POCS_HeldOut,-1.77,dB,On held-out traces
+Gain_POCS_vs_Linear,0.85,dB,Held-out gain
+Gain_POCS_vs_Zero,-1.77,dB,Held-out gain
+RMSE_Linear,0.220473,Amplitude,Held-out RMSE
+RMSE_POCS,0.200011,Amplitude,Held-out RMSE
+Input_SHA1,7d5fc3a57c239c1ce88a524e1ed111f2debd843f,Hash,SHA1 of the input gather CSV
+Runtime_ms,371.0,ms,Wall time for this hold-out run

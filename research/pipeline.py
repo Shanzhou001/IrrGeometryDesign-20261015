@@ -66,6 +66,7 @@ class Run:
 
 def prepare_image_registry():
     from research.analysis.legacy_figures import plan
+    from research.analysis.paper_figures import FIGURE_IDS
     jobs,aliases=plan();path=ROOT/'config/path_migrations.json';record=json.loads(path.read_text(encoding='utf-8'))
     previous=set(record['images']['owners'])
     owners={p:old for p,old in record['images']['owners'].items() if not p.startswith('figures/legacy/')}
@@ -73,6 +74,8 @@ def prepare_image_registry():
         destination='figures/'+name
         owner=next(old for old,target in aliases.items() if target==destination and old in record['images']['aliases'])
         owners[destination]=owner
+    for name in FIGURE_IDS:
+        owners['figures/paper/'+name+'.png']='research.analysis.paper_figures'
     record['files'].update(aliases);record['images']['aliases'].update(aliases)
     record['images']['owners']=owners;record['images']['canonical_images']=len(owners)
     record['images']['deduplication']='figure kind and actual source hashes; old equal PNG bytes can be stale copies'
@@ -95,6 +98,7 @@ def render(run):
     from research.analysis.review_diagnostics import plot_real_diagnosis
     from research.analysis.render_audit_figures import run as thesis
     from research.analysis.legacy_figures import render as legacy
+    from research.analysis.paper_figures import render as paper
     from research.common.tabular import rows
     record=prepare_image_registry()
     plt.rcParams.update({'font.family':['Microsoft YaHei','SimSun','DejaVu Sans'],'axes.unicode_minus':False})
@@ -105,6 +109,7 @@ def render(run):
         v4.figures(root,search,state['search'],rows(root/'real_nested.csv'),state['synthetic'])
         plot_real_diagnosis(json.loads((root/'real_diagnosis.json').read_text(encoding='utf-8')))
         legacy_records,_=legacy(run.out,run.native)
+        paper()
         run.native('gui_screenshots',['--screenshot-all'],render=True)
         run.native('gui_survey',['--screenshot-survey'],render=True)
         for p in (FIGURES/'gui').glob('*.png'):

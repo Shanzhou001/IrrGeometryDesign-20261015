@@ -1,0 +1,10 @@
+{
+  "started_utc": "2026-10-24T18:30:53.7289844Z",
+  "command": [
+    "cmd",
+    "/c",
+    "build\\qmake_check.bat"
+  ],
+  "exit_code": 0,
+  "seconds": 2.5965094
+}

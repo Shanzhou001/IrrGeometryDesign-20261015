@@ -77,7 +77,10 @@ rev 2 允许 LE 与 pairwise swapped，因此“SEG-Y 标准永远只允许 BE�
 及 128 道 CSV 头中的确定性措辞已改正；新生成 CSV 明示未确认 profile，既有源数据/历史 CSV 字节不改。
 两个转换脚本的 read_segy/convert 函数 AST 与冻结版一致，实际导出的全部数值与原 CSV 逐值相同，
 证据为 `metadata_checks/conversion_metadata_audit.json`。带通原注释“余弦斜坡”也改为实际的 FFT 分箱线性斜坡。
-新转换先绑定原始 SHA-256 并显式记录未确认 profile，不接受其他文件静默套用假设。
+v5 实验入口 `research/experiments/audit_joint_studies.py` 的 `real_raw()` 先核对固定原始 SHA-256，
+不接受其他文件静默套用该实验的假设。旧转换脚本 `convert_rraw_to_engine_csv.py` 和
+`make_59x256.py` 只记录输入 SHA-256，并未按固定源哈希拒绝其他文件；它们的输入布局检查
+不能鉴定或证实样点编码，新输出头仍须显式注明未确认的 profile。
 
 ## 6. 预处理和信息隔离
 

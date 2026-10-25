@@ -125,7 +125,7 @@ def make(root):
            '程序/输入变化后明确拒绝旧指纹；本批只用显式冻结快照复核。当前最终程序另通过930个搜索案例和6个预设预测的逐字节/科学列重放。',
            '', '## 7. 数据、表图及结论适用范围','',
            '全部原生输入、命令、参数、种子、输出及哈希见各 stage 的 manifest.json/journal.jsonl；原始汇总为 search/search.csv、joint/joint.csv、real/real.csv、timing/timing.csv。',
-           '最终10组中文PNG/SVG/data.json位于 figures_thesis/，最终图哈希见 final_figures_manifest.json；初稿也保留。',
+           '当前10组中文PNG及配套data.json统一位于 `figures/research/v5/`；当前图片哈希与来源见 `figures/manifest.json`，该组绘制记录见 `figures/research/v5/render_manifest.json`。原审计图清单 `final_figures_manifest.json` 保留历史含义；旧SVG、草稿及重复图片的迁移前版本由Git历史保存。',
            '当前结果支持预算管理、数学实现一致性和目标失配研究；不支持通用最优、全部机制有效、跨工区适用、真实高保真或成像改善。',
            '独立真实来源、提供方说明、GUI人工走查及异机全重跑仍未完成，见 UNRESOLVED_ISSUES.md。','']
     resultpath=ROOT/'docs/EXPERIMENT_RESULTS.md';resultpath.write_text('\n'.join(text),encoding='utf-8')
@@ -191,7 +191,7 @@ def make(root):
             '```','',
             '完整重跑研究使用audit_joint_studies.py的search/joint/real/timing四阶段，各--out必须是新目录；先冻结协议和匹配程序/源码，计时阶段顺序单独运行。',
             '本地精确快照复核及当前程序重放通过，不等于已经执行干净克隆/异机完整复现。新归档使用局部.gitattributes -text保护CSV/源码快照字节；旧历史行尾变更仍会被哈希拒绝。',
-            '最终图件有独立数据JSON/PNG/SVG及final_figures_manifest；统计模板层分析、初版条件分析和图件草稿全部保留。','']
+            '当前图件集中于figures/research/v5，有独立数据JSON/PNG；当前图片哈希与来源见figures/manifest.json。final_figures_manifest保留原审计图归档含义；统计模板层分析与初版条件分析仍保留，迁移前的SVG和图件草稿由Git历史保存。','']
     validation=ROOT/'docs/VALIDATION_REPORT.md';validation.write_text('\n'.join(report),encoding='utf-8')
     inputs=[analysis/name for name in ['search_means.csv','joint_means.csv','joint_pairs.csv','search_pairs.csv','common_evaluation_pairs.csv','real_means.csv','switch_sensitivity.csv','geometry_recovery_associations.csv','time_limit_means.csv']]
     inputs += [legacy/'real_diagnosis.json',legacy/'real_nested_summary.csv']

@@ -1,0 +1,96 @@
+{
+  "command": [
+    "C:\\Users\\48198\\.cache\\codex-paper-tools\\tectonic.exe",
+    "--keep-logs",
+    "--keep-intermediates",
+    "--outdir",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\paper_20261025\\manuscript_build\\20261024T183709363973Z",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\docs\\paper\\tgrs_trace_selection.tex"
+  ],
+  "exit_code": 0,
+  "cwd": "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\docs\\paper",
+  "git_commit": "8b9ffef2731f2210a8144900f155385d1dba266c",
+  "compiler_sha256": "99ffcfdbf1ebf8bdda9e791942e3d06aedb12463fddc33f07de6f5211c8bf08d",
+  "inputs_sha256": {
+    "docs/paper/tgrs_trace_selection.tex": "911ca00b077c8438c91ac8cee7575508c0a9b63b301ab46a4c010fc24ba5cb83",
+    "docs/paper/build_paper.py": "16dafed2b0cb943afb7b363f85a02040a6bdd01d287c5810651340918effa3df",
+    "research/analysis/paper_figures.py": "04bc52e40934d2db7f34828cb258728d52602a2a805066a7b8a7d5cee5878a26",
+    "results/paper_20261025/evidence/recomputed_statistics.json": "44efffbc98637e3528aad8276d45aaa1f68983cc62681f18ad971d96e5c76c6a",
+    "figures/paper/budget.png": "e7641e306aa6b71d3a184da4e42c86f538ecb6217060b2fc109584a0f4a21f21",
+    "figures/paper/real_windows.png": "65cf4c7a25db2447124cecc43523aa38fee02abc7a52e218a1ed9a5c46ae1b15",
+    "figures/paper/recovery.png": "1228ef1883f4f9f178503f18b6073816409fa9b988655720886eeb5daa4e7489",
+    "figures/paper/search.png": "c4351657172cbdfcbea55e4d8cbaf1c8dc240d5a3c33ba4744f5110854bedd30",
+    "figures/paper/budget.data.json": "131ad31a07ae1c5cd67612eb2ef6ea2bc3b0751bb591f0d85f8482329d6594b9",
+    "figures/paper/real_windows.data.json": "1dec76f4fd38899791af0da40f736ce05cc008649e59d38a9523abe9377da483",
+    "figures/paper/recovery.data.json": "cb292dc78ee3987a87bdf599f4f9dcb227903cf286a5466f08b58fa7e202619d",
+    "figures/paper/search.data.json": "112b2d64eb790b2465abeca1fa6cd654d51253d01bbccb4d34ead682e0bc9746"
+  },
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "timestamp_utc": "20261024T183709363973Z",
+  "passed": true,
+  "pages": 8,
+  "required_pages": 8,
+  "log_errors": [],
+  "page_stats": [
+    {
+      "page": 1,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 5348,
+      "text_spans": 1147
+    },
+    {
+      "page": 2,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 4758,
+      "text_spans": 1476
+    },
+    {
+      "page": 3,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 5442,
+      "text_spans": 1367
+    },
+    {
+      "page": 4,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 6083,
+      "text_spans": 1456
+    },
+    {
+      "page": 5,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 5910,
+      "text_spans": 1459
+    },
+    {
+      "page": 6,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 2793,
+      "text_spans": 654
+    },
+    {
+      "page": 7,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 2819,
+      "text_spans": 648
+    },
+    {
+      "page": 8,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 3525,
+      "text_spans": 700
+    }
+  ],
+  "boundary_errors": [],
+  "references_resolved": true,
+  "image_count": 4,
+  "inputs_unchanged": true
+}

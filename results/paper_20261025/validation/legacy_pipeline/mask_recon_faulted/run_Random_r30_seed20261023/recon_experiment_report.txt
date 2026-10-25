@@ -1,0 +1,53 @@
+====================================================================================
+  Seismic Wavefield Compressive Sensing Reconstruction Research Report
+  Dataset Mode: Synthetic external model: faulted.csv
+  Subsampling Mask: External File (Random_r30_seed20261023.txt)
+  Generated: 2026-10-25 02:33:24
+====================================================================================
+
+[Subsampling Geometry Configuration]
+  Aperture Traces (Nx):      128 (Spatial Interval dx = 12.5 m)
+  Time Samples (Nt):         256 (Sampling dt = 4 ms)
+  Subsampled Channels (m):   38 (29.7% of Full Layout)
+  Unsampled Missing Channels:90 traces to be interpolated/recovered
+
+[Comparative Quantitative Reconstruction Quality Metrics]
+  1. Baseline 1 (Zero-fill Subsampled Gather):        SNR = 1.53 dB (Reference 0.00 dB)
+  2. Baseline 2 (Spatial Linear Interpolation):       SNR = 3.59 dB (Gain: +2.06 dB)
+  3. Compressive Sensing (Curvelet POCS):             SNR = 5.20 dB (Gain: +3.67 dB vs Zero-fill, +1.61 dB vs Linear)
+  4. Full-Field Root Mean Square Error (RMSE):        0.084440
+  5. Pearson Cross-Correlation Coefficient (r):       0.8367
+  5b. Missing-Trace-Only SNR (unsampled traces):      Linear = 2.06 dB, POCS = 3.67 dB (zero-fill = 0.00 dB by definition)
+  6. Measured Traces Data Consistency Equality Check: PASSED (Strict error < 1e-5)
+  7. Reconstruction Execution Time:                   1368.0 ms (40 iterations)
+
+[In-Depth Comparative Analysis: Curvelet Reconstruction vs Baselines]
+  - Observation Summary:
+    Dataset mode: Synthetic external model: faulted.csv
+    Sampling rate: 29.7%, trace spacing dx = 12.5 m
+    Curvelet POCS (warm start) SNR = 5.20 dB
+    vs Zero-Fill baseline (1.53 dB): OUTPERFORMS by +3.67 dB
+    vs Linear Interpolation baseline (3.59 dB): OUTPERFORMS by +1.61 dB
+  - Method Notes (not measured claims):
+    1. Multi-scale & Directional Sparsity in Curvelet Domain:
+       Seismic reflection events exhibit hyperbolic curvature and localized wave fronts. While standard
+       2D Fourier bases disperse curved events across the entire (f, k) plane, discrete curvelet frames
+       provide optimal, highly sparse representations of parabolic wavefronts with minimal coefficients.
+    2. Spatial Linear Interpolation Warm-Start:
+       Initializing the iterative solver with spatial linear interpolation eliminates severe high-frequency
+       harmonic noise and spatial aliasing from raw zero-fill, providing a robust initial trajectory.
+    3. Cosine Annealing Thresholding & Scale-Adaptive Wiener Shrinkage:
+       Smoothly decaying the regularization threshold prevents Gibbs ringing artifacts and preserves weak
+       deep reflection amplitudes while preserving coarse background scales and suppressing noise.
+    4. Strict Observed Trace Consistency Projection:
+       Exact replacement of known channels after each inverse transform guarantees zero distortion on
+       measured physical data (maximum error strictly < 1e-5).
+
+[Scientific Conclusions & Supporting Figures]
+  All run data charts and result figures have been saved to: figures/
+  1. [Figure 05_wavefield_reconstruction_quad.png]:
+     Four-panel comparison displays the declared reference and the actual sampling configuration.
+     Four-panel comparison: reference, 50% subsampled, curvelet POCS reconstruction, and residual.
+  2. [Figure 06_recon_convergence_trace_comparison.png]:
+     The trace records relative iterate changes; a single-trace overlay is descriptive
+     does not establish missing-trace or phase fidelity (r = 0.8367).

@@ -7,7 +7,7 @@
     "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
   },
   "source_mode": "current full-resolution replay; old display export was decimated",
-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
   "replay_max_abs_prediction_difference": 0.0,
   "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
   "hidden_snr_db": 10.993514299990512,

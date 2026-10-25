@@ -1,0 +1,68 @@
+Qt: Untested Windows version 6.2 detected!
+Starting Full Experiment Suite (Benchmark + Attributes + Wavefield CS Reconstruction)...
+Parameters: OutDir='D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\validation\legacy_pipeline\synthetic', RepeatRuns=3, MasterSeed=42
+【全套科研闭环对比试验执行完毕 - 全部成功 (3/3)】
+子试验 1 (多采样率基准对比): 成功 (文件核验: 正常)
+子试验 2 (空间属性质量评估): 成功 (文件核验: 正常)
+子试验 3 (波场压缩感知重构): 成功 (文件核验: 正常)
+
+【多采样率基准对比试验完成】(重复试验: 3 轮, 主随机种子: 42)
+1. 30% 采样率 (m=38/128): 规则相干度=0.8615, SA均值=0.2190 (标准差: 0.0075), 相比规则抽样改善率: 74.58%, 相干度比值衰减: 11.90 dB
+2. 50% 采样率 (m=64/128): 规则相干度=1.0000, SA均值=0.1422 (标准差: 0.0033), 相比规则抽样改善率: 85.78%, 相干度比值衰减: 16.94 dB
+3. 70% 采样率 (m=90/128): 规则相干度=0.3638, SA均值=0.0953 (标准差: 0.0028), 相比规则抽样改善率: 73.80%, 相干度比值衰减: 11.64 dB
+全采样率平均相干度比值衰减: 13.49 dB (明细数据已导出至 D:/Desktop/work/IrrGeometryDesign-20261015/results/paper_20261025/validation/legacy_pipeline/synthetic/01_sampling_benchmark)
+
+【科研成果图件支撑】(全部数据图与结果图集中保存至 D:/Desktop/work/IrrGeometryDesign-20261015/figures/legacy_pipeline 文件夹)：
+  ● 图件 01_sa_convergence_curve.png: SA 当前解/历史最优轨迹（历史最优单调非增）
+  ● 图件 02_sampling_benchmark_bars.png: 三种采样方案 μ 对比柱状图（仅相干度口径）
+----------------------------------------
+【观测系统空间属性评估完成】
+模式: 真实工程测量模式 (Real)
+1. 检波点成本节约率: 0.0%
+2. CMP 覆盖: 29719 面元 (平均覆盖 106.4 次, 变异系数 Cv = 0.551)
+3. 偏移距范围: 1.7m ~ 9324.0m (均值 3875.9m)
+4. 方位角玫瑰图完整度: 100.0% (24/24 扇区)
+属性数据表已导出至:
+D:/Desktop/work/IrrGeometryDesign-20261015/results/paper_20261025/validation/legacy_pipeline/synthetic/../real_sps/attribute_evaluation
+
+【科研成果图件支撑】(全部数据图与结果图集中保存至 D:/Desktop/work/IrrGeometryDesign-20261015/figures/legacy_pipeline 文件夹)：
+  ● 图件 03_cmp_fold_distribution_map.png: CMP面元覆盖次数空间平面热力分布图
+  ● 图件 04_offset_azimuth_rose_charts.png: 炮检距连续性分布直方图与方位角玫瑰图
+----------------------------------------
+【地震波场压缩感知重构试验完成】
+模式: Synthetic Numerical Wavefield (3-Layer Reflection Model + Gaussian White Noise)
+掩码: Benchmark optimized ClassicPSF mask (50%, best across declared runs)
+1. 零值填充基准 SNR: 3.01 dB
+2. 空间线性插值基准 SNR: 9.39 dB
+3. 压缩感知恢复后 SNR: 11.91 dB (相对零填充提升: +8.90 dB, 相对线性插值: 2.52 dB)
+4. 均方根误差 RMSE: 0.04034, 相关系数 r: 0.9673
+5. 观测道数据一致性检验: 严格通过 (误差 < 1e-5)
+重构数据与残差切片已导出至:
+D:/Desktop/work/IrrGeometryDesign-20261015/results/paper_20261025/validation/legacy_pipeline/synthetic/03_wavefield_reconstruction
+
+【科研成果图件支撑】(全部数据图与结果图集中保存至 D:/Desktop/work/IrrGeometryDesign-20261015/figures/legacy_pipeline 文件夹)：
+  ● 图件 05_wavefield_reconstruction_quad.png: 地震波场欠采样与POCS恢复四联剖面 (SNR提升+8.90 dB)
+  ● 图件 06_recon_convergence_trace_comparison.png: POCS残差收敛与抽稀道波形对比细节 (波形相关系数r=0.9673)
+========================================================================
+【全套科研成果图件集中保存与支撑清单】
+本套科研闭环对比试验生成的所有数据图与结果图，均已统一保存至文件夹：
+--> D:/Desktop/work/IrrGeometryDesign-20261015/figures/legacy_pipeline
+
+图件支撑清单与科学结论：
+1. [00_research_workflow_summary.png] 全流程科研闭环综合大看板 (采样-属性-重构总览)
+2. [01_sa_convergence_curve.png] 模拟退火当前解/历史最优收敛轨迹 (历史最优单调非增)
+3. [02_sampling_benchmark_bars.png] 三种采样方案相干度对比柱状图 (Hybrid相干度衰减16.94 dB)
+4. [03_cmp_fold_distribution_map.png] CMP面元空间覆盖次数平面热力图 (展示覆盖次数在二维CMP网格上的连续分布)
+5. [04_offset_azimuth_rose_charts.png] 炮检距连续性分布直方图与方位角玫瑰图 (完整度100.0%)
+6. [05_wavefield_reconstruction_quad.png] 地震波场欠采样与曲波POCS恢复四联剖面 (SNR恢复达11.91 dB，较线性插值提升2.52 dB)
+7. [06_recon_convergence_trace_comparison.png] 曲波POCS残差收敛与抽稀道波形拟合细节 (波形相关系数r=0.9673)
+8. [index.html] 科研成果图件集中浏览画廊 (可直接在网页浏览器中查看)
+========================================================================
+
+
+[Real Survey Spatial QC Diagnostics]
+  Shots: 349, Coordinate BBox: X [679061.6, 682530.7], Y [4146694.0, 4147203.5]
+  Receivers: 9072, Coordinate BBox: X [679735.9, 681891.0], Y [4138298.0, 4150889.8]
+  Traces: Valid = 3162602, Invalid = 0, Zero-Offset = 0
+  Offset Spread: 1.7 m ~ 9324.0 m, Mean = 3875.9 m
+  Live CMP Bins: 29719, Fold Range: 1 ~ 198, Total Folds = 3162602

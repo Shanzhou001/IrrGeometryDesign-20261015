@@ -4,7 +4,7 @@
     "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
   },
   "source_mode": "current deterministic replay; original matrices were not archived",
-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
+  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\real_field",
   "replay_max_abs_prediction_difference": 0.0,
   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
   "hidden_snr_db": 4.182381809335205

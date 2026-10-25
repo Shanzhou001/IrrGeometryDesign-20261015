@@ -2,9 +2,9 @@
   "command": [
     "C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
     "pipeline.py",
-    "all",
+    "figures",
     "--out",
-    "results/refactor_20261024/full_validation"
+    "results/paper_20261025/figures"
   ],
   "image_format": "PNG",
   "duplicates": 0,
@@ -399,6 +399,30 @@
       "kind": "generated",
       "generated_this_pass": 1
     },
+    "figures/paper/budget.png": {
+      "sha256": "e7641e306aa6b71d3a184da4e42c86f538ecb6217060b2fc109584a0f4a21f21",
+      "bytes": 90656,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/paper/real_windows.png": {
+      "sha256": "65cf4c7a25db2447124cecc43523aa38fee02abc7a52e218a1ed9a5c46ae1b15",
+      "bytes": 156226,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/paper/recovery.png": {
+      "sha256": "1228ef1883f4f9f178503f18b6073816409fa9b988655720886eeb5daa4e7489",
+      "bytes": 139159,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
+    "figures/paper/search.png": {
+      "sha256": "c4351657172cbdfcbea55e4d8cbaf1c8dc240d5a3c33ba4744f5110854bedd30",
+      "bytes": 84653,
+      "kind": "generated",
+      "generated_this_pass": 1
+    },
     "figures/research/v4/01_search_comparison.png": {
       "sha256": "d59daa81e9abd288b2396fbadb6c9592745d0a8137f29f61a547016d97354b72",
       "bytes": 308607,
@@ -572,7 +596,7 @@
         "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -592,7 +616,7 @@
         "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -613,7 +637,7 @@
         "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.748282600335736,
@@ -633,7 +657,7 @@
         "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.748282600335736,
@@ -654,7 +678,7 @@
         "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 13.320693419656532,
@@ -674,7 +698,7 @@
         "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 13.320693419656532,
@@ -695,7 +719,7 @@
         "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.993514299990512,
@@ -715,7 +739,7 @@
         "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
       },
       "source_mode": "current full-resolution replay; old display export was decimated",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
       "hidden_snr_db": 10.993514299990512,
@@ -736,7 +760,7 @@
         "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -756,7 +780,7 @@
         "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -817,7 +841,7 @@
         "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -837,7 +861,7 @@
         "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
       "hidden_snr_db": 10.176023349629052,
@@ -858,7 +882,7 @@
         "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -878,7 +902,7 @@
         "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
       },
       "source_mode": "archived exported matrices",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,
@@ -944,7 +968,7 @@
         "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 10.89820382319636
@@ -956,7 +980,7 @@
         "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 10.89820382319636,
@@ -969,7 +993,7 @@
         "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205
@@ -981,7 +1005,7 @@
         "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
       },
       "source_mode": "current deterministic replay; original matrices were not archived",
-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
+      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\real_field",
       "replay_max_abs_prediction_difference": 0.0,
       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
       "hidden_snr_db": 4.182381809335205,

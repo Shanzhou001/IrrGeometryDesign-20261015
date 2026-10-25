@@ -1,0 +1,3 @@
+case,known,evaluation_points,fixed_snr,selected_snr,linear_snr,candidate
+analytic,38,16,19.216981810897867,21.773011453857023,21.773011453857023,linear
+real_unconfirmed,20,7,-0.45930392397056985,0.32795048588486564,-1.015961786935024,cold

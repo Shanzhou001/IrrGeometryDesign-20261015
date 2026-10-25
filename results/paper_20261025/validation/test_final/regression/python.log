@@ -1,0 +1,43 @@
+test_complete_layout_and_all_headers (tests.python.test_audit_v5.ByteAuditTests.test_complete_layout_and_all_headers) ... ok
+test_ibm_analytic_words_and_endian (tests.python.test_audit_v5.ByteAuditTests.test_ibm_analytic_words_and_endian) ... ok
+test_truncated_layout_fails_and_does_not_overwrite (tests.python.test_audit_v5.ByteAuditTests.test_truncated_layout_fails_and_does_not_overwrite) ... ok
+test_all_stages_exclude_hidden_and_reproduce (tests.python.test_audit_v5.NativeAuditTests.test_all_stages_exclude_hidden_and_reproduce) ... ok
+test_candidate_current_and_count_semantics (tests.python.test_audit_v5.NativeAuditTests.test_candidate_current_and_count_semantics) ... ok
+test_invalid_queries_fail_nonzero (tests.python.test_audit_v5.NativeAuditTests.test_invalid_queries_fail_nonzero) ... ok
+test_only_one_eligible_mask_stops_without_sampling_empty_set (tests.python.test_audit_v5.NativeAuditTests.test_only_one_eligible_mask_stops_without_sampling_empty_set) ... ok
+test_raw_amplitude_consistency_is_scale_relative (tests.python.test_audit_v5.NativeAuditTests.test_raw_amplitude_consistency_is_scale_relative) ... ok
+test_wall_stop_is_reported (tests.python.test_audit_v5.NativeAuditTests.test_wall_stop_is_reported) ... ok
+test_image_path_cannot_escape_central_directory (tests.python.test_project_layout.LayoutTests.test_image_path_cannot_escape_central_directory) ... ok
+test_launcher_works_outside_the_repository (tests.python.test_project_layout.LayoutTests.test_launcher_works_outside_the_repository) ... ok
+test_legacy_batch_refuses_existing_output_before_preprocessing (tests.python.test_project_layout.LayoutTests.test_legacy_batch_refuses_existing_output_before_preprocessing) ... ok
+test_old_public_source_paths_have_a_concrete_migration (tests.python.test_project_layout.LayoutTests.test_old_public_source_paths_have_a_concrete_migration) ... ok
+test_two_producers_cannot_save_the_same_image_in_one_pass (tests.python.test_project_layout.LayoutTests.test_two_producers_cannot_save_the_same_image_in_one_pass) ... ok
+test_binary_change_aborts_before_launch (tests.python.test_review_science.ReviewScienceTests.test_binary_change_aborts_before_launch) ... ok
+test_cache_reuse_requires_intact_outputs (tests.python.test_review_science.ReviewScienceTests.test_cache_reuse_requires_intact_outputs) ... ok
+test_calibration_uses_only_validation_targets (tests.python.test_review_science.ReviewScienceTests.test_calibration_uses_only_validation_targets) ... ok
+test_fractional_masks_are_rejected (tests.python.test_review_science.ReviewScienceTests.test_fractional_masks_are_rejected) ... ok
+test_physical_interpolation_reads_only_known_columns (tests.python.test_review_science.ReviewScienceTests.test_physical_interpolation_reads_only_known_columns) ... ok
+test_reject_inconsistent_and_unsupported_sampling_headers (tests.python.test_review_science.ReviewScienceTests.test_reject_inconsistent_and_unsupported_sampling_headers) ... ok
+test_reject_nonfinite_payload_after_valid_headers (tests.python.test_review_science.ReviewScienceTests.test_reject_nonfinite_payload_after_valid_headers) ... ok
+test_snr_is_missing_only_and_keeps_negative_values (tests.python.test_review_science.ReviewScienceTests.test_snr_is_missing_only_and_keeps_negative_values) ... ok
+test_synthetic_realizations_are_deterministic_and_distinct (tests.python.test_review_science.ReviewScienceTests.test_synthetic_realizations_are_deterministic_and_distinct) ... ok
+test_trace_headers_are_authoritative (tests.python.test_review_science.ReviewScienceTests.test_trace_headers_are_authoritative) ... ok
+test_validation_selection_is_scale_equivariant (tests.python.test_review_science.ReviewScienceTests.test_validation_selection_is_scale_equivariant) ... ok
+test_zero_tie_breaker_and_negative_correlation (tests.python.test_review_science.ReviewScienceTests.test_zero_tie_breaker_and_negative_correlation) ... ok
+test_annotation_preserves_legacy_bytes_and_is_idempotent (tests.python.test_science_tools.StatisticsTests.test_annotation_preserves_legacy_bytes_and_is_idempotent) ... ok
+test_cache_invalidation_and_missing_outputs (tests.python.test_science_tools.StatisticsTests.test_cache_invalidation_and_missing_outputs) ... ok
+test_correlation_ranks_include_ties (tests.python.test_science_tools.StatisticsTests.test_correlation_ranks_include_ties) ... ok
+test_degenerate_paired_differences (tests.python.test_science_tools.StatisticsTests.test_degenerate_paired_differences) ... ok
+test_float_export_comparison_uses_recorded_precision (tests.python.test_science_tools.StatisticsTests.test_float_export_comparison_uses_recorded_precision) ... ok
+test_holm (tests.python.test_science_tools.StatisticsTests.test_holm) ... ok
+test_physical_dictionary_uniform_equivalence_and_gram (tests.python.test_science_tools.StatisticsTests.test_physical_dictionary_uniform_equivalence_and_gram) ... ok
+test_resampling_uses_physical_offsets (tests.python.test_science_tools.StatisticsTests.test_resampling_uses_physical_offsets) ... ok
+test_segy_rejects_truncation_and_nonfinite_samples (tests.python.test_science_tools.StatisticsTests.test_segy_rejects_truncation_and_nonfinite_samples) ... ok
+test_signed_rank_ties_matches_exhaustive_distribution (tests.python.test_science_tools.StatisticsTests.test_signed_rank_ties_matches_exhaustive_distribution) ... ok
+test_t_cauchy_analytic (tests.python.test_science_tools.StatisticsTests.test_t_cauchy_analytic) ... ok
+test_t_known_critical_values (tests.python.test_science_tools.StatisticsTests.test_t_known_critical_values) ... ok
+
+----------------------------------------------------------------------
+Ran 38 tests in 6.136s
+
+OK

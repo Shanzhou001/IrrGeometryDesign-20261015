@@ -1,0 +1,491 @@
+{
+  "sources_sha256": {
+    "figures/research/v5/01_v4_search.data.json": "6c565840a4bf96d6847c8b8f52366ace47a8f92f3e207b2e42f1db19108c40f5",
+    "results/audit_20261024_v5/analysis_thesis/search_pairs.csv": "8542ffd41fd83719728b5922f688a1f5e4caa9d3102527af384423fa34521693",
+    "results/audit_20261024_v5/analysis_thesis/common_evaluation_pairs.csv": "5734191e6d12191163530634185593c3759a6bc7f6b9254abb66f671644ffab1",
+    "results/audit_20261024_v5/analysis_thesis/joint_means.csv": "ae089cfe7742433337fe3d6f366cca9e16eb3f1932978061439b7498c788defc",
+    "results/audit_20261024_v5/real/real.csv": "ae5e7cdc74d5ba748d68dd00f50a8125392a0b9efca37d7ef9aa56c4a0445686"
+  },
+  "records": [
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "SAOnly",
+      "rate": 0,
+      "mean": 0.21452834531670004,
+      "ci_low": 0.21178317928694623,
+      "ci_high": 0.21726367386061998,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "SAOnly",
+      "rate": 1,
+      "mean": 0.13690142035490002,
+      "ci_low": 0.13528318149973875,
+      "ci_high": 0.1385100700519625,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "SAOnly",
+      "rate": 2,
+      "mean": 0.08953187912702999,
+      "ci_low": 0.08817821117118313,
+      "ci_high": 0.09082037562505062,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "Hybrid",
+      "rate": 0,
+      "mean": 0.21860754266385,
+      "ci_low": 0.21524817120294626,
+      "ci_high": 0.22217887543140127,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "Hybrid",
+      "rate": 1,
+      "mean": 0.13913863003265,
+      "ci_low": 0.1375088441931888,
+      "ci_high": 0.1409172455967475,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "Hybrid",
+      "rate": 2,
+      "mean": 0.09293246231972499,
+      "ci_low": 0.09126530593260675,
+      "ci_high": 0.09462886199354636,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "SA_Budget",
+      "rate": 0,
+      "mean": 0.21134812384840002,
+      "ci_low": 0.20925925970064624,
+      "ci_high": 0.21347627369683247,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "SA_Budget",
+      "rate": 1,
+      "mean": 0.13777014464134998,
+      "ci_low": 0.13613513035688124,
+      "ci_high": 0.13953041812407754,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "SA_Budget",
+      "rate": 2,
+      "mean": 0.09042911753059499,
+      "ci_low": 0.088977186391128,
+      "ci_high": 0.09218190876769887,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "Adaptive",
+      "rate": 0,
+      "mean": 0.2108844183385,
+      "ci_low": 0.208559281285825,
+      "ci_high": 0.213400073237685,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "Adaptive",
+      "rate": 1,
+      "mean": 0.1375555127859,
+      "ci_low": 0.13597407322371874,
+      "ci_high": 0.13913755629216623,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 200,
+      "method": "Adaptive",
+      "rate": 2,
+      "mean": 0.090337010473025,
+      "ci_low": 0.08925660433249462,
+      "ci_high": 0.091464222250512,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "SAOnly",
+      "rate": 0,
+      "mean": 0.2037571296096,
+      "ci_low": 0.20201502265406124,
+      "ci_high": 0.20553424661979125,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "SAOnly",
+      "rate": 1,
+      "mean": 0.13027736768120002,
+      "ci_low": 0.12885857366027625,
+      "ci_high": 0.13165981573971877,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "SAOnly",
+      "rate": 2,
+      "mean": 0.086821512877945,
+      "ci_low": 0.08584707721136953,
+      "ci_high": 0.08783628288656363,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "Hybrid",
+      "rate": 0,
+      "mean": 0.21851035803559998,
+      "ci_low": 0.215131255276515,
+      "ci_high": 0.2220916528067288,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "Hybrid",
+      "rate": 1,
+      "mean": 0.13867393881095,
+      "ci_low": 0.13698888393126998,
+      "ci_high": 0.14052292859190377,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "Hybrid",
+      "rate": 2,
+      "mean": 0.09293246231972499,
+      "ci_low": 0.09126530593260675,
+      "ci_high": 0.09462886199354636,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "SA_Budget",
+      "rate": 0,
+      "mean": 0.20580834597344996,
+      "ci_low": 0.20432353273035625,
+      "ci_high": 0.20720521036538497,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "SA_Budget",
+      "rate": 1,
+      "mean": 0.13156362175945,
+      "ci_low": 0.13001411264758372,
+      "ci_high": 0.13308188015609496,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "SA_Budget",
+      "rate": 2,
+      "mean": 0.08613829649985003,
+      "ci_low": 0.08518095670268339,
+      "ci_high": 0.08705918651073889,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "Adaptive",
+      "rate": 0,
+      "mean": 0.2034556843341,
+      "ci_low": 0.20115120641889878,
+      "ci_high": 0.2056040493771875,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "Adaptive",
+      "rate": 1,
+      "mean": 0.1332573235035,
+      "ci_low": 0.1314863367005463,
+      "ci_high": 0.13515003418556498,
+      "n": 20
+    },
+    {
+      "domain": "uniform",
+      "budget": 600,
+      "method": "Adaptive",
+      "rate": 2,
+      "mean": 0.0867909319699,
+      "ci_low": 0.08582447266207938,
+      "ci_high": 0.08779731042685125,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "SAOnly",
+      "rate": 0,
+      "mean": 0.32931190878144995,
+      "ci_low": 0.3245482194422675,
+      "ci_high": 0.33448436643915125,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "SAOnly",
+      "rate": 1,
+      "mean": 0.264407606423,
+      "ci_low": 0.25947670284676616,
+      "ci_high": 0.26934207886468126,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "SAOnly",
+      "rate": 2,
+      "mean": 0.267664000392,
+      "ci_low": 0.2646170251445363,
+      "ci_high": 0.2708657325058775,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "Hybrid",
+      "rate": 0,
+      "mean": 0.33988562524314997,
+      "ci_low": 0.3334574965759538,
+      "ci_high": 0.3465938151254887,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "Hybrid",
+      "rate": 1,
+      "mean": 0.2779897600413,
+      "ci_low": 0.27007981989537505,
+      "ci_high": 0.28656021185229996,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "Hybrid",
+      "rate": 2,
+      "mean": 0.2847162947059,
+      "ci_low": 0.2786742659658225,
+      "ci_high": 0.2911860203742887,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "SA_Budget",
+      "rate": 0,
+      "mean": 0.3260008648037999,
+      "ci_low": 0.31902402337662006,
+      "ci_high": 0.33247423179461244,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "SA_Budget",
+      "rate": 1,
+      "mean": 0.2691318348051,
+      "ci_low": 0.26490966107710245,
+      "ci_high": 0.27420130357151373,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "SA_Budget",
+      "rate": 2,
+      "mean": 0.2696638658642,
+      "ci_low": 0.2653133447839587,
+      "ci_high": 0.27478336155412875,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "Adaptive",
+      "rate": 0,
+      "mean": 0.32811207622285,
+      "ci_low": 0.3233314869925225,
+      "ci_high": 0.3326197985186613,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "Adaptive",
+      "rate": 1,
+      "mean": 0.26418054550880005,
+      "ci_low": 0.260774707719665,
+      "ci_high": 0.26798127152011997,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 200,
+      "method": "Adaptive",
+      "rate": 2,
+      "mean": 0.26762470602985,
+      "ci_low": 0.26329440217465244,
+      "ci_high": 0.27217398401343873,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "SAOnly",
+      "rate": 0,
+      "mean": 0.3163424909115,
+      "ci_low": 0.3119624011218325,
+      "ci_high": 0.3205457691102775,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "SAOnly",
+      "rate": 1,
+      "mean": 0.24875013753769998,
+      "ci_low": 0.2459697597846613,
+      "ci_high": 0.2514512788504875,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "SAOnly",
+      "rate": 2,
+      "mean": 0.25779244899764997,
+      "ci_low": 0.25669262815278493,
+      "ci_high": 0.2589769034834413,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "Hybrid",
+      "rate": 0,
+      "mean": 0.33988562524314997,
+      "ci_low": 0.3334574965759538,
+      "ci_high": 0.3465938151254887,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "Hybrid",
+      "rate": 1,
+      "mean": 0.2779015794397,
+      "ci_low": 0.27004256341620747,
+      "ci_high": 0.2864386663586275,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "Hybrid",
+      "rate": 2,
+      "mean": 0.2847162947059,
+      "ci_low": 0.2786742659658225,
+      "ci_high": 0.2911860203742887,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "SA_Budget",
+      "rate": 0,
+      "mean": 0.3138199612498,
+      "ci_low": 0.30956505838776,
+      "ci_high": 0.31818319298330744,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "SA_Budget",
+      "rate": 1,
+      "mean": 0.25216316506255,
+      "ci_low": 0.24918887367459,
+      "ci_high": 0.2557965473642512,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "SA_Budget",
+      "rate": 2,
+      "mean": 0.25930278599269996,
+      "ci_low": 0.2576011144744237,
+      "ci_high": 0.2614410592243613,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "Adaptive",
+      "rate": 0,
+      "mean": 0.3148003041745,
+      "ci_low": 0.31158508807431123,
+      "ci_high": 0.3182884726300262,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "Adaptive",
+      "rate": 1,
+      "mean": 0.24977498129014997,
+      "ci_low": 0.24675998244441125,
+      "ci_high": 0.2527386621387263,
+      "n": 20
+    },
+    {
+      "domain": "physical",
+      "budget": 600,
+      "method": "Adaptive",
+      "rate": 2,
+      "mean": 0.25904997885225,
+      "ci_low": 0.25760116811838624,
+      "ci_high": 0.26059015251691875,
+      "n": 20
+    }
+  ]
+}

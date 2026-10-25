@@ -1,0 +1,22 @@
+Qt: Untested Windows version 6.2 detected!
+Real-field wavefield reconstruction
+  input : data/real_seismic/real_gather_256x128.csv
+  outDir: D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\validation\legacy_pipeline\real_field
+  ratio : 0.50
+  mask  : (auto-generated jitter)
+【地震波场压缩感知重构试验完成】
+模式: External CSV File (real_gather_256x128.csv)
+掩码: Auto-Generated Jitter Mask (m=64/128, 50.0%)
+1. 零值填充基准 SNR: 2.85 dB
+2. 空间线性插值基准 SNR: 7.39 dB
+3. 压缩感知恢复后 SNR: 7.03 dB (相对零填充提升: +4.18 dB, 相对线性插值: -0.36 dB)
+4. 均方根误差 RMSE: 0.05017, 相关系数 r: 0.8955
+5. 观测道数据一致性检验: 严格通过 (误差 < 1e-5)
+重构数据与残差切片已导出至:
+D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\validation\legacy_pipeline\real_field
+
+【科研成果图件支撑】(全部数据图与结果图集中保存至 D:/Desktop/work/IrrGeometryDesign-20261015/figures/legacy_pipeline/real_reference 文件夹)：
+  ● 图件 05_wavefield_reconstruction_quad.png: 地震波场欠采样与POCS恢复四联剖面 (SNR提升+4.18 dB)
+  ● 图件 06_recon_convergence_trace_comparison.png: POCS残差收敛与抽稀道波形对比细节 (波形相关系数r=0.8955)
+
+Real-field reconstruction succeeded.

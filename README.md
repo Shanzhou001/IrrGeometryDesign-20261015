@@ -3,6 +3,11 @@
 论文项目：《基于混合优化算法的地震采样点智能筛选方法研究》。
 包含 Qt4 桌面程序、固定采样数优化、实际坐标 Fourier/PSF 评价、FDCT 恢复、SEG-Y 数据处理和批量统计。
 
+## 论文稿与最新审查（2026-10-25）
+
+[8 页英文期刊稿 PDF](output/pdf/tgrs_trace_selection.pdf) · [论文源码与复现说明](docs/paper/README.md) · [项目进展、问题修复及剩余事项](docs/PAPER_PROGRESS_20261025.md) · [本轮实际验证](docs/paper/VALIDATION_20261025.md)。
+作者采用用户提供的 Wu shanzhou；稿件按 IEEEtran 双栏编排，保留负结果和真实资料编码未确认等限制，投稿前仍需作者审阅、身份资料及数据授权确认。
+
 ## 当前入口
 
 在项目根目录执行；也可以从其他工作目录用 `pipeline.py` 的绝对路径运行。
@@ -57,6 +62,7 @@ figures/                 唯一的图片目录，包含总览、清单和数据�
   legacy/                按实际输入去重后的历史示例图
   gui/                   8 个程序界面截图
   assets/                Qt 原始图标素材
+  paper/                 从归档数据生成的4张英文期刊稿图
 results/                 科学 CSV、掩码、预测、日志、清单及冻结运行快照
 config/path_migrations.json  旧路径到规范位置的映射
 scripts/                 本轮一次性迁移/引用更新脚本

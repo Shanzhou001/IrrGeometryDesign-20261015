@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "research.validation.verify_revised_results",
+    "results/paper_20261025/validation/legacy_pipeline"
+  ],
+  "started_utc": "2026-10-24T18:35:44.7748021Z",
+  "seconds": 0.7710496,
+  "exit_code": 0
+}

@@ -1,0 +1,2 @@
+id,method,n,m,seed,budget,ok,feasible,mu,objective,max_gap,max_gap_m,nn_cv,evals,attempts,wall_ms,native_clock_ms,status,mask
+real_unconfirmed,Adaptive,59,20,42,64,1,1,0.333188056946,0.333188056946,9,416,0.657618999481,64,63,2.9387999922,3,budget_exhausted,10000101010101001000001100100011001000001111001000000001010

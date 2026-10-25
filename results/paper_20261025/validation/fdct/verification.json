@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\tests\\native\\fdct_roundtrip_probe.cpp": "31f39539a16db6af9899658668dd41d999eb1ea9131eed91fd6d8a0d13e715c0",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\third_party\\curvelet\\Curvelet2d\\fdct_wrapping.cpp": "0351a91d0342993d4c7cccee4ccda175fa93f859aca15b71a3fb74f191419e36",
+    "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\third_party\\curvelet\\Curvelet2d\\ifdct_wrapping.cpp": "21b6731ce572e096c9186cd5e2a5c70ba870c834330ea988b93b8208b5ebf09b"
+  },
+  "fftw_sha256": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f",
+  "records": [
+    {
+      "build": "Release",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\paper_20261025\\validation\\fdct\\Release\\fdct_probe.exe"
+      ],
+      "exit_code": 0,
+      "cases": 20,
+      "program_sha256": "f91813a8fec5968ff6c5378976f3ce1515fb40df4d5bc673b8c87705aab2c06d",
+      "max_relative_l2": 2.29342463783872e-15,
+      "max_abs": 2.19819252532409e-14,
+      "max_energy_ratio_deviation": 3.9968028886505635e-14
+    },
+    {
+      "build": "Debug",
+      "command": [
+        "D:\\Desktop\\work\\IrrGeometryDesign-20261015\\results\\paper_20261025\\validation\\fdct\\Debug\\fdct_probe.exe"
+      ],
+      "exit_code": 0,
+      "cases": 20,
+      "program_sha256": "de0d8633bbcc9d0370a2e7e264016720c73580ca946fd400d9167cf1dbc19306",
+      "max_relative_l2": 2.28948488515259e-15,
+      "max_abs": 2.26339358948255e-14,
+      "max_energy_ratio_deviation": 3.9968028886505635e-14
+    }
+  ]
+}

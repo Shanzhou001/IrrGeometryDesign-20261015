@@ -171,6 +171,6 @@ v4固定描述性训练子集的历史诊断（不与v5合并统计，也不反�
 ## 7. 数据、表图及结论适用范围
 
 全部原生输入、命令、参数、种子、输出及哈希见各 stage 的 manifest.json/journal.jsonl；原始汇总为 search/search.csv、joint/joint.csv、real/real.csv、timing/timing.csv。
-最终10组中文PNG/SVG/data.json位于 figures_thesis/，最终图哈希见 final_figures_manifest.json；初稿也保留。
+当前10组中文PNG及配套data.json统一位于 `figures/research/v5/`；当前图片哈希与来源见 `figures/manifest.json`，该组绘制记录见 `figures/research/v5/render_manifest.json`。原审计图清单 `final_figures_manifest.json` 保留历史含义；旧SVG、草稿及重复图片的迁移前版本由Git历史保存。
 当前结果支持预算管理、数学实现一致性和目标失配研究；不支持通用最优、全部机制有效、跨工区适用、真实高保真或成像改善。
 独立真实来源、提供方说明、GUI人工走查及异机全重跑仍未完成，见 UNRESOLVED_ISSUES.md。

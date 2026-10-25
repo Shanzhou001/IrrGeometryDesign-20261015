@@ -1,0 +1,34 @@
+{
+  "checked_utc": "2026-10-24T18:46:00.907095+00:00",
+  "original_lookup_record": "references.json",
+  "holm": {
+    "failed_lookup_retained": "Crossref DOI 10.2307/4615733 returned 404; not used as a verified DOI in manuscript",
+    "stable_url": "https://www.jstor.org/stable/4615733",
+    "original_article_copy": "https://www.ime.usp.br/~abe/lista/pdf4R8xPVzCnX.pdf",
+    "bibliographic_metadata": "S. Holm, A simple sequentially rejective multiple test procedure, Scandinavian Journal of Statistics 6(2), 65-70, 1979",
+    "verification_scope": "Original-article first-page bibliographic transcript checked; do not claim full-text verification from JSTOR access"
+  },
+  "author": {
+    "name": "Wu shanzhou",
+    "source": "User reply in active conversation",
+    "affiliation": "not provided",
+    "email": "not provided",
+    "ORCID": "not provided"
+  },
+  "official_requirements": [
+    {
+      "url": "https://www.grss-ieee.org/publications/author-resources/tgrs-information-for-authors/",
+      "checked": "English, IEEE standard double column/single spacing, consecutive page numbers; single-blind review; author identification required before submission"
+    },
+    {
+      "url": "https://open.ieee.org/author-guidelines-for-artificial-intelligence-ai-generated-text/",
+      "checked": "AI-generated-content disclosure included in manuscript acknowledgment"
+    }
+  ],
+  "compiler_download": {
+    "url": "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-pc-windows-msvc.zip",
+    "sha256": "f61ce51f0b0ade1015b7de7ef368541c5424e9756ecbd0d7af97d6d48030845f",
+    "version": "0.17.0"
+  },
+  "note": "Bibliographic verification and formatting do not constitute editorial acceptance or independent real-data validation."
+}

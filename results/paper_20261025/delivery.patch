@@ -1,0 +1,678 @@
+diff --git a/README.md b/README.md
+index 1376e9fd..9d69f1e8 100644
+--- a/README.md
++++ b/README.md
+@@ -3,6 +3,11 @@
+ 论文项目：《基于混合优化算法的地震采样点智能筛选方法研究》。
+ 包含 Qt4 桌面程序、固定采样数优化、实际坐标 Fourier/PSF 评价、FDCT 恢复、SEG-Y 数据处理和批量统计。
+ 
++## 论文稿与最新审查（2026-10-25）
++
++[8 页英文期刊稿 PDF](output/pdf/tgrs_trace_selection.pdf) · [论文源码与复现说明](docs/paper/README.md) · [项目进展、问题修复及剩余事项](docs/PAPER_PROGRESS_20261025.md) · [本轮实际验证](docs/paper/VALIDATION_20261025.md)。
++作者采用用户提供的 Wu shanzhou；稿件按 IEEEtran 双栏编排，保留负结果和真实资料编码未确认等限制，投稿前仍需作者审阅、身份资料及数据授权确认。
++
+ ## 当前入口
+ 
+ 在项目根目录执行；也可以从其他工作目录用 `pipeline.py` 的绝对路径运行。
+@@ -57,6 +62,7 @@ figures/                 唯一的图片目录，包含总览、清单和数据
+   legacy/                按实际输入去重后的历史示例图
+   gui/                   8 个程序界面截图
+   assets/                Qt 原始图标素材
++  paper/                 从归档数据生成的4张英文期刊稿图
+ results/                 科学 CSV、掩码、预测、日志、清单及冻结运行快照
+ config/path_migrations.json  旧路径到规范位置的映射
+ scripts/                 本轮一次性迁移/引用更新脚本
+diff --git a/config/path_migrations.json b/config/path_migrations.json
+index 9d64c698..9c935b3e 100644
+--- a/config/path_migrations.json
++++ b/config/path_migrations.json
+@@ -492,7 +492,7 @@
+   },
+   "images": {
+     "old_paths": 190,
+-    "canonical_images": 81,
++    "canonical_images": 85,
+     "policy": "PNG only for generated figures; latest v5 thesis and v4 final editions supersede image drafts; exact byte duplicates have one owner; static icons are source assets.",
+     "original_revision": "c191e6c5",
+     "aliases": {
+@@ -801,7 +801,11 @@
+       "figures/legacy/baseline/05_wavefield_reconstruction_quad.png": "figures/05_wavefield_reconstruction_quad.png",
+       "figures/legacy/baseline/06_recon_convergence_trace_comparison.png": "figures/06_recon_convergence_trace_comparison.png",
+       "figures/legacy/real/05_wavefield_reconstruction_quad.png": "figures/real/05_wavefield_reconstruction_quad.png",
+-      "figures/legacy/real/06_recon_convergence_trace_comparison.png": "figures/real/06_recon_convergence_trace_comparison.png"
++      "figures/legacy/real/06_recon_convergence_trace_comparison.png": "figures/real/06_recon_convergence_trace_comparison.png",
++      "figures/paper/search.png": "research.analysis.paper_figures",
++      "figures/paper/budget.png": "research.analysis.paper_figures",
++      "figures/paper/recovery.png": "research.analysis.paper_figures",
++      "figures/paper/real_windows.png": "research.analysis.paper_figures"
+     },
+     "deduplication": "figure kind and actual source hashes; old equal PNG bytes can be stale copies"
+   },
+diff --git a/docs/AUDIT_ISSUES.md b/docs/AUDIT_ISSUES.md
+index b4af21d4..eca12b0a 100644
+--- a/docs/AUDIT_ISSUES.md
++++ b/docs/AUDIT_ISSUES.md
+@@ -13,7 +13,7 @@
+ |ID|级别/性质|当前证据|处理与状态|
+ |---|---|---|---|
+ |D1|P0 外部语义阻塞|全59道、六种payload解释均复核；LE布局自洽，但format=1与IEEE-LE解释冲突，文本/PDF/道头不一致|字节审计已完成，编码未证实；保留显式假设及提供方确认清单，不自动改码|
+-|D2|P0 已确认历史隔离缺口|全场峰值归一化读取隐藏值；6位CSV链的隐藏干预产生0.007482幅度差，约原峰值1.05e−6|新链使用原幅度、仅已知道归一化、未观测列先清零；干预预测差0；历史结果不改，不能继续称严格隔离|
++|D2|P0 已确认历史隔离缺口|全场峰值归一化读取隐藏值；6位CSV链的隐藏干预产生0.007482原幅度单位的预测差，约为原始峰值7155的1.05e−6倍|新链使用原幅度、仅已知道归一化、未观测列先清零；干预预测差0；历史结果不改，不能继续称严格隔离|
+ |D3|P0 已确认材料问题，已修|转换脚本把IEEE解释和common-shot称为事实|新输出头明确未确认；核心函数AST等价、转换数值逐值相同，旧CSV字节不改|
+ |D4|P0 未确认几何/单位|五CDP按offset排序后相邻切换58次；坐标差/offset=100，scalar/units=0|记录单位/时间窗/插值；不自动补scalar、不将128道插值场当128独立实测道|
+ |M1|P0 数值核验通过|504个显式Gram/覆盖/惩罚案例及84个精确点数DP枚举，与C++独立比较|588例通过，最大J误差7.06e−8；未发现需重写核心公式的证据|
+diff --git a/docs/DATA_VALIDATION_REPORT.md b/docs/DATA_VALIDATION_REPORT.md
+index f5276cfa..fe0e1719 100644
+--- a/docs/DATA_VALIDATION_REPORT.md
++++ b/docs/DATA_VALIDATION_REPORT.md
+@@ -77,7 +77,10 @@ rev 2 允许 LE 与 pairwise swapped，因此“SEG-Y 标准永远只允许 BE
+ 及 128 道 CSV 头中的确定性措辞已改正；新生成 CSV 明示未确认 profile，既有源数据/历史 CSV 字节不改。
+ 两个转换脚本的 read_segy/convert 函数 AST 与冻结版一致，实际导出的全部数值与原 CSV 逐值相同，
+ 证据为 `metadata_checks/conversion_metadata_audit.json`。带通原注释“余弦斜坡”也改为实际的 FFT 分箱线性斜坡。
+-新转换先绑定原始 SHA-256 并显式记录未确认 profile，不接受其他文件静默套用假设。
++v5 实验入口 `research/experiments/audit_joint_studies.py` 的 `real_raw()` 先核对固定原始 SHA-256，
++不接受其他文件静默套用该实验的假设。旧转换脚本 `convert_rraw_to_engine_csv.py` 和
++`make_59x256.py` 只记录输入 SHA-256，并未按固定源哈希拒绝其他文件；它们的输入布局检查
++不能鉴定或证实样点编码，新输出头仍须显式注明未确认的 profile。
+ 
+ ## 6. 预处理和信息隔离
+ 
+diff --git a/docs/EXPERIMENT_RESULTS.md b/docs/EXPERIMENT_RESULTS.md
+index c08a11b0..2858a29f 100644
+--- a/docs/EXPERIMENT_RESULTS.md
++++ b/docs/EXPERIMENT_RESULTS.md
+@@ -171,6 +171,6 @@ v4固定描述性训练子集的历史诊断（不与v5合并统计，也不反
+ ## 7. 数据、表图及结论适用范围
+ 
+ 全部原生输入、命令、参数、种子、输出及哈希见各 stage 的 manifest.json/journal.jsonl；原始汇总为 search/search.csv、joint/joint.csv、real/real.csv、timing/timing.csv。
+-最终10组中文PNG/SVG/data.json位于 figures_thesis/，最终图哈希见 final_figures_manifest.json；初稿也保留。
++当前10组中文PNG及配套data.json统一位于 `figures/research/v5/`；当前图片哈希与来源见 `figures/manifest.json`，该组绘制记录见 `figures/research/v5/render_manifest.json`。原审计图清单 `final_figures_manifest.json` 保留历史含义；旧SVG、草稿及重复图片的迁移前版本由Git历史保存。
+ 当前结果支持预算管理、数学实现一致性和目标失配研究；不支持通用最优、全部机制有效、跨工区适用、真实高保真或成像改善。
+ 独立真实来源、提供方说明、GUI人工走查及异机全重跑仍未完成，见 UNRESOLVED_ISSUES.md。
+diff --git a/docs/PROJECT_PROGRESS_20261024.md b/docs/PROJECT_PROGRESS_20261024.md
+index 995127a1..a332fba0 100644
+--- a/docs/PROJECT_PROGRESS_20261024.md
++++ b/docs/PROJECT_PROGRESS_20261024.md
+@@ -4,6 +4,8 @@
+ 
+ # 论文项目进展总览（2026-10-24，全面审查后）
+ 
++2026-10-25 最新审查和英文论文稿进展见 [PAPER_PROGRESS_20261025.md](PAPER_PROGRESS_20261025.md)。本页保留各历史阶段的原始统计与限制；新一轮实际执行记录见 [本轮验证](paper/VALIDATION_20261025.md)。
++
+ ## 最新再审查补记：audit_joint_v5
+ 
+ 本节是本轮状态；后文保留此前v4记录，不将其“最新”措辞理解为覆盖本节。
+diff --git a/docs/THESIS_METHODS.md b/docs/THESIS_METHODS.md
+index 7a1abe46..92d35ed1 100644
+--- a/docs/THESIS_METHODS.md
++++ b/docs/THESIS_METHODS.md
+@@ -167,7 +167,7 @@ Wilcoxon 检验保留并列中秩，使用精确符号置换分布，并报告
+ 
+ **预处理隔离勘误。** v4恢复器的已知道归一化和内层选择测试通过，但此前59道CSV在划分前
+ 用了全场峰值，接触过隐藏幅度。线性尺度在理想运算中可抵消；实际6位CSV舍入干预仍产生
+-约0.00748原幅度单位（原峰值约1.05e−6）的预测差，不能称作严格的原始数据隔离。
++约0.00748原幅度单位的预测差（原峰值7155，预测差约为原峰值的1.05e−6），不能称作严格的原始数据隔离。
+ v5取消全场预归一化，不做空间插值/数据拟合滤波；每次原生调用前将未观测列置零，
+ 只按当次训练道定尺度。完整原幅度干预的配置和预测均完全不变。
+ 
+@@ -205,7 +205,7 @@ NMO/时差校正没有无依据加入；需要明确采集几何和训练道内
+ |数据集、预处理与来源审计|DATA_VALIDATION_REPORT|真实编码/几何未确认|
+ |对照、消融、预算、敏感性、统计|EXPERIMENT_PROTOCOL及结构模板附录|探索性与确认性分清，统计样本不扩大|
+ |合成/真实恢复、失败和负结果|EXPERIMENT_RESULTS及原生CSV|单真实来源；共同H和补集分开|
+-|收敛、效率、权重/Pareto及论文图|figures_thesis及各图data.json|10组PNG/SVG；CI单位、种子/模板数明确|
++|收敛、效率、权重/Pareto及论文图|`figures/research/v5/`及各图data.json|当前集中保存10组PNG；CI单位、种子/模板数明确；历史SVG由Git保存|
+ |创新点、局限与未来工作|THESIS_CONTRIBUTIONS、UNRESOLVED_ISSUES|没有普适最优/真实高保真/跨工区结论|
+ 
+ 可用流程图（论文排版时可按此导出矢量图）：
+diff --git a/docs/UNRESOLVED_ISSUES.md b/docs/UNRESOLVED_ISSUES.md
+index bf356565..46d296b7 100644
+--- a/docs/UNRESOLVED_ISSUES.md
++++ b/docs/UNRESOLVED_ISSUES.md
+@@ -29,7 +29,7 @@
+ 4. 空输入、重复坐标、非规则行、非法采样率和不可行约束应显示失败，不留下“成功”旧状态。
+ 5. 原 CLI 默认运行、外部掩码和缺失文件各走一次；错误退出应非零，研究输出不得静默覆盖。
+ 6. 重构界面分别看零填充、线性、曲波，核对说明没有把全幅 SNR/观测一致性冒充隐藏道精度。
+-7. 使用另存目录检查 10 组论文 PNG/SVG 在论文软件中的中文和图例，不覆盖历史图。
++7. 检查 `figures/research/v5/` 中10组论文PNG在论文软件中的中文、图例和清晰度，确认与配套data.json一致；如需重绘，使用统一图片入口覆盖规范位置，不另存图片副本。历史图版本由Git保存。
+ 8. RRAW 不作为已校准的 GUI SEG-Y 测试文件：旧 GUI 路径仍不自动支持该争议 LE profile。
+    支持的 IBM/IEEE BE 格式的受控读取验证已执行，不能代替实际 RRAW 来源确认。
+    旧工具类写路径、全部浮点极值和任意非标准SEG-Y变种未做全量认证，本轮不宣称其通用格式支持。
+diff --git a/figures/index.html b/figures/index.html
+index 644ff561..c8ecf7b6 100644
+--- a/figures/index.html
++++ b/figures/index.html
+@@ -1 +1 @@
+-<!doctype html><meta charset="utf-8"><title>项目图片总览</title><style>body{font:16px sans-serif;max-width:1100px;margin:auto}img{max-width:100%}</style><h1>项目图片总览</h1><h2>figures/gui/01_main_window.png</h2><img src="gui/01_main_window.png" loading="lazy"><h2>figures/gui/02_survey_loaded.png</h2><img src="gui/02_survey_loaded.png" loading="lazy"><h2>figures/gui/03_dlg_sps_parameters.png</h2><img src="gui/03_dlg_sps_parameters.png" loading="lazy"><h2>figures/gui/04_dlg_cell_grid.png</h2><img src="gui/04_dlg_cell_grid.png" loading="lazy"><h2>figures/gui/05_dlg_sps_sampling.png</h2><img src="gui/05_dlg_sps_sampling.png" loading="lazy"><h2>figures/gui/06_dlg_show_area.png</h2><img src="gui/06_dlg_show_area.png" loading="lazy"><h2>figures/gui/07_dlg_ovt_attributes.png</h2><img src="gui/07_dlg_ovt_attributes.png" loading="lazy"><h2>figures/gui/08_dlg_figure_gallery.png</h2><img src="gui/08_dlg_figure_gallery.png" loading="lazy"><h2>figures/legacy/baseline/00_research_workflow_summary.png</h2><img src="legacy/baseline/00_research_workflow_summary.png" loading="lazy"><h2>figures/legacy/baseline/01_sa_convergence_curve.png</h2><img src="legacy/baseline/01_sa_convergence_curve.png" loading="lazy"><h2>figures/legacy/baseline/02_sampling_benchmark_bars.png</h2><img src="legacy/baseline/02_sampling_benchmark_bars.png" loading="lazy"><h2>figures/legacy/baseline/05_wavefield_reconstruction_quad.png</h2><img src="legacy/baseline/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/baseline/06_recon_convergence_trace_comparison.png</h2><img src="legacy/baseline/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/real/05_wavefield_reconstruction_quad.png</h2><img src="legacy/real/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/real/06_recon_convergence_trace_comparison.png</h2><img src="legacy/real/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v2/00_research_workflow_summary.png</h2><img src="legacy/v2/00_research_workflow_summary.png" loading="lazy"><h2>figures/legacy/v2/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v2/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v2/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v2/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v2/real_reference/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v2/real_reference/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/00_research_workflow_summary.png</h2><img src="legacy/v3/00_research_workflow_summary.png" loading="lazy"><h2>figures/legacy/v3/01_sa_convergence_curve.png</h2><img src="legacy/v3/01_sa_convergence_curve.png" loading="lazy"><h2>figures/legacy/v3/02_sampling_benchmark_bars.png</h2><img src="legacy/v3/02_sampling_benchmark_bars.png" loading="lazy"><h2>figures/legacy/v3/03_cmp_fold_distribution_map.png</h2><img src="legacy/v3/03_cmp_fold_distribution_map.png" loading="lazy"><h2>figures/legacy/v3/04_offset_azimuth_rose_charts.png</h2><img src="legacy/v3/04_offset_azimuth_rose_charts.png" loading="lazy"><h2>figures/legacy/v3/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/real_reference/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/real_reference/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/research/v4/01_search_comparison.png</h2><img src="research/v4/01_search_comparison.png" loading="lazy"><h2>figures/research/v4/02_convergence.png</h2><img src="research/v4/02_convergence.png" loading="lazy"><h2>figures/research/v4/03_nested_real.png</h2><img src="research/v4/03_nested_real.png" loading="lazy"><h2>figures/research/v4/04_synthetic_snr.png</h2><img src="research/v4/04_synthetic_snr.png" loading="lazy"><h2>figures/research/v4/05_weight_tradeoff.png</h2><img src="research/v4/05_weight_tradeoff.png" loading="lazy"><h2>figures/research/v4/06_real_diagnosis.png</h2><img src="research/v4/06_real_diagnosis.png" loading="lazy"><h2>figures/research/v5/01_v4_search.png</h2><img src="research/v5/01_v4_search.png" loading="lazy"><h2>figures/research/v5/02_common_budget.png</h2><img src="research/v5/02_common_budget.png" loading="lazy"><h2>figures/research/v5/03_v4_nested_real.png</h2><img src="research/v5/03_v4_nested_real.png" loading="lazy"><h2>figures/research/v5/04_common_H_recovery.png</h2><img src="research/v5/04_common_H_recovery.png" loading="lazy"><h2>figures/research/v5/05_v4_weight_tradeoff.png</h2><img src="research/v5/05_v4_weight_tradeoff.png" loading="lazy"><h2>figures/research/v5/06_real_windows_and_failure.png</h2><img src="research/v5/06_real_windows_and_failure.png" loading="lazy"><h2>figures/research/v5/07_band_sensitivity.png</h2><img src="research/v5/07_band_sensitivity.png" loading="lazy"><h2>figures/research/v5/08_v4_convergence.png</h2><img src="research/v5/08_v4_convergence.png" loading="lazy"><h2>figures/research/v5/09_v4_geometry_pareto.png</h2><img src="research/v5/09_v4_geometry_pareto.png" loading="lazy"><h2>figures/research/v5/10_real_failure_waveforms.png</h2><img src="research/v5/10_real_failure_waveforms.png" loading="lazy">
+\ No newline at end of file
++<!doctype html><meta charset="utf-8"><title>项目图片总览</title><style>body{font:16px sans-serif;max-width:1100px;margin:auto}img{max-width:100%}</style><h1>项目图片总览</h1><h2>figures/gui/01_main_window.png</h2><img src="gui/01_main_window.png" loading="lazy"><h2>figures/gui/02_survey_loaded.png</h2><img src="gui/02_survey_loaded.png" loading="lazy"><h2>figures/gui/03_dlg_sps_parameters.png</h2><img src="gui/03_dlg_sps_parameters.png" loading="lazy"><h2>figures/gui/04_dlg_cell_grid.png</h2><img src="gui/04_dlg_cell_grid.png" loading="lazy"><h2>figures/gui/05_dlg_sps_sampling.png</h2><img src="gui/05_dlg_sps_sampling.png" loading="lazy"><h2>figures/gui/06_dlg_show_area.png</h2><img src="gui/06_dlg_show_area.png" loading="lazy"><h2>figures/gui/07_dlg_ovt_attributes.png</h2><img src="gui/07_dlg_ovt_attributes.png" loading="lazy"><h2>figures/gui/08_dlg_figure_gallery.png</h2><img src="gui/08_dlg_figure_gallery.png" loading="lazy"><h2>figures/legacy/baseline/00_research_workflow_summary.png</h2><img src="legacy/baseline/00_research_workflow_summary.png" loading="lazy"><h2>figures/legacy/baseline/01_sa_convergence_curve.png</h2><img src="legacy/baseline/01_sa_convergence_curve.png" loading="lazy"><h2>figures/legacy/baseline/02_sampling_benchmark_bars.png</h2><img src="legacy/baseline/02_sampling_benchmark_bars.png" loading="lazy"><h2>figures/legacy/baseline/05_wavefield_reconstruction_quad.png</h2><img src="legacy/baseline/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/baseline/06_recon_convergence_trace_comparison.png</h2><img src="legacy/baseline/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/real/05_wavefield_reconstruction_quad.png</h2><img src="legacy/real/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/real/06_recon_convergence_trace_comparison.png</h2><img src="legacy/real/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v2/00_research_workflow_summary.png</h2><img src="legacy/v2/00_research_workflow_summary.png" loading="lazy"><h2>figures/legacy/v2/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v2/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v2/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v2/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v2/real_reference/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v2/real_reference/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/00_research_workflow_summary.png</h2><img src="legacy/v3/00_research_workflow_summary.png" loading="lazy"><h2>figures/legacy/v3/01_sa_convergence_curve.png</h2><img src="legacy/v3/01_sa_convergence_curve.png" loading="lazy"><h2>figures/legacy/v3/02_sampling_benchmark_bars.png</h2><img src="legacy/v3/02_sampling_benchmark_bars.png" loading="lazy"><h2>figures/legacy/v3/03_cmp_fold_distribution_map.png</h2><img src="legacy/v3/03_cmp_fold_distribution_map.png" loading="lazy"><h2>figures/legacy/v3/04_offset_azimuth_rose_charts.png</h2><img src="legacy/v3/04_offset_azimuth_rose_charts.png" loading="lazy"><h2>figures/legacy/v3/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.png</h2><img src="legacy/v3/real_reference/05_wavefield_reconstruction_quad.png" loading="lazy"><h2>figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.png</h2><img src="legacy/v3/real_reference/06_recon_convergence_trace_comparison.png" loading="lazy"><h2>figures/paper/budget.png</h2><img src="paper/budget.png" loading="lazy"><h2>figures/paper/real_windows.png</h2><img src="paper/real_windows.png" loading="lazy"><h2>figures/paper/recovery.png</h2><img src="paper/recovery.png" loading="lazy"><h2>figures/paper/search.png</h2><img src="paper/search.png" loading="lazy"><h2>figures/research/v4/01_search_comparison.png</h2><img src="research/v4/01_search_comparison.png" loading="lazy"><h2>figures/research/v4/02_convergence.png</h2><img src="research/v4/02_convergence.png" loading="lazy"><h2>figures/research/v4/03_nested_real.png</h2><img src="research/v4/03_nested_real.png" loading="lazy"><h2>figures/research/v4/04_synthetic_snr.png</h2><img src="research/v4/04_synthetic_snr.png" loading="lazy"><h2>figures/research/v4/05_weight_tradeoff.png</h2><img src="research/v4/05_weight_tradeoff.png" loading="lazy"><h2>figures/research/v4/06_real_diagnosis.png</h2><img src="research/v4/06_real_diagnosis.png" loading="lazy"><h2>figures/research/v5/01_v4_search.png</h2><img src="research/v5/01_v4_search.png" loading="lazy"><h2>figures/research/v5/02_common_budget.png</h2><img src="research/v5/02_common_budget.png" loading="lazy"><h2>figures/research/v5/03_v4_nested_real.png</h2><img src="research/v5/03_v4_nested_real.png" loading="lazy"><h2>figures/research/v5/04_common_H_recovery.png</h2><img src="research/v5/04_common_H_recovery.png" loading="lazy"><h2>figures/research/v5/05_v4_weight_tradeoff.png</h2><img src="research/v5/05_v4_weight_tradeoff.png" loading="lazy"><h2>figures/research/v5/06_real_windows_and_failure.png</h2><img src="research/v5/06_real_windows_and_failure.png" loading="lazy"><h2>figures/research/v5/07_band_sensitivity.png</h2><img src="research/v5/07_band_sensitivity.png" loading="lazy"><h2>figures/research/v5/08_v4_convergence.png</h2><img src="research/v5/08_v4_convergence.png" loading="lazy"><h2>figures/research/v5/09_v4_geometry_pareto.png</h2><img src="research/v5/09_v4_geometry_pareto.png" loading="lazy"><h2>figures/research/v5/10_real_failure_waveforms.png</h2><img src="research/v5/10_real_failure_waveforms.png" loading="lazy">
+\ No newline at end of file
+diff --git a/figures/legacy/baseline/05_wavefield_reconstruction_quad.data.json b/figures/legacy/baseline/05_wavefield_reconstruction_quad.data.json
+index 75be0ebd..4d5a61e0 100644
+--- a/figures/legacy/baseline/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/baseline/05_wavefield_reconstruction_quad.data.json
+@@ -4,7 +4,7 @@
+     "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+   },
+   "source_mode": "current deterministic replay; original matrices were not archived",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 10.89820382319636
+diff --git a/figures/legacy/baseline/06_recon_convergence_trace_comparison.data.json b/figures/legacy/baseline/06_recon_convergence_trace_comparison.data.json
+index 8c1c5788..02bab815 100644
+--- a/figures/legacy/baseline/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/baseline/06_recon_convergence_trace_comparison.data.json
+@@ -4,7 +4,7 @@
+     "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+   },
+   "source_mode": "current deterministic replay; original matrices were not archived",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 10.89820382319636,
+diff --git a/figures/legacy/real/05_wavefield_reconstruction_quad.data.json b/figures/legacy/real/05_wavefield_reconstruction_quad.data.json
+index 41ee7d02..774e4226 100644
+--- a/figures/legacy/real/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/real/05_wavefield_reconstruction_quad.data.json
+@@ -4,7 +4,7 @@
+     "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+   },
+   "source_mode": "current deterministic replay; original matrices were not archived",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\real_field",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 4.182381809335205
+diff --git a/figures/legacy/real/06_recon_convergence_trace_comparison.data.json b/figures/legacy/real/06_recon_convergence_trace_comparison.data.json
+index 0422ef7b..bf3bf41e 100644
+--- a/figures/legacy/real/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/real/06_recon_convergence_trace_comparison.data.json
+@@ -4,7 +4,7 @@
+     "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+   },
+   "source_mode": "current deterministic replay; original matrices were not archived",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\real_field",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 4.182381809335205,
+diff --git a/figures/legacy/v2/05_wavefield_reconstruction_quad.data.json b/figures/legacy/v2/05_wavefield_reconstruction_quad.data.json
+index f5ce4607..160ae4f8 100644
+--- a/figures/legacy/v2/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/v2/05_wavefield_reconstruction_quad.data.json
+@@ -7,7 +7,7 @@
+     "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+   "hidden_snr_db": 10.176023349629052,
+diff --git a/figures/legacy/v2/06_recon_convergence_trace_comparison.data.json b/figures/legacy/v2/06_recon_convergence_trace_comparison.data.json
+index 6d4bee9e..ddcd7bc3 100644
+--- a/figures/legacy/v2/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/v2/06_recon_convergence_trace_comparison.data.json
+@@ -7,7 +7,7 @@
+     "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+   "hidden_snr_db": 10.176023349629052,
+diff --git a/figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.data.json b/figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.data.json
+index 8d9ea4b8..5c506fd8 100644
+--- a/figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.data.json
+@@ -7,7 +7,7 @@
+     "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\real_field",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 4.182381809335205,
+diff --git a/figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.data.json b/figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.data.json
+index 19f7b6a7..8f74f4ce 100644
+--- a/figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.data.json
+@@ -7,7 +7,7 @@
+     "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\real_field",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 4.182381809335205,
+diff --git a/figures/legacy/v3/05_wavefield_reconstruction_quad.data.json b/figures/legacy/v3/05_wavefield_reconstruction_quad.data.json
+index d3a045d1..6dafb1b5 100644
+--- a/figures/legacy/v3/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/v3/05_wavefield_reconstruction_quad.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+   "hidden_snr_db": 10.176023349629052,
+diff --git a/figures/legacy/v3/06_recon_convergence_trace_comparison.data.json b/figures/legacy/v3/06_recon_convergence_trace_comparison.data.json
+index eea9afe4..31bcccdd 100644
+--- a/figures/legacy/v3/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/v3/06_recon_convergence_trace_comparison.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+   "hidden_snr_db": 10.176023349629052,
+diff --git a/figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.data.json b/figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.data.json
+index c16071f6..09c8282b 100644
+--- a/figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
+   },
+   "source_mode": "current full-resolution replay; old display export was decimated",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+   "hidden_snr_db": 10.748282600335736,
+diff --git a/figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.data.json b/figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.data.json
+index c70e03e4..05b33edf 100644
+--- a/figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
+   },
+   "source_mode": "current full-resolution replay; old display export was decimated",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+   "hidden_snr_db": 10.748282600335736,
+diff --git a/figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.data.json b/figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.data.json
+index 5a713594..3bc3eac6 100644
+--- a/figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
+   },
+   "source_mode": "current full-resolution replay; old display export was decimated",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+   "hidden_snr_db": 13.320693419656532,
+diff --git a/figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.data.json b/figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.data.json
+index a60751c5..56b52992 100644
+--- a/figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
+   },
+   "source_mode": "current full-resolution replay; old display export was decimated",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+   "hidden_snr_db": 13.320693419656532,
+diff --git a/figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.data.json b/figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.data.json
+index 00f46d1f..887afff4 100644
+--- a/figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
+   },
+   "source_mode": "current full-resolution replay; old display export was decimated",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+   "hidden_snr_db": 10.993514299990512,
+diff --git a/figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.data.json b/figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.data.json
+index a70eb762..8a3e3903 100644
+--- a/figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
+   },
+   "source_mode": "current full-resolution replay; old display export was decimated",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+   "hidden_snr_db": 10.993514299990512,
+diff --git a/figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.data.json b/figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.data.json
+index c2c0503b..99f239b0 100644
+--- a/figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.data.json
++++ b/figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\real_field",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 4.182381809335205,
+diff --git a/figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.data.json b/figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.data.json
+index b62bd203..8df4b3e4 100644
+--- a/figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.data.json
++++ b/figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.data.json
+@@ -7,7 +7,7 @@
+     "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+   },
+   "source_mode": "archived exported matrices",
+-  "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
++  "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\real_field",
+   "replay_max_abs_prediction_difference": 0.0,
+   "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+   "hidden_snr_db": 4.182381809335205,
+diff --git a/figures/manifest.json b/figures/manifest.json
+index dcb52828..73aa3045 100644
+--- a/figures/manifest.json
++++ b/figures/manifest.json
+@@ -2,9 +2,9 @@
+   "command": [
+     "C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+     "pipeline.py",
+-    "all",
++    "figures",
+     "--out",
+-    "results/refactor_20261024/full_validation"
++    "results/paper_20261025/figures"
+   ],
+   "image_format": "PNG",
+   "duplicates": 0,
+@@ -399,6 +399,30 @@
+       "kind": "generated",
+       "generated_this_pass": 1
+     },
++    "figures/paper/budget.png": {
++      "sha256": "e7641e306aa6b71d3a184da4e42c86f538ecb6217060b2fc109584a0f4a21f21",
++      "bytes": 90656,
++      "kind": "generated",
++      "generated_this_pass": 1
++    },
++    "figures/paper/real_windows.png": {
++      "sha256": "65cf4c7a25db2447124cecc43523aa38fee02abc7a52e218a1ed9a5c46ae1b15",
++      "bytes": 156226,
++      "kind": "generated",
++      "generated_this_pass": 1
++    },
++    "figures/paper/recovery.png": {
++      "sha256": "1228ef1883f4f9f178503f18b6073816409fa9b988655720886eeb5daa4e7489",
++      "bytes": 139159,
++      "kind": "generated",
++      "generated_this_pass": 1
++    },
++    "figures/paper/search.png": {
++      "sha256": "c4351657172cbdfcbea55e4d8cbaf1c8dc240d5a3c33ba4744f5110854bedd30",
++      "bytes": 84653,
++      "kind": "generated",
++      "generated_this_pass": 1
++    },
+     "figures/research/v4/01_search_comparison.png": {
+       "sha256": "d59daa81e9abd288b2396fbadb6c9592745d0a8137f29f61a547016d97354b72",
+       "bytes": 308607,
+@@ -572,7 +596,7 @@
+         "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+       "hidden_snr_db": 10.176023349629052,
+@@ -592,7 +616,7 @@
+         "results\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\synthetic\\03_wavefield_reconstruction",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+       "hidden_snr_db": 10.176023349629052,
+@@ -613,7 +637,7 @@
+         "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
+       },
+       "source_mode": "current full-resolution replay; old display export was decimated",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+       "hidden_snr_db": 10.748282600335736,
+@@ -633,7 +657,7 @@
+         "results\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2e8069da61df3e15171ecbb34febce8e5125c60977847c8eed325faef201c881"
+       },
+       "source_mode": "current full-resolution replay; old display export was decimated",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_builtin\\run_SAOnly_r70_seed20262634",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+       "hidden_snr_db": 10.748282600335736,
+@@ -654,7 +678,7 @@
+         "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
+       },
+       "source_mode": "current full-resolution replay; old display export was decimated",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+       "hidden_snr_db": 13.320693419656532,
+@@ -674,7 +698,7 @@
+         "results\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "c268587263dcb2759b48b72af6d140d4d3456170f1abc32293806a4b4f7fc05e"
+       },
+       "source_mode": "current full-resolution replay; old display export was decimated",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_dipping\\run_SAOnly_r70_seed20262634",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+       "hidden_snr_db": 13.320693419656532,
+@@ -695,7 +719,7 @@
+         "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
+       },
+       "source_mode": "current full-resolution replay; old display export was decimated",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+       "hidden_snr_db": 10.993514299990512,
+@@ -715,7 +739,7 @@
+         "results\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634\\recon_subsampled_gather.csv": "2b768965542c7ef897edce1781a77d90079ee1a1177f1b4f94759f92dccca674"
+       },
+       "source_mode": "current full-resolution replay; old display export was decimated",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\mask_recon_faulted\\run_SAOnly_r70_seed20262634",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "c26a012737ce21bd310064118f12bf49eb9ce8e6b599026de043adeb7a678aa1",
+       "hidden_snr_db": 10.993514299990512,
+@@ -736,7 +760,7 @@
+         "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\real_field",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 4.182381809335205,
+@@ -756,7 +780,7 @@
+         "results\\enhanced_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\enhanced_20261023\\real_field",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\enhanced_20261023\\real_field",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 4.182381809335205,
+@@ -817,7 +841,7 @@
+         "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+       "hidden_snr_db": 10.176023349629052,
+@@ -837,7 +861,7 @@
+         "results\\revised_20261023\\synthetic\\03_wavefield_reconstruction\\recon_subsampled_gather.csv": "4a5aaf259727984a1268287ed402e4777377016e3873a3bde704750d5d03abe3"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\synthetic\\03_wavefield_reconstruction",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "05505b344218421381df50b1b1492576d0dc45b6422eb24f27ba3f68b6dd84e6",
+       "hidden_snr_db": 10.176023349629052,
+@@ -858,7 +882,7 @@
+         "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\real_field",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 4.182381809335205,
+@@ -878,7 +902,7 @@
+         "results\\revised_20261023\\real_field\\recon_subsampled_gather.csv": "cd2e2b7f6c7f89a55fa52a1c5fd04102f3914b4a81e6d9a2b9a75355f88319bd"
+       },
+       "source_mode": "archived exported matrices",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\revised_20261023\\real_field",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\revised_20261023\\real_field",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 4.182381809335205,
+@@ -944,7 +968,7 @@
+         "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+       },
+       "source_mode": "current deterministic replay; original matrices were not archived",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 10.89820382319636
+@@ -956,7 +980,7 @@
+         "results\\synthetic\\03_wavefield_reconstruction\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+       },
+       "source_mode": "current deterministic replay; original matrices were not archived",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\synthetic\\03_wavefield_reconstruction",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 10.89820382319636,
+@@ -969,7 +993,7 @@
+         "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+       },
+       "source_mode": "current deterministic replay; original matrices were not archived",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\real_field",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 4.182381809335205
+@@ -981,7 +1005,7 @@
+         "results\\real_field\\cmp_mask.txt": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a"
+       },
+       "source_mode": "current deterministic replay; original matrices were not archived",
+-      "replay_path": "results\\refactor_20261024\\full_validation\\legacy_replay\\real_field",
++      "replay_path": "results\\paper_20261025\\figures\\legacy_replay\\real_field",
+       "replay_max_abs_prediction_difference": 0.0,
+       "mask_sha256": "e57dcbadff3bc3cb978bcda63d952419240834fcca5dd906d84c50973a71149a",
+       "hidden_snr_db": 4.182381809335205,
+diff --git a/research/analysis/make_audit_reports.py b/research/analysis/make_audit_reports.py
+index 7910fb37..2fabbb47 100644
+--- a/research/analysis/make_audit_reports.py
++++ b/research/analysis/make_audit_reports.py
+@@ -125,7 +125,7 @@ def make(root):
+            '程序/输入变化后明确拒绝旧指纹；本批只用显式冻结快照复核。当前最终程序另通过930个搜索案例和6个预设预测的逐字节/科学列重放。',
+            '', '## 7. 数据、表图及结论适用范围','',
+            '全部原生输入、命令、参数、种子、输出及哈希见各 stage 的 manifest.json/journal.jsonl；原始汇总为 search/search.csv、joint/joint.csv、real/real.csv、timing/timing.csv。',
+-           '最终10组中文PNG/SVG/data.json位于 figures_thesis/，最终图哈希见 final_figures_manifest.json；初稿也保留。',
++           '当前10组中文PNG及配套data.json统一位于 `figures/research/v5/`；当前图片哈希与来源见 `figures/manifest.json`，该组绘制记录见 `figures/research/v5/render_manifest.json`。原审计图清单 `final_figures_manifest.json` 保留历史含义；旧SVG、草稿及重复图片的迁移前版本由Git历史保存。',
+            '当前结果支持预算管理、数学实现一致性和目标失配研究；不支持通用最优、全部机制有效、跨工区适用、真实高保真或成像改善。',
+            '独立真实来源、提供方说明、GUI人工走查及异机全重跑仍未完成，见 UNRESOLVED_ISSUES.md。','']
+     resultpath=ROOT/'docs/EXPERIMENT_RESULTS.md';resultpath.write_text('\n'.join(text),encoding='utf-8')
+@@ -191,7 +191,7 @@ def make(root):
+             '```','',
+             '完整重跑研究使用audit_joint_studies.py的search/joint/real/timing四阶段，各--out必须是新目录；先冻结协议和匹配程序/源码，计时阶段顺序单独运行。',
+             '本地精确快照复核及当前程序重放通过，不等于已经执行干净克隆/异机完整复现。新归档使用局部.gitattributes -text保护CSV/源码快照字节；旧历史行尾变更仍会被哈希拒绝。',
+-            '最终图件有独立数据JSON/PNG/SVG及final_figures_manifest；统计模板层分析、初版条件分析和图件草稿全部保留。','']
++            '当前图件集中于figures/research/v5，有独立数据JSON/PNG；当前图片哈希与来源见figures/manifest.json。final_figures_manifest保留原审计图归档含义；统计模板层分析与初版条件分析仍保留，迁移前的SVG和图件草稿由Git历史保存。','']
+     validation=ROOT/'docs/VALIDATION_REPORT.md';validation.write_text('\n'.join(report),encoding='utf-8')
+     inputs=[analysis/name for name in ['search_means.csv','joint_means.csv','joint_pairs.csv','search_pairs.csv','common_evaluation_pairs.csv','real_means.csv','switch_sensitivity.csv','geometry_recovery_associations.csv','time_limit_means.csv']]
+     inputs += [legacy/'real_diagnosis.json',legacy/'real_nested_summary.csv']
+diff --git a/research/pipeline.py b/research/pipeline.py
+index c6c51571..561402b2 100644
+--- a/research/pipeline.py
++++ b/research/pipeline.py
+@@ -66,6 +66,7 @@ class Run:
+ 
+ def prepare_image_registry():
+     from research.analysis.legacy_figures import plan
++    from research.analysis.paper_figures import FIGURE_IDS
+     jobs,aliases=plan();path=ROOT/'config/path_migrations.json';record=json.loads(path.read_text(encoding='utf-8'))
+     previous=set(record['images']['owners'])
+     owners={p:old for p,old in record['images']['owners'].items() if not p.startswith('figures/legacy/')}
+@@ -73,6 +74,8 @@ def prepare_image_registry():
+         destination='figures/'+name
+         owner=next(old for old,target in aliases.items() if target==destination and old in record['images']['aliases'])
+         owners[destination]=owner
++    for name in FIGURE_IDS:
++        owners['figures/paper/'+name+'.png']='research.analysis.paper_figures'
+     record['files'].update(aliases);record['images']['aliases'].update(aliases)
+     record['images']['owners']=owners;record['images']['canonical_images']=len(owners)
+     record['images']['deduplication']='figure kind and actual source hashes; old equal PNG bytes can be stale copies'
+@@ -95,6 +98,7 @@ def render(run):
+     from research.analysis.review_diagnostics import plot_real_diagnosis
+     from research.analysis.render_audit_figures import run as thesis
+     from research.analysis.legacy_figures import render as legacy
++    from research.analysis.paper_figures import render as paper
+     from research.common.tabular import rows
+     record=prepare_image_registry()
+     plt.rcParams.update({'font.family':['Microsoft YaHei','SimSun','DejaVu Sans'],'axes.unicode_minus':False})
+@@ -105,6 +109,7 @@ def render(run):
+         v4.figures(root,search,state['search'],rows(root/'real_nested.csv'),state['synthetic'])
+         plot_real_diagnosis(json.loads((root/'real_diagnosis.json').read_text(encoding='utf-8')))
+         legacy_records,_=legacy(run.out,run.native)
++        paper()
+         run.native('gui_screenshots',['--screenshot-all'],render=True)
+         run.native('gui_survey',['--screenshot-survey'],render=True)
+         for p in (FIGURES/'gui').glob('*.png'):
+diff --git "a/\351\241\271\347\233\256\347\233\256\345\275\225\350\257\264\346\230\216.md" "b/\351\241\271\347\233\256\347\233\256\345\275\225\350\257\264\346\230\216.md"
+index 7e6efa96..f1c5c5aa 100644
+--- "a/\351\241\271\347\233\256\347\233\256\345\275\225\350\257\264\346\230\216.md"
++++ "b/\351\241\271\347\233\256\347\233\256\345\275\225\350\257\264\346\230\216.md"
+@@ -13,6 +13,7 @@
+ | `data/` | 输入数据，包括真实地震资料、合成模型、采集几何和采样掩码。 |
+ | `results/` | 实验结果与历史归档，保存数据表、掩码、预测、配置、日志和校验记录。 |
+ | `figures/` | 全项目统一图片目录，包括论文图、历史图、界面截图和程序图标。 |
++| `output/` | 面向阅读和交付的文档产物；`pdf/` 保存当前八页英文论文 PDF 及构建记录。 |
+ | `build/` | 构建配置、编译中间文件、Qt 自动生成代码和可执行程序。 |
+ | `resources/` | Qt 资源清单和翻译文件；图片实体集中保存在 `figures/`。 |
+ | `tests/` | Python 自动测试和独立 C++ 测试。 |
+@@ -71,6 +72,7 @@
+ | `gui/` | 程序启动、对话框及 SPS 等界面截图。 |
+ | `research/v5/` | 当前 v5 研究与论文图件。 |
+ | `research/v4/` | v4 历史正式研究图件。 |
++| `paper/` | 从归档表生成的四张英文期刊稿图，与统一图片清单和流水线关联。 |
+ | `legacy/` | 早期示例图，按 `v2/`、`v3/`、`baseline/`、`real/` 等来源分类；内部掩码或参考场子目录按实验场景分组。 |
+ 
+ 所有图片均集中在这个目录树内。批量实验阶段保存数据，统一绘图阶段生成图片，每个图 ID 在一次绘图过程中只保存一次，并覆盖规范位置。
+@@ -138,6 +140,7 @@
+ - `scripts/`：本轮迁移、图片集中、引用修正、旧产物清理和报告生成工具；其中一次性迁移脚本不是日常运行入口。
+ - `docs/`：当前架构、命令说明、方法、协议、实验结果、验证及论文材料。
+ - `docs/archive/`：早期版本的说明与报告。
++- `docs/paper/`：八页英文期刊稿源码、统计复算、构建与 PDF 检查脚本及本轮审查记录。
+ 
+ ## 10. 日常从哪里开始
+ 

@@ -1,0 +1,16 @@
+Qt: Untested Windows version 6.2 detected!
+Hold-out validation on measured traces
+  input : D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\validation\legacy_pipeline\real_data_audit\MixedCDP.csv
+  traces=59 keep=39 iter=40 seed=20261023 mask=(random)
+【留出验证完成】(Hold-out on measured traces)
+输入文件: MixedCDP.csv
+真实道数 m=59, 已知 k=39, 留出 20 道（真实实测，仅用于评估）
+时间样点 Nt=256, POCS 迭代 40 次, 种子 20261023
+--- 仅在留出道上的 SNR ---
+  零填充: 0.00 dB
+  线性插值: -0.82 dB
+  曲波 POCS: 0.19 dB
+  POCS 相对线性: +1.01 dB
+  POCS 相对零填充: +0.19 dB
+  留出 RMSE: 线性 0.118683 / POCS 0.105601
+输出: D:/Desktop/work/IrrGeometryDesign-20261015/results/paper_20261025/validation/legacy_pipeline/real_data_audit/MixedCDP/holdout_metrics.csv

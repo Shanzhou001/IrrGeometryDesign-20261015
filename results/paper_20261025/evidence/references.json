@@ -1,0 +1,383 @@
+{
+  "retrieved_utc": "2026-10-24T18:36:49.491784+00:00",
+  "metadata_provider": "Crossref DOI registration records; paper claims checked against author/publisher pages",
+  "records": [
+    {
+      "key": "donoho",
+      "doi": "10.1109/TIT.2006.871582",
+      "title": [
+        "Compressed sensing"
+      ],
+      "author": [
+        {
+          "given": "D.L.",
+          "family": "Donoho",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "IEEE Transactions on Information Theory"
+      ],
+      "volume": "52",
+      "issue": "4",
+      "pages": "1289-1306",
+      "published": {
+        "date-parts": [
+          [
+            2006,
+            4
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1109/tit.2006.871582",
+      "verified": true
+    },
+    {
+      "key": "candes",
+      "doi": "10.1002/cpa.20124",
+      "title": [
+        "Stable signal recovery from incomplete and inaccurate measurements"
+      ],
+      "author": [
+        {
+          "given": "Emmanuel J.",
+          "family": "Cand\u00e8s",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Justin K.",
+          "family": "Romberg",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Terence",
+          "family": "Tao",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Communications on Pure and Applied Mathematics"
+      ],
+      "volume": "59",
+      "issue": "8",
+      "pages": "1207-1223",
+      "published": {
+        "date-parts": [
+          [
+            2006,
+            3
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1002/cpa.20124",
+      "verified": true
+    },
+    {
+      "key": "jitter",
+      "doi": "10.1190/1.2841038",
+      "title": [
+        "Simply denoise: Wavefield reconstruction via jittered undersampling"
+      ],
+      "author": [
+        {
+          "given": "Gilles",
+          "family": "Hennenfent",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "1University of British Columbia, Department of Earth and Ocean Sciences, Vancouver, Canada. E-mail: ghennenfent@eos.ubc.ca; fherrmann@eos.ubc.ca."
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Felix J.",
+          "family": "Herrmann",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "1University of British Columbia, Department of Earth and Ocean Sciences, Vancouver, Canada. E-mail: ghennenfent@eos.ubc.ca; fherrmann@eos.ubc.ca."
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Geophysics"
+      ],
+      "volume": "73",
+      "issue": "3",
+      "pages": "V19-V28",
+      "published": {
+        "date-parts": [
+          [
+            2008,
+            1,
+            1
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1190/1.2841038",
+      "verified": true
+    },
+    {
+      "key": "crsi",
+      "doi": "10.1111/j.1365-246X.2007.03698.x",
+      "title": [
+        "Non-parametric seismic data recovery with curvelet frames"
+      ],
+      "author": [
+        {
+          "given": "Felix J.",
+          "family": "Herrmann",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Gilles",
+          "family": "Hennenfent",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Geophysical Journal International"
+      ],
+      "volume": "173",
+      "issue": "1",
+      "pages": "233-248",
+      "published": {
+        "date-parts": [
+          [
+            2008,
+            4
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1111/j.1365-246x.2007.03698.x",
+      "verified": true
+    },
+    {
+      "key": "fdct",
+      "doi": "10.1137/05064182X",
+      "title": [
+        "Fast Discrete Curvelet Transforms"
+      ],
+      "author": [
+        {
+          "given": "Emmanuel",
+          "family": "Cand\u00e8s",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Laurent",
+          "family": "Demanet",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "David",
+          "family": "Donoho",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Lexing",
+          "family": "Ying",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Multiscale Modeling &amp; Simulation"
+      ],
+      "volume": "5",
+      "issue": "3",
+      "pages": "861-899",
+      "published": {
+        "date-parts": [
+          [
+            2006,
+            1
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1137/05064182x",
+      "verified": true
+    },
+    {
+      "key": "sa",
+      "doi": "10.1126/science.220.4598.671",
+      "title": [
+        "Optimization by Simulated Annealing"
+      ],
+      "author": [
+        {
+          "given": "S.",
+          "family": "Kirkpatrick",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Research staff members at IBM Thomas J. Watson Research Center, Yorktown Heights, New York 10598"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "suffix": "Jr.",
+          "given": "C. D.",
+          "family": "Gelatt",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Research staff members at IBM Thomas J. Watson Research Center, Yorktown Heights, New York 10598"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "M. P.",
+          "family": "Vecchi",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Instituto Venezolano de Investigaciones Cientificas, Caracas 1010A, Venezuela"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "journal": [
+        "Science"
+      ],
+      "volume": "220",
+      "issue": "4598",
+      "pages": "671-680",
+      "published": {
+        "date-parts": [
+          [
+            1983,
+            5,
+            13
+          ]
+        ]
+      },
+      "URL": "https://doi.org/10.1126/science.220.4598.671",
+      "verified": true
+    },
+    {
+      "key": "holm",
+      "doi": "10.2307/4615733",
+      "verified": false,
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "other_sources": [
+    {
+      "key": "ils",
+      "url": "https://arxiv.org/abs/math/0102188"
+    },
+    {
+      "key": "segy",
+      "url": "https://seg.org/wp-content/uploads/2025/11/seg_y_rev2_0_mar2017.pdf"
+    },
+    {
+      "key": "tgrs_author_rules",
+      "url": "https://www.grss-ieee.org/publications/author-resources/tgrs-information-for-authors/"
+    },
+    {
+      "key": "ieeetran",
+      "url": "https://ctan.org/pkg/ieeetran"
+    }
+  ]
+}

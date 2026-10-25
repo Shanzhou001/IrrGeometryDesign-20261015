@@ -1,0 +1,37 @@
+ M README.md
+ M config/path_migrations.json
+ M docs/AUDIT_ISSUES.md
+ M docs/DATA_VALIDATION_REPORT.md
+ M docs/EXPERIMENT_RESULTS.md
+ M docs/PROJECT_PROGRESS_20261024.md
+ M docs/THESIS_METHODS.md
+ M docs/UNRESOLVED_ISSUES.md
+ M figures/index.html
+ M figures/legacy/baseline/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/baseline/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/real/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/real/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/v2/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/v2/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/v2/real_reference/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/v2/real_reference/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/v3/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/v3/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/v3/mask_builtin/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/v3/mask_builtin/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/v3/mask_dipping/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/v3/mask_dipping/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/v3/mask_faulted/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/v3/mask_faulted/06_recon_convergence_trace_comparison.data.json
+ M figures/legacy/v3/real_reference/05_wavefield_reconstruction_quad.data.json
+ M figures/legacy/v3/real_reference/06_recon_convergence_trace_comparison.data.json
+ M figures/manifest.json
+ M research/analysis/make_audit_reports.py
+ M research/pipeline.py
+ M 项目目录说明.md
+?? docs/PAPER_PROGRESS_20261025.md
+?? docs/paper/
+?? figures/paper/
+?? output/
+?? research/analysis/paper_figures.py
+?? results/paper_20261025/

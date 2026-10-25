@@ -1,0 +1,299 @@
+note: Running TeX ...
+Fontconfig error: Cannot load default config file: No such file: (null)
+warning: hyperref.sty:4873: Requested font "pzdr" at 0.00002pt
+warning: hyperref.sty:4873:  -> pzdr
+warning: tgrs_trace_selection.tex:12: 
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 9.99997pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Slanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:22: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:23: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 19.82007pt
+warning: tgrs_trace_selection.tex:23: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 29.25873pt
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntx-Regular-tlf-ot1" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:37: Requested font "ntx-Regular-tlf-ot1" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:37: Requested font "ntx-Regular-tlf-ot1" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmi" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmi
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmi7" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmi7
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmi5" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmi5
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsy" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsy
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsy7" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsy7
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsy5" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsy5
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexx" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexx
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexx" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexx
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexx" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexx
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntxmia" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmia
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmia" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmia
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmia" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmia
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntxsym" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsym
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsym" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsym
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsym" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsym
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntxsyc" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsyc
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsyc" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsyc
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsyc" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsyc
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexa" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexa
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexa" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexa
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexa" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexa
+warning: tgrs_trace_selection.tex:89: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:92: Requested font "ntx-Regular-tlf-ot1" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:92: Requested font "ntx-Regular-tlf-ot1" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmi7" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmi7
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmi5" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmi5
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsy7" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsy7
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsy5" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsy5
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexx" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexx
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexx" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexx
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmia" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmia
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmia" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmia
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsym" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsym
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsym" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsym
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsyc" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsyc
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsyc" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsyc
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexa" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexa
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexa" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexa
+warning: tgrs_trace_selection.tex:160: Underfull \hbox (badness 3354) in paragraph at lines 159--160
+warning: tgrs_trace_selection.tex:209: Underfull \hbox (badness 3078) in paragraph at lines 208--209
+warning: tgrs_trace_selection.tex:232: Underfull \hbox (badness 3861) in paragraph at lines 231--232
+warning: tgrs_trace_selection.tex:253: Underfull \hbox (badness 2205) in paragraph at lines 252--253
+warning: tgrs_trace_selection.tex:267: 
+Requested font "[lmmono10-regular]:" at 10.0pt
+note: Rerunning TeX because "tgrs_trace_selection.out" changed ...
+warning: hyperref.sty:4873: Requested font "pzdr" at 0.00002pt
+warning: hyperref.sty:4873:  -> pzdr
+warning: tgrs_trace_selection.tex:12: 
+Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 9.99997pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Slanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldSlanted.otf]/OT:script=latn;language=dflt;" at 10.00003pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 5.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 7.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 9.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 11.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 12.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 17.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 20.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-Italic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:12: Requested font "[TeXGyreTermesX-BoldItalic.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 24.0pt
+warning: tgrs_trace_selection.tex:22: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;" at 10.0pt
+warning: tgrs_trace_selection.tex:23: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 19.82007pt
+warning: tgrs_trace_selection.tex:23: Requested font "[TeXGyreTermesX-Bold.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;mapping=tex-text;" at 29.25873pt
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntx-Regular-tlf-ot1" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:37: Requested font "ntx-Regular-tlf-ot1" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:37: Requested font "ntx-Regular-tlf-ot1" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmi" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmi
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmi7" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmi7
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmi5" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmi5
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsy" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsy
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsy7" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsy7
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsy5" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsy5
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexx" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexx
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexx" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexx
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexx" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexx
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntxmia" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmia
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmia" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmia
+warning: tgrs_trace_selection.tex:37: Requested font "ntxmia" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxmia
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntxsym" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsym
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsym" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsym
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsym" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsym
+warning: tgrs_trace_selection.tex:37: 
+Requested font "ntxsyc" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsyc
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsyc" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsyc
+warning: tgrs_trace_selection.tex:37: Requested font "ntxsyc" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxsyc
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexa" at 10.0pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexa
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexa" at 7.3pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexa
+warning: tgrs_trace_selection.tex:37: Requested font "ntxexa" at 5.5pt
+warning: tgrs_trace_selection.tex:37:  -> ntxexa
+warning: tgrs_trace_selection.tex:89: Requested font "[TeXGyreTermesX-Regular.otf]/OT:script=latn;language=dflt;-ss05;+tnum;+lnum;+smcp;+pcap;mapping=tex-text;" at 8.0pt
+warning: tgrs_trace_selection.tex:92: Requested font "ntx-Regular-tlf-ot1" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:92: Requested font "ntx-Regular-tlf-ot1" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntx-Regular-tlf-ot1
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmi7" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmi7
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmi5" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmi5
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsy7" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsy7
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsy5" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsy5
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexx" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexx
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexx" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexx
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmia" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmia
+warning: tgrs_trace_selection.tex:92: Requested font "ntxmia" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxmia
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsym" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsym
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsym" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsym
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsyc" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsyc
+warning: tgrs_trace_selection.tex:92: Requested font "ntxsyc" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxsyc
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexa" at 8.0pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexa
+warning: tgrs_trace_selection.tex:92: Requested font "ntxexa" at 6.2pt
+warning: tgrs_trace_selection.tex:92:  -> ntxexa
+warning: tgrs_trace_selection.tex:160: Underfull \hbox (badness 3354) in paragraph at lines 159--160
+warning: tgrs_trace_selection.tex:209: Underfull \hbox (badness 5022) in paragraph at lines 208--209
+warning: tgrs_trace_selection.tex:232: Underfull \hbox (badness 3861) in paragraph at lines 231--232
+warning: tgrs_trace_selection.tex:253: Underfull \hbox (badness 2205) in paragraph at lines 252--253
+warning: tgrs_trace_selection.tex:267: 
+Requested font "[lmmono10-regular]:" at 10.0pt
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184834916851Z\tgrs_trace_selection.out` (3.771484375 KiB)
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184834916851Z\tgrs_trace_selection.log` (41.8828125 KiB)
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184834916851Z\tgrs_trace_selection.pdf` (556.2626953125 KiB)
+note: Writing `D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\manuscript_build\20261024T184834916851Z\tgrs_trace_selection.aux` (7.953125 KiB)

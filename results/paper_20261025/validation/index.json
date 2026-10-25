@@ -1,0 +1,147 @@
+{
+  "created_utc": "2026-10-24T18:37:53.528143+00:00",
+  "baseline_git_commit": "8b9ffef2731f2210a8144900f155385d1dba266c",
+  "baseline_worktree": "clean at initial inspection",
+  "final_test_wrapper_passed": true,
+  "retained_first_test_wrapper": {
+    "completed": false,
+    "reason": "source file changed while tests ran; provenance guard refused completion; all component regressions had passed",
+    "evidence": "test/pipeline.json"
+  },
+  "native_regression": {
+    "release": {
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0
+    },
+    "debug": {
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "python_unique_tests": 38,
+  "numeric_cases": 588,
+  "projection_cases": 2,
+  "fdct_executions": 40,
+  "legacy_safety_executions": 14,
+  "replay_search_cases": 930,
+  "replay_prediction_cases": 6,
+  "smoke_cases": 2,
+  "v3_compatibility_steps": 12,
+  "v3_independently_verified_rows": 234,
+  "independent_real_sources": 1,
+  "protected_files": {
+    "working_bytes": 34513,
+    "original_git_bytes": 13
+  },
+  "rraw_sha256": "ddcb311b2406af17cf375b570b3eb8ea7ca2d81cdeb002f972e6d668cd7b2bc2",
+  "rraw_encoding_identification": "UNRESOLVED: descriptive statistics and IBM canonicality do not prove provider intent",
+  "initial_image_inspection": {
+    "total_images": 81,
+    "source_assets": 30,
+    "generated_once": 51,
+    "images_outside_figures": 0,
+    "duplicate_hashes": 0
+  },
+  "scope": "Fresh software/scientific checks; initial image inspection predates the four new manuscript plots. No additional independent field dataset or algorithm-superiority claim. Final manuscript/PDF figure checks are recorded separately.",
+  "unexecuted": [
+    "manual full GUI walkthrough",
+    "ASan/Valgrind",
+    "independent machine or OS full replay",
+    "clean-clone full experiments",
+    "provider confirmation of RRAW encoding",
+    "independent second real survey",
+    "strict wall-clock-scheduled confirmation experiment"
+  ],
+  "reports": {
+    "build/pipeline.json": {
+      "path": "results/paper_20261025/validation/build/pipeline.json",
+      "sha256": "482306483af1b7b83e7035fa66496026fdb97cb5248d742c45e5b9cfe8161a54"
+    },
+    "test/pipeline.json": {
+      "path": "results/paper_20261025/validation/test/pipeline.json",
+      "sha256": "a9b6822e510043e106bda674e95cf0029d2a3abce7b1a53994fb3cd1425bff04"
+    },
+    "test/regression/checks.json": {
+      "path": "results/paper_20261025/validation/test/regression/checks.json",
+      "sha256": "aefc4d6899b405baf51b61034a358f19d1a6adc66a495b6a75a2d944788f6d1f"
+    },
+    "test_final/pipeline.json": {
+      "path": "results/paper_20261025/validation/test_final/pipeline.json",
+      "sha256": "7f28cdc9d1cc28451855f8bd49e9218e360db990ea224ec1759cd70e38a63801"
+    },
+    "test_final/regression/checks.json": {
+      "path": "results/paper_20261025/validation/test_final/regression/checks.json",
+      "sha256": "a9386e4ae462319fdcab8a43d31786aac772c5feb2160e11c21facc13d8d8466"
+    },
+    "qmake_build.json": {
+      "path": "results/paper_20261025/validation/qmake_build.json",
+      "sha256": "1c66223cdf3ae83a393771d6485a344b162186852afe7b746caba5c1d71d7075"
+    },
+    "compiler_version.json": {
+      "path": "results/paper_20261025/validation/compiler_version.json",
+      "sha256": "27924e3ae1e0723db60462b016b53de9736c92e238b2370a91ead878ba69923f"
+    },
+    "numeric/run.json": {
+      "path": "results/paper_20261025/validation/numeric/run.json",
+      "sha256": "dd40c8404b7b1e165ff2865380f499e2297c2c8c9f583fdcda99d8555b0a8d78"
+    },
+    "numeric/verification.json": {
+      "path": "results/paper_20261025/validation/numeric/verification.json",
+      "sha256": "941972c25b66e69f3506b110ba118d33c419c0afd5e423af3846189a516168da"
+    },
+    "projection/verification.json": {
+      "path": "results/paper_20261025/validation/projection/verification.json",
+      "sha256": "d2f3e5032e84b7159f51c66ed020c5f2a48fa5852efe6966c0d395751086f713"
+    },
+    "fdct/verification.json": {
+      "path": "results/paper_20261025/validation/fdct/verification.json",
+      "sha256": "ea3de83faf7a3bfe87d4fc029490f2e0b0fd3b4d84ca803135db726460cfea50"
+    },
+    "legacy_safety/checks.json": {
+      "path": "results/paper_20261025/validation/legacy_safety/checks.json",
+      "sha256": "255cf79e719a3af40a3e84ba0569dfeb515acf1485125cf7749d2b95dc73f524"
+    },
+    "replay/verification.json": {
+      "path": "results/paper_20261025/validation/replay/verification.json",
+      "sha256": "62ed449926494a61f38326d2a471599fec17738b8e270552480db3ec62eef26c"
+    },
+    "smoke/verification.json": {
+      "path": "results/paper_20261025/validation/smoke/verification.json",
+      "sha256": "d903e7d94d0bef9d301614d29dd45cc2dd2882ad35025e30c15e9b87c5f1df4d"
+    },
+    "segy/audit.json": {
+      "path": "results/paper_20261025/validation/segy/audit.json",
+      "sha256": "792f329fdab868828e707d1e842abd189ef50dc7859b8bdd14272934d2d82ca8"
+    },
+    "archives/verification.json": {
+      "path": "results/paper_20261025/validation/archives/verification.json",
+      "sha256": "2784d191be7097e03e98669fa37bcbc4f881588ca0bfcaac123d5bbd98059ddf"
+    },
+    "archives/v4.json": {
+      "path": "results/paper_20261025/validation/archives/v4.json",
+      "sha256": "71d4105e176a24c6ecf3136a25aa5e10a8cd5efb0e0117132247b60c71e319a5"
+    },
+    "archives/structural_statistics.json": {
+      "path": "results/paper_20261025/validation/archives/structural_statistics.json",
+      "sha256": "488f861260501d1c48711e69937cff0398ae41551d4d22014d98948eebc00400"
+    },
+    "layout.json": {
+      "path": "results/paper_20261025/validation/layout.json",
+      "sha256": "74ab282736d8cda39c2963ae24840838522f5ffbd148a213ecaf91a9155d0161"
+    },
+    "legacy_pipeline/run_manifest.json": {
+      "path": "results/paper_20261025/validation/legacy_pipeline/run_manifest.json",
+      "sha256": "3ba4b26f20c2c1223f4172890c6301d0880f5c604cbd1bba6328157f5b4ed3fb"
+    },
+    "legacy_verification.json": {
+      "path": "results/paper_20261025/validation/legacy_verification.json",
+      "sha256": "121a68788da6228d77392ce98185fa3fef81e435bfde99badadc25ae68b3cb29"
+    }
+  },
+  "report": {
+    "path": "docs/paper/VALIDATION_20261025.md",
+    "sha256": "408cef63a080ec1a17cd1e8bc632cd4eb4373708ae5d6de8c184e3cdffe34996"
+  }
+}

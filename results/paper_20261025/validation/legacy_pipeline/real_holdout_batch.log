@@ -1,0 +1,14 @@
+Qt: Untested Windows version 6.2 detected!
+Hold-out batch validation (6 configurations)
+  input : data/real_seismic/real_gather_59x256.csv
+  traces=59 iter=40 out=D:\Desktop\work\IrrGeometryDesign-20261015\results\paper_20261025\validation\legacy_pipeline\real_field_holdout
+【批量留出验证完成】6/6 组成功
+输入: real_gather_59x256.csv
+SHA1: 15b5d1099e201a5d5e7dee1a558e596913909c52
+  cfg0 keep=20/59 held=39 seed=20261020  zero=0.00 linear=-1.79 POCS=-1.08 gain=+0.71 rmse=0.128414
+  cfg1 keep=20/59 held=39 seed=12345  zero=0.00 linear=-2.56 POCS=-1.84 gain=+0.72 rmse=0.138800
+  cfg2 keep=30/59 held=29 seed=20261020  zero=0.00 linear=-1.80 POCS=-0.70 gain=+1.10 rmse=0.120137
+  cfg3 keep=30/59 held=29 seed=12345  zero=0.00 linear=-1.88 POCS=-0.86 gain=+1.02 rmse=0.122182
+  cfg4 keep=40/59 held=19 seed=20261020  zero=0.00 linear=-1.60 POCS=-0.53 gain=+1.08 rmse=0.120057
+  cfg5 keep=40/59 held=19 seed=12345  zero=0.00 linear=-1.63 POCS=-0.56 gain=+1.07 rmse=0.117202
+归档: D:/Desktop/work/IrrGeometryDesign-20261015/results/paper_20261025/validation/legacy_pipeline/real_field_holdout/holdout_runs.csv

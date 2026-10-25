@@ -1,0 +1,200 @@
+{
+  "checked_utc": "2026-10-24T18:50:40.774952+00:00",
+  "command": [
+    "python",
+    "docs/paper/check_pdf.py",
+    "--record-visual-review"
+  ],
+  "script_sha256": "0461a3dcf129a5a8018f499392c854d8b987700f8cd88e97b38a20c9b8008fc7",
+  "pdf_sha256": "62074c6638cb3b470900a1d6a91b85157a4e78ece6d705f3b81c6aeeeef0ceb1",
+  "checks": {
+    "eight_pages": true,
+    "letter_size": true,
+    "continuous_page_numbers": true,
+    "all_fonts_embedded": true,
+    "times_family_body": true,
+    "four_numbered_figures": true,
+    "references_one_to_nine": true,
+    "author_matches_user": true,
+    "no_boundary_or_reference_errors": true,
+    "pdf_matches_build": true,
+    "build_inputs_unchanged": true,
+    "paper_images_registered": true
+  },
+  "pages": [
+    {
+      "page": 1,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 5762,
+      "header_page_number_matches": true,
+      "raster_figures": 0,
+      "preview_sha256": "2a9e21b4c79ae42b7a9a5e6ada5ca41715aa0f7903c7c8a95889576b7ed56525",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-01.png"
+    },
+    {
+      "page": 2,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 5329,
+      "header_page_number_matches": true,
+      "raster_figures": 0,
+      "preview_sha256": "0e1c330bc83406545c1415e2df06dbb24ccb43e7193ff45a44d516e05c4ef8f5",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-02.png"
+    },
+    {
+      "page": 3,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 5914,
+      "header_page_number_matches": true,
+      "raster_figures": 0,
+      "preview_sha256": "516cbec6b63af1e9d911c41dc383f3b9723c36b24d9a60bb0d845951ea14a9ae",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-03.png"
+    },
+    {
+      "page": 4,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 6238,
+      "header_page_number_matches": true,
+      "raster_figures": 0,
+      "preview_sha256": "9ac2c82fd5fa4fe4c6be3388ad1e9ae3dca2c4fb4b93c015be961804cee85006",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-04.png"
+    },
+    {
+      "page": 5,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 2750,
+      "header_page_number_matches": true,
+      "raster_figures": 2,
+      "preview_sha256": "0294c822398fcd96a4afcc2f2defe667ad90d1211c59b93dadab9a0baa05f0e8",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-05.png"
+    },
+    {
+      "page": 6,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 6291,
+      "header_page_number_matches": true,
+      "raster_figures": 0,
+      "preview_sha256": "6c5807afbb6e5d912f23a86b3a97ea74bac2467a21b28336199d252687e8c50c",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-06.png"
+    },
+    {
+      "page": 7,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 2824,
+      "header_page_number_matches": true,
+      "raster_figures": 2,
+      "preview_sha256": "d28037945472be96e51e48798c0bcc9d6b059573f2da6917704aef0ffa9a0c40",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-07.png"
+    },
+    {
+      "page": 8,
+      "width_pt": 612.0,
+      "height_pt": 792.0,
+      "characters": 3242,
+      "header_page_number_matches": true,
+      "raster_figures": 0,
+      "preview_sha256": "e7dfbd01e1cdd7453c60ad172e90858f8eec6090e4855a9917c3a0f77956815c",
+      "preview_file": "C:\\Users\\48198\\.cache\\codex-paper-tools\\paper-preview\\page-08.png"
+    }
+  ],
+  "fonts": {
+    "4": {
+      "name": "IHAIZV+TeXGyreTermesX-Regular-Identity-H",
+      "format": "cid",
+      "type": "Type0",
+      "embedded_bytes": 13704
+    },
+    "6": {
+      "name": "BZIVMZ+TeXGyreTermesX-BoldItalic-Identity-H",
+      "format": "cid",
+      "type": "Type0",
+      "embedded_bytes": 2703
+    },
+    "8": {
+      "name": "IXFAWU+TeXGyreTermesX-Bold-Identity-H",
+      "format": "cid",
+      "type": "Type0",
+      "embedded_bytes": 5748
+    },
+    "21": {
+      "name": "TQTHRL+TeXGyreTermesX-Italic-Identity-H",
+      "format": "cid",
+      "type": "Type0",
+      "embedded_bytes": 6754
+    },
+    "23": {
+      "name": "AKHCZK+NewTXMI",
+      "format": "cff",
+      "type": "Type1",
+      "embedded_bytes": 6347
+    },
+    "24": {
+      "name": "CAFSZL+TeXGyreTermesX-Regular",
+      "format": "cff",
+      "type": "Type1",
+      "embedded_bytes": 4397
+    },
+    "25": {
+      "name": "DDIEWW+txsys",
+      "format": "cff",
+      "type": "Type1",
+      "embedded_bytes": 1424
+    },
+    "26": {
+      "name": "FKPJSN+NewTXMI7",
+      "format": "cff",
+      "type": "Type1",
+      "embedded_bytes": 4166
+    },
+    "27": {
+      "name": "PVTTLK+txexs",
+      "format": "cff",
+      "type": "Type1",
+      "embedded_bytes": 902
+    },
+    "28": {
+      "name": "VDVGTR+txmiaX",
+      "format": "cff",
+      "type": "Type1",
+      "embedded_bytes": 269
+    },
+    "29": {
+      "name": "JAGKKY+NewTXMI5",
+      "format": "cff",
+      "type": "Type1",
+      "embedded_bytes": 694
+    },
+    "69": {
+      "name": "YEUUOC+LMMono10-Regular-Identity-H",
+      "format": "cid",
+      "type": "Type0",
+      "embedded_bytes": 2259
+    }
+  },
+  "metadata": {
+    "format": "PDF 1.5",
+    "title": "Budget-Aware Hybrid Seismic Trace Selection: Separating Search Efficiency From Reconstruction Quality",
+    "author": "Wu shanzhou",
+    "subject": "Reproducible seismic trace selection and reconstruction evaluation",
+    "keywords": "seismic acquisition, trace selection, simulated annealing, curvelets, reproducibility",
+    "creator": "LaTeX with hyperref",
+    "producer": "xdvipdfmx (0.1)",
+    "creationDate": "D:20261024184834-00'00'",
+    "modDate": "",
+    "trapped": "",
+    "encryption": null
+  },
+  "visual_review": {
+    "completed": true,
+    "reviewer": "Codex visual inspection",
+    "scope": "All eight latest rendered pages: columns, equations, tables, figure legends, references, and page endings.",
+    "note": "Automated boundary checks alone do not establish visual correctness; no human author review is claimed."
+  },
+  "passed": true
+}

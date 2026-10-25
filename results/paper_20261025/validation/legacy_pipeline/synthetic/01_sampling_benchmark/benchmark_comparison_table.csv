@@ -1,0 +1,4 @@
+Sampling_Rate,Target_Points,Total_Points,Repeat_Runs,Master_Seed,Regular_Miu,Random_Miu_Mean,Mean_Miu_SA,Std_Miu_SA,Min_Miu_SA,Max_Miu_SA,Mean_Imprv_vs_Regular_Pct,Mean_Imprv_vs_Random_Pct,Mean_Coherence_Ratio_Atten_dB
+0.30,38,128,3,42,0.8615,0.3023,0.2190,0.0075,0.2105,0.2288,74.58%,27.32%,11.90
+0.50,64,128,3,42,1.0000,0.1999,0.1422,0.0033,0.1378,0.1456,85.78%,28.71%,16.94
+0.70,90,128,3,42,0.3638,0.1362,0.0953,0.0028,0.0928,0.0993,73.80%,28.29%,11.64
