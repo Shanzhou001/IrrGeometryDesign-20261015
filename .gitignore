@@ -1,0 +1,25 @@
+# Generated files and external inputs do not belong in this repository.
+/.vs/
+/build/
+/results/
+/output/
+/data/
+/config/
+__pycache__/
+*.py[cod]
+*.ncb
+*.suo
+*.user
+*.user.*
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.exp
+*.exe
+*.log
+*.htm
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+unit_test_sandbox/

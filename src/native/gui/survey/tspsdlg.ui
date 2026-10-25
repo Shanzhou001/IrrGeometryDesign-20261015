@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TSPSDlg</class>
+ <widget class="QDialog" name="TSPSDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>650</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>New SPS</string>
+  </property>
+  <widget class="QLabel" name="textLabel6_3">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>233</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>R Min Offset</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cSPtInvEdit">
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>179</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cSY0Edit">
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>152</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel2_3">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>260</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Array Type</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel1_2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>125</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SLine Count</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cLMinOffEdit">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>206</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel1_3_2">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>125</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Line Inv</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel5_2">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>179</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SPt Inv</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="cRLineCountBox">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>9</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>10000</number>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cRX0Edit">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>36</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel3_2">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>152</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Y0</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cATypeBox">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>260</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>In Line</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Cross Line</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ob-Cross Line</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="cSLineInvEdit">
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>125</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="cRPtCountBox">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>63</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>10000000</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel3_3">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>260</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>S Angle</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cSX0Edit">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>152</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cRMinOffEdit">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>233</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel6_2">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>206</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>L Max Offset</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel6_2_2">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>233</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>R Max Offset</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cRMaxOffEdit">
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>233</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel6">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>206</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>L Min Offset</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel1">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RLine Count</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="cSPtCountBox">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>179</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>10000000</number>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cSAngleEdit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>260</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cLMaxOffEdit">
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>206</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="cSLineCountBox">
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>125</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="maximum">
+    <number>10000</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel4">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>63</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RPt Count</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>36</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>First RLine X0</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel4_2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>179</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SPt Count</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel2_2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>152</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>First SLine X0</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="Line" name="line1">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>350</y>
+     <width>632</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::HLine</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>280</y>
+     <width>632</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::HLine</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel1_4">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>90</y>
+     <width>150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>R Angle</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cAngleEdit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>90</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>366</y>
+     <width>632</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout">
+    <item>
+     <spacer name="spacer9">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Expanding</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>41</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="cOkBtn">
+      <property name="text">
+       <string>&amp;Ok</string>
+      </property>
+      <property name="shortcut">
+       <string>Alt+O</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="cCancelBtn">
+      <property name="text">
+       <string>&amp;Cancel</string>
+      </property>
+      <property name="shortcut">
+       <string>Alt+C</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="Line" name="line1_2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>110</y>
+     <width>632</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::HLine</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel1_3_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>310</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Design Original</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel1_3">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>11</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Line Inv</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel3">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>38</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Y0</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="textLabel5">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>65</y>
+     <width>130</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>RPt Inv</string>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cRLineInvEdit">
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>10</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cRY0Edit">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>37</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cRPtInvEdit">
+   <property name="geometry">
+    <rect>
+     <x>475</x>
+     <y>64</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>300</y>
+     <width>105</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Move X0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>330</y>
+     <width>105</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Move Y0</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cMoveX0Edit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>300</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cMoveY0Edit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>330</y>
+     <width>165</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="OrginalByReceiver">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>300</y>
+     <width>160</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>By Receiver</string>
+   </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="OrginalByShot">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>165</x>
+     <y>330</y>
+     <width>160</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>By Shot</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <tabstops>
+  <tabstop>cRLineCountBox</tabstop>
+  <tabstop>cRLineInvEdit</tabstop>
+  <tabstop>cRX0Edit</tabstop>
+  <tabstop>cRY0Edit</tabstop>
+  <tabstop>cRPtCountBox</tabstop>
+  <tabstop>cRPtInvEdit</tabstop>
+  <tabstop>cAngleEdit</tabstop>
+  <tabstop>cSLineCountBox</tabstop>
+  <tabstop>cSLineInvEdit</tabstop>
+  <tabstop>cSX0Edit</tabstop>
+  <tabstop>cSY0Edit</tabstop>
+  <tabstop>cSPtCountBox</tabstop>
+  <tabstop>cSPtInvEdit</tabstop>
+  <tabstop>cLMinOffEdit</tabstop>
+  <tabstop>cLMaxOffEdit</tabstop>
+  <tabstop>cRMinOffEdit</tabstop>
+  <tabstop>cRMaxOffEdit</tabstop>
+  <tabstop>cATypeBox</tabstop>
+  <tabstop>cSAngleEdit</tabstop>
+  <tabstop>cOkBtn</tabstop>
+  <tabstop>cCancelBtn</tabstop>
+ </tabstops>
+ <includes>
+  <include location="local">gspsparam.h</include>
+ </includes>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>cOkBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TSPSDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cCancelBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>TSPSDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

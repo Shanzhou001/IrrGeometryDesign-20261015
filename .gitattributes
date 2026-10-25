@@ -1,0 +1,7 @@
+# Preserve the legacy C++ encodings and binary resources.
+* text=auto eol=lf
+src/** -text
+figures/** -text
+*.bat text eol=crlf
+*.sln text eol=crlf
+*.md text eol=lf

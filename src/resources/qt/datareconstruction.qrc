@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<RCC>
+  <qresource prefix="/DataReconstruction">
+    <file alias="Resources/AAVR.png">../../../figures/assets/AAVR.png</file>
+    <file alias="Resources/ADIS.png">../../../figures/assets/ADIS.png</file>
+    <file alias="Resources/AMAX.png">../../../figures/assets/AMAX.png</file>
+    <file alias="Resources/AMIN.png">../../../figures/assets/AMIN.png</file>
+    <file alias="Resources/ATOL.png">../../../figures/assets/ATOL.png</file>
+    <file alias="Resources/AzimuthNonfor.png">../../../figures/assets/AzimuthNonfor.png</file>
+    <file alias="Resources/CSQF.png">../../../figures/assets/CSQF.png</file>
+    <file alias="Resources/GeometryAT.png">../../../figures/assets/GeometryAT.png</file>
+    <file alias="Resources/OAVR.png">../../../figures/assets/OAVR.png</file>
+    <file alias="Resources/ODIS.png">../../../figures/assets/ODIS.png</file>
+    <file alias="Resources/OMAX.png">../../../figures/assets/OMAX.png</file>
+    <file alias="Resources/OMIN.png">../../../figures/assets/OMIN.png</file>
+    <file alias="Resources/OTOL.png">../../../figures/assets/OTOL.png</file>
+    <file alias="Resources/OVTPT.png">../../../figures/assets/OVTPT.png</file>
+    <file alias="Resources/OVTVL.png">../../../figures/assets/OVTVL.png</file>
+    <file alias="Resources/Offset_Nonuniform.png">../../../figures/assets/Offset_Nonuniform.png</file>
+    <file alias="Resources/Surveyinfos.png">../../../figures/assets/Surveyinfos.png</file>
+    <file alias="Resources/azimuthVStraces.PNG">../../../figures/assets/azimuthVStraces.PNG</file>
+    <file alias="Resources/binfold.png">../../../figures/assets/binfold.png</file>
+    <file alias="Resources/editshot.png">../../../figures/assets/editshot.png</file>
+    <file alias="Resources/filesave.png">../../../figures/assets/filesave.png</file>
+    <file alias="Resources/foldVSBINS.PNG">../../../figures/assets/foldVSBINS.PNG</file>
+    <file alias="Resources/foot_factor.png">../../../figures/assets/foot_factor.png</file>
+    <file alias="Resources/griding.png">../../../figures/assets/griding.png</file>
+    <file alias="Resources/mouse_zoom.png">../../../figures/assets/mouse_zoom.png</file>
+    <file alias="Resources/newsps.png">../../../figures/assets/newsps.png</file>
+    <file alias="Resources/offsetVSfold-bins.PNG">../../../figures/assets/offsetVSfold-bins.PNG</file>
+    <file alias="Resources/offsetVStraces.PNG">../../../figures/assets/offsetVStraces.PNG</file>
+    <file alias="Resources/refresh.png">../../../figures/assets/refresh.png</file>
+    <file alias="Resources/rose.PNG">../../../figures/assets/rose.PNG</file>
+  </qresource>
+</RCC>
