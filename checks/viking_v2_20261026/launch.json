@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:\\Users\\48198\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "-B",
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\pipeline.py",
+    "viking-v2",
+    "--out",
+    "results/viking_v2_20261026",
+    "--exe",
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\results\\viking_v2_support_20261026\\runtime\\IrrGeometryDesign.exe",
+    "--workers",
+    "8",
+    "--group",
+    "research/viking_v2_20261026"
+  ],
+  "workers": 8,
+  "runtime_sha256": {
+    "fdct_wrapping_param.dll": "07388f9624270e2df9b126ab28ee5dbb3fcdcf18e144543196613dcea53af3ac",
+    "fftw.dll": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f",
+    "IrrGeometryDesign.exe": "7f5b296e7b792de74b8103b6921f569ee5fea4e8e4e4719cab4f84a9bd3614f7"
+  },
+  "source_archive_sha256": "31de4f82d897243cbf49e24c83f170032db65881e3a9ec2366a9ee873eb3bcb7"
+}

@@ -110,3 +110,21 @@ def load_dataset(directory=DEFAULT_DATASET, shot_ids=None):
                   amplitude_units='recorded digital amplitudes; absolute calibration is not established',
                   scope='Within-survey measured-trace prediction; shots and mask seeds are not independent surveys')
     return shots, report
+
+
+def load_windows(starts, directory=DEFAULT_DATASET, shot_ids=None):
+    """Reuse the verified raw shots for prespecified 256-sample native-rate windows."""
+    starts = list(starts)
+    if not starts or len(set(starts)) != len(starts) or any(not isinstance(s, int) or s < 0 or s+256 > 1500 for s in starts):
+        raise ValueError('Window starts must be distinct integers inside the 1500-sample raw record')
+    selected, provenance = load_dataset(directory, shot_ids)
+    registered = json.loads(REGISTRY.read_text(encoding='utf-8'))
+    windows = {start: {} for start in starts}
+    for shot in selected:
+        entry = next(r for r in registered['shots'] if r['ffid'] == shot.ffid)
+        path = next(Path(directory)/name for name in entry['files'] if name.startswith('raw/'))
+        raw, x, _ = decode_shot(path, shot.ffid)
+        for start in starts:
+            windows[start][shot.ffid] = Shot(shot.ffid, raw[start:start+256].astype(float), x, .004, start*.004)
+    provenance = dict(provenance, study_windows=[dict(start_sample=s, stop_sample=s+256, time_origin_s=s*.004) for s in starts])
+    return windows, provenance

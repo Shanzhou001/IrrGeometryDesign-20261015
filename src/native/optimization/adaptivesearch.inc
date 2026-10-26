@@ -4,9 +4,9 @@ class CachedSamplingObjective // add by wushanzhou in 2026/10/24
     int n,m; // add by wushanzhou in 2026/10/24
     std::vector<std::complex<double> > atoms; // add by wushanzhou in 2026/10/24
 public: // add by wushanzhou in 2026/10/24
-    CachedSamplingObjective(int count,int kept,const std::vector<double>* x):n(count),m(kept),atoms(x?count*(count-1):0) // add by wushanzhou in 2026/10/24
+    CachedSamplingObjective(int count,int kept,const std::vector<double>* x,bool forceAtoms=false):n(count),m(kept),atoms((x||forceAtoms)?count*(count-1):0)
     { // add by wushanzhou in 2026/10/24
-        if(!x)return; // Uniform candidates retain O(N log N) FFT scoring. add by wushanzhou in 2026/10/24
+        if(!x && !forceAtoms)return; // Legacy uniform candidates retain FFT scoring.
         const double period=x?(x->back()-x->front())*n/(n-1):(double)n; // add by wushanzhou in 2026/10/24
         for(int d=1;d<n;d++)for(int j=0;j<n;j++) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24
@@ -14,17 +14,20 @@ public: // add by wushanzhou in 2026/10/24
             atoms[(d-1)*n+j]=std::polar(1.0,-6.28318530717958647692*d*position/period); // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
     } // add by wushanzhou in 2026/10/24
-    float coherence(const std::vector<int>& mask)const // add by wushanzhou in 2026/10/24
+    float coherence(const std::vector<int>& mask,const std::vector<double>* weights=NULL,float* full=NULL)const
     { // add by wushanzhou in 2026/10/24
-        if(atoms.empty())return SamplingMaskCoherence(mask); // add by wushanzhou in 2026/10/24
-        double largest=0; // add by wushanzhou in 2026/10/24
+        if(atoms.empty()){float value=SamplingMaskCoherence(mask);if(full)*full=value;return value;}
+        double largest=0,weightedLargest=0;
         for(int d=1;d<n;d++) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24
             std::complex<double> sum(0,0); // add by wushanzhou in 2026/10/24
             for(int j=0;j<n;j++)if(mask[j])sum+=atoms[(d-1)*n+j]; // add by wushanzhou in 2026/10/24
-            largest=std::max(largest,std::abs(sum)/m); // add by wushanzhou in 2026/10/24
+            double value=std::abs(sum)/m;
+            largest=std::max(largest,value);
+            weightedLargest=std::max(weightedLargest,value*(weights?(*weights)[d-1]:1.0));
         } // add by wushanzhou in 2026/10/24
-        return (float)largest; // add by wushanzhou in 2026/10/24
+        if(full)*full=(float)largest;
+        return (float)(weights?weightedLargest:largest);
     } // add by wushanzhou in 2026/10/24
 }; // add by wushanzhou in 2026/10/24
 
@@ -48,11 +51,37 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         }
         if(available<m)return false;
     }
+    int requiredCount=0;
+    if(!options.required.empty())
+    {
+        if((int)options.required.size()!=N || (int)initial.size()!=N)return false;
+        for(int j=0;j<N;j++)
+        {
+            if((options.required[j]!=0 && options.required[j]!=1) ||
+                (options.required[j] && (!initial[j] || (!options.eligible.empty() && !options.eligible[j]))))return false;
+            requiredCount+=options.required[j];
+        }
+        if(requiredCount>m)return false;
+    }
+    if(!options.frequencyWeights.empty())
+    {
+        if((int)options.frequencyWeights.size()!=N-1)return false;
+        for(int d=0;d<N-1;d++)if(!search_finite(options.frequencyWeights[d]) ||
+            options.frequencyWeights[d]<=0 || options.frequencyWeights[d]>1)return false;
+    }
     if(!RunSamplingSearch(N,m,initial,w,seed,1,SEARCH_SA,out,1,1,x,
         options.eligible.empty()?NULL:&options.eligible))return false; // add by wushanzhou in 2026/10/24
     for(int j=0;j<N;j++)if(out.mask[j] && !options.eligible.empty() && !options.eligible[j])return false;
+    for(int j=0;j<N;j++)if(!options.required.empty() && options.required[j] && !out.mask[j])return false;
     // Precomputation time is included; every complete candidate objective is counted. // add by wushanzhou in 2026/10/24
-    CachedSamplingObjective objective(N,m,x); // add by wushanzhou in 2026/10/24
+    CachedSamplingObjective objective(N,m,x,!options.frequencyWeights.empty());
+    const std::vector<double>* frequencyWeights=options.frequencyWeights.empty()?NULL:&options.frequencyWeights;
+    if(frequencyWeights)
+    {
+        float full=0,weighted=objective.coherence(out.mask,frequencyWeights,&full);
+        out.objective+=weighted-out.mu;out.mu=full;
+        out.bestTrace.assign(1,out.objective);out.currentTrace.assign(1,out.objective);
+    }
     std::vector<int> cur=out.mask; // add by wushanzhou in 2026/10/24
     double current=out.objective; // add by wushanzhou in 2026/10/24
     int phase=1,phaseEvals=0,stagnant=0,localFailures=0; // add by wushanzhou in 2026/10/24
@@ -60,8 +89,8 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
     out.phaseTrace.push_back(0); // add by wushanzhou in 2026/10/24
     out.acceptedTrace.push_back(out.objective);out.temperatureTrace.push_back(0);
     out.wallTraceMs.push_back(samplingWallMs()-wallStarted);
-    if(out.status=="single_feasible_mask")
-    {out.runtimeWallMs=samplingWallMs()-wallStarted;return true;}
+    if(out.status=="single_feasible_mask" || requiredCount==m)
+    {out.status="single_feasible_mask";out.runtimeWallMs=samplingWallMs()-wallStarted;return true;}
     exprng::seed(seed); // add by wushanzhou in 2026/10/24
     const long long attemptLimit=(long long)budget*100; // add by wushanzhou in 2026/10/24
     long long attempts=0; // add by wushanzhou in 2026/10/24
@@ -72,7 +101,10 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         std::vector<int> candidate=phase==2?out.mask:cur; // add by wushanzhou in 2026/10/24
         std::vector<int> ones,zeros; // add by wushanzhou in 2026/10/24
         for(int j=0;j<N;j++)if(options.eligible.empty() || options.eligible[j])
-            (candidate[j]?ones:zeros).push_back(j); // add by wushanzhou in 2026/10/24
+        {
+            if(candidate[j]){if(options.required.empty() || !options.required[j])ones.push_back(j);}
+            else zeros.push_back(j);
+        }
         const int source=ones[exprng::integer()%ones.size()]; // add by wushanzhou in 2026/10/24
         int target=zeros[exprng::integer()%zeros.size()]; // add by wushanzhou in 2026/10/24
         const int evaluatedPhase=perturb?3:phase; // add by wushanzhou in 2026/10/24
@@ -93,7 +125,8 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         } // add by wushanzhou in 2026/10/24
         if(!search_gap_ok(candidate,w,x))continue; // add by wushanzhou in 2026/10/24
         ConstrainedResult measured; // add by wushanzhou in 2026/10/24
-        search_measure(candidate,w,m,measured,1,x,objective.coherence(candidate)); // add by wushanzhou in 2026/10/24
+        float full=0,score=objective.coherence(candidate,frequencyWeights,&full);
+        search_measure(candidate,w,m,measured,1,x,score);measured.mu=full;
         if(measured.mu<0 || !search_finite(measured.objective)){out.status="objective_failure";return false;} // add by wushanzhou in 2026/10/24
         out.evals++;phaseEvals++; // add by wushanzhou in 2026/10/24
         if(evaluatedPhase==3)out.restartEvaluations++; // add by wushanzhou in 2026/10/24

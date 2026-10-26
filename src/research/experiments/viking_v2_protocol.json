@@ -1,0 +1,107 @@
+{
+  "protocol": "viking_pilot_common_H_v2",
+  "n": 120,
+  "samples": 256,
+  "sample_interval_s": 0.004,
+  "ffids": [
+    53,
+    453,
+    953
+  ],
+  "window_starts": [
+    256,
+    512,
+    768
+  ],
+  "hidden_sets": [
+    {
+      "id": "periodic",
+      "indices": [
+        4,
+        12,
+        20,
+        28,
+        36,
+        44,
+        52,
+        60,
+        68,
+        76,
+        84,
+        92,
+        100,
+        108,
+        116
+      ]
+    },
+    {
+      "id": "r271828",
+      "indices": [
+        7,
+        14,
+        20,
+        31,
+        32,
+        41,
+        51,
+        60,
+        64,
+        72,
+        87,
+        88,
+        97,
+        111,
+        116
+      ]
+    },
+    {
+      "id": "r314159",
+      "indices": [
+        6,
+        15,
+        23,
+        26,
+        34,
+        45,
+        53,
+        62,
+        67,
+        72,
+        86,
+        92,
+        98,
+        107,
+        117
+      ]
+    }
+  ],
+  "counts": [
+    36,
+    60,
+    84
+  ],
+  "seeds": [
+    84011
+  ],
+  "pilot_count": 12,
+  "budget": 300,
+  "hard_gap_m": {
+    "36": 175.0,
+    "60": 100.0,
+    "84": 75.0
+  },
+  "signal_temporal_band_hz": [
+    5.0,
+    60.0
+  ],
+  "weight_floor": 0.25,
+  "inner_folds": 1,
+  "methods": [
+    "Jitter",
+    "SA_Mu",
+    "Adaptive_Mu",
+    "Adaptive_Gap",
+    "Adaptive_Signal"
+  ],
+  "scope": "Prospective plan for a same-survey development experiment; frozen before this batch outer scoring, not independent external confirmation"
+}

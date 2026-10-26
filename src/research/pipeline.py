@@ -21,13 +21,16 @@ def main():
     check.add_argument('arguments', nargs=argparse.REMAINDER)
     viking = commands.add_parser('viking', help='validate or run the registered small Viking field-data study')
     viking.add_argument('arguments', nargs=argparse.REMAINDER)
+    viking_v2 = commands.add_parser('viking-v2', help='run pilot-assisted recovery, coverage and multi-window/hidden-set experiments')
+    viking_v2.add_argument('arguments', nargs=argparse.REMAINDER)
     commands.add_parser('figures', help='refresh the image gallery without rerunning experiments')
     module = commands.add_parser('module', help='run a research module with its own arguments')
     module.add_argument('name', help='for example research.validation.audit_numerics')
     module.add_argument('arguments', nargs=argparse.REMAINDER)
     arguments=sys.argv[1:]
-    if arguments[:1] and arguments[0] in ('check','viking'):
-        target = {'check':'research.validation.run_audit_checks', 'viking':'research.experiments.viking_study'}[arguments[0]]
+    if arguments[:1] and arguments[0] in ('check','viking','viking-v2'):
+        target = {'check':'research.validation.run_audit_checks', 'viking':'research.experiments.viking_study',
+                  'viking-v2':'research.experiments.viking_v2'}[arguments[0]]
         forwarded=arguments[1:]
         if forwarded[:1]==['--']:forwarded=forwarded[1:]
         arguments=['module',target,*forwarded]

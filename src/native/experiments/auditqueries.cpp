@@ -1,6 +1,6 @@
 ﻿#include "experiment_internal.h"
 
-// v5 input has no waveforms: id;method;seed;B;minSA;window;gap;nn;Gindex;Gphysical;wallMs;x;mask;eligible.
+// v5 has 14 fields; pilot-assisted v2 optionally appends frequency weights and required bits.
 #include <QSet>
 bool GeometryExperimentEngine::runAuditQueries(const QString& input,const QString& output,QString& report)
 {
@@ -16,7 +16,7 @@ bool GeometryExperimentEngine::runAuditQueries(const QString& input,const QStrin
     {
         QString line=in.readLine().trimmed();if(line.isEmpty() || line.startsWith("#"))continue;
         QStringList f=line.split(';',QString::KeepEmptyParts);
-        if(f.size()!=14 || !QRegExp("^[A-Za-z0-9_]+$").exactMatch(f[0]) || identifiers.contains(f[0]))
+        if(f.size()<14 || f.size()>16 || !QRegExp("^[A-Za-z0-9_]+$").exactMatch(f[0]) || identifiers.contains(f[0]))
         {report="malformed query or duplicate identifier";return false;}
         identifiers.insert(f[0]);
         bool valid=true,ok=false;
@@ -45,6 +45,21 @@ bool GeometryExperimentEngine::runAuditQueries(const QString& input,const QStrin
             for(int j=0;j<f[13].size();j++)
             {options.eligible.push_back(f[13][j]=='1'?1:0);if(f[13][j]!='1' && f[13][j]!='0')valid=false;}
         }
+        if(f.size()>=15 && !f[14].isEmpty())
+        {
+            QStringList weights=f[14].split(',',QString::KeepEmptyParts);
+            for(int j=0;j<weights.size();j++){double value=weights[j].toDouble(&ok);valid=valid&&ok;options.frequencyWeights.push_back(value);}
+        }
+        if(f.size()==16 && !f[15].isEmpty())
+        {
+            if(f[15].size()!=n)valid=false;
+            for(int j=0;j<f[15].size();j++)
+            {options.required.push_back(f[15][j]=='1'?1:0);if(f[15][j]!='1' && f[15][j]!='0')valid=false;}
+            for(int j=0;j<n && j<(int)options.required.size();j++)if(options.required[j] && !initial[j])valid=false;
+        }
+        if((!options.frequencyWeights.empty() || !options.required.empty()) &&
+            (f[1]=="SAOnly" || f[1]=="Hybrid" || f[1]=="Local" || f[1]=="dp"))valid=false;
+        if(f[1]=="measure" && !options.frequencyWeights.empty())valid=false;
         if(n<2 || n>2048 || (!x.empty() && (int)x.size()!=n) || !valid)
         {report="invalid query parameters";return false;}
         ConstrainedResult result;bool feasible=false;

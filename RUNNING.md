@@ -86,6 +86,46 @@ python -B pipeline.py module research.analysis.viking_results --root results/new
 
 此入口不要求旧 RRAW 来源声明，也不冒充旧资料复现。下文 `check --full` 仍指历史 RRAW/SPS 全部集成检查，其缺项不能用 Viking 结果标成已通过。
 
+## Viking v2：恢复基线、覆盖与信号目标、多隐藏集和多时间窗
+
+```powershell
+python -B pipeline.py viking-v2 --out results/new_viking_v2
+```
+
+默认计划位于 `src/research/experiments/viking_v2_protocol.json`，运行时复制为 `frozen_plan.json` 并保存 SHA-256。计划使用 FFID 53/453/953 三炮，原生 4 ms 记录中的 [1.024,2.048)、[2.048,3.072)、[3.072,4.096) 秒三个窗口，以及原周期隐藏集和两个固定种子的分层随机隐藏集，每组隐藏 15 道。保留数为 36/60/84，搜索上限 300；默认一个配对掩码种子，共 405 组恢复对照。这是观察旧结果后形成的同工区开发协议，不能称为独立外部确认。
+
+每组隐藏集确定 12 个分散的先导观测位置 P，所有方法始终保留这些道，且计入 m。它们也保留在每个内层训练集中，避免搜索曾用过的先导振幅进入内层验证。五种搜索方法共享同一个覆盖可行初值：
+
+| 方法 | 目标和约束 |
+| --- | --- |
+| Jitter | 保留共享初值，记录一次评分 |
+| SA_Mu | 完整评价预算的纯 SA，全频 Fourier μ |
+| Adaptive_Mu | 自适应搜索，全频 μ |
+| Adaptive_Gap | 自适应搜索，全频 μ；最大物理间隔分别不超过 175/100/75 m |
+| Adaptive_Signal | 与 Adaptive_Gap 相同的覆盖约束；使用先导观测估计的频谱权重 |
+
+信号目标只使用 `data[:, P]`，计算 5–60 Hz 频带中的不完整空间功率谱，形成有正下限的差频权重，权重最大值归一到 1。目标为 `max_d w_d |DFT(mask)_d|/m`，同时单独报告未加权全频 μ。它是先导信号辅助的加权 PSF 代理目标，不是实际曲波算子互干度，也没有恢复保证。先导道成本、原始单位标记限制和估计不完整频谱的局限必须随结果报告。
+
+恢复候选为零预测、线性插值、两个正则化强度的 f-k ℓ1/FISTA，以及暖启动 40 次、冷启动 40 次、较强阈值冷启动 40 次、冷启动 80 次曲波。参数和 [0,1] 幅度系数只在观测道内部选择，再使用全部保留道重拟合。固定冷启动曲波和固定弱正则 f-k 均独立报告，避免把候选选择后的分数当成全部恢复方法的表现。
+
+f-k 基线在原生 256×120 网格上求解 `0.5||P_K x-y_K||² + λ||FFT2_ortho(x)||_1`，尺度和 λ 仅用 K；固定 λ 的 FISTA 用单位步长。优化输出先记录其目标轨迹，再恢复输出中的已知观测。依据 [Beck and Teboulle (2009)](https://epubs.siam.org/doi/10.1137/080716542) 的复合凸优化形式实现。
+
+新原生查询兼容旧的 14 字段格式；可选第 15 字段为 N−1 个差频权重，第 16 字段为必须保留的先导道位串。原始波形不进入原生搜索接口，派生权重及其先导输入分别保存于 `features/`。批次实际检查非先导振幅干预下的频谱权重和搜索掩码不变，并检查外层隐藏振幅干预下的恢复及模型选择不变。
+
+缩小运行范围示例：
+
+```powershell
+python -B pipeline.py viking-v2 --out results/new_viking_v2_small --shots 53 --windows 512 --counts 60 --hidden-sets r271828 --budget 80
+```
+
+支持 `--inner-folds 2` 进行两个不重叠内层验证分组，以及 `--workers`、`--exe` 和 `--group`。正式运行应先冻结代码、程序及协议，运行期间保持它们不变。所有候选、逐案例预测、完整调用、先导特征和选择记录均保存；默认完整原始产物会明显大于约 11 MB 的输入资料。
+
+分析先平均掩码种子，再平均每炮的预设窗口/隐藏集，最后按炮汇总；同时保留所有窗口/隐藏集条件的分数和配对差异。不把这些条件数当作独立工区样本，不输出独立工区显著性检验。重新分析使用新目录和图件分组：
+
+```powershell
+python -B pipeline.py module research.analysis.viking_v2_results --root results/new_viking_v2 --out results/new_viking_v2_analysis --group research/new_viking_v2_analysis
+```
+
 ## 历史 RRAW 真实资料与来源声明
 
 真实输入位置：

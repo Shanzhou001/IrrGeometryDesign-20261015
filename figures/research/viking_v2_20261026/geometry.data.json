@@ -1,0 +1,127 @@
+{
+  "records": [
+    {
+      "m": "36",
+      "method": "Adaptive_Gap",
+      "unique_searches": 3,
+      "mean_full_mu": 0.22327471276133334,
+      "mean_max_gap_m": 175.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "36",
+      "method": "Adaptive_Mu",
+      "unique_searches": 3,
+      "mean_full_mu": 0.216023857395,
+      "mean_max_gap_m": 275.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "36",
+      "method": "Adaptive_Signal",
+      "unique_searches": 27,
+      "mean_full_mu": 0.23103645885433333,
+      "mean_max_gap_m": 175.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "36",
+      "method": "Jitter",
+      "unique_searches": 3,
+      "mean_full_mu": 0.31886772314733336,
+      "mean_max_gap_m": 166.66666666666666,
+      "mean_evaluations": 1.0
+    },
+    {
+      "m": "36",
+      "method": "SA_Mu",
+      "unique_searches": 3,
+      "mean_full_mu": 0.22219438354166668,
+      "mean_max_gap_m": 275.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "60",
+      "method": "Adaptive_Gap",
+      "unique_searches": 3,
+      "mean_full_mu": 0.14793583254033335,
+      "mean_max_gap_m": 100.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "60",
+      "method": "Adaptive_Mu",
+      "unique_searches": 3,
+      "mean_full_mu": 0.14264982938766665,
+      "mean_max_gap_m": 158.33333333333334,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "60",
+      "method": "Adaptive_Signal",
+      "unique_searches": 27,
+      "mean_full_mu": 0.15116558637885186,
+      "mean_max_gap_m": 100.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "60",
+      "method": "Jitter",
+      "unique_searches": 3,
+      "mean_full_mu": 0.239119708538,
+      "mean_max_gap_m": 100.0,
+      "mean_evaluations": 1.0
+    },
+    {
+      "m": "60",
+      "method": "SA_Mu",
+      "unique_searches": 3,
+      "mean_full_mu": 0.148404886325,
+      "mean_max_gap_m": 150.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "84",
+      "method": "Adaptive_Gap",
+      "unique_searches": 3,
+      "mean_full_mu": 0.11020426700500001,
+      "mean_max_gap_m": 75.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "84",
+      "method": "Adaptive_Mu",
+      "unique_searches": 3,
+      "mean_full_mu": 0.10655967891203333,
+      "mean_max_gap_m": 116.66666666666667,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "84",
+      "method": "Adaptive_Signal",
+      "unique_searches": 27,
+      "mean_full_mu": 0.11283219771248147,
+      "mean_max_gap_m": 75.0,
+      "mean_evaluations": 300.0
+    },
+    {
+      "m": "84",
+      "method": "Jitter",
+      "unique_searches": 3,
+      "mean_full_mu": 0.1496339713533333,
+      "mean_max_gap_m": 75.0,
+      "mean_evaluations": 1.0
+    },
+    {
+      "m": "84",
+      "method": "SA_Mu",
+      "unique_searches": 3,
+      "mean_full_mu": 0.1092716256776,
+      "mean_max_gap_m": 100.0,
+      "mean_evaluations": 300.0
+    }
+  ],
+  "independent_surveys": 1,
+  "source_status": "documented_public_subset_with_header_caveat",
+  "pilot_count": 12
+}

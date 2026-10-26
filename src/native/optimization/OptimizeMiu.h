@@ -273,6 +273,9 @@ struct AdaptiveSearchOptions // add by wushanzhou in 2026/10/24
     int minimumSa, stagnationWindow; // add by wushanzhou in 2026/10/24
     // New protocol only. Empty eligibility preserves v4; no amplitude enters search.
     std::vector<int> eligible;
+    // Pilot-assisted v2 only: required observations and nonzero Fourier difference weights.
+    std::vector<int> required;
+    std::vector<double> frequencyWeights;
     double wallLimitMs;
     bool perturbation;
     AdaptiveSearchOptions() : adaptiveSwitch(true), recycleBudget(true), mixedNeighborhood(true), // add by wushanzhou in 2026/10/24

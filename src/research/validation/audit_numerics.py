@@ -15,11 +15,15 @@ from research.common.paths import ROOT, WORKSPACE
 
 
 def query(identifier, mask, x=None, method='measure', seed=42, budget=300, minimum=32, window=12,
-          gap=0., nn=0., hard=0, hard_m=0., wall=0., eligible=None):
-    return ';'.join(map(str,[identifier,method,seed,budget,minimum,window,gap,nn,hard,hard_m,wall,
+          gap=0., nn=0., hard=0, hard_m=0., wall=0., eligible=None, frequency_weights=None, required=None):
+    fields=[identifier,method,seed,budget,minimum,window,gap,nn,hard,hard_m,wall,
                             '' if x is None else ','.join(map(str,x)),
                             ''.join(str(int(v)) for v in mask),
-                            '' if eligible is None else ''.join(str(int(v)) for v in eligible)]))
+                            '' if eligible is None else ''.join(str(int(v)) for v in eligible)]
+    if frequency_weights is not None or required is not None:
+        fields += ['' if frequency_weights is None else ','.join(map(str,frequency_weights)),
+                   '' if required is None else ''.join(str(int(v)) for v in required)]
+    return ';'.join(map(str,fields))
 
 
 def metrics(mask, x, gap=0., nn=0., bandwidth=1., period_factor=1.):
