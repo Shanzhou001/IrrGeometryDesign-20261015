@@ -25,12 +25,6 @@ public:
             for(int i=0;i<12;i++)
             {
                 if(QFile::exists(dir.filePath("build.bat")))return dir.filePath("figures");
-                QString sibling=dir.absolutePath();
-                if(sibling.endsWith("-workspace"))
-                {
-                    sibling.chop(10);
-                    if(QFile::exists(QDir(sibling).filePath("build.bat")))return QDir(sibling).filePath("figures");
-                }
                 if(!dir.cdUp())break;
             }
         }
@@ -38,9 +32,7 @@ public:
     }
     static QString artifactPath(const QString& relative)
     {
-        QString workspace=QString::fromLocal8Bit(qgetenv("IRR_WORKSPACE"));
-        if(workspace.isEmpty())workspace=QFileInfo(root()).absolutePath()+"-workspace";
-        return QDir(workspace).absoluteFilePath(relative);
+        return QDir(QFileInfo(root()).absolutePath()).absoluteFilePath(relative);
     }
     static bool contained(const QString& path)
     {

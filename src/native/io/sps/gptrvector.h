@@ -65,7 +65,7 @@ public:
 };
 
 template<class type>
-GPtrVector<type>::GPtrVector<type>()
+GPtrVector<type>::GPtrVector()
 {
 	m_pdata = NULL;
 	m_size = 0;
@@ -74,7 +74,7 @@ GPtrVector<type>::GPtrVector<type>()
 }
 
 template<class type>
-GPtrVector<type>::GPtrVector<type>( uint size )
+GPtrVector<type>::GPtrVector( uint size )
 {
 	if( size > 0 ) m_pdata = new type *[size];
 	else m_pdata = NULL;
@@ -84,7 +84,7 @@ GPtrVector<type>::GPtrVector<type>( uint size )
 }
 
 template<class type>
-GPtrVector<type>::~GPtrVector<type>()
+GPtrVector<type>::~GPtrVector()
 {
 	if( m_pdata != NULL ) 
 	{

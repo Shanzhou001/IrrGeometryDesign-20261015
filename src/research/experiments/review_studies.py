@@ -20,6 +20,7 @@ import numpy as np  # add by wushanzhou in 2026/10/24
 from research.data.convert_rraw_to_engine_csv import read_segy  # add by wushanzhou in 2026/10/24
 from research.data.make_59x256 import convert as convert_measured  # add by wushanzhou in 2026/10/24
 
+from research.common.provenance import add_real_data_arguments, real_source_provenance, require_inputs
 from research.common.paths import ROOT, WORKSPACE, source_files
 PROTOCOL = "adaptive_hybrid_v4"  # add by wushanzhou in 2026/10/24
 REAL = WORKSPACE / "data/real_seismic/real_gather_59x256.csv"  # add by wushanzhou in 2026/10/24
@@ -133,7 +134,7 @@ class Recorder:  # add by wushanzhou in 2026/10/24
         fingerprint = dict(protocol=PROTOCOL, executable_sha256=sha(self.executable),  # add by wushanzhou in 2026/10/24
                            source_sha256={str(p.relative_to(ROOT)): sha(p) for p in source_paths},  # add by wushanzhou in 2026/10/24
                            tool_sha256={str(p.relative_to(ROOT)): sha(p) for p in tool_paths},  # add by wushanzhou in 2026/10/24
-                           real_input_sha256=sha(REAL) if REAL.is_file() else None, configuration=configuration,  # add by wushanzhou in 2026/10/24
+                           real_input_sha256=None if configuration.get("synthetic_only") else (sha(REAL) if REAL.is_file() else None), configuration=configuration,  # add by wushanzhou in 2026/10/24
                            python=platform.python_version(), numpy=np.__version__)  # add by wushanzhou in 2026/10/24
         if self.path.exists():  # add by wushanzhou in 2026/10/24
             self.state = json.loads(self.path.read_text(encoding="utf-8"))  # add by wushanzhou in 2026/10/24
@@ -189,7 +190,13 @@ class Recorder:  # add by wushanzhou in 2026/10/24
 
 def reconstruct(recorder, key, gather, mask_path, configuration):  # add by wushanzhou in 2026/10/24
     target = recorder.output / "reconstruction" / key  # add by wushanzhou in 2026/10/24
-    args = ["--review-reconstruct", gather, "--mask", mask_path, "--out", target,  # add by wushanzhou in 2026/10/24
+    data, coordinates = read_gather(gather)
+    mask = read_mask(mask_path)
+    if len(mask) != len(coordinates):raise ValueError("mask/gather size mismatch")
+    observed = np.zeros_like(data);observed[:,mask] = data[:,mask]
+    observed_path = recorder.output / "observed" / (key + ".csv")
+    write_gather(observed_path, observed, coordinates, "known traces only; hidden amplitudes absent")
+    args = ["--review-reconstruct", observed_path, "--mask", mask_path, "--out", target,  # add by wushanzhou in 2026/10/24
             "--iter", configuration["iterations"], "--threshold-start", configuration["start"],  # add by wushanzhou in 2026/10/24
             "--threshold-end", configuration["end"], "--scales", configuration["scales"], "--angles", configuration["angles"]]  # add by wushanzhou in 2026/10/24
     if not configuration["warm"]:  # add by wushanzhou in 2026/10/24
@@ -282,17 +289,15 @@ def nested_case(recorder, name, gather, data, x, outer_mask, seed, configuration
     return record, selected, prediction  # add by wushanzhou in 2026/10/24
 
 
-def diagnostics(output):  # add by wushanzhou in 2026/10/24
+def diagnostics(output, real_input=None):  # add by wushanzhou in 2026/10/24
     raw, offsets, cdps, meta = read_segy(WORKSPACE / "data/real_seismic/Data/RRAW.SGY")  # add by wushanzhou in 2026/10/24
-    converted, coordinates = convert_measured(raw, offsets)  # add by wushanzhou in 2026/10/24
-    archived, x = read_gather(REAL)  # add by wushanzhou in 2026/10/24
-    np.testing.assert_array_equal(coordinates, x)  # add by wushanzhou in 2026/10/24
-    error = float(np.max(np.abs(converted - archived)))  # add by wushanzhou in 2026/10/24
-    if error > 1e-6:  # add by wushanzhou in 2026/10/24
-        raise AssertionError("59-trace conversion no longer matches archived input")  # add by wushanzhou in 2026/10/24
+    archived, x = convert_measured(raw, offsets, normalize=False)
+    real_input = real_input or output / "inputs/real_gather_59x256.csv"
+    write_gather(real_input, archived, x, "raw amplitude; time resampling only; no full-field normalization")
     order = np.argsort(offsets, kind="stable")  # add by wushanzhou in 2026/10/24
     result = dict(source_sha256=meta["sha256"], independent_real_sources=1,  # add by wushanzhou in 2026/10/24
-                  conversion_max_absolute_error=error, source_dt_ms=8., raw_nyquist_hz=62.5, window=[0., 1.020],  # add by wushanzhou in 2026/10/24
+                  preprocessing="time interpolation only; raw amplitude; solver scaling uses known traces",
+                  source_dt_ms=8., raw_nyquist_hz=62.5, window=[0., 1.020],  # add by wushanzhou in 2026/10/24
                   trace_headers_checked=meta["trace_headers_checked"], binary_dt_field=meta["dt_raw_field"],  # add by wushanzhou in 2026/10/24
                   trace_dt_us=meta["dt_trace_field"], payload_profile=meta["payload_profile"], groups=[])  # add by wushanzhou in 2026/10/24
     groups = [("mixed", np.ones(len(x), dtype=bool))] + [(f"CDP_{c}", cdps[order] == c) for c in np.unique(cdps)]  # add by wushanzhou in 2026/10/24
@@ -356,22 +361,29 @@ def synthetic_case(recorder, gather, model, search, recon_seeds, weight_seeds): 
 
 
 def run(args):  # add by wushanzhou in 2026/10/24
+    synthetic_only = getattr(args, "synthetic_only", False)
+    require_inputs([args.exe])
+    provenance = dict(status="not_used", field_claims_eligible=False, independent_real_sources=0) if synthetic_only else real_source_provenance(
+        WORKSPACE / "data/real_seismic/Data/RRAW.SGY", getattr(args,"source_confirmation",None), getattr(args,"allow_unconfirmed_real",False))
     configuration = dict(quick=args.quick, search_seeds=3 if args.quick else 20,  # add by wushanzhou in 2026/10/24
                          workers=args.workers,  # add by wushanzhou in 2026/10/24
                          reconstruction_seeds=1 if args.quick else 5, weight_reconstruction_seeds=1 if args.quick else 3,  # add by wushanzhou in 2026/10/24
                          synthetic_realizations=1 if args.quick else 6, outer_real_seeds=1 if args.quick else 10,  # add by wushanzhou in 2026/10/24
                          budgets=[200] if args.quick else [200, 600], configurations=CONFIGURATIONS,  # add by wushanzhou in 2026/10/24
                          statistical_family="Adaptive vs Hybrid/SAOnly/SA_Budget/FixedSwitch/NoRecycle/AdjacentOnly across domains/rates/budgets",  # add by wushanzhou in 2026/10/24
-                         real_sources=1, stopping="fixed iteration counts; no hidden-test early stopping")  # add by wushanzhou in 2026/10/24
+                         real_sources=0 if synthetic_only else 1, real_source_provenance=provenance,
+                         synthetic_only=synthetic_only, strict_preprocessing_isolation=True, stopping="fixed iteration counts; no hidden-test early stopping")  # add by wushanzhou in 2026/10/24
     recorder = Recorder(args.out, args.exe, configuration, args.resume)  # add by wushanzhou in 2026/10/24
     output = recorder.output  # add by wushanzhou in 2026/10/24
     (output / "inputs").mkdir(exist_ok=True)  # add by wushanzhou in 2026/10/24
-    for domain in ("uniform", "physical"):  # add by wushanzhou in 2026/10/24
+    real_input = output / "inputs/real_gather_59x256.csv"
+    data_diagnostics = None if synthetic_only else diagnostics(output, real_input)
+    for domain in (("uniform",) if synthetic_only else ("uniform", "physical")):  # add by wushanzhou in 2026/10/24
         for budget in configuration["budgets"]:  # add by wushanzhou in 2026/10/24
             target = output / f"search_{domain}_{budget}"  # add by wushanzhou in 2026/10/24
             command = ["--review-search", target, "--seeds", configuration["search_seeds"], "--budget", budget, "--seed", 20261024]  # add by wushanzhou in 2026/10/24
             if domain == "physical":  # add by wushanzhou in 2026/10/24
-                command += ["--input", REAL]  # add by wushanzhou in 2026/10/24
+                command += ["--input", real_input]  # add by wushanzhou in 2026/10/24
             if budget == 200:  # add by wushanzhou in 2026/10/24
                 command.append("--tradeoff")  # add by wushanzhou in 2026/10/24
             recorder.call(f"search/{domain}/{budget}", command, target)  # add by wushanzhou in 2026/10/24
@@ -379,7 +391,6 @@ def run(args):  # add by wushanzhou in 2026/10/24
         recorder.save()  # add by wushanzhou in 2026/10/24
         print("Search stage complete", flush=True)  # add by wushanzhou in 2026/10/24
         return  # add by wushanzhou in 2026/10/24
-    data_diagnostics = diagnostics(output)  # add by wushanzhou in 2026/10/24
     models = generate_synthetic(output, configuration["synthetic_realizations"])  # add by wushanzhou in 2026/10/24
     search = read_rows(output / "search_uniform_200/search.csv")  # add by wushanzhou in 2026/10/24
     all_seeds = sorted({int(row["seed"]) for row in search})  # add by wushanzhou in 2026/10/24
@@ -391,7 +402,10 @@ def run(args):  # add by wushanzhou in 2026/10/24
         for future in futures:  # add by wushanzhou in 2026/10/24
             synthetic_rows.extend(future.result())  # add by wushanzhou in 2026/10/24
     write_rows(output / "synthetic_reconstruction.csv", synthetic_rows)  # add by wushanzhou in 2026/10/24
-    real, x = read_gather(REAL)  # add by wushanzhou in 2026/10/24
+    if synthetic_only:
+        recorder.state["completed"] = True;recorder.save()
+        print("Synthetic v4 studies completed", flush=True);return
+    real, x = read_gather(real_input)  # add by wushanzhou in 2026/10/24
     real_mask_rows = []  # add by wushanzhou in 2026/10/24
     real_search = read_rows(output / "search_physical_200/search.csv")  # add by wushanzhou in 2026/10/24
     real_cache = {}  # add by wushanzhou in 2026/10/24
@@ -401,7 +415,7 @@ def run(args):  # add by wushanzhou in 2026/10/24
     def run_real(item): # add by wushanzhou in 2026/10/24
         identity,row=item;mask_path=output/'search_physical_200'/row['mask_path'] # add by wushanzhou in 2026/10/24
         key=f"real_mask_{row['method']}_r{row['rate_index']}_s{row['seed']}" # add by wushanzhou in 2026/10/24
-        return identity,reconstruct(recorder,key,REAL,mask_path,CONFIGURATIONS[0]) # add by wushanzhou in 2026/10/24
+        return identity,reconstruct(recorder,key,real_input,mask_path,CONFIGURATIONS[0]) # add by wushanzhou in 2026/10/24
     with ThreadPoolExecutor(max_workers=args.workers) as pool: # add by wushanzhou in 2026/10/24
         real_cache=dict(pool.map(run_real,list(real_jobs.items()))) # add by wushanzhou in 2026/10/24
     for row in real_search:  # add by wushanzhou in 2026/10/24
@@ -426,7 +440,7 @@ def run(args):  # add by wushanzhou in 2026/10/24
             mask = np.zeros(59, dtype=bool)  # add by wushanzhou in 2026/10/24
             mask[rng.choice(59, keep, replace=False)] = True  # add by wushanzhou in 2026/10/24
             name = f"real_keep{keep}_seed{seed}"  # add by wushanzhou in 2026/10/24
-            row, selected, prediction = nested_case(recorder, name, REAL, real, x, mask, seed+1, configurations)  # add by wushanzhou in 2026/10/24
+            row, selected, prediction = nested_case(recorder, name, real_input, real, x, mask, seed+1, configurations)  # add by wushanzhou in 2026/10/24
             print("Nested case complete:", name, "choice=", selected["candidate"], flush=True)  # add by wushanzhou in 2026/10/24
             return row  # add by wushanzhou in 2026/10/24
     with ThreadPoolExecutor(max_workers=args.workers) as pool:  # add by wushanzhou in 2026/10/24
@@ -467,6 +481,8 @@ if __name__ == "__main__":  # add by wushanzhou in 2026/10/24
     parser = argparse.ArgumentParser(description=__doc__)  # add by wushanzhou in 2026/10/24
     parser.add_argument("--out", type=Path, default=WORKSPACE / "results/review_20261024_v4/final") # add by wushanzhou in 2026/10/24
     parser.add_argument("--exe", type=Path, default=WORKSPACE / "build/bin/Release/IrrGeometryDesign.exe")  # add by wushanzhou in 2026/10/24
+    parser.add_argument("--synthetic-only", action="store_true", help="uniform search and synthetic recovery without external real inputs")
+    add_real_data_arguments(parser)
     parser.add_argument("--quick", action="store_true")  # add by wushanzhou in 2026/10/24
     parser.add_argument("--resume", action="store_true")  # add by wushanzhou in 2026/10/24
     parser.add_argument("--stage", choices=("all", "search"), default="all")  # add by wushanzhou in 2026/10/24

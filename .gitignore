@@ -1,9 +1,10 @@
-# Generated files and external inputs do not belong in this repository.
+# Keep local build outputs, checks and input data out of version control.
 /.vs/
 /build/
 /results/
 /output/
 /data/
+/checks/
 /config/
 __pycache__/
 *.py[cod]

@@ -1,4 +1,79 @@
 ﻿#include "experiment_internal.h"
+#include "../optimization/spatialpsf.h"
+
+// Save the exact finite dictionary and coordinates used by SpatialFourier2D_v1.
+static bool exportSpatialPsfStudy(const QDir& dir,const SpatialPsfObjective& objective,
+    const std::vector<SpatialPsfPoint>& points,const std::vector<std::vector<int> >& masks,
+    const QStringList& names,const SpatialPsfSearchResult& sa,const SpatialPsfSearchResult& hybrid)
+{
+    if(!QDir().mkpath(dir.filePath("masks")))return false;
+    QByteArray coordinateBytes("index,x,y\n");
+    for(size_t i=0;i<points.size();i++)coordinateBytes+=
+        (QString::number((int)i)+","+QString::number(points[i].x,'g',17)+","+QString::number(points[i].y,'g',17)+"\n").toUtf8();
+    QFile coordinates(dir.filePath("sps_spatial_coordinates.csv"));
+    if(!coordinates.open(QIODevice::WriteOnly) || coordinates.write(coordinateBytes)!=coordinateBytes.size())return false;
+    coordinates.close();
+    QFile definition(dir.filePath("sps_spatial_definition.json"));
+    if(!definition.open(QIODevice::WriteOnly|QIODevice::Text))return false;
+    QTextStream d(&definition);d.setRealNumberPrecision(17);
+    d << "{\n  \"protocol\": \"SpatialFourier2D_v1\",\n"
+      << "  \"coordinate_field\": \"GRPoint.getX/getY; exact coincident points deduplicated\",\n"
+      << "  \"coordinate_units\": \"SPS supplied units; confirm physical units separately\",\n"
+      << "  \"coordinate_sha1\": \"" << QCryptographicHash::hash(coordinateBytes,QCryptographicHash::Sha1).toHex() << "\",\n"
+      << "  \"period_rule\": \"axis extent plus median positive unique-coordinate gap; constant axis has DC only\",\n"
+      << "  \"origin_x\": " << objective.originX << ", \"origin_y\": " << objective.originY << ",\n"
+      << "  \"period_x\": " << objective.periodX << ", \"period_y\": " << objective.periodY << ",\n"
+      << "  \"atoms_x\": " << objective.atomsX << ", \"atoms_y\": " << objective.atomsY << ",\n"
+      << "  \"cached_difference_frequencies\": " << (int)objective.differences.size() << ",\n"
+      << "  \"seed\": 20261021, \"evaluation_budget\": 200, \"hybrid_sa_prefix\": 64,\n"
+      << "  \"temperature_start\": 0.05, \"temperature_end\": 0.001, \"temperature_horizon_evaluations\": 64,\n"
+      << "  \"search\": \"shared Jitter initial mask; SA versus fixed SA prefix plus greedy random-swap local search\",\n"
+      << "  \"initial_mask_sha1\": \"" << samplingMaskHash(masks[2]) << "\",\n"
+      << "  \"limitations\": \"finite axis-aligned Fourier dictionary; not unlimited-bandwidth or Curvelet coherence; no recovery guarantee\"\n}\n";
+    d.flush();if(d.status()!=QTextStream::Ok)return false;definition.close();
+    QFile atoms(dir.filePath("sps_spatial_atoms.csv")),differences(dir.filePath("sps_spatial_differences.csv"));
+    if(!atoms.open(QIODevice::WriteOnly|QIODevice::Text)||!differences.open(QIODevice::WriteOnly|QIODevice::Text))return false;
+    QTextStream a(&atoms),f(&differences);a.setRealNumberPrecision(17);f.setRealNumberPrecision(17);
+    a << "kx,ky,cycles_per_x_unit,cycles_per_y_unit\n";
+    for(int y=0;y<objective.atomsY;y++)for(int x=0;x<objective.atomsX;x++)
+        a << x << "," << y << "," << x/objective.periodX << "," << y/objective.periodY << "\n";
+    f << "dx,dy,cycles_per_x_unit,cycles_per_y_unit,cached_half_plane\n";
+    for(size_t i=0;i<objective.differences.size();i++)
+    {
+        const SpatialPsfFrequency& v=objective.differences[i];
+        f << v.dx << "," << v.dy << "," << v.fx << "," << v.fy << ",1\n";
+        f << -v.dx << "," << -v.dy << "," << -v.fx << "," << -v.fy << ",0\n";
+    }
+    a.flush();f.flush();if(a.status()!=QTextStream::Ok||f.status()!=QTextStream::Ok)return false;
+    QFile summary(dir.filePath("sps_spatial_sampling_comparison.csv"));
+    if(!summary.open(QIODevice::WriteOnly|QIODevice::Text))return false;
+    QTextStream out(&summary);out.setRealNumberPrecision(17);
+    out << "method,receivers,spatial_fourier_mu,evaluations,mask_sha1,protocol\n";
+    for(size_t i=0;i<masks.size();i++)
+    {
+        QFile maskFile(dir.filePath("masks/sps_"+names[(int)i]+".txt"));
+        if(!maskFile.open(QIODevice::WriteOnly|QIODevice::Text))return false;
+        QTextStream m(&maskFile);int count=0;
+        m << "# protocol=SpatialFourier2D_v1; coordinates=sps_spatial_coordinates.csv\n";
+        for(size_t j=0;j<masks[i].size();j++){m << masks[i][j] << "\n";count+=masks[i][j];}
+        m.flush();if(m.status()!=QTextStream::Ok)return false;
+        out << names[(int)i] << "," << count << "," << objective.measure(masks[i]) << ","
+            << (i==3?sa.evaluations:i==4?hybrid.evaluations:1) << "," << samplingMaskHash(masks[i]) << ",SpatialFourier2D_v1\n";
+    }
+    out.flush();if(out.status()!=QTextStream::Ok)return false;
+    QFile trace(dir.filePath("sps_spatial_search_trace.csv"));
+    if(!trace.open(QIODevice::WriteOnly|QIODevice::Text))return false;
+    QTextStream t(&trace);t.setRealNumberPrecision(17);
+    t << "method,evaluation,phase,candidate,accepted_current,best\n";
+    for(int method=0;method<2;method++)
+    {
+        const SpatialPsfSearchResult& result=method?hybrid:sa;
+        for(size_t i=0;i<result.bestTrace.size();i++)
+            t << (method?"Hybrid_SpatialFourier2D":"SA_SpatialFourier2D") << "," << (int)i+1 << "," << result.phase[i]
+              << "," << result.candidateTrace[i] << "," << result.acceptedTrace[i] << "," << result.bestTrace[i] << "\n";
+    }
+    t.flush();return t.status()==QTextStream::Ok;
+}
 
 bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                                                         const QString& outputDir,
@@ -202,7 +277,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                 const float binDx = 25.0f, binDy = 25.0f;
 
                 // 收集全部检波点（去重按坐标）
-                std::map<std::pair<long long, long long>, GRPoint*> recvSet;
+                std::map<std::pair<double, double>, GRPoint*> recvSet;
                 for (int ii = 0; ii < pShotSet->count(); ii++)
                 {
                     GShot *pShot = pShotSet->get(ii);
@@ -211,23 +286,31 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                     {
                         GRPoint *rp = pShot->getRPointByTrcIndex(si, pRLineSet);
                         if (!rp) continue;
-                        std::pair<long long, long long> key = std::make_pair(
-                                      (long long)(rp->getX() * 10.0),
-                                      (long long)(rp->getY() * 10.0));
+                        if(!reconstructionFinite(rp->getX()) || !reconstructionFinite(rp->getY()))
+                        {outReportSummary="SPS contains nonfinite receiver coordinates";return false;}
+                        std::pair<double, double> key = std::make_pair(
+                                      (double)rp->getX(),
+                                      (double)rp->getY());
                         recvSet[key] = rp;
                     }
                 }
                 const int nRecv = (int)recvSet.size();
 
-                // 2026-10-21 新增：四种抽稀策略对比（含优化掩码）
-                // 将按 key 排序后的检波点序列视为长度 nRecv 的一维序列，
-                // 对其应用 0/1 掩码（保留 nRecv/2 个）。
-                std::vector<std::pair<long long, long long> > recvKeys;
+                // Index order defines baseline masks only. Search scores actual (x,y)
+                // using the separately versioned finite SpatialFourier2D dictionary.
+                std::vector<std::pair<double, double> > recvKeys;
                 recvKeys.reserve(recvSet.size());
-                for (std::map<std::pair<long long, long long>, GRPoint*>::iterator it = recvSet.begin();
+                for (std::map<std::pair<double, double>, GRPoint*>::iterator it = recvSet.begin();
                      it != recvSet.end(); ++it) recvKeys.push_back(it->first);
                 const int nTot = (int)recvKeys.size();
                 const int nKeep = nTot / 2;
+                if(nKeep<1){outReportSummary="SPS needs at least two unique receiver positions";return false;}
+                std::vector<SpatialPsfPoint> spatialPoints;
+                for(int q=0;q<nTot;q++)
+                    spatialPoints.push_back(SpatialPsfPoint(recvKeys[q].first,recvKeys[q].second));
+                SpatialPsfObjective spatialObjective;std::string spatialError;
+                if(!spatialObjective.initialize(spatialPoints,spatialError))
+                {outReportSummary=QString::fromLatin1(spatialError.c_str());return false;}
 
                 // 四种掩码
                 std::vector<std::vector<int> > maskList;
@@ -236,7 +319,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                 {
                     std::vector<int> mk((size_t)nTot, 0);
                     for (int k = 0; k < nKeep; k++) mk[(size_t)((long long)k * nTot / nKeep)] = 1;
-                    maskList.push_back(mk); maskNames << "Regular";
+                    maskList.push_back(mk); maskNames << "IndexRegular";
                 }
                 // (2) 纯随机
                 {
@@ -250,44 +333,34 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                     exprng::seed(20261020ULL);
                     int *jm = Sampling1J_Count(nTot, nKeep);
                     std::vector<int> mk(jm, jm + nTot); delete[] jm;
-                    maskList.push_back(mk); maskNames << "Jitter";
+                    maskList.push_back(mk); maskNames << "IndexJitter";
                 }
-                // Same hybrid algorithm as the formal sampling studies. // add by wushanzhou in 2026/10/23
-                {
-                    exprng::seed(20261020ULL);
-                    int *jm = Sampling1J_Count(nTot, nKeep);
-                    std::vector<int> initial(jm, jm + nTot); delete[] jm; // add by wushanzhou in 2026/10/23
-                    ConstraintWeights weights; ConstrainedResult selected; // add by wushanzhou in 2026/10/23
-                    if (!RunSamplingSearch(nTot, nKeep, initial, weights, 20261021ULL, 200, SEARCH_HYBRID, selected) || // add by wushanzhou in 2026/10/23
-                        !saveSamplingMask(dir.filePath("sps_hybrid_mask.txt"), selected, 20261021ULL, 200, "ClassicPSF_IndexOrder")) // add by wushanzhou in 2026/10/23
-                    { outReportSummary = "SPS hybrid search/export failed"; return false; } // add by wushanzhou in 2026/10/23
-                    maskList.push_back(selected.mask); maskNames << "Hybrid_ClassicPSF"; // add by wushanzhou in 2026/10/23
-                }
-
-                for(size_t mi=0;mi+1<maskList.size();mi++) // add by wushanzhou in 2026/10/23
-                { // add by wushanzhou in 2026/10/23
-                    ConstraintWeights weights;ConstrainedResult baseline; // add by wushanzhou in 2026/10/23
-                    if(!RunSamplingSearch(nTot,nKeep,maskList[mi],weights,20261020ULL,1,SEARCH_LOCAL,baseline) || // add by wushanzhou in 2026/10/23
-                       !saveSamplingMask(dir.filePath("masks/sps_"+maskNames[(int)mi]+".txt"),baseline,20261020ULL,1,"ClassicPSF_IndexOrder")) // add by wushanzhou in 2026/10/23
-                    {outReportSummary="SPS baseline mask export failed";return false;} // add by wushanzhou in 2026/10/23
-                } // add by wushanzhou in 2026/10/23
-                std::vector<std::map<std::pair<long long, long long>, GRPoint*> > thrSets;
+                // Equal-budget searches share the exact Jitter initialization and seed.
+                SpatialPsfSearchResult spatialSa,spatialHybrid;
+                if(!RunSpatialPsfSearch(spatialObjective,maskList[2],20261021ULL,200,spatialSa,200) ||
+                   !RunSpatialPsfSearch(spatialObjective,maskList[2],20261021ULL,200,spatialHybrid,64))
+                {outReportSummary="SpatialFourier2D search failed";return false;}
+                maskList.push_back(spatialSa.mask);maskNames << "SA_SpatialFourier2D";
+                maskList.push_back(spatialHybrid.mask);maskNames << "Hybrid_SpatialFourier2D";
+                if(!exportSpatialPsfStudy(dir,spatialObjective,spatialPoints,maskList,maskNames,spatialSa,spatialHybrid))
+                {outReportSummary="SpatialFourier2D export failed";return false;}
+                std::vector<std::map<std::pair<double, double>, GRPoint*> > thrSets;
                 for (size_t mi = 0; mi < maskList.size(); mi++)
                 {
-                    std::map<std::pair<long long, long long>, GRPoint*> ts;
+                    std::map<std::pair<double, double>, GRPoint*> ts;
                     for (int q = 0; q < nTot; q++)
                         if (maskList[mi][(size_t)q] == 1) ts[recvKeys[(size_t)q]] = recvSet[recvKeys[(size_t)q]];
                     thrSets.push_back(ts);
                 }
-                std::map<std::pair<long long, long long>, GRPoint*> thrSet = thrSets.empty() ? recvSet : thrSets[0];
+                std::map<std::pair<double, double>, GRPoint*> thrSet = thrSets.empty() ? recvSet : thrSets[0];
 
                 const int nSets = 1 + (int)thrSets.size();
                 std::vector<CmpStat> stats((size_t)nSets);
-                std::vector<std::map<std::pair<long long, long long>, GRPoint*>*> setPtrs;
+                std::vector<std::map<std::pair<double, double>, GRPoint*>*> setPtrs;
                 setPtrs.push_back(&recvSet);
                 for (size_t mi = 0; mi < thrSets.size(); mi++) setPtrs.push_back(&thrSets[mi]);
                 CmpStat* pStats[1]; // add by wushanzhou in 2026/10/23
-                std::map<std::pair<long long, long long>, GRPoint*>* pSets[1];
+                std::map<std::pair<double, double>, GRPoint*>* pSets[1];
                 Q_UNUSED(pStats); Q_UNUSED(pSets);
 
                 for (int pass = 0; pass < nSets; pass++)
@@ -314,9 +387,9 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                         {
                             GRPoint *rp = pShot->getRPointByTrcIndex(si, pRLineSet);
                             if (!rp) continue;
-                            std::pair<long long, long long> key = std::make_pair(
-                                          (long long)(rp->getX() * 10.0),
-                                          (long long)(rp->getY() * 10.0));
+                            std::pair<double, double> key = std::make_pair(
+                                          (double)rp->getX(),
+                                          (double)rp->getY());
                             if (setPtrs[(size_t)pass]->find(key) == setPtrs[(size_t)pass]->end()) continue; // 已被抽稀掉
                             const double rx = rp->getX();
                             const double ry = rp->getY();
@@ -393,10 +466,10 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                     QTextStream o(&tf);
                     o.setCodec("UTF-8");
                     o << "# 2026-10-21: thinning impact on CMP attributes (binDx=25 m)\n";
-                    o << "# Strategies: Regular / Random / Jitter / SA_opt, each keeps n/2 receivers\n";
+                    o << "# Strategies: IndexRegular / Random / IndexJitter / SA / Hybrid; each keeps n/2 receivers\n";
                     o << "# Mode: Real Survey Evaluation Mode\n";
                     o << "Configuration,Receivers,Traces,Live_CMP_Bins,Mean_Fold,Min_Fold,Max_Fold,Fold_CV,"
-                      << "Fold_Retention_Pct,Max_Offset_m,Mean_Offset_m,Near_Pct,Mid_Pct,Far_Pct,Azimuth_Sectors,Mask_SHA1,Selection_Objective\n"; // add by wushanzhou in 2026/10/23
+                      << "Fold_Retention_Pct,Max_Offset_m,Mean_Offset_m,Near_Pct,Mid_Pct,Far_Pct,Azimuth_Sectors,Mask_SHA1,Selection_Objective,Spatial_Fourier_Mu\n"; // add by wushanzhou in 2026/10/23
                     for (int pass = 0; pass < nSets; pass++)
                     {
                         const CmpStat& st = stats[(size_t)pass];
@@ -418,7 +491,8 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
                           << QString::number(st.farPct, 'f', 1) << ","
                           << st.azimuthSectors << "," // add by wushanzhou in 2026/10/23
                           << samplingMaskHash(pass==0?std::vector<int>(nTot,1):maskList[(size_t)(pass-1)]) // add by wushanzhou in 2026/10/23
-                          << ",ClassicPSF_IndexOrder\n"; // add by wushanzhou in 2026/10/23
+                          << ",SpatialFourier2D_v1," << QString::number(spatialObjective.measure(
+                               pass==0?std::vector<int>(nTot,1):maskList[(size_t)(pass-1)]),'g',12) << "\n"; // add by wushanzhou in 2026/10/23
                     }
                     tf.close();
                 }

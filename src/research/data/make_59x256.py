@@ -15,20 +15,26 @@ make_59x256.py
   - 那个脚本输出 256x128（插值到 128 道，供主重构流程）；
   - 本脚本输出 256x59（保留原始道数，供留出验证）。
 
-处理步骤（固定参数，与已提交文件一致）
+处理步骤（固定时间参数）
 --------------------------------------
 1. 沿用未证实的 IEEE-LE float32 解释（SEG-Y 头声明 format=1/IBM，编码冲突未解决）；
 2. 8 ms -> 4 ms 线性重采样：250 -> 256 点；
-3. 峰值归一化。
+3. 默认保留原始振幅；求解器仅依据已知道估计尺度。
+   --legacy-normalize 仅用于历史全场归一化诊断，不能声称严格留出隔离。
 
 用法
 ----
     python -m research.data.make_59x256 --input data/real_seismic/Data/RRAW.SGY \
-        --output data/real_seismic/real_gather_59x256.csv --verify
+        --output data/real_seismic/real_gather_59x256.csv --allow-unconfirmed-real
+    # 正式资料须使用 --source-confirmation 指向提供方/用户确认的来源声明。
 """
 import argparse
 import os  # add by wushanzhou in 2026/10/23
 import sys  # add by wushanzhou in 2026/10/23
+import json
+from pathlib import Path
+from research.common.hashing import digest
+from research.common.provenance import add_real_data_arguments, real_source_provenance
 
 import numpy as np
 from research.data.convert_rraw_to_engine_csv import read_segy as read_validated_segy  # add by wushanzhou in 2026/10/23
@@ -43,8 +49,11 @@ def read_segy(path):
     return data, offsets, meta  # add by wushanzhou in 2026/10/23
 
 
-def convert(data, offsets):
-    """按偏移距升序排序 -> 时间重采样 -> 峰值归一化（与已提交文件一致）。"""
+def convert(data, offsets, normalize=True):
+    """Time resampling; normalize=True is historical full-field diagnostic compatibility.
+
+    Formal holdout workflows use normalize=False; the native solver scales only known traces.
+    """
     order = np.argsort(offsets, kind="stable")
     data = data[:, order]
     offsets = offsets[order]
@@ -54,9 +63,9 @@ def convert(data, offsets):
     out = np.zeros((TARGET_NT, nx))
     for j in range(nx):
         out[:, j] = np.interp(t_dst, t_src, data[:, j])
-    peak = np.abs(out).max()
-    if peak > 0:
-        out /= peak
+    if normalize:
+        peak = np.abs(out).max()
+        if peak > 0:out /= peak
     return out, offsets
 
 
@@ -64,8 +73,9 @@ def write_csv(path, mat, meta, offsets):  # add by wushanzhou in 2026/10/23
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", newline="\n") as fh:
         fh.write("# Real field gather, ORIGINAL %d traces (NO trace interpolation)\n" % mat.shape[1])
-        fh.write("# payload_profile=RRAW_IEEE_LE_UNCONFIRMED; geometry and amplitude units require provider confirmation\n")
-        fh.write("# time 8->4 ms resample only (%d->%d samples); offset-sorted; peak normalized\n"
+        fh.write("# payload_profile=RRAW_IEEE_LE_override; source_status=" + meta.get("source_status", "unconfirmed") + "\n")
+        fh.write("# normalization=" + meta.get("normalization", "legacy_full_field_peak") + "\n")
+        fh.write("# time 8->4 ms resample only (%d->%d samples); offset-sorted\n"
                  % (meta["ns"], TARGET_NT))
         fh.write("# offsets_m=" + ",".join(str(int(x)) for x in offsets) + "\n")  # add by wushanzhou in 2026/10/23
         fh.write("# source_sha256=" + meta["sha256"] + "\n")  # add by wushanzhou in 2026/10/23
@@ -79,15 +89,21 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--input", required=True)
     ap.add_argument("--output", required=True)
+    ap.add_argument("--legacy-normalize", action="store_true",
+                    help="historical full-field normalization; diagnostic-only, unsuitable for strict holdout isolation")
     ap.add_argument("--verify", action="store_true",
                     help="与已存在的输出逐值比较（容差 1e-6 相对）")
+    add_real_data_arguments(ap)
     args = ap.parse_args()
 
     if not os.path.exists(args.input):
         sys.exit("ERROR: input not found: %s" % args.input)
 
+    provenance = real_source_provenance(args.input, args.source_confirmation, args.allow_unconfirmed_real)
     data, offsets, meta = read_segy(args.input)
-    mat, offsets = convert(data, offsets)
+    meta["source_status"] = provenance["status"]
+    mat, offsets = convert(data, offsets, normalize=args.legacy_normalize)
+    meta["normalization"] = "legacy_full_field_peak" if args.legacy_normalize else "none_known_only_solver"
     print("source: %d traces x %d samples, declared format=%d, sha256=%s..."
           % (meta["ntraces"], meta["ns"], meta["declared_format"], meta["sha256"][:16]))
     print("output shape: %d x %d (offset-sorted, %d..%d m)"
@@ -114,6 +130,10 @@ def main():
         return
 
     write_csv(args.output, mat, meta, offsets)  # add by wushanzhou in 2026/10/23
+    provenance.update(normalization=meta["normalization"],strict_preprocessing_isolation=not args.legacy_normalize,
+                      output_sha256=digest(args.output))
+    if args.legacy_normalize:provenance["field_claims_eligible"]=False
+    Path(args.output + ".provenance.json").write_text(json.dumps(provenance,indent=2),encoding="utf-8")
     print("written: %s" % args.output)
 
 

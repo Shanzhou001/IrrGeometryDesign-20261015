@@ -14,6 +14,40 @@ from research.common.figures import FigureWriter
 from research.analysis.ablation_stats import holm, wilcoxon_signed_rank  # add by wushanzhou in 2026/10/24
 from research.experiments.review_studies import read_rows, sha, write_rows  # add by wushanzhou in 2026/10/24
 from research.analysis.review_diagnostics import diagnose_real # add by wushanzhou in 2026/10/24
+from research.common.paths import WORKSPACE
+
+
+def source_scope(manifest):
+    configuration=manifest['fingerprint']['configuration']
+    if configuration.get('synthetic_only'):
+        raise ValueError('Use research.analysis.synthetic_results for synthetic-only batches; this legacy report requires real-data tables')
+    provenance=configuration.get('real_source_provenance',{})
+    confirmed=provenance.get('status')=='declared_confirmed' and provenance.get('field_claims_eligible') is True
+    return dict(provenance,status='declared_confirmed' if confirmed else 'unconfirmed_sensitivity',field_claims_eligible=confirmed)
+
+
+def preflight(output,manifest):
+    configuration=manifest['fingerprint']['configuration']
+    paths=[output/name for name in ['synthetic_reconstruction.csv','real_mask_reconstruction.csv','real_nested.csv','data_diagnostics.json']]
+    paths += [WORKSPACE/'data/real_seismic/Data/RRAW.SGY',WORKSPACE/'data/real_seismic/real_gather_59x256.csv']
+    for domain in ['uniform','physical']:
+        for budget in configuration['budgets']:
+            path=output/f'search_{domain}_{budget}/search.csv';paths.append(path)
+            if path.is_file():
+                paths += [path.parent/(r['mask_path']+'.trace.csv') for r in read_rows(path)]
+    audit=output/'data_diagnostics.json'
+    if audit.is_file():
+        paths += [output/r['input'] for r in json.loads(audit.read_text())['groups']]
+    nested=output/'real_nested.csv'
+    if nested.is_file():
+        for row in read_rows(nested):
+            paths += [output/row['outer_mask'],output/row['fixed_prediction'],
+                      (output/row['fixed_prediction']).with_name('convergence.csv'),
+                      output/'selection'/(row['case']+'.json')]
+            if row['selected'] not in ('zero','linear'):
+                paths.append(output/'reconstruction'/(row['case']+'_outer_selected')/'prediction.csv')
+    missing=[str(path) for path in dict.fromkeys(paths) if not path.is_file()]
+    if missing:raise FileNotFoundError('Legacy full-report inputs are missing:\n'+'\n'.join(missing))
 
 
 def groups(rows, keys):  # add by wushanzhou in 2026/10/24
@@ -71,7 +105,9 @@ def markdown_table(rows,keys):  # add by wushanzhou in 2026/10/24
 def summarize(output):  # add by wushanzhou in 2026/10/24
     output=Path(output).resolve()  # add by wushanzhou in 2026/10/24
     manifest=json.loads((output/"run_manifest.json").read_text())  # add by wushanzhou in 2026/10/24
-    assert manifest.get("completed"),"Only summarize a complete batch"  # add by wushanzhou in 2026/10/24
+    provenance=source_scope(manifest)
+    if not manifest.get('completed'):raise ValueError('Only summarize a complete batch')
+    preflight(output,manifest)
     search=[]  # add by wushanzhou in 2026/10/24
     for path in sorted(output.glob("search_*/search.csv")):  # add by wushanzhou in 2026/10/24
         for row in read_rows(path):row["table_dir"]=str(path.parent.relative_to(output));search.append(row)  # add by wushanzhou in 2026/10/24
@@ -171,12 +207,12 @@ def summarize(output):  # add by wushanzhou in 2026/10/24
     correct(nested_stats)  # add by wushanzhou in 2026/10/24
     write_rows(output/"real_nested_summary.csv",nested_summary)  # add by wushanzhou in 2026/10/24
     write_rows(output/"real_nested_exploratory_statistics.csv",nested_stats)  # add by wushanzhou in 2026/10/24
-    summary=dict(protocol="adaptive_hybrid_v4",independent_real_sources=1,search=search_summary,search_comparisons=comparisons,common_evaluation_comparisons=common_evaluations, # add by wushanzhou in 2026/10/24
+    summary=dict(protocol="adaptive_hybrid_v4",independent_real_sources=provenance.get('independent_real_sources',1),source_provenance=provenance,search=search_summary,search_comparisons=comparisons,common_evaluation_comparisons=common_evaluations, # add by wushanzhou in 2026/10/24
                  synthetic=synthetic_summary,synthetic_cluster_comparisons=cluster_comparisons,  # add by wushanzhou in 2026/10/24
                  geometry_quality_associations=associations,real_masks=real_mask_summary,real_nested=nested_summary,  # add by wushanzhou in 2026/10/24
                  real_nested_exploratory_statistics=nested_stats,configuration=manifest["fingerprint"]["configuration"],  # add by wushanzhou in 2026/10/24
                  native_steps=len(manifest["steps"]),summed_step_seconds=sum(v["seconds"] for v in manifest["steps"].values()))  # add by wushanzhou in 2026/10/24
-    summary["real_diagnosis"]=diagnose_real(output) # add by wushanzhou in 2026/10/24
+    summary["real_diagnosis"]=diagnose_real(output,provenance) # add by wushanzhou in 2026/10/24
     for row in nested_summary: # add by wushanzhou in 2026/10/24
         cases=[r for r in summary['real_diagnosis']['error_decomposition'] if r['keep']==row['keep']] # add by wushanzhou in 2026/10/24
         row['fixed_gain_only']=average(cases,'fixed_gain_only_snr');row['selected_before_gain']=average(cases,'selected_before_gain_snr') # add by wushanzhou in 2026/10/24
@@ -184,6 +220,7 @@ def summarize(output):  # add by wushanzhou in 2026/10/24
     (output/"summary.json").write_text(json.dumps(summary,indent=2,allow_nan=False),encoding="utf-8") # add by wushanzhou in 2026/10/24
     lines=["# adaptive_hybrid_v4: measured results","","One independent real waveform source. No historical results or original data were overwritten.","",  # add by wushanzhou in 2026/10/24
            "## Search means (smaller mu is better)",""]  # add by wushanzhou in 2026/10/24
+    lines[2]='Source status: '+provenance['status']+'. '+('Provider/user source declaration is recorded; one source does not establish cross-survey generalization.' if provenance['field_claims_eligible'] else 'Sensitivity diagnostics only: real encoding and physical geometry are unconfirmed; these results do not establish confirmed field-data performance.')
     lines+=markdown_table([r for r in search_summary if r["method"] in ("SAOnly","Hybrid","SA_Budget","Adaptive","NoRecycle")],  # add by wushanzhou in 2026/10/24
                           ["domain","budget","rate","method","n","mu","sd","actual_evals","native_clock_ms"])  # add by wushanzhou in 2026/10/24
     lines += ["","All search comparisons form one prespecified Holm family. Methods with spatial penalties optimize a different objective and are excluded.",  # add by wushanzhou in 2026/10/24
@@ -200,7 +237,7 @@ def summarize(output):  # add by wushanzhou in 2026/10/24
               "- Regular is deterministic: repeated seeds do not create independent masks.",  # add by wushanzhou in 2026/10/24
               "- Candidate validation and all negative outcomes are retained.","","<!-- add by wushanzhou in 2026/10/24 -->"]
     (output/"RESULTS.md").write_text("\n".join(lines)+"\n",encoding="utf-8")  # add by wushanzhou in 2026/10/24
-    figures(output,search,search_summary,nested,synthetic_summary)  # add by wushanzhou in 2026/10/24
+    figures(output,search,search_summary,nested,synthetic_summary,provenance) # add by wushanzhou in 2026/10/24
     artifacts=[p for p in output.glob("*.csv")]+[output/"summary.json",output/"real_diagnosis.json",output/"RESULTS.md"]+list((output/"figures").glob("*")) # add by wushanzhou in 2026/10/24
     post=dict(generator_sha256=sha(__file__),diagnostic_tool_sha256=sha(Path(__file__).with_name('review_diagnostics.py')),matplotlib=matplotlib.__version__,numpy=np.__version__, # add by wushanzhou in 2026/10/24
               input_tables_sha256={str(p.relative_to(output)):sha(p) for p in output.glob("search_*/search.csv")},  # add by wushanzhou in 2026/10/24
@@ -210,12 +247,16 @@ def summarize(output):  # add by wushanzhou in 2026/10/24
                           search_significant=sum(r["significant_005"] for r in comparisons))),flush=True)  # add by wushanzhou in 2026/10/24
 
 
-def figures(output,search,search_summary,nested,synthetic_summary):  # add by wushanzhou in 2026/10/24
+def figures(output,search,search_summary,nested,synthetic_summary,provenance=None): # add by wushanzhou in 2026/10/24
     writer=FigureWriter('research/v4');target=writer.directory
     plt.rcParams.update({"font.size":10,"axes.spines.top":False,"axes.spines.right":False,"svg.hashsalt":"adaptive_hybrid_v4"})  # add by wushanzhou in 2026/10/24
     names=[]  # add by wushanzhou in 2026/10/24
     def save(fig,name):  # add by wushanzhou in 2026/10/24
-        writer.save(fig,name,dpi=180);names.append(name)
+        if not provenance or not provenance.get('field_claims_eligible'):
+            prior=fig._suptitle.get_text() if fig._suptitle is not None else ''
+            fig.suptitle('Sensitivity diagnostic: real encoding / geometry unconfirmed'+('\n'+prior if prior else ''),fontsize=9)
+            fig.tight_layout(rect=(0,0,1,.9))
+        writer.save(fig,name,dict(source_provenance=provenance or {'status':'unconfirmed_sensitivity'}),dpi=180);names.append(name)
     budgets=sorted({int(r["budget_cap"]) for r in search})  # add by wushanzhou in 2026/10/24
     fig,axes=plt.subplots(2,len(budgets),figsize=(6*len(budgets),8),squeeze=False)  # add by wushanzhou in 2026/10/24
     for di,domain in enumerate(("uniform","physical")):  # add by wushanzhou in 2026/10/24

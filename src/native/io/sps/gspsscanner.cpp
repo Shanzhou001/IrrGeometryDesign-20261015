@@ -306,7 +306,7 @@ bool GXFileScanner::scan(const QString &fileName, GShotSet *pShotSet, QTextEdit 
 	if(mpProject == NULL || pShotSet == NULL)
 	{
 		if(spsMemo != NULL)
-			spsMemo->append(QString::fromLocal8Bit("//----Xļɨʧܣ̶ڼΪ----//"));
+			spsMemo->append(QString::fromLocal8Bit("//----X scan failed: no current project or shot set----//"));
 		return false;
 	}
 
@@ -314,7 +314,7 @@ bool GXFileScanner::scan(const QString &fileName, GShotSet *pShotSet, QTextEdit 
 	if(!file.open(IO_ReadOnly))
 	{
 		if(spsMemo != NULL)
-			spsMemo->append(QString::fromLocal8Bit("//----޷򿪹ϵļ \"") +
+			spsMemo->append(QString::fromLocal8Bit("//----Cannot open X relation file \"") +
 							fileName + "\"----//");
 		return false;
 	}
@@ -324,7 +324,7 @@ bool GXFileScanner::scan(const QString &fileName, GShotSet *pShotSet, QTextEdit 
 	Q_INT32 lineCount = 0;
 
 	if(spsMemo != NULL)
-		spsMemo->append(QString::fromLocal8Bit("//----ɨϵļ \"") +
+		spsMemo->append(QString::fromLocal8Bit("//----Scanning X relation file \"") +
 						fileName + "\"----//");
 
 	while(!stream.atEnd())
@@ -346,8 +346,8 @@ bool GXFileScanner::scan(const QString &fileName, GShotSet *pShotSet, QTextEdit 
 								QString::number(lineCount) +
 								QString::fromLocal8Bit(")"));
 				spsMemo->append("  " + line);
-				spsMemo->append(QString::fromLocal8Bit("  ԭ: ") + errMsg);
-				spsMemo->append(QString::fromLocal8Bit("//----ϵļɨ ʧ----//"));
+				spsMemo->append(QString::fromLocal8Bit("  Reason: ") + errMsg);
+				spsMemo->append(QString::fromLocal8Bit("//----X relation scan failed----//"));
 			}
 
 			file.close();
@@ -391,7 +391,7 @@ bool GXFileScanner::scan(const QString &fileName, GShotSet *pShotSet, QTextEdit 
 	}
 
 	if(spsMemo != NULL)
-		spsMemo->append(QString::fromLocal8Bit("//----ϵļɨ ɹ----//"));
+		spsMemo->append(QString::fromLocal8Bit("//----X relation scan succeeded----//"));
 
 	file.close();
 	return true;
@@ -409,7 +409,7 @@ bool GSFileScanner::scan(const QString &fileName, GSLineSet *pSLineSet,
 	if( !file.open( IO_ReadOnly ) ) 
 	{
 		if( spsMemo != NULL )
-			spsMemo->append( QString::fromLocal8Bit("\n//----޷ڵļ( ")+
+			spsMemo->append( QString::fromLocal8Bit("\n//----Cannot open source-point file ( ")+
 							 fileName+" )----//" );
 		return false;
 	}
@@ -425,7 +425,7 @@ bool GSFileScanner::scan(const QString &fileName, GSLineSet *pSLineSet,
 	GSPoint *pSPoint;
 
 	if( spsMemo != NULL )
-		spsMemo->append( QString::fromLocal8Bit("\n//----ɨڵļ \"")+
+		spsMemo->append( QString::fromLocal8Bit("\n//----Scanning source-point file \"")+
 						 fileName+"\"----//" );
 	bool isWellShot = true;
 	while( !stream.atEnd() )
@@ -530,7 +530,7 @@ bool GSFileScanner::scan(const QString &fileName, GSLineSet *pSLineSet,
 	}
 
 	if( spsMemo != NULL )
-		spsMemo->append( QString::fromLocal8Bit("//----ڵļɨ ("+
+		spsMemo->append( QString::fromLocal8Bit("//----Source-point scan complete ("+
 						 QString::number(errCount)+")----//") );
 
 	return true;
@@ -549,7 +549,7 @@ bool GRFileScanner::scan(const QString &fileName, GRLineSet *pRLineSet, QTextEdi
 	if( !file.open( IO_ReadOnly ) ) 
 	{
 		if( spsMemo != NULL )
-			spsMemo->append( QString::fromLocal8Bit("\n//----޷򿪼첨ļ( ")+
+			spsMemo->append( QString::fromLocal8Bit("\n//----Cannot open receiver-point file ( ")+
 							 fileName+" )----//" );
 		return false;
 	}
@@ -566,7 +566,7 @@ bool GRFileScanner::scan(const QString &fileName, GRLineSet *pRLineSet, QTextEdi
 	GRPoint *pRPoint;
 
 	if( spsMemo != NULL )
-		spsMemo->append( QString::fromLocal8Bit("\n//----ɨ첨ļ \"")+
+		spsMemo->append( QString::fromLocal8Bit("\n//----Scanning receiver-point file \"")+
 						 fileName+"\"----//" );
 
 	while( !stream.atEnd() )
@@ -661,7 +661,7 @@ bool GRFileScanner::scan(const QString &fileName, GRLineSet *pRLineSet, QTextEdi
 	}
 
 	if( spsMemo != NULL )
-		spsMemo->append( QString::fromLocal8Bit("//----첨ļɨ ("+
+		spsMemo->append( QString::fromLocal8Bit("//----Receiver-point scan complete ("+
 						 QString::number(errCount)+")----//") );
 //    progressBar->reset();
 	if (progressBar != NULL) progressBar->setValue(100);

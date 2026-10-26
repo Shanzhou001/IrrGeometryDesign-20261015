@@ -23,16 +23,19 @@ RRAW.SGY 的二进制头 bytes 3225-3226 声明 format code = 1（IBM 浮点）�
 --------------------
 1. 读取 59 道，按 offset（字节 37-40, int32）升序排序；
 2. 时间轴重采样 8 ms -> 4 ms：250 点线性插值到 256 点，覆盖 0 ~ 1.020 s；
-   （原始 2.0 s 记录中 1.02 s 之后的内容被裁掉，依据见 README 第 8 节）
+   （固定历史诊断窗口；不能据此推断完整记录的恢复质量）
 3. 道数重采样 59 -> 128：沿道方向线性插值（上采样 2.17x）；
 4. 8-70 Hz 固定频带滤波（FFT 分箱上的线性斜坡 8-12 Hz / 60-70 Hz）；
 5. 全局峰值归一化到 max|amp| = 1.0。
+
+此空间插值/全场归一化产物仅用于历史诊断。严格真实道留出实验使用
+audit_joint_studies 的原始振幅流程，不使用此产物作为独立测量真值。
 
 用法
 ----
     python -m research.data.convert_rraw_to_engine_csv \
         --input  data/real_seismic/Data/RRAW.SGY \
-        --output data/real_seismic/real_gather_256x128.csv
+        --output data/real_seismic/real_gather_256x128.csv --allow-unconfirmed-real
 
     # 仅检查编码判定
     python -m research.data.convert_rraw_to_engine_csv --input ... --check-encoding
@@ -43,6 +46,9 @@ import hashlib
 import os
 import struct
 import sys
+import json
+from pathlib import Path
+from research.common.provenance import add_real_data_arguments, real_source_provenance
 
 import numpy as np
 
@@ -118,7 +124,9 @@ def read_segy(path):
         "dt_raw_field": dt_raw,
         "dt_trace_field": dt_us,  # add by wushanzhou in 2026/10/24
         "trace_headers_checked": ntraces,  # add by wushanzhou in 2026/10/24
-        "payload_profile": "RRAW_IEEE_LE_override",  # add by wushanzhou in 2026/10/24
+        "payload_profile": "RRAW_IEEE_LE_override",
+        "source_status": "unconfirmed",
+        "field_claims_eligible": False,  # add by wushanzhou in 2026/10/24
         "declared_format": fmt,
         "ntraces": ntraces,
         "file_bytes": len(raw),
@@ -189,11 +197,12 @@ def convert(data, offsets):
 def write_csv(path, mat, meta, offsets):
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, "w", newline="\n") as fh:
-        fh.write("# RRAW reference field; common-shot semantics and physical geometry unconfirmed\n")
-        fh.write("# payload_profile=RRAW_IEEE_LE_UNCONFIRMED; declared IBM header conflicts with assumed IEEE-LE\n")
+        fh.write("# RRAW legacy diagnostic reference field; source declaration is recorded in the provenance sidecar\n")
+        fh.write("# payload_profile=RRAW_IEEE_LE_override; source_status=" + meta.get("source_status", "unconfirmed") + "\n")
+        fh.write("# diagnostic_only=true; spatial interpolation and full-field normalization prevent strict raw-trace holdout claims\n")
         fh.write("# Source SHA256: %s\n" % meta["sha256"])
         fh.write("# Source: %d traces x %d samples, dt=%d us, declared format=%d "
-                 "(payload interpreted using unconfirmed IEEE-LE float32 profile)\n"
+                 "(payload interpreted using the retained IEEE-LE float32 override)\n"
                  % (meta["ntraces"], meta["ns"], meta["dt_us"], meta["declared_format"]))
         fh.write("# offsets_m=" + ",".join("%.9g" % x for x in np.linspace(offsets[0], offsets[-1], TARGET_NX)) + "\n")  # add by wushanzhou in 2026/10/23
         fh.write("# Offsets (m): %s\n" % ", ".join(str(int(o)) for o in offsets))
@@ -216,6 +225,7 @@ def main():
     ap.add_argument("--output", help="output CSV path")
     ap.add_argument("--check-encoding", action="store_true",
                     help="check fixed IEEE-LE profile plausibility, not encoding identification") # add by wushanzhou in 2026/10/24
+    add_real_data_arguments(ap)
     args = ap.parse_args()
 
     if not os.path.exists(args.input):
@@ -228,9 +238,14 @@ def main():
     if not args.output:
         sys.exit("ERROR: --output is required unless --check-encoding is used")
 
+    provenance = real_source_provenance(args.input, args.source_confirmation, args.allow_unconfirmed_real)
     data, offsets, cdps, meta = read_segy(args.input)
+    meta["source_status"] = provenance["status"]
     mat, offsets = convert(data, offsets)
     write_csv(args.output, mat, meta, offsets)
+    provenance.update(preprocessing="legacy spatial/time interpolation, filtering, full-field peak normalization",
+                      strict_preprocessing_isolation=False, field_claims_eligible=False, output_sha256=hashlib.sha256(Path(args.output).read_bytes()).hexdigest())
+    Path(args.output + ".provenance.json").write_text(json.dumps(provenance,indent=2),encoding="utf-8")
 
     # 自检：必须是 256 行 x 128 列纯数值（注释行不计）
     n_rows = 0

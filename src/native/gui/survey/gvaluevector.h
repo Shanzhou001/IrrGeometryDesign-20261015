@@ -60,7 +60,7 @@ public:
 };
 
 template<class type>
-GValueVector<type>::GValueVector<type>()
+GValueVector<type>::GValueVector()
 {
 	m_pdata = NULL;
 	m_size = 0;
@@ -68,7 +68,7 @@ GValueVector<type>::GValueVector<type>()
 }
 
 template<class type>
-GValueVector<type>::GValueVector<type>( int size )
+GValueVector<type>::GValueVector( int size )
 {
 	if( size > 0 ) m_pdata = new type [size];
 	else m_pdata = NULL;
@@ -77,7 +77,7 @@ GValueVector<type>::GValueVector<type>( int size )
 }
 
 template<class type>
-GValueVector<type>::~GValueVector<type>()
+GValueVector<type>::~GValueVector()
 {
 	if( m_pdata != NULL ) 
 	{

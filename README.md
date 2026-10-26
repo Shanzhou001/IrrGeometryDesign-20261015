@@ -19,13 +19,17 @@ figures/
   research/       研究图片
   legacy/         历史示例图片
   index.html      统一图库
+build/            编译后的程序、Qt 自动生成代码和编译中间文件
+data/             输入数据，包括 SPS 和自行提供的地震资料
+checks/           保存的检查记录
+results/          运行实验后生成的结果
 build.bat                 原生构建入口
 pipeline.py               运行与研究入口
 IrrGeometryDesign.sln     VS2008 解决方案
 requirements.txt          Python 依赖
 ```
 
-当前仓库只保留源代码、图片和运行所需的工程配置。实验结果、论文文档、数据集、日志、冻结程序和一次性迁移记录已移除。Git 只使用 `main`，提交历史压缩为当前版本的一次快照。
+源代码、图片、输入数据和运行产物统一放在本项目目录内，无需额外的工作区文件夹。Git 跟踪源代码、图片和工程配置；编译产物、输入数据、检查记录和实验结果保留在本地。
 
 ## 构建与运行
 
@@ -37,7 +41,7 @@ requirements.txt          Python 依赖
 python pipeline.py run
 ```
 
-构建配置集中在 `src/build/`。若直接从 Visual Studio 打开解决方案，请先将 `IRR_WORKSPACE` 设置为绝对输出路径。
+构建配置集中在 `src/build/`，编译产物写入项目内的 `build/`。也可直接从 Visual Studio 打开解决方案，无需设置工作区路径。
 
 Python 使用 3.12：
 
@@ -53,10 +57,10 @@ python pipeline.py module research.validation.audit_projection --out checks/proj
 
 ## 输出与输入数据
 
-默认工作目录位于项目旁边的 `IrrGeometryDesign-20261015-workspace/`，可通过环境变量 `IRR_WORKSPACE` 修改：
+工作目录就是本项目根目录；构建、运行和研究入口均使用以下位置：
 
 ```text
-<IRR_WORKSPACE>/
+IrrGeometryDesign/
   build/bin/Release/      编译后的程序
   build/bin/Debug/
   build/generated/       Qt 自动生成代码

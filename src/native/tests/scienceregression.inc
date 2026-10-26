@@ -114,6 +114,7 @@
     log_test(logFp," [%s] Test 21: Held-out amplitudes never affect solver; physical observation projection is consistent\n",isolationOk?"PASS":"FAIL"); // add by wushanzhou in 2026/10/23
     if(isolationOk)passedTests++; // add by wushanzhou in 2026/10/23
 
+    if (!coreOnly) {
     totalTests++; // add by wushanzhou in 2026/10/23
     bool chainOk=true; // add by wushanzhou in 2026/10/23
     { // add by wushanzhou in 2026/10/23
@@ -135,6 +136,8 @@
     } // add by wushanzhou in 2026/10/23
     log_test(logFp," [%s] Test 23: Real reference-grid metadata uses actual offset spacing\n",metadataOk?"PASS":"FAIL"); // add by wushanzhou in 2026/10/23
     if(metadataOk)passedTests++; // add by wushanzhou in 2026/10/23
+
+    } // Tests 22/23 require external integration artifacts.
 
     totalTests++; // add by wushanzhou in 2026/10/23
     bool physicalOk=true; // add by wushanzhou in 2026/10/23

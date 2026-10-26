@@ -1,9 +1,8 @@
-"""Source and image paths; generated files live outside the repository."""
-import os
+"""Source, inputs and generated files share the project directory."""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-WORKSPACE = Path(os.environ.get('IRR_WORKSPACE', str(ROOT) + '-workspace')).expanduser().resolve()
+WORKSPACE = ROOT
 NATIVE = ROOT / 'src/native'
 FIGURES = ROOT / 'figures'
 BINARY_ROOT = WORKSPACE / 'build/bin'

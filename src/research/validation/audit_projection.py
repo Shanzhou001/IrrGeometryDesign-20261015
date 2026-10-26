@@ -7,12 +7,15 @@ import numpy as np
 
 from research.experiments.audit_joint_studies import Recorder,write_gather,write_mask
 from research.common.hashing import digest
+from research.common.provenance import require_inputs
 
 from research.common.paths import ROOT, WORKSPACE
 
 
-def run(out):
-    recorder=Recorder(out,WORKSPACE / 'build/bin/Release/IrrGeometryDesign.exe',dict(check='dense observation projection',driver_sha256=digest(__file__)))
+def run(out, exe=None):
+    program=Path(exe) if exe is not None else WORKSPACE / 'build/bin/Release/IrrGeometryDesign.exe'
+    require_inputs([program])
+    recorder=Recorder(out,program,dict(check='dense observation projection',synthetic_only=True,driver_sha256=digest(__file__)))
     result=[]
     for index,x in enumerate([np.array([0.,1,2,3,5,7,9,20]),np.arange(32.)*2.5]):
         n=len(x);mask=np.zeros(n,bool);mask[[1,2,3,n-2,n-1]]=True
@@ -42,4 +45,6 @@ def run(out):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True);run(p.parse_args().out)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True)
+    p.add_argument('--exe',type=Path,default=WORKSPACE / 'build/bin/Release/IrrGeometryDesign.exe')
+    args=p.parse_args();run(args.out,args.exe)

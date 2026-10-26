@@ -173,3 +173,27 @@
     } // add by wushanzhou in 2026/10/24
     log_test(logFp," [%s] Test 33: Legacy Gram scan above 64 columns matches explicit normalized magnitude Gram\n",legacyGramOk?"PASS":"FAIL"); // add by wushanzhou in 2026/10/24
     if(legacyGramOk)passedTests++; // add by wushanzhou in 2026/10/24
+
+    totalTests++;bool amplitudeReportOk=true;
+    {
+        // A large-amplitude fixture checks the public batch path as well as the solver.
+        const QString input=QDir::tempPath()+QString("/irr_amplitude_%1.csv").arg(QCoreApplication::applicationPid());
+        const QString output=QDir::tempPath()+QString("/irr_amplitude_%1").arg(QCoreApplication::applicationPid());
+        QFile file(input);
+        if(QFile::exists(input) || QFileInfo(output).exists() || !file.open(QIODevice::WriteOnly|QIODevice::Text))amplitudeReportOk=false;
+        else
+        {
+            QTextStream stream(&file);stream.setRealNumberPrecision(12);
+            stream << "# offsets_m=0,1,3,4,8,9,15,20\n";
+            for(int i=0;i<64;i++)
+            {
+                for(int j=0;j<8;j++){if(j)stream << ",";stream << 1e6*sin(i*.2+j*.13);}
+                stream << "\n";
+            }
+            stream.flush();file.close();HoldoutMetrics metrics;QString report;
+            if(!runHoldoutValidation(input,8,4,4,42,output,metrics,report) || !metrics.dataConsistencyPassed)amplitudeReportOk=false;
+            QFile::remove(input);removeDirRecursive(output);
+        }
+    }
+    log_test(logFp," [%s] Test 34: Raw-amplitude solver and batch report share the same consistency tolerance\n",amplitudeReportOk?"PASS":"FAIL");
+    if(amplitudeReportOk)passedTests++;

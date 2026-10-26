@@ -25,6 +25,7 @@
 #include <QDesktopWidget>
 //#include "tbendlinewidthdlg.h"
 #include "../../core/gutils.h"
+#include "../../core/ExpRng.h"
 //#include "../dialogs/analyzebinform.h"
 #include <QProgressDialog>
 //#include "ggausstracer.h"
@@ -59,7 +60,7 @@
 ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     : QDialog(parent), mCurrentIndex(0)
 {
-    setWindowTitle(QString::fromLocal8Bit("科研成果图件与科学结论画廊 - [IrrGeometryDesign]"));
+    setWindowTitle(QString::fromLocal8Bit("研究图件与实验说明 - [IrrGeometryDesign]"));
     resize(1060, 750);
     setSizeGripEnabled(true);
 
@@ -120,53 +121,36 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     mTitles.clear();
     mConclusions.clear();
 
-    mFileNames << "00_research_workflow_summary.png";
-    mTitles << QString::fromLocal8Bit("00. 全流程科研闭环综合大看板 (Workflow Summary Dashboard)");
+    mFileNames << "paper/search.png";
+    mTitles << QString::fromLocal8Bit("01. Fourier/PSF 采样搜索比较");
     mConclusions << QString::fromLocal8Bit(
-        "<b>【图件定位】</b>全流程科研闭环综合大看板（观测系统设计 -> 空间相干度优化 -> CMP属性评估 -> 压缩感知POCS波场重构 -> 多指标定量对比）。<br>"
-        "<b>【核心结论与图件支撑】</b>如图件所示，系统打通了从野外地震观测设计到保真恢复的完整链路。Jitter-SA 优化将 50% 采样率下的曲波互相干度由 0.9601（规则减抽）降至 0.2238（10 轮均值），相干度比值衰减 12.71 dB；同时在 50% 欠采样下 2D Curvelet POCS（线性插值热启动）重构信噪比达 13.90 dB，相关系数 0.9794，较线性插值基线（11.83 dB）提升 2.07 dB。注意：此为合成数值模拟条件下的结果，真实野外资料验证见 README 第八节。"
+        "<b>评价口径：</b>Fourier 字典的 PSF 最大旁瓣，数值越小表示该字典下互干度越低。"
+        "不同算法应使用相同初始掩码、评价预算和随机种子进行配对比较。"
+        "低互干度不能直接推出更高的 Curvelet 恢复 SNR。"
     );
 
-    mFileNames << "01_sa_convergence_curve.png";
-    mTitles << QString::fromLocal8Bit("01. 模拟退火相干度下降收敛曲线 (SA Coherence Minimization)");
+    mFileNames << "paper/budget.png";
+    mTitles << QString::fromLocal8Bit("02. 预算回收与共同评价次数比较");
     mConclusions << QString::fromLocal8Bit(
-        "<b>【图件定位】</b>模拟退火算法对观测感知矩阵互相干度 μ 的优化收敛轨迹（横轴：迭代步数，纵轴：相干度 μ）。<br>"
-        "<b>【核心结论与图件支撑】</b>当前解轨迹（μ_trace）在 Metropolis 准则下持续探索，历史最优轨迹（best_mu_trace）严格单调非增；50% 采样率单次代表轮次历史最优 μ 由初始抖动网格值下降至该轮收敛值（图示曲线终点为 SA 历史最优，不含 CG 精修）。10 轮独立试验均值为 0.2238，平均相干度比值衰减 12.71 dB；该图仅反映 μ 轨迹，空间均匀性需另行评估。"
+        "<b>比较口径：</b>同时检查最终结果和共同评价次数下的结果。"
+        "预算回收可能通过增加有效评价改善最终值；单位评价效率必须由共同评价次数的配对差异判断。"
+        "置信区间和显著性以对应原始结果表为准。"
     );
 
-    mFileNames << "02_sampling_benchmark_bars.png";
-    mTitles << QString::fromLocal8Bit("02. 空间采样方案多指标对比柱状图 (Uniform vs Random vs Jitter-SA)");
+    mFileNames << "paper/recovery.png";
+    mTitles << QString::fromLocal8Bit("03. 共同隐藏集上的恢复质量比较");
     mConclusions << QString::fromLocal8Bit(
-        "<b>【图件定位】</b>30%、50%、70% 三种采样率下，规则减抽(Regular)、纯随机(Random)与 Jitter-SA 抖动退火优化的互相干度 μ 柱状对比。<br>"
-        "<b>【核心结论与图件支撑】</b>柱状图表明：Jitter-SA 在各采样率下均取得最低相干度（50% 下 10 轮均值 0.2238，规则减抽 0.9601、纯随机 0.3332），改善率 76.69% 与 32.33%，相干度比值衰减 12.71 dB。该图仅反映 μ 差异；空间均匀性需用最大间隔/最近邻距离另行评估，不能由本图直接断言。"
+        "<b>验证口径：</b>所有采样方法在共同隐藏集 H 上计算 SNR，H 不可进入采样或恢复配置选择。"
+        "固定 Curvelet 与内层选择恢复分别报告；内层选择候选包含零预测和线性插值，"
+        "因此选择后的改善不能全部归因于 Curvelet。"
     );
 
-    mFileNames << "03_cmp_fold_distribution_map.png";
-    mTitles << QString::fromLocal8Bit("03. CMP面元覆盖次数空间分布热力图 (CMP Fold Heatmap)");
+    mFileNames << "paper/real_windows.png";
+    mTitles << QString::fromLocal8Bit("04. 真实资料预设时间窗与失败情况");
     mConclusions << QString::fromLocal8Bit(
-        "<b>【图件定位】</b>真实工区 SPS 测线 CMP 面元网格空间覆盖次数热力分布（颜色越暖代表覆盖次数越高）。<br>"
-        "<b>【核心结论与图件支撑】</b>热力图显示真实测线有效映射 29,719 个 CMP 面元，平均覆盖次数 106.4 次，覆盖次数范围 1~198 次，变异系数 Cv = 0.5508。面元网格空间分布平稳连续，有效消除了空间几何退化与假阳性，各反射点照明充分。"
-    );
-
-    mFileNames << "04_offset_azimuth_rose_charts.png";
-    mTitles << QString::fromLocal8Bit("04. 炮检距分布直方图与方位角玫瑰图 (Offset & Azimuth Rose)");
-    mConclusions << QString::fromLocal8Bit(
-        "<b>【图件定位】</b>真实观测系统有效道的炮检距统计直方图与 360° 空间方位角玫瑰分布图。<br>"
-        "<b>【核心结论与图件支撑】</b>左侧直方图显示炮检距在 1.7 ~ 9324.0 m 全范围内合理过渡，均值 3875.9 m，近/中/远炮检距占比分别为 45.3% / 34.5% / 20.3%；右侧玫瑰图展示 24 个扇区方位角覆盖完整度达 100%，具备理想的全方位观测特征，为后续各向异性分析提供高品质空间支持。"
-    );
-
-    mFileNames << "05_wavefield_reconstruction_quad.png";
-    mTitles << QString::fromLocal8Bit("05. 2D波场欠采样与POCS压缩感知重构四联剖面 (CS Reconstruction)");
-    mConclusions << QString::fromLocal8Bit(
-        "<b>【图件定位】</b>(a) 原始完整波场、(b) 50% 欠采样波场、(c) 2D Curvelet POCS 压缩感知重构波场、(d) 残差剖面的四联对比。<br>"
-        "<b>【核心结论与图件支撑】</b>剖面对比显示：在缺失 50% 道的情况下，2D Curvelet POCS 重构剖面恢复了反射同相轴的连续性。全幅 SNR 为 13.90 dB（缺失道口径 10.90 dB），高于空间线性插值基线（全幅 11.83 dB，+2.07 dB），RMSE 为 0.032070。以上为合成数值模拟条件；真实野外资料上该增益并不成立（-0.62 dB），详见 README 第八节。"
-    );
-
-    mFileNames << "06_recon_convergence_trace_comparison.png";
-    mTitles << QString::fromLocal8Bit("06. POCS残差收敛曲线与抽稀道单道波形对比细节 (Trace Comparison)");
-    mConclusions << QString::fromLocal8Bit(
-        "<b>【图件定位】</b>左图：POCS迭代残差与PSNR提升收敛曲线；右图：抽取单道（原始道 vs 缺失插值道 vs 重构道）的振幅与子波重叠对比。<br>"
-        "<b>【核心结论与图件支撑】</b>左图显示 POCS 残差随迭代下降并趋于平稳；右图为抽取单道（原始道 vs 重构道）的振幅与子波重叠对比。单道指标与迭代收敛数值请以 recon_metrics_summary.csv 及 figures/ 中对应图件为准，此处不再硬编码未计算的数字。"
+        "<b>适用范围：</b>不同时间窗和掩码划分仍来自同一个资料来源，不能视作多个独立工区。"
+        "应保留负 SNR 和失败案例。资料编码、坐标单位和道集含义未确认时，"
+        "图件只能作为带有这些限制的探索结果。"
     );
 
     for (int i = 0; i < mTitles.size(); ++i)
@@ -214,7 +198,7 @@ void ResearchFiguresDialog::onNext()
 
 void ResearchFiguresDialog::onOpenInBrowser()
 {
-    QString htmlPath = QDir(FigurePaths::galleryDirectory()).filePath("index.html"); // add by wushanzhou in 2026/10/23
+    QString htmlPath = QDir(FigurePaths::root()).filePath("index.html"); // add by wushanzhou in 2026/10/23
     QFileInfo fi(htmlPath);
     if (fi.exists())
     {
@@ -223,13 +207,13 @@ void ResearchFiguresDialog::onOpenInBrowser()
     else
     {
         QMessageBox::warning(this, QString::fromLocal8Bit("未找到画廊网页"),
-                             QString::fromLocal8Bit("画廊网页尚未生成：%1\n请先在命令行运行：\nIrrGeometryDesign.exe --run-experiments results\\synthetic --repeat 10 --seed 42").arg(htmlPath));
+                             QString::fromLocal8Bit("画廊网页尚未生成：%1\n请先在命令行运行：\npython pipeline.py figures").arg(htmlPath));
     }
 }
 
 void ResearchFiguresDialog::onOpenFolder()
 {
-    QString dirPath = FigurePaths::galleryDirectory(); // add by wushanzhou in 2026/10/23
+    QString dirPath = FigurePaths::root();
     QDir dir(dirPath);
     if (!dir.exists())
     {
@@ -250,8 +234,7 @@ void ResearchFiguresDialog::loadFigure(int index)
         mCombo->blockSignals(false);
     }
 
-    QString dirPath = FigurePaths::galleryDirectory(); // add by wushanzhou in 2026/10/23
-    QString filePath = FigurePaths::galleryImage(mFileNames[index]);
+    QString filePath = QDir(FigurePaths::root()).filePath(mFileNames[index]);
     QFileInfo fi(filePath);
 
     if (fi.exists())
@@ -271,11 +254,12 @@ void ResearchFiguresDialog::loadFigure(int index)
     {
         mImageLabel->setText(QString::fromLocal8Bit(
             "<font color=red><b>图件尚未生成：</b>%1</font><br><br>"
-            "提示：本版本 GUI 不再提供一键运行入口。请先在命令行运行：<br>"
-            "IrrGeometryDesign.exe --run-experiments results\\synthetic --repeat 10 --seed 42").arg(mFileNames[index]));
+            "请恢复对应实验记录后运行正式绘图模块。<br>"
+            "python pipeline.py figures 仅刷新已有图片的图库。").arg(mFileNames[index]));
     }
 
-    mConclusionBrowser->setHtml(mConclusions[index]);
+    mConclusionBrowser->setHtml(mConclusions[index] + QString::fromLocal8Bit(
+        "<br><br><b>归档状态：</b>保留图片不等于已验证的新实验结果。正式使用前请核对同名数据文件、原始结果表和运行 manifest。"));
     mBtnPrev->setEnabled(index > 0);
     mBtnNext->setEnabled(index < mFileNames.size() - 1);
 }
@@ -336,6 +320,9 @@ TSPSForm::~TSPSForm()
 
 void TSPSForm::init()
 {
+    ui.actionRAOptimizing->setText(QString::fromLocal8Bit("检波点自适应 PSF 优化"));
+    ui.actionSAOptimizing->setText(QString::fromLocal8Bit("炮点自适应 PSF 优化"));
+    ui.actionCalculate_the_Miu_for_Loaded_Geometry->setText(QString::fromLocal8Bit("历史曲波 Gram 差值诊断"));
 	//----调整窗口大小和位置----
 	QPoint p( 0, 0 );
 	QRect desk;
@@ -1512,739 +1499,214 @@ void TSPSForm::on_Load_SPS_Action_triggered()
 
 void TSPSForm::on_actionRSample_triggered()
 {
-	/************************************************************************/
-	/* 采样前的检波器排列也要进行属性计算和分析，用于与优化后排列进行对比 */
-	/* 检波点采样及显示 */
-	/************************************************************************/
-	if (!ensureProjectLoaded(false, false)) return;
-	GProject *pProject = mpProject ? mpProject : GProject::getCurrentProject();
-	if (!pProject) return;
-	GSPSParam *pSPSParam = pProject->getSPSParam();
-	if (!pSPSParam) return;
-	SpsSampleDlg *sample_dlg=new SpsSampleDlg();
-	if(sample_dlg->exec()){// pSPSParam中传入的参数是目标规则观测系统的参数 [Liu Wei 6/14/2023]
-		int Mode_value=sample_dlg->mode_value;
-		float cr=sample_dlg->Tsampling_rate;//线内采样率，注意某些小数在计算机中精度不高，比如0.6在计算机中的值为0.6000000002。
-		float cl=sample_dlg->Lsampling_rate;//线间采样率
-		int N=ceil(pSPSParam->mRPtCount/cr);// 在出现小数时，无法得到正确的结果 [Liu Wei 7/31/2023]
-		int row=ceil(pSPSParam->mRLineCount/cl);// 在出现小数时，无法得到正确的结果 [Liu Wei 7/31/2023]
-		float TraceInv = pSPSParam->mRPtInv*cr;//采样前的规则道间距，mRPtInv被当做是一个平均道间距
-		float RLineInv = pSPSParam->mRLineInv*cl;//采样前的规则接收线距，mRLineInv被当做是一个平均线间距
-		float rx0 = pSPSParam->mRX0;
-		float ry0 = pSPSParam->mRY0;
-
-		if (row>1)//二维采样
-		{
-			int **Phi0;	//初始线间未采样的二维矩阵
-			int *phi0;	//线间优化前的一维矩阵
-			
-			if (Mode_value==0)
-			{
-				Phi0=Sampling2S(row, N, cr);//初始线间未采样的二维矩阵
-				phi0 = Sampling1S(row, cl); //优化前的一维矩阵
-			}
-			else if (Mode_value==1)
-			{
-				Phi0=Sampling2J(row, N, cr);//初始线间未采样的二维矩阵
-				phi0 = Sampling1J(row, cl); //优化前的一维矩阵
-			} 
-			else
-			{
-				Phi0=Sampling2F(row, N, cr);//初始线间未采样的二维矩阵
-				phi0 = Sampling1F(row, cl); //优化前的一维矩阵
-			}
-		
-			//****** 对线进行采样，得到线间采样后的二维矩阵 ******//
-			int **Phi01 = MulMatrix(row, phi0, N, Phi0);
-
-			//****** 计算二维矩阵的μ值 ******//
-			// 当线数较少时，计算线间μ值无意义，则只讨论线内的μ值 //
-			float miu_xj_before=CalculateAveMiu(row,N,Phi01);//计算线内的μ值
-			
-			//****** 采样后检波点坐标计算及显示 ******//
-			int *y=Convert1D(row,N,Phi01);//将二维转化为一维
-			float *x=RegularMR(row,N, TraceInv,rx0);//规则检波点横坐标
-			float *x1=RegularNR(row,N, RLineInv,ry0);//规则检波点纵坐标
-			float *Xcoor=MulMatrix_1D_float(row*N,y,x);//采样后横坐标
-			float *Ycoor=MulMatrix_1D_float(row*N,y,x1);//采样后纵坐标
-
-			// 将一维坐标转化为二维 [Liu Wei 6/14/2023]
-			QVector<QVector<float> > XCoordinate, YCoordinate;
-			for (int i=0; i<pSPSParam->mRLineCount; i++)
-			{
-				QVector<float> rline_xcoordinate;
-				QVector<float> rline_ycoordinate;
-				for (int j=0; j<pSPSParam->mRPtCount; j++)
-				{
-					rline_xcoordinate.append(Xcoor[i*pSPSParam->mRPtCount+j]);
-					rline_ycoordinate.append(Ycoor[i*pSPSParam->mRPtCount+j]);
-				}
-				XCoordinate.append(rline_xcoordinate);
-				YCoordinate.append(rline_ycoordinate);
-			}
-			// 保存采样结果 [Liu Wei 6/30/2023]
-			if ( (!R_Sampling_Arrays.isEmpty())|| (!RL_Sampling.isEmpty()))
-			{
-				R_Sampling_Arrays.clear();
-				RL_Sampling.clear();
-			}// 保证每次保存最新采样结果
-			for (int i=0; i<row; i++)
-			{
-				QVector<int> rv;
-				for (int j=0; j<N; j++)
-				{
-					rv.append(Phi0[i][j]);
-				}
-				R_Sampling_Arrays.append(rv);
-				RL_Sampling.append(phi0[i]);
-			}
-			// 替换坐标 [Liu Wei 6/14/2023]
-			GRLineSet *pRLineSetNew = mpProject->getRLineSetNew();
-			pRLineSetNew->create(XCoordinate,YCoordinate,pSPSParam);// 重写create函数并将李汶骏的坐标（最好是二维的）导入进去，替换其XY坐标。 [Liu Wei 6/14/2023]
-			
-			QString info_str = QString::fromLocal8Bit(
-				"检波线空间抽稀完成：\n"
-				"● 抽稀后互相干度 (μ): %1\n\n"
-				"【后续优化建议】：\n"
-				"建议继续点击【退火优化】按钮，采用模拟退火算法优化扰动非规则排列，破坏周期性假频。").arg(miu_xj_before);
-			QMessageBox::information(this, QString::fromLocal8Bit("检波线抽稀计算完成"), info_str);// 请确认哪些内容需要输出！！！ [Liu Wei 6/29/2023]
-
-			// 个人认为：需要重新创建炮检关系 [Liu Wei 6/29/2023]
-			GSLineSet *pSLineSetNew = mpProject->getSLineSetNew();
-			GShotSet *pShotSetNew = mpProject->getShotSetNew();
-			pShotSetNew->create(pSPSParam,pSLineSetNew,pRLineSetNew);
-
-			// ***释放内存*** //
-			for (int i=0;i<row;i++)
-			{
-				free(Phi0[i]);
-				free(Phi01[i]);
-			}
-
-			free(Phi0);
-			free(Phi01);// 有一部分矩阵数据有必要保存（用QVector），然后点击优化按钮进行优化处理 [Liu Wei 6/29/2023]
-
-			delete [] phi0;
-			delete [] y;
-			delete [] x;
-			delete [] x1;
-			delete [] Xcoor;
-			delete [] Ycoor;
-
-		}
-		else//一维采样
-		{
-			// 暂时不考虑 [Liu Wei 6/30/2023]
-		}
-		// 完成后显示观测系统 [Liu Wei 6/16/2023]
-		mIsFill = true;
-		mIsLiner = true ;
-
-		mpView->mIsImpotSps=false;//是否显示输入的观测系统
-		//工程对象内部也要同步设置指示标识参数
-		mpProject->mIsNewImfo=true; // 返回新建观测系统信息（标识） [Liu Wei 6/20/2023]
-		if (mpProject->getCellGrid()) mpProject->getCellGrid()->calculateCoverCount();
-		refresh();//显示不同的sps后，重新刷新一下视图
-
-		mpView->repaintContents();
-	}
-	delete sample_dlg;
-	qDebug()<<"hello world!";// 测试 [Liu Wei 6/5/2023]
+    updateSampling(true,false);
 }
 
 void TSPSForm::on_actionSSample_triggered()
 {
-	/************************************************************************/
-	/* 震源排列的采样及显示                                                                     */
-	/************************************************************************/
-	if (!ensureProjectLoaded(false, false)) return;
-	GProject *pProject = mpProject ? mpProject : GProject::getCurrentProject();
-	if (!pProject) return;
-	GSPSParam *pSPSParam = pProject->getSPSParam();
-	if (!pSPSParam) return;
-	SpsSampleDlg *sample_dlg=new SpsSampleDlg();
-	if(sample_dlg->exec()){// pSPSParam中传入的参数是目标规则观测系统的参数 [Liu Wei 6/14/2023]
-		int Mode_value=sample_dlg->mode_value;
-		float cr=sample_dlg->Tsampling_rate;//线内采样率
-		float cl=sample_dlg->Lsampling_rate;//线间采样率
-		int N=ceil(pSPSParam->mSPtCount/cr);
-		int row=ceil(pSPSParam->mSLineCount/cl);
-		float SPointInv = pSPSParam->mSPtInv*cr;//采样前的规则道间距，mSPtInv被当做是一个平均炮点间距
-		float SLineInv = pSPSParam->mSLineInv*cl;//采样前的规则接收线距，mSLineInv被当做是一个平均线间距
-		float sx0 = pSPSParam->mSX0;
-		float sy0 = pSPSParam->mSY0;
-
-		if (row>1)//二维采样
-		{
-			int **Phi0;	//初始线间未采样的二维矩阵
-			int *phi0;	//线间优化前的一维矩阵
-
-			if (Mode_value==0)
-			{
-				Phi0=Sampling2S(row, N, cr);//初始线间未采样的二维矩阵
-				phi0 = Sampling1S(row, cl); //优化前的一维矩阵
-			}
-			else if (Mode_value==1)
-			{
-				Phi0=Sampling2J(row, N, cr);//初始线间未采样的二维矩阵
-				phi0 = Sampling1J(row, cl); //优化前的一维矩阵
-			} 
-			else
-			{
-				Phi0=Sampling2F(row, N, cr);//初始线间未采样的二维矩阵
-				phi0 = Sampling1F(row, cl); //优化前的一维矩阵
-			}
-
-			//****** 对线进行采样,得到线间采样后的二维矩阵 ******//
-			int **Phi01 = MulMatrix(row, phi0, N, Phi0);//线间优化前二维矩阵
-
-			//****** 计算优化前的μ值 ******//
-			float miu_xj_before=CalculateAveMiu(row,N,Phi01);//计算线间优化前的μ值
-
-            //****** 采样后炮点坐标计算及显示 ******//
-			int *y=Convert1D(row,N,Phi01);//将二维转化为一维
-			float *x=RegularMS(row,N,SLineInv,sx0);//规则炮点横坐标
-			float *x1=RegularNS(row,N,SPointInv,sy0);//规则炮点纵坐标
-			float *Xcoor=MulMatrix_1D_float(row*N,y,x);//采样后横坐标
-			float *Ycoor=MulMatrix_1D_float(row*N,y,x1);//采样后纵坐标
-
-			// 保存采样结果 [Liu Wei 6/30/2023]
-			if ( (!S_Sampling_Arrays.isEmpty())|| (!SL_Sampling.isEmpty()))
-			{
-				S_Sampling_Arrays.clear();
-				SL_Sampling.clear();
-			}// 保证每次保存最新采样结果
-			for (int i=0; i<row; i++)
-			{
-				QVector<int> sv;
-				for (int j=0; j<N; j++)
-				{
-					sv.append(Phi0[i][j]);
-				}
-				S_Sampling_Arrays.append(sv);
-				SL_Sampling.append(phi0[i]);
-			}
-
-			// 将一维坐标转化为二维 [Liu Wei 6/14/2023]
-			QVector<QVector<float> > XCoordinate, YCoordinate;
-			for (int i=0; i<pSPSParam->mSLineCount; i++)
-			{
-				QVector<float> sline_xcoordinate;
-				QVector<float> sline_ycoordinate;
-				for (int j=0; j<pSPSParam->mSPtCount; j++)
-				{
-					sline_xcoordinate.append(Xcoor[i*pSPSParam->mSPtCount+j]);
-					sline_ycoordinate.append(Ycoor[i*pSPSParam->mSPtCount+j]);
-				}
-				XCoordinate.append(sline_xcoordinate);
-				YCoordinate.append(sline_ycoordinate);
-			}
-			// 替换坐标 [Liu Wei 6/14/2023]
-			GSLineSet *pSLineSetNew = mpProject->getSLineSetNew();
-			pSLineSetNew->create(XCoordinate,YCoordinate,pSPSParam);// 重写create函数并将李汶骏的坐标（最好是二维的）导入进去，替换其XY坐标。 [Liu Wei 6/14/2023]
-			
-			QString info_str = QString::fromLocal8Bit("互相干度参数 (μ): ") + QString::number(miu_xj_before, 'f', 4);
-			QMessageBox::information(this, QString::fromLocal8Bit("互相干度计算结果"), info_str);
-
-			// 个人认为：需要重新创建炮检关系 [Liu Wei 6/29/2023]
-			GRLineSet *pRLineSetNew = mpProject->getRLineSetNew();
-			GShotSet *pShotSetNew = mpProject->getShotSetNew();
-			pShotSetNew->create(pSPSParam,pSLineSetNew,pRLineSetNew);
-
-			// ***释放内存*** //
-			for (int i=0;i<row;i++)
-			{
-				free(Phi0[i]);
-				free(Phi01[i]);
-			}
-
-			free(Phi0);
-			free(Phi01);
-
-			delete [] phi0;
-			delete [] y;
-			delete [] x;
-			delete [] x1;
-			delete [] Xcoor;
-			delete [] Ycoor;
-
-		}
-		else//一维采样
-		{
-			// 暂时不考虑 [Liu Wei 6/30/2023]
-		}
-		mIsFill = true;
-		mIsLiner = true;
-		mpView->mIsImpotSps = false;
-		mpProject->mIsNewImfo = true;
-		if (mpProject->getCellGrid()) mpProject->getCellGrid()->calculateCoverCount();
-		refresh();
-		mpView->repaintContents();
-	}
-	delete sample_dlg;
+    updateSampling(false,false);
 }
 
-static SAParams makeGuiSA()
+// GUI and research CLI share the Fourier/PSF adaptive search. Each line is
+// optimized independently in index coordinates; this is not a joint 2D search.
+static std::vector<int> guiInitialMask(int count, int keep, int mode,
+                                     const QVector<int>& saved, unsigned long long seed)
 {
-	// 2026.10.20: GUI 与 CLI 基准统一使用"邻域 SA"超参数，保证同一算法口径。
-	// 原 GUI 调用 UnOptiMiuSA(neighbor_mode=false)，每次整体重采样，与基准不同。
-	SAParams p;
-	p.T0 = 80.0; p.Tmin = 0.5; p.alpha = 0.85; p.n_rapid = 8; p.iter = 1;
-	p.strategy = SA_ACCEPT_METROPOLIS;
-	return p;
+    std::vector<int> mask(count, 0);
+    if (saved.size() == count)
+    {
+        for (int i=0; i<count; ++i) mask[i]=saved[i];
+        if (ValidateSamplingMask(count, keep, &mask[0])) return mask;
+    }
+    exprng::seed(seed);
+    int* generated = mode==0 ? Sampling1S_Count(count,keep)
+                   : mode==1 ? Sampling1J_Count(count,keep) : Sampling1F_Count(count,keep);
+    if (!generated) return std::vector<int>();
+    mask.assign(generated,generated+count);
+    delete [] generated;
+    return mask;
 }
 
-static const SAParams sap = makeGuiSA();
+static bool guiOptimizeMask(const std::vector<int>& initial, unsigned long long seed,
+                            std::vector<int>& optimized, QString& error)
+{
+    int keep=0;
+    for (size_t i=0; i<initial.size(); ++i) keep+=initial[i];
+    if (keep==0 || initial.empty()) { error="empty initial mask"; return false; }
+    // Full selection and one retained point have no useful coherence search.
+    if (keep==(int)initial.size() || keep==1) { optimized=initial; return true; }
+    ConstraintWeights weights;
+    AdaptiveSearchOptions options;
+    ConstrainedResult result;
+    if (!RunAdaptiveSamplingSearch((int)initial.size(),keep,initial,weights,seed,600,options,result))
+    {
+        error=QString::fromLatin1(result.status.c_str());
+        return false;
+    }
+    optimized=result.mask;
+    return true;
+}
+
 void TSPSForm::on_actionRAOptimizing_triggered()
 {
-    //************** 检波点优化 *************//
-	if (!ensureProjectLoaded(false, false)) return;
-	GProject *pProject = mpProject ? mpProject : GProject::getCurrentProject();
-	if (!pProject) return;
-	GSPSParam *pSPSParam = pProject->getSPSParam();
-	if (!pSPSParam) return;
-	SpsSampleDlg *sample_dlg=new SpsSampleDlg();
-	if(sample_dlg->exec()){// pSPSParam中传入的参数是目标规则观测系统的参数 [Liu Wei 6/14/2023]
-		int Mode_value=sample_dlg->mode_value;
-		float cr=sample_dlg->Tsampling_rate;//线内采样率
-		float cl=sample_dlg->Lsampling_rate;//线间采样率
-		int N=ceil(pSPSParam->mRPtCount/cr);
-		int row=ceil(pSPSParam->mRLineCount/cl);
-		float TraceInv = pSPSParam->mRPtInv*cr;//采样前的规则道间距，mRPtInv被当做是一个平均道间距
-		float RLineInv = pSPSParam->mRLineInv*cl;//采样前的规则接收线距，mRLineInv被当做是一个平均线间距
-		float rx0 = pSPSParam->mRX0;
-		float ry0 = pSPSParam->mRY0;
-
-		if (row>1)//二维采样
-		{
-			int **Phi0;	//初始线间未采样的二维矩阵
-			int *phi0;	//线间优化前的一维矩阵
-			int *phi;	//线间优化后的矩阵
-			// 申请数组空间 [Liu Wei 6/30/2023]
-			phi0 = new int[row];
-			Phi0 = new int *[row];
-			for (int i=0;i<row;i++)
-			{
-				Phi0[i] = new int[N];
-			}
-			// 赋值 [Liu Wei 6/30/2023]
-			if (R_Sampling_Arrays.size() < row || RL_Sampling.size() < row)
-			{
-				R_Sampling_Arrays.clear();
-				RL_Sampling.clear();
-				for (int i = 0; i < row; i++)
-				{
-					QVector<int> sv;
-					for (int j = 0; j < N; j++)
-					{
-						sv.append(1);
-					}
-					R_Sampling_Arrays.append(sv);
-					RL_Sampling.append(1);
-				}
-			}
-			for (int i=0; i<row; i++)
-			{
-				for (int j=0; j<N; j++)
-				{
-					Phi0[i][j]=(i < R_Sampling_Arrays.size() && j < R_Sampling_Arrays[i].size()) ? R_Sampling_Arrays[i][j] : 1;
-				}
-				phi0[i]=(i < RL_Sampling.size()) ? RL_Sampling[i] : 1;
-			}
-
-			if (Mode_value==0)
-			{
-				phi = UnOptiMiuSAEx(row,cl,phi0,"R",true,NULL,2,sap);//优化后的矩阵
-			}
-			else if (Mode_value==1)
-			{
-				phi = UnOptiMiuSAEx(row,cl,phi0,"J",true,NULL,2,sap);//优化后的矩阵
-			} 
-			else
-			{
-				phi = UnOptiMiuSAEx(row,cl,phi0,"F",true,NULL,2,sap);//优化后的矩阵
-			}
-		
-			//****** 计算优化前后线之间的μ值 ******//
-			float miu0 = TestCurveletMiu1D(row, phi0, "EigenReal"); //优化前线间的μ值
-			float miu1 = TestCurveletMiu1D(row,phi,"EigenReal"); //优化后线间的μ值
-	
-			//****** 对线进行采样,得到线间采样后的二维矩阵 ******//
-			int **Phi01 = MulMatrix(row, phi0, N, Phi0);//线间优化前二维矩阵
-			int **Phi1 = MulMatrix(row, phi, N, Phi0);//线间优化后二维矩阵，作为线内优化前的初始矩阵
-
-			//****** 计算优化前后线内的μ值 ******//
-			float miu_xj_before=CalculateAveMiu(row,N,Phi01);//计算线间优化前的μ值
-			float miu_xj_after=CalculateAveMiu(row,N,Phi1);//计算线间优化后的μ值
-
-			// ***************线内优化*************** //
-			// 初始化数组 //
-			int **PHI = (int**)malloc(sizeof(int*) * row);
-			for (int i = 0; i < row; i++) 
-			{
-				PHI[i] = (int*)malloc(sizeof(int) * N);
-			}
-			for (int i = 0; i < row; i++)
-			{
-				for (int j = 0; j < N; j++)
-				{
-					PHI[i][j] = 0;
-				}
-			}
-
-			//****** 进行每条线内优化 ******//
-			QProgressDialog *mProgressDlg;
-			mProgressDlg = new QProgressDialog("进度","cancel",0,row);//设置进度并显示进度条
-			mProgressDlg->setLabelText(QString::fromLocal8Bit("正在执行..."));
-			mProgressDlg->setWindowTitle(QString::fromLocal8Bit("请等待..."));
-			mProgressDlg->setCancelButtonText(NULL);//取消cancel
-
-			int row_r=0;
-			clock_t start, finish;//计算时间
-			start = clock();
-			if (Mode_value==0)
-			{
-				for (int j=0;j<row;j++)
-				{
-					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"R",true,NULL,2,sap);//混合优化算法优化μ值
-					PHI[j] = phi1;   //得到线间和线内优化后的二维矩阵
-					row_r++;
-					mProgressDlg->setValue(row_r);
-				}
-			}
-			else if(Mode_value==1)
-			{
-				for (int j=0;j<row;j++)
-				{
-					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"J",true,NULL,2,sap);//混合优化算法优化μ值
-					PHI[j] = phi1;   //得到线间和线内优化后的二维矩阵
-					row_r++;
-					mProgressDlg->setValue(row_r);
-				}
-			}
-			else
-			{
-				for (int j=0;j<row;j++)
-				{
-					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"F",true,NULL,2,sap);//混合优化算法优化μ值
-					PHI[j] = phi1;   //得到线间和线内优化后的二维矩阵
-					row_r++;
-					mProgressDlg->setValue(row_r);
-				}
-			}
-			finish = clock();
-			float duration = (float)(finish - start) / CLOCKS_PER_SEC;  
-
-			//****** 优化采样后检波点坐标计算及显示 ******//
-			int *y=Convert1D(row,N,PHI);//将二维转化为一维
-			float *x=RegularMR(row,N, TraceInv,rx0);//规则检波点横坐标
-			float *x1=RegularNR(row,N, RLineInv,ry0);//规则检波点纵坐标
-			float *Xcoor=MulMatrix_1D_float(row*N,y,x);//采样后横坐标
-			float *Ycoor=MulMatrix_1D_float(row*N,y,x1);//采样后纵坐标
-
-			//****** 计算优化后的μ值 ******//
-			float miu_after=CalculateAveMiu(row,N,PHI);//计算优化后的μ值
-
-			// 将一维坐标转化为二维 [Liu Wei 6/14/2023]
-			QVector<QVector<float> > XCoordinate, YCoordinate;
-			for (int i=0; i<pSPSParam->mRLineCount; i++)
-			{
-				QVector<float> rline_xcoordinate;
-				QVector<float> rline_ycoordinate;
-				for (int j=0; j<pSPSParam->mRPtCount; j++)
-				{
-					rline_xcoordinate.append(Xcoor[i*pSPSParam->mRPtCount+j]);
-					rline_ycoordinate.append(Ycoor[i*pSPSParam->mRPtCount+j]);
-				}
-				XCoordinate.append(rline_xcoordinate);
-				YCoordinate.append(rline_ycoordinate);
-			}
-
-			// 替换坐标 [Liu Wei 6/14/2023]
-			GRLineSet *pRLineSetNew = mpProject->getRLineSetNew();
-			pRLineSetNew->create(XCoordinate,YCoordinate,pSPSParam);// 重写create函数并将李汶骏的坐标（最好是二维的）导入进去，替换其XY坐标。 [Liu Wei 6/14/2023]
-
-			QString miu_str = QString::fromLocal8Bit("检波点排列模拟退火优化完成：\n") +
-				QString::fromLocal8Bit("● 初始互相干度: ") + QString::number(miu0, 'f', 4) + QString::fromLocal8Bit("\n") +
-				QString::fromLocal8Bit("● 优化后互相干度 (μ): ") + QString::number(miu_after, 'f', 4) + QString::fromLocal8Bit("\n") +
-				QString::fromLocal8Bit("● 优化耗时: ") + QString::number(duration, 'f', 2) + QString::fromLocal8Bit(" 秒");
-			QMessageBox::information(this, QString::fromLocal8Bit("排列退火优化计算完成"), miu_str);
-
-			// 个人认为：需要重新创建炮检关系 [Liu Wei 6/29/2023]
-			GSLineSet *pSLineSetNew = mpProject->getSLineSetNew();
-			GShotSet *pShotSetNew = mpProject->getShotSetNew();
-			pShotSetNew->create(pSPSParam,pSLineSetNew,pRLineSetNew);
-			
-			// ***释放内存*** //
-			for (int i=0;i<row;i++)
-			{
-				free(PHI[i]);
-				free(Phi0[i]);
-				free(Phi01[i]);
-				free(Phi1[i]);
-			}
-
-			free(PHI);
-			free(Phi0);
-			free(Phi01);
-			free(Phi1);
-
-			delete [] phi0;
-			delete [] phi;
-			delete [] y;
-			delete [] x;
-			delete [] x1;
-			delete [] Xcoor;
-			delete [] Ycoor;
-
-		}
-		
-		else//一维采样
-		{
-			// 暂时不考虑 [Liu Wei 6/30/2023]
-		}
-		// 完成后显示观测系统 [Liu Wei 6/16/2023]
-		mIsFill = true;
-		mIsLiner = true ;
-
-		mpView->mIsImpotSps=false;//是否显示输入的观测系统
-		//工程对象内部也要同步设置指示标识参数
-		mpProject->mIsNewImfo=true; // 返回新建观测系统信息（标识） [Liu Wei 6/20/2023]
-		if (mpProject->getCellGrid()) mpProject->getCellGrid()->calculateCoverCount();
-		refresh();//显示不同的sps后，重新刷新一下视图
-
-		mpView->repaintContents();
-	}
-	delete sample_dlg;
-	qDebug()<<"hello world!";// 测试 [Liu Wei 6/5/2023]
+    updateSampling(true,true);
 }
-void TSPSForm::on_Cancel_clicked()
-{
-	close();
-}
+
 void TSPSForm::on_actionSAOptimizing_triggered()
 {
-	/************************************************************************/
-	/* 震源排列的采样和优化                                                                     */
-	/************************************************************************/
-	if (!ensureProjectLoaded(false, false)) return;
-	GProject *pProject = mpProject ? mpProject : GProject::getCurrentProject();
-	if (!pProject) return;
-	GSPSParam *pSPSParam = pProject->getSPSParam();
-	if (!pSPSParam) return;
-	SpsSampleDlg *sample_dlg=new SpsSampleDlg();
-	if(sample_dlg->exec()){// pSPSParam中传入的参数是目标规则观测系统的参数 [Liu Wei 6/14/2023]
-		int Mode_value=sample_dlg->mode_value;
-		float cr=sample_dlg->Tsampling_rate;//线内采样率
-		float cl=sample_dlg->Lsampling_rate;//线间采样率
-		int N=ceil(pSPSParam->mSPtCount/cr);
-		int row=ceil(pSPSParam->mSLineCount/cl);
-		float SPointInv = pSPSParam->mSPtInv*cr;//采样前的规则道间距，mSPtInv被当做是一个平均炮点间距
-		float SLineInv = pSPSParam->mSLineInv*cl;//采样前的规则接收线距，mSLineInv被当做是一个平均线间距
-		float sx0 = pSPSParam->mSX0;
-		float sy0 = pSPSParam->mSY0;
+    updateSampling(false,true);
+}
 
-		if (row>1)//二维采样
-		{
-			int **Phi0;	//初始线间未采样的二维矩阵
-			int *phi0;	//线间优化前的一维矩阵
-			int *phi;	//线间优化后的矩阵
+void TSPSForm::on_Cancel_clicked()
+{
+    close();
+}
 
-			phi0 = new int[row];
-			Phi0 = new int *[row];
-
-			for (int i=0;i<row;i++)
-			{
-				Phi0[i] = new int[N];
-			}
-			// 赋值 [Liu Wei 6/30/2023]
-			if (S_Sampling_Arrays.size() < row || SL_Sampling.size() < row)
-			{
-				S_Sampling_Arrays.clear();
-				SL_Sampling.clear();
-				for (int i = 0; i < row; i++)
-				{
-					QVector<int> sv;
-					for (int j = 0; j < N; j++)
-					{
-						sv.append(1);
-					}
-					S_Sampling_Arrays.append(sv);
-					SL_Sampling.append(1);
-				}
-			}
-			for (int i=0; i<row; i++)
-			{
-				for (int j=0; j<N; j++)
-				{
-					Phi0[i][j]=(i < S_Sampling_Arrays.size() && j < S_Sampling_Arrays[i].size()) ? S_Sampling_Arrays[i][j] : 1;
-				}
-				phi0[i]=(i < SL_Sampling.size()) ? SL_Sampling[i] : 1;
-			}
-			
-			if (Mode_value==0)
-			{
-				phi = UnOptiMiuSAEx(row,cl,phi0,"R",true,NULL,2,sap);//优化后的矩阵
-			}
-			else if (Mode_value==1)
-			{
-				phi = UnOptiMiuSAEx(row,cl,phi0,"J",true,NULL,2,sap);//优化后的矩阵
-			} 
-			else
-			{
-				phi = UnOptiMiuSAEx(row,cl,phi0,"F",true,NULL,2,sap);//优化后的矩阵
-			}
-
-			float miu0 = TestCurveletMiu1D(row, phi0,"EigenReal"); //优化前线间的μ值
-			float miu1 = TestCurveletMiu1D(row,phi,"EigenReal"); //优化后线间的μ值
-
-			//****** 对线进行采样,得到线间采样后的二维矩阵 ******//
-			int **Phi01 = MulMatrix(row, phi0, N, Phi0);//线间优化前二维矩阵
-			int **Phi1 = MulMatrix(row, phi, N, Phi0);//线间优化后二维矩阵
-
-			//****** 计算优化前线内的μ值 ******//
-			float miu_xj_before=CalculateAveMiu(row,N,Phi01);//计算线间优化前的μ值
-			float miu_xj_after=CalculateAveMiu(row,N,Phi1);//计算线间优化后的μ值
-
-			// ***************线内优化*************** //
-			// 初始化数组 //
-			int **PHI = (int**)malloc(sizeof(int*) * row);
-			for (int i = 0; i < row; i++) 
-			{
-				PHI[i] = (int*)malloc(sizeof(int) * N);
-			}
-			for (int i = 0; i < row; i++)
-			{
-				for (int j = 0; j < N; j++)
-				{
-					PHI[i][j] = 0;
-				}
-			}
-
-			// ***进行每条线内优化*** //
-			QProgressDialog *mProgressDlg;
-			mProgressDlg = new QProgressDialog("Calculate progress","Cancel",0,row);//设置进度并显示进度条
-			//mProgressDlg->setLabelText(tr("Please Wait..."));
-			mProgressDlg->setLabelText(QString::fromLocal8Bit("正在执行..."));
-			mProgressDlg->setWindowTitle(QString::fromLocal8Bit("请等待..."));
-			mProgressDlg->setCancelButtonText(NULL);//取消cancel
-
-			clock_t start, finish;//计算时间
-			start = clock();
-			int row_s=0;
-			if (Mode_value==0)
-			{
-				for (int j=0;j<row;j++)
-				{
-					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"R",true,NULL,2,sap);//混合优化算法优化μ值
-					PHI[j] = phi1;
-					row_s++;
-					mProgressDlg->setValue(row_s);//设置进度并显示进度条//得到线间和线内优化后的二维矩阵
-				}
-			}
-		
-			else if(Mode_value==1)
-			{
-				for (int j=0;j<row;j++)
-				{
-					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"J",true,NULL,2,sap);//混合优化算法优化μ值
-					PHI[j] = phi1; 
-					row_s++;
-					mProgressDlg->setValue(row_s);
-				}
-			}
-			else
-			{
-				for (int j=0;j<row;j++)
-				{
-					int *phi1 = UnOptiMiuSAEx(N,cr,Phi1[j],"F",true,NULL,2,sap);//混合优化算法优化μ值
-					PHI[j] = phi1;
-					row_s++;
-					mProgressDlg->setValue(row_s);
-				}
-			}
-			finish = clock();
-			float duration = (float)(finish - start) / CLOCKS_PER_SEC;  
-
-			//****** 优化采样后炮点坐标计算及显示 ******//
-			int *y=Convert1D(row,N,PHI);//将二维转化为一维
-			float *x=RegularMS(row,N,SLineInv,sx0);//规则炮点横坐标
-			float *x1=RegularNS(row,N,SPointInv,sy0);//规则炮点纵坐标
-			float *Xcoor=MulMatrix_1D_float(row*N,y,x);//采样后横坐标
-			float *Ycoor=MulMatrix_1D_float(row*N,y,x1);//采样后纵坐标
-
-			//****** 计算优化后的μ值 ******//
-			float miu_after=CalculateAveMiu(row,N,PHI);//计算优化后的μ值
-
-			// 将一维坐标转化为二维 [Liu Wei 6/14/2023]
-			QVector<QVector<float> > XCoordinate, YCoordinate;
-			for (int i=0; i<pSPSParam->mSLineCount; i++)
-			{
-				QVector<float> sline_xcoordinate;
-				QVector<float> sline_ycoordinate;
-				for (int j=0; j<pSPSParam->mSPtCount; j++)
-				{
-					sline_xcoordinate.append(Xcoor[i*pSPSParam->mSPtCount+j]);
-					sline_ycoordinate.append(Ycoor[i*pSPSParam->mSPtCount+j]);
-				}
-				XCoordinate.append(sline_xcoordinate);
-				YCoordinate.append(sline_ycoordinate);
-			}
-
-			// 替换坐标 [Liu Wei 6/14/2023]
-			GSLineSet *pSLineSetNew = mpProject->getSLineSetNew();
-			pSLineSetNew->create(XCoordinate,YCoordinate,pSPSParam);// 重写create函数并将李汶骏的坐标（最好是二维的）导入进去，替换其XY坐标。 [Liu Wei 6/14/2023]
-
-			QString miu_str = QString::fromLocal8Bit("检波点排列模拟退火优化完成：\n") +
-				QString::fromLocal8Bit("● 初始互相干度: ") + QString::number(miu0, 'f', 4) + QString::fromLocal8Bit("\n") +
-				QString::fromLocal8Bit("● 优化后互相干度 (μ): ") + QString::number(miu_after, 'f', 4) + QString::fromLocal8Bit("\n") +
-				QString::fromLocal8Bit("● 优化耗时: ") + QString::number(duration, 'f', 2) + QString::fromLocal8Bit(" 秒");
-			QMessageBox::information(this, QString::fromLocal8Bit("排列退火优化计算完成"), miu_str);
-
-			// 个人认为：需要重新创建炮检关系 [Liu Wei 6/29/2023]
-			GRLineSet *pRLineSetNew = mpProject->getRLineSetNew();
-			GShotSet *pShotSetNew = mpProject->getShotSetNew();
-			pShotSetNew->create(pSPSParam,pSLineSetNew,pRLineSetNew);
-
-			// ***释放内存*** //
-			delete mProgressDlg;
-			for (int i=0;i<row;i++)
-			{
-				free(PHI[i]);
-				free(Phi0[i]);
-				free(Phi01[i]);
-				free(Phi1[i]);
-			}
-			free(PHI);
-			free(Phi0);
-			free(Phi01);
-			free(Phi1);
-
-			delete [] phi0;
-			delete [] phi;
-			delete [] y;
-			delete [] x;
-			delete [] x1;
-			delete [] Xcoor;
-			delete [] Ycoor;
-
-		}
-		else//一维采样
-		{
-			// 暂时不考虑 [Liu Wei 6/30/2023]
-		}
-
-		// 完成后显示观测系统
-		mIsFill = true;
-		mIsLiner = true;
-		mpView->mIsImpotSps = false;
-		mpProject->mIsNewImfo = true;
-		if (mpProject->getCellGrid()) mpProject->getCellGrid()->calculateCoverCount();
-		refresh();
-		mpView->repaintContents();
-	}
-	delete sample_dlg;
-	qDebug()<<"hello world!";// 测试 [Liu Wei 6/30/2023]	
+void TSPSForm::updateSampling(bool receiver, bool optimize)
+{
+    if (!ensureProjectLoaded(false,false)) return;
+    GProject* project=mpProject ? mpProject : GProject::getCurrentProject();
+    GSPSParam* parameters=project ? project->getSPSParam() : NULL;
+    if (!parameters) return;
+    SpsSampleDlg dialog(this);
+    if (!dialog.exec()) return;
+    const double traceRate=dialog.Tsampling_rate, lineRate=dialog.Lsampling_rate;
+    const int lineKeep=receiver ? parameters->mRLineCount : parameters->mSLineCount;
+    const int pointKeep=receiver ? parameters->mRPtCount : parameters->mSPtCount;
+    if (!(traceRate>0 && traceRate<=1 && lineRate>0 && lineRate<=1) || lineKeep<1 || pointKeep<1)
+    {
+        QMessageBox::warning(this,QString::fromLocal8Bit("采样参数无效"),
+            QString::fromLocal8Bit("线内与线间采样率必须在 (0,1] 内，且模板点数必须大于零。"));
+        return;
+    }
+    const double rowValue=ceil(lineKeep/lineRate), columnValue=ceil(pointKeep/traceRate);
+    if (rowValue>2048 || columnValue>2048)
+    {
+        QMessageBox::warning(this,QString::fromLocal8Bit("采样规模超限"),
+            QString::fromLocal8Bit("当前自适应研究实现每个索引方向最多支持 2048 个候选点。请提高采样率或缩小模板。"));
+        return;
+    }
+    const int rows=(int)rowValue, columns=(int)columnValue;
+    GRLineSet* receivers=project->getRLineSetNew();
+    GSLineSet* sources=project->getSLineSetNew();
+    bool ready=receivers && sources && project->getShotSetNew()
+        && receivers->count()>0 && sources->count()>0;
+    ready=ready && (receiver ? receivers->count()==lineKeep : sources->count()==lineKeep);
+    for (int i=0; ready && i<lineKeep; ++i)
+        ready=receiver ? receivers->get(i) && receivers->get(i)->count()==pointKeep
+                       : sources->get(i) && sources->get(i)->count()==pointKeep;
+    if (!ready)
+    {
+        QMessageBox::warning(this,QString::fromLocal8Bit("需要规则观测模板"),
+            QString::fromLocal8Bit("此功能优化规则模板的线间与线内索引。请先创建与参数一致的观测系统；导入的任意二维坐标不能直接按此模板改写。"));
+        return;
+    }
+    QVector<QVector<int> >& savedPoints=receiver ? R_Sampling_Arrays : S_Sampling_Arrays;
+    QVector<int>& savedLines=receiver ? RL_Sampling : SL_Sampling;
+    const unsigned long long seed=20261026ULL;
+    std::vector<int> initialLines=guiInitialMask(rows,lineKeep,dialog.mode_value,
+        optimize ? savedLines : QVector<int>(),seed);
+    if (initialLines.empty()) return;
+    std::vector<std::vector<int> > initialPoints(rows), finalPoints(rows);
+    for (int i=0; i<rows; ++i)
+    {
+        QVector<int> saved=optimize && i<savedPoints.size() ? savedPoints[i] : QVector<int>();
+        initialPoints[i]=guiInitialMask(columns,pointKeep,dialog.mode_value,saved,seed+179ULL*(i+1));
+        if (initialPoints[i].empty()) return;
+    }
+    QProgressDialog progress(QString::fromLocal8Bit("正在计算线间及线内 Fourier/PSF 指标..."),
+        QString::fromLocal8Bit("取消"),0,lineKeep+1,this);
+    progress.setWindowModality(Qt::WindowModal);
+    progress.setMinimumDuration(0);
+    progress.setAutoClose(false);
+    progress.setAutoReset(false);
+    progress.show();
+    QApplication::processEvents();
+    if (progress.wasCanceled()) return;
+    const clock_t started=clock();
+    QString error;
+    std::vector<int> finalLines;
+    finalLines=initialLines;
+    if (optimize && !guiOptimizeMask(initialLines,seed,finalLines,error))
+    {
+        progress.close();
+        QMessageBox::warning(this,QString::fromLocal8Bit("优化未完成"),error);
+        return;
+    }
+    progress.setValue(1);
+    QApplication::processEvents();
+    if (progress.wasCanceled()) return;
+    float beforeWithin=0, afterWithin=0;
+    int completed=1;
+    for (int i=0; i<rows; ++i)
+    {
+        finalPoints[i]=initialPoints[i];
+        if (!finalLines[i]) continue;
+        if (progress.wasCanceled()) return;
+        if (optimize && !guiOptimizeMask(initialPoints[i],seed+179ULL*(i+1),finalPoints[i],error))
+        {
+            progress.close();
+            QMessageBox::warning(this,QString::fromLocal8Bit("优化未完成"),error);
+            return;
+        }
+        // Compare the same selected lines before and after within-line search.
+        beforeWithin+=SamplingMaskCoherence(initialPoints[i]);
+        afterWithin+=SamplingMaskCoherence(finalPoints[i]);
+        progress.setValue(++completed);
+        QApplication::processEvents();
+        if (progress.wasCanceled()) return;
+    }
+    QVector<QVector<float> > coordinatesX,coordinatesY;
+    QVector<QVector<int> > nextPoints;
+    QVector<int> nextLines;
+    for (int i=0; i<rows; ++i)
+    {
+        QVector<int> rowMask;
+        for (int j=0; j<columns; ++j) rowMask.append(finalPoints[i][j]);
+        nextPoints.append(rowMask);
+        nextLines.append(finalLines[i]);
+        if (!finalLines[i]) continue;
+        QVector<float> x,y;
+        for (int j=0; j<columns; ++j)
+        {
+            if (!finalPoints[i][j]) continue;
+            if (receiver)
+            {
+                x.append(parameters->mRX0+j*parameters->mRPtInv*traceRate);
+                y.append(parameters->mRY0+i*parameters->mRLineInv*lineRate);
+            }
+            else
+            {
+                x.append(parameters->mSX0+i*parameters->mSLineInv*lineRate);
+                y.append(parameters->mSY0+j*parameters->mSPtInv*traceRate);
+            }
+        }
+        coordinatesX.append(x); coordinatesY.append(y);
+    }
+    // All computation remains local until cancellation has been checked.
+    if (progress.wasCanceled()) return;
+    progress.close();
+    if (receiver) receivers->create(coordinatesX,coordinatesY,parameters);
+    else sources->create(coordinatesX,coordinatesY,parameters);
+    savedPoints=nextPoints; savedLines=nextLines;
+    project->getShotSetNew()->create(parameters,sources,receivers);
+    mIsFill=true; mIsLiner=true;
+    mpView->mIsImpotSps=false; project->mIsNewImfo=true;
+    if (project->getCellGrid()) project->getCellGrid()->calculateCoverCount();
+    refresh(); mpView->repaintContents();
+    const QString status=optimize ? QString::fromLocal8Bit("自适应混合优化完成") : QString::fromLocal8Bit("精确点数采样完成");
+    const QString message=status+QString::fromLocal8Bit(
+        "（Fourier/PSF，索引坐标）：\n"
+        "线间互干度：%1 -> %2\n"
+        "选中线的线内平均互干度：%3 -> %4\n"
+        "优化模式每个非退化搜索最多 600 次目标评价，固定种子 20261026。\n"
+        "CPU 耗时：%5 秒。\n\n"
+        "线间和每条线独立优化；该结果不等同于真实二维物理坐标联合优化，也不直接证明恢复 SNR 提升。")
+        .arg(SamplingMaskCoherence(initialLines),0,'f',4)
+        .arg(SamplingMaskCoherence(finalLines),0,'f',4)
+        .arg(beforeWithin/lineKeep,0,'f',4).arg(afterWithin/lineKeep,0,'f',4)
+        .arg((double)(clock()-started)/CLOCKS_PER_SEC,0,'f',2);
+    QMessageBox::information(this,status,message);
 }
 
 void TSPSForm::on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered()
@@ -2262,7 +1724,7 @@ void TSPSForm::on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered()
 
 	if (!pRLineSet || pRLineSet->count() == 0 || !pSLineSet || pSLineSet->count() == 0)
 	{
-		QMessageBox::warning(this, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("当前工程中没有可用的炮线或检波线数据，无法计算曲波相干度。"));
+		QMessageBox::warning(this, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("当前工程中没有可用的炮线或检波线数据，无法执行历史 Gram 差值诊断。"));
 		return;
 	}
 
@@ -2369,9 +1831,9 @@ void TSPSForm::on_actionCalculate_the_Miu_for_Loaded_Geometry_triggered()
 
 	float miu_avg = 0.5f * (miu_r + miu_s);
 	QString info_str = QString::fromLocal8Bit("当前观测系统历史曲波 Gram 诊断结果：\n\n") + // add by wushanzhou in 2026/10/24
-		QString::fromLocal8Bit("● 检波排列相干度 (μ_r): ") + QString::number(miu_r, 'f', 4) + QString::fromLocal8Bit("\n") +
-		QString::fromLocal8Bit("● 震源排列相干度 (μ_s): ") + QString::number(miu_s, 'f', 4) + QString::fromLocal8Bit("\n") +
-		QString::fromLocal8Bit("● 综合平均相干度 (μ_avg): ") + QString::number(miu_avg, 'f', 4) + QString::fromLocal8Bit("\n\n") +
+		QString::fromLocal8Bit("● 检波排列 Gram 差值: ") + QString::number(miu_r, 'f', 4) + QString::fromLocal8Bit("\n") +
+		QString::fromLocal8Bit("● 震源排列 Gram 差值: ") + QString::number(miu_s, 'f', 4) + QString::fromLocal8Bit("\n") +
+		QString::fromLocal8Bit("● 综合平均 Gram 差值: ") + QString::number(miu_avg, 'f', 4) + QString::fromLocal8Bit("\n\n") +
 		QString::fromLocal8Bit("统计基础：检波线 ") + QString::number(mRLineSet_x.size()) + QString::fromLocal8Bit(" 条，10 m 栅格列数 ") + QString::number(Rlm) + // add by wushanzhou in 2026/10/24
 		QString::fromLocal8Bit("；激发线 ") + QString::number(mSLineSet_y.size()) + QString::fromLocal8Bit(" 条，栅格列数 ") + QString::number(Slm) + QString::fromLocal8Bit("。\n") + // add by wushanzhou in 2026/10/24
 		QString::fromLocal8Bit("注：此处为历史曲波 Gram 差值诊断。正式论文实验使用独立的 Fourier/PSF 指标；该诊断值不能直接证明重构或抗混叠效果改善。"); // add by wushanzhou in 2026/10/24
@@ -2690,7 +2152,7 @@ void TSPSForm::on_actionViewDashboard_triggered()
 
 void TSPSForm::on_actionOpenFiguresDir_triggered()
 {
-    QString dirPath = FigurePaths::galleryDirectory(); // add by wushanzhou in 2026/10/23
+    QString dirPath = FigurePaths::root();
     QDir dir(dirPath);
     if (!dir.exists())
     {

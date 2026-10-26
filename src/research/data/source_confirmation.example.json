@@ -1,0 +1,10 @@
+{
+  "source_sha256": null,
+  "payload_profile": "IEEE_LE_FLOAT32",
+  "sample_interval_us": 8000,
+  "offset_units": "m",
+  "amplitude_units": null,
+  "geometry_description": null,
+  "confirmed_by": null,
+  "evidence_reference": null
+}

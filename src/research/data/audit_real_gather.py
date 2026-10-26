@@ -11,6 +11,7 @@ from research.data.convert_rraw_to_engine_csv import read_segy  # add by wushanz
 from research.data.make_59x256 import convert, write_csv  # add by wushanzhou in 2026/10/23
 
 from research.common.paths import ROOT, WORKSPACE  # add by wushanzhou in 2026/10/23
+from research.common.provenance import add_real_data_arguments, real_source_provenance
 
 
 def describe(data, offsets, cdps):  # add by wushanzhou in 2026/10/23
@@ -32,10 +33,13 @@ def describe(data, offsets, cdps):  # add by wushanzhou in 2026/10/23
 # add by wushanzhou in 2026/10/23
 
 
-def audit(source, output, executable=None):  # add by wushanzhou in 2026/10/23
+def audit(source, output, executable=None, confirmation=None, allow_unconfirmed=False):  # add by wushanzhou in 2026/10/23
+    provenance=real_source_provenance(source,confirmation,allow_unconfirmed or executable is None)
     data, offsets, cdps, meta = read_segy(source)  # add by wushanzhou in 2026/10/23
+    meta["source_status"]=provenance["status"]
     output.mkdir(parents=True, exist_ok=True)  # add by wushanzhou in 2026/10/23
     result = {"source_sha256": meta["sha256"], "independent_real_sources": 1,  # add by wushanzhou in 2026/10/23
+              "source_provenance": provenance,
               "declared_format": meta["declared_format"], "decoded_payload": "IEEE little endian float32",  # add by wushanzhou in 2026/10/23
               "source_dt_ms": 8., "holdout_window_seconds": [0, 1.020],  # add by wushanzhou in 2026/10/23
               "all_traces": describe(data, offsets, cdps), "groups": []}  # add by wushanzhou in 2026/10/23
@@ -44,7 +48,8 @@ def audit(source, output, executable=None):  # add by wushanzhou in 2026/10/23
     for name, selection in groups:  # add by wushanzhou in 2026/10/23
         info = {"name": name, **describe(data[:, selection], offsets[selection], cdps[selection])}  # add by wushanzhou in 2026/10/23
         if executable is not None and selection.sum() >= 4:  # add by wushanzhou in 2026/10/23
-            mat, x = convert(data[:, selection], offsets[selection])  # add by wushanzhou in 2026/10/23
+            mat, x = convert(data[:, selection], offsets[selection], normalize=False)
+            meta["normalization"]="none_known_only_solver"  # add by wushanzhou in 2026/10/23
             path = output / (name+".csv")  # add by wushanzhou in 2026/10/23
             write_csv(str(path), mat, meta, x)  # add by wushanzhou in 2026/10/23
             keep = max(2, int(np.floor(2*selection.sum()/3+.5)))  # add by wushanzhou in 2026/10/23
@@ -84,7 +89,8 @@ if __name__ == "__main__":  # add by wushanzhou in 2026/10/23
     parser.add_argument("--input", type=Path, default=WORKSPACE / "data/real_seismic/Data/RRAW.SGY")  # add by wushanzhou in 2026/10/23
     parser.add_argument("--out", type=Path, required=True)  # add by wushanzhou in 2026/10/23
     parser.add_argument("--exe", type=Path)  # add by wushanzhou in 2026/10/23
+    add_real_data_arguments(parser)
     args = parser.parse_args()  # add by wushanzhou in 2026/10/23
-    audit(args.input.resolve(), args.out.resolve(), args.exe.resolve() if args.exe else None)  # add by wushanzhou in 2026/10/23
+    audit(args.input.resolve(), args.out.resolve(), args.exe.resolve() if args.exe else None,args.source_confirmation,args.allow_unconfirmed_real)  # add by wushanzhou in 2026/10/23
     print("Real-data diagnostic complete:", args.out)  # add by wushanzhou in 2026/10/23
 # add by wushanzhou in 2026/10/23

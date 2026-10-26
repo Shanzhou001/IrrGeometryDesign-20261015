@@ -3,8 +3,7 @@ setlocal EnableExtensions EnableDelayedExpansion
 set "BUILD_MODE=%~1"
 if not "%BUILD_MODE%"=="Release" if not "%BUILD_MODE%"=="Debug" exit /b 2
 for %%I in ("%~dp0..\..") do set "PROJECT_ROOT=%%~fI"
-if not defined IRR_WORKSPACE set "IRR_WORKSPACE=!PROJECT_ROOT!-workspace"
-for %%I in ("!IRR_WORKSPACE!") do set "IRR_WORKSPACE=%%~fI"
+set "IRR_WORKSPACE=!PROJECT_ROOT!"
 call "%~dp0environment.bat"
 if errorlevel 1 exit /b %ERRORLEVEL%
 cd /d "!PROJECT_ROOT!"

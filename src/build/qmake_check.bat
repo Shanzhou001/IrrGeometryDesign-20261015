@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 for %%I in ("%~dp0..\..") do set "PROJECT_ROOT=%%~fI"
-if not defined IRR_WORKSPACE set "IRR_WORKSPACE=!PROJECT_ROOT!-workspace"
+set "IRR_WORKSPACE=!PROJECT_ROOT!"
 call "%~dp0environment.bat"
 if errorlevel 1 exit /b %ERRORLEVEL%
 if not exist "!IRR_WORKSPACE!\build\qt" mkdir "!IRR_WORKSPACE!\build\qt"

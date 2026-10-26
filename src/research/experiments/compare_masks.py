@@ -32,6 +32,9 @@ compare_masks.py
 from research.common.processes import native_environment
 import argparse
 import csv
+import json
+from pathlib import Path
+from research.common.hashing import digest
 import os
 import random
 import subprocess
@@ -128,6 +131,9 @@ def main():
         sys.exit("ERROR: gather not found: %s" % args.gather)
 
     os.makedirs(args.out, exist_ok=True)
+    provenance=dict(status="diagnostic_only",field_claims_eligible=False,input_sha256=digest(args.gather),
+                    limitation="Supplied processed CSV; raw source decoding/geometry and preprocessing isolation are not established by this diagnostic")
+    (Path(args.out)/"provenance.json").write_text(json.dumps(provenance,indent=2),encoding="utf-8")
     figs = str(central_figures("experiments/mask_compare"))
     os.makedirs(figs, exist_ok=True)
     mdir = os.path.join(args.out, "masks")

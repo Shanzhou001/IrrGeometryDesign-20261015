@@ -4,6 +4,7 @@ Run from any directory after build.bat Release. --quick is a smoke run in a
 separate output tree; --resume reuses successful steps only for the same binary.
 """  # add by wushanzhou in 2026/10/23
 from research.common.processes import native_environment
+from research.common.provenance import add_real_data_arguments,real_source_provenance,require_inputs
 import argparse  # add by wushanzhou in 2026/10/23
 import csv  # add by wushanzhou in 2026/10/23
 import hashlib  # add by wushanzhou in 2026/10/23
@@ -114,7 +115,11 @@ def average_ranks(values):  # add by wushanzhou in 2026/10/23
 
 
 def summarize(output):  # add by wushanzhou in 2026/10/23
-    summary = {"protocol": PROTOCOL, "independent_real_sources": 1,  # add by wushanzhou in 2026/10/23
+    manifest_path=output / "run_manifest.json"
+    manifest=json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.is_file() else {}
+    provenance=manifest.get("real_source_provenance",dict(status="unverified_archive",field_claims_eligible=False))
+    summary = {"protocol": PROTOCOL, "independent_real_sources": provenance.get("independent_real_sources",0),
+               "real_source_provenance":provenance,  # add by wushanzhou in 2026/10/23
                "synthetic": {}, "synthetic_correlations": {}, "real": []}  # add by wushanzhou in 2026/10/23
     for path in sorted(output.glob("mask_recon_*/mask_recon_study.csv")):  # add by wushanzhou in 2026/10/23
         groups = {}  # add by wushanzhou in 2026/10/23
@@ -179,7 +184,7 @@ def summarize(output):  # add by wushanzhou in 2026/10/23
             for (rate, method), group in sorted(groups.items())]  # add by wushanzhou in 2026/10/23
     (output / "summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")  # add by wushanzhou in 2026/10/23
     # add by wushanzhou in 2026/10/23
-    lines = ["# Experiment results", "", f"Protocol: {PROTOCOL}. One independent real waveform source.",  # add by wushanzhou in 2026/10/23
+    lines = ["# Experiment results", "", f"Protocol: {PROTOCOL}. Source status: {provenance['status']}; legacy real outputs are diagnostic-only.",  # add by wushanzhou in 2026/10/23
              "", "## Synthetic missing-trace SNR", "", "|Model|Rate|Mask|Runs|Unique masks|Mean dB|SD dB|", "|---|---:|---|---:|---:|---:|---:|"]  # add by wushanzhou in 2026/10/23
     for model, rows in summary["synthetic"].items():  # add by wushanzhou in 2026/10/23
         for row in rows:  # add by wushanzhou in 2026/10/23
@@ -217,11 +222,24 @@ def main():  # add by wushanzhou in 2026/10/23
     parser.add_argument("--quick", action="store_true")  # add by wushanzhou in 2026/10/23
     parser.add_argument("--resume", action="store_true")  # add by wushanzhou in 2026/10/23
     parser.add_argument("--output", type=Path, help="New experiment output directory")  # add by wushanzhou in 2026/10/23
+    parser.add_argument("--synthetic-only", action="store_true", help="self-contained numerical and synthetic studies; omit SPS suite and real stages")
+    add_real_data_arguments(parser)
     args = parser.parse_args()  # add by wushanzhou in 2026/10/23
     WORKSPACE.mkdir(parents=True, exist_ok=True); os.chdir(WORKSPACE)  # add by wushanzhou in 2026/10/23
     output = args.output.resolve() if args.output else WORKSPACE / 'results/runs/physical_psf_v3'/datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
-    configuration={'quick':args.quick}
+    configuration={'quick':args.quick,'synthetic_only':args.synthetic_only,
+                   'allow_unconfirmed_real':args.allow_unconfirmed_real,
+                   'source_confirmation_sha256':sha256(args.source_confirmation) if args.source_confirmation else None}
     guard_existing_output(output,args.resume,configuration)
+    real_inputs=[WORKSPACE / "data/real_seismic/Data/RRAW.SGY", WORKSPACE / "data/real_seismic/real_gather_59x256.csv",
+                 WORKSPACE / "data/real_seismic/real_gather_256x128.csv",
+                 *[WORKSPACE / "data/sps" / ("5151-5171."+suffix) for suffix in ["S","R","X"]]]
+    require_inputs([EXE]+([] if args.synthetic_only else real_inputs))
+    provenance=dict(status="not_used",field_claims_eligible=False,independent_real_sources=0) if args.synthetic_only else real_source_provenance(
+        real_inputs[0],args.source_confirmation,args.allow_unconfirmed_real)
+    if not args.synthetic_only:
+        provenance.update(field_claims_eligible=False,strict_preprocessing_isolation=False,
+                          limitation="Legacy full-field normalized/spatially interpolated inputs: diagnostics only; use v5 raw real stage for formal holdout")
     output.mkdir(parents=True,exist_ok=args.resume)
     models = prepare_models(output/'input_models')
     if not EXE.exists():  # add by wushanzhou in 2026/10/23
@@ -239,10 +257,8 @@ def main():  # add by wushanzhou in 2026/10/23
              "runtime_versions": {"python": sys.version, "numpy": np.__version__},  # add by wushanzhou in 2026/10/23
              "tools_sha256": {str(p.relative_to(ROOT)): sha256(p) for p in sorted((ROOT / "src/research").rglob("*.py"))},  # add by wushanzhou in 2026/10/23
              "source_sha256": {str(p.relative_to(ROOT)): sha256(p) for p in sorted(source_paths)},  # add by wushanzhou in 2026/10/23
-             "input_sha256": {str(p): sha256(p) for p in [  # add by wushanzhou in 2026/10/23
-                 WORKSPACE / "data/real_seismic/Data/RRAW.SGY", WORKSPACE / "data/real_seismic/real_gather_59x256.csv",  # add by wushanzhou in 2026/10/23
-                 WORKSPACE / "data/real_seismic/real_gather_256x128.csv", *models,  # add by wushanzhou in 2026/10/23
-                 *(WORKSPACE / "data/sps").glob("5151-5171.*")]}, "steps": []}  # add by wushanzhou in 2026/10/23
+             "real_source_provenance":provenance,
+             "input_sha256": {str(p): sha256(p) for p in [*models,*([] if args.synthetic_only else real_inputs)]}, "steps": []}  # add by wushanzhou in 2026/10/23
     state["cache_fingerprint"] = cache_fingerprint(state)  # add by wushanzhou in 2026/10/23
     old_steps = {s["name"]: s for s in previous.get("steps", [])} if previous.get("cache_fingerprint") == state["cache_fingerprint"] else {}  # add by wushanzhou in 2026/10/23
     # add by wushanzhou in 2026/10/23
@@ -270,7 +286,12 @@ def main():  # add by wushanzhou in 2026/10/23
         "constraints": "constrained", "two_dimensional": "benchmark_2d", "mask_builtin": "mask_recon_builtin",  # add by wushanzhou in 2026/10/23
         "mask_dipping": "mask_recon_dipping", "mask_faulted": "mask_recon_faulted", "real_reference": "real_field",  # add by wushanzhou in 2026/10/23
         "real_holdout_batch": "real_field_holdout", "real_masks": "real_mask_study", "real_data_audit": "real_data_audit"}.items()}  # add by wushanzhou in 2026/10/23
-    step_outputs["sampling_suite"].append(output / "real_sps")  # add by wushanzhou in 2026/10/23
+    step_outputs["sampling_suite"].append(output / "real_sps")
+    if args.synthetic_only:
+        steps=[(name,command) for name,command in steps if name!="sampling_suite" and not name.startswith("real_")]
+    else:
+        real_flags=["--source-confirmation",str(args.source_confirmation.resolve())] if args.source_confirmation else ["--allow-unconfirmed-real"]
+        steps=[(name,command+real_flags if name=="real_data_audit" else command) for name,command in steps]  # add by wushanzhou in 2026/10/23
     for name, command in steps:  # add by wushanzhou in 2026/10/23
         if name in old_steps and reusable_step(old_steps[name], command, output):  # add by wushanzhou in 2026/10/23
             state["steps"].append(old_steps[name]); print("[cached]", name, flush=True); continue  # add by wushanzhou in 2026/10/23

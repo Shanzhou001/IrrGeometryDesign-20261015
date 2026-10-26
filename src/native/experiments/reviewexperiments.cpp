@@ -1,10 +1,21 @@
 ﻿#include "experiment_internal.h"
+#include "../optimization/spatialpsf.h"
 
 // New experiments never share a directory or protocol label with archived v3 results. add by wushanzhou in 2026/10/24
 bool GeometryExperimentEngine::runReviewUnitTests() // add by wushanzhou in 2026/10/24
 { // add by wushanzhou in 2026/10/24
-    int totalTests=0,passedTests=0;FILE* logFp=NULL; // add by wushanzhou in 2026/10/24
+    const bool coreOnly=true;
+    const QString kTestSandbox=QDir::tempPath()+QString("/irr_science_%1").arg(QCoreApplication::applicationPid());
+    if(QFileInfo(kTestSandbox).exists() || !QDir().mkpath(kTestSandbox))return false;
+    int totalTests=0,passedTests=0;
+    FILE* logFp=fopen("science_tests.log","w");
+    log_test(logFp,"Scientific core suite: external integration tests 1-16,22,23 are outside this scope.\n");
+    #include "../tests/scienceregression.inc"
     #include "../tests/reviewregression.inc" // add by wushanzhou in 2026/10/24
+    #include "../tests/spatialregression.inc"
+    log_test(logFp,"Scientific core results: PASS=%d FAIL=%d total=%d\n",passedTests,totalTests-passedTests,totalTests);
+    if(logFp)fclose(logFp);
+    if(!removeDirRecursive(kTestSandbox))return false;
     return totalTests==passedTests; // add by wushanzhou in 2026/10/24
 } // add by wushanzhou in 2026/10/24
 bool GeometryExperimentEngine::runReviewSearch(const QString& inputCsv,const QString& outputDir,int seeds,int budget, // add by wushanzhou in 2026/10/24

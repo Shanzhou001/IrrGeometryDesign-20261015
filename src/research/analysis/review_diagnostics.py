@@ -11,7 +11,7 @@ from research.data.convert_rraw_to_engine_csv import read_segy  # add by wushanz
 from research.experiments.review_studies import read_gather,read_mask,read_rows,sha,write_rows  # add by wushanzhou in 2026/10/24
 
 
-def diagnose_real(output):  # add by wushanzhou in 2026/10/24
+def diagnose_real(output,source_provenance=None): # add by wushanzhou in 2026/10/24
     source=WORKSPACE / "data/real_seismic/Data/RRAW.SGY"  # add by wushanzhou in 2026/10/24
     raw,offsets,cdps,metadata=read_segy(source)  # add by wushanzhou in 2026/10/24
     payload=source.read_bytes()  # add by wushanzhou in 2026/10/24
@@ -85,7 +85,7 @@ def diagnose_real(output):  # add by wushanzhou in 2026/10/24
                            exterior_error_fraction=float(squared[:,exterior].sum()/max(squared.sum(),1e-30))))  # add by wushanzhou in 2026/10/24
         assert abs(errors[-1]["fixed_snr_from_energy"]-float(row["snr_fixed"]))<1e-7  # add by wushanzhou in 2026/10/24
     write_rows(output/"real_error_decomposition.csv",errors)  # add by wushanzhou in 2026/10/24
-    diagnosis=dict(source_sha256=sha(source),trace_dt_us=metadata["dt_trace_field"],binary_dt_us=metadata["dt_raw_field"],  # add by wushanzhou in 2026/10/24
+    diagnosis=dict(source_sha256=sha(source),source_provenance=source_provenance or {'status':'unconfirmed_sensitivity','field_claims_eligible':False},trace_dt_us=metadata["dt_trace_field"],binary_dt_us=metadata["dt_raw_field"], # add by wushanzhou in 2026/10/24
                    declared_format=metadata["declared_format"],payload_profile_used=metadata["payload_profile"],  # add by wushanzhou in 2026/10/24
                    encoding_descriptive_profiles=profiles,source_window_seconds=[0,(metadata["ns"]-1)*.008],  # add by wushanzhou in 2026/10/24
                    ibm_le_unnormalized_nonzero_word_fraction=ibm_unnormalized,  # add by wushanzhou in 2026/10/24
@@ -127,4 +127,7 @@ def plot_real_diagnosis(diagnosis):
                 title="Fixed POCS test-error decomposition")  # add by wushanzhou in 2026/10/24
     fig.colorbar(scatter,ax=axes[1],label='Retained traces',ticks=[20,30,40]) # add by wushanzhou in 2026/10/24
     fig.tight_layout()  # add by wushanzhou in 2026/10/24
+    if not diagnosis.get('source_provenance',{}).get('field_claims_eligible'):
+        fig.suptitle('Sensitivity diagnostic: real encoding / geometry unconfirmed',fontsize=9)
+        fig.tight_layout(rect=(0,0,1,.9))
     writer.save(fig,'06_real_diagnosis',diagnosis,dpi=180)

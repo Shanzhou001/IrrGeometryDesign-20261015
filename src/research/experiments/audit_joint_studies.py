@@ -23,6 +23,7 @@ from research.data.make_59x256 import convert as legacy_convert
 from research.experiments.review_studies import validation_choice, linear_known, snr
 from research.common.hashing import digest
 
+from research.common.provenance import add_real_data_arguments, real_source_provenance, require_inputs
 from research.common.paths import ROOT, WORKSPACE, source_files
 PROTOCOL='audit_joint_v5'
 SOURCE=WORKSPACE / 'data/real_seismic/Data/RRAW.SGY'
@@ -73,7 +74,7 @@ class Recorder:
         self.state=dict(protocol=PROTOCOL,configuration=configuration,started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                         git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT).decode().strip(),
                         program=str(self.exe),executable_sha256=digest(self.exe),source_sha256=fingerprint,
-                        raw_sha256=digest(SOURCE) if SOURCE.is_file() else None,python=platform.python_version(),numpy=np.__version__,platform=platform.platform(),steps={})
+                        raw_sha256=digest(SOURCE) if not configuration.get('synthetic_only') and SOURCE.is_file() else None,python=platform.python_version(),numpy=np.__version__,platform=platform.platform(),steps={})
         self.save()
 
     def save(self):
@@ -105,6 +106,7 @@ class Recorder:
         for step in self.state['steps'].values():
             for name,value in step['inputs'].items():
                 if digest(name)!=value:raise RuntimeError('input changed: '+name)
+        self.state['output_tables_sha256']={p.relative_to(self.out).as_posix():digest(p) for p in sorted(self.out.glob('*.csv'))}
         self.state['completed_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat();self.state['completed']=True;self.save()
 
 
@@ -208,12 +210,15 @@ def joint(recorder,workers):
 
 
 def search_study(recorder):
-    _,physical,_,_=real_raw();lines=[]
+    synthetic_only=recorder.state["configuration"].get("synthetic_only",False)
+    physical=None if synthetic_only else real_raw()[1];lines=[]
     variants=[('Adaptive',32,12),('SAOnly',32,12),('Hybrid',32,12),('SA_Budget',32,12),
               ('FixedSwitch',32,12),('NoRecycle',32,12),('AdjacentOnly',32,12),('NoPerturb',32,12)]
     variants += [('Adaptive',minimum,window) for minimum,window in [(16,8),(16,24),(32,8),(32,24),(64,8),(64,24)]]
     metadata={}
-    for domain,n,counts,x in [('uniform',128,[38,64,90],None),('physical',59,[20,30,40],physical)]:
+    domains=[('uniform',128,[38,64,90],None)]
+    if not synthetic_only:domains.append(('physical',59,[20,30,40],physical))
+    for domain,n,counts,x in domains:
         for ri,m in enumerate(counts):
             for si,seed in enumerate(SEEDS):
                 initial=initial_mask(n,m,seed)
@@ -226,8 +231,11 @@ def search_study(recorder):
 
 
 def timing(recorder):
-    _,physical,_,_=real_raw();results=[]
-    for domain,n,m,x in [('uniform',128,64,None),('physical',59,30,physical)]:
+    synthetic_only=recorder.state["configuration"].get("synthetic_only",False)
+    physical=None if synthetic_only else real_raw()[1];results=[]
+    domains=[('uniform',128,64,None)]
+    if not synthetic_only:domains.append(('physical',59,30,physical))
+    for domain,n,m,x in domains:
         for si,seed in enumerate(SEEDS):
             methods=['SA_Budget','Adaptive','NoPerturb'];methods=methods[si%3:]+methods[:si%3]
             for method in methods:
@@ -241,8 +249,8 @@ def real_study(recorder,workers):
     data,x,cdp,meta=real_raw();ts=np.arange(250)*.008;td=np.arange(499)*.004
     up=np.stack([np.interp(td,ts,row) for row in data.T],axis=1)
     windows=[('native_full',data,.008),('native_crop',data[:128],.008),('upsampled_full',up,.004),('upsampled_crop',up[:256],.004)]
-    provenance=dict(profile='RRAW_IEEE_LE_UNCONFIRMED',source_sha256=meta['sha256'],offset_units='header-declared metres; geometry conflicts unresolved',
-                    amplitude_units='unknown raw units',source_sample_rate_hz=125.,cdp_order=cdp.tolist(),windows=[])
+    provenance=dict(recorder.state['configuration']['real_source_provenance'],source_sample_rate_hz=125.,cdp_order=cdp.tolist(),windows=[])
+    provenance.update(profile='RRAW_IEEE_LE_OVERRIDE',declared_format=meta['declared_format'])
     for name,values,dt in windows:
         path=recorder.out/'truth'/(name+'.csv');write_gather(path,values,x,f'{name}; assumed IEEE-LE; dt_s={dt}; no spatial interpolation/filter/normalization')
         provenance['windows'].append(dict(name=name,dt_s=dt,time_end_s=(len(values)-1)*dt,shape=list(values.shape),sha256=digest(path)))
@@ -280,9 +288,15 @@ def real_study(recorder,workers):
 
 
 def run(args):
+    synthetic_only=getattr(args,"synthetic_only",False) or args.stage=="joint"
+    if synthetic_only and args.stage=="real":raise ValueError("--synthetic-only cannot run a real-data stage")
+    require_inputs([args.exe])
+    provenance=dict(status="not_used",field_claims_eligible=False,independent_real_sources=0) if synthetic_only else real_source_provenance(
+        SOURCE,getattr(args,"source_confirmation",None),getattr(args,"allow_unconfirmed_real",False))
+    if not synthetic_only and digest(SOURCE)!=SOURCE_HASH:raise ValueError("RRAW identity changed; retained decoder profile does not apply")
     configuration=dict(protocol=PROTOCOL,stage=args.stage,search_budget=300,seeds=SEEDS,workers=args.workers,
                        methods=METHODS,common_H=list(range(4,128,8)),models=12,
-                       real_profile='RRAW_IEEE_LE_UNCONFIRMED',configuration_source_sha256=digest(__file__))
+                       real_source_provenance=provenance,synthetic_only=synthetic_only,strict_preprocessing_isolation=True,configuration_source_sha256=digest(__file__))
     recorder=Recorder(args.out,args.exe,configuration)
     if args.stage=='joint':joint(recorder,args.workers)
     elif args.stage=='search':search_study(recorder)
@@ -295,4 +309,6 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--out',type=Path,required=True)
     p.add_argument('--exe',type=Path,default=WORKSPACE / 'build/bin/Release/IrrGeometryDesign.exe')
     p.add_argument('--stage',choices=['search','joint','real','timing'],required=True)
+    p.add_argument('--synthetic-only',action='store_true',help='omit real geometry from search/timing; joint is always self-contained')
+    add_real_data_arguments(p)
     p.add_argument('--workers',type=int,default=4,choices=range(1,9));run(p.parse_args())

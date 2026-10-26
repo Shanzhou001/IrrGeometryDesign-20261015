@@ -1,4 +1,4 @@
-"""Build, run, test and browse the source-only project."""
+"""Build, run, test and browse the project."""
 import argparse
 import os
 import subprocess
@@ -17,11 +17,18 @@ def main():
     run.add_argument('--mode', choices=['Release', 'Debug'], default='Release')
     run.add_argument('arguments', nargs=argparse.REMAINDER)
     commands.add_parser('test', help='run Python regression tests; external data tests may skip')
+    check = commands.add_parser('check', help='record native and Python checks; use --full for external-data integration')
+    check.add_argument('arguments', nargs=argparse.REMAINDER)
     commands.add_parser('figures', help='refresh the image gallery without rerunning experiments')
     module = commands.add_parser('module', help='run a research module with its own arguments')
     module.add_argument('name', help='for example research.validation.audit_numerics')
     module.add_argument('arguments', nargs=argparse.REMAINDER)
-    args = parser.parse_args()
+    arguments=sys.argv[1:]
+    if arguments[:1]==['check']:
+        forwarded=arguments[1:]
+        if forwarded[:1]==['--']:forwarded=forwarded[1:]
+        arguments=['module','research.validation.run_audit_checks',*forwarded]
+    args = parser.parse_args(arguments)
 
     if args.command == 'figures':
         from research.analysis.gallery import render

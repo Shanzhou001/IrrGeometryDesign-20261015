@@ -168,6 +168,7 @@ public:
 	Ui::TSPSForm ui;
 
 private:
+    void updateSampling(bool receiver, bool optimize);
     void init();
     void destroy();
 

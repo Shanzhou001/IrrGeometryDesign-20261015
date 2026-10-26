@@ -292,8 +292,33 @@ def figures(root,search,matched,joint,band):
     return index
 
 
-def run(root):
-    analysis=root/TABLES;analysis.mkdir(exist_ok=False)
+def required_inputs(root):
+    """Include raw tables, masks and traces used by the statistics and sensitivity checks."""
+    paths=[root/'search/search.csv',root/'joint/joint.csv',root/'real/real.csv',root/'timing/timing.csv',
+           V4/'summary.json',V4/'synthetic_reconstruction.csv',V4/'real_nested.csv',
+           WORKSPACE/'data/real_seismic/real_gather_59x256.csv']
+    search=root/'search/search.csv'
+    if search.is_file():
+        paths += [root/'search/sensitivity'/(r['id']+'.trace.csv') for r in rows(search)
+                  if (r.get('minimum'),r.get('window'))==('32','12')]
+    for domain in ['uniform','physical']:
+        folder=V4/('search_'+domain+'_200');path=folder/'search.csv';paths.append(path)
+        if path.is_file():
+            paths += [folder/r['mask_path'] for r in rows(path)]
+    return list(dict.fromkeys(paths))
+
+
+def run(root,v4=None):
+    global V4
+    root=Path(root).resolve()
+    if v4 is not None:V4=Path(v4).resolve()
+    analysis=root/TABLES
+    if analysis.exists():raise FileExistsError(analysis)
+    inputfiles=required_inputs(root)
+    missing=[str(path) for path in inputfiles if not path.is_file()]
+    if missing:
+        raise FileNotFoundError('Analysis requires the original tables, masks, traces and input geometry. Missing inputs:\n'+'\n'.join(missing))
+    analysis.mkdir(exist_ok=False)
     search,pairs,matched=search_tables(root);model,joint,statistics=joint_tables(root);band=band_sensitivity(root)
     names=[]  # Rendering is a separate, overwrite-safe pipeline stage.
     real=rows(root/'real/real.csv');realmeans=[]
@@ -304,7 +329,6 @@ def run(root):
     for (domain,method),g in group(timing,['domain','method']).items():times.append(dict(domain=domain,method=method,n=len(g),
         mean_evals=float(np.mean([int(r['evals']) for r in g])),mean_wall_ms=float(np.mean([float(r['wall_ms']) for r in g])),mean_mu=float(np.mean([float(r['mu']) for r in g]))))
     write_rows(analysis/'time_limit_means.csv',times)
-    inputfiles=[root/'search/search.csv',root/'joint/joint.csv',root/'real/real.csv',root/'timing/timing.csv',V4/'summary.json',V4/'synthetic_reconstruction.csv',V4/'real_nested.csv']
     state=dict(script_sha256=digest(__file__),input_sha256={str(p):digest(p) for p in inputfiles},
                output_sha256={str(p.relative_to(root)):digest(p) for p in analysis.rglob('*') if p.is_file()},
                plots=names,search_holm_tests=len(pairs),joint_holm_tests=len(statistics),n_model_conditions=12,
@@ -315,9 +339,10 @@ def run(root):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('root',type=Path)
+    p.add_argument('--v4-root',type=Path,help='archived v4 result directory; defaults to the external workspace')
     p.add_argument('--structural',action='store_true',help='pool the two noise conditions sharing each clean template')
     p.add_argument('--paper',action='store_true',help='final thesis edition, including convergence, Pareto and predefined failure case')
     a=p.parse_args();STRUCTURAL=a.structural or a.paper
     if STRUCTURAL:TABLES='analysis_structural'
     if a.paper:TABLES='analysis_thesis'
-    run(a.root.resolve())
+    run(a.root.resolve(),a.v4_root)

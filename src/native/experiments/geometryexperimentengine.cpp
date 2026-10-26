@@ -738,7 +738,7 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
     outMetrics.gain_pocs_vs_zero_db   = outMetrics.snr_pocs_db - outMetrics.snr_zero_fill_db;
     outMetrics.rmse_linear = (float)sqrt(eLin  / (double)cnt);
     outMetrics.rmse_pocs   = (float)sqrt(ePocs / (double)cnt);
-    outMetrics.dataConsistencyPassed = consistencyError<1e-5; // add by wushanzhou in 2026/10/23
+    outMetrics.dataConsistencyPassed = consistencyError<reconstructionConsistencyTolerance(knownScale); // add by wushanzhou in 2026/10/23
     {   // 2026.10.20: 记录输入文件 SHA1，便于第三方独立复核
         QFile hf(inputCsvPath);
         if (hf.open(QIODevice::ReadOnly))
@@ -764,6 +764,8 @@ bool GeometryExperimentEngine::runHoldoutValidation(const QString& inputCsvPath,
         o << "Solver_Amplitude_Scale," << QString::number(knownScale,'g',9) << ",Amplitude,Estimated ONLY from known traces then inverted for evaluation\n"; // add by wushanzhou in 2026/10/23
         o << "Mask_SHA1," << samplingMaskHash(mask) << ",Hash,Canonical binary mask SHA1\n"; // add by wushanzhou in 2026/10/23
         o << "Data_Consistency_Max_Error," << QString::number(consistencyError,'g',9) << ",Amplitude,Measured on known physical coordinates\n"; // add by wushanzhou in 2026/10/23
+        o << "Data_Consistency_Tolerance," << QString::number(reconstructionConsistencyTolerance(knownScale),'g',12) << ",Amplitude,1e-5 * max(1 known amplitude scale)\n";
+        o << "Data_Consistency_Passed," << (outMetrics.dataConsistencyPassed?1:0) << ",Boolean,Shared solver and report threshold\n";
         o << "Input_File," << QFileInfo(inputCsvPath).fileName() << ",Text,Source gather\n";
         o << "Traces_Used," << m << ",Traces,Real traces in the working grid\n";
         o << "Traces_Kept," << k << ",Traces,Traces given to the solver as known\n";
