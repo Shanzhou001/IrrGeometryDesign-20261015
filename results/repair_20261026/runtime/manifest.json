@@ -1,0 +1,10 @@
+{
+  "purpose": "Frozen local Release runtime used by search/common-H experiments",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "files": {
+    "IrrGeometryDesign.exe": "5d53315b39776dae47c1205b24eb4b004dea524bdd1618302855b0b2598b94f3",
+    "fdct_wrapping_param.dll": "07388f9624270e2df9b126ab28ee5dbb3fcdcf18e144543196613dcea53af3ac",
+    "fftw.dll": "4015f3c85c8292b0020da35edee436d5abbcddd0b7d127f04c258ee72e7ca46f"
+  },
+  "runtime_search_path": "Qt 4.7.4 bin must remain on PATH; see RUNNING.md for toolchain requirements"
+}

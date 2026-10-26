@@ -17,10 +17,10 @@ COMPARISONS = ('Adaptive-Hybrid', 'Adaptive-NoRecycle')
 WINDOWS = ('native_full', 'native_crop', 'upsampled_full', 'upsampled_crop')
 
 
-def source_status(v4, v5, real):
+def source_status(v4, v5, real, additional=()):
     """Old archives without declarations remain sensitivity evidence."""
     records = [v4.get('fingerprint', {}).get('configuration', {}).get('real_source_provenance', {}),
-               v5.get('configuration', {}).get('real_source_provenance', {}), real]
+               v5.get('configuration', {}).get('real_source_provenance', {}), real, *additional]
     statuses = [r.get('status') for r in records]
     confirmed = [r for r in records if r.get('status') == 'declared_confirmed']
     if all(status == 'not_used' for status in statuses):
@@ -59,15 +59,23 @@ def load_inputs(v4, v5, budget):
                    for name in ('search_pairs', 'common_evaluation_pairs', 'joint_means')})
     inputs['v5/real/real.csv'] = v5 / 'real/real.csv'
     inputs['v4/run_manifest.json'] = v4 / 'run_manifest.json'
-    inputs['v5/manifest.json'] = v5 / 'manifest.json'
+    # The current driver writes one manifest per stage. Older archives used
+    # a parent manifest; accept that layout only when stage manifests are absent.
+    stage_manifests = {'v5/search/manifest.json': v5/'search/manifest.json',
+                       'v5/joint/manifest.json': v5/'joint/manifest.json'}
+    manifests = stage_manifests if (any(p.is_file() for p in stage_manifests.values()) or
+                                    not (v5/'manifest.json').is_file()) else {'v5/manifest.json': v5/'manifest.json'}
+    inputs.update(manifests)
     inputs['v5/real/provenance.json'] = v5 / 'real/provenance.json'
     missing = [str(path) for path in inputs.values() if not path.is_file()]
     if missing:
         raise FileNotFoundError('Paper figures require the original result tables. Missing inputs:\n' +
                                 '\n'.join(missing))
     raw = {key: rows(path) for key, path in inputs.items() if path.suffix == '.csv'}
-    provenance = source_status(*(json.loads(inputs[key].read_text(encoding='utf-8-sig')) for key in
-                                 ('v4/run_manifest.json', 'v5/manifest.json', 'v5/real/provenance.json')))
+    stages = [json.loads(path.read_text(encoding='utf-8-sig')) for path in manifests.values()]
+    provenance = source_status(json.loads(inputs['v4/run_manifest.json'].read_text(encoding='utf-8-sig')),
+                               stages[0], json.loads(inputs['v5/real/provenance.json'].read_text(encoding='utf-8-sig')),
+                               [stage.get('configuration', {}).get('real_source_provenance', {}) for stage in stages[1:]])
     from research.analysis.summarize_audit_v5 import confidence
     search = []
     for domain, counts in COUNTS.items():

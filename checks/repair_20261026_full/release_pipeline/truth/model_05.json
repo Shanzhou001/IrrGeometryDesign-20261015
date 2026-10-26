@@ -1,0 +1,28 @@
+{
+  "model": "model_05",
+  "family": "curved",
+  "structure": 0,
+  "noise": 0.05,
+  "seed": 65105,
+  "events": [
+    {
+      "t0": 0.22,
+      "dip": 3.5e-05,
+      "throw": 0.0,
+      "frequency": 22
+    },
+    {
+      "t0": 0.46,
+      "dip": -3.5e-05,
+      "throw": 0.0,
+      "frequency": 25
+    },
+    {
+      "t0": 0.7,
+      "dip": 3.5e-05,
+      "throw": 0.0,
+      "frequency": 28
+    }
+  ],
+  "truth_sha256": "7a8928b36f1d669f1868e0ef23c37ddeb4f07744f83f251bb5bf0880d0960c9b"
+}

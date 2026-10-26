@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "protocol": "layout_smoke_v1",
+  "records": [
+    {
+      "case": "analytic",
+      "known": 38,
+      "evaluation_points": 16,
+      "fixed_snr": 19.216981810897867,
+      "selected_snr": 21.773011453857023,
+      "linear_snr": 21.773011453857023,
+      "candidate": "linear"
+    }
+  ],
+  "real_source_provenance": {
+    "status": "not_used",
+    "field_claims_eligible": false,
+    "independent_real_sources": 0
+  },
+  "scope": "End-to-end software checks; these do not establish scientific superiority or independent field replication."
+}

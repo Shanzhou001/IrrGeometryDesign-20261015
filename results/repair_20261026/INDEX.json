@@ -1,0 +1,36 @@
+{
+  "status": "core_verified_field_incomplete",
+  "core_status": "passed",
+  "field_status": "incomplete",
+  "python_tests": {
+    "run": 72,
+    "skipped": 4,
+    "failures": 0,
+    "errors": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "passed": 68
+  },
+  "joint_completed": true,
+  "joint_native_steps": 2172,
+  "missing_external_inputs": [
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\data\\real_seismic\\Data\\RRAW.SGY",
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\data\\real_seismic\\real_gather_59x256.csv",
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\data\\real_seismic\\real_gather_256x128.csv"
+  ],
+  "artifact_sha256": {
+    "checks/repair_20261026_final/checks.json": "ef7bd9804082d0c2c1557aba15aa07458f74a806dde57dcd5c4219c98260149b",
+    "checks/repair_20261026_full/checks.json": "b64d25bbc3f05c071885c3b11174ac184bfb09fafdbe43ee13fc15e0783f0d04",
+    "checks/repair_20261026_codec/checks.json": "3645047d71745a98ef2ea3b3dde225a50d8496728c4e35e377eacb9e0472763e",
+    "checks/repair_20261026_fdct/verification.json": "323d9575419533b1f9c903b25389f1ce63141f0a427c056896e5fb6912b40417",
+    "checks/repair_20261026_sps/run.json": "e5d6f81ede903194c97d66f8a42f9aada5b96027dccac959a18b757b637cda51",
+    "checks/repair_20261026_sps/independent_verification.json": "516fbe7f6d003e8eda535ebd63e89321822ec868433de9d157e513f4daacc503",
+    "results/repair_20261026/search/run_manifest.json": "80db0636cd06546caeeb6e996cbb14dc302531dd25789041f1351606077eb881",
+    "results/repair_20261026/joint/manifest.json": "416515461db31fcdb170f28f2661d1ed072a7d9e33cbc59e6ac4d8a4e5014432",
+    "results/repair_20261026/analysis/manifest.json": "ad71a757a55ff112f07a9aa79941ac958875e349218845443cb804c4ff82765f",
+    "results/repair_20261026/runtime/runtime.zip": "75b0639864efb0cf66338f771db9ffa9b739cd1ecdbe099f9afd02ced9989024",
+    "figures/research/repair_20261026/budget.png": "0f0902b163b84042bb7d34908e86e8d7bd8b49105bd8d361c631a1b1e2d70f21",
+    "figures/research/repair_20261026/recovery.png": "c9f5b57ba9dfef159fb0f4626623c009ae7fcf29da883e13bbd293d7920637b9",
+    "figures/research/repair_20261026/search.png": "1e387ee2bfe39d2ad55bf29344e17101a33719c8238d0f11f06405334cf2f44c"
+  }
+}

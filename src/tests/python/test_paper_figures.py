@@ -49,6 +49,31 @@ def fixture(root):
 
 
 class PaperFigureTests(unittest.TestCase):
+    def test_current_driver_stage_manifests_work_without_a_parent_manifest(self):
+        with tempfile.TemporaryDirectory() as folder:
+            v4, v5 = fixture(Path(folder))
+            parent = v5/'manifest.json'; content = parent.read_text(); parent.unlink()
+            for stage in ('search', 'joint'):
+                target = v5/stage; target.mkdir()
+                (target/'manifest.json').write_text(content)
+            result = paper.load_inputs(v4, v5, 600)
+            self.assertEqual(result[-1]['status'], 'not_used')
+            self.assertEqual(len(result[-1]['records']), 4)
+            for stage in ('search', 'joint'):
+                key = f'v5/{stage}/manifest.json'
+                self.assertEqual(result[-2][key], digest(v5/stage/'manifest.json'))
+
+    def test_partial_stage_manifests_fail_before_writing_figures(self):
+        with tempfile.TemporaryDirectory() as folder:
+            v4, v5 = fixture(Path(folder))
+            target = v5/'search'; target.mkdir()
+            (target/'manifest.json').write_text((v5/'manifest.json').read_text())
+            with patch.object(paper, 'FigureWriter') as writer:
+                with self.assertRaises(FileNotFoundError) as failure:
+                    paper.render(v4, v5)
+                writer.assert_not_called()
+            self.assertIn('joint', str(failure.exception))
+
     def test_analysis_missing_inputs_does_not_create_an_output_directory(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); output = root/'v5'; output.mkdir()

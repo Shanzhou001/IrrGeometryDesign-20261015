@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\build\\bin\\Debug\\IrrGeometryDesign.exe",
+    "--audit-queries",
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\checks\\repair_20261026_final\\debug_numerics\\queries.txt",
+    "D:\\Desktop\\sci\\IrrGeometryDesign\\checks\\repair_20261026_final\\debug_numerics\\native"
+  ],
+  "exit_code": 0,
+  "seconds": 0.47504779999144375,
+  "executable_sha256": "8e0511d8ee22113fa798a7d8e94816a43a7d198f2a68cc6b67ee9987987683b2",
+  "query_sha256": "5c1bd6926bb78dcfab5484ede81b6499860cdcb3bb2e333356c83c8912ca377a",
+  "cases": 588
+}
