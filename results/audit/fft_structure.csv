@@ -1,0 +1,3 @@
+case,pos_a,pos_b,row_a_norm,row_b_norm,rows_equal,X_norm_total
+two_positions,0,64,11.313708,11.313708,NO,16.000000
+nz_structure,,1,128,,,

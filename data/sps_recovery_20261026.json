@@ -1,0 +1,26 @@
+{
+  "recovered_utc": "2026-10-25T17:57:41.702531+00:00",
+  "archive": "D:\\Desktop\\work\\IrrGeometryDesign-20261015.rar",
+  "archive_sha256": "64f14a42415e40baec706a719020513e53b8f46dc037199b336bd736cd4fbac7",
+  "status": "recovered_original_input_only; acquisition intent and field provenance not confirmed",
+  "files": [
+    {
+      "archive_entry": "IrrGeometryDesign-20261015/sps/5151-5171.S",
+      "destination": "D:\\Desktop\\sci\\IrrGeometryDesign-workspace\\data\\sps\\5151-5171.S",
+      "sha256": "f5384518ae3669de10ff7352685fbf7b9604afc98b38e0b2f68d91c703594288",
+      "bytes": 28864
+    },
+    {
+      "archive_entry": "IrrGeometryDesign-20261015/sps/5151-5171.R",
+      "destination": "D:\\Desktop\\sci\\IrrGeometryDesign-workspace\\data\\sps\\5151-5171.R",
+      "sha256": "26529a1435ad2c49b340b33d4fc4efb23d9bfb833c9daa3c47d4941dd064e6ed",
+      "bytes": 744150
+    },
+    {
+      "archive_entry": "IrrGeometryDesign-20261015/sps/5151-5171.X",
+      "destination": "D:\\Desktop\\sci\\IrrGeometryDesign-workspace\\data\\sps\\5151-5171.X",
+      "sha256": "b27c482396b987216f783e7ccc3f87671c06f22a3b22243e0ec7fcd37d6fb9a7",
+      "bytes": 515370
+    }
+  ]
+}
