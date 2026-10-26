@@ -1,0 +1,157 @@
+{
+  "records": [
+    {
+      "m": 36,
+      "method": "Adaptive",
+      "seed_count": 3,
+      "mean_mu": 0.20628928144766667,
+      "min_mu": 0.20182749629,
+      "max_mu": 0.211625158787,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 36,
+      "method": "Hybrid",
+      "seed_count": 3,
+      "mean_mu": 0.22392101089133334,
+      "min_mu": 0.2208288908,
+      "max_mu": 0.225634843111,
+      "mean_evaluations": 161.33333333333334,
+      "geometry_count": 1
+    },
+    {
+      "m": 36,
+      "method": "Jitter",
+      "seed_count": 3,
+      "mean_mu": 0.3562689026196666,
+      "min_mu": 0.33564016223,
+      "max_mu": 0.390261799097,
+      "mean_evaluations": 1.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 36,
+      "method": "SAOnly",
+      "seed_count": 3,
+      "mean_mu": 0.21698652207833333,
+      "min_mu": 0.211648091674,
+      "max_mu": 0.221202895045,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 36,
+      "method": "SA_Budget",
+      "seed_count": 3,
+      "mean_mu": 0.21521686017533334,
+      "min_mu": 0.209449052811,
+      "max_mu": 0.222222223878,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 60,
+      "method": "Adaptive",
+      "seed_count": 3,
+      "mean_mu": 0.1547969778376667,
+      "min_mu": 0.150923088193,
+      "max_mu": 0.162213787436,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 60,
+      "method": "Hybrid",
+      "seed_count": 3,
+      "mean_mu": 0.16832334796600001,
+      "min_mu": 0.162190362811,
+      "max_mu": 0.176113009453,
+      "mean_evaluations": 140.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 60,
+      "method": "Jitter",
+      "seed_count": 3,
+      "mean_mu": 0.2812202274796667,
+      "min_mu": 0.25801423192,
+      "max_mu": 0.299852401018,
+      "mean_evaluations": 1.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 60,
+      "method": "SAOnly",
+      "seed_count": 3,
+      "mean_mu": 0.156723752618,
+      "min_mu": 0.150923088193,
+      "max_mu": 0.168325081468,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 60,
+      "method": "SA_Budget",
+      "seed_count": 3,
+      "mean_mu": 0.15238304436199998,
+      "min_mu": 0.150923088193,
+      "max_mu": 0.1553029567,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 84,
+      "method": "Adaptive",
+      "seed_count": 3,
+      "mean_mu": 0.142857149243,
+      "min_mu": 0.142857149243,
+      "max_mu": 0.142857149243,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 84,
+      "method": "Hybrid",
+      "seed_count": 3,
+      "mean_mu": 0.14828267196800002,
+      "min_mu": 0.142857149243,
+      "max_mu": 0.155219107866,
+      "mean_evaluations": 91.66666666666667,
+      "geometry_count": 1
+    },
+    {
+      "m": 84,
+      "method": "Jitter",
+      "seed_count": 3,
+      "mean_mu": 0.2037315666673333,
+      "min_mu": 0.195484608412,
+      "max_mu": 0.214285716414,
+      "mean_evaluations": 1.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 84,
+      "method": "SAOnly",
+      "seed_count": 3,
+      "mean_mu": 0.142857149243,
+      "min_mu": 0.142857149243,
+      "max_mu": 0.142857149243,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    },
+    {
+      "m": 84,
+      "method": "SA_Budget",
+      "seed_count": 3,
+      "mean_mu": 0.142857149243,
+      "min_mu": 0.142857149243,
+      "max_mu": 0.142857149243,
+      "mean_evaluations": 300.0,
+      "geometry_count": 1
+    }
+  ],
+  "source_status": "documented_public_subset_with_header_caveat",
+  "independent_surveys": 1,
+  "coordinate_units_header_note": "Original trace coordinate-units code is 3 (normally angular units); preserved in geometry CSVs. Distance interpretation follows documented acquisition geometry, not this conflicting code."
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "scope": "post-hoc diagnosis; no confirmatory parameter selection",
+  "frozen_source_and_run_unchanged": true,
+  "diagnostic_cases": 450,
+  "probe_configurations": 24,
+  "new_native_calls": 20,
+  "theoretical_floor": 0.14285714285714285,
+  "input_manifest_sha256": "f2e9bf664e4d16a80028d4d79728dd5ab29e24549bb97b368d32de0a486357f7",
+  "table_sha256": {
+    "bands.csv": "5ddeebe963327810f8f09ed54b76d2d9a254141391e2ad723e143ba4f0bba912",
+    "convergence.csv": "e3c9c25657c52ff66ff8db52dc0a8dbd9e03e67e1f20b87a3568beef8a0f48f3",
+    "floor_layouts.csv": "c5a653741a263cb5e041ac2afdcb788dbec08d43c909e349f53bc827849e137d",
+    "geometry.csv": "ca2e0fd2db504b3e05d1d5c2963620c4e6e60e950e7e4a1d01e329e484487eeb",
+    "geometry_means.csv": "f8c01598bb4c80ff5f4df1a84b8597dab06aa037d75416c86c32dafcbd93869d",
+    "local_hidden_errors.csv": "c2bae91b4a991f8fec30230f3db5e3e911b1dde07c8c7bd09af5392144749791",
+    "neighbor_correlation.csv": "bf9f76a221deafd3814527624e014928fe822b2402d58b98022f803c315998b0",
+    "parameter_probes.csv": "aa66895b8372d9b05ef7701e408f563276c11fe43781200a06f43673eb238840",
+    "spatial_spectrum.csv": "8d4bc025968d3c21ca12eb186db93c83520d28df0950137c5ff381047808310c",
+    "warm_means.csv": "8238323cb48d4229c55e40036c2f00cc13f39b88ea3e45d8514e035ac3e049e9",
+    "waveforms.csv": "c6d09bed346b871675b4512992d49322b7add5087f3b426b24ec23f423a11060"
+  },
+  "report_sha256": "4e0790a7d034ad604e04a787e6cc40e652e034f6ccdf1a663b6e71b3f0d92432"
+}

@@ -19,15 +19,18 @@ def main():
     commands.add_parser('test', help='run Python regression tests; external data tests may skip')
     check = commands.add_parser('check', help='record native and Python checks; use --full for external-data integration')
     check.add_argument('arguments', nargs=argparse.REMAINDER)
+    viking = commands.add_parser('viking', help='validate or run the registered small Viking field-data study')
+    viking.add_argument('arguments', nargs=argparse.REMAINDER)
     commands.add_parser('figures', help='refresh the image gallery without rerunning experiments')
     module = commands.add_parser('module', help='run a research module with its own arguments')
     module.add_argument('name', help='for example research.validation.audit_numerics')
     module.add_argument('arguments', nargs=argparse.REMAINDER)
     arguments=sys.argv[1:]
-    if arguments[:1]==['check']:
+    if arguments[:1] and arguments[0] in ('check','viking'):
+        target = {'check':'research.validation.run_audit_checks', 'viking':'research.experiments.viking_study'}[arguments[0]]
         forwarded=arguments[1:]
         if forwarded[:1]==['--']:forwarded=forwarded[1:]
-        arguments=['module','research.validation.run_audit_checks',*forwarded]
+        arguments=['module',target,*forwarded]
     args = parser.parse_args(arguments)
 
     if args.command == 'figures':

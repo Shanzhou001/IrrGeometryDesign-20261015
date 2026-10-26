@@ -64,17 +64,17 @@ def real_raw():
 
 
 class Recorder:
-    def __init__(self,out,exe,configuration):
+    def __init__(self,out,exe,configuration,protocol=PROTOCOL):
         self.out=out.resolve();self.exe=exe.resolve();self.out.mkdir(parents=True,exist_ok=False)
         self.lock=threading.RLock();self.count=0
         paths=source_files()
         paths += sorted((ROOT/'src/research').rglob('*.py'))
         fingerprint={str(p.relative_to(ROOT)):digest(p) for p in paths}
         self.signature=(self.exe.stat().st_size,self.exe.stat().st_mtime_ns)
-        self.state=dict(protocol=PROTOCOL,configuration=configuration,started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        self.state=dict(protocol=protocol,configuration=configuration,started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                         git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT).decode().strip(),
                         program=str(self.exe),executable_sha256=digest(self.exe),source_sha256=fingerprint,
-                        raw_sha256=digest(SOURCE) if not configuration.get('synthetic_only') and SOURCE.is_file() else None,python=platform.python_version(),numpy=np.__version__,platform=platform.platform(),steps={})
+                        raw_sha256=digest(SOURCE) if protocol==PROTOCOL and not configuration.get('synthetic_only') and SOURCE.is_file() else None,python=platform.python_version(),numpy=np.__version__,platform=platform.platform(),steps={})
         self.save()
 
     def save(self):
@@ -116,36 +116,36 @@ def native_queries(recorder,key,lines):
     return rows(target/'queries.csv')
 
 
-def reconstruct(recorder,key,data,x,mask,cold=False):
+def reconstruct(recorder,key,data,x,mask,cold=False,iterations=40):
     # The native process receives only K. H and inner validation amplitudes are physically absent from its input.
     observed=np.zeros_like(data);observed[:,mask]=data[:,mask]
     gather=recorder.out/'observed'/(key+'.csv');maskfile=recorder.out/'masks'/(key+'.txt')
-    write_gather(gather,observed,x,'observed only; unsampled amplitudes zero; '+PROTOCOL);write_mask(maskfile,mask)
+    write_gather(gather,observed,x,'observed only; unsampled amplitudes zero; '+recorder.state['protocol']);write_mask(maskfile,mask)
     target=recorder.out/'native'/key
-    args=['--review-reconstruct',gather,'--mask',maskfile,'--out',target,'--iter',40]
+    args=['--review-reconstruct',gather,'--mask',maskfile,'--out',target,'--iter',iterations]
     if cold:args.append('--cold')
     recorder.call(key,args,target)
     return np.loadtxt(target/'prediction.csv',delimiter=',')
 
 
-def nested(recorder,key,data,x,mask,seed):
+def nested(recorder,key,data,x,mask,seed,iterations=40):
     rng=np.random.default_rng(seed);known=np.flatnonzero(mask)
     validation=rng.permutation(known)[:max(2,len(known)//3)];train=mask.copy();train[validation]=False
     linear_inner=linear_known(data,x,train)
-    inner=reconstruct(recorder,key+'_inner_default',data,x,train)
-    cold=reconstruct(recorder,key+'_inner_cold',data,x,train,True)
+    inner=reconstruct(recorder,key+'_inner_default',data,x,train,iterations=iterations)
+    cold=reconstruct(recorder,key+'_inner_cold',data,x,train,True,iterations=iterations)
     selected,candidates=validation_choice(data[:,validation],[('zero',np.zeros_like(inner[:,validation])),
         ('linear',linear_inner[:,validation]),('default',inner[:,validation]),('cold',cold[:,validation])])
     choice=dict(selected=selected,candidates=candidates,known=known.tolist(),validation=validation.tolist(),
                 train=np.flatnonzero(train).tolist(),seed=seed)
     (recorder.out/'selection').mkdir(exist_ok=True)
     (recorder.out/'selection'/(key+'.json')).write_text(json.dumps(choice,indent=2))
-    fixed=reconstruct(recorder,key+'_fixed',data,x,mask)
+    fixed=reconstruct(recorder,key+'_fixed',data,x,mask,iterations=iterations)
     name=selected['candidate'];linear=linear_known(data,x,mask)
     if name=='zero':prediction=np.zeros_like(data)
     elif name=='linear':prediction=linear.copy()
     elif name=='default':prediction=fixed.copy()
-    else:prediction=reconstruct(recorder,key+'_selected_cold',data,x,mask,True)
+    else:prediction=reconstruct(recorder,key+'_selected_cold',data,x,mask,True,iterations=iterations)
     prediction=prediction*selected['gain'];prediction[:,mask]=data[:,mask]
     (recorder.out/'selected').mkdir(exist_ok=True)
     np.savetxt(recorder.out/'selected'/(key+'.csv'),prediction,delimiter=',',fmt='%.12g')

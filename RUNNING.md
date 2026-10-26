@@ -51,7 +51,42 @@ python -B pipeline.py module research.analysis.synthetic_results --v4-root resul
 python -B pipeline.py figures
 ```
 
-## 真实资料与来源声明
+## 小规模 Viking 真实资料实验
+
+`pipeline.py viking` 是独立于历史 RRAW 的新入口，默认读取 `data/public/viking_line12_small/`。外部数据及目录名含 viking 的新运行产物不纳入 Git；正式代码中的 `src/research/data/viking_line12_subset.json` 固定 10 炮原始 SEG-Y、派生 CSV、坐标表和来源文档的身份。数据准备阶段的脚本仍在下载包内。
+
+先核验全部输入，再执行实验；输出目录和图件分组必须为新位置：
+
+```powershell
+python -B pipeline.py viking --validate-only --out checks/new_viking_dataset
+python -B pipeline.py viking --out results/new_viking_run
+```
+
+默认设置为 10 炮、每炮 120 道、256 个原生 4 ms 时间样点；保留数为 36/60/84，3 个配对掩码种子，搜索评价上限 300，恢复迭代 40 次。共同外层隐藏位置为零起始 4、12、...、116，共 15 道；选点只能使用其余 105 个位置。Jitter、SAOnly、旧 Hybrid、SA_Budget、Adaptive 共用初始布局。相同相对检波点几何只搜索一次，45 组几何掩码复用于各炮，共形成 450 组恢复对照。
+
+验证器按已登记身份核验 30 个数据文件和 2 份来源文档，用独立 IBM 实现重解原始 SEG-Y，并逐值检查 CSV 裁窗和坐标表。不会根据振幅外观猜测编码，不进行空间扩道、时间重采样、滤波或全场归一化。原始坐标单位码 3 与距离单位解释不一致，按公开采集资料的 25 m 道间距、坐标增量和二进制头 measurement system 解释距离；该限制进入数据报告、manifest、图件元数据和总结。
+
+恢复沿用共同 H 与内层验证流程，只向原生进程序列化已观测振幅；候选为 zero/linear/default curvelet/cold curvelet，并仅用内层数据选幅度系数。每个批次实际执行一次 `H <- 13*H+7` 干预，要求参数选择、固定恢复和选择后预测均不改变。
+
+需要控制计算量时可明确缩小配置，例如保留全部 10 炮和三档密度，只做一个配对种子：
+
+```powershell
+python -B pipeline.py viking --out results/new_viking_pilot --seed-count 1
+```
+
+`--shots 53 453 953` 可指定登记炮号；`--counts`、`--budget`、`--iterations` 和 `--workers` 可调整配置，实际设置均记录在清单。输出包含逐次日志、查询、掩码、收敛轨迹、原生预测、内层选择、逐案例分数、来源与隔离报告，以及 `analysis/summary.md`、5 张统计表和 3 张新图。
+
+统计先平均同一炮的掩码种子，再描述炮间差异。10 炮来自一个工区，可能空间相关；不将炮数或掩码次数当作独立工区样本，不生成独立工区显著性 p 值或伪置信区间，负 SNR 保留。图中分别呈现几何目标、实际评价次数与共同 H 恢复质量。
+
+分析可脱离原生程序重做，仍需保持原始结果表、轨迹及清单完整；不能覆盖已有分析或图件：
+
+```powershell
+python -B pipeline.py module research.analysis.viking_results --root results/new_viking_run --out results/new_viking_analysis --group research/new_viking_analysis
+```
+
+此入口不要求旧 RRAW 来源声明，也不冒充旧资料复现。下文 `check --full` 仍指历史 RRAW/SPS 全部集成检查，其缺项不能用 Viking 结果标成已通过。
+
+## 历史 RRAW 真实资料与来源声明
 
 真实输入位置：
 

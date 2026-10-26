@@ -1,0 +1,262 @@
+{
+  "protocol": "viking_line12_subset_v1",
+  "reference_record": "https://zenodo.org/records/23481108",
+  "citation": "Keys and Foster (1998), doi:10.1190/1.9781560802082.ch1",
+  "original_file_sha256_publisher_reported": "64cbb49796b940717c57cddf5c7e0130b56df7061009a770565bdd0978cfccf3",
+  "full_file_sha256_locally_verified": false,
+  "original_format": "big-endian SEG-Y, IBM 32-bit float, format code 1",
+  "shape": [
+    1500,
+    120
+  ],
+  "sample_interval_us": 4000,
+  "window_samples": [
+    512,
+    768
+  ],
+  "receiver_spacing_m": 25,
+  "coordinate_distance_scale_evidence": "Published acquisition spacing 25 m corroborated by receiver_x increments and binary measurement_system=1 (metres).",
+  "coordinate_units_header_note": "Original trace coordinate-units code is 3 (normally angular units); preserved in geometry CSVs. Distance interpretation follows documented acquisition geometry, not this conflicting code.",
+  "source_docs": {
+    "README.md": {
+      "url": "https://huggingface.co/datasets/shaowinw/seismic-benchmark-models/raw/main/viking_graben_line12/README.md",
+      "sha256": "15e1d6db63cfaf46d9a9074e84c7838073bf5d8e78449b18ceffb3d09395116d"
+    },
+    "TERMS_OF_USE.txt": {
+      "url": "https://huggingface.co/datasets/shaowinw/seismic-benchmark-models/raw/main/viking_graben_line12/TERMS_OF_USE.txt",
+      "sha256": "cc6e1519d77862e976013f3d376ab9c13a69f0fcecfe46a328deef0cf3522034"
+    }
+  },
+  "shots": [
+    {
+      "ffid": 53,
+      "source_shot_index_zero_based": 50,
+      "source_x_m": 4487.0,
+      "source_byte_range": [
+        37443600,
+        38192399
+      ],
+      "files": {
+        "raw/shot_ffid_0053.sgy": {
+          "bytes": 752400,
+          "sha256": "58eb3a2913bc08a7487699c181aaf827520fca0cbf740bd718ad92d8c11a786c"
+        },
+        "csv_256x120/shot_ffid_0053_t2048ms.csv": {
+          "bytes": 353870,
+          "sha256": "0bbfe8b4098e81f1047ef07978c974166c08e8e4ea0af4223f91529a2c3f1bf1"
+        },
+        "geometry/shot_ffid_0053.csv": {
+          "bytes": 3838,
+          "sha256": "9f51e0bcd8f1465b8e255fd5027dc1545f091609d03f7a8b9536631652996454"
+        }
+      }
+    },
+    {
+      "ffid": 153,
+      "source_shot_index_zero_based": 150,
+      "source_x_m": 7112.0,
+      "source_byte_range": [
+        112323600,
+        113072399
+      ],
+      "files": {
+        "raw/shot_ffid_0153.sgy": {
+          "bytes": 752400,
+          "sha256": "1cf6692055a4f6f01b7387b1ea9df8c3dc3066d0f2efab57f024fcf40be54953"
+        },
+        "csv_256x120/shot_ffid_0153_t2048ms.csv": {
+          "bytes": 353531,
+          "sha256": "4fcf65f89ced71cdcce20af1c68d517d0fc744aa44758f9c650723865229761b"
+        },
+        "geometry/shot_ffid_0153.csv": {
+          "bytes": 3838,
+          "sha256": "9ac1453cf6b600fda2eafc10c8c7c191dd3eda08e509665a2b15edd7039b9f65"
+        }
+      }
+    },
+    {
+      "ffid": 253,
+      "source_shot_index_zero_based": 250,
+      "source_x_m": 9612.0,
+      "source_byte_range": [
+        187203600,
+        187952399
+      ],
+      "files": {
+        "raw/shot_ffid_0253.sgy": {
+          "bytes": 752400,
+          "sha256": "c2541d7b2368cca60f812e36d4bc9284813bcf6c065f24f650bc60f094c758ca"
+        },
+        "csv_256x120/shot_ffid_0253_t2048ms.csv": {
+          "bytes": 354056,
+          "sha256": "87b3e250ade978b4d507478f4d497106bc9e3cbf55784165459c88e4e893d56e"
+        },
+        "geometry/shot_ffid_0253.csv": {
+          "bytes": 3838,
+          "sha256": "f4df26a2b5ed588e77d3ea1443e378007d1336851513a8f6e51056227dd9b3c1"
+        }
+      }
+    },
+    {
+      "ffid": 353,
+      "source_shot_index_zero_based": 350,
+      "source_x_m": 12112.0,
+      "source_byte_range": [
+        262083600,
+        262832399
+      ],
+      "files": {
+        "raw/shot_ffid_0353.sgy": {
+          "bytes": 752400,
+          "sha256": "37f1cd3a46c07ab461ff213f0ba7a56db641716b5351cf8bd9c53b8d8a3c7e6f"
+        },
+        "csv_256x120/shot_ffid_0353_t2048ms.csv": {
+          "bytes": 354263,
+          "sha256": "f59001b22cf6fce190b3900edcca4939998b944f14ff87a1bf020c0344c36baf"
+        },
+        "geometry/shot_ffid_0353.csv": {
+          "bytes": 4033,
+          "sha256": "745be8be54f68fbecb1f50947f864827e1a69aa9f84fc1b2b366fd0fee61fa57"
+        }
+      }
+    },
+    {
+      "ffid": 453,
+      "source_shot_index_zero_based": 450,
+      "source_x_m": 14687.0,
+      "source_byte_range": [
+        336963600,
+        337712399
+      ],
+      "files": {
+        "raw/shot_ffid_0453.sgy": {
+          "bytes": 752400,
+          "sha256": "398c3cb527c7b805d5d33e1065c35ada2f017c33bc1a643ed03a9694ad2d45e7"
+        },
+        "csv_256x120/shot_ffid_0453_t2048ms.csv": {
+          "bytes": 354847,
+          "sha256": "242a95114e822f1f980f56da1752d4ab6da302dcd5720399273498210a7a6fab"
+        },
+        "geometry/shot_ffid_0453.csv": {
+          "bytes": 4078,
+          "sha256": "95fd3626453b8c22aa701dfad88e3f17ed7f158f26e3bca687fce458baa6f7d1"
+        }
+      }
+    },
+    {
+      "ffid": 553,
+      "source_shot_index_zero_based": 550,
+      "source_x_m": 17187.0,
+      "source_byte_range": [
+        411843600,
+        412592399
+      ],
+      "files": {
+        "raw/shot_ffid_0553.sgy": {
+          "bytes": 752400,
+          "sha256": "5ca85a7b6f191e9f671e38bbeaa5a651c6e2366ca468e81450ccdc79b9844952"
+        },
+        "csv_256x120/shot_ffid_0553_t2048ms.csv": {
+          "bytes": 354753,
+          "sha256": "b0c06194293c88bc1b75cf2c77c6d2323714d549e3fdbcb17093bd8a48688461"
+        },
+        "geometry/shot_ffid_0553.csv": {
+          "bytes": 4078,
+          "sha256": "6ecb13f2bbd1d612bec1ec3a8b314f5c86c25852aa1cb866bff82dc6245d1045"
+        }
+      }
+    },
+    {
+      "ffid": 653,
+      "source_shot_index_zero_based": 650,
+      "source_x_m": 19687.0,
+      "source_byte_range": [
+        486723600,
+        487472399
+      ],
+      "files": {
+        "raw/shot_ffid_0653.sgy": {
+          "bytes": 752400,
+          "sha256": "63aaa046dc1899bbc2ead286c2a633bd4e81a6bf24e49d08c90fc4c2e66ccc99"
+        },
+        "csv_256x120/shot_ffid_0653_t2048ms.csv": {
+          "bytes": 354496,
+          "sha256": "9091a9762d604f1b5b29b4ceb7307c1434e122ac6bef94b4792602be12abbc58"
+        },
+        "geometry/shot_ffid_0653.csv": {
+          "bytes": 4078,
+          "sha256": "36333796c3b4167c49d3b6b2297b1d852260c82615538fd77bf438d13b7037a5"
+        }
+      }
+    },
+    {
+      "ffid": 753,
+      "source_shot_index_zero_based": 750,
+      "source_x_m": 22262.0,
+      "source_byte_range": [
+        561603600,
+        562352399
+      ],
+      "files": {
+        "raw/shot_ffid_0753.sgy": {
+          "bytes": 752400,
+          "sha256": "891ef19eb9b7e9a981d693b12a809c5d242b791f38a1c7cb8ff99ab65939ed36"
+        },
+        "csv_256x120/shot_ffid_0753_t2048ms.csv": {
+          "bytes": 354561,
+          "sha256": "977e24c84f8d2d3c0a2d91a4352e7eea31de94c3349a97f5adeaa55bfd6704f4"
+        },
+        "geometry/shot_ffid_0753.csv": {
+          "bytes": 4078,
+          "sha256": "d6c787cbf9071141ef9657b4b60d1e740a7bd4f90ac8278c3bb14b11cd713898"
+        }
+      }
+    },
+    {
+      "ffid": 853,
+      "source_shot_index_zero_based": 850,
+      "source_x_m": 24762.0,
+      "source_byte_range": [
+        636483600,
+        637232399
+      ],
+      "files": {
+        "raw/shot_ffid_0853.sgy": {
+          "bytes": 752400,
+          "sha256": "5191c98f0defa139d99d50eb53569e51f77f567f7fb7f996a3c6c363bc1b00e6"
+        },
+        "csv_256x120/shot_ffid_0853_t2048ms.csv": {
+          "bytes": 354739,
+          "sha256": "6e41cb394a0f115e8c86282914d88434077c6b3a41daa2450454060db4c929ed"
+        },
+        "geometry/shot_ffid_0853.csv": {
+          "bytes": 4078,
+          "sha256": "02fc0724b41143db2a58e6369332875741c41601de2614bfe020388037cb655a"
+        }
+      }
+    },
+    {
+      "ffid": 953,
+      "source_shot_index_zero_based": 950,
+      "source_x_m": 27262.0,
+      "source_byte_range": [
+        711363600,
+        712112399
+      ],
+      "files": {
+        "raw/shot_ffid_0953.sgy": {
+          "bytes": 752400,
+          "sha256": "64fecd228fb7774d1cb1c33dd42d9d3893776c8e2107f0841c82cebd28fbb735"
+        },
+        "csv_256x120/shot_ffid_0953_t2048ms.csv": {
+          "bytes": 355334,
+          "sha256": "411ae789417fa19959752eb3c388422d838e31e5536de3fda5cb4fcaf93d40a0"
+        },
+        "geometry/shot_ffid_0953.csv": {
+          "bytes": 4078,
+          "sha256": "b08056b29a66b41f47ec74c022a7fbf69e8fb697ae4cb50f5406ca6020f9c04e"
+        }
+      }
+    }
+  ]
+}

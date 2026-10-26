@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "scope": "Viking dataset, Python regressions and full new field-data protocol; excludes missing legacy RRAW integration",
+  "python": {
+    "run": 85,
+    "skipped": 4,
+    "failures": 0,
+    "errors": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "passed": 81
+  },
+  "registered_inputs_verified": 32,
+  "current_research_sources_match_frozen_run": true,
+  "dataset_still_matches": true,
+  "analysis_hashes_match": true,
+  "search_cases": 45,
+  "recovery_cases": 450,
+  "native_calls": 1770,
+  "native_failures": 0,
+  "isolation": {
+    "case": "ffid53_m36_seed20261024_Jitter",
+    "transformation": "H <- 13*H+7; K unchanged",
+    "selection_unchanged": true,
+    "fixed_max_difference": 0.0,
+    "selected_max_difference": 0.0,
+    "passed": true
+  },
+  "independent_surveys": 1,
+  "inferential_tests_performed": false,
+  "experiment_manifest_sha256": "f2e9bf664e4d16a80028d4d79728dd5ab29e24549bb97b368d32de0a486357f7",
+  "analysis_manifest_sha256": "199b2b2976d5a35c724a1e9be456085b0d22626ab3b5fe6d07c2a449d356ff2f",
+  "figures": {
+    "search.png": "f1d840189b8271f269d50e919ecc154430f76beedce53e0aacd9ada2289c2236",
+    "recovery.png": "b112dd3b68bcf9c5339a4ea1a8f0a9b96cabdef878aec1b4e1d66285317985f9",
+    "shot_differences.png": "20ced353b4ba68cbc5a7065d2c6ffd1c4ef0797a231d720721cd5acc78a04e86"
+  }
+}
