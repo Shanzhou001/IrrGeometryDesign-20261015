@@ -88,6 +88,8 @@ python -B pipeline.py module research.analysis.viking_results --root results/new
 
 ## Viking v2：恢复基线、覆盖与信号目标、多隐藏集和多时间窗
 
+已执行的首轮完整批次及四项任务结论见 [VIKING_V2_20261026.md](VIKING_V2_20261026.md)，本地结果图入口为 [v2 图集](figures/research/viking_v2_20261026/index.html)。重新运行请使用新的输出目录。
+
 ```powershell
 python -B pipeline.py viking-v2 --out results/new_viking_v2
 ```

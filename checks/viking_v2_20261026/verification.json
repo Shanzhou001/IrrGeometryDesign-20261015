@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "completed_utc": "2026-10-26T07:39:22.194869+00:00",
+  "recovery_cases": 405,
+  "unique_searches": 117,
+  "native_calls": 2299,
+  "failed_native_calls": 0,
+  "independent_surveys": 1,
+  "inferential_tests_performed": false,
+  "checked_unique_files": 17674,
+  "checked_bytes": 2769474839,
+  "checked_prediction_arrays": 1620,
+  "projection_max_error": 0.0,
+  "score_max_error": 1.7763568394002505e-15,
+  "fourier_mu_max_error": 7.373628457818526e-09,
+  "weighted_objective_max_error": 7.4378710412936755e-09,
+  "fourier_comparison_tolerance": 1e-07,
+  "all_inner_splits_keep_pilot": true,
+  "all_inner_splits_exclude_outer_H": true,
+  "isolation": {
+    "nonpilot_feature_max_difference": 0.0,
+    "search_mask_unchanged": true,
+    "selection_unchanged": true,
+    "prediction_max_difference": 0.0,
+    "passed": true
+  },
+  "python_tests": {
+    "run": 97,
+    "skipped": 4,
+    "failures": 0,
+    "errors": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "passed": 93
+  },
+  "core_records": [
+    {
+      "name": "python",
+      "status": "passed"
+    },
+    {
+      "name": "release_core",
+      "status": "passed"
+    },
+    {
+      "name": "release_numerics",
+      "status": "passed"
+    },
+    {
+      "name": "release_projection",
+      "status": "passed"
+    },
+    {
+      "name": "release_pipeline",
+      "status": "passed"
+    },
+    {
+      "name": "debug_core",
+      "status": "passed"
+    },
+    {
+      "name": "debug_numerics",
+      "status": "passed"
+    },
+    {
+      "name": "debug_projection",
+      "status": "passed"
+    },
+    {
+      "name": "debug_pipeline",
+      "status": "passed"
+    }
+  ],
+  "legacy_compatibility": {
+    "passed": true,
+    "cases": 15,
+    "matched_fields": [
+      "id",
+      "method",
+      "n",
+      "m",
+      "seed",
+      "budget",
+      "ok",
+      "feasible",
+      "mu",
+      "objective",
+      "max_gap",
+      "max_gap_m",
+      "nn_cv",
+      "evals",
+      "attempts",
+      "status",
+      "mask"
+    ],
+    "old_executable_sha256": "5d53315b39776dae47c1205b24eb4b004dea524bdd1618302855b0b2598b94f3",
+    "new_executable_sha256": "7f5b296e7b792de74b8103b6921f569ee5fea4e8e4e4719cab4f84a9bd3614f7",
+    "scope": "Legacy fourteen-field queries: exact masks, objective values, counts and non-timing traces"
+  },
+  "executable_sha256": "7f5b296e7b792de74b8103b6921f569ee5fea4e8e4e4719cab4f84a9bd3614f7",
+  "plan_sha256": "741803d558788013734c52aa7fd7cefdeb837c87ec05fd200d9084d2f9740a1e",
+  "artifact_audit_script_sha256": "14989e01f83d839eff0099278ae5885cb39a2ebcd9bc1b55803b6414b4b3764c",
+  "experiment_manifest_sha256": "e73f361dfd2e3fa80cd1bc21e57ceec6f426e3539c38ad8cbf87d95f8a6c6f8c",
+  "analysis_manifest_sha256": "4608d688b1597a225dfbaf8887528fbd193fd8d9df2fca334c084129f59433c3",
+  "supporting_checks_sha256": {
+    "targeted_tests.log": "7454fde491c46462d8d0a341c10f1140f393eedef0588b986129b68726fb991e",
+    "debug_pilot_tests.log": "ed63a644f8d6b684bc3286f0a1123c22124fb590e9b5e43fb3b919e03a5094e4",
+    "release_build.log": "3eb8a5533760efc2daf3003bb0d15eb8768852d00faa5a88568854da74b2e54a",
+    "debug_build.log": "60bb1b2b05fd02a830356f456ccbb80de2ededbb74323c087ac585fb10cca9d0",
+    "launch.json": "ce75fa6256f04a27f3147f20e1460c1c77cad6d4603bc947001b85ab29266532"
+  },
+  "figures_sha256": {
+    "conditions.data.json": "e1bf988cfbb600a7014bbf23e54aadd85d34d50f5e9e99cc514e8f3a3d6c1e89",
+    "conditions.png": "6bac5926d37e0b108b263bc2857c749e97fb623ac4370cb554a016196160d37e",
+    "geometry.data.json": "2f3e10892fa45e5fbc7d682d262c199bcc7b13bc99e646ef5052946fd64805b9",
+    "geometry.png": "dbe4a8d6374cddaefb785b33e2f31e6e13f33a1531b6e33ec9e655aa693fa125",
+    "index.html": "804d5ba5c09b76442f05d03371ec7dd5aee8ffccae5f3e1effbe0d1c842eaf1b",
+    "recovery.data.json": "123a690e78e20ea3ad53e19a1c927e2bafbb62f0c94626eb2d9d7d48830bd390",
+    "recovery.png": "bced61da9caabb3f1cd577169d1c0a420e8ab64ddd32bdb9e190302a5a685ece"
+  },
+  "figure_visual_inspection": "All three PNGs inspected: readable labels and complete panels."
+}
