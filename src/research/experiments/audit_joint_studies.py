@@ -22,6 +22,7 @@ from research.data.convert_rraw_to_engine_csv import read_segy
 from research.data.make_59x256 import convert as legacy_convert
 from research.experiments.review_studies import validation_choice, linear_known, snr
 from research.common.hashing import digest
+from research.common.versioning import git_metadata
 
 from research.common.provenance import add_real_data_arguments, real_source_provenance, require_inputs
 from research.common.paths import ROOT, WORKSPACE, source_files
@@ -72,9 +73,9 @@ class Recorder:
         fingerprint={str(p.relative_to(ROOT)):digest(p) for p in paths}
         self.signature=(self.exe.stat().st_size,self.exe.stat().st_mtime_ns)
         self.state=dict(protocol=protocol,configuration=configuration,started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
-                        git_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT).decode().strip(),
                         program=str(self.exe),executable_sha256=digest(self.exe),source_sha256=fingerprint,
                         raw_sha256=digest(SOURCE) if protocol==PROTOCOL and not configuration.get('synthetic_only') and SOURCE.is_file() else None,python=platform.python_version(),numpy=np.__version__,platform=platform.platform(),steps={})
+        self.state.update(git_metadata(ROOT))
         self.save()
 
     def save(self):

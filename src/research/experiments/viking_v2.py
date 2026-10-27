@@ -48,16 +48,17 @@ def feasible_initial(eligible, pilot, m, seed, cap):
     raise ValueError('No coverage-feasible stratified initial mask found; change the declared plan, not outer scores')
 
 
-def signal_weights(pilot_values, pilot_indices, n, band=(5., 60.), floor=.25):
+def signal_weights(pilot_values, pilot_indices, n, band=(5., 60.), floor=.25, sample_interval_s=.004):
     """Pilot-only dirty spatial power; weights describe a PSF proxy, not a recovery guarantee."""
     values = np.asarray(pilot_values, float); indices = np.asarray(pilot_indices, int)
     if (values.ndim != 2 or len(values) < 32 or values.shape[1] != len(indices) or len(indices) < 2 or n < 2 or
             len(set(indices)) != len(indices) or np.any(indices < 0) or np.any(indices >= n) or
-            not np.isfinite(values).all() or not 0 < floor <= 1 or not 0 <= band[0] < band[1] <= 125):
+            not np.isfinite(values).all() or not 0 < floor <= 1 or not sample_interval_s>0 or
+            not 0 <= band[0] < band[1] <= .5/sample_interval_s):
         raise ValueError('Invalid pilot spectrum input')
     values = values-values.mean(axis=0, keepdims=True)
     transformed = np.fft.rfft(values*np.hanning(len(values))[:, None], axis=0)
-    frequencies = np.fft.rfftfreq(len(values), .004)
+    frequencies = np.fft.rfftfreq(len(values), sample_interval_s)
     keep = (frequencies >= band[0]) & (frequencies <= band[1])
     phase = np.exp(-2j*np.pi*np.outer(indices, np.arange(n))/n)
     power = np.sum(abs(transformed[keep]@phase)**2, axis=0)
@@ -65,7 +66,7 @@ def signal_weights(pilot_values, pilot_indices, n, band=(5., 60.), floor=.25):
     weights = np.array([floor+(1-floor)*np.max(np.sqrt(normalized*np.roll(normalized, d))) for d in range(1, n)])
     weights /= weights.max()
     weights = np.clip(weights, floor, 1.)
-    return weights, dict(pilot_indices=indices.tolist(), temporal_band_hz=list(band), floor=floor,
+    return weights, dict(pilot_indices=indices.tolist(), temporal_band_hz=list(band), sample_interval_s=sample_interval_s, floor=floor,
                          power=power.tolist(), weights=weights.tolist(),
                          definition='max_d w[d]*abs(DFT(mask)[d])/m; raw_w[d]=floor+(1-floor)*max_q sqrt(p[q]*p[q+d]); w=raw_w/max(raw_w)')
 
@@ -109,7 +110,7 @@ def prepare_search(recorder, windows, plan):
         for start, shots in windows.items():
             for ffid, shot in shots.items():
                 weights, info = signal_weights(shot.data[:, pilot], np.flatnonzero(pilot), plan['n'],
-                                               plan['signal_temporal_band_hz'], plan['weight_floor'])
+                                               plan['signal_temporal_band_hz'], plan['weight_floor'],plan['sample_interval_s'])
                 key = f"f{ffid}_w{start}_h{hset['id']}"
                 np.savez_compressed(folder/(key+'.npz'), observations=shot.data[:, pilot], pilot=pilot)
                 info['pilot_observations_sha256'] = digest(folder/(key+'.npz'))
@@ -185,8 +186,8 @@ def isolation_checks(recorder, windows, search, bindings, plan):
     row = search[binding['search_id']]; shot = windows[binding['window_start']][binding['ffid']]
     pilot = np.array(list(row['pilot_bits']), int).astype(bool)
     changed = shot.data.copy(); changed[:, ~pilot] = 13*changed[:, ~pilot]+7
-    before = signal_weights(shot.data[:, pilot], np.flatnonzero(pilot), plan['n'], plan['signal_temporal_band_hz'], plan['weight_floor'])[0]
-    after = signal_weights(changed[:, pilot], np.flatnonzero(pilot), plan['n'], plan['signal_temporal_band_hz'], plan['weight_floor'])[0]
+    before = signal_weights(shot.data[:, pilot], np.flatnonzero(pilot), plan['n'], plan['signal_temporal_band_hz'], plan['weight_floor'],plan['sample_interval_s'])[0]
+    after = signal_weights(changed[:, pilot], np.flatnonzero(pilot), plan['n'], plan['signal_temporal_band_hz'], plan['weight_floor'],plan['sample_interval_s'])[0]
     hidden = np.array(list(row['H_bits']), int).astype(bool)
     replay = query('pilot_isolation', np.array(list(row['initial_mask']), int), np.arange(120)*25., 'Adaptive',
                    binding['seed']+1, plan['budget'], hard_m=row['hard_gap_m'], eligible=~hidden,

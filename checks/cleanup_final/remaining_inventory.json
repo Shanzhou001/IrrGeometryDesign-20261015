@@ -1,0 +1,305 @@
+{
+  "status": "passed",
+  "scope": "Retained workspace content before final ZIP generation; .git object database excluded. Delivery ZIP and its self-bound report are generated after this inventory.",
+  "groups": {
+    "package_delivery.py": {
+      "files": 1,
+      "bytes": 225
+    },
+    "README.md": {
+      "files": 1,
+      "bytes": 951
+    },
+    "IrrGeometryDesign/.gitattributes": {
+      "files": 1,
+      "bytes": 164
+    },
+    "IrrGeometryDesign/.gitignore": {
+      "files": 1,
+      "bytes": 291
+    },
+    "IrrGeometryDesign/build.bat": {
+      "files": 1,
+      "bytes": 165
+    },
+    "IrrGeometryDesign/IrrGeometryDesign.sln": {
+      "files": 1,
+      "bytes": 1345
+    },
+    "IrrGeometryDesign/pipeline.py": {
+      "files": 1,
+      "bytes": 250
+    },
+    "IrrGeometryDesign/README.md": {
+      "files": 1,
+      "bytes": 21534
+    },
+    "IrrGeometryDesign/requirements.txt": {
+      "files": 1,
+      "bytes": 32
+    },
+    "IrrGeometryDesign/RUNNING.md": {
+      "files": 1,
+      "bytes": 12539
+    },
+    "IrrGeometryDesign/.github/workflows": {
+      "files": 1,
+      "bytes": 1729
+    },
+    "IrrGeometryDesign/build/bin": {
+      "files": 8,
+      "bytes": 10991732
+    },
+    "IrrGeometryDesign/checks/cleanup_final": {
+      "files": 1,
+      "bytes": 2587269
+    },
+    "IrrGeometryDesign/checks/closure_20261027": {
+      "files": 1623,
+      "bytes": 73752516
+    },
+    "IrrGeometryDesign/checks/maintenance_20261026": {
+      "files": 7,
+      "bytes": 10347
+    },
+    "IrrGeometryDesign/checks/repair_20261026_codec": {
+      "files": 31,
+      "bytes": 412621
+    },
+    "IrrGeometryDesign/checks/repair_20261026_fdct": {
+      "files": 19,
+      "bytes": 4110400
+    },
+    "IrrGeometryDesign/checks/repair_20261026_sps": {
+      "files": 46,
+      "bytes": 1876444
+    },
+    "IrrGeometryDesign/data/sps_recovery_20261026.json": {
+      "files": 1,
+      "bytes": 1198
+    },
+    "IrrGeometryDesign/data/public": {
+      "files": 67,
+      "bytes": 19354889
+    },
+    "IrrGeometryDesign/data/sps": {
+      "files": 3,
+      "bytes": 1288384
+    },
+    "IrrGeometryDesign/figures/aliases.tsv": {
+      "files": 1,
+      "bytes": 8103
+    },
+    "IrrGeometryDesign/figures/index.html": {
+      "files": 1,
+      "bytes": 16566
+    },
+    "IrrGeometryDesign/figures/assets": {
+      "files": 30,
+      "bytes": 317101
+    },
+    "IrrGeometryDesign/figures/gui": {
+      "files": 8,
+      "bytes": 214418
+    },
+    "IrrGeometryDesign/figures/research": {
+      "files": 41,
+      "bytes": 5314667
+    },
+    "IrrGeometryDesign/manuscript_sources/chinese": {
+      "files": 2,
+      "bytes": 36184
+    },
+    "IrrGeometryDesign/manuscript_sources/english": {
+      "files": 11,
+      "bytes": 81586
+    },
+    "IrrGeometryDesign/output/runtime_20261027": {
+      "files": 17,
+      "bytes": 24670021
+    },
+    "IrrGeometryDesign/results/f3_transfer_20261027": {
+      "files": 20871,
+      "bytes": 3079414341
+    },
+    "IrrGeometryDesign/results/repair_20261026": {
+      "files": 20378,
+      "bytes": 2863570097
+    },
+    "IrrGeometryDesign/results/viking_20261026": {
+      "files": 13346,
+      "bytes": 1765983395
+    },
+    "IrrGeometryDesign/results/viking_diagnosis_20261026": {
+      "files": 117,
+      "bytes": 15556496
+    },
+    "IrrGeometryDesign/results/viking_quality_20261027": {
+      "files": 3,
+      "bytes": 887431
+    },
+    "IrrGeometryDesign/results/viking_robust_20261026": {
+      "files": 97841,
+      "bytes": 13287887040
+    },
+    "IrrGeometryDesign/results/viking_robust_support_20261026": {
+      "files": 6,
+      "bytes": 7183173
+    },
+    "IrrGeometryDesign/results/viking_v2_20261026": {
+      "files": 19746,
+      "bytes": 2753289077
+    },
+    "IrrGeometryDesign/results/viking_v2_support_20261026": {
+      "files": 6,
+      "bytes": 6299890
+    },
+    "IrrGeometryDesign/src/build": {
+      "files": 5,
+      "bytes": 130835
+    },
+    "IrrGeometryDesign/src/native": {
+      "files": 138,
+      "bytes": 1604529
+    },
+    "IrrGeometryDesign/src/research": {
+      "files": 59,
+      "bytes": 459139
+    },
+    "IrrGeometryDesign/src/resources": {
+      "files": 3,
+      "bytes": 75586
+    },
+    "IrrGeometryDesign/src/tests": {
+      "files": 18,
+      "bytes": 107783
+    },
+    "IrrGeometryDesign/src/third_party": {
+      "files": 356,
+      "bytes": 5448565
+    },
+    "IrrGeometryDesign/tools/package_delivery.py": {
+      "files": 1,
+      "bytes": 5419
+    },
+    "IrrGeometryDesign/tools/verify_delivery.py": {
+      "files": 1,
+      "bytes": 5232
+    },
+    "IrrGeometryDesign/tools/verify_f3_transfer.py": {
+      "files": 1,
+      "bytes": 6207
+    },
+    "paper-tgrs/build_manifest.json": {
+      "files": 1,
+      "bytes": 9484
+    },
+    "paper-tgrs/build_manuscripts.py": {
+      "files": 1,
+      "bytes": 266
+    },
+    "paper-tgrs/check_manuscripts.py": {
+      "files": 1,
+      "bytes": 266
+    },
+    "paper-tgrs/manuscript.md": {
+      "files": 1,
+      "bytes": 28145
+    },
+    "paper-tgrs/manuscript_expanded.md": {
+      "files": 1,
+      "bytes": 39216
+    },
+    "paper-tgrs/README.md": {
+      "files": 1,
+      "bytes": 1587
+    },
+    "paper-tgrs/references.bib": {
+      "files": 1,
+      "bytes": 3226
+    },
+    "paper-tgrs/references.json": {
+      "files": 1,
+      "bytes": 5499
+    },
+    "paper-tgrs/reference_audit.json": {
+      "files": 1,
+      "bytes": 4141
+    },
+    "paper-tgrs/requirements.txt": {
+      "files": 1,
+      "bytes": 85
+    },
+    "paper-tgrs/robustness.md": {
+      "files": 1,
+      "bytes": 1580
+    },
+    "paper-tgrs/robustness_zh.md": {
+      "files": 1,
+      "bytes": 1293
+    },
+    "paper-tgrs/tgrs_trace_selection.pdf": {
+      "files": 1,
+      "bytes": 2227581
+    },
+    "paper-tgrs/tgrs_trace_selection.tex": {
+      "files": 1,
+      "bytes": 44949
+    },
+    "paper-tgrs/assets": {
+      "files": 10,
+      "bytes": 2185384
+    },
+    "reference_materials/CGU2025-基于Jitter采样的混合优化算法在观测系统中的应用研究-吴善州.doc": {
+      "files": 1,
+      "bytes": 12560
+    },
+    "reference_materials/《基于混合优化算法采样矩阵优化技术研究》.pptx": {
+      "files": 1,
+      "bytes": 3083962
+    },
+    "reference_materials/基于混合优化算法的非规则观测系统优化技术研究-结题验收（验收版）.pptx": {
+      "files": 1,
+      "bytes": 24469371
+    },
+    "reference_materials/基于混合优化算法采样矩阵优化技术研究--中期汇报.pptx": {
+      "files": 1,
+      "bytes": 7931746
+    },
+    "reference_materials/基于混合优化算法采样矩阵优化技术研究--开题报告书.pptx": {
+      "files": 1,
+      "bytes": 4985925
+    },
+    "reference_materials/2024级硕士研究生中期答辩-吴善州": {
+      "files": 13,
+      "bytes": 10797069
+    },
+    "reference_materials/2024级硕士研究生开题答辩-吴善州": {
+      "files": 7,
+      "bytes": 6915470
+    },
+    "thesis/README.md": {
+      "files": 1,
+      "bytes": 697
+    },
+    "thesis/thesis.md": {
+      "files": 1,
+      "bytes": 35487
+    },
+    "thesis/thesis.pdf": {
+      "files": 1,
+      "bytes": 2204662
+    },
+    "thesis/thesis.tex": {
+      "files": 1,
+      "bytes": 51518
+    },
+    "thesis/thesis_expanded.md": {
+      "files": 1,
+      "bytes": 45619
+    }
+  },
+  "originals_preserved": 25,
+  "deleted_files": 7644,
+  "deleted_bytes": 473098795
+}

@@ -10,6 +10,7 @@ import zipfile
 
 from research.common.hashing import digest
 from research.common.paths import ROOT
+from research.common.versioning import git_metadata
 
 MANIFEST='reproduction_manifest.json'
 BINARY_SUFFIXES={'.dll','.lib','.exe','.obj','.pdb','.idb','.ilk','.exp','.pyc','.pyo','.ncb','.suo'}
@@ -56,6 +57,10 @@ def create(out,run=None,support=None,figure_group=None,project=ROOT):
     for path in (project/'src').rglob('*'):
         if path.is_file() and path.suffix.lower() not in BINARY_SUFFIXES and not any(
                 part in {'__pycache__','.git','unit_test_sandbox'} for part in path.parts):add(path,'source')
+    for folder in ('manuscript_sources','tools'):
+        for path in (project/folder).rglob('*'):
+            if path.is_file() and path.suffix.lower() not in BINARY_SUFFIXES and '__pycache__' not in path.parts:
+                add(path,'editable_manuscript_and_delivery_source')
     for pattern in ('*.md','*.py','*.bat','*.sln','requirements.txt','.gitattributes','.gitignore'):
         for path in project.glob(pattern):
             if path.is_file():add(path,'project')
@@ -72,6 +77,14 @@ def create(out,run=None,support=None,figure_group=None,project=ROOT):
         add(path,'registered_input')
     for name in ('README.md','manifest.json','prepare_subset.py'):
         if (dataset/name).is_file():add(dataset/name,'input_documentation')
+    f3_registry=project/'src/research/data/f3_transfer_subset.json'
+    if f3_registry.is_file():
+        registered_f3=json.loads(f3_registry.read_text(encoding='utf8'))
+        for name,info in registered_f3['files'].items():
+            path=project/'data/public/f3_transfer_small'/relative_name(name)
+            if not path.is_file() or digest(path)!=info['sha256']:raise ValueError('F3 input missing or changed: '+name)
+            add(path,'registered_f3_input')
+        add(project/'data/public/f3_transfer_small/manifest.json','input_documentation')
     for path in (project/'data/sps').glob('*'):
         if path.is_file():add(path,'sps_input_unconfirmed_field_provenance')
     if (project/'data/sps_recovery_20261026.json').is_file():add(project/'data/sps_recovery_20261026.json','input_documentation')
@@ -100,13 +113,11 @@ def create(out,run=None,support=None,figure_group=None,project=ROOT):
             if digest(support/name)!=support_state[key]:raise ValueError('Frozen support identity changed: '+name)
         if frozen is not None and support_state['runtime_sha256']['IrrGeometryDesign.exe']!=frozen.get('executable_sha256'):
             raise ValueError('Frozen support does not match selected run')
-    try:
-        commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=project,text=True).strip()
-        dirty=bool(subprocess.check_output(['git','status','--porcelain'],cwd=project,text=True).strip())
-    except (OSError,subprocess.CalledProcessError):commit=None;dirty=None
+    version=git_metadata(project)
     state=dict(format='irr_compact_reproduction_v1',created_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
         scope='Editable source, registered local inputs, protocols and selected result summaries; bulk predictions and compiled dependencies excluded',
-        git_commit=commit,working_tree_dirty=dirty,python=platform.python_version(),
+        git_commit=version['git_commit'],working_tree_dirty=version['git_working_tree_dirty'],
+        git_metadata_status=version['git_metadata_status'],python=platform.python_version(),
         frozen_run_executable_sha256=None if frozen is None else frozen.get('executable_sha256'),
         availability=dict(bulk_predictions_included=False,compiled_runtime_included=False,
             legacy_RRAW_included=False,full_historical_archives_included=False),

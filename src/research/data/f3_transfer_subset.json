@@ -1,0 +1,121 @@
+{
+  "protocol": "f3_transfer_subset_v1",
+  "created_utc": "2026-10-26T16:49:37.913646+00:00",
+  "plan_sha256": "68c82d9333bf7a3bd3459d5b0ab8b1c69f8959d9bb3b7b79ace96f5cf77adedd",
+  "reference_record": "https://zenodo.org/records/3755060",
+  "member": {
+    "name": "data/test_once/test1_seismic.npy",
+    "compression": 8,
+    "crc32_publisher_zip": 2515254551,
+    "compressed_bytes": 271278959,
+    "uncompressed_bytes": 286008128,
+    "local_offset": 545989583
+  },
+  "npy_header": {
+    "descr": "<f8",
+    "fortran_order": false,
+    "shape": [
+      200,
+      701,
+      255
+    ]
+  },
+  "source_ranges": [
+    {
+      "start": 1051384450,
+      "end": 1051449985,
+      "sha256": "af03c57091fbc75e41f2cf44e603e3784993ade22dfd3f0e7ccc2f6f14fce5e6",
+      "content_range": "bytes 1051384450-1051449985/1051449986"
+    },
+    {
+      "start": 545989583,
+      "end": 545989612,
+      "sha256": "9c98fbce75481e0faf9943a19854520bc8e0cfa72d4b98fd33d552ce100ead08",
+      "content_range": "bytes 545989583-545989612/1051449986"
+    },
+    {
+      "start": 545989677,
+      "end": 547038252,
+      "sha256": "be4549b0dfa25eeaa2d4c6879b15d091386232344b181688ee8ead46372b849f",
+      "content_range": "bytes 545989677-547038252/1051449986"
+    },
+    {
+      "start": 547038253,
+      "end": 548086828,
+      "sha256": "9883896658874e024034439bb6e40802504ebc849bc2ba99f0806cf64ef3d557",
+      "content_range": "bytes 547038253-548086828/1051449986",
+      "client": "curl with certificate verification"
+    },
+    {
+      "start": 548086829,
+      "end": 549135404,
+      "sha256": "f6a0d41be2e9d13adcc723c8884a50847741cc6fdc280574af83d239990a23c9",
+      "content_range": "bytes 548086829-549135404/1051449986",
+      "client": "curl with certificate verification"
+    },
+    {
+      "start": 549135405,
+      "end": 550183980,
+      "sha256": "d71dd15708d70091c927293488a6105bd734720b9ad546949fe5d5918d340fcb",
+      "content_range": "bytes 549135405-550183980/1051449986",
+      "client": "curl with certificate verification"
+    },
+    {
+      "start": 550183981,
+      "end": 551232556,
+      "sha256": "51745ce686971f598d8a9359c03edd941948ade8e7a119f42cf5330670befbb2",
+      "content_range": "bytes 550183981-551232556/1051449986",
+      "client": "curl with certificate verification"
+    },
+    {
+      "start": 551232557,
+      "end": 552281132,
+      "sha256": "8fc7abd5cc9194225863989bbb3032aa17b9d380d81574a4fdc70324619974eb",
+      "content_range": "bytes 551232557-552281132/1051449986",
+      "client": "curl with certificate verification"
+    }
+  ],
+  "compressed_prefix_bytes": 6291456,
+  "full_zip_md5_locally_verified": false,
+  "full_member_crc_locally_verified": false,
+  "files": {
+    "section_0000.npz": {
+      "sha256": "c80bcccef5adf824ab559b929c197ad5c081ce905fe361866f8f2d9a6a05ee84",
+      "bytes": 232233,
+      "section_index": 0,
+      "shape": [
+        255,
+        120
+      ]
+    },
+    "section_0002.npz": {
+      "sha256": "cfd541e293f506c7ed05dc00b20f92127d68e3918ac265a76c76849effbe4e59",
+      "bytes": 232346,
+      "section_index": 2,
+      "shape": [
+        255,
+        120
+      ]
+    },
+    "section_0004.npz": {
+      "sha256": "32b547bca68ea698ceba839703820c222c9b9551ad5293fb300336684b5468cb",
+      "bytes": 232280,
+      "section_index": 4,
+      "shape": [
+        255,
+        120
+      ]
+    },
+    "source_docs/README.md": {
+      "sha256": "aaaf009472b232f8b5d041af35b8d38d0e60411a3e91875206b5269dc0737929",
+      "bytes": 6775
+    },
+    "source_docs/SOFTWARE_LICENSE.txt": {
+      "sha256": "3372b05dd244492f733eda35ad0f2762cfcf9bc7e09d88a3da1982c3c95d9ab3",
+      "bytes": 1077
+    }
+  },
+  "scope": "Three small poststack F3 sections from one previously unused survey; original physical time origin and amplitude calibration not asserted",
+  "coordinate_unit": "trace intervals; nominal coordinates are only a scale-invariant uniform-grid convention",
+  "rights_note": "Primary benchmark requests citation doi:10.1190/INT-2018-0249.1. Original F3 data terms and benchmark/software terms are distinct; source documents preserved. Local research use, no external publication of this package performed."
+}

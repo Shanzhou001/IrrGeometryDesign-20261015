@@ -22,3 +22,4 @@ ui_*.h
 unit_test_sandbox/
 /data/public/
 /results/*viking*/
+/results/f3_*/

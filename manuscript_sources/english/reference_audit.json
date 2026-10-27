@@ -1,0 +1,145 @@
+{
+  "checked_utc": "2026-10-26T08:20:57.939981+00:00",
+  "scope": "Bibliographic identity and primary source checks; no exhaustive literature review is claimed",
+  "records": [
+    {
+      "key": "jitter",
+      "url": "https://slim.gatech.edu/content/simply-denoise-wavefield-reconstruction-jittered-undersampling-0",
+      "doi": "10.1190/1.2841038",
+      "status": "primary_metadata_verified",
+      "title": [
+        "Simply denoise: Wavefield reconstruction via jittered undersampling"
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2008,
+            1,
+            1
+          ]
+        ]
+      },
+      "volume": "73",
+      "issue": "3",
+      "page": "V19-V28",
+      "publisher": "Society of Exploration Geophysicists"
+    },
+    {
+      "key": "curvelet",
+      "url": "https://slim.gatech.edu/content/non-parametric-seismic-data-recovery-curvelet-frames",
+      "doi": "10.1111/j.1365-246X.2007.03698.x",
+      "status": "primary_metadata_verified",
+      "title": [
+        "Non-parametric seismic data recovery with curvelet frames"
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2008,
+            4
+          ]
+        ]
+      },
+      "volume": "173",
+      "issue": "1",
+      "page": "233-248",
+      "publisher": "Oxford University Press (OUP)"
+    },
+    {
+      "key": "fdct",
+      "url": "https://math.mit.edu/icg/papers/FDCT.pdf",
+      "doi": "10.1137/05064182X",
+      "status": "primary_page_or_known_doi",
+      "metadata_error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "key": "sa",
+      "url": "https://doi.org/10.1126/science.220.4598.671",
+      "doi": "10.1126/science.220.4598.671",
+      "status": "primary_metadata_verified",
+      "title": [
+        "Optimization by Simulated Annealing"
+      ],
+      "published": {
+        "date-parts": [
+          [
+            1983,
+            5,
+            13
+          ]
+        ]
+      },
+      "volume": "220",
+      "issue": "4598",
+      "page": "671-680",
+      "publisher": "American Association for the Advancement of Science (AAAS)"
+    },
+    {
+      "key": "fista",
+      "url": "https://epubs.siam.org/doi/10.1137/080716542",
+      "doi": "10.1137/080716542",
+      "status": "primary_metadata_verified",
+      "title": [
+        "A Fast Iterative Shrinkage-Thresholding Algorithm for Linear Inverse Problems"
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2009,
+            1,
+            1
+          ]
+        ]
+      },
+      "volume": "2",
+      "issue": "1",
+      "page": "183-202",
+      "publisher": "Society for Industrial & Applied Mathematics (SIAM)"
+    },
+    {
+      "key": "holm",
+      "url": "https://www.jstor.org/stable/4615733",
+      "doi": null,
+      "status": "primary_page_checked",
+      "note": "Author/institution page, publisher issue index or dataset record checked in browser."
+    },
+    {
+      "key": "viking",
+      "url": "https://zenodo.org/records/23481108",
+      "doi": null,
+      "status": "primary_page_checked",
+      "note": "Author/institution page, publisher issue index or dataset record checked in browser."
+    },
+    {
+      "key": "stable",
+      "url": "https://arxiv.org/abs/math/0503066",
+      "doi": "10.1002/cpa.20124",
+      "status": "primary_metadata_verified",
+      "title": [
+        "Stable signal recovery from incomplete and inaccurate measurements"
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2006,
+            3
+          ]
+        ]
+      },
+      "volume": "59",
+      "issue": "8",
+      "page": "1207-1223",
+      "publisher": "Wiley"
+    },
+    {
+      "key": "f3",
+      "doi": "10.1190/INT-2018-0249.1",
+      "status": "primary_author_repository_and_record_verified",
+      "urls": [
+        "https://github.com/yalaudah/facies_classification_benchmark/blob/main/README.md",
+        "https://zenodo.org/records/3755060",
+        "https://arxiv.org/abs/1901.07659"
+      ]
+    }
+  ]
+}

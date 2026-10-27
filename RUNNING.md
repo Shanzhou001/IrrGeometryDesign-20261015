@@ -76,7 +76,7 @@ python -B pipeline.py viking-v2 --out results/new_viking_pilot --shots 53 --wind
 python -B pipeline.py viking-v2 --out results/new_viking_robust --seeds 84011 94217 105953 --inner-folds 2 --workers 16
 ```
 
-完整网格计划为 1215 个恢复案例和 351 个唯一搜索；实际完成状态、调用数和结果见 [项目进展](PROJECT_PROGRESS_20261026.md)。它仍是同一工区的开发稳健性检查，不能升级为独立工区验证。
+完整网格计划为 1215 个恢复案例和 351 个唯一搜索；实际完成状态、调用数和结果见 [当前结果总览](README.md)。它仍是同一工区的开发稳健性检查，不能升级为独立工区验证。
 
 正式运行前冻结程序、源码、输入、协议和候选池；运行期间不重建程序、不改参数。批次实际进行非先导振幅干预与外层 H 振幅干预，核对权重、掩码、模型选择及预测隔离。
 
@@ -88,7 +88,7 @@ python -B pipeline.py viking-v2 --out results/new_viking_robust --seeds 84011 94
 python -B pipeline.py module research.analysis.viking_v2_results --root results/new_viking_v2 --out results/new_viking_v2_analysis --group research/new_viking_v2_analysis
 ```
 
-首轮结果与局限见 [VIKING_V2_20261026.md](VIKING_V2_20261026.md)。新增批次不回写首轮清单。
+首轮结果与局限见 [当前结果与材料总览](README.md)。新增批次不回写首轮清单。
 
 通用批次复核器可使用对应的冻结源码 ZIP，避免把旧批次与后续当前源码误当作同一实现：
 
@@ -96,7 +96,7 @@ python -B pipeline.py module research.analysis.viking_v2_results --root results/
 python -B pipeline.py module research.validation.verify_viking_batch --root results/viking_robust_20261026 --out checks/new_robust_archive_audit --source-archive results/viking_robust_support_20261026/implementation_source.zip
 ```
 
-复核首轮 v2 时改用该批次的结果目录与冻结源码包。旧 `checks/viking_v2_20261026/verify_completed.py` 及其哈希仍保留为当时的检查证据；后续运行推荐上述通用入口。
+复核首轮 v2 时改用该批次的结果目录与冻结源码包。旧的一次性核验脚本已随重复检查目录清理，当前统一使用上述复核器及匹配的冻结源码。
 
 ## 4. 合成研究与二维 SPS
 
@@ -110,11 +110,11 @@ python -B pipeline.py module research.analysis.synthetic_results --v4-root resul
 
 合成分析以 6 个干净结构模板为统计单位，先聚合噪声和掩码重复。保留负 SNR；不把重复当作独立地质模型，不预设某种搜索或恢复器必须胜出。
 
-GUI 逐线模板与实际 SPS 二维目标分别实现。SPS 使用 `SpatialFourier2D_v1`、实际 `(x,y)`、有限二维字典和增量交换评价。已有 9072 检波点的真实几何集成及显式 Gram 复核；这不能替代二维真实波形或成像质量评价。历史记录见 [修复记录](REPAIR_20261026.md)。
+GUI 逐线模板与实际 SPS 二维目标分别实现。SPS 使用 `SpatialFourier2D_v1`、实际 `(x,y)`、有限二维字典和增量交换评价。已有 9072 检波点的真实几何集成及显式 Gram 复核；这不能替代二维真实波形或成像质量评价。历史记录见 [实现与验证总览](README.md)。
 
 ## 5. 可编辑稿件与材料归档
 
-英文和中文稿件由项目相邻的 `paper-tgrs/`、`thesis/` 管理；构建入口和当前产物见各自目录及 [项目进展](PROJECT_PROGRESS_20261026.md)。图件必须由已保存数值生成，不能从 PNG 反造结果表。运行 `python -B pipeline.py figures` 只刷新图库，不补做实验。
+英文和中文主源文件、构建器及校验器统一放在项目内 `manuscript_sources/`；项目相邻的 `paper-tgrs/`、`thesis/` 为兼容输出目录。编辑项目内主源，再运行原构建入口。图件必须由已保存数值生成，不能从 PNG 反造结果表。运行 `python -B pipeline.py figures` 只刷新图库，不补做实验。
 
 从sci工作区执行：
 
@@ -125,9 +125,38 @@ python -B paper-tgrs/build_manuscripts.py
 
 Markdown为主编辑源，表格由冻结CSV生成并核对分析清单。阅读PDF使用ReportLab及本地Windows字体；TeX/BibTeX可编辑导出，但本环境未执行XeLaTeX编译。中文稿是完整六章研究初稿，尚未套用学校模板。
 
-大体积数据、程序与 Viking 结果不全部受 Git 管理。交付时需要同时准备正式登记数据、冻结程序/源码、协议、原始结果及清单依赖，再验证哈希。新增可复现包工具的准确命令和本轮交付记录见 [维护记录](MAINTENANCE_20261026.md)。
+大体积数据、程序与 Viking 结果不全部受 Git 管理。交付时需要同时准备正式登记数据、冻结程序/源码、协议、原始结果及清单依赖，再验证哈希。新增可复现包工具的准确命令和本轮交付记录见 [最终整理说明](README.md)。
 
-## 6. 历史可选入口
+## 6. 轻量包、独立迁移与实际解压验收
+
+2026-10-27交付补充了原生命令行运行依赖。解压后可直接指定冻结程序，不要求安装Qt或配置Git；编译源码和Debug全范围检查仍需要原工具链。
+
+```powershell
+python -m venv .venv
+.venv/Scripts/python.exe -m pip install -r requirements.txt
+.venv/Scripts/python.exe -B pipeline.py viking-v2 --out results/new_zip_run --exe output/runtime_20261027/IrrGeometryDesign.exe --shots 53 --windows 512 --counts 60 --seeds 84011 --hidden-sets r271828 --budget 80 --inner-folds 2 --workers 4
+.venv/Scripts/python.exe -B pipeline.py module research.experiments.f3_transfer --out results/new_f3_transfer --exe output/runtime_20261027/IrrGeometryDesign.exe --workers 12
+```
+
+F3命令是冻结方案的重复计算，不是重新获得一个独立测试集；若根据已见F3结果修改方法，需另找外部评价资料。F3使用道/采样点索引，不把名义25单位网格当作已确认的物理坐标。
+
+对完整交付ZIP的独立目录实测（项目根目录执行）：
+
+```powershell
+python tools/verify_delivery.py ../delivery/paper_project_final.zip --python .venv/Scripts/python.exe --out checks/new_delivery_replay
+```
+
+`--python`应指向新建虚拟环境，先安装项目与`manuscript_sources/english/requirements.txt`依赖。精确版本见`checks/closure_20261027/clean_environment_requirements.txt`。校验器清除外部Qt/Git路径，解压到临时非Git目录，执行核心测试、五方法缩小案例、预测独立复核和两份论文重建。验收在同一Windows主机上进行，不代表全新物理操作系统安装。
+
+完整F3本地归档可另核验：
+
+```powershell
+python -B tools/verify_f3_transfer.py --root results/f3_transfer_20261027 --out checks/new_f3_audit
+```
+
+事后波形诊断入口为`research.analysis.waveform_quality`，读取已完成Viking批次，核对冻结预测后计算RMS比、相关性及频带相位误差。它不修改旧批次，不参与参数选择，不推定物理标定或成像效果。最新验收依据见[当前结果与材料总览](README.md)。
+
+## 7. 历史可选入口
 
 Viking v1 的复现入口仍为：
 
@@ -143,4 +172,4 @@ python -B pipeline.py viking --out results/new_viking_v1 --workers 8
 python -B pipeline.py check --legacy --out checks/new_legacy_check --source-confirmation data/real_seismic/source_confirmation.json
 ```
 
-旧 v4/v5 论文四图依赖原始表与来源记录。输入缺失时应停止，不能从图片推造数据。早期进展说明保留于 [历史快照](docs/history/README_before_viking_primary_20261026.md)，其中路径和完成状态按历史时点理解。旧报告中的 `full` 含义属于当时的 RRAW 检查，原清单及状态保持不变，不按新范围重新标为通过。
+旧 v4/v5 论文四图依赖原始表与来源记录。输入缺失时应停止，不能从图片推造数据。未使用的旧快照及旧图已清理。历史RRAW的缺失不被重新标为通过；仍被当前论文引用的独立实验和审计记录保留。

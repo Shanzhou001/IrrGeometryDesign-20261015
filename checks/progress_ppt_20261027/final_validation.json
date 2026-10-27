@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "slides": 5,
+  "source_images": 6,
+  "all_original_image_bytes_preserved": true,
+  "native_tables_on_slides": [
+    3,
+    5
+  ],
+  "notes": 5,
+  "final_path": "D:\\Desktop\\sci\\delivery\\研究进展汇报.pptx",
+  "sha256": "b1460d4625116176fdab1a753e301963c4c5a2f871ce2d9eb4a715514835a8f6",
+  "bytes": 1416117,
+  "visual_review": "All five final slides inspected at 1600x900. No text overflow, clipping or off-slide shapes. Charts, captions, table values and negative results reviewed.",
+  "authoring": "Native Microsoft PowerPoint COM after Artifact Session host and bundled authoring runtime were unavailable",
+  "fontPolicy": {
+    "basis": "design",
+    "families": [
+      "Microsoft YaHei",
+      "微软雅黑"
+    ]
+  }
+}

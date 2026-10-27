@@ -1,8 +1,0 @@
-{
-  "case": "ffid53_m60_seed20261026_Jitter",
-  "transformation": "H <- 13*H+7; K unchanged",
-  "selection_unchanged": true,
-  "fixed_max_difference": 0.0,
-  "selected_max_difference": 0.0,
-  "passed": true
-}

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "completed_utc": "2026-10-26T17:04:24.468416+00:00",
+  "experiment_manifest_sha256": "000be7fa35a0442bd4c9fd321bffd0776b7ed8c703af3d4b5b778dc0e6d201ac",
+  "script_sha256": "720fca995d9ead4aff28b988344c19145270744d2401347f78b8d3fac1aa78ea",
+  "checked_unique_files": 18580,
+  "checked_bytes": 3076643236,
+  "cases": 270,
+  "prediction_arrays": 1080,
+  "searches": 126,
+  "native_calls": 2496,
+  "projection_max_error": 0.0,
+  "score_max_error": 3.552713678800501e-15,
+  "fourier_mu_max_error": 1.3511153196255066e-08,
+  "weighted_objective_max_error": 1.3309718771559176e-08,
+  "independent_surveys": 1,
+  "scope": "One additional poststack survey; masks, hashes, inner splits, scores and information intervention; no imaging claim"
+}
