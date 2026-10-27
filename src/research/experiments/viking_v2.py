@@ -72,7 +72,8 @@ def signal_weights(pilot_values, pilot_indices, n, band=(5., 60.), floor=.25):
 
 def make_plan(args):
     plan = json.loads(PROTOCOL_FILE.read_text(encoding='utf8'))
-    for key, value in [('ffids', args.shots), ('window_starts', args.windows), ('counts', args.counts)]:
+    for key, value in [('ffids', args.shots), ('window_starts', args.windows), ('counts', args.counts),
+                       ('seeds', getattr(args, 'seeds', None))]:
         if value is not None:
             plan[key] = list(value)
     if args.hidden_sets is not None:
@@ -84,11 +85,13 @@ def make_plan(args):
         plan['budget'] = args.budget
     if args.inner_folds is not None:
         plan['inner_folds'] = args.inner_folds
-    for field in ['ffids', 'window_starts', 'counts']:
+    for field in ['ffids', 'window_starts', 'counts', 'seeds']:
         if not plan[field] or len(set(plan[field])) != len(plan[field]):
             raise ValueError('Plan lists must be nonempty and distinct: '+field)
     if plan['budget'] < 1 or plan['inner_folds'] not in (1, 2) or args.workers < 1:
         raise ValueError('Invalid evaluation budget, folds or workers')
+    if any(not isinstance(seed, int) or seed < 0 or seed >= 2**32-1 for seed in plan['seeds']):
+        raise ValueError('Seeds must be unsigned 32-bit integers leaving room for seed+1')
     if any(str(m) not in plan['hard_gap_m'] or m <= plan['pilot_count']+2 for m in plan['counts']):
         raise ValueError('Counts must use registered gap limits and leave inner validation observations')
     plan['recovery_candidates'] = list(CANDIDATES)
@@ -217,6 +220,7 @@ def run(args):
     windows, provenance = load_windows(plan['window_starts'], args.dataset, plan['ffids'])
     config = dict(plan=plan, dataset_provenance=provenance, independent_surveys=1,
                   pilot_cost_included_in_retained_count=True, pilot_in_all_inner_train_sets=True,
+                  worker_count=args.workers,
                   source_status=provenance['status'], statistical_scope='same-survey descriptive development experiment')
     recorder = Recorder(output, args.exe, config, protocol=PROTOCOL)
     try:
@@ -257,6 +261,7 @@ def main():
     parser.add_argument('--shots', type=int, nargs='+')
     parser.add_argument('--windows', type=int, nargs='+')
     parser.add_argument('--counts', type=int, nargs='+')
+    parser.add_argument('--seeds', type=int, nargs='+', help='distinct paired mask seeds, frozen before scoring')
     parser.add_argument('--hidden-sets', nargs='+')
     parser.add_argument('--budget', type=int)
     parser.add_argument('--inner-folds', type=int, choices=[1, 2])

@@ -20,13 +20,27 @@ jobs:
           python-version: "3.12"
       - name: Install Python dependencies
         run: python -m pip install -r requirements.txt
-      - name: Run Python tests and preserve the complete summary
+      - name: Run Python scope and record missing local capabilities
         shell: pwsh
         run: |
-          python -B pipeline.py test 2>&1 | Tee-Object -FilePath python-tests.log
+          python -B pipeline.py check --python-only --out checks/ci-python 2>&1 | Tee-Object -FilePath python-tests.log
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Publish exact validation scope
+        if: always()
+        shell: pwsh
+        run: |
+          if (Test-Path checks/ci-python/checks.json) {
+            $report = Get-Content -Raw checks/ci-python/checks.json | ConvertFrom-Json
+            $tests = $report.records[0].tests
+            "Python scope: $($report.status). Tests: $($tests.passed) passed, $($tests.skipped) skipped, $($tests.failures) failed, $($tests.errors) errors." >> $env:GITHUB_STEP_SUMMARY
+            "Excluded: $($report.excluded -join '; '). This job does not validate the Windows native application or measured datasets." >> $env:GITHUB_STEP_SUMMARY
+            foreach ($skip in $report.records[0].skips) { "- Skipped $($skip.test): $($skip.reason)" >> $env:GITHUB_STEP_SUMMARY }
+          }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: python-test-log
-          path: python-tests.log
+          path: |
+            python-tests.log
+            checks/ci-python/checks.json
+            checks/ci-python/python.log

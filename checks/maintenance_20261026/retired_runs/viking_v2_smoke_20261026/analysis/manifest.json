@@ -1,0 +1,21 @@
+{
+  "protocol": "viking_v2_results_v1",
+  "source_manifest_sha256": "7bd4eec71c7a2217e631fc67be6e3c1103a7f6adc4631b3d5a820c83ec9a50b5",
+  "plan_sha256": "79c34280309010996eebb4e76a569a1d6e02f6a74a18a415d051bd3d66c53b8b",
+  "independent_surveys": 1,
+  "inferential_tests_performed": false,
+  "candidate_selection_counts": {
+    "curvelet_cold80": 3,
+    "curvelet_cold_strong40": 2
+  },
+  "table_sha256": {
+    "cell_means.csv": "28d170da6bb9e1b67282fefa2a827e6bc40e4a4b5c13d8a4e57871d936680b60",
+    "condition_means.csv": "fcfc284dba276bce012f78ff14132de8a7ac6727632fb0840c5059c44e2d964a",
+    "geometry_means.csv": "cde2e8b67fc6eb20fab9541fe4994e9f2a4d2422bb6e81a52ecace0e78f9fcb8",
+    "overall_means.csv": "397a83464329b83d701dc3c3c0e52331c17fd35d5f176c49963e3c367c89a9dd",
+    "paired_effects.csv": "f97c4295a886b5e66bb3f9cc7313a25921efce7d5a7ac0bee848d3fd802ac06e",
+    "shot_means.csv": "0679136405e6976c2b8959ee60031377cc3f6afeb6e57a10a4bb89c4626d352e"
+  },
+  "figure_directory": "D:\\Desktop\\sci\\IrrGeometryDesign\\figures\\research\\viking_v2_smoke_20261026",
+  "script_sha256": "619eda3de0e81420c184a14f0da47f084d8cf94a331da422b5f75775f80372f6"
+}

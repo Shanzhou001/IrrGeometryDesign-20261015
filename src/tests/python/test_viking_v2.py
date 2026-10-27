@@ -57,6 +57,22 @@ class PilotProtocolTests(unittest.TestCase):
                 initial,_=study.feasible_initial(~hidden,pilot,m,84011,plan['hard_gap_m'][str(m)])
                 self.assertEqual(sum(initial),m);self.assertTrue(initial[pilot].all());self.assertFalse(np.any(initial&hidden))
 
+    def test_multiple_mask_seeds_are_frozen_and_remain_geometry_feasible(self):
+        args=argparse.Namespace(shots=None,windows=None,counts=None,hidden_sets=None,budget=None,
+                                inner_folds=2,workers=2,seeds=[84011,94217,105953])
+        plan=study.make_plan(args)
+        self.assertEqual(plan['seeds'],args.seeds);self.assertEqual(plan['inner_folds'],2)
+        for hset in plan['hidden_sets']:
+            hidden=np.zeros(120,bool);hidden[hset['indices']]=True;pilot=study.pilot_mask(~hidden,12)
+            for m in plan['counts']:
+                for seed in plan['seeds']:
+                    mask,_=study.feasible_initial(~hidden,pilot,m,seed,plan['hard_gap_m'][str(m)])
+                    self.assertEqual(mask.sum(),m);self.assertTrue(mask[pilot].all())
+                    self.assertFalse(np.any(mask&hidden))
+        for invalid in [[4,4],[-1],[2**32-1],[]]:
+            args.seeds=invalid
+            with self.assertRaises(ValueError):study.make_plan(args)
+
     def test_spectrum_weights_ignore_nonpilot_truth_and_are_scale_invariant(self):
         rng=np.random.default_rng(71);data=rng.normal(size=(256,120));eligible=np.ones(120,bool);eligible[4::8]=False
         pilot=study.pilot_mask(eligible,12);changed=data.copy();changed[:,~pilot]=1e10

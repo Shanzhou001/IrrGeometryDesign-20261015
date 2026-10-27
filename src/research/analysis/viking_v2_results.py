@@ -96,6 +96,12 @@ def statistics(search, recovery):
     shot = aggregate(cell, ['ffid', 'm', 'method', 'recovery'])
     overall = aggregate(shot, ['m', 'method', 'recovery'])
     conditions = aggregate(cell, ['window_start', 'hidden_set', 'm', 'method', 'recovery'])
+    # Mask seeds describe computational stability, never additional surveys.
+    seed_cells = [dict(ffid=r['ffid'], window_start=r['window_start'], hidden_set=r['hidden_set'],
+                       m=r['m'], method=r['method'], seed=r['seed'], recovery=kind,
+                       mean_snr=float(r[kind+'_snr']), mean_nmse=float(r[kind+'_nmse']))
+                  for r in recovery for kind in ('zero', 'linear', 'cold', 'fk', 'selected')]
+    mask_seed_means = aggregate(seed_cells, ['seed', 'm', 'method', 'recovery'])
     effects = []
     for m in sorted({r['m'] for r in cell}, key=int):
         for kind in ('cold', 'fk', 'selected'):
@@ -115,6 +121,7 @@ def statistics(search, recovery):
                      mean_evaluations=float(np.mean([int(r['evals']) for r in same])))
                 for (m, method), same in sorted(grouped(search, ['m', 'method']).items())]
     return dict(cell_means=cell, shot_means=shot, overall_means=overall, condition_means=conditions,
+                mask_seed_means=mask_seed_means,
                 paired_effects=effects, geometry_means=geometry)
 
 
@@ -169,6 +176,7 @@ def run(root, output, group):
     for name,records in tables.items():write_rows(output/(name+'.csv'),records)
     counts=dict(Counter(r['selected'] for r in recovery))
     summary=['# Viking v2 四项任务实验结果','',f"已完成 {len(recovery)} 组恢复、{len(plan['ffids'])} 炮、{len(plan['window_starts'])} 个时间窗、{len(plan['hidden_sets'])} 组隐藏集。",
+             f"配对掩码种子：{plan['seeds']}；每个案例使用 {plan['inner_folds']} 个不重叠内层验证分组。",
              f"每个布局含 {plan['pilot_count']} 道先导观测，计入保留数；这些道在内层训练中始终保留。",
              '同一工区中的炮、时间窗、隐藏集和随机种子均不作为独立工区样本；本批次是观察旧结果后冻结的新开发协议。','',
              '| 保留数 | 方法 | 固定冷启动 SNR | 独立 f-k SNR | 内层选择 SNR |','| --- | --- | --- | --- | --- |']
@@ -179,6 +187,7 @@ def run(root, output, group):
     summary+=['','单位 dB；负值保留，先平均掩码种子与各预设条件，再按炮汇总。',
               '模型选择分布：'+json.dumps(counts,ensure_ascii=False)+'。',
               '覆盖和信号加权的逐条件差值见 paired_effects.csv；加权 PSF 属于先导观测估计的代理目标，未建立恢复保证。',
+              '逐掩码种子均值见 mask_seed_means.csv；种子差异仅描述计算稳定性，不增加独立工区数。',
               '原始坐标单位码存在历史不一致，解释沿用文献道间距和已验证的相对几何；绝对振幅物理标定未建立。','']
     (output/'summary.md').write_text('\n'.join(summary),encoding='utf8')
     state=dict(protocol='viking_v2_results_v1',source_manifest_sha256=digest(root/'manifest.json'),

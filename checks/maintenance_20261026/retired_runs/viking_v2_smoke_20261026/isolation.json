@@ -1,0 +1,7 @@
+{
+  "nonpilot_feature_max_difference": 0.0,
+  "search_mask_unchanged": true,
+  "selection_unchanged": true,
+  "prediction_max_difference": 0.0,
+  "passed": true
+}

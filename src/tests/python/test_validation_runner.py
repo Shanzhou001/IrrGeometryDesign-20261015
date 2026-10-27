@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import sys
 import tempfile
+import zipfile
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -14,6 +15,8 @@ import numpy as np
 from research import pipeline
 from research.validation import run_audit_checks as runner
 from research.validation import pipeline_smoke, audit_projection
+from research.validation import reproducibility_bundle as bundle
+from research.common.hashing import digest
 
 
 class ValidationRunnerTests(unittest.TestCase):
@@ -24,16 +27,20 @@ class ValidationRunnerTests(unittest.TestCase):
         executable.parent.mkdir(parents=True);executable.write_bytes(b'fixture program')
         return root,workspace,source,executable
 
-    def run_fixture(self, folder, *, full=False, skip=0, missing=False, launch_error=False,
-                    source_change=None, summary=True, confirmed=True):
+    def run_fixture(self, folder, *, full=False, legacy=False, python_only=False, skip=0, missing=False, launch_error=False,
+                    source_change=None, summary=True, confirmed=True,legacy_skip=False):
         root,workspace,source,program=self.fixture(folder)
         out=Path(folder)/'checks'
-        if full and not missing:
-            for path in runner.external_inputs(workspace):path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b'fixture input')
+        current_inputs=[workspace/'data/current/input.sgy']
+        if (full or legacy) and not missing:
+            for path in (current_inputs if full else runner.external_inputs(workspace)):
+                path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(b'fixture input')
         calls=[]
         def run(command, **kwargs):
             name=Path(kwargs['stdout'].name).stem;calls.append(name)
             if name=='python' and summary:
+                reason='external RRAW.SGY dataset is not installed' if legacy_skip else 'fixture required dependency unavailable'
+                for index in range(skip):kwargs['stdout'].write((f'test_{index} (fixture.Tests) ... skipped \'{reason}\'\n').encode())
                 kwargs['stdout'].write(('Ran 5 tests in 0.001s\n\nOK'+(f' (skipped={skip})' if skip else '')+'\n').encode())
             if name=='release_core':
                 if source_change=='modified':source.write_text('changed')
@@ -44,12 +51,13 @@ class ValidationRunnerTests(unittest.TestCase):
         with ExitStack() as stack:
             stack.enter_context(patch.object(runner,'ROOT',root));stack.enter_context(patch.object(runner,'WORKSPACE',workspace))
             stack.enter_context(patch.object(runner,'source_files',side_effect=lambda:list((root/'src/native').glob('*.cpp'))))
+            stack.enter_context(patch.object(runner,'project_inputs',return_value=current_inputs))
             stack.enter_context(patch.object(runner,'executable',return_value=program))
             stack.enter_context(patch.object(runner,'native_environment',return_value={}))
             stack.enter_context(patch.object(runner.subprocess,'run',side_effect=run))
             stack.enter_context(patch.object(runner,'real_source_provenance',return_value=dict(status='declared_confirmed' if confirmed else 'unconfirmed_sensitivity',field_claims_eligible=confirmed)))
             stack.enter_context(patch('sys.stdout',new=io.StringIO()))
-            try:runner.checks(out,full=full,modes=('Release',))
+            try:runner.checks(out,full=full,legacy=legacy,python_only=python_only,modes=('Release',))
             except RuntimeError:pass
         return json.loads((out/'checks.json').read_text()),calls
 
@@ -60,24 +68,43 @@ class ValidationRunnerTests(unittest.TestCase):
         self.assertEqual((tests['run'],tests['passed'],tests['skipped']),(5,3,2))
         self.assertTrue(state['excluded']);self.assertNotIn('release_integration',calls)
 
-    def test_full_requires_zero_python_skips(self):
-        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,full=True,skip=1)
+    def test_legacy_requires_zero_python_skips(self):
+        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,legacy=True,skip=1,legacy_skip=True)
         self.assertEqual(state['status'],'incomplete')
         self.assertEqual(state['records'][0]['status'],'incomplete')
         self.assertIn('release_integration',calls)
 
-    def test_full_with_all_inputs_confirmed_and_no_skips_passes(self):
-        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,full=True)
+    def test_legacy_with_all_inputs_confirmed_and_no_skips_passes(self):
+        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,legacy=True)
         self.assertEqual(state['status'],'passed');self.assertIn('release_integration',calls)
 
-    def test_full_missing_inputs_is_incomplete_and_records_every_missing_path(self):
-        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,full=True,missing=True)
+    def test_legacy_missing_inputs_is_incomplete_and_records_every_missing_path(self):
+        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,legacy=True,missing=True)
         self.assertEqual(state['status'],'incomplete');self.assertEqual(len(state['missing_external_inputs']),6)
         self.assertNotIn('release_integration',calls)
 
     def test_unconfirmed_sensitivity_run_cannot_pass_full_validation(self):
-        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,full=True,confirmed=False)
+        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,legacy=True,confirmed=False)
         self.assertEqual(state['status'],'incomplete');self.assertIn('unconfirmed',state['external_preflight_error'])
+
+    def test_current_project_allows_only_declared_optional_legacy_skips(self):
+        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,full=True,skip=2,legacy_skip=True)
+        self.assertEqual(state['status'],'passed');self.assertEqual(state['scope'],'project')
+        self.assertIn('release_registered_data',calls);self.assertIn('sps_integration',calls)
+        self.assertNotIn('release_integration',calls)
+        self.assertTrue(all(item['optional_legacy'] for item in state['records'][0]['skips']))
+
+    def test_current_project_required_skip_or_missing_inputs_is_incomplete(self):
+        with tempfile.TemporaryDirectory() as folder:state,_=self.run_fixture(folder,full=True,skip=1)
+        self.assertEqual(state['status'],'incomplete')
+        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,full=True,missing=True)
+        self.assertEqual(state['status'],'incomplete');self.assertEqual(len(state['missing_project_inputs']),1)
+        self.assertNotIn('release_registered_data',calls);self.assertNotIn('sps_integration',calls)
+
+    def test_python_only_records_exclusions_and_does_not_claim_native_or_data_coverage(self):
+        with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,python_only=True,skip=2)
+        self.assertEqual(calls,['python']);self.assertEqual(state['scope'],'python')
+        self.assertEqual(state['status'],'passed');self.assertEqual(len(state['excluded']),3)
 
     def test_launch_failure_is_preserved_in_completed_audit_record(self):
         with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,launch_error=True)
@@ -141,6 +168,59 @@ class ValidationEntrypointTests(unittest.TestCase):
             report=json.loads((out/'verification.json').read_text())
             self.assertTrue(report['passed']);self.assertEqual(report['real_source_provenance']['status'],'not_used')
             self.assertEqual(len(report['records']),1)
+
+
+class ReproductionBundleTests(unittest.TestCase):
+    def fixture(self,folder):
+        root=Path(folder)/'project';dataset=root/'data/public/viking_line12_small'
+        for name,content in [('source_docs/TERMS.txt','original terms'),('raw/shot.sgy','registered input')]:
+            path=dataset/name;path.parent.mkdir(parents=True,exist_ok=True);path.write_text(content)
+        registry=dict(source_docs={'TERMS.txt':dict(sha256=digest(dataset/'source_docs/TERMS.txt'))},
+                      shots=[dict(files={'raw/shot.sgy':dict(sha256=digest(dataset/'raw/shot.sgy'))})])
+        path=root/'src/research/data/viking_line12_subset.json';path.parent.mkdir(parents=True);path.write_text(json.dumps(registry))
+        (root/'src/research/example.py').write_text('pass\n')
+        run=root/'results/current';(run/'native/large').mkdir(parents=True)
+        (run/'manifest.json').write_text(json.dumps(dict(status='passed',completed=True,executable_sha256='fixture')))
+        (run/'recovery.csv').write_text('value\n1\n');(run/'native/large/prediction.csv').write_bytes(b'bulk'*100)
+        return root,run,dataset
+
+    def test_compact_package_verifies_and_excludes_bulk_predictions(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root,run,_=self.fixture(folder);out=Path(folder)/'review.zip'
+            with patch.object(bundle.subprocess,'check_output',side_effect=OSError('no git fixture')):
+                report=bundle.create(out,run,project=root)
+            self.assertEqual(report['status'],'passed')
+            with zipfile.ZipFile(out) as archive:
+                self.assertIn('results/current/recovery.csv',archive.namelist())
+                self.assertNotIn('results/current/native/large/prediction.csv',archive.namelist())
+                state=json.loads(archive.read(bundle.MANIFEST))
+                self.assertFalse(state['availability']['compiled_runtime_included'])
+                self.assertIn('Original notices',state['rights_note'])
+            self.assertTrue(out.with_suffix('.zip.sha256').is_file())
+            with self.assertRaises(FileExistsError):bundle.create(out,project=root)
+
+    def test_changed_registered_input_is_rejected_before_writing_archive(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root,_,dataset=self.fixture(folder);out=Path(folder)/'invalid.zip'
+            (dataset/'raw/shot.sgy').write_text('changed')
+            with self.assertRaises(ValueError):bundle.create(out,project=root)
+            self.assertFalse(out.exists())
+
+    def test_verify_rejects_tampering_extra_members_and_unsafe_paths(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root,_,_=self.fixture(folder);original=Path(folder)/'valid.zip'
+            with patch.object(bundle.subprocess,'check_output',side_effect=OSError('no git fixture')):
+                bundle.create(original,project=root)
+            for extra in ['../outside','unexpected.txt']:
+                modified=Path(folder)/('unsafe.zip' if '..' in extra else 'extra.zip')
+                modified.write_bytes(original.read_bytes())
+                with zipfile.ZipFile(modified,'a') as archive:archive.writestr(extra,'unexpected')
+                with self.assertRaises(ValueError):bundle.verify(modified)
+            corrupt=Path(folder)/'corrupt.zip'
+            with zipfile.ZipFile(original) as source,zipfile.ZipFile(corrupt,'w') as target:
+                for name in source.namelist():
+                    target.writestr(name,b'wrong' if name.endswith('example.py') else source.read(name))
+            with self.assertRaises(ValueError):bundle.verify(corrupt)
 
 
 if __name__=='__main__':unittest.main()

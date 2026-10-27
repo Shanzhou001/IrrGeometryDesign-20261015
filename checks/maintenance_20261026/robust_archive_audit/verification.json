@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "completed_utc": "2026-10-26T14:51:09.847342+00:00",
+  "root": "D:\\Desktop\\sci\\IrrGeometryDesign\\results\\viking_robust_20261026",
+  "experiment_manifest_sha256": "5df8752fcbcb85e7cdf4b3818fb13bca16cb0f0ecd5b32e8600c48d985b634b1",
+  "analysis_manifest_sha256": "afae2f0077ed480106be23b94bb8c0a6ed78f20fece310440276a85e17ac40d2",
+  "source_archive_sha256": "f96e722945060757159db4d28c733ed03b2aed9a99163cbee9f29664b3c5268d",
+  "source_files_verified": 196,
+  "checked_unique_files": 86144,
+  "checked_bytes": 13278866533,
+  "recovery_cases": 1215,
+  "unique_searches": 351,
+  "native_calls": 11725,
+  "checked_prediction_arrays": 4860,
+  "projection_max_error": 0.0,
+  "score_max_error": 1.7763568394002505e-15,
+  "fourier_mu_max_error": 1.4630205269483554e-08,
+  "weighted_objective_max_error": 1.4630205269483554e-08,
+  "seeds": [
+    84011,
+    94217,
+    105953
+  ],
+  "inner_folds": 2,
+  "independent_surveys": 1,
+  "isolation": {
+    "nonpilot_feature_max_difference": 0.0,
+    "search_mask_unchanged": true,
+    "selection_unchanged": true,
+    "prediction_max_difference": 0.0,
+    "passed": true
+  },
+  "script_sha256": "89a6cf08a31571617c80d7da2a9cb10d9b25574cbcd7d16b25998eeda0c7c2e8"
+}

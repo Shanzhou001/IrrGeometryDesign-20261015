@@ -1,0 +1,29 @@
+{
+  "checked_utc": "2026-10-26T15:08:39.970829+00:00",
+  "scope": "Closure assessment; existing scientific results not modified",
+  "local_experiment_chain": "completed and audited on original workspace",
+  "independent_field_confirmation": false,
+  "delivery_integrity": "previously verified",
+  "delivery_isolated_replay": {
+    "status": "failed",
+    "tested_archive": "D:/Desktop/sci/delivery/paper_project_20261026.zip",
+    "method": "Extract to temporary directory outside all Git checkouts; run one-case Viking v2 with packaged frozen executable",
+    "exit_code": 1,
+    "error": "fatal: not a git repository; CalledProcessError from git rev-parse HEAD",
+    "source": "src/research/experiments/audit_joint_studies.py",
+    "line": 75,
+    "required_fix": "Treat unavailable Git metadata as optional; retain source and program hashes; then verify a fresh extracted end-to-end run"
+  },
+  "remaining_scientific_limits": [
+    "One development survey; no untouched independent confirmation",
+    "Fourier/PSF proxy not equal to curvelet recovery objective",
+    "No fixed search variant uniformly best; high-density fixed f-k exceeds selected mean",
+    "No separate phase, physical amplitude calibration or downstream imaging validation"
+  ],
+  "release_limits": [
+    "Working changes remain uncommitted",
+    "Manuscript source directories are outside the project Git root",
+    "Native environment requires Windows/Qt4 dependencies; no clean-machine reproduction test"
+  ],
+  "changes_made": "Assessment record only; no source, frozen results or manuscript changes"
+}

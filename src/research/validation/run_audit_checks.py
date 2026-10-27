@@ -1,4 +1,4 @@
-"""Record core checks separately from full external-data integration checks."""
+"""Record Python, core, current-project and optional legacy integration checks."""
 import argparse
 import datetime
 import json
@@ -24,6 +24,7 @@ def external_inputs(workspace):
 
 def tracked_files():
     candidates=source_files()+list((ROOT/'src/research').rglob('*.py'))+list((ROOT/'src/tests/python').glob('*.py'))
+    candidates+=list((ROOT/'src/research').rglob('*.json'))+list((ROOT/'.github/workflows').glob('*'))
     candidates+=list((ROOT/'src/build').rglob('*'))
     candidates+=[ROOT/name for name in ['pipeline.py','build.bat','requirements.txt','IrrGeometryDesign.sln']]
     return sorted({path for path in candidates if path.is_file()})
@@ -44,19 +45,42 @@ def unittest_summary(log):
     return result
 
 
+def unittest_skips(log):
+    text=Path(log).read_text(encoding='utf-8',errors='replace')
+    return [dict(test=test,reason=reason,optional_legacy='external RRAW.SGY dataset is not installed' in reason)
+            for test,reason in re.findall(r"^(.+?) \.\.\. skipped ['\"](.+?)['\"]\s*$",text,re.MULTILINE)]
+
+
+def project_inputs(workspace):
+    registry=json.loads((ROOT/'src/research/data/viking_line12_subset.json').read_text(encoding='utf-8'))
+    names=['source_docs/'+name for name in registry['source_docs']]
+    for shot in registry['shots']:names.extend(shot['files'])
+    return [workspace/'data/public/viking_line12_small'/name for name in names]+[
+        workspace/'data/sps'/('5151-5171.'+extension) for extension in ['S','R','X']]
+
+
 def checks(out, build=False, full=False, modes=('Release','Debug'),
-           source_confirmation=None, allow_unconfirmed_real=False):
+           source_confirmation=None, allow_unconfirmed_real=False, legacy=False, python_only=False):
+    if sum(bool(v) for v in (full,legacy,python_only))>1:
+        raise ValueError('full, legacy and python-only scopes are mutually exclusive')
+    if not legacy and (source_confirmation is not None or allow_unconfirmed_real):
+        raise ValueError('RRAW source declarations apply only to --legacy checks')
+    if python_only and build:raise ValueError('python-only does not build native programs')
     modes=tuple(modes)
     if not modes or len(modes)!=len(set(modes)) or any(mode not in ('Release','Debug') for mode in modes):
         raise ValueError('modes must contain Release and/or Debug')
     out=Path(out).resolve();out.mkdir(parents=True,exist_ok=False)
     WORKSPACE.mkdir(parents=True,exist_ok=True)
     tracked=tracked_files()
-    state=dict(scope='full' if full else 'core',status='running',
+    scope='python' if python_only else 'legacy' if legacy else 'project' if full else 'core'
+    state=dict(scope=scope,status='running',
                started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                python=platform.python_version(),platform=platform.platform(),modes=list(modes),
                source_sha256={p.relative_to(ROOT).as_posix():digest(p) for p in tracked},
-               excluded=[] if full else ['external SPS/real-data integration suite'],records=[])
+               excluded=(['native builds and tests','registered Viking and SPS integration','optional legacy RRAW integration'] if python_only else
+                         ['optional legacy RRAW integration'] if full else
+                         ['registered Viking and SPS integration'] if legacy else
+                         ['registered Viking and SPS integration','optional legacy RRAW integration']),records=[])
     def save():
         (out/'checks.json').write_text(json.dumps(state,indent=2),encoding='utf-8')
     def invoke(name,command,native_log=None):
@@ -74,13 +98,17 @@ def checks(out, build=False, full=False, modes=('Release','Debug'),
         if name=='python':
             summary=unittest_summary(out/(name+'.log'))
             record['tests']=summary
+            record['skips']=unittest_skips(out/(name+'.log')) if (out/(name+'.log')).is_file() else []
             if summary is None or not summary['run']:
                 record['summary_error']='Python test summary is missing or the suite is empty'
                 record['status']='failed'
             elif summary['passed']<0 or any(summary[key] for key in ['failures','errors','unexpected_successes']):
                 record.update(status='failed',summary_error='Python summary reports failed tests')
-            elif full and summary['skipped'] and record['status']=='passed':
-                record.update(status='incomplete',error='Full validation requires zero skipped Python tests')
+            elif (full or legacy) and summary['skipped'] and record['status']=='passed':
+                allowed=(full and len(record['skips'])==summary['skipped'] and
+                         all(item['optional_legacy'] for item in record['skips']))
+                if not allowed:
+                    record.update(status='incomplete',error='Requested scope has unexplained or required Python test skips')
         record['seconds']=time.perf_counter()-started
         if native_log and (WORKSPACE/native_log).is_file():
             shutil.copy2(WORKSPACE/native_log,out/(name+'_native.log'))
@@ -89,7 +117,7 @@ def checks(out, build=False, full=False, modes=('Release','Debug'),
     if build:
         for mode in modes:invoke(mode.lower()+'_build',['cmd','/c',ROOT/'build.bat',mode])
     invoke('python',[sys.executable,'-B',ROOT/'pipeline.py','test'])
-    for mode in modes:
+    for mode in (() if python_only else modes):
         label=mode.lower();program=executable(mode)
         invoke(label+'_core',[program,'--test-core'],'science_tests.log')
         invoke(label+'_numerics',[sys.executable,'-B','-m','research.validation.audit_numerics',
@@ -99,6 +127,16 @@ def checks(out, build=False, full=False, modes=('Release','Debug'),
         invoke(label+'_pipeline',[sys.executable,'-B','-m','research.validation.pipeline_smoke',
                                  '--out',out/(label+'_pipeline'),'--exe',program])
     if full:
+        missing=[str(path) for path in project_inputs(WORKSPACE) if not path.is_file()]
+        state['missing_project_inputs']=missing
+        if not missing:
+            for mode in modes:
+                label=mode.lower()
+                invoke(label+'_registered_data',[sys.executable,'-B','-m','research.validation.registered_data_check',
+                       '--out',out/(label+'_registered_data'),'--exe',executable(mode)])
+            invoke('sps_integration',[executable(modes[0]),'--run-experiments',out/'sps',
+                                     '--repeat','1','--seed','20261026'])
+    if legacy:
         missing=[str(path) for path in external_inputs(WORKSPACE) if not path.is_file()]
         state['missing_external_inputs']=missing
         if not missing:
@@ -120,7 +158,7 @@ def checks(out, build=False, full=False, modes=('Release','Debug'),
         if value!=state['source_sha256'].get(name):changed.append(name)
     state['changed_sources']=changed
     failed=changed or any(record['status']=='failed' for record in state['records'])
-    incomplete=state.get('missing_external_inputs') or state.get('external_preflight_error') or any(
+    incomplete=state.get('missing_project_inputs') or state.get('missing_external_inputs') or state.get('external_preflight_error') or any(
         record['status']=='incomplete' for record in state['records'])
     state['status']='failed' if failed else 'incomplete' if incomplete else 'passed'
     state['completed_utc']=datetime.datetime.now(datetime.timezone.utc).isoformat();save()
@@ -130,8 +168,12 @@ def checks(out, build=False, full=False, modes=('Release','Debug'),
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',type=Path,required=True)
-    parser.add_argument('--build',action='store_true');parser.add_argument('--full',action='store_true')
+    parser.add_argument('--build',action='store_true')
+    scopes=parser.add_mutually_exclusive_group()
+    scopes.add_argument('--full',action='store_true',help='current project: core plus registered Viking and SPS integration; excludes optional legacy RRAW')
+    scopes.add_argument('--legacy',action='store_true',help='core plus historical RRAW/SPS integration; requires legacy files and a valid source declaration')
+    scopes.add_argument('--python-only',action='store_true',help='Python regressions only; explicitly excludes native and dataset integration coverage')
     parser.add_argument('--mode',choices=['Release','Debug','both'],default='both')
     add_real_data_arguments(parser);args=parser.parse_args()
     checks(args.out,args.build,args.full,('Release','Debug') if args.mode=='both' else (args.mode,),
-           args.source_confirmation,args.allow_unconfirmed_real)
+           args.source_confirmation,args.allow_unconfirmed_real,args.legacy,args.python_only)
