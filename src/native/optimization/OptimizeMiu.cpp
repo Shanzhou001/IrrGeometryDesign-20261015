@@ -834,22 +834,80 @@ double SamplingPhysicalMaxGap(const std::vector<int>& mask,const std::vector<dou
         if(mask[j]){gap=std::max(gap,x[j]-last);last=x[j];count++;} // add by wushanzhou in 2026/10/24
     } // add by wushanzhou in 2026/10/24
     return count?std::max(gap,x.back()-last):-1; // add by wushanzhou in 2026/10/24
+}
+
+double SamplingGapPNorm(const std::vector<int>& mask, double p, const std::vector<double>* coordinates)
+{
+    const int n = (int)mask.size();
+    if (n < 2 || !search_finite(p) || p < 1.0) return 0.0;
+    std::vector<double> gaps;
+    if (coordinates)
+    {
+        if ((int)coordinates->size() != n) return 0.0;
+        const std::vector<double>& x = *coordinates;
+        std::vector<double> kept;
+        for (int j = 0; j < n; j++)
+        {
+            if (!search_finite(x[j]) || (j && x[j] <= x[j - 1]) || (mask[j] != 0 && mask[j] != 1)) return 0.0;
+            if (mask[j]) kept.push_back(x[j]);
+        }
+        if (kept.empty()) return 0.0;
+        gaps.reserve(kept.size() + 1);
+        gaps.push_back(std::max(0.0, kept.front() - x.front()));
+        for (size_t k = 1; k < kept.size(); k++) gaps.push_back(std::max(0.0, kept[k] - kept[k - 1]));
+        gaps.push_back(std::max(0.0, x.back() - kept.back()));
+    }
+    else
+    {
+        std::vector<int> idx;
+        for (int j = 0; j < n; j++)
+        {
+            if (mask[j] != 0 && mask[j] != 1) return 0.0;
+            if (mask[j]) idx.push_back(j);
+        }
+        if (idx.empty()) return 0.0;
+        gaps.reserve(idx.size() + 1);
+        gaps.push_back((double)idx.front());
+        for (size_t k = 1; k < idx.size(); k++) gaps.push_back((double)(idx[k] - idx[k - 1]));
+        gaps.push_back((double)(n - 1 - idx.back()));
+    }
+    double meanGap = 0.0;
+    for (size_t k = 0; k < gaps.size(); k++) meanGap += gaps[k];
+    meanGap /= (double)gaps.size();
+    if (meanGap <= 1e-12) return 0.0;
+    double sumP = 0.0;
+    for (size_t k = 0; k < gaps.size(); k++) sumP += pow(gaps[k] / meanGap, p);
+    const double pNorm = pow(sumP / (double)gaps.size(), 1.0 / p);
+    return std::max(0.0, pNorm - 1.0);
+
 } // add by wushanzhou in 2026/10/24
 
-bool SamplingPhysicalFeasibleMask(const std::vector<double>& x,int m,double bound,std::vector<int>& mask) // add by wushanzhou in 2026/10/24
+bool SamplingPhysicalFeasibleMask(const std::vector<double>& x,int m,double bound,std::vector<int>& mask,
+    const std::vector<int>* eligible,const std::vector<int>* required) // add by wushanzhou in 2026/10/24
 { // add by wushanzhou in 2026/10/24
     mask.clear();const int n=(int)x.size(); // add by wushanzhou in 2026/10/24
     if(n<2 || n>4096 || m<1 || m>n || !search_finite(bound) || bound<=0)return false; // add by wushanzhou in 2026/10/24
     for(int j=0;j<n;j++)if(!search_finite(x[j]) || (j && x[j]<=x[j-1]))return false; // add by wushanzhou in 2026/10/24
+    if(eligible && (int)eligible->size()!=n)return false;
+    if(required && (int)required->size()!=n)return false;
+    std::vector<int> reqPrefix(n+1,0);
+    for(int j=0;j<n;j++)
+    {
+        if(eligible && (*eligible)[j]!=0 && (*eligible)[j]!=1)return false;
+        if(required && (*required)[j]!=0 && (*required)[j]!=1)return false;
+        if(required && (*required)[j] && eligible && !(*eligible)[j])return false;
+        reqPrefix[j+1]=reqPrefix[j]+(required?(*required)[j]:0);
+    }
+    if(reqPrefix[n]>m)return false;
     // Exact-cardinality path in the ordered candidate DAG, with virtual boundary nodes. // add by wushanzhou in 2026/10/24
     const double tol=1e-10*std::max(1.0,bound); // add by wushanzhou in 2026/10/24
     std::vector<std::vector<int> > parent(m+1,std::vector<int>(n,-2)); // add by wushanzhou in 2026/10/24
-    for(int j=0;j<n;j++)if(x[j]-x.front()<=bound+tol)parent[1][j]=-1; // add by wushanzhou in 2026/10/24
+    for(int j=0;j<n;j++)if((!eligible || (*eligible)[j]) && reqPrefix[j]==0 && x[j]-x.front()<=bound+tol)parent[1][j]=-1; // add by wushanzhou in 2026/10/24
     for(int k=2;k<=m;k++)for(int j=k-1;j<n;j++) // add by wushanzhou in 2026/10/24
         for(int i=j-1;i>=k-2 && x[j]-x[i]<=bound+tol;i--) // add by wushanzhou in 2026/10/24
-            if(parent[k-1][i]!=-2){parent[k][j]=i;break;} // add by wushanzhou in 2026/10/24
+            {if(eligible && !(*eligible)[j])break;if(reqPrefix[j]-reqPrefix[i+1]>0)break;if(parent[k-1][i]!=-2){parent[k][j]=i;break;}} // add by wushanzhou in 2026/10/24
     int end=-1; // add by wushanzhou in 2026/10/24
-    for(int j=n-1;j>=0;j--)if(x.back()-x[j]<=bound+tol && parent[m][j]!=-2){end=j;break;} // add by wushanzhou in 2026/10/24
+    for(int j=n-1;j>=0;j--)if((reqPrefix[n]-reqPrefix[j+1])==0 && x.back()-x[j]<=bound+tol && parent[m][j]!=-2){end=j;break;} // add by wushanzhou in 2026/10/24
     if(end<0)return false; // add by wushanzhou in 2026/10/24
     mask.assign(n,0); // add by wushanzhou in 2026/10/24
     for(int k=m;k>0;k--){mask[end]=1;end=parent[k][end];} // add by wushanzhou in 2026/10/24
@@ -891,6 +949,7 @@ static void search_measure(const std::vector<int>& mask, const ConstraintWeights
         out.objective=(float)(out.mu+w.lambdaGap*std::max(0.0,out.maxGapM/(period/m)-1)+w.lambdaNN*out.nnCv); // add by wushanzhou in 2026/10/23
     } // add by wushanzhou in 2026/10/23
     out.hardConstraintSatisfied = search_gap_ok(mask,w,coordinates); // add by wushanzhou in 2026/10/24
+    if (w.lambdaGapP > 0.0) out.objective += (float)(w.lambdaGapP * SamplingGapPNorm(mask, w.gapPower, coordinates));
 } // add by wushanzhou in 2026/10/23
 
 bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by wushanzhou in 2026/10/23
@@ -905,7 +964,8 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
     out.status = "invalid_input"; // add by wushanzhou in 2026/10/23
     if (gridRows < 1 || N % gridRows != 0 || N <= 1 || m <= 0 || m >= N || budget < 1 || (int)initial.size() != N || // add by wushanzhou in 2026/10/23
         !ValidateSamplingMask(N, m, &initial[0]) || !search_finite(w.lambdaGap) || !search_finite(w.lambdaNN) || // add by wushanzhou in 2026/10/24
-        !search_finite(w.hardMaxGapM) || w.lambdaGap<0 || w.lambdaNN<0 || w.hardMaxGap<0 || w.hardMaxGapM<0 || // add by wushanzhou in 2026/10/24
+        !search_finite(w.hardMaxGapM) || !search_finite(w.lambdaGapP) || !search_finite(w.gapPower) ||
+        w.lambdaGap<0 || w.lambdaNN<0 || w.hardMaxGap<0 || w.hardMaxGapM<0 || w.lambdaGapP<0 || w.gapPower<1.0 || // add by wushanzhou in 2026/10/24
         budget>10000000 || (w.hardMaxGapM>0 && !coordinates) || // add by wushanzhou in 2026/10/24
         method < SEARCH_SA || method > SEARCH_RESTART) return false; // add by wushanzhou in 2026/10/23
     if(coordinates && (gridRows!=1 || w.hardMaxGap>0 || !search_coordinates_ok(*coordinates,N))) // add by wushanzhou in 2026/10/24
@@ -925,7 +985,7 @@ bool RunSamplingSearch(int N, int m, const std::vector<int>& initial, // add by 
     { out.status = "infeasible_hard_gap"; return false; } // add by wushanzhou in 2026/10/23
     std::vector<int> cur = initial; // add by wushanzhou in 2026/10/23
     if(w.hardMaxGapM>0 && !search_gap_ok(cur,w,coordinates) && // add by wushanzhou in 2026/10/24
-        !SamplingPhysicalFeasibleMask(*coordinates,m,w.hardMaxGapM,cur)) // add by wushanzhou in 2026/10/24
+        !SamplingPhysicalFeasibleMask(*coordinates,m,w.hardMaxGapM,cur,eligibility,NULL)) // add by wushanzhou in 2026/10/24
     {out.status="infeasible_physical_hard_gap";return false;} // add by wushanzhou in 2026/10/24
     if (w.hardMaxGap > 0 && SamplingMaxGap(cur) > w.hardMaxGap) // add by wushanzhou in 2026/10/23
     { // add by wushanzhou in 2026/10/23

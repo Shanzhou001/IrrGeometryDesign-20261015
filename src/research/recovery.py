@@ -1,5 +1,7 @@
 """Observed-only recovery candidates and a convex f-k l1 baseline for Viking v2."""
 import json
+from pathlib import Path
+import shutil
 
 import numpy as np
 
@@ -17,7 +19,7 @@ CANDIDATES = (
 )
 
 
-def fk_fista(data, known, iterations=80, fraction=.01):
+def fk_fista(data, known, iterations=80, fraction=.01, debias_steps=0):
     """Minimize .5||P_K x-y||^2 + lambda||unitary FFT2(x)||_1; step size is one.
 
     Scale and lambda use K only. The returned latent solution is penalized; callers
@@ -25,7 +27,7 @@ def fk_fista(data, known, iterations=80, fraction=.01):
     """
     data = np.asarray(data, float); known = np.asarray(known, bool)
     if (data.ndim != 2 or known.shape != (data.shape[1],) or sum(known) < 2 or
-            not np.isfinite(data[:, known]).all() or iterations < 1 or not 0 <= fraction <= 1):
+            not np.isfinite(data[:, known]).all() or iterations < 1 or not 0 <= fraction <= 1 or debias_steps < 0):
         raise ValueError('Invalid observed Fourier recovery input')
     scale = max(float(np.max(abs(data[:, known]))), 1e-20)
     observed = np.zeros_like(data); observed[:, known] = data[:, known]/scale
@@ -41,8 +43,17 @@ def fk_fista(data, known, iterations=80, fraction=.01):
         next_momentum = (1+np.sqrt(1+4*momentum**2))/2
         extrapolated = updated+(momentum-1)/next_momentum*(updated-current)
         current, momentum = updated, next_momentum
+    if debias_steps > 0:
+        spec = np.fft.fft2(current, norm='ortho')
+        peak = float(np.max(abs(spec)))
+        support = abs(spec) > max(1e-6 * peak, 1e-12)
+        if np.any(support):
+            for _ in range(debias_steps):
+                grad = np.zeros_like(data); grad[:, known] = (current - observed)[:, known]
+                current = np.fft.ifft2((np.fft.fft2(current - grad, norm='ortho')) * support, norm='ortho').real
     return current*scale, dict(objective='0.5*||P_K*x-y_K||^2 + lambda*||FFT2_ortho(x)||_1',
-                                scale=scale, lambda_value=lam, iterations=iterations, fraction=fraction, objective_trace=history)
+                                scale=scale, lambda_value=lam, iterations=iterations, fraction=fraction,
+                                debias_steps=int(debias_steps), objective_trace=history)
 
 
 def predict(recorder, key, data, x, known, configuration):
@@ -101,3 +112,21 @@ def select_and_refit(recorder, key, data, x, known, pilot, seed, folds=1):
     cold = full('curvelet_cold40'); fourier = full('fk_weak80')
     prediction = full(selected['candidate'])*selected['gain']; prediction[:, known] = data[:, known]
     return dict(cold=cold, fk=fourier, selected=prediction, linear=linear_known(data, x, known)), choice
+
+
+def prune_intermediates(output_dir):
+    """Remove temporary observed/masks/native solver working directories and inner-fold python caches."""
+    out = Path(output_dir)
+    removed = 0
+    for dirname in ('observed', 'masks', 'native'):
+        target = out / dirname
+        if target.exists():
+            shutil.rmtree(target, ignore_errors=True)
+            removed += 1
+    py_dir = out / 'python'
+    if py_dir.is_dir():
+        for item in list(py_dir.glob('*_inner*')):
+            if item.is_file():
+                item.unlink()
+                removed += 1
+    return removed

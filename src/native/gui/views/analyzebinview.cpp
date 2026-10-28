@@ -58,8 +58,8 @@ void analyzebinview::refresh()
 	tracespac=mpBinDoc->getDatatracesapc();//得到道间距
 	if(drawpointbin==TRUE&&binpointfold!=0) 
 	{
-		resizeContents(0,0);
-		mpBinImage->resize(0,0);//定义绘图区域
+		resizeContents(950,650);
+		mpBinImage->resize(950,650);//定义绘图区域
 		mpBinImage->fill(Qt::white);//绘图区域填充色
 		QPainter p(mpBinImage);//定义绘图指针
 		drawBinpoint(&p,mpBinDoc->point);//点面元分析	
@@ -117,8 +117,8 @@ void analyzebinview::refresh()
 
 	if(drawworkarea==TRUE)
 	{
-		resizeContents(0,0);
-		mpBinImage->resize(0,0);//定义绘图区域
+		resizeContents(950,650);
+		mpBinImage->resize(950,650);//定义绘图区域
 		mpBinImage->fill(Qt::white);//绘图区域填充色
 		QPainter p(mpBinImage);//定义绘图指针
 		p.save();
@@ -351,11 +351,12 @@ void analyzebinview::drawlineOffsetVSFoldBins(QPainter *p,int ycoord)//炮检距
 		max=0;
 		for(int i=0;i<4;i++)
 		{
-			for(int j=0;j<maxfold;j=j++)
+			for(int j=0;j<maxfold;j++)
 			{
 				float temp=(float)j/fold2;
 				int temp2=(int)temp;
-				lineoffsetVSfoldbins2[i][temp2]=lineoffsetVSfoldbins2[i][temp2]+lineoffsetVSfoldbins[i][j];
+				lineoffsetVSfoldbins2[i][qBound(0, temp2, 29)]=lineoffsetVSfoldbins2[i][qBound(0, temp2, 29)]+lineoffsetVSfoldbins[i][j];
+				if(max<lineoffsetVSfoldbins2[i][qBound(0, temp2, 29)]) max=lineoffsetVSfoldbins2[i][qBound(0, temp2, 29)];
 				if(max<lineoffsetVSfoldbins2[i][temp2]) max=lineoffsetVSfoldbins2[i][temp2];
 			}
 		}
@@ -1391,11 +1392,12 @@ void analyzebinview::drawworkareaOffsetVSFoldBins(int ycoord,int lx,int maxzhufo
 		max=0;
 		for(int i=0;i<lx;i++)
 		{
-			for(int j=0;j<maxzhufold;j=j++)
+			for(int j=0;j<maxzhufold;j++)
 			{
 				float temp=(float)j/fold2;
 				int temp2=(int)temp;
-				offsetVSfoldbins2[i][temp2]=offsetVSfoldbins2[i][temp2]+offsetVSfoldbins[i][j];
+				offsetVSfoldbins2[i][qBound(0, temp2, 29)]=offsetVSfoldbins2[i][qBound(0, temp2, 29)]+offsetVSfoldbins[i][j];
+				if(max<offsetVSfoldbins2[i][qBound(0, temp2, 29)]) max=offsetVSfoldbins2[i][qBound(0, temp2, 29)];
 				if(max<offsetVSfoldbins2[i][temp2]) max=offsetVSfoldbins2[i][temp2];
 			}
 		}
@@ -1854,7 +1856,7 @@ void analyzebinview::drawoffsetNonuniformfactor(float **array,int x,int y,float 
 		p.drawRect(m_viewx,cy-50-(cy-50-15*temp)/2-i*temp,20,temp);
 		QString str;
 		float hh=0;
-		if(min!=max||(min=max&&min!=0)) hh=i*temp2+min;
+		if(min!=max||(min==max&&min!=0)) hh=i*temp2+min;
 		if(i==15) str.sprintf("%3.2f",max);
 		else str.sprintf("%3.2f",hh);
 		QPen pen2(Qt::black,0);
@@ -1933,6 +1935,38 @@ void analyzebinview::contentsMousePressEvent(QMouseEvent *e)
 void analyzebinview::contentsMouseMoveEvent(QMouseEvent *e)
 {
 	//以下代码屏蔽，因为代码中有错误，会导致程序崩溃
+	if (!e || !mCoordinate || !mpBinDoc) return;
+	QPoint a = e->pos();
+	int x = 0, y = 0;
+	if (mpBinDoc->valuefoldVSbins == true) {
+		if (a.x() <= 950 && a.x() >= 50 && a.y() <= 650 && a.y() >= 50) {
+			x = binfold.x() * binfold.y() * (a.x() - 50) / (950 - 50);
+			y = binnumber.x() * binnumber.y() * (650 - a.y()) / (650 - 50);
+		}
+		mCoordinate->setText(QString::fromLocal8Bit("坐标: ") + "fold=" + QString::number(x) + ", bins=" + QString::number(y));
+	} else if (mpBinDoc->valueoffsetVStraces == true) {
+		if (a.x() <= 950 && a.x() >= 50 && a.y() <= 650 && a.y() >= 50) {
+			x = offset.x() * offset.y() * (a.x() - 50) / (950 - 50);
+			y = traces.x() * traces.y() * (650 - a.y()) / (650 - 50);
+		}
+		mCoordinate->setText(QString::fromLocal8Bit("坐标: ") + "offset=" + QString::number(x) + ", traces=" + QString::number(y));
+	} else if (mpBinDoc->valueazimuthVStraces == true) {
+		if (a.x() <= 950 && a.x() >= 50 && a.y() <= 650 && a.y() >= 50) {
+			x = 360 * (a.x() - 50) / (950 - 50);
+			y = azimuthtraces.x() * azimuthtraces.y() * (650 - a.y()) / (650 - 50);
+		}
+		mCoordinate->setText(QString::fromLocal8Bit("坐标: ") + "azimuth=" + QString::number(x) + ", traces=" + QString::number(y));
+	} else if (mpBinDoc->valuebinfold == true && Binfold != NULL && xscaleoffset > 0.001f && yscaleoffset > 0.001f) {
+		int temp = 0;
+		if (a.x() <= viewx && a.x() >= 50 && a.y() <= viewy - 50 && a.y() >= 50) {
+			x = (int)((a.x() - 50) / xscaleoffset);
+			y = (int)((viewy - 50 - a.y()) / yscaleoffset) + 1;
+			if (x >= 0 && x < mpBinDoc->getDataXbinnumber() && y >= 1 && y <= mpBinDoc->getDataYbinnumber()) {
+				if (Binfold[x][y - 1] > 0) temp = Binfold[x][y - 1];
+			}
+		}
+		mCoordinate->setText(QString::fromLocal8Bit("坐标: ") + "xbin=" + QString::number(x) + ", ybin=" + QString::number(y) + ", fold=" + QString::number(temp));
+	}
 	/*
 	QPoint a=e->pos();
 	int x=0,y=0;
@@ -2594,7 +2628,7 @@ void analyzebinview::drawOffsetNonuniformFactor( float **array,int xbinnum,int y
 		if(i>0) p.drawRect(viewx,cy-50-(cy-50-15*temp)/2-i*temp,20,temp);
 		QString str;
 		float hh=0;
-		if(min!=max||(min=max&&min!=0)) hh=i*temp2+min;
+		if(min!=max||(min==max&&min!=0)) hh=i*temp2+min;
 		if(i==15) str.sprintf("%3.2f",max);
 		else str.sprintf("%3.2f",hh);
 		QPen pen2(Qt::black,0);

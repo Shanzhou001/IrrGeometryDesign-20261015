@@ -197,3 +197,37 @@
     }
     log_test(logFp," [%s] Test 34: Raw-amplitude solver and batch report share the same consistency tolerance\n",amplitudeReportOk?"PASS":"FAIL");
     if(amplitudeReportOk)passedTests++;
+
+    totalTests++;bool p1p2SearchOk=true;
+    {
+        std::vector<double> x13(13);for(int j=0;j<13;j++)x13[j]=j*10.0;
+        std::vector<int> uniformMask(13,0),mildCluster(13,0),strongCluster(13,0);
+        uniformMask[3]=uniformMask[6]=uniformMask[9]=1;
+        mildCluster[2]=mildCluster[6]=mildCluster[9]=1;
+        strongCluster[1]=strongCluster[2]=strongCluster[3]=1;
+        const double pUniform=SamplingGapPNorm(uniformMask,2.0,&x13);
+        const double pMild=SamplingGapPNorm(mildCluster,2.0,&x13);
+        const double pStrong=SamplingGapPNorm(strongCluster,2.0,&x13);
+        if(pUniform>1e-9 || !(pMild>pUniform+1e-3) || !(pStrong>pMild+1e-3))p1p2SearchOk=false;
+        std::vector<double> x(12);for(int j=0;j<12;j++)x[j]=j*10.0;
+
+        std::vector<int> eligible(12,1),required(12,0),repaired;
+        eligible[3]=0;eligible[6]=0;required[2]=1;required[9]=1;
+        if(!SamplingPhysicalFeasibleMask(x,4,40.0,repaired,&eligible,&required))p1p2SearchOk=false;
+        else
+        {
+            if(repaired[3] || repaired[6] || !repaired[2] || !repaired[9] || SamplingPhysicalMaxGap(repaired,x)>40.0+1e-8)
+                p1p2SearchOk=false;
+        }
+        std::vector<int> badInit(12,0);badInit[0]=badInit[1]=badInit[2]=badInit[9]=1;
+        ConstraintWeights w;w.hardMaxGapM=40.0;w.lambdaGapP=0.2;w.gapPower=2.0;
+        AdaptiveSearchOptions opts;opts.eligible=eligible;opts.required=required;
+        ConstrainedResult res;
+        if(!RunAdaptiveSamplingSearch(12,4,badInit,w,123ULL,40,opts,res,&x) ||
+           res.mask[3] || res.mask[6] || !res.mask[2] || !res.mask[9] ||
+           SamplingPhysicalMaxGap(res.mask,x)>40.0+1e-8 ||
+           fabs(res.mu-SamplingPhysicalCoherence(res.mask,x))>1e-6)
+            p1p2SearchOk=false;
+    }
+    log_test(logFp," [%s] Test 38: Convex gap p-norm penalty, eligible/required DP feasibility repair, and incremental O(N) coherence\n",p1p2SearchOk?"PASS":"FAIL");
+    if(p1p2SearchOk)passedTests++;

@@ -63,9 +63,9 @@ void tcolorview::drawcolorcode(float max,float min)//画色标
 		p.drawRect(20,viewy+20-i*temp2,viewx,temp2);
 		QString str;
 		double hh=0;
-		if(min!=max||(min=max&&min!=0)) hh=i*temp+min;
+		if(min!=max||(min==max&&min!=0)) hh=i*temp+min;
 		if(i==colorspac) hh=max;
-		int n=floor(log10(fabs(hh)));
+		int n = (fabs(hh) > 1e-12) ? (int)floor(log10(fabs(hh))) : 0;
 		float x=hh/pow((float)10,n)+0.1;
 		str.sprintf("%2.1fe%d\n", hh/pow((float)10,n),n);//使用科学记数法
 		p.save();
@@ -310,11 +310,11 @@ void tcolorview::drawcolorcodevary(float max,float min)//画色标(渐变色)
 
 
 		QString str;
-		if(min!=max||(min=max&&min!=0)) hh=i*temp+min;
+		if(min!=max||(min==max&&min!=0)) hh=i*temp+min;
 		if(i==colorspac) hh=max;
 		if(i%15==0&&i!=0) 
 		{
-			int n=floor(log10(fabs(hh)));
+			int n = (fabs(hh) > 1e-12) ? (int)floor(log10(fabs(hh))) : 0;
 			float x=hh/pow((float)10,n)+0.1;
 			str.sprintf("%2.1fe%d\n", hh/pow((float)10,n),n);//使用科学记数法
 		}

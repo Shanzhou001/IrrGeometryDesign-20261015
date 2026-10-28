@@ -510,9 +510,9 @@ bool GProject::saveProjectFile()
 /*
 bool GProject::saveSPS(const QString &spsFileName) // add by wushanzhou in 2026/10/15
 {
-    GShotSet *pShotSet = getShotSet();
-    GSLineSet *pSLineSet = getSLineSet();
-    GRLineSet *pRLineSet = getRLineSet();
+    GShotSet *pShotSet = (mIsNewImfo && getShotSetNew() && getShotSetNew()->count() > 0) ? getShotSetNew() : ((getShotSet() && getShotSet()->count() > 0) ? getShotSet() : getShotSetNew());
+    GSLineSet *pSLineSet = (mIsNewImfo && getSLineSetNew() && getSLineSetNew()->count() > 0) ? getSLineSetNew() : ((getSLineSet() && getSLineSet()->count() > 0) ? getSLineSet() : getSLineSetNew());
+    GRLineSet *pRLineSet = (mIsNewImfo && getRLineSetNew() && getRLineSetNew()->count() > 0) ? getRLineSetNew() : ((getRLineSet() && getRLineSet()->count() > 0) ? getRLineSet() : getRLineSetNew());
 
     if ((pSLineSet == NULL || pSLineSet->count() == 0) &&
         (pRLineSet == NULL || pRLineSet->count() == 0))
@@ -558,9 +558,9 @@ bool GProject::saveSPS(const QString &spsFileName) // add by wushanzhou in 2026/
 
 bool GProject::saveSPS(const QString &spsFileName) // add by wushanzhou in 2026/10/15
 {
-    GShotSet *pShotSet = getShotSet();
-    GSLineSet *pSLineSet = getSLineSet();
-    GRLineSet *pRLineSet = getRLineSet();
+    GShotSet *pShotSet = (mIsNewImfo && getShotSetNew() && getShotSetNew()->count() > 0) ? getShotSetNew() : ((getShotSet() && getShotSet()->count() > 0) ? getShotSet() : getShotSetNew());
+    GSLineSet *pSLineSet = (mIsNewImfo && getSLineSetNew() && getSLineSetNew()->count() > 0) ? getSLineSetNew() : ((getSLineSet() && getSLineSet()->count() > 0) ? getSLineSet() : getSLineSetNew());
+    GRLineSet *pRLineSet = (mIsNewImfo && getRLineSetNew() && getRLineSetNew()->count() > 0) ? getRLineSetNew() : ((getRLineSet() && getRLineSet()->count() > 0) ? getRLineSet() : getRLineSetNew());
 
     if (pShotSet == NULL || pSLineSet == NULL || pRLineSet == NULL)
         return false;

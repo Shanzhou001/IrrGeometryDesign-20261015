@@ -62,6 +62,19 @@ analyzebinform::analyzebinform(QWidget *parent)
 	m_maxCSDFPfactor=0.0f;
 	m_minCSDFPfactor=0.0f;
 	m_CSQFfactor=0.0f;
+	bShowOffset=false;
+	bShowangle=false;
+	bShowFoot=false;
+	QAction *actRoseDivide = new QAction(QString::fromLocal8Bit("玫瑰图分割设置"), this);
+	QAction *actQFDivide = new QAction(QString::fromLocal8Bit("质量因子分割设置"), this);
+	QAction *actChangeShowarea = new QAction(QString::fromLocal8Bit("修改属性显示范围"), this);
+	connect(actRoseDivide, SIGNAL(triggered()), this, SLOT(on_actionRoseDivide_triggered()));
+	connect(actQFDivide, SIGNAL(triggered()), this, SLOT(on_actionQFDivide_triggered()));
+	connect(actChangeShowarea, SIGNAL(triggered()), this, SLOT(on_actionChangeShowarea_triggered()));
+	ui.menuTool->addSeparator();
+	ui.menuTool->addAction(actRoseDivide);
+	ui.menuTool->addAction(actQFDivide);
+	ui.menuTool->addAction(actChangeShowarea);
 }
 
 analyzebinform::~analyzebinform()
@@ -149,7 +162,116 @@ void analyzebinform::on_Rose_Traces_triggered()//玫瑰花图
 	}
 }
 
-////显示玫瑰图，随意输入分割次数
+void analyzebinform::on_actionRoseDivide_triggered()
+{
+	if(mpBinDoc->getDataValueworkarea()==true && azimutharray != NULL && offsetarray != NULL)	
+	{
+		TQFDividedlg *dlg=new TQFDividedlg(this);
+		dlg->setAngleDivNum(lyRose);
+		dlg->setOffsetDivNum(lxRose);
+		dlg->setMaxOffsetQf(CMPdlgmaxoffset);
+		dlg->init();
+		if(dlg->exec())
+		{
+			lxRose = qMax(1, dlg->getOffsetDivNum());
+			lyRose = qMax(1, dlg->getAngleDivNum());
+			CMPdlgmaxoffset = qMax(1, dlg->getMaxOffsetQf());
+			delete dlg;	
+			int xline=CMPxbinnumber;
+			int yline=CMPybinnumber;
+			float kedu=CMPdlgmaxoffset;
+			int ii=1;
+			float a=0;
+			while(kedu/ii>1)
+			{
+				a=kedu/ii;
+				ii=ii*10;	
+			}
+			kedu=ii/100;
+			if (kedu <= 0) kedu = 1;
+			a=CMPdlgmaxoffset/kedu+1;
+			float offset=kedu*a;
+			int scaleoffsetRose = qMax(1, (int)(offset/lxRose));
+			int scaleangleRose = qMax(1, 360/lyRose);
+			if(CMPmeiguiVStraces!=NULL) gFree2(CMPmeiguiVStraces);
+			gAlloc2(CMPmeiguiVStraces,lxRose,lyRose);
+			for(int i=0;i<lxRose;i++)
+				for(int j=0;j<lyRose;j++)
+					CMPmeiguiVStraces[i][j]=0;
+			for(int i=0;i<xline;i++)
+			{
+				for(int j=0;j<yline;j++)
+				{
+					for(int k=0;k<azimutharray[i][j].count();k++)
+					{
+						if(azimutharray[i][j][k]!=-1) 
+						{
+							int hh = qBound(0, offsetarray[i][j][k]/scaleoffsetRose, lxRose-1);
+							int kk = qBound(0, azimutharray[i][j][k]/scaleangleRose, lyRose-1);
+							CMPmeiguiVStraces[hh][kk]++;
+						}
+					}	
+				}
+			}
+			mpBinDoc->setDataMeiguiVSTraces(CMPmeiguiVStraces);
+			mpBinView->refresh();
+			mpBinDoc->roseVStraces();
+			mpBinView->drawworkareaRoseVSTraces(lxRose,lyRose,CMPdlgmaxoffset);
+		} else {
+			delete dlg;
+		}
+	}
+}
+
+void analyzebinform::on_actionQFDivide_triggered()
+{
+	if(mpBinDoc->getDataValueworkarea()==true && azimutharray != NULL && offsetarray != NULL)	
+	{
+		TQFDividedlg *dlg=new TQFDividedlg(this);
+		dlg->setAngleDivNum(lyCSQF);
+		dlg->setOffsetDivNum(lxCSQF);
+		dlg->setMaxOffsetQf(maxoffsetCSQF);
+		dlg->init();
+		if(dlg->exec())
+		{
+			lxCSQF = qMax(1, dlg->getOffsetDivNum());
+			lyCSQF = qMax(1, dlg->getAngleDivNum());
+			maxoffsetCSQF = qMax(1, dlg->getMaxOffsetQf());
+			delete dlg;	
+			CSDFactorfun(offsetarray,azimutharray,CMPxbinnumber,CMPybinnumber,CMPmaxfold,CMPdlgmaxoffset);
+			mpBinView->drawoffsetNonuniformfactor(m_dataCSDFPercent,CMPxbinnumber,CMPybinnumber,m_maxCSDFPfactor,m_minCSDFPfactor,1,1,"QF Factor",m_CSQFfactor);
+		} else {
+			delete dlg;
+		}
+	}
+}
+
+void analyzebinform::on_actionChangeShowarea_triggered()
+{
+	if(bShowOffset==true||bShowangle==true||bShowFoot==true) 
+	{
+		if(mpBinDoc->getDataValueworkarea()==true)	
+		{
+			float maxv=1.0f,minv=0.0f;
+			if(bShowOffset==true) { maxv=m_maxNonuniformfactor; minv=m_minNonuniformfactor; }
+			else if(bShowangle==true) { maxv=m_maxAnglefactor; minv=m_minAnglefactor; }
+			else if(bShowFoot==true) { maxv=m_maxFootfactor; minv=m_minFootfactor; }
+			TChangeShowareadlg *dlg=new TChangeShowareadlg(this);
+			dlg->init(maxv,minv);
+			if(dlg->exec())
+			{
+				maxv=dlg->getMaxShowValue();
+				minv=dlg->getMinShowValue();
+				delete dlg;
+				if(bShowOffset==true) { m_maxNonuniformfactor=maxv; m_minNonuniformfactor=minv; on_actionOffsetFactor_triggered(); }
+				else if(bShowangle==true) { m_maxAnglefactor=maxv; m_minAnglefactor=minv; on_actionAzimuthFactor_triggered(); }
+				else if(bShowFoot==true) { m_maxFootfactor=maxv; m_minFootfactor=minv; on_actionFootFactor_triggered(); }
+			} else {
+				delete dlg;
+			}
+		}
+	}
+}
 //void analyzebinform::on_actionRoseDivide_triggered()
 //{
 //	if(mpBinDoc->getDataValueworkarea()==true)	

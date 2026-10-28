@@ -102,19 +102,26 @@ def linear_known(data, x, mask):  # add by wushanzhou in 2026/10/24
     return np.stack([np.interp(x, x[known], row[known]) for row in data])  # add by wushanzhou in 2026/10/24
 
 
-def validation_choice(validation_truth, predictions):  # add by wushanzhou in 2026/10/24
+def validation_choice(validation_truth, predictions, max_gain=1.0):  # add by wushanzhou in 2026/10/24
     """Only inner validation values enter calibration and model selection; no outer-test argument."""  # add by wushanzhou in 2026/10/24
+    if not np.isfinite(max_gain) or max_gain <= 0:
+        raise ValueError("invalid max_gain")
     target = np.asarray(validation_truth, dtype=float).ravel()  # add by wushanzhou in 2026/10/24
+    target_energy = float(target @ target)
     records = []  # add by wushanzhou in 2026/10/24
     for name, prediction in predictions:  # add by wushanzhou in 2026/10/24
         values = np.asarray(prediction, dtype=float).ravel()  # add by wushanzhou in 2026/10/24
         if values.shape != target.shape or not np.isfinite(values).all() or not np.isfinite(target).all():  # add by wushanzhou in 2026/10/24
             raise ValueError("invalid validation prediction")  # add by wushanzhou in 2026/10/24
         denominator = float(values @ values)  # add by wushanzhou in 2026/10/24
-        gain = float(np.clip((values @ target) / denominator, 0, 1)) if denominator > 1e-30 else 0.  # add by wushanzhou in 2026/10/24
+        dot = float(values @ target) if denominator > 1e-30 else 0.
+        unclipped_gain = float(max(0., dot / denominator)) if denominator > 1e-30 else 0.
+        phase_cosine = float(dot / np.sqrt(denominator * target_energy)) if denominator > 1e-30 and target_energy > 1e-30 else 0.
+        gain = float(np.clip(dot / denominator, 0, max_gain)) if denominator > 1e-30 else 0.  # add by wushanzhou in 2026/10/24
         mse = float(np.mean((target - gain * values) ** 2))  # add by wushanzhou in 2026/10/24
         records.append(dict(candidate=name, gain=gain, validation_mse=mse,  # add by wushanzhou in 2026/10/24
-                            raw_validation_mse=float(np.mean((target - values) ** 2))))  # add by wushanzhou in 2026/10/24
+                            raw_validation_mse=float(np.mean((target - values) ** 2)),
+                            unclipped_gain=unclipped_gain, phase_cosine=phase_cosine))  # add by wushanzhou in 2026/10/24
     # Input order is the declared complexity tie breaker: zero, linear, then curvelet configurations.  # add by wushanzhou in 2026/10/24
     selected = min(range(len(records)), key=lambda k: (records[k]["validation_mse"], k))  # add by wushanzhou in 2026/10/24
     return records[selected], records  # add by wushanzhou in 2026/10/24

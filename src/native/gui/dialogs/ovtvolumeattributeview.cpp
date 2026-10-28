@@ -14,6 +14,18 @@ OVTVolumeAttributeView::OVTVolumeAttributeView(QWidget *parent)
 	tolerance_offset=NULL;	tolerance_azimuth=NULL;
 	dispersion_offset=NULL;	dispersion_azimuth=NULL;
 	offset_count=NULL;
+	Nx_ovt=0; Ny_ovt=0; Dx_ovt=150.0f; Dy_ovt=150.0f;
+	global_maximum_offsetx=2500.0f; global_maximum_offsety=2500.0f;
+}
+
+void OVTVolumeAttributeView::closeEvent(QCloseEvent *e)
+{
+	e->accept();
+	if (in_loop)
+	{
+		in_loop = false;
+		qApp->exit_loop();
+	}
 }
 
 OVTVolumeAttributeView::~OVTVolumeAttributeView()
@@ -34,6 +46,11 @@ OVTVolumeAttributeView::~OVTVolumeAttributeView()
 	if(dispersion_azimuth!=NULL) gFree2(dispersion_azimuth);
 
 	if(offset_count!=NULL) gFree2(offset_count);
+	if (in_loop)
+	{
+		in_loop = false;
+		qApp->exit_loop();
+	}
 }
 //炮检距OVT体属性
 void OVTVolumeAttributeView::on_actionOffset_Tolerance_triggered()
@@ -253,6 +270,8 @@ void OVTVolumeAttributeView::on_actionOffset_Tolerance_triggered()
 void OVTVolumeAttributeView::on_actionOffset_Dispersion_triggered()
 {
 	//申请数据空间
+	if (offsetarray_ovt == NULL || average_offset == NULL || Nx_ovt <= 0 || Ny_ovt <= 0) return;
+	if (dispersion_offset != NULL) gFree2(dispersion_offset);
 	gAlloc2(dispersion_offset,Nx_ovt,Ny_ovt);
 	//计算标准差（标准差是方差的算术平方根。标准差能反映一个数据集的离散程度，是应用最广泛的统计离散程度的测度方法。）
 	for (int ix=0; ix<Nx_ovt; ix++)
@@ -268,7 +287,7 @@ void OVTVolumeAttributeView::on_actionOffset_Dispersion_triggered()
 				tmp_sum_offset += pow(diff,2);
 				mcount++;
 			}
-			dispersion_offset[ix][iy]=short(sqrt(tmp_sum_offset/mcount));//方差的算术平方根
+			dispersion_offset[ix][iy]=(mcount>0)?short(sqrt(tmp_sum_offset/mcount)):0;//方差的算术平方根
 		}
 	}
 	QString attributenameStr=tr("Dispersion");//离散度
@@ -308,6 +327,8 @@ void OVTVolumeAttributeView::on_actionAzimuth_Tolerance_triggered()
 void OVTVolumeAttributeView::on_actionAzimuth_Dispersion_triggered()
 {
 	//申请数据空间
+	if (offsetarray_ovt == NULL || azimutharray_ovt == NULL || average_azimuth == NULL || Nx_ovt <= 0 || Ny_ovt <= 0) return;
+	if (dispersion_azimuth != NULL) gFree2(dispersion_azimuth);
 	gAlloc2(dispersion_azimuth,Nx_ovt,Ny_ovt);
 	//计算标准差（标准差是方差的算术平方根。标准差能反映一个数据集的离散程度，是应用最广泛的统计离散程度的测度方法。）
 	for (int ix=0; ix<Nx_ovt; ix++)
@@ -323,7 +344,7 @@ void OVTVolumeAttributeView::on_actionAzimuth_Dispersion_triggered()
 				tmp_sum_azimuth += pow(diff,2);
 				mcount++;
 			}
-			dispersion_azimuth[ix][iy]=short(sqrt(tmp_sum_azimuth/mcount));//方差的算术平方根
+			dispersion_azimuth[ix][iy]=(mcount>0)?short(sqrt(tmp_sum_azimuth/mcount)):0;//方差的算术平方根
 		}
 	}
 	QString attributenameStr=tr("Dispersion");//离散度
@@ -367,11 +388,16 @@ int OVTVolumeAttributeView::exec() // [11/9/2022 Liu Wei] MainWindow阻塞显示
 void OVTVolumeAttributeView::setOVTcubeData( GValueVector<short> **offset_ovt,GValueVector<short> **azimuth_ovt,int nx_ovt,int ny_ovt,float dx_ovt/*=150*/,float dy_ovt/*=150*/,float gmax_offsetx/*=2500*/,float gmax_offsety/*=2500*/ )
 {
 	//根据实际数据设置窗口大小
+	if (offset_ovt == NULL || azimuth_ovt == NULL || nx_ovt <= 0 || ny_ovt <= 0) return;
+	if (dx_ovt <= 0.1f) dx_ovt = 150.0f;
+	if (dy_ovt <= 0.1f) dy_ovt = 150.0f;
 	int wd_w=size().width();
 	int wd_h=size().height();
 	int cw_w=ui.centralWidget->size().width();
 	int h0=ui.centralWidget->size().height();
-	int w0=(h0*nx_ovt*dx_ovt)/(ny_ovt*dy_ovt)+(wd_w-cw_w);
+	int w0=(int)((double)(h0*nx_ovt*dx_ovt)/std::max(1.0,(double)ny_ovt*dy_ovt)+(wd_w-cw_w));
+	if (w0 < 640) w0 = 640;
+	if (w0 > 1280) w0 = 1280;
 	resize(w0,wd_h);
 	//////////////////////////////////传递参数////////////////////////////////////////	
 	offsetarray_ovt=offset_ovt;//指针赋值
@@ -384,6 +410,15 @@ void OVTVolumeAttributeView::setOVTcubeData( GValueVector<short> **offset_ovt,GV
 	global_maximum_offsety=gmax_offsety;//横向最大炮检距分量（模）
 	//////////////////////////////////计算相关OVT属性//////////////////////////////////
 	//申请数据空间
+	if(tolerance_offset!=NULL) gFree2(tolerance_offset);
+	if(tolerance_azimuth!=NULL) gFree2(tolerance_azimuth);
+	if(min_offset!=NULL) gFree2(min_offset);
+	if(min_azimuth!=NULL) gFree2(min_azimuth);
+	if(max_offset!=NULL) gFree2(max_offset);
+	if(max_azimuth!=NULL) gFree2(max_azimuth);
+	if(average_offset!=NULL) gFree2(average_offset);
+	if(average_azimuth!=NULL) gFree2(average_azimuth);
+	if(offset_count!=NULL) gFree2(offset_count);
 	gAlloc2(tolerance_offset,Nx_ovt,Ny_ovt);
 	gAlloc2(tolerance_azimuth,Nx_ovt,Ny_ovt);
 	gAlloc2(min_offset,Nx_ovt,Ny_ovt);
@@ -426,26 +461,39 @@ void OVTVolumeAttributeView::setOVTcubeData( GValueVector<short> **offset_ovt,GV
 				temp_sum_offset += offsetarray_ovt[ix][iy][iz];
 				temp_sum_azimuth += azimutharray_ovt[ix][iy][iz];
 			}
-			//容差：OVT片内最大值减去最小值
-			tolerance_offset[ix][iy]=maxv_offset-minv_offset;
-			tolerance_azimuth[ix][iy]=maxv_azimuth-minv_azimuth;
-			//最大、最小偏移距
-			min_offset[ix][iy]=minv_offset;
-			max_offset[ix][iy]=maxv_offset;
-			min_azimuth[ix][iy]=minv_azimuth;
-			max_azimuth[ix][iy]=maxv_azimuth;
-			//均值
-			average_azimuth[ix][iy]=short(temp_sum_azimuth/mcount);
-			average_offset[ix][iy]=short(temp_sum_offset/mcount);
+			if (mcount > 0)
+			{
+				tolerance_offset[ix][iy]=short(maxv_offset-minv_offset);
+				tolerance_azimuth[ix][iy]=short(maxv_azimuth-minv_azimuth);
+				min_offset[ix][iy]=short(minv_offset);
+				max_offset[ix][iy]=short(maxv_offset);
+				min_azimuth[ix][iy]=short(minv_azimuth);
+				max_azimuth[ix][iy]=short(maxv_azimuth);
+				average_azimuth[ix][iy]=short(temp_sum_azimuth/mcount);
+				average_offset[ix][iy]=short(temp_sum_offset/mcount);
+			}
+			else
+			{
+				tolerance_offset[ix][iy]=0;
+				tolerance_azimuth[ix][iy]=0;
+				min_offset[ix][iy]=0;
+				max_offset[ix][iy]=0;
+				min_azimuth[ix][iy]=0;
+				max_azimuth[ix][iy]=0;
+				average_azimuth[ix][iy]=0;
+				average_offset[ix][iy]=0;
+			}
 			//炮检距道数
 			offset_count[ix][iy]=mcount;
 		}
 	}
+	on_actionOffset_Tolerance_triggered();
 }
 
 void OVTVolumeAttributeView::HeatmapPlotting(short **OVT_Vol_Attribute, int nx, int ny, QString attributeName/*="AttributeName"*/, int mMark/*=0*/ )
 {
 	//计算绘图属性的值域、均值
+	if (OVT_Vol_Attribute == NULL || nx <= 0 || ny <= 0) return;
 	float OVT_count=nx*ny;
 	float Attribute_Average=0; 
 	double min_data=OVT_Vol_Attribute[0][0];
@@ -469,7 +517,7 @@ void OVTVolumeAttributeView::HeatmapPlotting(short **OVT_Vol_Attribute, int nx, 
 			Attribute_Stand_Deviation += powf(diffValue,2)/OVT_count;
 		}
 	}
-	float Coef_Variation=sqrtf(Attribute_Stand_Deviation)/Attribute_Average; 
+	float Coef_Variation=(fabs(Attribute_Average)>1e-6f)?(sqrtf(Attribute_Stand_Deviation)/Attribute_Average):0.0f; 
 	//CV(Coefficient of Variation):标准差与均值的比率。事实上，可以认为变异系数和极差、标准差和方差一样，都是反映数据离散程度的绝对值。
 	
 	//窗口显示判断

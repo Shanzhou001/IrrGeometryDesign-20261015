@@ -24,7 +24,9 @@ protected:
 
 public slots:
 
-	//void on_actionChangeShowarea_triggered();//
+	void on_actionChangeShowarea_triggered();
+	void on_actionQFDivide_triggered();
+	void on_actionRoseDivide_triggered();
 	//void on_actionQFDivide_triggered();//
 	//void on_actionRoseDivide_triggered();//
 

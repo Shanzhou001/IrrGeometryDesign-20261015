@@ -25,7 +25,8 @@ DataReconstruction::DataReconstruction(QWidget *parent, Qt::WFlags flags)
 	: QDialog(parent, flags)
 {
 	ui.setupUi(this);
-	//mpProject = GProject::create();// 暂时抛弃，使用setProjects函数传递 [Liu Wei 5/29/2023]
+	mpProject = GProject::getCurrentProject();
+	if (mpProject) setProject(mpProject);
 }
 
 DataReconstruction::~DataReconstruction()
@@ -41,6 +42,35 @@ DataReconstruction::~DataReconstruction()
 void DataReconstruction::setProject(GProject *pProject)
 {
 	mpProject = pProject;
+	if (!pProject) return;
+	GSLineSet *pSLineSet = (pProject->mIsNewImfo && pProject->getSLineSetNew() && pProject->getSLineSetNew()->count() > 0)
+	                       ? pProject->getSLineSetNew()
+	                       : ((pProject->getSLineSet() && pProject->getSLineSet()->count() > 0) ? pProject->getSLineSet() : pProject->getSLineSetNew());
+	GRLineSet *pRLineSet = (pProject->mIsNewImfo && pProject->getRLineSetNew() && pProject->getRLineSetNew()->count() > 0)
+	                       ? pProject->getRLineSetNew()
+	                       : ((pProject->getRLineSet() && pProject->getRLineSet()->count() > 0) ? pProject->getRLineSet() : pProject->getRLineSetNew());
+	GSPSParam *pSPSParam = pProject->getSPSParam();
+	if (pSLineSet && pRLineSet && pSLineSet->count() > 0 && pRLineSet->count() > 0)
+	{
+		int totalS = 0, totalR = 0;
+		for (int i = 0; i < pSLineSet->count(); i++)
+			if (pSLineSet->get(i)) totalS += pSLineSet->get(i)->count();
+		for (int i = 0; i < pRLineSet->count(); i++)
+			if (pRLineSet->get(i)) totalR += pRLineSet->get(i)->count();
+		ui.mTotalshot_num->setText(QString::number(totalS));
+		ui.mTotalshotline_num->setText(QString::number(pSLineSet->count()));
+		ui.mTotaltrace_num->setText(QString::number(totalR));
+		ui.mTotalreceivingline_num->setText(QString::number(pRLineSet->count()));
+		if (pSPSParam)
+		{
+			ui.mRline_interval->setText(QString::number(pSPSParam->mRLineInv));
+			ui.mSline_interval->setText(QString::number(pSPSParam->mSLineInv));
+			ui.mReceivingpoint_interval->setText(QString::number(pSPSParam->mRPtInv));
+			ui.mShotpoint_interval->setText(QString::number(pSPSParam->mSPtInv));
+			ui.mShot_num_PerSline->setText(QString::number(pSPSParam->mSPtCount));
+		}
+		ui.mDisplayandAnalyseBtn->setEnabled(true);
+	}
 }
 
 //加载sps文件
@@ -542,6 +572,11 @@ void DataReconstruction::on_mDisplayandAnalyseBtn_clicked()
     // 关键：明确当前不是“新建观测系统”，而是“导入的SPS”
     pProject->mIsNewImfo = false;
 
+    if (qobject_cast<TSPSForm*>(parentWidget()) != NULL)
+    {
+        accept();
+        return;
+    }
     // 启动观测系统分析模块
     TSPSForm *tSPSForm = new TSPSForm(this);
     tSPSForm->is2Dcal = false;
@@ -554,7 +589,7 @@ void DataReconstruction::on_mDisplayandAnalyseBtn_clicked()
 void DataReconstruction::on_mRegularOVTVolumeBtn_clicked()
 {
 	//启动观测系统OVT体属性分析模块
-	GeometryTemplateParameter *TemplateParameter_dlg = new GeometryTemplateParameter();
+	GeometryTemplateParameter *TemplateParameter_dlg = new GeometryTemplateParameter(this);
 	if (TemplateParameter_dlg->exec())
 	{
 		//定义自变量参数
@@ -594,8 +629,12 @@ void DataReconstruction::on_mRegularOVTVolumeBtn_clicked()
 		float gy, gx;
 		int maxgys_y=gcd( int(int_RecLine),int(int_shotpoint) );
 		int maxgys_x=gcd( int(int_receiver),int(int_SLine) );
+		if (maxgys_y <= 0) maxgys_y = 1;
+		if (maxgys_x <= 0) maxgys_x = 1;
 		gy=int(int_shotpoint*int_RecLine)/maxgys_y;
 		gx=int(int_receiver*int_SLine)/maxgys_x;
+		if (gy <= 0) gy = 50.0f;
+		if (gx <= 0) gx = 50.0f;
 
 		int max_gyi, min_gyi;
 		if ((Num_ShotPerSLine-1)*int_shotpoint <= int_RecLine)
@@ -611,6 +650,8 @@ void DataReconstruction::on_mRegularOVTVolumeBtn_clicked()
 
 		int max_gxi = int(maxDis_longitudinal/(2*gx)+1);
 		int min_gxi = -int(maxDis_longitudinal/(2*gx)+1);
+		if (max_gyi < 1) { max_gyi = 1; min_gyi = -1; }
+		if (max_gxi < 1) { max_gxi = 1; min_gxi = -1; }
 
 		int ny_OVT=max_gyi-min_gyi;
 		int	nx_OVT=max_gxi-min_gxi;
@@ -659,6 +700,7 @@ void DataReconstruction::on_mRegularOVTVolumeBtn_clicked()
 
 						int xi=gpnumber_x.indexOf(tempxi);
 						int yi=gpnumber_y.indexOf(tempyi);
+						if (xi < 0 || xi >= nx_OVT || yi < 0 || yi >= ny_OVT) continue;
 
 						float tOffset=sqrtf(tInoffset*tInoffset+tCLoffset*tCLoffset);
 						temp_offset[xi][yi].append(short(tOffset));

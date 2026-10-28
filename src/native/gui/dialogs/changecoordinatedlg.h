@@ -18,7 +18,7 @@ private:
 	float  coordmaxvalue;
 public:
 	float getcoordmaxvalue() {return coordmaxvalue;}
-	void setcoordmaxvalue(float coordmaxvalue1) {coordmaxvalue=coordmaxvalue1;}
+	void setcoordmaxvalue(float coordmaxvalue1) { coordmaxvalue = coordmaxvalue1; ui.CoordinateMax->setText(QString::number(coordmaxvalue1)); }
 private slots:
 	void on_CoordinateMax_textChanged(const QString &);
 	void on_ChangCoordinateCancel_clicked();

@@ -6,7 +6,10 @@ TRealOVTdlg::TRealOVTdlg(QWidget *parent)
 : QDialog(parent)
 {
 	ui.setupUi(this);
-	pAttrAnalyzeParam=new GAttrAnalyzeParam();
+	pAttrAnalyzeParam = NULL;
+	GProject *pProject = GProject::getCurrentProject();
+	if (pProject && pProject->getAttrAnalyzeParam())
+		init(pProject->getAttrAnalyzeParam());
 }
 
 TRealOVTdlg::~TRealOVTdlg()
@@ -17,6 +20,24 @@ TRealOVTdlg::~TRealOVTdlg()
 void TRealOVTdlg::init(GAttrAnalyzeParam *param)
 {
 	pAttrAnalyzeParam=param;
+	if (!pAttrAnalyzeParam) return;
+	if (pAttrAnalyzeParam->mInMaxOffset <= 0 || pAttrAnalyzeParam->mCLMaxOffset <= 0) {
+		GProject *pProject = GProject::getCurrentProject();
+		GCellGrid *pCellGrid = pProject ? pProject->getCellGrid() : NULL;
+		if (pCellGrid) {
+			int fallbackMax = pCellGrid->mMaxoffset > 0 ? pCellGrid->mMaxoffset : 2500;
+			if (pAttrAnalyzeParam->mInMaxOffset <= 0)
+				pAttrAnalyzeParam->mInMaxOffset = pCellGrid->mInMaxoffset > 0 ? pCellGrid->mInMaxoffset : fallbackMax;
+			if (pAttrAnalyzeParam->mCLMaxOffset <= 0)
+				pAttrAnalyzeParam->mCLMaxOffset = pCellGrid->mCLMaxoffset > 0 ? pCellGrid->mCLMaxoffset : fallbackMax;
+		}
+	}
+	if (pAttrAnalyzeParam->mRealBeginAreaInOffset == 0 && pAttrAnalyzeParam->mRealEndAreaInOffset == 0) {
+		pAttrAnalyzeParam->mRealEndAreaInOffset = qMin(200, pAttrAnalyzeParam->mInMaxOffset > 0 ? pAttrAnalyzeParam->mInMaxOffset : 200);
+	}
+	if (pAttrAnalyzeParam->mRealBeginAreaCLOffset == 0 && pAttrAnalyzeParam->mRealEndAreaCLOffset == 0) {
+		pAttrAnalyzeParam->mRealEndAreaCLOffset = qMin(200, pAttrAnalyzeParam->mCLMaxOffset > 0 ? pAttrAnalyzeParam->mCLMaxOffset : 200);
+	}
 	ui.eBeginInOffset->setText(QString::number(pAttrAnalyzeParam->mRealBeginAreaInOffset));
 	ui.eEndInOffset->setText(QString::number(pAttrAnalyzeParam->mRealEndAreaInOffset));
 	ui.eInLineMaxOffset->setText(QString::number(pAttrAnalyzeParam->mInMaxOffset));
@@ -123,6 +144,8 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 
 	maxDis_nonlongitudinal=pCellGrid->mCLMaxoffset;
 	maxDis_longitudinal=pCellGrid->mInMaxoffset;
+	if (maxDis_nonlongitudinal <= 0) maxDis_nonlongitudinal = (pCellGrid->mMaxoffset > 0) ? (float)pCellGrid->mMaxoffset : 2500.0f;
+	if (maxDis_longitudinal <= 0) maxDis_longitudinal = (pCellGrid->mMaxoffset > 0) ? (float)pCellGrid->mMaxoffset : 2500.0f;
 
 	//横、纵向OVT片间距-可用于构建绘图坐标-根据模板参数自动计算
 	float gy, gx; //横向间距gy，纵向间距gx
@@ -215,6 +238,8 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 	//分组号的值域是[min_gxi, max_gxi]，但是不包含0的整数
 	int max_gxi = int(maxDis_longitudinal/(2*gx) + 1);
 	int min_gxi = -int(maxDis_longitudinal/(2*gx) + 1);
+	if (max_gyi < 1) { max_gyi = 1; min_gyi = -1; }
+	if (max_gxi < 1) { max_gxi = 1; min_gxi = -1; }
 
 	if (target_OVT_ix>max_gxi || target_OVT_ix<min_gxi || target_OVT_iy>max_gyi || target_OVT_iy<min_gyi)
 	{
@@ -274,7 +299,7 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 				int iox=(tempx-x0)/pCellGrid->mGridX;
 				int ioy=(tempy-y0)/pCellGrid->mGridY;
 
-				if(iox>=0&&ioy>=0&&iox<=CMPxbinnumber||ioy<=CMPybinnumber)
+				if(iox>=0 && ioy>=0 && iox<CMPxbinnumber && ioy<CMPybinnumber)
 				{
 					//OVT片分组编号索引（映射）
 					int tempxi,tempyi;
@@ -423,7 +448,15 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 	}
 	if(CMPmaxfold==0)
 	{
-		QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("最大覆盖次数为零"));
+		QMessageBox::information(this, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("最大覆盖次数为零"));
+		for(int i=0;i<CMPxbinnumber;i++)
+			for(int j=0;j<CMPybinnumber;j++) {
+				offsetarray[i][j].clear();
+				Azimutharray[i][j].clear();
+			}
+		gFree2(offsetarray);
+		gFree2(Azimutharray);
+		gFree2(tempfold);
 		return;
 	}
 
@@ -439,8 +472,11 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 	dlg->setAODividNum(1,1,0,0,360,pCellGrid->mMaxoffset,strAzimuth,strOffset);//方位角和炮检距分的段数
 	dlg->CMPLayoutAttibuteConculate(tempfold);	
 	dlg->setDataValueworkarea(valueanalyzebinWorkArea);	
-	dlg->setAttribute(Qt::WA_DeleteOnClose,true);//关闭窗体时，销毁窗体，清空内存
+	dlg->on_Bin_Fold_triggered();
 	dlg->exec();
+
+	delete dlg;
+
 
 	//释放内存空间
 	if(offsetarray!=NULL) 
@@ -636,8 +672,10 @@ void TRealOVTdlg::on_OVT_PatchAttri_clicked()
 //	dlg->setAODividNum(1,1,0,0,360,pCellGrid->mMaxoffset,strAzimuth,strOffset);//方位角和炮检距分的段数
 //	dlg->CMPLayoutAttibuteConculate(tempfold);	
 //	dlg->setDataValueworkarea(valueanalyzebinWorkArea);	
-//	dlg->setAttribute(Qt::WA_DeleteOnClose,true);//关闭窗体时，销毁窗体，清空内存
+//	dlg->on_Bin_Fold_triggered();
 //	dlg->exec();
+//	delete dlg;
+//
 //
 //	if(offsetarray!=NULL) 
 //	{

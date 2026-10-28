@@ -189,7 +189,9 @@ struct ConstraintWeights // add by wushanzhou in 2026.10.21
     double lambdaNN;    // P_nn 权重
     int    hardMaxGap;  // >0 时作为硬约束（方案 D）；0 表示仅软惩罚
     double hardMaxGapM; // Maximum physical gap, including boundary gaps; requires coordinates. add by wushanzhou in 2026/10/24
-    ConstraintWeights() : lambdaGap(0.0), lambdaNN(0.0), hardMaxGap(0), hardMaxGapM(0) {} // add by wushanzhou in 2026/10/24
+    double lambdaGapP;  // Convex gap p-norm penalty weight (0 preserves legacy objective).
+    double gapPower;    // Gap p-norm exponent p >= 1.0 (default 2.0).
+    ConstraintWeights() : lambdaGap(0.0), lambdaNN(0.0), hardMaxGap(0), hardMaxGapM(0), lambdaGapP(0.0), gapPower(2.0) {} // add by wushanzhou in 2026/10/24
 };
 
 struct ConstrainedResult // add by wushanzhou in 2026.10.21
@@ -282,7 +284,9 @@ struct AdaptiveSearchOptions // add by wushanzhou in 2026/10/24
         localSearch(true), minimumSa(32), stagnationWindow(12), wallLimitMs(0), perturbation(true) {} // add by wushanzhou in 2026/10/24
 }; // add by wushanzhou in 2026/10/24
 double SamplingPhysicalMaxGap(const std::vector<int>& mask,const std::vector<double>& x); // add by wushanzhou in 2026/10/24
-bool SamplingPhysicalFeasibleMask(const std::vector<double>& x,int m,double bound,std::vector<int>& mask); // add by wushanzhou in 2026/10/24
+double SamplingGapPNorm(const std::vector<int>& mask, double p = 2.0, const std::vector<double>* coordinates = NULL);
+bool SamplingPhysicalFeasibleMask(const std::vector<double>& x,int m,double bound,std::vector<int>& mask,
+    const std::vector<int>* eligible=NULL,const std::vector<int>* required=NULL); // add by wushanzhou in 2026/10/24
 bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const ConstraintWeights& weights, // add by wushanzhou in 2026/10/24
     unsigned long long seed,int budget,const AdaptiveSearchOptions& options,ConstrainedResult& out, // add by wushanzhou in 2026/10/24
     const std::vector<double>* coordinates=NULL); // add by wushanzhou in 2026/10/24

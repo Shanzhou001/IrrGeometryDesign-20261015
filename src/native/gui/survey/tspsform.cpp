@@ -354,6 +354,7 @@ void TSPSForm::init()
 	mpView->setYLabel(yStatusLabel);
 	mpView->setStatusBar(statusBar());
 
+
 	GProject *pProject = GProject::getCurrentProject();
 	double scale = pProject->getLength() / desk.width();
 	double sh = pProject->getWidth() / desk.height();
@@ -373,12 +374,12 @@ void TSPSForm::init()
 	list.append(1);
 	mSpl->setSizes(list);
 
-	connect(ui.saveAction, SIGNAL(triggered()), this, SLOT(saveSPS()));
-	connect(ui.zoomAction, SIGNAL(triggered()), this, SLOT(zoom()));
-	connect(ui.gridAction, SIGNAL(triggered()), this, SLOT(grid()));
+	// saveAction / zoomAction / gridAction 已在 .ui 中连接，actionViewGallery / actionOpenFiguresDir 由 connectSlotsByName 自动连接
+
+
 	connect(ui.actionQuickDemoSPS, SIGNAL(triggered()), this, SLOT(quickLoadDemoSPS()));
-	connect(ui.actionViewGallery, SIGNAL(triggered()), this, SLOT(on_actionViewGallery_triggered()));
-	connect(ui.actionOpenFiguresDir, SIGNAL(triggered()), this, SLOT(on_actionOpenFiguresDir_triggered()));
+
+
 
 	ui.Toolbar->addSeparator();
 	ui.Toolbar->addAction(ui.actionQuickDemoSPS);
@@ -425,6 +426,7 @@ void TSPSForm::refresh()
 //新建sps文件
 void TSPSForm::on_newspsAction_triggered()
 {
+
 	GProject *pProject = GProject::getCurrentProject();
 	mpView->stop();
 	TSPSDlg *tSPSDlg = new TSPSDlg(this);	
@@ -612,8 +614,8 @@ void TSPSForm::saveSPS() // add by wushanzhou in 2026/10/15
         return;
     }
 
-    GSLineSet *pSLineSet = pProject->getSLineSet();
-    GRLineSet *pRLineSet = pProject->getRLineSet();
+    GSLineSet *pSLineSet = (pProject->mIsNewImfo && pProject->getSLineSetNew() && pProject->getSLineSetNew()->count() > 0) ? pProject->getSLineSetNew() : ((pProject->getSLineSet() && pProject->getSLineSet()->count() > 0) ? pProject->getSLineSet() : pProject->getSLineSetNew());
+    GRLineSet *pRLineSet = (pProject->mIsNewImfo && pProject->getRLineSetNew() && pProject->getRLineSetNew()->count() > 0) ? pProject->getRLineSetNew() : ((pProject->getRLineSet() && pProject->getRLineSet()->count() > 0) ? pProject->getRLineSet() : pProject->getRLineSetNew());
 
     int sCount = (pSLineSet != NULL) ? pSLineSet->count() : 0;
     int rCount = (pRLineSet != NULL) ? pRLineSet->count() : 0;
@@ -776,6 +778,8 @@ void TSPSForm::on_ShowImportSPS_triggered()
 void TSPSForm::on_actionGeometry_Attribute_Plotting_triggered()
 {
 	if (!ensureProjectLoaded(true, false)) return;
+
+
 	GProject *pProject = GProject::getCurrentProject();
 	if (!pProject) return;
 	GSLineSet *pSLineSet = (pProject->mIsNewImfo && pProject->getSLineSetNew() && pProject->getSLineSetNew()->count() > 0)
@@ -1024,6 +1028,8 @@ void TSPSForm::on_actionGeometry_Attribute_Plotting_triggered()
 //所有OVT体属性：（ａ）最小炮检距；（ｂ）最大炮检距；（ｃ）平均炮检距；（ｄ）炮检距容差（方差或标准差）；（e）方位角容差（方差或标准差） [10/26/2022 Liu Wei]
 void TSPSForm::on_actionOVT_Volume_Attributes_triggered()
 {
+	if (!ensureProjectLoaded(true, false)) return;
+
 	GProject *pProject = GProject::getCurrentProject();
 	if (!pProject) return;
 	GSLineSet *pSLineSet = (pProject->mIsNewImfo && pProject->getSLineSetNew() && pProject->getSLineSetNew()->count() > 0)
@@ -1090,6 +1096,14 @@ void TSPSForm::on_actionOVT_Volume_Attributes_triggered()
 
 	maxDis_nonlongitudinal=pCellGrid->mCLMaxoffset;
 	maxDis_longitudinal=pCellGrid->mInMaxoffset;
+	if (maxDis_nonlongitudinal <= 0) maxDis_nonlongitudinal = (pCellGrid->mMaxoffset > 0) ? (float)pCellGrid->mMaxoffset : 2500.0f;
+	if (maxDis_longitudinal <= 0) maxDis_longitudinal = (pCellGrid->mMaxoffset > 0) ? (float)pCellGrid->mMaxoffset : 2500.0f;
+
+
+
+
+
+
 
 	float gy, gx; //横、纵向OVT片间距-可用于构建绘图坐标-根据模板参数自动计算
 	int maxgys_y=gcd( int(int_RecLine),int(int_shotpoint) ); //求两个数的最大公约数
@@ -1202,6 +1216,8 @@ void TSPSForm::on_actionOVT_Volume_Attributes_triggered()
 	}
 	int max_gxi = int(maxDis_longitudinal/(2*gx)+1);
 	int min_gxi = -int(maxDis_longitudinal/(2*gx)+1);
+	if (max_gyi < 1) { max_gyi = 1; min_gyi = -1; }
+	if (max_gxi < 1) { max_gxi = 1; min_gxi = -1; }
 
 	// 计算OVT划片组数和编号数组
 	int ny_OVT=max_gyi-min_gyi; //横向划片组数
@@ -1334,6 +1350,7 @@ void TSPSForm::on_actionOVT_Volume_Attributes_triggered()
 					int xi, yi;
 					xi=gpnumber_x.indexOf(tempxi); //纵向分组编号索引（检波线方向）
 					yi=gpnumber_y.indexOf(tempyi); //横向分组编号索引（炮点线方向）
+					if (xi < 0 || xi >= nx_OVT || yi < 0 || yi >= ny_OVT) continue;
 					//累计记录炮检距向量中心点坐标
 					temp_x_coordinate[xi][yi].append(temprsx);
 					temp_y_coordinate[xi][yi].append(temprsy);
@@ -1463,9 +1480,11 @@ void TSPSForm::on_actionOVT_Volume_Attributes_triggered()
 //计算并显示OVT片属性
 void TSPSForm::on_actionOVT_Patch_Attributes_triggered()
 {
+	if (!ensureProjectLoaded(true, false)) return;
+
 	GProject *pProject = GProject::getCurrentProject();
 	GAttrAnalyzeParam *pAttrAnalyzeParam = pProject->getAttrAnalyzeParam();
-	TRealOVTdlg *dlg=new TRealOVTdlg();
+	TRealOVTdlg *dlg=new TRealOVTdlg(this);
 	dlg->init(pAttrAnalyzeParam);
 	if(dlg->exec())
 	{
@@ -1481,6 +1500,7 @@ void TSPSForm::on_actionOVT_Patch_Attributes_triggered()
 // 导入SPS观测系统并显示 [Liu Wei 5/29/2023]
 void TSPSForm::on_Load_SPS_Action_triggered()
 {
+
 	GProject *pProject = GProject::getCurrentProject();
 	DataReconstruction *LoadSPS_dlg = new DataReconstruction(this);
 	LoadSPS_dlg->setProject(pProject);

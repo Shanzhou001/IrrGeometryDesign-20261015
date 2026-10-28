@@ -33,6 +33,9 @@ TSPSDlg::~TSPSDlg()
 void TSPSDlg::init()
 {
 	mpSPSParam = NULL;
+	GProject *pProject = GProject::getCurrentProject();
+	if (pProject && pProject->getSPSParam())
+		setSPS(pProject->getSPSParam());
 }
 
 void TSPSDlg::is2Dinit()

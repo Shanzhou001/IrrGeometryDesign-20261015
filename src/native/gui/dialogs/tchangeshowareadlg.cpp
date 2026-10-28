@@ -5,6 +5,9 @@ TChangeShowareadlg::TChangeShowareadlg(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	MaxShowValue = 1.0f;
+	MinShowValue = 0.0f;
+	init(1.0f, 0.0f);
 }
 
 TChangeShowareadlg::~TChangeShowareadlg()

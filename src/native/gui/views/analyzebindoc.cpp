@@ -5,6 +5,31 @@
 analyzebindoc::analyzebindoc()
 {
 	mpData = NULL;
+	mpData2 = NULL;
+	mpData3 = false;
+	mpData4 = NULL;
+	mpDatatracesapc = 0;
+	mpDataMeiguiVSTraces = NULL;
+	mpDataBinfold = NULL;
+	mpDataOffsetVSFoldBins = NULL;
+	mpDatamaxoffset = 0;
+	mpDataXbinnumber = 0;
+	mpDataYbinnumber = 0;
+	mpDataOffsetVSTraces = NULL;
+	mpDataAzimuthVSTraces = NULL;
+	mpDataFoldVSBins = NULL;
+	mpDatamaxfold = 0;
+	mpDataValueworkarea = false;
+	mpDatalineOffsetVSTraces = NULL;
+	mpDatalineAzimuthVSTraces = NULL;
+	mpDatalineFoldVSBins = NULL;
+	mpDatalineOffsetVSFoldBins = NULL;
+	mpDatalineMeiguiVSTraces = NULL;
+	valuefoldVSbins = false;
+	valueoffsetVStraces = false;
+	valueazimuthVStraces = false;
+	valueroseVStraces = false;
+	valueoffsetVSfoldbins = false;
 	point=30;
 	valuebinfold=false;
 	mpDataValueline = false;
@@ -71,7 +96,7 @@ bool analyzebindoc::showNextpoint()// 显示后一个面元
 {
 	if(mpData3==1)
 	{
-		if(mpData3==true&&mpData4[point+1]!=0)
+		if(mpData3==true && mpData4 != NULL && point < 60 && mpData4[point+1]!=0)
 		{
 			if(point<60)	point++;	
 			else 
@@ -93,7 +118,7 @@ bool analyzebindoc::showProvouspoint()//显示后一个面元
 {
 	if(mpData3==1)
 	{
-		if(mpData4[point-1]!=0)
+		if(mpData4 != NULL && point >= 1 && mpData4[point-1]!=0)
 		{
 			if(point>=1)	point--;
 			else 

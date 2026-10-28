@@ -22,7 +22,7 @@ from research.recovery import CANDIDATES
 PLAN=Path(__file__).with_name('f3_transfer_protocol.json')
 
 
-def run(out,exe=None,workers=12,dataset=DEFAULT):
+def run(out,exe=None,workers=12,dataset=DEFAULT,keep_intermediates=False):
     out=Path(out).resolve()
     if out.exists():raise FileExistsError(out)
     if workers<1:raise ValueError('Positive worker count required')
@@ -60,6 +60,9 @@ def run(out,exe=None,workers=12,dataset=DEFAULT):
     for name,value in provenance['input_sha256'].items():
         if digest(name)!=value:raise ValueError('F3 input changed during the frozen transfer')
     if digest(REGISTRY)!=provenance['registry_sha256']:raise ValueError('F3 registry changed')
+    if not keep_intermediates:
+        from research.recovery import prune_intermediates
+        prune_intermediates(out)
     for folder in ('features','selection','python','predictions'):
         artifacts.update({p.relative_to(out).as_posix():digest(p) for p in (out/folder).rglob('*') if p.is_file()})
     means=[]
@@ -96,4 +99,6 @@ def run(out,exe=None,workers=12,dataset=DEFAULT):
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',type=Path,required=True)
     parser.add_argument('--exe',type=Path,default=executable());parser.add_argument('--workers',type=int,default=12)
-    parser.add_argument('--dataset',type=Path,default=DEFAULT);args=parser.parse_args();run(args.out,args.exe,args.workers,args.dataset)
+    parser.add_argument('--dataset',type=Path,default=DEFAULT)
+    parser.add_argument('--keep-intermediates',action='store_true',help='retain observed/masks/native inner-fold scratch files')
+    args=parser.parse_args();run(args.out,args.exe,args.workers,args.dataset,args.keep_intermediates)

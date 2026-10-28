@@ -48,7 +48,7 @@ void Draw2DView::drawEnergy(float **array,int xnumber,int ynumber,float max,floa
 	QPoint yy=kedufun(ynumber*by);
 	shotyscale=(float)(cy-50)/(yy.x()*yy.y());
 	//	float temp=(max-min)/colorspac;
-	float mColor=255/(max-min);//颜色显示时使用
+	float mColor = (fabs(max - min) > 1e-6f) ? (255.0f / (max - min)) : 0.0f;
 	QColor windowcolor;
 	for(int m=0;m<xnumber;m++)
 	{
@@ -60,7 +60,7 @@ void Draw2DView::drawEnergy(float **array,int xnumber,int ynumber,float max,floa
 				if(array[m][n]>min) media=array[m][n]-min;                                       //与最小值得差值
 				if(array[m][n]>=max) media=max-min;
 				media=media*mColor;
-				int ka =(int)media;
+				int ka = qBound(0, (int)media, 255);
 				if(array[m][n]!=0) windowcolor.setRgb(colorbeltvary[ka][0]*255, colorbeltvary[ka][1]*255, colorbeltvary[ka][2]*255);   //RGB配色
 				else windowcolor.setRgb(255,255,255);
 				QBrush brush;
@@ -194,7 +194,7 @@ void Draw2DView::drawworkareaBinfold(int **array,int xline,int yline,QString mTe
 		p.drawText(100,20,mTextOffset);
 		int cx=viewx-50,cy=viewy-50;
 		QColor windowcolor;	
-		float temp2=(float)(maxfold-minfold)/15;
+		float temp2 = (maxfold > minfold) ? ((float)(maxfold - minfold) / 15.0f) : 1.0f;
 		for(int i=0;i<xline;i++)
 		{
 			for(int j=0;j<yline;j++)
@@ -277,7 +277,7 @@ void Draw2DView::drawworkareaBinfold(int **array,int xline,int yline,QString mTe
 			if(i>0) p.drawRect(viewx,cy-50-(cy-50-15*temp)/2-i*temp,20,temp);
 			QString str;
 			int hh=0;
-			if(minfold!=maxfold||(minfold=maxfold&&minfold!=0)) hh=i*temp2+minfold;
+			if(minfold!=maxfold||(minfold==maxfold&&minfold!=0)) hh=i*temp2+minfold;
 			if(i==15) str.sprintf("%d",maxfold);
 			else str.sprintf("%d",hh);
 			QPen pen2(Qt::black,0);

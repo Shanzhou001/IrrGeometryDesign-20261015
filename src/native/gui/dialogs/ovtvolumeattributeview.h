@@ -2,6 +2,7 @@
 #define OVTVOLUMEATTRIBUTEVIEW_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
 #include "ui_ovtvolumeattributeview.h"
 
 #include "../../core/gvaluevector.h"
@@ -17,6 +18,9 @@ class OVTVolumeAttributeView : public QMainWindow
 public:
 	OVTVolumeAttributeView(QWidget *parent = 0);
 	~OVTVolumeAttributeView();
+
+protected:
+	virtual void closeEvent(QCloseEvent *e);
 
 private:
 	Ui::OVTVolumeAttributeViewClass ui;

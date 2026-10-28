@@ -30,12 +30,29 @@ Draw2Dfrm::Draw2Dfrm(QWidget *parent)
 	mSumfocus=NULL;
 	mfold=NULL;
 	in_loop = false;
+	mlx = 0; mly = 0;
+	minSfocus = maxSfocus = minRfocus = maxRfocus = minSumfocus = maxSumfocus = 0.0f;
+	maxfold = minfold = 0;
 
 }
 
 Draw2Dfrm::~Draw2Dfrm()
 {
+	if (in_loop)
+	{
+		in_loop = false;
+		qApp->exit_loop();
+	}
+}
 
+void Draw2Dfrm::closeEvent(QCloseEvent *e)
+{
+	e->accept();
+	if (in_loop)
+	{
+		in_loop = false;
+		qApp->exit_loop();
+	}
 }
 
 void Draw2Dfrm::setminbx(float minbx)
@@ -108,5 +125,7 @@ int Draw2Dfrm::exec()
 //ovt覆盖次数
 void Draw2Dfrm::on_actionOVTfold_triggered()
 {
+	if (mfold == NULL || mlx <= 0 || mly <= 0) return;
+	mpColorview->hide();
 	mpView->drawworkareaBinfold(mfold,mlx,mly,ovtstr);
 }

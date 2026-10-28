@@ -28,6 +28,50 @@ public: // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
         if(full)*full=(float)largest;
         return (float)(weights?weightedLargest:largest);
+    }
+    bool hasAtoms()const { return !atoms.empty(); }
+    void computeSums(const std::vector<int>& mask,std::vector<std::complex<double> >& sums)const
+    {
+        sums.assign(n>1?n-1:0,std::complex<double>(0.0,0.0));
+        if(atoms.empty())return;
+        for(int d=1;d<n;d++)
+        {
+            std::complex<double> sum(0,0);
+            for(int j=0;j<n;j++)if(mask[j])sum+=atoms[(d-1)*n+j];
+            sums[d-1]=sum;
+        }
+    }
+    float exchange1(const std::vector<std::complex<double> >& baseSums,int remIdx,int addIdx,
+                    std::vector<std::complex<double> >& candSums,const std::vector<double>* weights=NULL,float* full=NULL)const
+    {
+        candSums.resize(n>1?n-1:0);
+        double largest=0,weightedLargest=0;
+        for(int d=1;d<n;d++)
+        {
+            const std::complex<double> s=baseSums[d-1]-atoms[(d-1)*n+remIdx]+atoms[(d-1)*n+addIdx];
+            candSums[d-1]=s;
+            const double value=std::abs(s)/m;
+            largest=std::max(largest,value);
+            weightedLargest=std::max(weightedLargest,value*(weights?(*weights)[d-1]:1.0));
+        }
+        if(full)*full=(float)largest;
+        return (float)(weights?weightedLargest:largest);
+    }
+    float exchange2(const std::vector<std::complex<double> >& baseSums,int rem1,int add1,int rem2,int add2,
+                    std::vector<std::complex<double> >& candSums,const std::vector<double>* weights=NULL,float* full=NULL)const
+    {
+        candSums.resize(n>1?n-1:0);
+        double largest=0,weightedLargest=0;
+        for(int d=1;d<n;d++)
+        {
+            const std::complex<double> s=baseSums[d-1]-atoms[(d-1)*n+rem1]+atoms[(d-1)*n+add1]-atoms[(d-1)*n+rem2]+atoms[(d-1)*n+add2];
+            candSums[d-1]=s;
+            const double value=std::abs(s)/m;
+            largest=std::max(largest,value);
+            weightedLargest=std::max(weightedLargest,value*(weights?(*weights)[d-1]:1.0));
+        }
+        if(full)*full=(float)largest;
+        return (float)(weights?weightedLargest:largest);
     } // add by wushanzhou in 2026/10/24
 }; // add by wushanzhou in 2026/10/24
 
@@ -69,7 +113,15 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         for(int d=0;d<N-1;d++)if(!search_finite(options.frequencyWeights[d]) ||
             options.frequencyWeights[d]<=0 || options.frequencyWeights[d]>1)return false;
     }
-    if(!RunSamplingSearch(N,m,initial,w,seed,1,SEARCH_SA,out,1,1,x,
+    std::vector<int> seedInitial=initial;
+    if(w.hardMaxGapM>0 && x && !search_gap_ok(seedInitial,w,x))
+    {
+        if(!SamplingPhysicalFeasibleMask(*x,m,w.hardMaxGapM,seedInitial,
+            options.eligible.empty()?NULL:&options.eligible,
+            options.required.empty()?NULL:&options.required))
+        {out=ConstrainedResult();out.status="infeasible_physical_hard_gap";return false;}
+    }
+    if(!RunSamplingSearch(N,m,seedInitial,w,seed,1,SEARCH_SA,out,1,1,x,
         options.eligible.empty()?NULL:&options.eligible))return false; // add by wushanzhou in 2026/10/24
     for(int j=0;j<N;j++)if(out.mask[j] && !options.eligible.empty() && !options.eligible[j])return false;
     for(int j=0;j<N;j++)if(!options.required.empty() && options.required[j] && !out.mask[j])return false;
@@ -83,6 +135,8 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         out.bestTrace.assign(1,out.objective);out.currentTrace.assign(1,out.objective);
     }
     std::vector<int> cur=out.mask; // add by wushanzhou in 2026/10/24
+    std::vector<std::complex<double> > curSums,bestSums,candSums;
+    if(objective.hasAtoms()){objective.computeSums(cur,curSums);bestSums=curSums;}
     double current=out.objective; // add by wushanzhou in 2026/10/24
     int phase=1,phaseEvals=0,stagnant=0,localFailures=0; // add by wushanzhou in 2026/10/24
     bool perturb=false; // add by wushanzhou in 2026/10/24
@@ -118,14 +172,23 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
             if(!options.mixedNeighborhood && abs(target-source)!=1)continue; // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
         candidate[source]=0;candidate[target]=1; // add by wushanzhou in 2026/10/24
+        int source2=-1,target2=-1;
         if(perturb && ones.size()>1 && zeros.size()>1) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24
             int a=ones[exprng::integer()%ones.size()],b=zeros[exprng::integer()%zeros.size()]; // add by wushanzhou in 2026/10/24
-            if(a!=source && b!=target){candidate[a]=0;candidate[b]=1;} // add by wushanzhou in 2026/10/24
+            if(a!=source && b!=target){candidate[a]=0;candidate[b]=1;source2=a;target2=b;} // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
         if(!search_gap_ok(candidate,w,x))continue; // add by wushanzhou in 2026/10/24
         ConstrainedResult measured; // add by wushanzhou in 2026/10/24
-        float full=0,score=objective.coherence(candidate,frequencyWeights,&full);
+        float full=0,score=0;
+        if(objective.hasAtoms())
+        {
+            const std::vector<std::complex<double> >& baseSums=phase==2?bestSums:curSums;
+            score=(source2>=0 && target2>=0)
+                ?objective.exchange2(baseSums,source,target,source2,target2,candSums,frequencyWeights,&full)
+                :objective.exchange1(baseSums,source,target,candSums,frequencyWeights,&full);
+        }
+        else score=objective.coherence(candidate,frequencyWeights,&full);
         search_measure(candidate,w,m,measured,1,x,score);measured.mu=full;
         if(measured.mu<0 || !search_finite(measured.objective)){out.status="objective_failure";return false;} // add by wushanzhou in 2026/10/24
         out.evals++;phaseEvals++; // add by wushanzhou in 2026/10/24
@@ -136,14 +199,15 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         double temperature=0.1*pow(0.0001,progress); // add by wushanzhou in 2026/10/24
         if(perturb)temperature=std::max(temperature,0.01*(1.0-progress)); // add by wushanzhou in 2026/10/24
         if(phase==1 && (delta<=0 || exprng::uniform()<exp(-delta/std::max(temperature,1e-8)))) // add by wushanzhou in 2026/10/24
-        {cur=candidate;current=measured.objective;} // add by wushanzhou in 2026/10/24
+        {cur=candidate;current=measured.objective;if(objective.hasAtoms())curSums=candSums;} // add by wushanzhou in 2026/10/24
         bool improved=measured.objective+1e-8f<out.objective; // add by wushanzhou in 2026/10/24
         if(improved) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24
             out.mask=measured.mask;out.mu=measured.mu;out.objective=measured.objective; // add by wushanzhou in 2026/10/24
             out.maxGap=measured.maxGap;out.maxGapM=measured.maxGapM;out.nnCv=measured.nnCv; // add by wushanzhou in 2026/10/24
             out.unitOccupancy=measured.unitOccupancy;stagnant=0;localFailures=0; // add by wushanzhou in 2026/10/24
-            if(phase==2){cur=out.mask;current=out.objective;} // add by wushanzhou in 2026/10/24
+            if(objective.hasAtoms())bestSums=candSums;
+            if(phase==2){cur=out.mask;current=out.objective;if(objective.hasAtoms())curSums=bestSums;} // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
         else{stagnant++;if(phase==2)localFailures++;} // add by wushanzhou in 2026/10/24
         out.bestTrace.push_back(out.objective);out.currentTrace.push_back(measured.objective); // add by wushanzhou in 2026/10/24
@@ -153,13 +217,13 @@ bool RunAdaptiveSamplingSearch(int N,int m,const std::vector<int>& initial,const
         if(options.localSearch && phase==1 && // add by wushanzhou in 2026/10/24
            (options.adaptiveSwitch?(phaseEvals>=options.minimumSa && stagnant>=options.stagnationWindow):phaseEvals>=64)) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24
-            phase=2;phaseEvals=0;localFailures=0;out.switches++;cur=out.mask;current=out.objective; // add by wushanzhou in 2026/10/24
+            phase=2;phaseEvals=0;localFailures=0;out.switches++;cur=out.mask;current=out.objective;if(objective.hasAtoms()){objective.computeSums(out.mask,bestSums);curSums=bestSums;} // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
         else if(phase==2 && localFailures>=options.stagnationWindow) // add by wushanzhou in 2026/10/24
         { // add by wushanzhou in 2026/10/24
             if(!options.recycleBudget)break; // add by wushanzhou in 2026/10/24
             // Local stagnation returns remaining budget to SA with a counted two-exchange escape. // add by wushanzhou in 2026/10/24
-            phase=1;phaseEvals=0;stagnant=0;out.switches++;cur=out.mask;current=out.objective;perturb=options.perturbation; // add by wushanzhou in 2026/10/24
+            phase=1;phaseEvals=0;stagnant=0;out.switches++;cur=out.mask;current=out.objective;perturb=options.perturbation;if(objective.hasAtoms()){objective.computeSums(out.mask,bestSums);curSums=bestSums;} // add by wushanzhou in 2026/10/24
         } // add by wushanzhou in 2026/10/24
     } // add by wushanzhou in 2026/10/24
     out.hardConstraintSatisfied=search_gap_ok(out.mask,w,x); // add by wushanzhou in 2026/10/24

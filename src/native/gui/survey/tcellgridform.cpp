@@ -85,6 +85,15 @@ void TCellGridForm::init()
 
 	ui.cXDiffEdit->setText(QString::number(-gx/2));
 	ui.cYDiffEdit->setText(QString::number(-gy/2));
+	if (pCellGrid && pCellGrid->mGrid != NULL && pCellGrid->mNumX > 0 && pCellGrid->mNumY > 0 && pCellGrid->mGridX > 0 && pCellGrid->mGridY > 0)
+	{
+		ui.cXGridEdit->setText(QString::number(pCellGrid->mGridX));
+		ui.cYGridEdit->setText(QString::number(pCellGrid->mGridY));
+		ui.cXGridNumBox->setValue(pCellGrid->mNumX);
+		ui.cYGridNumBox->setValue(pCellGrid->mNumY);
+		ui.cXDiffEdit->setText(QString::number(pCellGrid->mDiffX));
+		ui.cYDiffEdit->setText(QString::number(pCellGrid->mDiffY));
+	}
 
 	// 赵老师的原始代码 [Liu Wei 6/21/2023]
 	//if(pCellGrid->mGrid == NULL)
@@ -101,6 +110,7 @@ void TCellGridForm::init()
 
 	//	ui.cXDiffEdit->setText(QString::number(-gx/2));
 	//	ui.cYDiffEdit->setText(QString::number(-gy/2));
+
 	//}
 	//else
 	//{
@@ -131,6 +141,8 @@ void TCellGridForm::accept()
 	int numX, numY;
 	gx = ui.cXGridEdit->text().toFloat();
 	gy = ui.cYGridEdit->text().toFloat();
+	if (gx <= 0.01f) gx = 25.0f;
+	if (gy <= 0.01f) gy = 25.0f;
 	x0 = mX0 + ui.cXDiffEdit->text().toFloat();
 	y0 = mY0 + ui.cYDiffEdit->text().toFloat();
 	numX = ui.cXGridNumBox->value();
@@ -164,5 +176,6 @@ void TCellGridForm::on_cYGridEdit_textChanged(const QString &txt)
 		if (numY < 1) numY = 1;
 		ui.cYGridNumBox->setValue(numY);
 		ui.cYDiffEdit->setText(QString::number(-gy/2));
+
 	}
 }

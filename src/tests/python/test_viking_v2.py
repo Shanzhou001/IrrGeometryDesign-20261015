@@ -13,7 +13,8 @@ from research.common.paths import executable
 from research.common.tabular import rows
 from research.data import viking
 from research.experiments import viking_v2 as study
-from research.recovery import fk_fista, select_and_refit
+from research.experiments.review_studies import validation_choice
+from research.recovery import fk_fista, prune_intermediates, select_and_refit
 from research.validation.audit_numerics import query
 from tests.python.test_viking import dataset_fixture
 
@@ -41,6 +42,29 @@ class FourierRecoveryTests(unittest.TestCase):
         _,info=fk_fista(data,known,iterations=30,fraction=.02)
         initial=.5*np.sum((data[:,known]/info['scale'])**2)
         self.assertLess(info['objective_trace'][-1],initial)
+
+    def test_debias_steps_and_amplified_validation_choice_and_pruning(self):
+        t=np.arange(32)[:,None];x=np.arange(16)[None,:]
+        data=np.cos(2*np.pi*(t/16+x/8));known=np.arange(16)%3!=0
+        penalized,_=fk_fista(data,known,iterations=20,fraction=.2,debias_steps=0)
+        debiased,info=fk_fista(data,known,iterations=20,fraction=.2,debias_steps=8)
+        self.assertEqual(info['debias_steps'],8)
+        self.assertLess(np.mean((data[:,~known]-debiased[:,~known])**2),np.mean((data[:,~known]-penalized[:,~known])**2))
+        choice,_=validation_choice(data[:,known],[('shrunk',0.5*data[:,known])],max_gain=4.0)
+        self.assertAlmostEqual(choice['gain'],2.0)
+        self.assertAlmostEqual(choice['phase_cosine'],1.0)
+        w_auto,meta=study.signal_weights(data[:,known],np.flatnonzero(known),16,mode='autocorrelation',sidelobe_damping=0.1)
+        np.testing.assert_allclose(w_auto,w_auto[::-1],atol=1e-12)
+        self.assertTrue((w_auto>=.25).all() and (w_auto<=1.0).all() and np.isclose(w_auto.max(),1.0))
+        self.assertEqual(meta['mode'],'autocorrelation')
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'observed').mkdir();(root/'observed'/'a.csv').write_text('1\n')
+            (root/'python').mkdir();(root/'python'/'case_inner0_fk.npz').write_bytes(b'x');(root/'python'/'case_full_fk.npz').write_bytes(b'y')
+            self.assertGreaterEqual(prune_intermediates(root),2)
+            self.assertFalse((root/'observed').exists())
+            self.assertFalse((root/'python'/'case_inner0_fk.npz').exists())
+            self.assertTrue((root/'python'/'case_full_fk.npz').exists())
 
 
 class PilotProtocolTests(unittest.TestCase):

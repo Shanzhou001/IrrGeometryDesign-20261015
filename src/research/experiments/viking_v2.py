@@ -48,25 +48,37 @@ def feasible_initial(eligible, pilot, m, seed, cap):
     raise ValueError('No coverage-feasible stratified initial mask found; change the declared plan, not outer scores')
 
 
-def signal_weights(pilot_values, pilot_indices, n, band=(5., 60.), floor=.25, sample_interval_s=.004):
+def signal_weights(pilot_values, pilot_indices, n, band=(5., 60.), floor=.25, sample_interval_s=.004,
+                   mode='max_overlap', sidelobe_damping=0.):
     """Pilot-only dirty spatial power; weights describe a PSF proxy, not a recovery guarantee."""
     values = np.asarray(pilot_values, float); indices = np.asarray(pilot_indices, int)
     if (values.ndim != 2 or len(values) < 32 or values.shape[1] != len(indices) or len(indices) < 2 or n < 2 or
             len(set(indices)) != len(indices) or np.any(indices < 0) or np.any(indices >= n) or
             not np.isfinite(values).all() or not 0 < floor <= 1 or not sample_interval_s>0 or
-            not 0 <= band[0] < band[1] <= .5/sample_interval_s):
+            not 0 <= band[0] < band[1] <= .5/sample_interval_s or
+            mode not in ('max_overlap', 'autocorrelation') or not np.isfinite(sidelobe_damping) or sidelobe_damping < 0):
         raise ValueError('Invalid pilot spectrum input')
     values = values-values.mean(axis=0, keepdims=True)
     transformed = np.fft.rfft(values*np.hanning(len(values))[:, None], axis=0)
     frequencies = np.fft.rfftfreq(len(values), sample_interval_s)
     keep = (frequencies >= band[0]) & (frequencies <= band[1])
     phase = np.exp(-2j*np.pi*np.outer(indices, np.arange(n))/n)
-    power = np.sum(abs(transformed[keep]@phase)**2, axis=0)
+    if sidelobe_damping > 0.:
+        gram = (phase @ phase.conj().T) / len(indices) + float(sidelobe_damping) * np.eye(len(indices))
+        filter_matrix = np.linalg.solve(gram, phase)
+    else:
+        filter_matrix = phase
+    power = np.sum(abs(transformed[keep]@filter_matrix)**2, axis=0)
     normalized = power/max(float(power.max()), 1e-30) if power.max() > 1e-30 else np.ones(n)
-    weights = np.array([floor+(1-floor)*np.max(np.sqrt(normalized*np.roll(normalized, d))) for d in range(1, n)])
+    if mode == 'autocorrelation':
+        raw_overlap = np.array([np.sqrt(np.mean(normalized*np.roll(normalized, d))) for d in range(1, n)])
+    else:
+        raw_overlap = np.array([np.max(np.sqrt(normalized*np.roll(normalized, d))) for d in range(1, n)])
+    weights = floor + (1 - floor) * raw_overlap
     weights /= weights.max()
     weights = np.clip(weights, floor, 1.)
     return weights, dict(pilot_indices=indices.tolist(), temporal_band_hz=list(band), sample_interval_s=sample_interval_s, floor=floor,
+                         mode=mode, sidelobe_damping=float(sidelobe_damping),
                          power=power.tolist(), weights=weights.tolist(),
                          definition='max_d w[d]*abs(DFT(mask)[d])/m; raw_w[d]=floor+(1-floor)*max_q sqrt(p[q]*p[q+d]); w=raw_w/max(raw_w)')
 
@@ -237,6 +249,9 @@ def run(args):
                 raise RuntimeError('Data changed during the batch')
         if digest(PROTOCOL_FILE) != plan['protocol_file_sha256'] or digest(REGISTRY) != provenance['registry_sha256']:
             raise RuntimeError('Protocol or dataset registry changed')
+        if not getattr(args, 'keep_intermediates', False):
+            from research.recovery import prune_intermediates
+            prune_intermediates(output)
         artifacts = {p.relative_to(output).as_posix(): digest(p) for name in ['features', 'selection', 'python', 'predictions']
                      for p in (output/name).rglob('*') if p.is_file()}
         recorder.state.update(status='passed', recovery_cases=len(records), search_cases=len(search), native_calls=recorder.count,
@@ -268,6 +283,7 @@ def main():
     parser.add_argument('--inner-folds', type=int, choices=[1, 2])
     parser.add_argument('--workers', type=int, default=4)
     parser.add_argument('--group')
+    parser.add_argument('--keep-intermediates', action='store_true', help='retain observed/masks/native inner-fold scratch files')
     run(parser.parse_args())
 
 

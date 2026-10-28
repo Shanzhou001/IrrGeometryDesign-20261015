@@ -2,6 +2,7 @@
 #define DRAW2DFRM_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
 #include "ui_draw2dfrm.h"
 #include "../views/draw2Dview.h"
 #include "../views/colorview.h"
@@ -14,6 +15,9 @@ class Draw2Dfrm : public QMainWindow
 public:
 	Draw2Dfrm(QWidget *parent = 0);
 	~Draw2Dfrm();
+
+protected:
+	virtual void closeEvent(QCloseEvent *e);
 
 private:
 	Ui::Draw2DfrmClass ui;
@@ -51,7 +55,7 @@ public:
 	void setFold(int **fold) 
 	{
 		mfold=fold;
-		maxfold=0;minfold=100000000000;
+		maxfold=0;minfold=1000000000;
 		for(int i=0;i<mlx;i++)
 		{
 			for(int j=0;j<mly;j++)
