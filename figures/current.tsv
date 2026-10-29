@@ -1,0 +1,13 @@
+research/current/diagnostics/f3_baselines.png	F3：基线与幅度诊断	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。 F3为已见资料的重复迁移，不能当作新的未见工区。
+research/current/diagnostics/search_trajectories.png	搜索：实际评价轨迹	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/diagnostics/sps_geometry.png	SPS：真实几何与二维目标	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/diagnostics/viking_baselines.png	Viking：基线与幅度诊断	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/diagnostics/viking_gathers.png	Viking：预设道集与残差	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/diagnostics/viking_hidden_trace.png	Viking：隐藏道波形与布局	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/f3/recovery.png	F3：重复迁移布局对照	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。 F3为已见资料的重复迁移，不能当作新的未见工区。
+research/current/synthetic/budget.png	合成：预算回收与共同评价次数	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/synthetic/recovery.png	合成：共同隐藏道恢复	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/synthetic/search.png	合成：等预算搜索	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/viking/conditions.png	Viking：预设窗口与隐藏集	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/viking/geometry.png	Viking：覆盖与互干度	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
+research/current/viking/recovery.png	Viking：恢复比较	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。

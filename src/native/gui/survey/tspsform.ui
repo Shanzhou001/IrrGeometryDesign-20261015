@@ -140,10 +140,6 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/filesave.png</normaloff>:/DataReconstruction/Resources/filesave.png</iconset>
-   </property>
    <property name="text">
     <string>保存观测系统(&amp;S)</string>
    </property>
@@ -155,10 +151,6 @@
    </property>
   </action>
   <action name="zoomAction">
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/mouse_zoom.png</normaloff>:/DataReconstruction/Resources/mouse_zoom.png</iconset>
-   </property>
    <property name="iconText">
     <string>鼠标缩放(&amp;Z)</string>
    </property>
@@ -167,10 +159,6 @@
    </property>
   </action>
   <action name="gridAction">
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/griding.png</normaloff>:/DataReconstruction/Resources/griding.png</iconset>
-   </property>
    <property name="iconText">
     <string>CMP 面元网格(&amp;G)</string>
    </property>
@@ -181,10 +169,6 @@
   <action name="newspsAction">
    <property name="enabled">
     <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/newsps.png</normaloff>:/DataReconstruction/Resources/newsps.png</iconset>
    </property>
    <property name="text">
     <string>新建观测系统(&amp;N)</string>
@@ -210,10 +194,6 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/GeometryAT.png</normaloff>:/DataReconstruction/Resources/GeometryAT.png</iconset>
-   </property>
    <property name="text">
     <string>观测系统属性综合分析</string>
    </property>
@@ -222,10 +202,6 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/OVTVL.png</normaloff>:/DataReconstruction/Resources/OVTVL.png</iconset>
-   </property>
    <property name="text">
     <string>OVT 体属性分析</string>
    </property>
@@ -233,10 +209,6 @@
   <action name="actionOVT_Patch_Attributes">
    <property name="enabled">
     <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/OVTPT.png</normaloff>:/DataReconstruction/Resources/OVTPT.png</iconset>
    </property>
    <property name="text">
     <string>OVT 片属性分析</string>

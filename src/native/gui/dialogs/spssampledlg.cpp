@@ -4,9 +4,11 @@ SpsSampleDlg::SpsSampleDlg(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+    Tsampling_rate=ui.lineEdit_TrSamplingRate->text().toFloat();
+    Lsampling_rate=ui.lineEdit_LiSamplingRate->text().toFloat();
 	mode_value = 0;
-	Tsampling_rate = 0.75f;
-	Lsampling_rate = 0.75f;
+	Tsampling_rate = ui.lineEdit_TrSamplingRate->text().toFloat();
+	Lsampling_rate = ui.lineEdit_LiSamplingRate->text().toFloat();
 }
 
 SpsSampleDlg::~SpsSampleDlg()
@@ -17,21 +19,16 @@ SpsSampleDlg::~SpsSampleDlg()
 
 void SpsSampleDlg::on_pushButton_OK_clicked()
 {
-	int crt_index=ui.comboBox_SamplingMode->currentIndex();
-	switch(crt_index){
-	case 0:
-		mode_value=0;
-		break;
-	case 1:
-		mode_value=1;
-		break;
-	default : 
-		mode_value=2;
-	}
-	Tsampling_rate=ui.lineEdit_TrSamplingRate->text().toFloat();
-	Lsampling_rate=ui.lineEdit_LiSamplingRate->text().toFloat();
-	if (Tsampling_rate <= 0.0f || Tsampling_rate > 1.0f) Tsampling_rate = 0.75f;
-	if (Lsampling_rate <= 0.0f || Lsampling_rate > 1.0f) Lsampling_rate = 0.75f;
+    bool okT=false,okL=false;
+    float t=ui.lineEdit_TrSamplingRate->text().toFloat(&okT);
+    float l=ui.lineEdit_LiSamplingRate->text().toFloat(&okL);
+    bool validT=okT && t>0 && t<=1, validL=okL && l>0 && l<=1;
+    ui.lineEdit_TrSamplingRate->setStyleSheet(validT?"":"border:2px solid red");
+    ui.lineEdit_LiSamplingRate->setStyleSheet(validL?"":"border:2px solid red");
+    ui.lineEdit_TrSamplingRate->setToolTip("Required: finite sampling ratio in (0, 1].");
+    ui.lineEdit_LiSamplingRate->setToolTip("Required: finite sampling ratio in (0, 1].");
+    if(!validT || !validL){(validT?ui.lineEdit_LiSamplingRate:ui.lineEdit_TrSamplingRate)->setFocus();return;}
+    mode_value=ui.comboBox_SamplingMode->currentIndex();Tsampling_rate=t;Lsampling_rate=l;
 	accept();
 }
 

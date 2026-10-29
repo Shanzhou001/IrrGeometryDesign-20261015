@@ -249,9 +249,6 @@ def run(args):
                 raise RuntimeError('Data changed during the batch')
         if digest(PROTOCOL_FILE) != plan['protocol_file_sha256'] or digest(REGISTRY) != provenance['registry_sha256']:
             raise RuntimeError('Protocol or dataset registry changed')
-        if not getattr(args, 'keep_intermediates', False):
-            from research.recovery import prune_intermediates
-            prune_intermediates(output)
         artifacts = {p.relative_to(output).as_posix(): digest(p) for name in ['features', 'selection', 'python', 'predictions']
                      for p in (output/name).rglob('*') if p.is_file()}
         recorder.state.update(status='passed', recovery_cases=len(records), search_cases=len(search), native_calls=recorder.count,

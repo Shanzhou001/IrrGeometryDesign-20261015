@@ -1,0 +1,6 @@
+# Shared presentation defaults; numerical experiments do not read these values.
+figure.constrained_layout.w_pad: 0.10
+figure.constrained_layout.h_pad: 0.08
+figure.constrained_layout.wspace: 0.24
+figure.constrained_layout.hspace: 0.12
+savefig.dpi: 250

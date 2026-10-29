@@ -16,12 +16,12 @@ QString GSEGYFileScanner::getErrorInfo(int recNum, GErrorType type)
 {
 	switch(type)
 	{
-	case gErrorTrcCount	:	return QString::fromLocal8Bit("   ("+QString::number(recNum)+
-							") SEG-YļеSPSļزһ" );
-	case gNoSPSInfo		:	return QString::fromLocal8Bit("   ("+QString::number(recNum)+
-							") ûжӦSPSϢ" );
-	case gNoXInfo		:	return QString::fromLocal8Bit("   ("+QString::number(recNum)+
-							") ȱSEG-YļӦĹϵϢ" );
+    case gErrorTrcCount: return QString::fromLocal8Bit("记录(")+QString::number(recNum)+
+        QString::fromLocal8Bit(")的SEG-Y道数与SPS接收道数不一致");
+    case gNoSPSInfo: return QString::fromLocal8Bit("记录(")+QString::number(recNum)+
+        QString::fromLocal8Bit(")没有对应的SPS信息");
+    case gNoXInfo: return QString::fromLocal8Bit("记录(")+QString::number(recNum)+
+        QString::fromLocal8Bit(")缺少对应的炮检关系信息");
 	}
 
 	return QString::null;
@@ -70,7 +70,7 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 	//Cheng Du old
 	//sgyMemo->append( QString::fromLocal8Bit("//----ɨSEG-Yļ \""+
 	//				 fileName+"----//") );
-	sgyMemo->append( QString::fromLocal8Bit("\n//----ɨSEG-Yļ \"") + fileName+"\"----//" );//Lena add 1009
+    sgyMemo->append(QString::fromLocal8Bit("\n//----扫描SEG-Y文件：")+fileName+"----//");
 	
 	while(srcOffset < srcLen)
 	{
@@ -227,8 +227,8 @@ bool GSEGYFileScanner::scan(const QString &fileName, QProgressBar *progressBar,
 			sgyMemo->append(getShotInfo(pShot));
 		}
 	}
-	sgyMemo->append( QString::fromLocal8Bit("//----SEG-Yļɨ ("+
-					 QString::number(errCount)+")----//") );
+    sgyMemo->append(QString::fromLocal8Bit("//----SEG-Y扫描完成，错误数(")+
+        QString::number(errCount)+")----//");
 
 	//----(4)رļ----
 //	progressBar->reset();
@@ -264,7 +264,7 @@ bool GSEGYFileScanner::scanForShotRecorderRange(const QString &fileName,
 	int shotCount = 0;
 	int minRecorderNum = 1000000000;
 	int maxRecorderNum = -1000000000;
-	sgyMemo->append( QString::fromLocal8Bit("\n//----ɨSEG-Yļ \"") + fileName+"\"----//" );//Lena add 1009
+    sgyMemo->append(QString::fromLocal8Bit("\n//----扫描SEG-Y文件：")+fileName+"----//");
 
 	while(srcOffset < srcLen)
 	{
@@ -306,9 +306,9 @@ bool GSEGYFileScanner::scanForShotRecorderRange(const QString &fileName,
 	}
 	QString shotNumString = QString::number(shotCount);
 	pProject->setRecorderNum(minRecorderNum,maxRecorderNum);
-		sgyMemo->append( QString::fromLocal8Bit("//----SEG-Yļɨ1 //")+"\n"+
-			        QString::fromLocal8Bit("")+shotNumString 
-					 +QString::fromLocal8Bit("")+"----//") ;
+    sgyMemo->append(QString::fromLocal8Bit("//----SEG-Y扫描结果----//\n")+
+        shotNumString+
+        "----//");
 
 	//----(4)رļ----
 //	progressBar->reset();

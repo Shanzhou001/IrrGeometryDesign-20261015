@@ -1,4 +1,4 @@
-#include "../plotting/figurepaths.h"
+﻿#include "../plotting/figurepaths.h"
 // add by wushanzhou in 2026/10/15
 #include <QtGui/QApplication>
 #include <QTextCodec>
@@ -9,6 +9,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <QTime>
+#include <QFile>
+#include <QTextStream>
 #ifdef _WIN32
 #ifndef NOMINMAX
 #define NOMINMAX
@@ -35,6 +38,58 @@
 int captureGui(TSPSForm& w,int argc,char** argv,bool& handled)
 {
     handled=true;
+    for(int i=1;i<argc;i++)if(strcmp(argv[i],"--gui-controls-test")==0) {
+        SpsSampleDlg sample;sample.show();
+        QLineEdit* t=sample.findChild<QLineEdit*>("lineEdit_TrSamplingRate");
+        QPushButton* ok=sample.findChild<QPushButton*>("pushButton_OK");if(!t||!ok)return 10;
+        float before=sample.Tsampling_rate;t->setText("invalid");ok->click();
+        if(sample.result()==QDialog::Accepted||sample.Tsampling_rate!=before||t->styleSheet().isEmpty())return 11;
+        t->setText("0.3");ok->click();if(sample.result()!=QDialog::Accepted||fabs(sample.Tsampling_rate-.3)>1e-6)return 12;
+        GeometryTemplateParameter geometry;
+        QLineEdit* count=geometry.findChild<QLineEdit*>("mChannel_num_PerRline");
+        QLineEdit* first=geometry.findChild<QLineEdit*>("mFirstSP_X0");if(!count||!first)return 13;
+        QString previous=first->text();count->setText(QString::number(count->text().toInt()+2));
+        if(previous==first->text())return 14;
+        TCellGridForm grid;grid.show();QLineEdit* spacing=grid.findChild<QLineEdit*>("cXGridEdit");if(!spacing)return 15;
+        spacing->setText("bad");QMetaObject::invokeMethod(&grid,"accept",Qt::DirectConnection);
+        if(grid.result()==QDialog::Accepted||spacing->styleSheet().isEmpty())return 16;
+        grid.reject();QFile report(FigurePaths::artifactPath("build/gui_controls.json"));
+        if(!report.open(QIODevice::WriteOnly|QIODevice::Text))return 17;
+        report.write("{\"status\":\"passed\",\"sampling_rejects_invalid\":true,\"sampling_valid_button\":true,\"grid_rejects_invalid\":true,\"template_dependency\":true}\n");
+        printf("GUI controls accepted.\n");return 0;
+    }
+
+    for(int i=1;i<argc;i++)if(strcmp(argv[i],"--gui-workflow-test")==0 || strcmp(argv[i],"--gui-gallery-test")==0)
+    {
+        ResearchFiguresDialog dialog(&w);dialog.show();QApplication::processEvents();QApplication::processEvents();
+        if(strcmp(argv[i],"--gui-gallery-test")==0 && dialog.figureCount()>=13 && !dialog.imageFits())return 8;
+        if(strcmp(argv[i],"--gui-workflow-test")==0) {
+            dialog.onRun();QTime timer;timer.start();
+            while(dialog.workflowRunning() && timer.elapsed()<14400000){QApplication::processEvents();Sleep(100);}
+            if(dialog.workflowRunning() || dialog.workflowExitCode()!=0)return 1;
+        }
+        dialog.onRefresh();int count=dialog.figureCount();if(count<13)return 2;
+        for(int j=0;j<count;j++){
+            dialog.selectFigure(j);QApplication::processEvents();if(!dialog.imageLoaded())return 3;
+            dialog.resize(900,650);QApplication::processEvents();QApplication::processEvents();if(!dialog.imageFits())return 4;
+            dialog.resize(1080,800);QApplication::processEvents();QApplication::processEvents();if(!dialog.imageFits())return 9;
+            QSplitter* panels=dialog.findChild<QSplitter*>();
+            if(!panels)return 18;
+            QList<int> narrow;narrow<<160<<220<<120;panels->setSizes(narrow);
+            QApplication::processEvents();QApplication::processEvents();if(!dialog.imageFits())return 19;
+            QList<int> normal;normal<<450<<100<<100;panels->setSizes(normal);
+            QApplication::processEvents();QApplication::processEvents();if(!dialog.imageFits())return 20;
+
+            if(!FigurePaths::capture(&dialog,QString("gallery_%1.png").arg(j+1,2,10,QChar('0'))))return 5;
+        }
+        dialog.selectFigure(0);dialog.onNext();dialog.onPrev();dialog.onRefresh();QApplication::processEvents();
+        if(!FigurePaths::capture(&dialog,"08_dlg_figure_gallery.png"))return 6;
+        QFile report(FigurePaths::artifactPath("results/current/gui_verification.json"));
+        if(!report.open(QIODevice::WriteOnly|QIODevice::Text))return 7;
+        QTextStream stream(&report);stream<<"{\"status\":\"passed\",\"images_loaded\":"<<count<<",\"resize_navigation_refresh\":true,\"workflow_executed\":"<<(strcmp(argv[i],"--gui-workflow-test")==0?"true":"false")<<"}\n";
+        printf("GUI end-to-end accepted: %d images, navigation, resize and refresh.\n",count);return 0;
+    }
+
 	for (int i = 1; i < argc; i++)
 	{
 		if (strcmp(argv[i], "--screenshot") == 0)

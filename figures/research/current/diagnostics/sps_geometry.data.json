@@ -1,0 +1,68 @@
+{
+  "records": {
+    "comparison": [
+      {
+        "method": "IndexRegular",
+        "receivers": "4536",
+        "spatial_fourier_mu": "0.06873688488796148",
+        "evaluations": "1",
+        "mask_sha1": "bcfba1dfada6408c9a857b975290f5fc97774c95",
+        "protocol": "SpatialFourier2D_v1"
+      },
+      {
+        "method": "Random",
+        "receivers": "4536",
+        "spatial_fourier_mu": "0.046639400532115106",
+        "evaluations": "1",
+        "mask_sha1": "bd6877203304955b9a0de85490057ec773d62425",
+        "protocol": "SpatialFourier2D_v1"
+      },
+      {
+        "method": "IndexJitter",
+        "receivers": "4536",
+        "spatial_fourier_mu": "0.052289419161340472",
+        "evaluations": "1",
+        "mask_sha1": "88fcd0718ef40ce73a57b0f66a23f4277929305a",
+        "protocol": "SpatialFourier2D_v1"
+      },
+      {
+        "method": "SA_SpatialFourier2D",
+        "receivers": "4536",
+        "spatial_fourier_mu": "0.049972489012927078",
+        "evaluations": "200",
+        "mask_sha1": "7551d8e3c22a00dfc2499b637d4ca1eedb5e0f2c",
+        "protocol": "SpatialFourier2D_v1"
+      },
+      {
+        "method": "Hybrid_SpatialFourier2D",
+        "receivers": "4536",
+        "spatial_fourier_mu": "0.043316678840802231",
+        "evaluations": "200",
+        "mask_sha1": "9f86a2d5cdf44689c4197077a5154ba0d9ae954a",
+        "protocol": "SpatialFourier2D_v1"
+      }
+    ],
+    "gram_absolute_errors": [
+      1.5265566588595902e-16,
+      1.734723475976807e-16,
+      6.591949208711867e-16,
+      2.1510571102112408e-16,
+      8.326672684688674e-17
+    ]
+  },
+  "source_sha256": {
+    "results/current/viking/analysis/overall_means.csv": "50d2b02441c09322c1e170ca8e405951b555f030853183c5477948986d11a9e8",
+    "results/current/viking_quality/waveform_means.csv": "5526b46f7c6b0137aba167b92fba35d5677a185bb0db3b59a94e450e20e5680b",
+    "results/current/f3/means.csv": "1462bb2c47ae2c0e7ad0358c4001d7a1953fa387d4b1234e68f6e498dfb8efd4",
+    "results/current/f3/waveform_means.csv": "fd6444f2fd938b70ee36c6e1224d6068f1a8b5f64024a6b73bdc59b0c7f133af",
+    "results/current/viking/predictions/f453_w512_hr271828_m60_s94217_Adaptive_Gap.npz": "3701265359600d301e8f94509dec181f10d5f7fbb37cf47f9ff3582a15966268",
+    "results/current/viking/search/hr271828_m60_s94217_Jitter.trace.csv": "8402b7b3661e7ddf5dbee54eca95acc267c1ffcbefacc3bd7039737d8729cba8",
+    "results/current/viking/search/hr271828_m60_s94217_SA_Mu.trace.csv": "baebafbbadea5c495bdb60280ad9063a4002fa037a3b5cd418a6d06c84dcc857",
+    "results/current/viking/search/hr271828_m60_s94217_Adaptive_Mu.trace.csv": "2bd08bb6a506786220514a638c7fe219ad0963b20edd76c95b638d5fa3d2aef5",
+    "results/current/viking/search/hr271828_m60_s94217_Adaptive_Gap.trace.csv": "496f54c15ee549aa3d5ef346edf84fc352b8027661f19884706631ce29df0999",
+    "results/current/viking/search/f453_w512_hr271828_m60_s94217_Adaptive_Signal.trace.csv": "dd96f49702c7ec66c3510335599246540ff12500b3b80eb25d215c56a40498ca",
+    "results/current/checks/real_sps/attribute_evaluation/sps_spatial_coordinates.csv": "6d144c14ff18b586e4ecaa73517ce03c012351daff3b2ed2182002e912d33c36",
+    "results/current/checks/real_sps/attribute_evaluation/sps_spatial_atoms.csv": "dd2ac19d5922d95e42c6b2c980663d0613c674505d9504668e6dde482926eebb",
+    "results/current/checks/real_sps/attribute_evaluation/sps_spatial_sampling_comparison.csv": "a285d43930ebde97d1fb33ec87e279aba3091cecc14cf43e9d3c5cbb083dad4c"
+  }
+}

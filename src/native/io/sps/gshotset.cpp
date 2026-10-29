@@ -1432,7 +1432,7 @@ void GShotSet::checkSInfo(QTextEdit *spsMemo)
 	GSPoint *pSPoint;
 
 	if(spsMemo != NULL)
-		spsMemo->append( QString::fromLocal8Bit("\n//----ڵϢ----//") );
+        spsMemo->append(QString::fromLocal8Bit("\n//----检查炮点信息----//"));
 
 	pSLineSet->clearShotList();	//ڵڹϵ
 	for(i=0; i<count(); )
@@ -1457,10 +1457,10 @@ void GShotSet::checkSInfo(QTextEdit *spsMemo)
 		{
 			if(spsMemo != NULL)
 			{
-				spsMemo->append( QString::fromLocal8Bit("  : ûڵҰ¼("+
-								 QString::number(pShot->mRecNum)+")Ӧ") );
-				spsMemo->append( QString::fromLocal8Bit("  ɾҰ¼("+
-								 QString::number(pShot->mRecNum)+")ӦϢ") );
+                spsMemo->append(QString::fromLocal8Bit("警告：野外记录(") +
+                    QString::number(pShot->mRecNum)+QString::fromLocal8Bit(")没有对应的炮点信息"));
+                spsMemo->append(QString::fromLocal8Bit("删除野外记录(") +
+                    QString::number(pShot->mRecNum)+QString::fromLocal8Bit(")对应的关系信息"));
 			}
 			mpShotList->remove( i );
 			errCount++;
@@ -1468,8 +1468,8 @@ void GShotSet::checkSInfo(QTextEdit *spsMemo)
 	}
 
 	if( spsMemo != NULL )
-		spsMemo->append( QString::fromLocal8Bit("//----ڵϢ ("+
-						  QString::number(errCount)+")----//") );
+        spsMemo->append(QString::fromLocal8Bit("//----炮点信息检查完成，错误数(") +
+            QString::number(errCount)+")----//");
 }
 
 void GShotSet::checkRInfo(QTextEdit *spsMemo,QProgressBar *progressBar)
@@ -1487,7 +1487,7 @@ void GShotSet::checkRInfo(QTextEdit *spsMemo,QProgressBar *progressBar)
 	GRLine *pRLine;
 
 	if( spsMemo != NULL )
-		spsMemo->append( QString::fromLocal8Bit("\n//----첨Ϣ----//") );
+        spsMemo->append(QString::fromLocal8Bit("\n//----检查检波点信息----//"));
 
 	pRLineSet->clearShotList();	//м첨ڹϵ
 
@@ -1545,18 +1545,18 @@ void GShotSet::checkRInfo(QTextEdit *spsMemo,QProgressBar *progressBar)
 		{
 			if( spsMemo != NULL )
 			{
-				spsMemo->append( QString::fromLocal8Bit("  : ûм첨ϢҰ¼("+
-								 QString::number(pShot->mRecNum)+")Ӧ") );
-				spsMemo->append( QString::fromLocal8Bit("  ɾҰ¼("+
-								 QString::number(pShot->mRecNum)+")ӦϢ") );
+                spsMemo->append(QString::fromLocal8Bit("警告：野外记录(") +
+                    QString::number(pShot->mRecNum)+QString::fromLocal8Bit(")没有对应的检波点信息"));
+                spsMemo->append(QString::fromLocal8Bit("删除野外记录(") +
+                    QString::number(pShot->mRecNum)+QString::fromLocal8Bit(")对应的关系信息"));
 			}
 			mpShotList->remove( i );
 			errCount++;
 		}
 	}
 	if( spsMemo != NULL )
-		spsMemo->append( QString::fromLocal8Bit("//----첨Ϣ ("+
-						 QString::number(errCount)+")----//") );
+        spsMemo->append(QString::fromLocal8Bit("//----检波点信息检查完成，错误数(") +
+            QString::number(errCount)+")----//");
 //	progressBar->reset();
 	if (progressBar != NULL) progressBar->setValue(100);
 }
@@ -1567,7 +1567,7 @@ void GShotSet::checkSEGYInfo(QTextEdit *sgyMemo)
 	GShot *pShot;
 
 	if(sgyMemo != NULL)
-		sgyMemo->append( QString::fromLocal8Bit("\n//----SEG-YļϢ----//") );
+        sgyMemo->append(QString::fromLocal8Bit("\n//----检查SEG-Y文件信息----//"));
 
 	for(i=0; i<count(); )
 	{
@@ -1576,10 +1576,10 @@ void GShotSet::checkSEGYInfo(QTextEdit *sgyMemo)
 		{
 			if(sgyMemo != NULL)
 			{
-				sgyMemo->append( QString::fromLocal8Bit("  : ûSEG-YҰ¼("+
-								 QString::number(pShot->mRecNum)+")Ӧ") );
-				sgyMemo->append( QString::fromLocal8Bit("  ɾҰ¼("+
-								 QString::number(pShot->mRecNum)+")ӦϢ") );
+                sgyMemo->append(QString::fromLocal8Bit("警告：野外记录(") +
+                    QString::number(pShot->mRecNum)+QString::fromLocal8Bit(")没有对应的SEG-Y记录"));
+                sgyMemo->append(QString::fromLocal8Bit("删除野外记录(") +
+                    QString::number(pShot->mRecNum)+QString::fromLocal8Bit(")对应的关系信息"));
 			}
 			mpShotList->remove(i);//modify by psl in 070316
 			errCount++;
@@ -1587,8 +1587,8 @@ void GShotSet::checkSEGYInfo(QTextEdit *sgyMemo)
 		else i++;
 	}
 	if( sgyMemo != NULL )
-		sgyMemo->append( QString::fromLocal8Bit("//----SEG-YļϢ ("+
-						 QString::number(errCount)+")----//") );
+        sgyMemo->append(QString::fromLocal8Bit("//----SEG-Y信息检查完成，错误数(") +
+            QString::number(errCount)+")----//");
 }
 
 void GShotSet::sort()
@@ -1843,7 +1843,7 @@ void GShotSet::calculateRIndex()
 	stream->setByteOrder( QDataStream::BigEndian );
 
 
-	QProgressDialog progress( QString::fromLocal8Bit("..."), "ȡ",  count(),0);
+    QProgressDialog progress(QString::fromLocal8Bit("正在处理..."),QString::fromLocal8Bit("取消"),count(),0);
 	progress.setValue(0);
 
 	for(int i=0; i<count(); i++)

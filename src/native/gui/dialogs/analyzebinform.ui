@@ -93,55 +93,31 @@
    <addaction name="actionGeometryImformation"/>
   </widget>
   <action name="Fold_Bins">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/foldVSBINS.PNG</normaloff>:/DataReconstruction/Resources/foldVSBINS.PNG</iconset>
-   </property>
    <property name="text">
     <string>Fold-Bins</string>
    </property>
   </action>
   <action name="Offset_Traces">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/offsetVStraces.PNG</normaloff>:/DataReconstruction/Resources/offsetVStraces.PNG</iconset>
-   </property>
    <property name="text">
     <string>Offset-Traces</string>
    </property>
   </action>
   <action name="Azimuth_Traces">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/azimuthVStraces.PNG</normaloff>:/DataReconstruction/Resources/azimuthVStraces.PNG</iconset>
-   </property>
    <property name="text">
     <string>Azimuth-Traces</string>
    </property>
   </action>
   <action name="Rose_Traces">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/rose.PNG</normaloff>:/DataReconstruction/Resources/rose.PNG</iconset>
-   </property>
    <property name="text">
     <string>Rose-Traces</string>
    </property>
   </action>
   <action name="Offset_Fold_Bins">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/offsetVSfold-bins.PNG</normaloff>:/DataReconstruction/Resources/offsetVSfold-bins.PNG</iconset>
-   </property>
    <property name="text">
     <string>Offset-Fold-Bins</string>
    </property>
   </action>
   <action name="Bin_Fold">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/binfold.png</normaloff>:/DataReconstruction/Resources/binfold.png</iconset>
-   </property>
    <property name="text">
     <string>Bin-Fold</string>
    </property>
@@ -163,46 +139,26 @@
    </property>
   </action>
   <action name="actionOffsetFactor">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/Offset_Nonuniform.png</normaloff>:/DataReconstruction/Resources/Offset_Nonuniform.png</iconset>
-   </property>
    <property name="text">
     <string>Offset Factor</string>
    </property>
   </action>
   <action name="actionAzimuthFactor">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/AzimuthNonfor.png</normaloff>:/DataReconstruction/Resources/AzimuthNonfor.png</iconset>
-   </property>
    <property name="text">
     <string>Azimuth Factor</string>
    </property>
   </action>
   <action name="actionFootFactor">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/foot_factor.png</normaloff>:/DataReconstruction/Resources/foot_factor.png</iconset>
-   </property>
    <property name="text">
     <string>Foot Factor</string>
    </property>
   </action>
   <action name="actionCSQFactor">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/CSQF.png</normaloff>:/DataReconstruction/Resources/CSQF.png</iconset>
-   </property>
    <property name="text">
     <string>CSQFactor</string>
    </property>
   </action>
   <action name="actionGeometryImformation">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/Surveyinfos.png</normaloff>:/DataReconstruction/Resources/Surveyinfos.png</iconset>
-   </property>
    <property name="text">
     <string>Geometry Imformation</string>
    </property>

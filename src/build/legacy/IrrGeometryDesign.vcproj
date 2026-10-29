@@ -874,68 +874,6 @@
         </FileConfiguration>
       </File>
     </Filter>
-    <Filter Name="figures/assets">
-      <File RelativePath="..\..\..\figures\assets\AAVR.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\ADIS.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\AMAX.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\AMIN.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\ATOL.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\AzimuthNonfor.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\azimuthVStraces.PNG">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\binfold.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\CSQF.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\editshot.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\filesave.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\foldVSBINS.PNG">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\foot_factor.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\GeometryAT.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\griding.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\mouse_zoom.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\newsps.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\OAVR.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\ODIS.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\Offset_Nonuniform.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\offsetVSfold-bins.PNG">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\offsetVStraces.PNG">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\OMAX.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\OMIN.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\OTOL.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\OVTPT.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\OVTVL.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\refresh.png">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\rose.PNG">
-			</File>
-      <File RelativePath="..\..\..\figures\assets\Surveyinfos.png">
-			</File>
-    </Filter>
     <Filter Name="resources/qt">
       <File RelativePath="..\..\resources\qt\datareconstruction.qrc">
         <FileConfiguration Name="Release|Win32">

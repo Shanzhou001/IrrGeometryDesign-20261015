@@ -23,3 +23,8 @@ unit_test_sandbox/
 /data/public/
 /results/*viking*/
 /results/f3_*/
+
+/results/current/
+/results/workflow.lock
+/build/generated/
+/build/obj/

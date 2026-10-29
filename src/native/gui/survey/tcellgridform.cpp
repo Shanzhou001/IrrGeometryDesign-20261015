@@ -139,10 +139,14 @@ void TCellGridForm::accept()
 
 	float x0, y0, gx, gy;
 	int numX, numY;
-	gx = ui.cXGridEdit->text().toFloat();
-	gy = ui.cYGridEdit->text().toFloat();
-	if (gx <= 0.01f) gx = 25.0f;
-	if (gy <= 0.01f) gy = 25.0f;
+    bool okX=false,okY=false,okDX=false,okDY=false;
+    gx=ui.cXGridEdit->text().toFloat(&okX);gy=ui.cYGridEdit->text().toFloat(&okY);
+    double dx=ui.cXDiffEdit->text().toDouble(&okDX),dy=ui.cYDiffEdit->text().toDouble(&okDY);
+    bool validX=okX&&gx>0.01f&&gx<1e9f,validY=okY&&gy>0.01f&&gy<1e9f;
+    ui.cXGridEdit->setStyleSheet(validX?"":"border:2px solid red");ui.cYGridEdit->setStyleSheet(validY?"":"border:2px solid red");
+    if(!validX||!validY||!okDX||!okDY||!(dx>-1e12&&dx<1e12&&dy>-1e12&&dy<1e12) ||
+       (double)ui.cXGridNumBox->value()*ui.cYGridNumBox->value()>2000000)return;
+
 	x0 = mX0 + ui.cXDiffEdit->text().toFloat();
 	y0 = mY0 + ui.cYDiffEdit->text().toFloat();
 	numX = ui.cXGridNumBox->value();

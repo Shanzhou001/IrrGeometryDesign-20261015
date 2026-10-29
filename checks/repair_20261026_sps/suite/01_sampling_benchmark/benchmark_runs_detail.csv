@@ -1,4 +1,0 @@
-Sampling_Rate,Target_Points,Total_Points,Run_Index,Master_Seed,Actual_Seed,Regular_Miu,Random_Miu,Jitter_Init_Miu,Jitter_SA_Miu,Imprv_vs_Regular_Pct,Imprv_vs_Random_Pct,Coherence_Ratio_Atten_dB,MaxGap_Regular,MaxGap_Random,MaxGap_JitterInit,MaxGap_SA,NN_CV_Regular,NN_CV_Random,NN_CV_JitterInit,NN_CV_SA,JitterUnitOccupancy_SA
-0.30,38,128,0,20261026,20261327,0.8615,0.2926,0.3786,0.2194,74.54%,25.03%,11.88,4,10,6,8,0.0000,0.7202,0.3177,0.5925,0.5789
-0.50,64,128,0,20261026,20261527,1.0000,0.1559,0.2071,0.1359,86.41%,12.84%,17.33,2,7,3,7,0.0000,0.4929,0.3498,0.4384,0.6250
-0.70,90,128,0,20261026,20261727,0.3638,0.1370,0.2053,0.0956,73.72%,30.22%,11.61,2,6,2,5,0.0000,0.2614,0.2339,0.2950,0.7333

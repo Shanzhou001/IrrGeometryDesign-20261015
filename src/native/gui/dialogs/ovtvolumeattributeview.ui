@@ -74,55 +74,31 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOffset_Tolerance">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/OTOL.png</normaloff>:/DataReconstruction/Resources/OTOL.png</iconset>
-   </property>
    <property name="text">
     <string>Offset Tolerance</string>
    </property>
   </action>
   <action name="actionOffset_Dispersion">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/ODIS.png</normaloff>:/DataReconstruction/Resources/ODIS.png</iconset>
-   </property>
    <property name="text">
     <string>Offset Dispersion</string>
    </property>
   </action>
   <action name="actionMin_Offset">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/OMIN.png</normaloff>:/DataReconstruction/Resources/OMIN.png</iconset>
-   </property>
    <property name="text">
     <string>Minimum Offset</string>
    </property>
   </action>
   <action name="actionMax_Offset">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/OMAX.png</normaloff>:/DataReconstruction/Resources/OMAX.png</iconset>
-   </property>
    <property name="text">
     <string>Maximum Offset</string>
    </property>
   </action>
   <action name="actionAverage_Offset">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/OAVR.png</normaloff>:/DataReconstruction/Resources/OAVR.png</iconset>
-   </property>
    <property name="text">
     <string>Average Offset</string>
    </property>
   </action>
   <action name="actionAzimuth_Tolerance">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/ATOL.png</normaloff>:/DataReconstruction/Resources/ATOL.png</iconset>
-   </property>
    <property name="text">
     <string>Azimuth Tolerance</string>
    </property>
@@ -138,37 +114,21 @@
    </property>
   </action>
   <action name="actionAzimuth_Dispersion">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/ADIS.png</normaloff>:/DataReconstruction/Resources/ADIS.png</iconset>
-   </property>
    <property name="text">
     <string>Azimuth Dispersion</string>
    </property>
   </action>
   <action name="actionMin_Azimuth">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/AMIN.png</normaloff>:/DataReconstruction/Resources/AMIN.png</iconset>
-   </property>
    <property name="text">
     <string>Minimum Azimuth</string>
    </property>
   </action>
   <action name="actionMax_Azimuth">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/AMAX.png</normaloff>:/DataReconstruction/Resources/AMAX.png</iconset>
-   </property>
    <property name="text">
     <string>Maximum Azimuth</string>
    </property>
   </action>
   <action name="actionAverage_Azimuth">
-   <property name="icon">
-    <iconset resource="datareconstruction.qrc">
-     <normaloff>:/DataReconstruction/Resources/AAVR.png</normaloff>:/DataReconstruction/Resources/AAVR.png</iconset>
-   </property>
    <property name="text">
     <string>Average Azimuth</string>
    </property>

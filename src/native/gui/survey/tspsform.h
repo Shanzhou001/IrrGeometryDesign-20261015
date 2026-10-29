@@ -59,6 +59,10 @@ class QSpinBox;
 #include <QStringList>
 #include <QTextBrowser>
 #include <QTextEdit>
+#include <QProcess>
+#include <QLineEdit>
+#include <QSpinBox>
+#include <QPixmap>
 #include <QSplitter>
 
 class ResearchFiguresDialog : public QDialog
@@ -67,6 +71,11 @@ class ResearchFiguresDialog : public QDialog
 public:
     ResearchFiguresDialog(QWidget *parent = 0);
     void selectFigure(int index);
+    int figureCount() const { return mFileNames.size(); }
+    bool imageLoaded() const { return !mPixmap.isNull(); }
+    bool imageFits() const;
+    bool workflowRunning() const { return mProcess->state()!=QProcess::NotRunning; }
+    int workflowExitCode() const { return mLastExitCode; }
 
 public slots:
     void onSelectionChanged(int index);
@@ -74,6 +83,16 @@ public slots:
     void onNext();
     void onOpenInBrowser();
     void onOpenFolder();
+    void onRefresh();
+    void fitImage();
+    void onRun();
+    void onProcessOutput();
+    void onProcessFinished(int,QProcess::ExitStatus);
+    void onProcessError(QProcess::ProcessError);
+protected:
+    bool eventFilter(QObject* object,QEvent* event);
+    void resizeEvent(QResizeEvent* event);
+    void closeEvent(QCloseEvent* event);
 
 private:
     void loadFigure(int index);
@@ -91,6 +110,13 @@ private:
     QStringList mTitles;
     QStringList mConclusions;
     int mCurrentIndex;
+    QPixmap mPixmap;
+    QProcess *mProcess;
+    QLineEdit *mPython;
+    QSpinBox *mWorkers;
+    QPushButton *mRun;
+    QTextEdit *mLog;
+    int mLastExitCode;
 };
 
 class TSPSForm : public Q3MainWindow

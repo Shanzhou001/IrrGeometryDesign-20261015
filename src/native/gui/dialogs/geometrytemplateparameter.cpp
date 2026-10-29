@@ -1,9 +1,16 @@
-#include "geometrytemplateparameter.h"
+ï»¿#include "geometrytemplateparameter.h"
 
 GeometryTemplateParameter::GeometryTemplateParameter(QWidget *parent)
 	: QDialog(parent)
 {
-	ui.setupUi(this);	
+	ui.setupUi(this);
+    ChannelNumPerRline=RlineNumPerTemplate=SlineNumPerTemplate=ShotpointNumPerSline=0;
+    RlineInterval=RpointInterval=SlineInterval=SpointInterval=FirstRpointX0=FirstRpointY0=FirstSpointX0=FirstSpointY0=0;
+    connect(ui.mChannel_num_PerRline,SIGNAL(textChanged(const QString &)),this,SLOT(setFirstshotX()));
+    connect(ui.mReceivingpoint_interval,SIGNAL(textChanged(const QString &)),this,SLOT(setFirstshotX()));
+    connect(ui.mRline_num_PerTemplate,SIGNAL(textChanged(const QString &)),this,SLOT(setFirstshotY()));
+    connect(ui.mRline_interval,SIGNAL(textChanged(const QString &)),this,SLOT(setFirstshotY()));
+	
 	connect(ui.mSline_num_PerTemplate,SIGNAL(textChanged(const QString &)), this, SLOT(setFirstshotX()));
 	connect(ui.mSline_interval,SIGNAL(textChanged(const QString &)), this, SLOT(setFirstshotX()));
 	connect(ui.mShot_num_PerSline,SIGNAL(textChanged(const QString &)), this, SLOT(setFirstshotY()));
@@ -17,6 +24,14 @@ GeometryTemplateParameter::~GeometryTemplateParameter()
 
 void GeometryTemplateParameter::on_Ok_Btn_clicked()
 {
+    QList<QLineEdit*> fields=findChildren<QLineEdit*>();
+    for(int i=0;i<fields.size();i++) {
+        bool ok=false;double value=fields[i]->text().toDouble(&ok);
+        bool valid=ok && value>-1e12 && value<1e12;
+        fields[i]->setStyleSheet(valid?"":"border:2px solid red");
+        if(!valid){fields[i]->setFocus();return;}
+    }
+
 	if (ui.mChannel_num_PerRline->text().isEmpty() || ui.mRline_num_PerTemplate->text().isEmpty() || 
 		ui.mSline_num_PerTemplate->text().isEmpty() || ui.mShot_num_PerSline->text().isEmpty() ||
 		ui.mRline_interval->text().isEmpty() || ui.mReceivingpoint_interval->text().isEmpty() ||
@@ -26,7 +41,7 @@ void GeometryTemplateParameter::on_Ok_Btn_clicked()
 	{
 		QMessageBox::warning(this, QObject::tr("Warning"), QObject::tr("Please make sure your template parameters are available!"));
 		return;
-	} // ÓÃ»§±ØÐë¸ø¶¨²ÎÊý²ÅÄÜ½øÐÐÏÂÒ»²½²Ù×÷ [Liu Wei 4/5/2023]
+	} // ç”¨æˆ·å¿…é¡»ç»™å®šå‚æ•°æ‰èƒ½è¿›è¡Œä¸‹ä¸€æ­¥æ“ä½œ [Liu Wei 4/5/2023]
 	else if (ui.mChannel_num_PerRline->text().toInt()<=0 || ui.mRline_num_PerTemplate->text().toInt()<=0 || 
 		ui.mSline_num_PerTemplate->text().toInt()<=0 || ui.mShot_num_PerSline->text().toInt()<=0 ||
 		ui.mRline_interval->text().toFloat()<=0 || ui.mReceivingpoint_interval->text().toFloat()<=0 ||
@@ -36,7 +51,7 @@ void GeometryTemplateParameter::on_Ok_Btn_clicked()
 	{
 		QMessageBox::warning(this, QObject::tr("Warning"), QObject::tr("Please make sure your template parameters are correct!"));
 		return;
-	} // ÓÃ»§±ØÐë¸ø¶¨²ÎÊý²ÅÄÜ½øÐÐÏÂÒ»²½²Ù×÷ [Liu Wei 4/5/2023]
+	} // ç”¨æˆ·å¿…é¡»ç»™å®šå‚æ•°æ‰èƒ½è¿›è¡Œä¸‹ä¸€æ­¥æ“ä½œ [Liu Wei 4/5/2023]
 	else
 	{
 		ChannelNumPerRline=ui.mChannel_num_PerRline->text().toInt();

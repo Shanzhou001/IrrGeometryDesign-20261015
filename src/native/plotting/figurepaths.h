@@ -44,9 +44,9 @@ public:
         QString requested=QString::fromLocal8Bit(qgetenv("IRR_FIGURES_DIR"));
         if(!requested.isEmpty() && contained(requested))return QDir::cleanPath(QFileInfo(requested).absoluteFilePath());
         QString group=QString::fromLocal8Bit(qgetenv("IRR_FIGURE_GROUP"));
-        if(group.isEmpty())group=output.contains("unit_test_sandbox")?"validation":"legacy/current";
+        if(group.isEmpty())group=output.contains("unit_test_sandbox")?"validation":"interactive";
         QString target=QDir(root()).filePath(group);
-        if(!contained(target))target=QDir(root()).filePath("legacy/current");
+        if(!contained(target))target=QDir(root()).filePath("interactive");
         QDir().mkpath(target);return target;
     }
     static bool save(const QImage& image,const QString& path)
@@ -59,28 +59,6 @@ public:
     static bool capture(QWidget* widget,const QString& name)
     {
         return save(QPixmap::grabWidget(widget).toImage(),QDir(root()).filePath("gui/"+name));
-    }
-    static QString galleryDirectory()
-    {
-        QString current=QDir(root()).filePath("legacy/current");
-        if(QFile::exists(QDir(current).filePath("index.html")))return current;
-        return QDir(root()).filePath("legacy/v3");
-    }
-    static QString galleryImage(const QString& name)
-    {
-        QString path=QDir(galleryDirectory()).filePath(name);
-        if(QFile::exists(path))return path;
-        QFile aliases(QDir(root()).filePath("aliases.tsv"));
-        if(aliases.open(QIODevice::ReadOnly|QIODevice::Text))
-        {
-            QString key=QDir(root()).relativeFilePath(path);QTextStream stream(&aliases);
-            while(!stream.atEnd())
-            {
-                QStringList fields=stream.readLine().split('\t');
-                if(fields.size()==2 && fields[0]==key)return QDir(root()).filePath(fields[1]);
-            }
-        }
-        return path;
     }
 };
 #endif

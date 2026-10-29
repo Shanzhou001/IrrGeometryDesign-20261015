@@ -15,6 +15,9 @@ def qt_binary_directory():
 
 def native_environment(render=False):
     env=os.environ.copy()
+    # Parallelism is controlled by experiment workers, not nested BLAS/OpenMP pools.
+    for variable in ('OPENBLAS_NUM_THREADS','MKL_NUM_THREADS','OMP_NUM_THREADS'):
+        env[variable]='1'
     env['IRR_PROJECT_ROOT']=str(ROOT)
     env['IRR_WORKSPACE']=str(WORKSPACE)
     env['PYTHONPATH']=str(ROOT/'src')+os.pathsep+env.get('PYTHONPATH','')

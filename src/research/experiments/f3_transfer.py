@@ -22,7 +22,7 @@ from research.recovery import CANDIDATES
 PLAN=Path(__file__).with_name('f3_transfer_protocol.json')
 
 
-def run(out,exe=None,workers=12,dataset=DEFAULT,keep_intermediates=False):
+def run(out,exe=None,workers=12,dataset=DEFAULT,keep_intermediates=True,group=None):
     out=Path(out).resolve()
     if out.exists():raise FileExistsError(out)
     if workers<1:raise ValueError('Positive worker count required')
@@ -60,9 +60,6 @@ def run(out,exe=None,workers=12,dataset=DEFAULT,keep_intermediates=False):
     for name,value in provenance['input_sha256'].items():
         if digest(name)!=value:raise ValueError('F3 input changed during the frozen transfer')
     if digest(REGISTRY)!=provenance['registry_sha256']:raise ValueError('F3 registry changed')
-    if not keep_intermediates:
-        from research.recovery import prune_intermediates
-        prune_intermediates(out)
     for folder in ('features','selection','python','predictions'):
         artifacts.update({p.relative_to(out).as_posix():digest(p) for p in (out/folder).rglob('*') if p.is_file()})
     means=[]
@@ -77,11 +74,11 @@ def run(out,exe=None,workers=12,dataset=DEFAULT,keep_intermediates=False):
         isolation=isolation,projection_max_error=projection_error,score_max_error=score_error,
         derived_artifacts_sha256=artifacts,protocol_file_sha256=digest(PLAN))
     recorder.finish()
-    writer=FigureWriter('research/'+out.name);fig,ax=plt.subplots(figsize=(8,4),layout='constrained')
+    writer=FigureWriter(group or 'research/'+out.name);fig,ax=plt.subplots(figsize=(8,4),layout='constrained')
     for method in METHODS:
         same=[r for r in means if r['method']==method and r['recovery']=='selected']
         ax.plot([r['m'] for r in same],[r['mean_snr'] for r in same],'o-',label=method)
-    ax.set(xlabel='Retained traces',ylabel='Mean common-H SNR (dB)',title='F3: frozen external poststack transfer, one new survey')
+    ax.set(xlabel='Retained traces',ylabel='Mean common-H SNR (dB)',title='F3: repeated transfer on one poststack survey')
     ax.legend(fontsize=8);ax.grid(alpha=.2)
     writer.save(fig,'recovery',dict(records=means,independent_surveys=1,time_unit='sample_index',spatial_unit='trace_interval'))
     writer.gallery('F3 frozen transfer: descriptive results, no imaging or physical calibration claim')

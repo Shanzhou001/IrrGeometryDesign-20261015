@@ -54,214 +54,137 @@
 #include <QFrame>
 #include <QFont>
 #include <QFileInfo>
+#include <QStyle>
+#include <QTextCursor>
+#include <QResizeEvent>
+#include <QRegExp>
 // =========================================================================
 // 科研成果图件与科学结论画廊实现 (支持图片与定量结论一一对应)
 // =========================================================================
+// The list is produced only after the current suite and independent audits complete.
+static QString utf(const char* text) { return QString::fromLocal8Bit(text); }
 ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
-    : QDialog(parent), mCurrentIndex(0)
+    : QDialog(parent), mCurrentIndex(0), mLastExitCode(-1)
 {
-    setWindowTitle(QString::fromLocal8Bit("研究图件与实验说明 - [IrrGeometryDesign]"));
-    resize(1060, 750);
-    setSizeGripEnabled(true);
-
-    QFont chFont("SimSun", 9);
-    setFont(chFont);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(8, 8, 8, 8);
-    mainLayout->setSpacing(6);
-
-    QHBoxLayout *topBar = new QHBoxLayout();
-    QLabel *lblSelect = new QLabel(QString::fromLocal8Bit("选择科研图件:"), this);
-
-    mCombo = new QComboBox(this);
-    mCombo->setMinimumWidth(620);
-	// 2026-10-22: 条目文字较长，显式绑定弹出列表宽度，避免下拉项被截断
-	mCombo->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-	mCombo->view()->setMinimumWidth(620);
-
-    mBtnPrev = new QPushButton(QString::fromLocal8Bit("<- 上一张"), this);
-    mBtnNext = new QPushButton(QString::fromLocal8Bit("下一张 ->"), this);
-    mBtnBrowser = new QPushButton(QString::fromLocal8Bit("浏览器查看画廊(HTML)"), this);
-    mBtnFolder = new QPushButton(QString::fromLocal8Bit("打开图件总文件夹"), this);
-
-    topBar->addWidget(lblSelect);
-    topBar->addWidget(mCombo, 1);
-    topBar->addWidget(mBtnPrev);
-    topBar->addWidget(mBtnNext);
-    topBar->addWidget(mBtnBrowser);
-    topBar->addWidget(mBtnFolder);
-    mainLayout->addLayout(topBar);
-
-    QSplitter *splitter = new QSplitter(Qt::Vertical, this);
-    splitter->setChildrenCollapsible(false);
-
-    mScrollArea = new QScrollArea(splitter);
-    mScrollArea->setWidgetResizable(true);
-    mScrollArea->setFrameShape(QFrame::NoFrame);
-
-    mImageLabel = new QLabel(mScrollArea);
-    mImageLabel->setAlignment(Qt::AlignCenter);
-    mScrollArea->setWidget(mImageLabel);
-
-    mConclusionBrowser = new QTextBrowser(splitter);
-    mConclusionBrowser->setOpenExternalLinks(true);
-    mConclusionBrowser->setFrameShape(QFrame::NoFrame);
-    QPalette pal = mConclusionBrowser->palette();
-    pal.setColor(QPalette::Base, palette().color(QPalette::Window));
-    mConclusionBrowser->setPalette(pal);
-
-    QList<int> splitSizes;
-    splitSizes << 500 << 200;
-    splitter->setSizes(splitSizes);
-
-    mainLayout->addWidget(splitter, 1);
-
-    mFileNames.clear();
-    mTitles.clear();
-    mConclusions.clear();
-
-    mFileNames << "paper/search.png";
-    mTitles << QString::fromLocal8Bit("01. Fourier/PSF 采样搜索比较");
-    mConclusions << QString::fromLocal8Bit(
-        "<b>评价口径：</b>Fourier 字典的 PSF 最大旁瓣，数值越小表示该字典下互干度越低。"
-        "不同算法应使用相同初始掩码、评价预算和随机种子进行配对比较。"
-        "低互干度不能直接推出更高的 Curvelet 恢复 SNR。"
-    );
-
-    mFileNames << "paper/budget.png";
-    mTitles << QString::fromLocal8Bit("02. 预算回收与共同评价次数比较");
-    mConclusions << QString::fromLocal8Bit(
-        "<b>比较口径：</b>同时检查最终结果和共同评价次数下的结果。"
-        "预算回收可能通过增加有效评价改善最终值；单位评价效率必须由共同评价次数的配对差异判断。"
-        "置信区间和显著性以对应原始结果表为准。"
-    );
-
-    mFileNames << "paper/recovery.png";
-    mTitles << QString::fromLocal8Bit("03. 共同隐藏集上的恢复质量比较");
-    mConclusions << QString::fromLocal8Bit(
-        "<b>验证口径：</b>所有采样方法在共同隐藏集 H 上计算 SNR，H 不可进入采样或恢复配置选择。"
-        "固定 Curvelet 与内层选择恢复分别报告；内层选择候选包含零预测和线性插值，"
-        "因此选择后的改善不能全部归因于 Curvelet。"
-    );
-
-    mFileNames << "paper/real_windows.png";
-    mTitles << QString::fromLocal8Bit("04. 真实资料预设时间窗与失败情况");
-    mConclusions << QString::fromLocal8Bit(
-        "<b>适用范围：</b>不同时间窗和掩码划分仍来自同一个资料来源，不能视作多个独立工区。"
-        "应保留负 SNR 和失败案例。资料编码、坐标单位和道集含义未确认时，"
-        "图件只能作为带有这些限制的探索结果。"
-    );
-
-    for (int i = 0; i < mTitles.size(); ++i)
-    {
-        mCombo->addItem(mTitles[i]);
-    }
-
-    connect(mCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(onSelectionChanged(int)));
-    connect(mBtnPrev, SIGNAL(clicked()), this, SLOT(onPrev()));
-    connect(mBtnNext, SIGNAL(clicked()), this, SLOT(onNext()));
-    connect(mBtnBrowser, SIGNAL(clicked()), this, SLOT(onOpenInBrowser()));
-    connect(mBtnFolder, SIGNAL(clicked()), this, SLOT(onOpenFolder()));
-
-    loadFigure(0);
+    setWindowTitle(utf("毕业实验与结果图库"));resize(1080,800);setSizeGripEnabled(true);
+    QVBoxLayout *layout=new QVBoxLayout(this);
+    QLabel *intro=new QLabel(utf("完整流程：数据核验 → 合成对照 → Viking稳定性 → F3重复迁移 → 独立审计 → 图件。保留负结果；F3已用于开发观察。"),this);
+    intro->setWordWrap(true);layout->addWidget(intro);
+    QHBoxLayout *runBar=new QHBoxLayout;
+    runBar->addWidget(new QLabel(utf("Python 3.12:"),this));mPython=new QLineEdit(this);
+    QString configured=QString::fromLocal8Bit(qgetenv("IRR_PYTHON"));mPython->setText(configured.isEmpty()?"python":configured);runBar->addWidget(mPython,1);
+    runBar->addWidget(new QLabel(utf("并行数:"),this));mWorkers=new QSpinBox(this);mWorkers->setRange(1,16);mWorkers->setValue(16);runBar->addWidget(mWorkers);
+    mRun=new QPushButton(utf("运行 / 核验完整实验"),this);runBar->addWidget(mRun);
+    QPushButton *refresh=new QPushButton(utf("刷新最新图件"),this);runBar->addWidget(refresh);layout->addLayout(runBar);
+    QHBoxLayout *selectBar=new QHBoxLayout;mCombo=new QComboBox(this);mCombo->setMinimumWidth(200);selectBar->addWidget(mCombo,1);
+    mBtnPrev=new QPushButton(utf("上一张"),this);mBtnNext=new QPushButton(utf("下一张"),this);
+    mBtnBrowser=new QPushButton(utf("原图 / 网页"),this);mBtnFolder=new QPushButton(utf("打开结果目录"),this);
+    selectBar->addWidget(mBtnPrev);selectBar->addWidget(mBtnNext);selectBar->addWidget(mBtnBrowser);selectBar->addWidget(mBtnFolder);layout->addLayout(selectBar);
+    QSplitter *splitter=new QSplitter(Qt::Vertical,this);
+    mScrollArea=new QScrollArea(splitter);mScrollArea->setWidgetResizable(true);
+    mScrollArea->viewport()->installEventFilter(this);
+    mImageLabel=new QLabel(mScrollArea);mImageLabel->setAlignment(Qt::AlignCenter);mImageLabel->setMinimumSize(1,1);mScrollArea->setWidget(mImageLabel);
+    mConclusionBrowser=new QTextBrowser(splitter);mConclusionBrowser->setOpenExternalLinks(true);
+    mLog=new QTextEdit(splitter);mLog->setReadOnly(true);mLog->setMaximumHeight(150);
+    QList<int> sizes;sizes<<450<<100<<100;splitter->setSizes(sizes);layout->addWidget(splitter,1);
+    mProcess=new QProcess(this);mProcess->setProcessChannelMode(QProcess::MergedChannels);
+    connect(mCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(onSelectionChanged(int)));
+    connect(mBtnPrev,SIGNAL(clicked()),this,SLOT(onPrev()));connect(mBtnNext,SIGNAL(clicked()),this,SLOT(onNext()));
+    connect(mBtnBrowser,SIGNAL(clicked()),this,SLOT(onOpenInBrowser()));connect(mBtnFolder,SIGNAL(clicked()),this,SLOT(onOpenFolder()));
+    connect(refresh,SIGNAL(clicked()),this,SLOT(onRefresh()));connect(mRun,SIGNAL(clicked()),this,SLOT(onRun()));
+    connect(mProcess,SIGNAL(readyReadStandardOutput()),this,SLOT(onProcessOutput()));
+    connect(mProcess,SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(onProcessFinished(int,QProcess::ExitStatus)));
+    connect(mProcess,SIGNAL(error(QProcess::ProcessError)),this,SLOT(onProcessError(QProcess::ProcessError)));
+    onRefresh();
 }
-
-void ResearchFiguresDialog::selectFigure(int index)
+void ResearchFiguresDialog::onRefresh()
 {
-    if (index >= 0 && index < mFileNames.size())
-    {
-        loadFigure(index);
+    mCombo->blockSignals(true);mCombo->clear();mFileNames.clear();mTitles.clear();mConclusions.clear();
+    QFile state(FigurePaths::artifactPath("results/current/workflow.json"));
+    bool passed=false,complete=true;
+    if(state.open(QIODevice::ReadOnly)) {
+        QRegExp status("\"status\"\\s*:\\s*\"([^\"]+)\"");
+        if(status.indexIn(QString::fromUtf8(state.readAll()))>=0)passed=status.cap(1)=="passed";
     }
-}
-
-void ResearchFiguresDialog::onSelectionChanged(int index)
-{
-    loadFigure(index);
-}
-
-void ResearchFiguresDialog::onPrev()
-{
-    if (mCurrentIndex > 0)
-    {
-        loadFigure(mCurrentIndex - 1);
+    QFile list(QDir(FigurePaths::root()).filePath("current.tsv"));
+    if(passed && list.open(QIODevice::ReadOnly|QIODevice::Text)) {
+        QTextStream stream(&list);stream.setCodec("UTF-8");
+        while(!stream.atEnd()) { QStringList fields=stream.readLine().split('\t');
+            if(fields.size()!=3){complete=false;continue;}
+            QString path=QDir(FigurePaths::root()).absoluteFilePath(fields[0]);
+            if(!FigurePaths::contained(path) || !QFile::exists(path)){complete=false;continue;}
+            mFileNames<<fields[0];mTitles<<fields[1];mConclusions<<fields[2];mCombo->addItem(fields[1]);
+        }
     }
+    if(!complete || mFileNames.size()!=13){mCombo->clear();mFileNames.clear();mTitles.clear();mConclusions.clear();}
+    mCombo->blockSignals(false);
+    if(mFileNames.isEmpty()) {
+        mPixmap=QPixmap();mImageLabel->clear();mImageLabel->setText(utf("尚无本轮已验收图件。请选择Python解释器，然后运行完整实验。"));
+        mConclusionBrowser->setPlainText(utf("图片由当前结果表和预测重新生成，验收后才会出现在这里。"));
+        mBtnPrev->setEnabled(false);mBtnNext->setEnabled(false);
+    } else loadFigure(qMin(mCurrentIndex,mFileNames.size()-1));
+    QTimer::singleShot(0,this,SLOT(fitImage()));
 }
-
-void ResearchFiguresDialog::onNext()
-{
-    if (mCurrentIndex < mFileNames.size() - 1)
-    {
-        loadFigure(mCurrentIndex + 1);
-    }
-}
-
-void ResearchFiguresDialog::onOpenInBrowser()
-{
-    QString htmlPath = QDir(FigurePaths::root()).filePath("index.html"); // add by wushanzhou in 2026/10/23
-    QFileInfo fi(htmlPath);
-    if (fi.exists())
-    {
-        QDesktopServices::openUrl(QUrl::fromLocalFile(fi.absoluteFilePath()));
-    }
-    else
-    {
-        QMessageBox::warning(this, QString::fromLocal8Bit("未找到画廊网页"),
-                             QString::fromLocal8Bit("画廊网页尚未生成：%1\n请先在命令行运行：\npython pipeline.py figures").arg(htmlPath));
-    }
-}
-
-void ResearchFiguresDialog::onOpenFolder()
-{
-    QString dirPath = FigurePaths::root();
-    QDir dir(dirPath);
-    if (!dir.exists())
-    {
-        dir.mkpath(".");
-    }
-    QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()));
-}
-
+void ResearchFiguresDialog::selectFigure(int index){loadFigure(index);}
+void ResearchFiguresDialog::onSelectionChanged(int index){loadFigure(index);}
+void ResearchFiguresDialog::onPrev(){loadFigure(mCurrentIndex-1);}
+void ResearchFiguresDialog::onNext(){loadFigure(mCurrentIndex+1);}
 void ResearchFiguresDialog::loadFigure(int index)
 {
-    if (index < 0 || index >= mFileNames.size()) return;
-    mCurrentIndex = index;
-
-    if (mCombo->currentIndex() != index)
-    {
-        mCombo->blockSignals(true);
-        mCombo->setCurrentIndex(index);
-        mCombo->blockSignals(false);
-    }
-
-    QString filePath = QDir(FigurePaths::root()).filePath(mFileNames[index]);
-    QFileInfo fi(filePath);
-
-    if (fi.exists())
-    {
-        QPixmap pix(filePath);
-        if (!pix.isNull())
-        {
-            mImageLabel->setPixmap(pix);
-            mImageLabel->adjustSize();
-        }
-        else
-        {
-            mImageLabel->setText(QString::fromLocal8Bit("<font color=red>无法解析图像文件：%1</font>").arg(filePath));
-        }
-    }
-    else
-    {
-        mImageLabel->setText(QString::fromLocal8Bit(
-            "<font color=red><b>图件尚未生成：</b>%1</font><br><br>"
-            "请恢复对应实验记录后运行正式绘图模块。<br>"
-            "python pipeline.py figures 仅刷新已有图片的图库。").arg(mFileNames[index]));
-    }
-
-    mConclusionBrowser->setHtml(mConclusions[index] + QString::fromLocal8Bit(
-        "<br><br><b>归档状态：</b>保留图片不等于已验证的新实验结果。正式使用前请核对同名数据文件、原始结果表和运行 manifest。"));
-    mBtnPrev->setEnabled(index > 0);
-    mBtnNext->setEnabled(index < mFileNames.size() - 1);
+    if(index<0 || index>=mFileNames.size())return;mCurrentIndex=index;
+    mCombo->blockSignals(true);mCombo->setCurrentIndex(index);mCombo->blockSignals(false);
+    mPixmap=QPixmap(QDir(FigurePaths::root()).filePath(mFileNames[index]));mImageLabel->clear();
+    if(mPixmap.isNull())mImageLabel->setText(utf("图片缺失或损坏，请重新核验实验。"));
+    else fitImage();
+    QTimer::singleShot(0,this,SLOT(fitImage()));
+    mConclusionBrowser->setHtml(mConclusions[index]+"<br>"+utf("文件：")+Qt::escape(mFileNames[index]));
+    mBtnPrev->setEnabled(index>0);mBtnNext->setEnabled(index+1<mFileNames.size());
+}
+void ResearchFiguresDialog::fitImage()
+{
+    if(mPixmap.isNull())return;
+    QSize area=mScrollArea->viewport()->size()-QSize(8,8);
+    if(area.width()>0 && area.height()>0)mImageLabel->setPixmap(mPixmap.scaled(area,Qt::KeepAspectRatio,Qt::SmoothTransformation));
+}
+bool ResearchFiguresDialog::imageFits() const
+{
+    if(mPixmap.isNull() || !mImageLabel->pixmap())return false;
+    QSize expected=mPixmap.size();expected.scale(mScrollArea->viewport()->size()-QSize(8,8),Qt::KeepAspectRatio);
+    return mImageLabel->pixmap()->size()==expected && expected.width()>100 && expected.height()>50;
+}
+bool ResearchFiguresDialog::eventFilter(QObject* object,QEvent* event)
+{
+    if(object==mScrollArea->viewport() && event->type()==QEvent::Resize)
+        QTimer::singleShot(0,this,SLOT(fitImage()));
+    return QDialog::eventFilter(object,event);
+}
+void ResearchFiguresDialog::resizeEvent(QResizeEvent* event){QDialog::resizeEvent(event);QTimer::singleShot(0,this,SLOT(fitImage()));}
+void ResearchFiguresDialog::onOpenInBrowser(){QDesktopServices::openUrl(QUrl::fromLocalFile(QDir(FigurePaths::root()).filePath("index.html")));}
+void ResearchFiguresDialog::onOpenFolder(){QDesktopServices::openUrl(QUrl::fromLocalFile(FigurePaths::artifactPath("results/current")));}
+void ResearchFiguresDialog::onRun()
+{
+    if(workflowRunning())return;mLastExitCode=-1;mLog->clear();
+    QString root=QFileInfo(FigurePaths::root()).absolutePath();mProcess->setWorkingDirectory(root);
+    QStringList env=QProcess::systemEnvironment();env<<"PYTHONIOENCODING=utf-8"<<"PYTHONUNBUFFERED=1";mProcess->setEnvironment(env);
+    QStringList args;args<<"-B"<<QDir(root).filePath("pipeline.py")<<"thesis"<<"--workers"<<QString::number(mWorkers->value());
+    mRun->setEnabled(false);mPython->setEnabled(false);mWorkers->setEnabled(false);
+    mLog->append(utf("运行中。完整批次可能需要较长时间；请等待最终通过或错误信息。"));
+    mProcess->start(mPython->text().trimmed(),args);
+}
+void ResearchFiguresDialog::onProcessOutput(){mLog->moveCursor(QTextCursor::End);mLog->insertPlainText(QString::fromUtf8(mProcess->readAllStandardOutput()));mLog->ensureCursorVisible();}
+void ResearchFiguresDialog::onProcessFinished(int code,QProcess::ExitStatus status)
+{
+    onProcessOutput();mLastExitCode=status==QProcess::NormalExit?code:-1;
+    mRun->setEnabled(true);mPython->setEnabled(true);mWorkers->setEnabled(true);
+    mLog->append(code==0&&status==QProcess::NormalExit?utf("完整实验及独立核验通过，已刷新图件。") : utf("运行失败。请查看上方日志与 results/current/workflow.json。"));onRefresh();
+}
+void ResearchFiguresDialog::onProcessError(QProcess::ProcessError error)
+{
+    if(error==QProcess::FailedToStart){mLastExitCode=127;mRun->setEnabled(true);mPython->setEnabled(true);mWorkers->setEnabled(true);mLog->append(utf("无法启动Python，请填写python.exe完整路径。"));}
+}
+void ResearchFiguresDialog::closeEvent(QCloseEvent* event)
+{
+    if(workflowRunning()){mLog->append(utf("实验仍在运行，请等待结束后关闭窗口。"));event->ignore();return;}QDialog::closeEvent(event);
 }
 
 TSPSForm::TSPSForm( QWidget* parent ):Q3MainWindow(parent)    //add 2026/4/14 by Wushanzhou
@@ -320,6 +243,13 @@ TSPSForm::~TSPSForm()
 
 void TSPSForm::init()
 {
+    ui.actionViewGallery->setText(utf("毕业实验与结果图库"));
+    ui.zoomAction->setIcon(style()->standardIcon(QStyle::SP_FileDialogContentsView));
+    ui.gridAction->setIcon(style()->standardIcon(QStyle::SP_FileDialogDetailedView));
+    ui.saveAction->setIcon(style()->standardIcon(QStyle::SP_DialogSaveButton));
+    ui.newspsAction->setIcon(style()->standardIcon(QStyle::SP_FileIcon));
+    ui.actionQuickDemoSPS->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+    ui.actionViewGallery->setIcon(style()->standardIcon(QStyle::SP_ComputerIcon));
     ui.actionRAOptimizing->setText(QString::fromLocal8Bit("检波点自适应 PSF 优化"));
     ui.actionSAOptimizing->setText(QString::fromLocal8Bit("炮点自适应 PSF 优化"));
     ui.actionCalculate_the_Miu_for_Loaded_Geometry->setText(QString::fromLocal8Bit("历史曲波 Gram 差值诊断"));

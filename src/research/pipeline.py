@@ -28,9 +28,9 @@ def main():
     module.add_argument('name', help='for example research.validation.audit_numerics')
     module.add_argument('arguments', nargs=argparse.REMAINDER)
     arguments=sys.argv[1:]
-    if arguments[:1] and arguments[0] in ('check','viking','viking-v2'):
+    if arguments[:1] and arguments[0] in ('check','viking','viking-v2','thesis'):
         target = {'check':'research.validation.run_audit_checks', 'viking':'research.experiments.viking_study',
-                  'viking-v2':'research.experiments.viking_v2'}[arguments[0]]
+                  'viking-v2':'research.experiments.viking_v2', 'thesis':'research.experiments.thesis_workflow'}[arguments[0]]
         forwarded=arguments[1:]
         if forwarded[:1]==['--']:forwarded=forwarded[1:]
         arguments=['module',target,*forwarded]

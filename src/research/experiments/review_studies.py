@@ -395,6 +395,7 @@ def run(args):  # add by wushanzhou in 2026/10/24
                 command.append("--tradeoff")  # add by wushanzhou in 2026/10/24
             recorder.call(f"search/{domain}/{budget}", command, target)  # add by wushanzhou in 2026/10/24
     if args.stage == "search":  # add by wushanzhou in 2026/10/24
+        recorder.state["completed"] = True
         recorder.save()  # add by wushanzhou in 2026/10/24
         print("Search stage complete", flush=True)  # add by wushanzhou in 2026/10/24
         return  # add by wushanzhou in 2026/10/24
