@@ -37,7 +37,7 @@
 - `src/tests`：Python回归与原生独立探针；`src/resources`为Qt语言/资源清单，使用系统图标，不依赖已删除assets。
 - `src/third_party`：曲波、Eigen、Qt绘图依赖及许可；`src/build`为VS2008/Qt4构建配置。
 - `data`：必要的Viking、F3原始子集、来源文件和SPS。
-- `results/current`：唯一当前实验；原始预测和审计输入完整保留。
+- `results/current`：唯一当前实验；原始预测和审计输入完整保留。重复数据使用NTFS硬链接共享，大型CSV透明压缩；详见ACCEPTANCE.md。
 - `figures/research/current`：13张当前科研图及数值来源；`figures/current.tsv`为Qt图库清单。
 - `figures/gui`：实际GUI截图；其中OVT/聚焦能量等部分截图使用界面测试数据，不作为实测研究结果。
 - `build/bin`：Release/Debug程序；`output/runtime_current`：可移植运行依赖。

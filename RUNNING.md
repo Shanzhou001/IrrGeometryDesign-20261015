@@ -44,3 +44,5 @@ python -B tools/verify_f3_transfer.py --root results/current/f3 --out checks/f3_
 当前 `output/runtime_current` 已补齐VC90 CRT、VC90 OpenMP和生成的中文翻译，全部文件身份见其runtime_manifest.json。若自行调用runtime_bundle重新创建运行包，该工具首先生成批处理运行依赖；GUI打包还需复制 `build/bin/Release/IrrGeometryDesign_zh.qm` 和本机VS2008 `VC/redist/amd64/Microsoft.VC90.OpenMP` 整个程序集目录，再登记新增文件哈希，并在移除QTDIR、PATH仅含System32的环境中重新执行核心及图库测试。不要将这些VC运行库误当作所有Windows机器自带的系统DLL。
 
 本机实际验收：Qt启动的从零完整实验75.16分钟；清理后冷数据完整留存哈希复核约30.00分钟。耗时受磁盘缓存、硬盘速度和并行数影响，同版本复用也需等待核验完成。完整结果与限制见ACCEPTANCE.md。
+
+2026-10-30空间整理：完成的重复成功日志和与manifest相同的增量日志已删除。当前批次的重复CSV通过NTFS硬链接共享，必要CSV采用透明压缩；使用程序时无需解压。硬链接路径共享内容，手工修改前请复制为独立文件；跨文件系统复制时占用可能回升。完整重算会重新生成逐案例数据和日志。

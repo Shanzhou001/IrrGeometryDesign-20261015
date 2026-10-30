@@ -55,6 +55,16 @@ Viking所选恢复的幅度与相位诊断：
 
 清理状态：已完成。本轮追加移除142718个过时文件、19.503GB，当前结果、科研图、运行包各仅保留一套；必要原始资料、逐案例审计依赖和许可保留。清理后全部登记文件已重新核验通过（冷数据逐文件检查约29.99分钟），237个项目源文件、13图及数值来源、19个运行依赖身份均一致。最终总状态passed，证据入口为results/current/acceptance.json和final_integrity.json。
 
+## 本次结果目录瘦身（2026-10-30）
+
+此前完整实验及逐文件复核证据保持有效。本次删除了16393个重复的成功日志和4份与最终清单逐项相同的增量日志；每条原生调用的命令、退出码和登记哈希仍在实验manifest中，阶段日志保留。
+
+对21043个经SHA-256逐一核对的重复CSV路径使用NTFS硬链接，共去除6.056 GB重复数据；必要的大型CSV使用NTFS透明压缩。逻辑文件路径和字节保持一致。当前结果目录按路径累计大小约17.94 GiB，按唯一文件流计算实际分配约10.06 GiB；D盘可用空间比清理前增加约8.04 GiB，可能包含系统后台变化。
+
+本次实际重跑合成、Viking、F3各一个原生恢复案例，预测与线性输出哈希与原记录一致；检查9组硬链接、13张图片及数值来源、210个冻结源文件和运行包图库均通过。本次没有再次重跑全部75分钟实验，完整实验和全量审计仍以此前记录为准。机器记录见`results/current/storage_optimization.json`、`storage_allocation.json`、`storage_verification.json`。
+
+硬链接的多个路径共享同一份内容；手工修改前应另存为独立副本。复制到不支持硬链接或NTFS压缩的文件系统时，文件可能重新占用完整空间。重算会产生新的逐案例文件。
+
 ## 文件夹职责
 
 | 文件夹 | 当前职责 |
@@ -110,7 +120,7 @@ Viking所选恢复的幅度与相位诊断：
 | `results/current/viking`、`viking_audit`、`viking_quality` | Viking全量实验；独立复核；选模后的幅度/相关性/相位诊断。 |
 | `results/current/f3`、`f3_audit` | F3重复迁移全量实验与独立复核。 |
 | 实验内的`masks`、`observed`、`native`、`python` | 布局掩码、只含已采样道的实际输入、原生候选结果、Python f-k候选结果。 |
-| 实验内的`search`、`features`、`selection`、`predictions`、`logs` | 搜索轨迹、先导特征、内层选择依据、最终预测、逐调用日志；均保留供复核。 |
+| 实验内的`search`、`features`、`selection`、`predictions` | 搜索轨迹、先导特征、内层选择依据与最终预测；保留供复核。本批次重复的成功日志已删除，阶段日志和清单保留。 |
 | 合成实验的`truth`、`joint_search`、`selected` | 固定种子的合成目标、共同H搜索、所选恢复；不与实测资料混用。 |
 | `figures/research/current/synthetic`、`viking`、`f3`、`diagnostics` | 3张合成图、3张Viking图、1张F3图、6张波形/搜索/SPS诊断图。 |
 | `build/bin/Release`、`Debug` | 同一版源码的两个已测试编译配置；不是两套历史实验。 |
