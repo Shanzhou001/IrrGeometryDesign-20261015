@@ -1,0 +1,57 @@
+{
+  "protocol": "confirmation_20261103_v1",
+  "status": "frozen_before_new_waveform_access",
+  "primary_endpoint": "common-hidden-trace SNR; paired at clean-template level for synthetic data; descriptive within each field survey",
+  "primary_comparisons": ["Adaptive-Jitter", "Adaptive-SA_Budget"],
+  "primary_recovery": "selected",
+  "synthetic": {
+    "templates": 20,
+    "families": ["planar", "curved", "faulted", "crossing", "diffraction"],
+    "structures_per_family": 4,
+    "structure_seed": 11032026,
+    "noise_levels": [0.0, 0.03],
+    "mask_seeds": [11031, 11039],
+    "n": 128,
+    "samples": 256,
+    "counts": [38, 64, 90],
+    "budget": 300,
+    "methods": ["Jitter", "SA_Budget", "Adaptive"],
+    "hidden_indices": "4::8",
+    "recovery": "frozen legacy nested zero/linear/warm40/cold40; observed-only gain and candidate selection",
+    "primary_family_size": 6,
+    "secondary_family_size": 6,
+    "scope": "Twenty separately seeded synthetic structural realizations across five families; not twenty real surveys. New prospective experiment after inspecting the historical six-template study."
+  },
+  "external": {
+    "surveys": [
+      {"id": "stratton", "url": "https://s3.amazonaws.com/open.source.geoscience/open_data/stratton/segy/processed/Stratton3D_32bit.sgy", "source_record": "https://wiki.seg.org/wiki/Stratton_3D_survey", "inline_byte": 9, "crossline_byte": 21},
+      {"id": "teapot", "url": "https://s3.amazonaws.com/open.source.geoscience/open_data/teapot/filt_mig.sgy", "source_record": "https://wiki.seg.org/wiki/Teapot_dome_3D_survey", "inline_byte": 181, "crossline_byte": 185}
+    ],
+    "selection_rule": "Sort inline identifiers from trace headers; take floor((n-1)*q) for q=0.25,0.5,0.75; centered 120 consecutive crossline ranks per section. Select the same center sample window [512,768). No score-based replacement or silent skipping of invalid sections.",
+    "n": 120,
+    "samples": 256,
+    "window_start": 512,
+    "counts": [36, 60, 84],
+    "seeds": [84011, 94217],
+    "hidden_sets": ["periodic", "r271828", "r314159"],
+    "pilot_count": 12,
+    "budget": 300,
+    "inner_folds": 2,
+    "methods": ["Jitter", "SA_Mu", "Adaptive_Mu", "Adaptive_Gap", "Adaptive_Signal"],
+    "recovery": "unchanged eight-candidate pool from Viking/F3; no new-survey retuning",
+    "geometry": "trace ranks with 25 nominal units per trace; report gaps in trace intervals, not physical meters",
+    "scope": "Two additional field surveys first accessed by this project after protocol freezing; dependent sections/seeds do not increase survey count. Poststack interpolation does not establish acquisition cost savings or imaging improvement."
+  },
+  "spatial_waveform": {
+    "survey": "stratton",
+    "shape": [16, 16],
+    "selection_rule": "Centered consecutive 16 inline ranks and 16 crossline ranks, samples [512,640), fixed before amplitude access.",
+    "counts": [76, 128, 179],
+    "seeds": [11031, 11039, 11047],
+    "budget": 300,
+    "hidden_indices": "flat indices 4::8",
+    "methods": ["Jitter", "SA", "Hybrid"],
+    "recovery": "fixed 3D Fourier FISTA, 80 iterations, lambda fraction 0.01 of observed-only FFT peak; measured columns projected back",
+    "scope": "Same-volume 2D spatial mask and waveform interpolation validation. Grid-rank geometry only; no migration or physical acquisition-cost claim."
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "protocol": "mapped_prestack_v1",
+  "scope": "Previously inspected public field surveys; digital amplitude and held-out recovery only. Not original 5151-5171; no physical calibration, migration, or actual-cost claim.",
+  "windows": [
+    [
+      256,
+      384
+    ],
+    [
+      768,
+      896
+    ]
+  ],
+  "hidden_seeds": [
+    1907,
+    2909
+  ],
+  "seeds": [
+    17,
+    43
+  ],
+  "budget": 200,
+  "hybrid_sa_prefix": 64,
+  "keep_fractions": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "methods": [
+    "Jitter",
+    "RandomBudget",
+    "SA",
+    "Hybrid"
+  ],
+  "recoverers": [
+    "zero",
+    "linear",
+    "fourier"
+  ],
+  "iterations": 80,
+  "fraction": 0.01,
+  "poland": {
+    "ffids": [
+      231,
+      356,
+      481
+    ],
+    "first_channel": 14,
+    "receivers": 256
+  },
+  "soda": {
+    "ffid": 7733,
+    "receiver_lines": [
+      6161,
+      6166,
+      6171,
+      6176,
+      6181,
+      6186,
+      6191,
+      6196
+    ],
+    "receiver_points": [
+      6048,
+      6049,
+      6050,
+      6051,
+      6052,
+      6053,
+      6054,
+      6055,
+      6056,
+      6057,
+      6058,
+      6059,
+      6060,
+      6061,
+      6062,
+      6063
+    ],
+    "components": [
+      1,
+      2,
+      3
+    ]
+  },
+  "independence": "Two already inspected surveys; repeated shots, components, windows, masks and seeds are paired dependent evaluations. No new unseen claim.",
+  "geometry": "Native SpatialFourier2D_v1 on surveyed x/y coordinates; waveform recovery uses logical station-rank grids and is an approximation on crooked lines.",
+  "input_sha256": {
+    "data/public/poland_line001_field/Line_001.sgy": "c7618b674f07a42a07f8600cbfb5a26caba0aae04078654760aa52d67ee4af87",
+    "data/public/poland_line001_field/Line_001.SPS": "6444721f4d2ab25eb005f829e131a57cc5e3fb65f5a2e5adb8eb884811d85da1",
+    "data/public/poland_line001_field/Line_001.RPS": "d2d5e93e57b6c105f5b5cc092a439c91d666fe063d773519ad5af5b49508f984",
+    "data/public/poland_line001_field/Line_001.XPS": "1d23f9eedae5291a7d8863cd31a42ab5545b40e671e0ca58866acee41460c4cd",
+    "data/public/poland_line001_field/Line_001.TXT": "30e611bcef0fdd8b2f1d747b195b74dbb1a3a30cd5c41163b8f24a8233475a94",
+    "data/public/poland_line001_field/trace_source_receiver_mapping.csv": "abf3e0d907949fab142e2b149232bcbb3d2b6aa01d43e0ad2226651f19838a64",
+    "data/public/poland_line001_field/source.json": "f37bd340d9ac5d63518c1a8c4706f998f9e97a069e87020a91b396fed53834b7",
+    "data/public/poland_line001_field/verification.json": "7f900a52e2c0067dec383ea707c3d8e694f476340755dbd5bf89506d5ceaf3a4",
+    "data/public/soda_lake_2010_field/F7733R1.SGY": "98ca40c1837be23edfd165cefb7463faa78af2bfb0dcc1dd6d60467c84a5ebe1",
+    "data/public/soda_lake_2010_field/F7733R1_trace_source_receiver_mapping.csv": "95a5d9a151c2b89f165761b60056dad82b9eae1a2207c13ee02f7b8535a8d045",
+    "data/public/soda_lake_2010_field/geometry/SodaLakeExportedSPS.sps": "6dedfff6a4af47e6245b8c18f360a21226162381952529fe6d378713702b4241",
+    "data/public/soda_lake_2010_field/geometry/SodaLakeExportedSPS.rps": "92ad17d56abe78fd378ce3ca40946aef8f13541ca9d1b660dcd6ee60a4ad187f",
+    "data/public/soda_lake_2010_field/geometry/SodaLakeExportedSPS.xps": "bc606b638181433ac6afba81c5c8a2d615c1a278e8d1799e97772b76478054d7",
+    "data/public/soda_lake_2010_field/source.json": "32c0a01fcb6283898cd2a8f8a72f8825d012db35c2a7d3be3d66c26cc9a9c2e4",
+    "data/public/soda_lake_2010_field/verification.json": "e6bd5c9baf9d86bcbdfb8aee022626b474833987af93803da4275026ffcf1628"
+  }
+}

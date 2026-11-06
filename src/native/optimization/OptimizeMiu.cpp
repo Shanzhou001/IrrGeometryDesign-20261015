@@ -2,7 +2,7 @@
  * Name    : OptimizeMiu.cpp
  * Function: Optimize Miu by enumeration method and SA
  *			 根据模拟退火法优化μ值
- *           包括常规模拟退火和联合改进模拟退火算法和共轭梯度算法
+ *           包括常规模拟退火和联合改进模拟退火算法和离散局部搜索
  * 修复日期: 2025.12.24
  * 修复内容: 移除多线程冲突、增强边界检查、修复内存访问错误
  * 修复日期: 2026.10.15 // add by wushanzhou in 2026/10/15
@@ -475,7 +475,7 @@ int *UnOptiMiuSAEx(int N, float c, int *Phi, string samptype, // add by wushanzh
 
 
 
-	// 混合优化策略：CG 局部精修（若 cg_max_iter <= 0 则跳过）(add by wushanzhou in 2026/10/15)
+	// 混合优化策略：离散局部精修（若 cg_max_iter <= 0 则跳过）(add by wushanzhou in 2026/10/15)
 	clock_t cg_begin = clock();
 	if (cg_max_iter > 0)
 	{
@@ -519,7 +519,7 @@ int *UnOptiMiuSA(int N, float c, int *Phi, string samptype)
 }
 
 // ==========================================================
-//  基于数值梯度的共轭梯度算法  2025.12.24 by 吴善州
+//  基于数值梯度方向的离散局部搜索（旧接口名CG）  2025.12.24 by 吴善州
 //  用于混合优化策略的局部精修
 //  修复版本：移除多线程、增强边界检查、修复内存访问
 // ==========================================================
@@ -589,7 +589,7 @@ void ComputeNumericalGradient(int N, int *Phi, float *grad) {
 	delete[] local_Phi;// 释放临时内存
 }
 
-// 2. 共轭梯度主函数 - 修复版：增强边界检查和NULL指针检查
+// 2. 离散局部精修主函数（旧接口名CG） - 修复版：增强边界检查和NULL指针检查
 int *OptiMiuCG(int N, int *Phi, int max_iter) {
 	if (Phi == NULL || N <= 0) return Phi;
 	if (max_iter < 1) max_iter = 1;
@@ -664,7 +664,7 @@ int *OptiMiuCG(int N, int *Phi, int max_iter) {
 }
 
 // ==========================================================
-//  2026.10.20 新增：混合优化消融（SA-only / CG-only / SA+CG / 等预算随机重启）
+//  2026.10.20 新增：混合优化消融（SA-only / Local-only / SA+Local / 等预算随机重启）
 //  目的：此前所有对外表格只给"Jitter-SA"一个数，无法回答
 //        "SA 与局部搜索各自的贡献有多大""混合是否优于等预算随机重启"。
 //  所有策略共享同一初始抖动掩码与同一随机种子，保证可比。

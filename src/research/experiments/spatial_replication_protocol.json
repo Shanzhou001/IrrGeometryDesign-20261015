@@ -1,0 +1,20 @@
+{
+  "protocol": "spatial_replication_20261103_v1",
+  "role": "Prespecified extension after inspecting the original single-block results; previously accessed surveys, not new unseen surveys",
+  "surveys": ["stratton", "volve"],
+  "shape": [16, 16],
+  "inline_quantiles": [0.2, 0.5, 0.8],
+  "crossline_quantiles": [0.3, 0.7],
+  "selection_rule": "Center each 16-rank interval at floor((axis_length-1)*q), clipping only to valid axis bounds. Require six spatially disjoint complete blocks per survey. No amplitude-based replacement.",
+  "time_windows": [[128, 256], [768, 896]],
+  "hidden_sets": ["periodic", "r271828"],
+  "counts": [76, 128, 179],
+  "seeds": [11031, 11039, 11047],
+  "methods": ["Jitter", "SA", "Hybrid"],
+  "budget": 300,
+  "hybrid_sa_prefix": 64,
+  "dictionary": "Unchanged 64 finite 2D Fourier atoms: (kx/16,ky/16), kx,ky in 0..7",
+  "recovery": {"iterations": 80, "fraction": 0.01},
+  "aggregation": "Pair identical survey/block/window/H/count/seed. Average windows, H sets and seeds within each block, then give the six blocks equal weight within each survey. Report individual block effects and ranges; no survey-population significance claim.",
+  "scope": "1296 descriptive recovery cases in two previously seen poststack surveys. Spatial blocks and windows remain correlated. Nominal grid ranks, uncalibrated amplitudes; no original-SPS waveform, migration or field-cost claim."
+}

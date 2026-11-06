@@ -1,0 +1,10 @@
+{
+  "profile": "paired_public_field_recovery_v1",
+  "authority": "User clarification: the application data need not be identical to the original survey; complete the experimental project loop using suitable data.",
+  "application_datasets": ["poland_line001_field", "soda_lake_2010_field"],
+  "required": ["retained_public_experiments", "mapped_field_recovery", "outcome_reporting", "current_code_checks", "independent_reproduction", "project_delivery"],
+  "optional": ["original_site_application", "physical_amplitude", "downstream_imaging", "actual_field_cost", "new_physical_machine"],
+  "claim": "Sampling-layout optimization, paired public-field trace mapping, held-out waveform recovery, uncalibrated digital-amplitude diagnostics, fair objective-evaluation controls and reproducibility.",
+  "original_survey_role": "Geometry case only; no substituted original-site waveform identity claim.",
+  "outcome_rule": "Closure requires complete execution and verification; negative effects and unsupported superiority hypotheses remain valid reported outcomes."
+}

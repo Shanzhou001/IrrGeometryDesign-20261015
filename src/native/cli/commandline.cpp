@@ -47,6 +47,13 @@ int runCommandLine(int argc,char** argv,bool& handled)
             bool ok=GeometryExperimentEngine::runAuditQueries(QString::fromLocal8Bit(argv[i+1]),QString::fromLocal8Bit(argv[i+2]),report);
             fprintf(ok?stdout:stderr,"%s\n",report.toLocal8Bit().constData());return ok?0:1;
         }
+        if(strcmp(argv[i],"--spatial-queries")==0)
+        {
+            if(i+2>=argc || i+3!=argc)return 2;
+            QString report;
+            bool ok=GeometryExperimentEngine::runSpatialQueries(QString::fromLocal8Bit(argv[i+1]),QString::fromLocal8Bit(argv[i+2]),report);
+            fprintf(ok?stdout:stderr,"%s\n",report.toLocal8Bit().constData());return ok?0:1;
+        }
         if(strcmp(argv[i],"--review-tests")==0 || strcmp(argv[i],"--test-core")==0)
             return GeometryExperimentEngine::runReviewUnitTests()?0:1;
         if(strcmp(argv[i],"--review-search")==0) // add by wushanzhou in 2026/10/24
@@ -287,7 +294,7 @@ int runCommandLine(int argc,char** argv,bool& handled)
 			printf("%s\n", summary.toLocal8Bit().constData());
 			return ok ? 0 : 1;
 		}
-		// 2026.10.20 新增：混合优化贡献分解消融（SA-only / CG-only / SA+CG / 等预算随机重启）
+		// 2026.10.20 新增：混合优化贡献分解消融（SA-only / Local-only / SA+Local / 等预算随机重启）
 		// 用法: --ablation [outDir, 默认 results/ablation] [--seed S]
 		if (strcmp(argv[i], "--ablation") == 0)
 		{
@@ -299,7 +306,7 @@ int runCommandLine(int argc,char** argv,bool& handled)
 				if ((strcmp(argv[j], "--seed") == 0 || strcmp(argv[j], "-s") == 0) && j + 1 < argc)
 					abSeed = (unsigned long long)_atoi64(argv[j + 1]);
 			}
-			printf("Hybrid optimisation ablation (SA / CG / SA+CG / equal-budget restart)\n");
+			printf("Hybrid optimisation ablation (SA / Local / SA+Local / equal-budget restart)\n");
 			printf("  outDir: %s, seed: %llu\n", outDir.toLocal8Bit().constData(), abSeed);
 			std::vector<float> ablRates;
 			ablRates.push_back(0.30f);

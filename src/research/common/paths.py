@@ -12,6 +12,15 @@ def executable(mode='Release'):
     return BINARY_ROOT / mode / 'IrrGeometryDesign.exe'
 
 
+def current_results():
+    pointer=ROOT/'results/active.txt'
+    if not pointer.is_file():return ROOT/'results/current'
+    path=(ROOT/pointer.read_text(encoding='utf-8').strip()).resolve()
+    if not path.is_relative_to((ROOT/'results').resolve()):
+        raise ValueError('Active experiment must remain inside results/')
+    return path
+
+
 def source_files():
     roots = [NATIVE, ROOT/'src/third_party/curvelet', ROOT/'src/third_party/qcustomplot']
     return sorted(p for base in roots for p in base.rglob('*')

@@ -589,7 +589,7 @@ static bool miu_ref_build(int N, int col, int datatype, int sc, int an)
 
 //==================== μ 评估计数器 ====================
 // 统计整个进程内 μ 的实际计算次数，用于优化算法效率对比
-// （例如 SA+CG 与纯 SA 在相同 μ 评估预算下的质量比较）。
+// （例如 SA+Local 与纯 SA 在相同 μ 评估预算下的质量比较）。
 static long g_miu_evals = 0;
 void miu_eval_reset() { g_miu_evals = 0; }
 long miu_eval_count() { return g_miu_evals; }

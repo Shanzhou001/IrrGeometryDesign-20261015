@@ -1,0 +1,8 @@
+{
+  "amendment": "closure_20261104_transport_v1",
+  "reason": "Full Zenodo download measured approximately 0.1 MB/s; preserve the interrupted transfer and fetch the six frozen blocks with strict HTTP byte ranges instead",
+  "changes": "Transport and local source identity only. Same published file, checksum, block selection, windows, search, recovery, endpoint and comparisons. No replacement survey and no outcome-based change.",
+  "access_disclosure": "The original protocol was frozen before waveform retrieval. This amendment follows partial byte transfer and a NPY-header probe, before decoding any selected waveform or observing any new result.",
+  "verification": "Require HTTP 206, exact Content-Range, exact byte count and stable publisher record/checksum before and after all requests. Hash each received range and decoded block. The publisher's full-volume MD5 remains a reference identity and is not asserted as locally verified for a range cache.",
+  "scope": "Selected blocks from an immutable versioned publication, not a verified full local volume"
+}

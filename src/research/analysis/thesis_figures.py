@@ -9,15 +9,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-from research.common.paths import ROOT, FIGURES
+from research.common.paths import ROOT, FIGURES, current_results
 from research.common.hashing import digest
 from research.common.tabular import rows
 from research.common.figures import FigureWriter
 from research.data.viking import load_windows
 
 
-def run(out):
-    out=Path(out); writer=FigureWriter('research/current/diagnostics')
+def run(out,group='research/current'):
+    out=Path(out); writer=FigureWriter(group+'/diagnostics')
     plt.rcParams.update({'font.size':10, 'axes.spines.top':False, 'axes.spines.right':False})
     sources={}
     def table(path):
@@ -100,7 +100,7 @@ def run(out):
         'diagnostics/viking_hidden_trace':'Viking：隐藏道波形与布局','diagnostics/search_trajectories':'搜索：实际评价轨迹',
         'diagnostics/sps_geometry':'SPS：真实几何与二维目标'}
     catalog=[]
-    for p in sorted((FIGURES/'research/current').rglob('*.png')):
+    for p in sorted((FIGURES/group).rglob('*.png')):
         data=p.with_suffix('.data.json')
         if not data.is_file():raise ValueError('Image has no numerical provenance: '+str(p))
         with Image.open(p) as im:
@@ -108,19 +108,19 @@ def run(out):
         with Image.open(p) as im:
             if min(im.size)<500:raise ValueError('Insufficient image resolution')
             size=list(im.size)
-        key=p.relative_to(FIGURES/'research/current').with_suffix('').as_posix()
+        key=p.relative_to(FIGURES/group).with_suffix('').as_posix()
         title=names[key]
         description='数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。'
         if key.startswith('f3') or key=='diagnostics/f3_baselines':description+=' F3为已见资料的重复迁移，不能当作新的未见工区。'
         catalog.append(dict(path=p.relative_to(FIGURES).as_posix(),title=title,description=description,
             sha256=digest(p),data_sha256=digest(data),pixels=size))
     if len(catalog)!=13:raise ValueError('Incomplete current figure edition: '+str(len(catalog)))
-    (FIGURES/'current.tsv').write_text(''.join(f"{r['path']}\t{r['title']}\t{r['description']}\n" for r in catalog),encoding='utf8')
     (out/'figure_verification.json').write_text(json.dumps(dict(status='passed',images=catalog,source_sha256=sources),ensure_ascii=False,indent=2)+'\n',encoding='utf8')
-    cards=''.join('<h2>'+html.escape(r['title'])+'</h2><p>'+html.escape(r['description'])+'</p><img src="'+r['path']+'">' for r in catalog)
-    (FIGURES/'index.html').write_text('<!doctype html><meta charset="utf-8"><title>毕业实验最新结果</title><style>body{max-width:1200px;margin:30px auto;font:16px sans-serif}img{width:100%}</style><h1>当前已核验实验结果</h1>'+cards,encoding='utf8')
+    from research.analysis.catalog import publish
+    evidence=out/'research_evidence/report.md'
+    publish(out,catalog,[('布局与恢复贡献',evidence)] if evidence.is_file() else [],'legacy')
     return catalog
 
 
 if __name__=='__main__':
-    run(ROOT/'results/current')
+    run(current_results())

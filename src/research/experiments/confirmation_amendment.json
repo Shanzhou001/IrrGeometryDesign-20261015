@@ -1,0 +1,16 @@
+{
+  "amendment": "availability_only_before_replacement_waveform_access",
+  "replace_survey_id": "teapot",
+  "reason": "The frozen Teapot object and documented mirror returned S3 AccessDenied (HTTP 403). No Teapot or replacement waveform scores were examined. All algorithms, thresholds, counts, seeds, H sets and window rules remain unchanged.",
+  "replacement": {
+    "id": "volve",
+    "url": "https://s3.amazonaws.com/osdu-seismic-test-data/volve/seismic/st0202/stacks/ST0202R08_PS_PSDM_RAW_PP_TIME.MIG_RAW.POST_Stack.3D.JS-017534.segy",
+    "source_record": "https://www.equinor.com/energy/volve-data-sharing",
+    "license": "https://www.equinor.com/content/dam/statoil/documents/what-we-do/Equinor-HRS-Terms-and-conditions-for-licence-to-data-Volve.pdf",
+    "attribution": "Equinor and the former Volve licence partners; OSDU open test-data mirror. Preserve original source and licence notices.",
+    "inline_byte": 189,
+    "crossline_byte": 193,
+    "header_evidence": "EBCDIC C36 declares inline bytes 189-192 and crossline bytes 193-196. Header-only access confirmed ns=1126, dt=4000us, IBM format=1. No sample amplitudes were accessed.",
+    "download_client": "curl"
+  }
+}

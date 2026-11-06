@@ -46,9 +46,15 @@ def create(program,out):
             if found is not None:queue.append(found)
             elif name.lower().startswith(('qt','fdct','fftw')):raise FileNotFoundError('Required runtime dependency: '+name)
             else:system.append(name)
-    redist=Path(os.environ.get('ProgramFiles(x86)','C:/Program Files (x86)'))/'Microsoft Visual Studio 9.0/VC/redist/amd64/Microsoft.VC90.CRT'
-    if not redist.is_dir():raise FileNotFoundError('VC90 x64 redistributable assembly is unavailable')
-    shutil.copytree(redist,out/'Microsoft.VC90.CRT')
+    redist=Path(os.environ.get('ProgramFiles(x86)','C:/Program Files (x86)'))/'Microsoft Visual Studio 9.0/VC/redist/amd64'
+    for assembly in ('Microsoft.VC90.CRT','Microsoft.VC90.OpenMP'):
+        if not (redist/assembly).is_dir():raise FileNotFoundError('Required VC90 x64 assembly is unavailable: '+assembly)
+        shutil.copytree(redist/assembly,out/assembly)
+    translation=program.parent/'IrrGeometryDesign_zh.qm'
+    bundled={p.name.lower() for p in out.rglob('*.dll')}
+    system=[name for name in system if name.lower() not in bundled]
+    if not translation.is_file():raise FileNotFoundError('Compiled GUI translation is unavailable')
+    shutil.copy2(translation,out/translation.name)
     notices=out/'licenses/qt4';notices.mkdir(parents=True)
     for name in ('LICENSE','LICENSE.LGPL','LICENSE.GPL3'):
         shutil.copy2(qt.parent/name,notices/name)

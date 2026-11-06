@@ -23,11 +23,11 @@ def external_inputs(workspace):
 
 
 def tracked_files():
-    candidates=source_files()+list((ROOT/'src/research').rglob('*.py'))+list((ROOT/'src/tests/python').glob('*.py'))
-    candidates+=list((ROOT/'src/research').rglob('*.json'))+list((ROOT/'.github/workflows').glob('*'))
-    candidates+=list((ROOT/'src/build').rglob('*'))
-    candidates+=[ROOT/name for name in ['pipeline.py','build.bat','requirements.txt','IrrGeometryDesign.sln']]
-    return sorted({path for path in candidates if path.is_file()})
+    candidates=[p for folder in ('src','tools','.github') for p in (ROOT/folder).rglob('*')]
+    for pattern in ('*.py','*.bat','*.ps1','*.sln','requirements.txt'):
+        candidates.extend(ROOT.glob(pattern))
+    return sorted({p for p in candidates if p.is_file() and '__pycache__' not in p.parts
+        and p.suffix.lower() not in ('.pyc','.pyo','.log','.user')})
 
 
 def unittest_summary(log):

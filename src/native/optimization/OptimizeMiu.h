@@ -27,7 +27,7 @@ using namespace fdct_wrapping_ns;
 
 int *UnOptiMiuSA(int N, float c, int *Phi, string samptype);//2023.5.16修改
 /*-----------------------------------------------------
- *  Function: 联合改进模拟退火算法优化μ值（SA 全局搜索 + CG 局部精修）
+ *  Function: 联合改进模拟退火算法优化μ值（SA 全局搜索 + 离散局部精修）
  *  Input:
  *		N -- 矩阵长度  c -- 采样率  Phi--采样矩阵 samptype--采样类型
  *	Output:
@@ -156,7 +156,7 @@ struct AblationResult // add by wushanzhou in 2026.10.20
 {
 	int n;                  // 掩码长度
 	int m;                  // 采样点数
-	double evalBudget;      // SA+CG 实际累计 μ 评估次数
+	double evalBudget;      // SA+Local 实际累计 μ 评估次数
 	float mu_init;          // 初始抖动掩码 μ
 	float mu_sa_only;       // 仅 SA（cg_max_iter = 0）
 	float mu_cg_only;       // 仅局部搜索（跳过 SA）
@@ -314,10 +314,10 @@ bool RunHybridAblation(int N, float c, unsigned long long seed,
 					   const SAParams &sap, AblationResult &out, int restartTrials = 0);
 /*-----------------------------------------------------
  *  Function: 混合优化贡献分解消融
- *  策略  : SA-only / CG-only / SA+CG / 等预算抖动随机重启 / 等预算纯随机
+ *  策略  : SA-only / Local-only / SA+Local / 等预算抖动随机重启 / 等预算纯随机
  *  Input : N, c -- 掩码长度与采样率；seed -- 复现种子
  *          sap -- SA 超参数（应与基准一致）
- *          restartTrials -- 重启次数；<=0 时自动取 SA+CG 的评估次数
+ *          restartTrials -- 重启次数；<=0 时自动取 SA+Local 的评估次数
  *  Note  : 所有策略共享同一初始抖动掩码，确保可比。
  *-----------------------------------------------------*/
 

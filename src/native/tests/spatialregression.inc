@@ -88,6 +88,16 @@
             SpatialPsfSearchResult full,invalid;
             if(!RunSpatialPsfSearch(objective,std::vector<int>(20,1),42,200,full)||full.evaluations!=1||full.status!="single_feasible_mask")spatialSearchOk=false;
             if(RunSpatialPsfSearch(objective,std::vector<int>(20,0),42,200,invalid)||RunSpatialPsfSearch(objective,initial,42,0,invalid))spatialSearchOk=false;
+            std::vector<int> eligible(20,1);eligible[1]=eligible[4]=eligible[7]=0;
+            SpatialPsfSearchResult heldout;
+            if(!RunSpatialPsfSearch(objective,initial,42,300,heldout,64,&eligible) || heldout.evaluations!=300)
+                spatialSearchOk=false;
+            else for(int i=0;i<20;i++)if(!eligible[i] && heldout.mask[i])spatialSearchOk=false;
+            std::vector<int> onlyInitial=initial;
+            if(!RunSpatialPsfSearch(objective,initial,42,300,heldout,64,&onlyInitial) || heldout.evaluations!=1)
+                spatialSearchOk=false;
+            eligible[0]=0;
+            if(RunSpatialPsfSearch(objective,initial,42,300,heldout,64,&eligible))spatialSearchOk=false;
             initial[0]=2;if(RunSpatialPsfSearch(objective,initial,42,200,invalid))spatialSearchOk=false;
         }
     }

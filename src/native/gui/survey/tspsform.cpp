@@ -70,7 +70,13 @@ ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     QVBoxLayout *layout=new QVBoxLayout(this);
     QLabel *intro=new QLabel(utf("完整流程：数据核验 → 合成对照 → Viking稳定性 → F3重复迁移 → 独立审计 → 图件。保留负结果；F3已用于开发观察。"),this);
     intro->setWordWrap(true);layout->addWidget(intro);
+    mBatchLabel=new QLabel(this);mBatchLabel->setWordWrap(true);layout->addWidget(mBatchLabel);
     QHBoxLayout *runBar=new QHBoxLayout;
+    mScope=new QComboBox(this);mScope->setObjectName("workflowScope");
+    mScope->addItem(utf("全部实验"),"all");mScope->addItem(utf("基础实验"),"legacy");mScope->addItem(utf("公平预算与外部验证"),"closure");
+    QString scope=QString::fromLocal8Bit(qgetenv("IRR_WORKFLOW_SCOPE"));
+    int configuredScope=mScope->findData(scope);if(configuredScope>=0)mScope->setCurrentIndex(configuredScope);
+    runBar->addWidget(mScope);
     runBar->addWidget(new QLabel(utf("Python 3.12:"),this));mPython=new QLineEdit(this);
     QString configured=QString::fromLocal8Bit(qgetenv("IRR_PYTHON"));mPython->setText(configured.isEmpty()?"python":configured);runBar->addWidget(mPython,1);
     runBar->addWidget(new QLabel(utf("并行数:"),this));mWorkers=new QSpinBox(this);mWorkers->setRange(1,16);mWorkers->setValue(16);runBar->addWidget(mWorkers);
@@ -106,8 +112,18 @@ void ResearchFiguresDialog::onRefresh()
         QRegExp status("\"status\"\\s*:\\s*\"([^\"]+)\"");
         if(status.indexIn(QString::fromUtf8(state.readAll()))>=0)passed=status.cap(1)=="passed";
     }
+    int expectedCount=-1;bool matchingBatch=true;
+    QFile meta(QDir(FigurePaths::root()).filePath("current.meta.tsv"));
+    if(meta.open(QIODevice::ReadOnly|QIODevice::Text)){
+        QStringList fields=QString::fromUtf8(meta.readAll()).trimmed().split('\t');
+        matchingBatch=fields.size()==3;
+        if(matchingBatch){bool valid=false;expectedCount=fields[1].toInt(&valid);matchingBatch=valid && expectedCount>0;
+            QString project=QFileInfo(FigurePaths::root()).absolutePath();
+            matchingBatch=matchingBatch && QDir::cleanPath(QDir(project).absoluteFilePath(fields[0]))==QDir::cleanPath(FigurePaths::artifactPath("results/current"));
+            mBatchLabel->setText(utf("结果批次: ")+fields[0]+utf("；运行范围: ")+fields[2]);}
+    }else mBatchLabel->setText(utf("历史图件；当前运行范围由上方选项指定"));
     QFile list(QDir(FigurePaths::root()).filePath("current.tsv"));
-    if(passed && list.open(QIODevice::ReadOnly|QIODevice::Text)) {
+    if(passed && matchingBatch && list.open(QIODevice::ReadOnly|QIODevice::Text)) {
         QTextStream stream(&list);stream.setCodec("UTF-8");
         while(!stream.atEnd()) { QStringList fields=stream.readLine().split('\t');
             if(fields.size()!=3){complete=false;continue;}
@@ -116,7 +132,7 @@ void ResearchFiguresDialog::onRefresh()
             mFileNames<<fields[0];mTitles<<fields[1];mConclusions<<fields[2];mCombo->addItem(fields[1]);
         }
     }
-    if(!complete || mFileNames.size()!=13){mCombo->clear();mFileNames.clear();mTitles.clear();mConclusions.clear();}
+    if(!complete || mFileNames.isEmpty() || (expectedCount>=0 && mFileNames.size()!=expectedCount)){mCombo->clear();mFileNames.clear();mTitles.clear();mConclusions.clear();}
     mCombo->blockSignals(false);
     if(mFileNames.isEmpty()) {
         mPixmap=QPixmap();mImageLabel->clear();mImageLabel->setText(utf("尚无本轮已验收图件。请选择Python解释器，然后运行完整实验。"));
@@ -167,7 +183,9 @@ void ResearchFiguresDialog::onRun()
     QString root=QFileInfo(FigurePaths::root()).absolutePath();mProcess->setWorkingDirectory(root);
     QStringList env=QProcess::systemEnvironment();env<<"PYTHONIOENCODING=utf-8"<<"PYTHONUNBUFFERED=1";mProcess->setEnvironment(env);
     QStringList args;args<<"-B"<<QDir(root).filePath("pipeline.py")<<"thesis"<<"--workers"<<QString::number(mWorkers->value());
-    mRun->setEnabled(false);mPython->setEnabled(false);mWorkers->setEnabled(false);
+    args<<"--scope"<<mScope->itemData(mScope->currentIndex()).toString();
+    if(!QFile::exists(QDir(root).filePath("build/bin/Debug/IrrGeometryDesign.exe")))args<<"--modes"<<"Release";
+    mRun->setEnabled(false);mPython->setEnabled(false);mWorkers->setEnabled(false);mScope->setEnabled(false);
     mLog->append(utf("运行中。完整批次可能需要较长时间；请等待最终通过或错误信息。"));
     mProcess->start(mPython->text().trimmed(),args);
 }
@@ -175,12 +193,12 @@ void ResearchFiguresDialog::onProcessOutput(){mLog->moveCursor(QTextCursor::End)
 void ResearchFiguresDialog::onProcessFinished(int code,QProcess::ExitStatus status)
 {
     onProcessOutput();mLastExitCode=status==QProcess::NormalExit?code:-1;
-    mRun->setEnabled(true);mPython->setEnabled(true);mWorkers->setEnabled(true);
+    mRun->setEnabled(true);mPython->setEnabled(true);mWorkers->setEnabled(true);mScope->setEnabled(true);
     mLog->append(code==0&&status==QProcess::NormalExit?utf("完整实验及独立核验通过，已刷新图件。") : utf("运行失败。请查看上方日志与 results/current/workflow.json。"));onRefresh();
 }
 void ResearchFiguresDialog::onProcessError(QProcess::ProcessError error)
 {
-    if(error==QProcess::FailedToStart){mLastExitCode=127;mRun->setEnabled(true);mPython->setEnabled(true);mWorkers->setEnabled(true);mLog->append(utf("无法启动Python，请填写python.exe完整路径。"));}
+    if(error==QProcess::FailedToStart){mLastExitCode=127;mRun->setEnabled(true);mPython->setEnabled(true);mWorkers->setEnabled(true);mScope->setEnabled(true);mLog->append(utf("无法启动Python，请填写python.exe完整路径。"));}
 }
 void ResearchFiguresDialog::closeEvent(QCloseEvent* event)
 {

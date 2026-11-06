@@ -785,7 +785,7 @@ bool GeometryExperimentEngine::runHybridAblationExperiment(int N,
             << QString::number(gVsRand, 'f', 2) << "\n";
 
         rep << QString::fromLocal8Bit(
-            "  %1%% (m=%2): 初始=%3 | SA-only=%4 | CG-only=%5 | SA+CG=%6 (%7 次评估)")
+            "  %1%% (m=%2): 初始=%3 | SA-only=%4 | Local-only=%5 | SA+Local=%6 (%7 次评估)")
             .arg(QString::number(c * 100.0f, 'f', 0)).arg(ar.m)
             .arg(QString::number(ar.mu_init, 'f', 4))
             .arg(QString::number(ar.mu_sa_only, 'f', 4))
@@ -799,7 +799,7 @@ bool GeometryExperimentEngine::runHybridAblationExperiment(int N,
             .arg(QString::number(ar.mu_restart_mean, 'f', 4))
             .arg(QString::number(ar.mu_rand_best, 'f', 4));
         rep << QString::fromLocal8Bit(
-            "          SA 贡献=%1 dB | SA+CG 总贡献=%2 dB | SA+CG vs 抖动重启=%3 dB | vs 纯随机重启=%4 dB")
+            "          SA 贡献=%1 dB | SA+Local 总贡献=%2 dB | SA+Local vs 抖动重启=%3 dB | vs 纯随机重启=%4 dB")
             .arg(QString::number(gInitToSa, 'f', 2))
             .arg(QString::number(gInitToSaCg, 'f', 2))
             .arg(QString::number(gVsRestart, 'f', 2))
@@ -808,7 +808,7 @@ bool GeometryExperimentEngine::runHybridAblationExperiment(int N,
     f.close();
 
     rep << QString::fromLocal8Bit(
-        "\n[解读提示] SA+CG_vs_JitterRestart > 0 表示混合优化优于同等评估次数的抖动随机重启；"
+        "\n[解读提示] SA+Local_vs_JitterRestart > 0 表示混合优化优于同等评估次数的抖动随机重启；"
         "若接近 0 或为负，说明混合优化的收益主要来自抖动先验与算力规模，而非搜索机制本身。");
     rep << QString::fromLocal8Bit("明细: %1").arg(dir.filePath("hybrid_ablation.csv"));
     outReportSummary = rep.join("\n");

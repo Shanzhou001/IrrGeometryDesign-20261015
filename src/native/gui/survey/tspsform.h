@@ -98,6 +98,8 @@ private:
     void loadFigure(int index);
 
     QComboBox *mCombo;
+    QComboBox *mScope;
+    QLabel *mBatchLabel;
     QLabel *mImageLabel;
     QScrollArea *mScrollArea;
     QTextBrowser *mConclusionBrowser;

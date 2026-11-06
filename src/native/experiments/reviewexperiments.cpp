@@ -112,18 +112,24 @@ bool GeometryExperimentEngine::runConfiguredReconstruction(const QString& inputC
     double error=0,scale=0;const clock_t started=clock(); // add by wushanzhou in 2026/10/24
     if(!coordinateHoldoutReconstruct(truth,mask,x,iterations,linear,reconstructed,error,&scale,&options,&steps)) // add by wushanzhou in 2026/10/24
     {report="invalid reconstruction configuration, geometry, or projection";return false;} // add by wushanzhou in 2026/10/24
-    if(!QDir().mkpath(outputDir))return false;QDir dir(outputDir); // add by wushanzhou in 2026/10/24
+    if(!QDir().mkpath(outputDir) && !QFileInfo(outputDir).isDir())
+    {report="cannot create reconstruction output directory: "+outputDir;return false;}
+    QDir dir(outputDir);
     if(QFile::exists(dir.filePath("prediction.csv"))){report="refusing to overwrite a research prediction";return false;} // add by wushanzhou in 2026/10/24
     const char* files[2]={"linear.csv","prediction.csv"}; // add by wushanzhou in 2026/10/24
     for(int type=0;type<2;type++) // add by wushanzhou in 2026/10/24
     { // add by wushanzhou in 2026/10/24
-        QFile file(dir.filePath(files[type]));if(!file.open(QIODevice::WriteOnly|QIODevice::Text))return false; // add by wushanzhou in 2026/10/24
+        QFile file(dir.filePath(files[type]));
+        if(!file.open(QIODevice::WriteOnly|QIODevice::Text))
+        {report="cannot write "+file.fileName()+": "+file.errorString();return false;}
         QTextStream os(&file);os.setRealNumberPrecision(9); // add by wushanzhou in 2026/10/24
         const std::vector<std::vector<float> >& values=type?reconstructed:linear; // add by wushanzhou in 2026/10/24
         for(size_t i=0;i<values.size();i++){for(size_t j=0;j<x.size();j++){if(j)os << ",";os << values[i][j];}os << "\n";} // add by wushanzhou in 2026/10/24
-        os.flush();if(file.error()!=QFile::NoError)return false; // add by wushanzhou in 2026/10/24
+        os.flush();if(file.error()!=QFile::NoError)
+        {report="cannot flush "+file.fileName()+": "+file.errorString();return false;}
     } // add by wushanzhou in 2026/10/24
-    QFile file(dir.filePath("solver.csv"));if(!file.open(QIODevice::WriteOnly|QIODevice::Text))return false; // add by wushanzhou in 2026/10/24
+    QFile file(dir.filePath("solver.csv"));if(!file.open(QIODevice::WriteOnly|QIODevice::Text))
+    {report="cannot write solver diagnostics: "+file.errorString();return false;}
     QTextStream os(&file);os.setRealNumberPrecision(12); // add by wushanzhou in 2026/10/24
     os << "known_scale,consistency_error,runtime_ms,iterations,threshold_start,threshold_end,scales,angles,warm_start,mask_sha1\n" // add by wushanzhou in 2026/10/24
        << scale << "," << error << "," << (double)(clock()-started)*1000/CLOCKS_PER_SEC << "," << iterations << "," // add by wushanzhou in 2026/10/24

@@ -131,14 +131,21 @@ struct SpatialPsfSearchResult
 // Fixed SA prefix followed by greedy random-swap local search. Initial scoring
 // and every complete candidate score count once, including rejected candidates.
 inline bool RunSpatialPsfSearch(const SpatialPsfObjective& objective,const std::vector<int>& initial,
-    unsigned long long seed,int budget,SpatialPsfSearchResult& out,int saPrefix=64)
+    unsigned long long seed,int budget,SpatialPsfSearchResult& out,int saPrefix=64,
+    const std::vector<int>* eligible=NULL)
 {
     out=SpatialPsfSearchResult();int keep=0;
     std::vector<std::complex<double> > currentSum,bestSum,candidateSum;
     if(budget<1||budget>1000000||saPrefix<1||!objective.sums(initial,currentSum,keep))
     {out.status="invalid_spatial_search_input";return false;}
+    if(eligible && eligible->size()!=initial.size()){out.status="invalid_eligibility";return false;}
     std::vector<int> current=initial,ones,zeros;
-    for(size_t i=0;i<current.size();i++)(current[i]?ones:zeros).push_back((int)i);
+    for(size_t i=0;i<current.size();i++)
+    {
+        if(eligible && (((*eligible)[i]!=0 && (*eligible)[i]!=1) || (current[i] && !(*eligible)[i])))
+        {out.status="invalid_eligibility";return false;}
+        if(!eligible || (*eligible)[i])(current[i]?ones:zeros).push_back((int)i);
+    }
     out.mask=initial;out.mu=objective.coherence(currentSum,keep);bestSum=currentSum;
     double accepted=out.mu;
     out.evaluations=1;out.bestTrace.push_back(out.mu);out.acceptedTrace.push_back(accepted);
@@ -152,7 +159,8 @@ inline bool RunSpatialPsfSearch(const SpatialPsfObjective& objective,const std::
         if(out.evaluations==prefix)
         {
             current=out.mask;currentSum=bestSum;accepted=out.mu;ones.clear();zeros.clear();
-            for(size_t i=0;i<current.size();i++)(current[i]?ones:zeros).push_back((int)i);
+            for(size_t i=0;i<current.size();i++)
+                if(!eligible || (*eligible)[i])(current[i]?ones:zeros).push_back((int)i);
         }
         const size_t oi=exprng::integer()%ones.size(),zi=exprng::integer()%zeros.size();
         const int remove=ones[oi],add=zeros[zi];

@@ -11,6 +11,7 @@ import os
 os.environ.setdefault('OPENBLAS_NUM_THREADS','1')
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import threading
 import time
@@ -31,6 +32,7 @@ SOURCE=WORKSPACE / 'data/real_seismic/Data/RRAW.SGY'
 SOURCE_HASH='ddcb311b2406af17cf375b570b3eb8ea7ca2d81cdeb002f972e6d668cd7b2bc2'
 METHODS=['Jitter','SAOnly','Hybrid','SA_Budget','Adaptive']
 SEEDS=[20261024+179*s for s in range(10)]
+FAILURES=ROOT/'results/failures'
 
 
 
@@ -81,24 +83,53 @@ class Recorder:
     def save(self):
         with self.lock:
             path=self.out/'manifest.json';temporary=path.with_suffix('.tmp')
-            temporary.write_text(json.dumps(self.state,indent=2,allow_nan=False),encoding='utf-8');temporary.replace(path)
+            payload=json.dumps(self.state,indent=2,allow_nan=False)
+            # Windows readers/scanners may briefly deny replacement. Retry only
+            # snapshot I/O; native computations and permanent errors still fail.
+            for attempt in range(8):
+                try:
+                    temporary.write_text(payload,encoding='utf-8');temporary.replace(path)
+                    return
+                except OSError as error:
+                    if getattr(error,'winerror',None) not in (5,32,33) or attempt==7:raise
+                    time.sleep(.05*2**attempt)
 
     def call(self,key,args,destination):
         if (self.exe.stat().st_size,self.exe.stat().st_mtime_ns)!=self.signature:raise RuntimeError('program changed')
         command=[str(self.exe),*map(str,args)]
         inputs={str(Path(v).resolve()):digest(v) for v in command[1:] if Path(v).is_file()}
         if destination.exists():raise FileExistsError(destination)
+        # Qt4 mkpath can race when separate processes create the same ancestors.
+        # Python creates shared parents before launching; each process owns its leaf.
+        destination.parent.mkdir(parents=True,exist_ok=True)
         logfile=self.out/'logs'/(key+'.log');logfile.parent.mkdir(exist_ok=True)
         started=time.perf_counter()
-        with logfile.open('wb') as log:r=subprocess.run(command,cwd=WORKSPACE,env=native_environment(),stdout=log,stderr=subprocess.STDOUT,creationflags=subprocess.CREATE_NO_WINDOW)
-        record=dict(command=command,inputs=inputs,exit_code=r.returncode,seconds=time.perf_counter()-started,
+        launch_error=None
+        try:
+            with logfile.open('wb') as log:r=subprocess.run(command,cwd=WORKSPACE,env=native_environment(),stdout=log,stderr=subprocess.STDOUT,creationflags=subprocess.CREATE_NO_WINDOW)
+            returncode=r.returncode
+        except OSError as error:
+            launch_error=str(error);returncode=None
+            logfile.write_text(launch_error,encoding='utf-8')
+        record=dict(command=command,inputs=inputs,exit_code=returncode,seconds=time.perf_counter()-started,
+                    log=str(logfile),log_sha256=digest(logfile),launch_error=launch_error,
                     outputs={str(p.relative_to(self.out)):digest(p) for p in sorted(destination.rglob('*')) if p.is_file()})
+        if returncode!=0:
+            # Keep failure evidence even when a test's TemporaryDirectory is removed.
+            stamp=datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
+            archive=FAILURES/(stamp+'_'+key);archive.mkdir(parents=True,exist_ok=False)
+            shutil.copyfile(logfile,archive/'native.log')
+            (archive/'failure.json').write_text(json.dumps(dict(key=key,batch=str(self.out),
+                executable_sha256=self.state['executable_sha256'],**record),indent=2),encoding='utf-8')
+            record['failure_archive']=str(archive)
         with self.lock:
             if key in self.state['steps']:raise ValueError('duplicate run key')
             self.state['steps'][key]=record;self.count+=1
             with (self.out/'journal.jsonl').open('a',encoding='utf-8') as f:f.write(json.dumps(dict(key=key,step=record))+'\n')
-            if self.count%50==0 or r.returncode:self.save();print('completed',self.count,key,flush=True)
-        if r.returncode:raise RuntimeError(f'native call failed: {key}, rc={r.returncode}')
+            if self.count%50==0 or returncode!=0:self.save();print('completed',self.count,key,flush=True)
+        if returncode!=0:
+            tail=logfile.read_bytes().decode('utf-8',errors='replace')[-4000:]
+            raise RuntimeError(f"native call failed: {key}, rc={returncode}; evidence={archive}\n{tail}")
 
     def finish(self):
         if digest(self.exe)!=self.state['executable_sha256']:raise RuntimeError('program fingerprint changed')

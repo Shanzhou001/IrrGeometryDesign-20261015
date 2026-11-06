@@ -1,0 +1,196 @@
+{
+  "schema": "research_catalog_v1",
+  "batch": "results/latest",
+  "scope": "all",
+  "image_count": 16,
+  "images": [
+    {
+      "path": "research/runs/e35116a1376cc963/diagnostics/f3_baselines.png",
+      "title": "F3：基线与幅度诊断",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。 F3为已见资料的重复迁移，不能当作新的未见工区。",
+      "sha256": "edc43954c7a82bf3e45ff2e0658a069eee1b85110e1a5ca4cf5f089b2adb7695",
+      "data_sha256": "feae44d1e8e6c94610a1dffc780f47496e17d7013c71b96c16113f3df46b6bab",
+      "pixels": [
+        2750,
+        1010
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/diagnostics/search_trajectories.png",
+      "title": "搜索：实际评价轨迹",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "9f399fbc232c94940e3e9b01e8bf13ddfaf317cadf5356215221e7301dd4d73c",
+      "data_sha256": "01f2528b0fce202f084769290b5c69b835d41e71360a1f0a5fcc019766f0d2c1",
+      "pixels": [
+        2000,
+        1010
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/diagnostics/sps_geometry.png",
+      "title": "SPS：真实几何与二维目标",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "eb1918ee2d8a4a8f639ef265fa35acea073dfb1d6dde6423a347a2cc98014ca9",
+      "data_sha256": "c469e255521350df743daaf48986e911d7ad87b3265a58e8682913589409d6aa",
+      "pixels": [
+        3000,
+        1010
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/diagnostics/viking_baselines.png",
+      "title": "Viking：基线与幅度诊断",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "e8305c525e5c5150de17972e863a95abc171981f342b38cc933c227d5c07649e",
+      "data_sha256": "0a37c7913c98e83c3823892967e8f0d8446913321f3d50973918972cd1282066",
+      "pixels": [
+        2750,
+        1010
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/diagnostics/viking_gathers.png",
+      "title": "Viking：预设道集与残差",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "1317112a04ce3ae4c312676d248b515f901efd565c835d2ab7809b1be0c77fd5",
+      "data_sha256": "ad4397ff1c81cb0f1c4967115afbbc495211e2b2a43b2d0f95a2b2fc4a8bde2b",
+      "pixels": [
+        3242,
+        1260
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/diagnostics/viking_hidden_trace.png",
+      "title": "Viking：隐藏道波形与布局",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "b6a6da934f4e6f453f0ecb85e6d3a2a8f37a6efeebf372913e04faa58ebf22f0",
+      "data_sha256": "2c9a3f33d7e2980f8e8f78f9990d0cb385cbf229af213af5af46e02a7aa85f33",
+      "pixels": [
+        3000,
+        1010
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/f3/recovery.png",
+      "title": "F3：重复迁移布局对照",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。 F3为已见资料的重复迁移，不能当作新的未见工区。",
+      "sha256": "b25d11bde26c9259fe978269e3aafa6d1e09fb30b61f7c27a13cb3bc204ae6e5",
+      "data_sha256": "659e2068d7bf092c7f9d2213698ecd0ad337143d50febf650262e5fd8ddecec4",
+      "pixels": [
+        1760,
+        888
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/synthetic/budget.png",
+      "title": "合成：预算回收与共同评价次数",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "40c56a0502d6d3e65863ab805930a570bcc762dc54d089bca717efb95d617e2a",
+      "data_sha256": "afa954bdf90e8cfde0b3f6aad40f6da04c3da29fcf6ed16fe4faf20028a3c2f8",
+      "pixels": [
+        2499,
+        885
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/synthetic/recovery.png",
+      "title": "合成：共同隐藏道恢复",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "9d5cb102b34958aaed3e7be94b07927a308d41e292ededa554e5cad5103a8020",
+      "data_sha256": "2d756bdc254c7a67f92ba5b67be6c3809b54a6689513a9de7bc154234ca8f37f",
+      "pixels": [
+        2500,
+        885
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/synthetic/search.png",
+      "title": "合成：等预算搜索",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "141fe2ddffb8fe37c996c6848ae7b59a43df0616b7427ffcacaf5d998acf0138",
+      "data_sha256": "784c9b3abdcc4e25399a0a5e0b77fdd4a30d654d8214d08f0a2bea6360cc405f",
+      "pixels": [
+        2500,
+        885
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/viking/conditions.png",
+      "title": "Viking：预设窗口与隐藏集",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "8e6406301dcb798b6d8ec892ea424f88b5be64037dda57b0ae64c645217b0d9b",
+      "data_sha256": "03158eaa756da58e08bb3bf4739e8c7dfc6c0e17db6fb96b3c11a0bcc62722a6",
+      "pixels": [
+        1976,
+        1119
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/viking/geometry.png",
+      "title": "Viking：覆盖与互干度",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "8671bcf77c21102a58b4091b19cbee2373f7150be34a87a075d24a265abe55e5",
+      "data_sha256": "f64713eece270f34f89b3a543bc4f4d7001017e16fa5d9639889c3223bac2a63",
+      "pixels": [
+        2200,
+        822
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/viking/recovery.png",
+      "title": "Viking：恢复比较",
+      "description": "数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。",
+      "sha256": "3bd82b585a4ab46248acb79c72e6c75d341769ef3aa9bd0bbbdc7de429215aa5",
+      "data_sha256": "1fe42fcd97e5294c4699dc2e8971aa8d331c0bebc248234612716aabc6a435b9",
+      "pixels": [
+        2860,
+        822
+      ]
+    },
+    {
+      "path": "research/runs/e35116a1376cc963/closure/primary_effects.png",
+      "title": "Parihaka: fixed spatial Hybrid",
+      "description": "Frozen 128/256 condition; six correlated blocks; no population significance claim.",
+      "sha256": "ea7fffc29c2a453032570059c3ff903153f9dc590a097e62441e484f2a008357"
+    },
+    {
+      "path": "research/mapped_field/current/paired_effects.png",
+      "title": "公开实测：分保留率配对效果",
+      "description": "实测波形与其配套SPS几何；共同隐藏道评分；负向结果保留；重复案例不是独立工区。",
+      "sha256": "2e12ee9faa3b29d30de91b4143553a9b17f3731feba576e09034aec81aa0d041"
+    },
+    {
+      "path": "research/mapped_field/current/waveform_example.png",
+      "title": "公开实测：固定波形恢复示例",
+      "description": "实测波形与其配套SPS几何；共同隐藏道评分；负向结果保留；重复案例不是独立工区。",
+      "sha256": "4084b0439b9485decdf92c89973dcf18beb54a20e77b67ca2059a736b8f40957"
+    }
+  ],
+  "reports": [
+    {
+      "title": "research_evidence",
+      "path": "results/latest/research_evidence/report.md",
+      "sha256": "e8c4f0418111253af7ad23e8a369014723683ee0adc1e2a84e40898f33e0d3c0"
+    },
+    {
+      "title": "confirmation_report",
+      "path": "results/latest/confirmation_report/report.html",
+      "sha256": "c201acf7fbb2963e4d5179334283c18d1fb24736c3cbc0fc8cb2ddc5d74acbd3"
+    },
+    {
+      "title": "applicability_report",
+      "path": "results/latest/applicability_report/report.html",
+      "sha256": "7d58853eb0fc660b75dd6c6aab283bcd46c2f7d3cedf6f96c22153b0a120127f"
+    },
+    {
+      "title": "closure/report",
+      "path": "results/latest/closure/report/report.html",
+      "sha256": "7c7c24b85f2d25216f30797a5a95d49992c3bd85904e6d105ee17da0edf46af7"
+    },
+    {
+      "title": "公开实测炮集与配套几何验证",
+      "path": "results/latest/mapped_field/report/report.html",
+      "sha256": "ee26b08ee357991115a479bf92976fa2bc383dd5f4f600c018bceb1de4f924e6"
+    }
+  ]
+}

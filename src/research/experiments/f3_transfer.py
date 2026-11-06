@@ -1,4 +1,4 @@
-"""One frozen, untuned transfer of the existing selector/recovery to F3 poststack data."""
+"""Repeat the historical frozen protocol on previously accessed F3 poststack data."""
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import json
@@ -30,8 +30,10 @@ def run(out,exe=None,workers=12,dataset=DEFAULT,keep_intermediates=True,group=No
     windows,provenance=load(dataset)
     if set(windows[0])!=set(plan['ffids']) or provenance['plan_sha256']!=digest(PLAN):
         raise ValueError('F3 data selection differs from the plan frozen before waveform access')
+    plan['scope']='Repeated transfer on previously accessed F3 data using the historical frozen protocol; not a new unseen external test'
     recorder=Recorder(out,Path(exe) if exe else executable(),dict(plan=plan,dataset_provenance=provenance,
-        worker_count=workers,independent_surveys=1,role='untuned external poststack transfer',
+        worker_count=workers,independent_surveys=1,role='repeated previously seen poststack transfer',
+        historical_protocol_sha256=digest(PLAN),unseen_external_test=False,
         time_unit='sample_index',spatial_unit='trace_interval',no_imaging_claim=True),protocol=plan['protocol'])
     (out/'frozen_plan.json').write_text(json.dumps(plan,indent=2)+'\n')
     recorder.state['plan_sha256']=digest(out/'frozen_plan.json');recorder.save()
@@ -81,11 +83,11 @@ def run(out,exe=None,workers=12,dataset=DEFAULT,keep_intermediates=True,group=No
     ax.set(xlabel='Retained traces',ylabel='Mean common-H SNR (dB)',title='F3: repeated transfer on one poststack survey')
     ax.legend(fontsize=8);ax.grid(alpha=.2)
     writer.save(fig,'recovery',dict(records=means,independent_surveys=1,time_unit='sample_index',spatial_unit='trace_interval'))
-    writer.gallery('F3 frozen transfer: descriptive results, no imaging or physical calibration claim')
-    summary=['# F3 frozen external transfer','',
+    writer.gallery('F3 repeated transfer: descriptive results on previously accessed data')
+    summary=['# F3 repeated transfer on previously accessed data','',
       f'Completed {len(records)} cases, {len(search)} unique searches and {recorder.count} native calls.',
-      'One additional poststack survey; three neighboring sections are dependent conditions, not three surveys.',
-      'Candidate pool, thresholds, masks/seeds, H and counts frozen before waveform access; no external-score retuning.',
+      'One previously accessed poststack survey; three neighboring sections are dependent conditions, not three surveys.',
+      'The historical candidate pool, thresholds, masks/seeds, H and counts are retained; this rerun does not restore unseen-test status.',
       'Coordinates/time are trace/sample indices. Original physical amplitude calibration and imaging quality are not inferred.','',
       '| m | method | selected SNR |','| --- | --- | --- |']
     summary += [f"| {r['m']} | {r['method']} | {r['mean_snr']:.4f} |" for r in means if r['recovery']=='selected']

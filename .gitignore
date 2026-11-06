@@ -26,5 +26,6 @@ unit_test_sandbox/
 
 /results/current/
 /results/workflow.lock
+/results/
 /build/generated/
 /build/obj/

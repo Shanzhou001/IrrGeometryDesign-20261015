@@ -544,7 +544,7 @@ public:
         metricsLines.push_back(QString::fromLocal8Bit("覆盖次数范围: ") + QString::number(minFold, 'f', 0) + " ~ " + QString::number(maxFold, 'f', 0));
         metricsLines.push_back(QString::fromLocal8Bit("覆盖变异系数 Cv: ") + QString::number(cv, 'f', 3) + QString::fromLocal8Bit(" (标准<0.20)"));
         metricsLines.push_back(QString::fromLocal8Bit("空间覆盖保留度: ") + QString::number(retention, 'f', 1) + "%");
-        metricsLines.push_back(QString::fromLocal8Bit("检波点节约成本: ") + QString::number(costReduction, 'f', 1) + "%");
+        metricsLines.push_back(QString::fromLocal8Bit("检波点数量减少: ") + QString::number(costReduction, 'f', 1) + "%");
         drawCard(p, QRect(620, 105, 315, 185), QString::fromLocal8Bit("面元覆盖质量指标评估"), metricsLines);
 
         std::vector<QString> verdict;
@@ -1002,10 +1002,10 @@ public:
                      + QString::fromLocal8Bit("% (由") + QString::number(miuReg50, 'f', 4)
                      + QString::fromLocal8Bit("降至") + QString::number(miuOpt50, 'f', 4) + ")");
         l1.push_back(QString::fromLocal8Bit("● 模拟退火历史最优轨迹严格单调非增"));
-        l1.push_back(QString::fromLocal8Bit("● 彻底破坏网格周期假频并抑制栅瓣"));
-        l1.push_back(QString::fromLocal8Bit("● 优于纯随机抽样：消除局部聚集与大孔隙"));
+        l1.push_back(QString::fromLocal8Bit("● 几何目标与波形恢复效果分别核验"));
+        l1.push_back(QString::fromLocal8Bit("● 与等评价预算随机搜索单独比较"));
         l1.push_back(QString::fromLocal8Bit("● 样本数 N=128，三种采样率 30%/50%/70%"));
-        l1.push_back(QString::fromLocal8Bit("● 支撑论文核心创新点一：非规则优化"));
+        l1.push_back(QString::fromLocal8Bit("● 几何指标不直接建立恢复优势"));
         drawCard(p, r1, QString::fromLocal8Bit("【模块一】多采样率对比与相干度优化"), l1);
 
         // 模块 2：空间属性 (显式标注数据模式)
@@ -1014,11 +1014,11 @@ public:
         l2.push_back(QString::fromLocal8Bit("● CMP 有效面元数: ") + QString::number(liveBins));
         l2.push_back(QString::fromLocal8Bit("● 平均覆盖次数: ") + QString::number(meanFold, 'f', 1) + QString::fromLocal8Bit(" 次"));
         l2.push_back(QString::fromLocal8Bit("● 覆盖变异系数 Cv: ") + QString::number(cv, 'f', 4));
-        l2.push_back(QString::fromLocal8Bit("● 检波点成本节约率: ") + QString::number(costReductionPct, 'f', 1) + "%");
+        l2.push_back(QString::fromLocal8Bit("● 检波点数量减少比例: ") + QString::number(costReductionPct, 'f', 1) + "%");
         l2.push_back(QString::fromLocal8Bit("● 炮检距 ") + QString::number(minOffset, 'f', 1)
                      + "m ~ " + QString::number(maxOffset, 'f', 1) + "m");
         l2.push_back(QString::fromLocal8Bit("● 方位角玫瑰完整度: ") + QString::number(azimuthScore, 'f', 1) + "%");
-        l2.push_back(QString::fromLocal8Bit("● 支撑论文核心创新点二：空间属性保真"));
+        l2.push_back(QString::fromLocal8Bit("● 空间属性仅评价几何覆盖"));
         drawCard(p, r2, QString::fromLocal8Bit("【模块二】观测系统空间属性评估 ") + attrTag, l2);
 
         // 模块 3：波场重构
@@ -1045,12 +1045,12 @@ public:
 
         p.setFont(getFont(12, true));
         p.setPen(QColor(22, 101, 52));
-        p.drawText(bottomBar.left() + 20, bottomBar.top() + 30, QString::fromLocal8Bit("★ 全项目科研总结与学术闭环结论 (Scientific Research Conclusion)"));
+        p.drawText(bottomBar.left() + 20, bottomBar.top() + 30, QString::fromLocal8Bit("实验记录与验证范围 (Validation Scope)"));
 
         const QString line1 = QString::fromLocal8Bit(
             "1. 采样优化与波场重构使用同一掩码；真实 SPS 工区属性作为独立评价模块。"); // add by wushanzhou in 2026/10/23
         const QString line2 = attrIsReal
-            ? QString::fromLocal8Bit("2. 模块二基于真实野外SPS工区实测数据验证（未施加抽稀，成本节约率0%），属性指标为真实测量结果。")
+            ? QString::fromLocal8Bit("2. 模块二使用实测SPS几何评价覆盖；点数减少比例不代表实际成本，原工区暂无对应波形。")
             : QString::fromLocal8Bit("2. 模块二为合成观测系统基准（24×24=576面元，50%检波点抽稀），用于算法可行性验证，非真实工区结论。");
         const QString line3 = QString::fromLocal8Bit("3. 模块一/三为合成数值模拟条件下的算法对比实验，结论适用性需在真实野外资料上进一步验证。");
 

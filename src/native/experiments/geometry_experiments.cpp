@@ -1,5 +1,57 @@
 ﻿#include "experiment_internal.h"
 #include "../optimization/spatialpsf.h"
+#include <QSet>
+
+bool GeometryExperimentEngine::runSpatialQueries(const QString& input,const QString& output,QString& report)
+{
+    QFile source(input);QDir dir(output);
+    if(QFileInfo(output).exists() || !source.open(QIODevice::ReadOnly|QIODevice::Text) || !QDir().mkpath(output))
+    {report="cannot read spatial queries or output already exists";return false;}
+    QFile file(dir.filePath("queries.csv"));
+    if(!file.open(QIODevice::WriteOnly|QIODevice::Text)){report=file.errorString();return false;}
+    QTextStream in(&source),out(&file);out.setRealNumberPrecision(17);
+    out << "id,n,m,evaluations,mu,mask\n";
+    QSet<QString> identifiers;int count=0;
+    while(!in.atEnd())
+    {
+        QString line=in.readLine().trimmed();if(line.isEmpty())continue;
+        QStringList f=line.split(';',QString::KeepEmptyParts);
+        if(f.size()!=7 || !QRegExp("^[A-Za-z0-9_]+$").exactMatch(f[0]) || identifiers.contains(f[0]))
+        {report="invalid or duplicate spatial query";return false;}
+        identifiers.insert(f[0]);bool valid=false;
+        unsigned long long seed=f[1].toULongLong(&valid);if(!valid)return false;
+        int budget=f[2].toInt(&valid);if(!valid)return false;
+        int prefix=f[3].toInt(&valid);if(!valid)return false;
+        const int n=f[4].size();std::vector<int> mask(n),eligible(n);int m=0;
+        if(f[5].size()!=n){report="invalid spatial eligibility length";return false;}
+        for(int j=0;j<n;j++)
+        {
+            if((f[4][j]!='0' && f[4][j]!='1') || (f[5][j]!='0' && f[5][j]!='1'))
+            {report="spatial masks must be binary";return false;}
+            mask[j]=f[4][j]=='1';eligible[j]=f[5][j]=='1';m+=mask[j];
+        }
+        QStringList coordinates=f[6].split('|');std::vector<SpatialPsfPoint> points;
+        if(coordinates.size()!=n){report="spatial coordinate length mismatch";return false;}
+        for(int j=0;j<n;j++)
+        {
+            QStringList xy=coordinates[j].split(',');if(xy.size()!=2)return false;
+            double x=xy[0].toDouble(&valid);if(!valid)return false;
+            double y=xy[1].toDouble(&valid);if(!valid)return false;
+            points.push_back(SpatialPsfPoint(x,y));
+        }
+        SpatialPsfObjective objective;std::string error;SpatialPsfSearchResult result;
+        if(!objective.initialize(points,error) || !RunSpatialPsfSearch(objective,mask,seed,budget,result,prefix,&eligible))
+        {report="spatial search failed: "+QString::fromStdString(error)+" "+QString::fromStdString(result.status);return false;}
+        out << f[0] << "," << n << "," << m << "," << result.evaluations << "," << result.mu << ",";
+        for(int j=0;j<n;j++)out << result.mask[j];out << "\n";
+        QFile trace(dir.filePath(f[0]+".trace.csv"));if(!trace.open(QIODevice::WriteOnly|QIODevice::Text))return false;
+        QTextStream t(&trace);t.setRealNumberPrecision(17);t << "evaluation,phase,best,candidate\n";
+        for(size_t j=0;j<result.bestTrace.size();j++)t << (int)j+1 << "," << result.phase[j] << "," << result.bestTrace[j] << "," << result.candidateTrace[j] << "\n";
+        t.flush();if(t.status()!=QTextStream::Ok)return false;count++;
+    }
+    out.flush();report=QString("spatial queries completed: %1").arg(count);
+    return count>0 && out.status()==QTextStream::Ok;
+}
 
 // Save the exact finite dictionary and coordinates used by SpatialFourier2D_v1.
 static bool exportSpatialPsfStudy(const QDir& dir,const SpatialPsfObjective& objective,
@@ -255,7 +307,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
             }
 
             // =============================================================
-            // 2026.10.20 新增：抽稀后属性重算（"降低成本"主张的关键证据）
+            // 2026.10.20 新增：抽稀后几何属性重算（点数减少不代表实际采集成本）
             // 此前报告里的 fold/offset/azimuth 全部按满覆盖几何统计，
             // "抽稀前后属性对照"从未计算过。现按 25 m CMP 面元，
             // 对满覆盖与抽稀后两套检波点集合分别统计：
@@ -823,13 +875,13 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
             out << "  Calculated from real SPS coordinates (GShotSet) and CMP trace geometry.\n\n";
         }
 
-        out << "[Field Survey Cost & Channel Optimization]\n";
+        out << "[Survey Geometry & Receiver Count Evaluation]\n";
         out << "  Full Coverage Receivers:   " << outMetrics.origReceiverCount << "\n";
         out << "  Optimized Active Channels: " << outMetrics.optReceiverCount << "\n";
         if (outMetrics.costReductionPct > 0.0f)
-            out << "  Acquisition Cost Reduction:" << QString::number(outMetrics.costReductionPct, 'f', 1) << "%\n";
+            out << "  Receiver Count Reduction:" << QString::number(outMetrics.costReductionPct, 'f', 1) << "%\n";
         else
-            out << "  Acquisition Cost Reduction:0.0% (Full Baseline Survey - Decimation Not Applied)\n";
+            out << "  Receiver Count Reduction:0.0% (Full Baseline Survey - Decimation Not Applied)\n";
         out << "  Analyzed Traces:           " << outMetrics.totalTraces << " (Invalid/Filtered: " << outMetrics.invalidTraces << ")\n\n";
 
         out << "[CMP Bin Fold Uniformity Analysis]\n";
@@ -852,7 +904,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
         out << "  Azimuth Coverage Completeness Score: " << QString::number(outMetrics.azimuthCoverageScore, 'f', 1) << "% ("
             << liveSectors << " / 24 sectors illuminated)\n";
         if (outMetrics.azimuthCoverageScore >= 90.0f)
-            out << "  Evaluation: Complete 360-degree azimuthal illumination provides isotropic subsurface imaging.\n";
+            out << "  Evaluation: All azimuth sectors are populated; this geometry diagnostic does not establish isotropic imaging quality.\n";
         else
             out << "  Evaluation: Multi-directional azimuthal illumination evaluated across active sectors.\n";
 
@@ -865,7 +917,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
             out << "     (Cv = " << QString::number(outMetrics.foldUniformityCv, 'f', 3) << " < 0.20 excellent grade) without zero-fold gaps, even with 50% channel reduction.\n";
             out << "  2. [Figure 04_offset_azimuth_rose_charts.png]:\n";
             out << "     Proves offset distribution remains continuous (50m~3200m) and azimuth rose coverage is 100% complete,\n";
-            out << "     providing essential spatial multi-directional illumination for subsurface imaging.\n";
+            out << "     describing multidirectional geometry only; waveform recovery and imaging improvement require separate validation.\n";
         }
         else
         {
@@ -952,7 +1004,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
     outReportSummary = QString::fromLocal8Bit(
         "【观测系统空间属性评估完成】\n"
         "模式: %1\n"
-        "1. 检波点成本节约率: %2%\n"
+        "1. 检波点数量减少比例: %2%（实际成本未验证）\n"
         "2. CMP 覆盖: %3 面元 (平均覆盖 %4 次, 变异系数 Cv = %5)\n"
         "3. 偏移距范围: %6m ~ %7m (均值 %8m)\n"
         "4. 方位角玫瑰图完整度: %9% (%10/24 扇区)\n"
@@ -960,7 +1012,7 @@ bool GeometryExperimentEngine::evaluateProjectAttributes(GProject *pProject,
         "\n\n【科研成果图件支撑】(全部数据图与结果图集中保存至 %12 文件夹)：\n"
         "  ● 图件 03_cmp_fold_distribution_map.png: CMP面元覆盖次数空间平面热力分布图\n"
         "  ● 图件 04_offset_azimuth_rose_charts.png: 炮检距连续性分布直方图与方位角玫瑰图"
-    ).arg(outMetrics.isSynthetic ? QString::fromLocal8Bit("合成基准模式 (Synthetic)") : QString::fromLocal8Bit("真实工程测量模式 (Real)"))
+    ).arg(outMetrics.isSynthetic ? QString::fromLocal8Bit("合成基准模式 (Synthetic)") : QString::fromLocal8Bit("实测SPS几何评价模式 (Real geometry)"))
      .arg(QString::number(outMetrics.costReductionPct, 'f', 1))
      .arg(outMetrics.liveBinCount)
      .arg(QString::number(outMetrics.meanFold, 'f', 1))

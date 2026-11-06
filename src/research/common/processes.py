@@ -10,6 +10,8 @@ def qt_binary_directory():
     if configured and (Path(configured)/'bin/qmake.exe').is_file():return Path(configured)/'bin'
     qmake=shutil.which('qmake.exe')
     if qmake:return Path(qmake).parent
+    for base in (Path('D:/Qt/4.7.4'),Path('C:/Qt/4.7.4')):
+        if (base/'bin/qmake.exe').is_file():return base/'bin'
     raise RuntimeError('Qt4 qmake.exe was not found; set QTDIR or PATH to the existing Qt4 installation')
 
 

@@ -32,7 +32,21 @@ public:
     }
     static QString artifactPath(const QString& relative)
     {
-        return QDir(QFileInfo(root()).absolutePath()).absoluteFilePath(relative);
+        QDir project(QFileInfo(root()).absolutePath());
+        if(relative=="results/current" || relative.startsWith("results/current/"))
+        {
+            QFile pointer(project.filePath("results/active.txt"));
+            if(pointer.open(QIODevice::ReadOnly|QIODevice::Text))
+            {
+                QString active=QString::fromUtf8(pointer.readAll()).trimmed();
+                QString target=QDir::cleanPath(project.absoluteFilePath(active));
+                QString base=QDir::cleanPath(project.absoluteFilePath("results"))+"/";
+                if(target.startsWith(base,Qt::CaseInsensitive))
+                    return target+relative.mid(QString("results/current").size());
+                return project.filePath("results/invalid_active_experiment");
+            }
+        }
+        return project.absoluteFilePath(relative);
     }
     static bool contained(const QString& path)
     {

@@ -84,7 +84,7 @@ public:
         int totalShots;              // 总炮点数
         int origReceiverCount;       // 原始满覆盖检波点数
         int optReceiverCount;        // 优化稀疏后检波点数
-        float costReductionPct;      // 野外设备与采集成本节约率 (%)
+        float costReductionPct;      // 检波点数量减少比例 (%)；兼容字段，不代表实际成本
         int totalTraces;             // 参与统计的有效炮检道对数
         int invalidTraces;           // 无效/过滤记录数
         int liveBinCount;            // 有效覆盖面元数 (Live CMP Bins)
@@ -269,6 +269,7 @@ public:
     static bool runUnitTests();
     static bool runReviewUnitTests(); // add by wushanzhou in 2026/10/24
     static bool runAuditQueries(const QString& input,const QString& output,QString& report);
+    static bool runSpatialQueries(const QString& input,const QString& output,QString& report);
 
     static bool runReviewSearch(const QString& inputCsv,const QString& outputDir,int seeds,int budget, // add by wushanzhou in 2026/10/24
         unsigned long long seed,bool tradeoff,QString& report); // add by wushanzhou in 2026/10/24
@@ -292,7 +293,7 @@ public:
                                                 QString& outReportSummary);
 
     // 混合优化贡献分解消融（2026.10.20 新增 CLI 入口）
-    // 输出 hybrid_ablation.csv：SA-only / CG-only / SA+CG / 等预算随机重启
+    // 输出 hybrid_ablation.csv：SA-only / Local-only / SA+Local / 等预算随机重启
     static bool runHybridAblationExperiment(int N,
                                             const std::vector<float>& rates,
                                             unsigned long long seed,

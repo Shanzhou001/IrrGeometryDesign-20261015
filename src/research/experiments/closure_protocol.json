@@ -1,0 +1,42 @@
+{
+  "protocol": "closure_20261104_v1",
+  "role": "Prospective test on one project-unseen survey after observing Stratton/Volve results; two known surveys remain descriptive replication",
+  "known_surveys": ["stratton", "volve"],
+  "holdout": {
+    "id": "parihaka",
+    "url": "https://zenodo.org/api/records/18988527/files/parihaka_dataset.npy/content",
+    "source_record": "https://zenodo.org/records/18988527",
+    "original_source": "https://public.3.basecamp.com/p/JyT276MM7krjYrMoLqLQ6xST",
+    "attribution": "Jorge Leonardo, compilation; Chevron U.S.A. Inc., SEG 2020 workshop; New Zealand Petroleum and Minerals, original Parihaka survey",
+    "license": "CC BY 4.0 for the published compilation; preserve original-provider credit",
+    "bytes": 1856593248,
+    "md5": "48e40b768671e6c1cbcbb66b1d520da8",
+    "axis_rule": "The unique axis of length 1006 is time; move it first and preserve the order of the other two file axes. Require remaining axis lengths 590 and 782. No physical-coordinate interpretation.",
+    "sample_interval_s": 0.004,
+    "amplitude_scope": "Publisher-organized standardized numeric volume; uncalibrated digital amplitudes, not original SEG-Y trace bytes"
+  },
+  "shape": [16, 16],
+  "inline_quantiles": [0.2, 0.5, 0.8],
+  "crossline_quantiles": [0.3, 0.7],
+  "selection_rule": "Same six disjoint complete rank blocks as the prior spatial protocol; no amplitude-based replacement or silent skips",
+  "time_windows": [[128, 256], [768, 896]],
+  "hidden_sets": ["periodic", "r271828"],
+  "counts": [76, 128, 179],
+  "seeds": [11031, 11039, 11047],
+  "methods": ["Jitter", "SA", "Hybrid", "RandomBudget"],
+  "budget": 300,
+  "hybrid_sa_prefix": 64,
+  "random_search": "Common Jitter start plus 299 uniformly drawn fixed-cardinality eligible masks. NumPy SeedSequence([seed, count, hidden-set ordinal, 20261104]); duplicate proposals count. Native objective scores every proposal once. Choose minimum objective only, earliest proposal on ties.",
+  "dictionary": "Unchanged 64 finite 2D Fourier atoms, kx,ky in 0..7, on the 16x16 rank grid",
+  "recovery": {"iterations": 80, "fraction": 0.01},
+  "primary": {
+    "survey": "parihaka",
+    "count": 128,
+    "comparisons": ["Hybrid-Jitter", "Hybrid-SA", "Hybrid-RandomBudget"],
+    "endpoint": "SNR on the 32 common hidden positions; average windows, hidden sets and seeds within block, then equal-weight six block means",
+    "consistency_criterion": "Report whether all six block means are positive for each comparison; a descriptive consistency criterion, not a population significance test",
+    "no_retuning": "No outcome-dependent changes to windows, masks, recovery controls or endpoint; negative and null results retained"
+  },
+  "secondary": "Counts 76 and 179, both known surveys, full-spatial-FFT coherence and objective/recovery mismatch diagnostics; descriptive only",
+  "scope": "2592 recovery cases, 36 space-time cubes, 18 correlated physical/rank blocks, one newly accessed survey. No original-SPS waveform, calibrated amplitude, migration or actual field-cost claim. Objective evaluation counts are not wall-clock or acquisition-cost equivalence."
+}

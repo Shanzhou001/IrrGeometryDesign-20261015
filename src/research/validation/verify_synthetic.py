@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 from research.common.hashing import digest
 from research.common.tabular import rows
+from research.validation.artifacts import finite_arrays,finite_error
 
 
 def verify(root):
@@ -27,8 +28,9 @@ def verify(root):
                           ('selected',base/'selected'/(row['case']+'.csv'))]:
             if kind=='selected' and row['design']!='common_H':continue
             prediction=np.loadtxt(path,delimiter=',')
+            finite_arrays(target,prediction)
             nmse=np.sum((prediction[:,hidden]-target[:,hidden])**2)/np.sum(target[:,hidden]**2)
-            error=abs(-10*np.log10(nmse)-float(row[kind+'_snr']));max_error=max(max_error,float(error))
+            error=finite_error(-10*np.log10(nmse),row[kind+'_snr']);max_error=max(max_error,error)
             if error>1e-7:raise ValueError('Synthetic score mismatch')
         cases+=1
     result=dict(status='passed',cases=cases,raw_files=len(expected),score_max_error=max_error)
