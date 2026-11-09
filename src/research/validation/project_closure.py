@@ -76,12 +76,18 @@ def reporting_record(base):
 
 
 def checks_path(base):
+    integrated=base/'project_current_checks/checks.json'
+    if integrated.is_file():return integrated
+    current=base/'recovery_project_checks/checks.json'
+    if current.is_file():return current
     dedicated=base/'project_checks/checks.json'
     return dedicated if dedicated.is_file() else base/'checks/checks.json'
 
 
 def delivery_record(base):
-    result=record(base/'project_delivery.json')
+    updated=base/'project_current_delivery.json'
+    if not updated.is_file():updated=base/'recovery_project_delivery.json'
+    result=record(updated if updated.is_file() else base/'project_delivery.json')
     if result['status']!='passed':return result
     try:
         state=json.loads(Path(result['record']).read_text())
@@ -90,6 +96,72 @@ def delivery_record(base):
                 state.get('checks_sha256')!=digest(checks_path(base)) or
                 state.get('scope_sha256')!=digest(SCOPE)):
             raise ValueError('Delivery differs from accepted code, package, checks or scope')
+    except (OSError,ValueError,KeyError) as error:result.update(status='failed',reason=str(error))
+    return result
+
+
+def gui_record(base):
+    """Verify the sealed Qt evidence using paths contained in the current study."""
+    from research.experiments.thesis_workflow import source_identity
+    proof_path=base/'project_current_gui.json'
+    result=record(proof_path if proof_path.is_file() else base/'field_recovery_gui.json')
+    if result['status']!='passed':return result
+    try:
+        proof=json.loads(Path(result['record']).read_text())
+        required={'workflow.json','source_identity.json','gui_verification.json','catalog.json',
+                  'primary_verification','primary_scores','application_verification'}
+        if set(proof['evidence_sha256'])!=required:
+            raise ValueError('Incomplete portable Qt evidence inventory')
+        if set(proof['application_scores_sha256'])!={'soda_followup','viking_transfer','gvda','gvda_confirmation'}:
+            raise ValueError('Incomplete Qt application score inventory')
+        folder=(base/proof['evidence_directory']).resolve()
+        if not folder.is_relative_to(base.resolve()):
+            raise ValueError('Qt evidence directory escapes the current study')
+        for name,value in proof['evidence_sha256'].items():
+            path=(folder/name).resolve()
+            if not path.is_relative_to(folder) or digest(path)!=value:
+                raise ValueError('Qt evidence changed')
+        workflow=json.loads((folder/'workflow.json').read_text())
+        identity=json.loads((folder/'source_identity.json').read_text())
+        gui=json.loads((folder/'gui_verification.json').read_text())
+        catalog=json.loads((folder/'catalog.json').read_text(encoding='utf-8'))
+        if (proof['scope']!='all' or proof['exit_code']!=0 or workflow['status']!='passed' or
+                workflow['scope']!='all' or 'field_applications' not in workflow['steps'] or
+                proof['images_loaded']<19 or proof['gallery_report_count']<7 or
+                gui['workflow_executed'] is not True or gui['images_loaded']!=proof['images_loaded'] or
+                catalog['image_count']!=proof['images_loaded'] or
+                len(catalog['reports'])!=proof['gallery_report_count'] or identity!=source_identity() or
+                proof['program_sha256']!=identity['executable_sha256'] or
+                digest(folder/'workflow.json')!=proof['workflow_sha256'] or
+                digest(folder/'source_identity.json')!=proof['source_identity_sha256'] or
+                digest(folder/'primary_scores')!=digest(base/'field_recovery_v2/recovery.csv')):
+            raise ValueError('Qt evidence does not cover the current integrated workflow')
+        for name,value in proof['application_scores_sha256'].items():
+            if digest(base/'field_applications'/name/'recovery.csv')!=value:
+                raise ValueError('Qt and current application scores differ')
+    except (OSError,ValueError,KeyError) as error:result.update(status='failed',reason=str(error))
+    return result
+
+
+def application_reproduction(base):
+    from research.experiments.thesis_workflow import source_identity
+    result=record(base/'application_reproduction.json')
+    if result['status']!='passed':return result
+    try:
+        proof=json.loads(Path(result['record']).read_text())
+        if set(proof['score_sha256'])!={'soda_followup','viking_transfer','gvda','gvda_confirmation'}:
+            raise ValueError('Independent application inventory is incomplete')
+        folder=(base/'reproduction_evidence').resolve()
+        for name,value in proof['files_sha256'].items():
+            path=(folder/name).resolve()
+            if not path.is_relative_to(folder) or digest(path)!=value:
+                raise ValueError('Independent calculation evidence changed')
+        identity=json.loads((folder/'source_identity.json').read_text())
+        if identity!=source_identity():raise ValueError('Independent source identity differs')
+        for name,value in proof['score_sha256'].items():
+            if (digest(base/'field_applications'/name/'recovery.csv')!=value or
+                    digest(folder/name/'recovery.csv')!=value):
+                raise ValueError('Independent application score table differs')
     except (OSError,ValueError,KeyError) as error:result.update(status='failed',reason=str(error))
     return result
 
@@ -151,6 +223,34 @@ def status(base):
         original_site_application=original,physical_amplitude=dict(status='missing_calibration'),
         downstream_imaging=dict(status='missing_same_site_velocity_and_waveforms'),
         actual_field_cost=dict(status='missing_operational_records'),new_physical_machine=dict(status='not_verified'))
+    from research.experiments.field_recovery import verify as verify_field_recovery
+    recovery=record(base/'field_recovery_v2/verification.json')
+    if recovery['status']=='passed':
+        try:
+            result=verify_field_recovery(base/'field_recovery_v2')
+            if result!=json.loads(Path(recovery['record']).read_text()):
+                raise ValueError('Field performance differs from its verification record')
+            recovery.update(status='passed',historical_effect_status=result['performance_status'],surveys=result['surveys'])
+        except (OSError,ValueError,KeyError) as error:recovery.update(status='failed',reason=str(error))
+    applications=record(base/'field_applications/verification.json')
+    reporting=record(base/'field_applications/report/manifest.json')
+    if applications['status']=='passed':
+        try:
+            from research.experiments.application_suite import verify as verify_applications
+            result=verify_applications(base/'field_applications')
+            if result!=json.loads(Path(applications['record']).read_text()):
+                raise ValueError('Integrated application result differs from verification')
+            applications.update(status=result['application_effect_status'],boundary=result['soda_boundary'])
+        except (OSError,ValueError,KeyError) as error:
+            applications.update(status='failed',reason=str(error))
+            reporting.update(status='failed',reason=str(error))
+    if recovery['status']=='failed':
+        applications.update(status='failed',reason='Historical matched-field calculation audit failed')
+    elif recovery['status']!='passed' and applications['status']=='passed':
+        applications.update(status=recovery['status'],reason='Historical matched-field calculation audit is incomplete')
+    components.update(field_recovery_effect=applications,applicability_reporting=reporting,
+                      application_reproduction=application_reproduction(base),qt_workflow=gui_record(base),
+                      historical_v2_effect=recovery)
     for name,component in components.items():component['required']=name in scope['required']
     verdict=evaluate(components,scope)
     return dict(status=verdict,profile=scope['profile'],scope_sha256=digest(SCOPE),scope=scope,

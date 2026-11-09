@@ -1,0 +1,20 @@
+{
+  "protocol": "surveyed_prestack_recovery_v2",
+  "poland_development": [231, 251, 291, 331, 356, 371, 391, 431, 471, 481],
+  "poland_holdout": [271, 316, 406, 451],
+  "soda_development": [1700, 3600, 5500, 7300, 7733],
+  "soda_holdout": [2100, 4200, 6200, 8100],
+  "poland_first_channel": 14,
+  "poland_receivers": 256,
+  "soda_receivers": 128,
+  "soda_selection": "Closest distinct published receivers to the source, restored to published channel order after selection",
+  "windows": [[256, 384], [768, 896]],
+  "keep_fractions": [0.3, 0.5, 0.7],
+  "hidden_seeds": [61107, 61109],
+  "layout_seeds": [17, 43],
+  "layout_budget": 200,
+  "hybrid_prefix": 64,
+  "minimum_positive_shots": 3,
+  "effect_rule": "Each survey must beat zero and coordinate IDW in equally weighted shot mean NMSE and at least three of four shots must beat zero. The rule is descriptive and retains every failure.",
+  "scope": "Shot-level holdout in two previously accessed surveys. Raw recorded amplitudes, fixed score windows, all outcomes retained. No field-wide inference."
+}

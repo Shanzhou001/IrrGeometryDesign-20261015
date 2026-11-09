@@ -1,0 +1,369 @@
+{
+  "status": "frozen",
+  "protocol": "gvda_prospective_confirmation_20261108",
+  "frozen_utc": "2026-11-08T05:00:30.083634+00:00",
+  "doi": "10.17603/ds2-ngdh-af80",
+  "publisher": "DesignSafe-CI",
+  "rights": "See DOI rights and archive metadata",
+  "scope": "Prospective source-level confirmation within the previously accessed Garner Valley survey. Published unstacked vertical counts and actual source/station mapping. No new-survey or universal-superiority claim.",
+  "selection": "Twelve previously unaccessed source points, chosen from archive geometry nearest fixed 0.1, 0.4, 0.9 diagonal positions in each of four quadrants. All twelve old source points excluded.",
+  "station_geometry": "Publisher local metric array coordinates joined by published Station# column.",
+  "score": "Force onset from the strongest absolute source signature. Score raw vertical receiver counts after onset using the two fixed time windows.",
+  "windows_seconds": [
+    [
+      0.025,
+      0.185
+    ],
+    [
+      0.185,
+      0.345
+    ]
+  ],
+  "keep_fractions": [
+    0.3,
+    0.5,
+    0.7
+  ],
+  "hidden_seeds": [
+    61107,
+    61109
+  ],
+  "layout_seeds": [
+    17,
+    43,
+    101,
+    211,
+    307,
+    401,
+    503,
+    601,
+    701,
+    809,
+    907,
+    1009,
+    1103,
+    1201,
+    1301,
+    1409,
+    1511,
+    1601,
+    1709,
+    1801
+  ],
+  "layout_budget": 200,
+  "hybrid_prefix": 64,
+  "minimum_positive_shots": 9,
+  "geometry_sha256": {
+    "metadata_source_hammer.csv": "6bfcff9d6252e48fcea7e92699cb577a9164e54dcf367e846f03b4438160f0a4",
+    "metadata_station.csv": "ab8e85b7709cd44aa89e228b1d129d2c0856fc81101a16fbd6cfaa96fd9a8194"
+  },
+  "model": "The existing geometry-aware predictor bank and shot-held-out ridge fit, without modifying the original predictor candidates.",
+  "development": [
+    {
+      "source": 45,
+      "files": {
+        "rec_z": {
+          "name": "source45_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source45_shot0_rec_z.csv",
+          "length": 2955272
+        },
+        "src": {
+          "name": "source45_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source45_shot0_src.csv",
+          "length": 67168
+        }
+      }
+    },
+    {
+      "source": 65,
+      "files": {
+        "rec_z": {
+          "name": "source65_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source65_shot0_rec_z.csv",
+          "length": 2954875
+        },
+        "src": {
+          "name": "source65_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source65_shot0_src.csv",
+          "length": 64689
+        }
+      }
+    },
+    {
+      "source": 51,
+      "files": {
+        "rec_z": {
+          "name": "source51_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source51_shot0_rec_z.csv",
+          "length": 2953165
+        },
+        "src": {
+          "name": "source51_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source51_shot0_src.csv",
+          "length": 67614
+        }
+      }
+    },
+    {
+      "source": 59,
+      "files": {
+        "rec_z": {
+          "name": "source59_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source59_shot0_rec_z.csv",
+          "length": 2952151
+        },
+        "src": {
+          "name": "source59_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source59_shot0_src.csv",
+          "length": 67366
+        }
+      }
+    },
+    {
+      "source": 96,
+      "files": {
+        "rec_z": {
+          "name": "source96_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source96_shot0_rec_z.csv",
+          "length": 2957279
+        },
+        "src": {
+          "name": "source96_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source96_shot0_src.csv",
+          "length": 67453
+        }
+      }
+    },
+    {
+      "source": 104,
+      "files": {
+        "rec_z": {
+          "name": "source104_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source104_shot0_rec_z.csv",
+          "length": 2958828
+        },
+        "src": {
+          "name": "source104_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source104_shot0_src.csv",
+          "length": 65666
+        }
+      }
+    },
+    {
+      "source": 90,
+      "files": {
+        "rec_z": {
+          "name": "source90_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source90_shot0_rec_z.csv",
+          "length": 2955561
+        },
+        "src": {
+          "name": "source90_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source90_shot0_src.csv",
+          "length": 67362
+        }
+      }
+    },
+    {
+      "source": 110,
+      "files": {
+        "rec_z": {
+          "name": "source110_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source110_shot0_rec_z.csv",
+          "length": 2958278
+        },
+        "src": {
+          "name": "source110_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source110_shot0_src.csv",
+          "length": 64857
+        }
+      }
+    }
+  ],
+  "holdout": [
+    {
+      "source": 41,
+      "files": {
+        "rec_z": {
+          "name": "source41_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source41_shot0_rec_z.csv",
+          "length": 2951836
+        },
+        "src": {
+          "name": "source41_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source41_shot0_src.csv",
+          "length": 64533
+        }
+      }
+    },
+    {
+      "source": 47,
+      "files": {
+        "rec_z": {
+          "name": "source47_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source47_shot0_rec_z.csv",
+          "length": 2958111
+        },
+        "src": {
+          "name": "source47_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source47_shot0_src.csv",
+          "length": 67685
+        }
+      }
+    },
+    {
+      "source": 64,
+      "files": {
+        "rec_z": {
+          "name": "source64_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source64_shot0_rec_z.csv",
+          "length": 2956946
+        },
+        "src": {
+          "name": "source64_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source64_shot0_src.csv",
+          "length": 67655
+        }
+      }
+    },
+    {
+      "source": 35,
+      "files": {
+        "rec_z": {
+          "name": "source35_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source35_shot0_rec_z.csv",
+          "length": 2954663
+        },
+        "src": {
+          "name": "source35_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source35_shot0_src.csv",
+          "length": 64955
+        }
+      }
+    },
+    {
+      "source": 52,
+      "files": {
+        "rec_z": {
+          "name": "source52_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source52_shot0_rec_z.csv",
+          "length": 2956199
+        },
+        "src": {
+          "name": "source52_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source52_shot0_src.csv",
+          "length": 64961
+        }
+      }
+    },
+    {
+      "source": 58,
+      "files": {
+        "rec_z": {
+          "name": "source58_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source58_shot0_rec_z.csv",
+          "length": 2950324
+        },
+        "src": {
+          "name": "source58_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source58_shot0_src.csv",
+          "length": 66952
+        }
+      }
+    },
+    {
+      "source": 72,
+      "files": {
+        "rec_z": {
+          "name": "source72_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source72_shot0_rec_z.csv",
+          "length": 2950789
+        },
+        "src": {
+          "name": "source72_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source72_shot0_src.csv",
+          "length": 67831
+        }
+      }
+    },
+    {
+      "source": 95,
+      "files": {
+        "rec_z": {
+          "name": "source95_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source95_shot0_rec_z.csv",
+          "length": 2952687
+        },
+        "src": {
+          "name": "source95_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source95_shot0_src.csv",
+          "length": 64519
+        }
+      }
+    },
+    {
+      "source": 120,
+      "files": {
+        "rec_z": {
+          "name": "source120_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source120_shot0_rec_z.csv",
+          "length": 2954087
+        },
+        "src": {
+          "name": "source120_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source120_shot0_src.csv",
+          "length": 67189
+        }
+      }
+    },
+    {
+      "source": 78,
+      "files": {
+        "rec_z": {
+          "name": "source78_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source78_shot0_rec_z.csv",
+          "length": 2952488
+        },
+        "src": {
+          "name": "source78_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source78_shot0_src.csv",
+          "length": 66781
+        }
+      }
+    },
+    {
+      "source": 89,
+      "files": {
+        "rec_z": {
+          "name": "source89_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source89_shot0_rec_z.csv",
+          "length": 2958583
+        },
+        "src": {
+          "name": "source89_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source89_shot0_src.csv",
+          "length": 64552
+        }
+      }
+    },
+    {
+      "source": 114,
+      "files": {
+        "rec_z": {
+          "name": "source114_shot0_rec_z.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source114_shot0_rec_z.csv",
+          "length": 2953728
+        },
+        "src": {
+          "name": "source114_shot0_src.csv",
+          "path": "/published-data/PRJ-3502/Experiment--active-source-and-passive-wavefield-3-component-nodal-station-measurements-at-the-garner-valley-downhole-array--V2/data/Model-config--station-and-source-configuration/Sensor--station-information/Event--active-source-instrumented-slegehammer-interior/data/hammer_interior_in_counts/source114_shot0_src.csv",
+          "length": 68221
+        }
+      }
+    }
+  ],
+  "model_sha256": "4206be1f7348db1be2910ab55b48519f91156b75144b7ff197e346b885d9e795",
+  "model_rule": "Exactly reuse the model developed before these twelve source records were downloaded. No refitting on old or new holdout sources.",
+  "primary": "Equally weighted source mean common-hidden-trace NMSE below both zero fill and coordinate IDW, at least 9/12 sources better than zero.",
+  "secondary": "Score every unobserved station as well as the common 10 percent holdout. Report source-cluster bootstrap intervals and exact paired sign-flip tests. Layout strategy comparisons are secondary."
+}

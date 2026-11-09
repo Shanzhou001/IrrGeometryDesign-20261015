@@ -1,8 +1,14 @@
 # 地震采样布局优化与缺失道恢复
 
-当前验收采用配套公开实测资料闭合采样布局与缺失道恢复实验，详见[PROJECT_CLOSURE_REPORT.md](PROJECT_CLOSURE_REPORT.md)。原5151—5171测区作为几何案例，波形不要求与其相同。主阶段7740例与配套炮集1728例共9468例，涉及七个波形工区；评价次数不代表独立样本。
+当前研究采用用户于2026-11-08确认的适用条件范围。正向实测应用采用Poland、Viking和Garner Valley，Soda Lake作为指定采样与时间窗条件下的不适用案例。原5151—5171测区保留几何案例。
 
-`python -B pipeline.py thesis --scope all`与Qt“全部实验”现已接入公开炮集及其图文报告；单独核验用`python -B pipeline.py field --verify`。`python -B pipeline.py closure-status`按已确认的公开实测恢复范围验收，全部必验项通过返回0。原测区、物理标定、成像、费用及另一台机器认证分别列为可选扩展。
+新增Garner Valley确认使用冻结模型，十二个新炮点全部优于零填充，共同隐藏道平均NMSE为0.897964；全部未观测道为0.890025，95%炮点重采样区间为[0.872467, 0.908321]。布局配对检验仍不支持Hybrid普遍优于其他搜索器。当前结果与工程验收汇总见[PROJECT_CLOSURE_REPORT.md](PROJECT_CLOSURE_REPORT.md)。
+
+`python -B pipeline.py thesis --scope all`与Qt“全部实验”执行原始炮集恢复、Soda Lake局部时移复验、Poland模型迁移至Viking、Garner Valley原验证和十二个新震源的前瞻确认。新确认每个条件使用二十个布局种子，同时评分共同隐藏道与全部未观测道，按震源聚合置信区间及配对检验。[完整应用报告](results/latest/field_applications/report/report.html)
+
+`python -B pipeline.py applications --verify`复核完整应用阶段，`python -B pipeline.py closure-status`核对当前范围。机器记录以`results/latest/project_current_closure.json`为准。历史v2要求Soda Lake获得稳定恢复收益，其失败记录继续保存在`recovery_project_closure.json`。新范围要求正向应用、适用边界报告、独立复算和Qt证据共同通过。原测区波形、物理标定、成像、费用及另一台机器认证为可选扩展。
+
+恢复有效性和布局贡献分别实测。布局使用实际坐标上的Fourier Gram互干度，恢复采用几何感知时移预测与开发炮回归。旧曲波单尺度接口属于历史兼容协议。项目结论限定为按协议测得的适用条件。[研究范围](RESEARCH_SCOPE.md)
 
 2026-11-05代码审查修复见[HARDENING_REPORT.md](HARDENING_REPORT.md)。默认`thesis --scope all`和Qt“全部实验”统一执行基础与补充验证；`legacy`仅执行基础阶段，`closure`仅执行公平预算及Parihaka复验。运行范围与结果批次分别显示，重复执行不会产生新的未见工区身份。
 
@@ -22,7 +28,7 @@
 
 当前结果目录由 `results/active.txt` 指向。源码或程序身份改变时创建新批次；新批次完整通过后自动删除其余结果批次，每次只保留最后一版。失败运行停止并保留诊断，直到下一版成功。仅验收入口变化时，可通过显式计算源码归档核对复用既有结果；算法、协议、程序及输入输出仍须一致，计算与验收源码身份分别记录。图件位于本轮独立的 `figures/research/runs/<身份>`，Qt在流程通过后读取 `figures/current.tsv`。网页图库的报告链接包含布局、恢复、幅度系数贡献及补充验证结果。
 
-图库数量、批次和报告入口由`figures/current.catalog.json`统一登记；刷新网页保留报告链接。完整范围目前包含13张基础图、1张补充比较图及2张公开炮集图，共16图和5个报告入口。原生二维固定前缀Hybrid与一维Adaptive的证据分开解释，不能用前者证明自适应切换贡献。
+图库数量、批次和报告入口由`figures/current.catalog.json`统一登记。完整范围包含19图和7个报告入口，新增震源统计及布局配对效果。原生二维固定前缀Hybrid与一维Adaptive分别评价。
 
 按用户2026-11-05的要求，旧结果批次已由最新版本替代。当前唯一结果位于 `results/latest`；旧文档中的固定路径属于历史记录。必要的计算源码归档、原始清单、路径迁移登记和9张回归对照表随最新版本保存，原科学数值和检验家族保持原协议。
 

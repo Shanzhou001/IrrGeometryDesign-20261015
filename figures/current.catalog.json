@@ -2,7 +2,7 @@
   "schema": "research_catalog_v1",
   "batch": "results/latest",
   "scope": "all",
-  "image_count": 16,
+  "image_count": 19,
   "images": [
     {
       "path": "research/runs/e35116a1376cc963/diagnostics/f3_baselines.png",
@@ -164,6 +164,24 @@
       "title": "公开实测：固定波形恢复示例",
       "description": "实测波形与其配套SPS几何；共同隐藏道评分；负向结果保留；重复案例不是独立工区。",
       "sha256": "4084b0439b9485decdf92c89973dcf18beb54a20e77b67ca2059a736b8f40957"
+    },
+    {
+      "path": "research/field_recovery_v2/absolute_nmse.png",
+      "title": "保留炮集绝对恢复误差",
+      "description": "按炮聚合的原始缺失道NMSE，与零填充及坐标插值对照。",
+      "sha256": "c4660ec19720938f7337f3280def0d5713eac995d076dbe954cb45e36493eec1"
+    },
+    {
+      "path": "research/applicability_20261108/applications/source_effects.png",
+      "title": "实测应用：震源统计与适用范围",
+      "description": "以震源为统计单位，保留Soda Lake不适用结果和全部布局对照。",
+      "sha256": "8f783aff062308a1532d44d97a15334297126e8c43c5a06de2cfa16da7668a4b"
+    },
+    {
+      "path": "research/applicability_20261108/applications/layout_effects.png",
+      "title": "布局贡献：震源配对差与不确定性",
+      "description": "以震源为统计单位，保留Soda Lake不适用结果和全部布局对照。",
+      "sha256": "01699769f047c6bdf6f2905c6c25cf54f8ba8e74dbce1a5fb5bdadf3e38e2969"
     }
   ],
   "reports": [
@@ -191,6 +209,16 @@
       "title": "公开实测炮集与配套几何验证",
       "path": "results/latest/mapped_field/report/report.html",
       "sha256": "ee26b08ee357991115a479bf92976fa2bc383dd5f4f600c018bceb1de4f924e6"
+    },
+    {
+      "title": "field_recovery_v2",
+      "path": "results/latest/field_recovery_v2/report.html",
+      "sha256": "9ee26dabd20167b3165bb1571166bb1e8706282eea3db27b47a3ab760f3b8f70"
+    },
+    {
+      "title": "实测应用与适用条件",
+      "path": "results/latest/field_applications/report/report.html",
+      "sha256": "7169337f2cf53dc7d2519727182f5dedd39e8015762a82b88665a4c047a74de5"
     }
   ]
 }

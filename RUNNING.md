@@ -9,9 +9,9 @@ python -B pipeline.py thesis --scope closure --workers 8 --out results/my_closur
 
 独立核验会拒绝NaN/Inf评分、无成功证据的记录、原生步骤失败及登记输出丢失。失败计算保留记录并停止，不自动重试。
 
-仅修复验收入口且计算代码保持一致时，可以显式复用已封存计算：先保留完整计算源码快照，再使用`research.validation.gui_workflow --retain-study <计算批次> --out <全新验收批次> --scope all`。工具核对源码归档、源文件集合及允许变化的验收函数，逐项检查源/输入/输出身份；算法、协议、数据加载、恢复、分析代码及原生程序必须一致。计算源码身份与验收源码身份分别记录。该参数不用于跳过失败科学计算。
+既有计算代码保持一致时，可以显式复用封存结果。使用`research.validation.gui_workflow --retain-study <计算批次> --out <全新验收批次> --scope all`。工具核对源码归档，保持原有计算函数、协议、输入输出和原生程序身份一致。白名单中的新增应用阶段会重新运行，旧命令映射和旧计算步骤通过AST核对。计算源码身份与本轮验收身份分别记录。
 
-当前研究范围及原SPS所需输入见`RESEARCH_SCOPE.md`。默认all统一执行基础5148例与补充2592例，当前验收见`HARDENING_REPORT.md`；初次前瞻验证的历史记录见`CLOSURE_REPORT.md`。
+当前研究范围及原SPS所需输入见`RESEARCH_SCOPE.md`。默认all执行历史冻结阶段和新的完整实测应用。当前机器验收由`closure-status`产生，11月5日和6日记录属于各自历史范围。
 
 在IrrGeometryDesign目录执行。Python3.12，原生工具链为VS2008 SP1 x64、Qt4.7.4。
 
@@ -23,7 +23,7 @@ python -B pipeline.py test
 python -B pipeline.py thesis --workers 16
 ```
 
-完整流程与Qt实验窗口使用同一个入口。它依次运行项目检查、历史冻结合成对照、Viking、F3重复迁移、独立数值复核、波形质量、20结构补充实验、Stratton/Volve确认、二维空间波形实验、贡献分解、公平预算与Parihaka复验，最后统一发布图件和报告。完成前不要修改源码、程序、协议或输入文件。
+完整流程与Qt实验窗口使用同一个入口。它依次运行项目检查、历史冻结合成对照、Viking、F3重复迁移、独立数值复核、波形质量、20结构补充实验、Stratton/Volve确认、二维空间波形实验、贡献分解、公平预算与Parihaka复验，再执行配套炮集、几何感知恢复及完整实测应用，最后统一发布图件和报告。完成前不要修改源码、程序、协议或输入文件。
 
 第二轮增加1296例空间跨块复验与适用条件报告，协议为`spatial_replication_protocol.json`。仅有Release运行包时可用`python -B pipeline.py thesis --workers 16 --modes Release`；Qt在未提供Debug程序时自动选用Release检查。
 
@@ -64,9 +64,32 @@ python -B pipeline.py run -- --gui-gallery-test
 python -B pipeline.py run -- --gui-workflow-test
 ```
 
-第一条按当前批次清单检查图件加载、缩放、翻页与刷新；目前all为14张、legacy为13张、closure为1张。第二条从Qt启动所选范围；已有同身份结果时先核验再复用。研究报告通过“原图 / 网页”中的链接打开。运行中不能关闭实验窗口。
+第一条按当前批次清单检查图件加载、缩放、翻页与刷新。当前all为19张，legacy为13张，closure为1张。第二条从Qt启动所选范围。已有同身份结果时先核验再复用。研究报告通过“原图 / 网页”中的链接打开。运行中不能关闭实验窗口。
 
 完整流程证明写入当前批次`gui_verification.json`，单独图库检查写`gui_gallery_verification.json`，避免后一次图库检查覆盖完整流程执行记录。
+
+Qt流程封存证明及其文件位于同一批次的`gui_full_run.json`和`qt_evidence`。验收使用批次内相对路径，执行目录仅作为历史说明。
+
+## 完整实测应用
+
+```powershell
+python -B pipeline.py module research.data.gvda
+python -B pipeline.py field-v2 --out results/my_study/field_recovery_v2 --workers 8
+python -B pipeline.py applications --model-study results/my_study/field_recovery_v2 --out results/my_study/field_applications --workers 8
+python -B pipeline.py applications --model-study results/my_study/field_recovery_v2 --out results/my_study/field_applications --verify
+```
+
+全部执行代码及冻结协议位于`src`。Garner Valley数据位于`data/public/gvda_2019_field`，输入注册文件含官方路径、精确长度和SHA-256。十二个新震源及二十个布局种子在新波形评分前登记，使用原验证的冻结权重。报告包括共同隐藏道与全部未观测道误差、震源聚类置信区间及九项探索性布局比较。Soda Lake两轮负向结果均为正式适用边界证据。
+
+## 几何感知实测恢复
+
+```powershell
+python -B pipeline.py field-v2 --out results/my_field_recovery --workers 8
+python -B pipeline.py field-v2 --out results/my_field_recovery --verify
+python -B pipeline.py closure-status
+```
+
+开发与保留炮号、评价窗口、采样率及预算由 `field_recovery_protocol.json` 固定。各布局按实测坐标划分接收点分区，每区选一点。随机搜索、SA与Hybrid各进行200次目标评价，Jitter提供共同初始布局。原始波形在共同隐藏道评分，按炮等权汇总。每个工区的平均NMSE须低于零填充和坐标插值，且至少3/4炮须优于零填充。`verification.json`分别记录计算和效果状态。
 
 运行包工具自动收集Qt依赖、VC90 CRT、VC90 OpenMP、中文翻译和许可文本，并在移除QTDIR、限制PATH的环境下测试。创建新运行包时必须使用全新目标目录：
 
@@ -140,10 +163,10 @@ python -B pipeline.py module research.experiments.closure_validation --data-dire
 
 `python -B pipeline.py original-site --out results/latest/original_site_application/registered`核验原测区几何及候选输入；可用--waveforms附加候选文件。尚缺同测区证据时返回2，不能据此认为程序崩溃或应用已通过。默认不自动猜测分量、坐标系统及外工区身份。
 
-`python -B pipeline.py closure-status --out results/latest/project_closure.json`汇总当前检查、保留实验、新炮集与原测区状态。公开实测恢复为当前项目必验范围；原测区、物理标定、成像和实际成本分别列为可选扩展。Qt全部实验及thesis --scope all现统一包含原7740例与field阶段1728例及其报告。新版本必须先验证和归档后再替换旧文件，程序拒绝覆盖实验目录。
+`python -B pipeline.py closure-status --out results/latest/project_current_closure.json`汇总当前检查、保留实验、实测应用与原测区状态。公开实测恢复为当前项目必验范围；原测区、物理标定、成像和实际成本分别列为可选扩展。Qt全部实验及thesis --scope all包含基础阶段、field、field-v2及applications阶段。新版本必须先验证和归档后再替换旧文件，程序拒绝覆盖实验目录。
 
 ## 当前项目闭环验收范围
 
-运行python -B pipeline.py closure-status --out results/latest/project_closure.json。必验项为基础公共/合成实验、配套公开炮集恢复、分层报告、当前源码检查、独立复算及交付包。全部通过返回0；缺必验项返回2。可选原测区入口仍返回其自身真实状态，不更改公共实测工区身份。
+运行python -B pipeline.py closure-status --out results/latest/project_current_closure.json。十项必验内容由src/research/experiments/project_scope.json列出，包括正向实测应用、Soda Lake边界报告、独立复算及可迁移Qt证据。全部通过返回0；缺必验项返回2。可选原测区入口仍返回其自身真实状态，不更改公共实测工区身份。历史project_closure.json和recovery_project_closure.json保持原范围及结果。
 
-当前有效源码检查为results/latest/project_checks/checks.json。195项Python测试191通过、4项可选历史RRAW跳过。默认全部实验包括9468例及16图5报告。历史源版本、验收和清理记录保留其当时含义。
+当前有效源码检查为results/latest/project_current_checks/checks.json。默认全部实验包含25020条评价记录及19图7报告。测试数量、执行状态和效果状态以本轮机器记录为准。历史源版本、验收和清理记录保留其当时含义。

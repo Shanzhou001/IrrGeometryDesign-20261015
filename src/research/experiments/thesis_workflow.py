@@ -184,11 +184,16 @@ def run(workers=16,out=None,modes=('Release','Debug'),scope='all'):
                  '--workers',min(workers,8)],out/'mapped_field/verification.json')
             step('mapped_field_report',['pipeline.py','module','research.analysis.mapped_field_report',
                  '--study',out/'mapped_field','--out',out/'mapped_field/report'],out/'mapped_field/report/manifest.json')
+            step('field_recovery_v2',['pipeline.py','field-v2','--out',out/'field_recovery_v2',
+                 '--workers',min(workers,8)],out/'field_recovery_v2/verification.json')
+            step('field_applications',['pipeline.py','applications','--out',out/'field_applications',
+                 '--model-study',out/'field_recovery_v2','--workers',min(workers,8)],
+                 out/'field_applications/verification.json')
         from research.analysis.catalog import publish
         import shutil
         images=json.loads((out/'figure_verification.json').read_text(encoding='utf-8'))['images'] if (out/'figure_verification.json').exists() else []
         reports=[]
-        for folder in ('research_evidence','confirmation_report','applicability_report','closure/report','mapped_field/report'):
+        for folder in ('research_evidence','confirmation_report','applicability_report','closure/report','mapped_field/report','field_recovery_v2'):
             path=out/folder/'report.html'
             if not path.exists():path=out/folder/'report.md'
             if path.is_file():reports.append((folder,path))
@@ -203,7 +208,13 @@ def run(workers=16,out=None,modes=('Release','Debug'),scope='all'):
                 shutil.copyfile(out/'mapped_field/report'/(name+'.png'),image)
                 images.append(dict(path=image.relative_to(FIGURES).as_posix(),title=title,
                     description='配套实测几何与波形；保留负向结果；重复案例不增加独立工区数。',sha256=digest(image)))
+            image=FIGURES/figure_group/'field_recovery_v2/absolute_nmse.png';image.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(out/'field_recovery_v2/absolute_nmse.png',image)
+            images.append(dict(path=image.relative_to(FIGURES).as_posix(),title='保留炮集绝对恢复误差',
+                description='按炮聚合的原始缺失道NMSE，与零填充及坐标插值对照。',sha256=digest(image)))
         publish(out,images,reports,scope)
+        from research.experiments.application_suite import publish as publish_applications
+        publish_applications(out,figure_group,scope)
         require_identity(current)
         state.update(status='passed', completed_utc=datetime.now(timezone.utc).isoformat())
         (out/'acceptance.json').write_text(json.dumps(dict(status='passed',

@@ -14,3 +14,6 @@ research/runs/e35116a1376cc963/viking/recovery.png	Viking：恢复比较	数据�
 research/runs/e35116a1376cc963/closure/primary_effects.png	Parihaka: fixed spatial Hybrid	Frozen 128/256 condition; six correlated blocks; no population significance claim.
 research/mapped_field/current/paired_effects.png	公开实测：分保留率配对效果	实测波形与其配套SPS几何；共同隐藏道评分；负向结果保留；重复案例不是独立工区。
 research/mapped_field/current/waveform_example.png	公开实测：固定波形恢复示例	实测波形与其配套SPS几何；共同隐藏道评分；负向结果保留；重复案例不是独立工区。
+research/field_recovery_v2/absolute_nmse.png	保留炮集绝对恢复误差	按炮聚合的原始缺失道NMSE，与零填充及坐标插值对照。
+research/applicability_20261108/applications/source_effects.png	实测应用：震源统计与适用范围	以震源为统计单位，保留Soda Lake不适用结果和全部布局对照。
+research/applicability_20261108/applications/layout_effects.png	布局贡献：震源配对差与不确定性	以震源为统计单位，保留Soda Lake不适用结果和全部布局对照。

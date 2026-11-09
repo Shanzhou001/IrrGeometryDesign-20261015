@@ -27,6 +27,19 @@ def members(root,runtime,study,extension=None):
     # never masquerade as a resumable passed scientific batch after extraction.
     for folder in ('confirmation_report','applicability_report','research_evidence'):
         for p in (study/folder).glob('*'):add(p,'evidence/'+folder+'/'+p.name)
+    for folder in ('field_recovery_v2','soda_local_warp_confirmation'):
+        for p in (study/folder).glob('*'):
+            if p.is_file():add(p,'evidence/'+folder+'/'+p.name)
+    for p in (study/'field_applications').rglob('*'):
+        if p.is_file() and 'predictions' not in p.relative_to(study).parts:
+            add(p,'evidence/'+p.relative_to(study).as_posix())
+    for p in (study/'qt_evidence').glob('*'):
+        add(p,'evidence/qt_evidence/'+p.name)
+    add(study/'field_recovery_gui.json','evidence/field_recovery_gui.json')
+    add(study/'project_current_gui.json','evidence/project_current_gui.json')
+    add(study/'application_reproduction.json','evidence/application_reproduction.json')
+    for p in (study/'reproduction_evidence').rglob('*'):
+        if p.is_file():add(p,'evidence/reproduction_evidence/'+p.relative_to(study/'reproduction_evidence').as_posix())
     for name in ('acceptance.json','final_verification.json','source_identity.json','delivery_verification.json','source_snapshot.zip'):
         add(study/name,'evidence/'+name)
     if extension is not None:
@@ -66,7 +79,27 @@ Install Python 3.12 and the pinned requirements, then run from this directory:
     python -B pipeline.py thesis --scope all --workers 16 --modes Release
 
 The all scope includes the frozen equal-budget and external-survey study.
-For that scope alone, using the included Parihaka cache:
+To rerun and verify the geometry-aware recovery study alone:
+
+    python -B pipeline.py field-v2 --out results/field_recovery_v2 --workers 8
+    python -B pipeline.py field-v2 --out results/field_recovery_v2 --verify
+
+Compare its scores against evidence/field_recovery_v2. The workflow and raw
+holdout performance have separate verdicts. The Soda Lake local-warp follow-up
+has its own fixed shots and reference scores.
+
+The maintained application suite includes Soda Lake boundary replication, the
+frozen Poland-to-Viking transfer, the original Garner Valley validation, and
+the prospective twelve-source, twenty-layout-seed Garner Valley confirmation.
+Run it after field-v2:
+
+    python -B pipeline.py applications --model-study results/field_recovery_v2 --out results/field_applications --workers 8
+    python -B pipeline.py applications --model-study results/field_recovery_v2 --out results/field_applications --verify
+
+All runners and frozen protocols are under src/. Registered Garner Valley
+source signatures, station geometry and receiver counts are bundled under data/.
+
+For the Parihaka study alone, using the included cache:
 
     python -B pipeline.py thesis --scope closure --modes Release --out results/closure_reproduction --workers 8
 

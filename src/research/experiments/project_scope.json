@@ -1,10 +1,12 @@
 {
-  "profile": "paired_public_field_recovery_v1",
+  "profile": "public_field_applicability_v3",
   "authority": "User clarification: the application data need not be identical to the original survey; complete the experimental project loop using suitable data.",
-  "application_datasets": ["poland_line001_field", "soda_lake_2010_field"],
-  "required": ["retained_public_experiments", "mapped_field_recovery", "outcome_reporting", "current_code_checks", "independent_reproduction", "project_delivery"],
+  "application_datasets": ["poland_line001_field", "viking_line12_small", "gvda_2019_field"],
+  "boundary_datasets": ["soda_lake_2010_field"],
+  "scope_decision": "On 2026-11-08 the user explicitly accepted Soda Lake as a verified unsupported case and positive application closure using other matched measured datasets.",
+  "required": ["retained_public_experiments", "mapped_field_recovery", "outcome_reporting", "current_code_checks", "independent_reproduction", "project_delivery", "field_recovery_effect", "applicability_reporting", "application_reproduction", "qt_workflow"],
   "optional": ["original_site_application", "physical_amplitude", "downstream_imaging", "actual_field_cost", "new_physical_machine"],
   "claim": "Sampling-layout optimization, paired public-field trace mapping, held-out waveform recovery, uncalibrated digital-amplitude diagnostics, fair objective-evaluation controls and reproducibility.",
   "original_survey_role": "Geometry case only; no substituted original-site waveform identity claim.",
-  "outcome_rule": "Closure requires complete execution and verification; negative effects and unsupported superiority hypotheses remain valid reported outcomes."
+  "outcome_rule": "Positive raw recovery must pass the registered Poland, Viking and Garner Valley criteria, including twelve fresh Garner Valley sources with twenty layout seeds. Soda Lake outcomes and unsupported universal-superiority hypotheses remain required reported findings. Historical v2 failures retain their original identity."
 }

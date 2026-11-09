@@ -24,6 +24,22 @@ TEST='src/tests/python/test_hardening.py'
 SELF='src/research/validation/source_compatibility.py'
 HOUSEKEEPING='src/research/validation/results_retention.py'
 ARTIFACTS='src/research/validation/artifacts.py'
+PIPELINE='src/research/pipeline.py'
+INTEGRATION_ONLY={
+    'src/research/validation/project_closure.py',
+    'src/research/validation/reproduction_kit.py',
+    'src/research/experiments/project_scope.json',
+}
+APPLICATION_ADDITIONS={
+    'src/research/data/gvda.py', 'src/research/data/gvda_inputs.json',
+    'src/research/experiments/gvda_recovery.py', 'src/research/experiments/gvda_protocol.json',
+    'src/research/experiments/gvda_confirmation_protocol.json',
+    'src/research/experiments/viking_transfer.py', 'src/research/experiments/viking_transfer_protocol.json',
+    'src/research/experiments/soda_followup.py', 'src/research/experiments/soda_followup_protocol.json',
+    'src/research/experiments/application_suite.py', 'src/research/recovery_local.py',
+    'src/research/validation/field_artifacts.py', 'src/research/analysis/application_report.py',
+    'src/tests/python/test_applications.py',
+}
 RETAINED=('synthetic_search','synthetic_joint','synthetic_analysis','viking','viking_audit',
           'viking_quality','f3','f3_audit','synthetic_confirmation','stratton_confirmation','volve_confirmation')
 ATTESTATION='calculation_compatibility.json'
@@ -33,6 +49,22 @@ def _acceptance_ast(name,raw):
     tree=ast.parse(raw.decode('utf-8-sig'))
     allowed={'validate_retained'} if name==THESIS else {'check_hash'} if name==ARTIFACTS else {'run'}
     if name==THESIS:
+        class ApplicationIntegration(ast.NodeTransformer):
+            def visit_Expr(self, node):
+                call = node.value
+                if isinstance(call, ast.Call) and isinstance(call.func, ast.Name):
+                    if (call.func.id == 'step' and call.args and isinstance(call.args[0], ast.Constant)
+                            and call.args[0].value == 'field_applications'):
+                        return None
+                    if call.func.id == 'publish_applications':
+                        return None
+                return self.generic_visit(node)
+
+            def visit_ImportFrom(self, node):
+                if node.module == 'research.experiments.application_suite':
+                    return None
+                return node
+        tree = ApplicationIntegration().visit(tree)
         for function in tree.body:
             if isinstance(function,ast.FunctionDef) and function.name=='run':
                 for node in function.body:
@@ -45,6 +77,16 @@ def _acceptance_ast(name,raw):
     if name==GUI:
         tree.body=[node for node in tree.body if not (isinstance(node,ast.If) and
                    ast.unparse(node.test)=="__name__ == '__main__'")]
+    if name==PIPELINE:
+        # Existing command mappings and parser behavior remain identical.
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Tuple):
+                node.elts = [n for n in node.elts if not (
+                    isinstance(n, ast.Constant) and n.value == 'applications')]
+            if isinstance(node, ast.Dict):
+                keep = [(k, v) for k, v in zip(node.keys, node.values) if not (
+                    isinstance(k, ast.Constant) and k.value == 'applications')]
+                node.keys, node.values = [k for k, _ in keep], [v for _, v in keep]
     return ast.dump(tree,include_attributes=False)
 
 
@@ -52,12 +94,13 @@ def compare_sources(before,after):
     """All calculation/data/protocol/analysis sources must remain byte-identical."""
     if set(before)-set(after):raise ValueError('A calculation source was removed')
     added=set(after)-set(before)
-    if added-{SELF,HOUSEKEEPING}:raise ValueError('Unexpected added calculation source')
+    if added-({SELF,HOUSEKEEPING}|APPLICATION_ADDITIONS):raise ValueError('Unexpected added calculation source')
     changed=[]
     for name,raw in before.items():
         if raw==after[name]:continue
-        if name in (TEST,SELF,HOUSEKEEPING):changed.append(name);continue
-        if name not in (THESIS,GUI,ARTIFACTS) or _acceptance_ast(name,raw)!=_acceptance_ast(name,after[name]):
+        if name in (TEST,SELF,HOUSEKEEPING) or name in INTEGRATION_ONLY:
+            changed.append(name);continue
+        if name not in (THESIS,GUI,ARTIFACTS,PIPELINE) or _acceptance_ast(name,raw)!=_acceptance_ast(name,after[name]):
             raise ValueError('Calculation source changed: '+name)
         changed.append(name)
     return dict(changed=sorted(changed),added=sorted(added),

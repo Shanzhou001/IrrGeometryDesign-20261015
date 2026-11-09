@@ -28,10 +28,12 @@ def main():
     module.add_argument('name', help='for example research.validation.audit_numerics')
     module.add_argument('arguments', nargs=argparse.REMAINDER)
     arguments=sys.argv[1:]
-    if arguments[:1] and arguments[0] in ('check','viking','viking-v2','thesis','field','original-site','closure-status'):
+    if arguments[:1] and arguments[0] in ('check','viking','viking-v2','thesis','field','field-v2','original-site','closure-status','applications'):
         target = {'check':'research.validation.run_audit_checks', 'viking':'research.experiments.viking_study',
                   'viking-v2':'research.experiments.viking_v2', 'thesis':'research.experiments.thesis_workflow',
-                  'field':'research.experiments.mapped_field', 'original-site':'research.validation.original_site',
+                  'field':'research.experiments.mapped_field', 'field-v2':'research.experiments.field_recovery',
+                  'applications':'research.experiments.application_suite',
+                  'original-site':'research.validation.original_site',
                   'closure-status':'research.validation.project_closure'}[arguments[0]]
         forwarded=arguments[1:]
         if forwarded[:1]==['--']:forwarded=forwarded[1:]

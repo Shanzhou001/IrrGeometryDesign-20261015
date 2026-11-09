@@ -1,0 +1,16 @@
+{
+  "protocol": "poland_to_viking_raw_transfer",
+  "scope": "The ten previously registered Viking marine shots are external to the Poland model fit. The survey has been used for other methods in this project.",
+  "model": "Frozen Poland component 0 from field_recovery_v2. No refitting or amplitude calibration.",
+  "ffids": [53, 153, 253, 353, 453, 553, 653, 753, 853, 953],
+  "receivers": 120,
+  "windows": [[256, 128, 192], [768, 384, 448]],
+  "window_rule": "Match the physical times of the fixed 2 ms Poland windows on the 4 ms Viking records.",
+  "keep_fractions": [0.3, 0.5, 0.7],
+  "hidden_seeds": [61107, 61109],
+  "layout_seeds": [17, 43],
+  "layout_budget": 200,
+  "hybrid_prefix": 64,
+  "minimum_positive_shots": 8,
+  "effect_rule": "Shot mean below zero and coordinate IDW, and at least eight of ten shots better than zero."
+}
