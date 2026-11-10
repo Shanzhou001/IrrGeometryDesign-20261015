@@ -1,19 +1,3 @@
-research/runs/e35116a1376cc963/diagnostics/f3_baselines.png	F3：基线与幅度诊断	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。 F3为已见资料的重复迁移，不能当作新的未见工区。
-research/runs/e35116a1376cc963/diagnostics/search_trajectories.png	搜索：实际评价轨迹	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/diagnostics/sps_geometry.png	SPS：真实几何与二维目标	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/diagnostics/viking_baselines.png	Viking：基线与幅度诊断	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/diagnostics/viking_gathers.png	Viking：预设道集与残差	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/diagnostics/viking_hidden_trace.png	Viking：隐藏道波形与布局	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/f3/recovery.png	F3：重复迁移布局对照	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。 F3为已见资料的重复迁移，不能当作新的未见工区。
-research/runs/e35116a1376cc963/synthetic/budget.png	合成：预算回收与共同评价次数	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/synthetic/recovery.png	合成：共同隐藏道恢复	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/synthetic/search.png	合成：等预算搜索	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/viking/conditions.png	Viking：预设窗口与隐藏集	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/viking/geometry.png	Viking：覆盖与互干度	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/viking/recovery.png	Viking：恢复比较	数据来自本轮完整实验与独立核验。SNR仅在共同隐藏道计算，负值保留；种子和相邻窗口不增加独立工区数。
-research/runs/e35116a1376cc963/closure/primary_effects.png	Parihaka: fixed spatial Hybrid	Frozen 128/256 condition; six correlated blocks; no population significance claim.
-research/mapped_field/current/paired_effects.png	公开实测：分保留率配对效果	实测波形与其配套SPS几何；共同隐藏道评分；负向结果保留；重复案例不是独立工区。
-research/mapped_field/current/waveform_example.png	公开实测：固定波形恢复示例	实测波形与其配套SPS几何；共同隐藏道评分；负向结果保留；重复案例不是独立工区。
-research/field_recovery_v2/absolute_nmse.png	保留炮集绝对恢复误差	按炮聚合的原始缺失道NMSE，与零填充及坐标插值对照。
-research/applicability_20261108/applications/source_effects.png	实测应用：震源统计与适用范围	以震源为统计单位，保留Soda Lake不适用结果和全部布局对照。
-research/applicability_20261108/applications/layout_effects.png	布局贡献：震源配对差与不确定性	以震源为统计单位，保留Soda Lake不适用结果和全部布局对照。
+research/viking/viking_only/recovery.png	Viking 缺失道恢复	同一隐藏道上的固定曲波、固定 f-k 与内层选模。
+research/viking/viking_only/geometry.png	Viking 布局与覆盖	分别显示 Fourier 互干度和最大空档。
+research/viking/viking_only/conditions.png	Viking 分条件结果	分时间窗和隐藏集合报告同一保留数下的结果。

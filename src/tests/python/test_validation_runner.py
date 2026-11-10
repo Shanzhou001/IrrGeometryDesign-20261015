@@ -90,7 +90,7 @@ class ValidationRunnerTests(unittest.TestCase):
     def test_current_project_allows_only_declared_optional_legacy_skips(self):
         with tempfile.TemporaryDirectory() as folder:state,calls=self.run_fixture(folder,full=True,skip=2,legacy_skip=True)
         self.assertEqual(state['status'],'passed');self.assertEqual(state['scope'],'project')
-        self.assertIn('release_registered_data',calls);self.assertIn('sps_integration',calls)
+        self.assertIn('release_registered_data',calls);self.assertNotIn('sps_integration',calls)
         self.assertNotIn('release_integration',calls)
         self.assertTrue(all(item['optional_legacy'] for item in state['records'][0]['skips']))
 

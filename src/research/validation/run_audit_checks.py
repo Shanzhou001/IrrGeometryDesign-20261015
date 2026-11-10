@@ -47,7 +47,8 @@ def unittest_summary(log):
 
 def unittest_skips(log):
     text=Path(log).read_text(encoding='utf-8',errors='replace')
-    return [dict(test=test,reason=reason,optional_legacy='external RRAW.SGY dataset is not installed' in reason)
+    return [dict(test=test,reason=reason,optional_legacy=reason in (
+                'external RRAW.SGY dataset is not installed', 'historical SPS fixture is absent in the Viking edition'))
             for test,reason in re.findall(r"^(.+?) \.\.\. skipped ['\"](.+?)['\"]\s*$",text,re.MULTILINE)]
 
 
@@ -55,8 +56,7 @@ def project_inputs(workspace):
     registry=json.loads((ROOT/'src/research/data/viking_line12_subset.json').read_text(encoding='utf-8'))
     names=['source_docs/'+name for name in registry['source_docs']]
     for shot in registry['shots']:names.extend(shot['files'])
-    return [workspace/'data/public/viking_line12_small'/name for name in names]+[
-        workspace/'data/sps'/('5151-5171.'+extension) for extension in ['S','R','X']]
+    return [workspace/'data/public/viking_line12_small'/name for name in names]
 
 
 def checks(out, build=False, full=False, modes=('Release','Debug'),
@@ -77,10 +77,10 @@ def checks(out, build=False, full=False, modes=('Release','Debug'),
                started_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
                python=platform.python_version(),platform=platform.platform(),modes=list(modes),
                source_sha256={p.relative_to(ROOT).as_posix():digest(p) for p in tracked},
-               excluded=(['native builds and tests','registered Viking and SPS integration','optional legacy RRAW integration'] if python_only else
-                         ['optional legacy RRAW integration'] if full else
-                         ['registered Viking and SPS integration'] if legacy else
-                         ['registered Viking and SPS integration','optional legacy RRAW integration']),records=[])
+               excluded=(['native builds and tests','registered Viking integration','optional legacy RRAW/SPS integration'] if python_only else
+                         ['optional legacy RRAW/SPS integration'] if full else
+                         ['registered Viking integration'] if legacy else
+                         ['registered Viking integration','optional legacy RRAW/SPS integration']),records=[])
     def save():
         (out/'checks.json').write_text(json.dumps(state,indent=2),encoding='utf-8')
     def invoke(name,command,native_log=None):
@@ -134,8 +134,6 @@ def checks(out, build=False, full=False, modes=('Release','Debug'),
                 label=mode.lower()
                 invoke(label+'_registered_data',[sys.executable,'-B','-m','research.validation.registered_data_check',
                        '--out',out/(label+'_registered_data'),'--exe',executable(mode)])
-            invoke('sps_integration',[executable(modes[0]),'--run-experiments',out/'sps',
-                                     '--repeat','1','--seed','20261026'])
     if legacy:
         missing=[str(path) for path in external_inputs(WORKSPACE) if not path.is_file()]
         state['missing_external_inputs']=missing
@@ -170,7 +168,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--out',type=Path,required=True)
     parser.add_argument('--build',action='store_true')
     scopes=parser.add_mutually_exclusive_group()
-    scopes.add_argument('--full',action='store_true',help='current project: core plus registered Viking and SPS integration; excludes optional legacy RRAW')
+    scopes.add_argument('--full',action='store_true',help='current project: core plus registered Viking integration')
     scopes.add_argument('--legacy',action='store_true',help='core plus historical RRAW/SPS integration; requires legacy files and a valid source declaration')
     scopes.add_argument('--python-only',action='store_true',help='Python regressions only; explicitly excludes native and dataset integration coverage')
     parser.add_argument('--mode',choices=['Release','Debug','both'],default='both')

@@ -31,6 +31,8 @@ def fixture(path,records=(350,350),channels=(1,2),order='>',zero=False):
     return path
 
 class OriginalSiteTests(unittest.TestCase):
+    @unittest.skipUnless((PROJECT/'data/sps/5151-5171.X').is_file(),
+                         'historical SPS fixture is absent in the Viking edition')
     def test_original_geometry_uses_standard_ffid_and_actual_spread_counts(self):
         result=AUDIT.target(PROJECT)
         self.assertEqual(set(result['shots']),set(range(2,351)))
@@ -39,6 +41,8 @@ class OriginalSiteTests(unittest.TestCase):
         self.assertEqual(min(r['groups'] for r in result['shots'].values()),9029)
         self.assertEqual(max(r['groups'] for r in result['shots'].values()),9072)
 
+    @unittest.skipUnless((PROJECT/'data/sps/5151-5171.X').is_file(),
+                         'historical SPS fixture is absent in the Viking edition')
     def test_modified_original_sps_is_rejected(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);base=root/'data/sps';base.mkdir(parents=True)

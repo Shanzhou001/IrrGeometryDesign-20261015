@@ -66,14 +66,14 @@ static QString utf(const char* text) { return QString::fromLocal8Bit(text); }
 ResearchFiguresDialog::ResearchFiguresDialog(QWidget *parent)
     : QDialog(parent), mCurrentIndex(0), mLastExitCode(-1)
 {
-    setWindowTitle(utf("毕业实验与结果图库"));resize(1080,800);setSizeGripEnabled(true);
+    setWindowTitle(utf("Viking 实测实验与结果图库"));resize(1080,800);setSizeGripEnabled(true);
     QVBoxLayout *layout=new QVBoxLayout(this);
-    QLabel *intro=new QLabel(utf("完整流程：数据核验 → 合成对照 → Viking稳定性 → F3重复迁移 → 独立审计 → 图件。保留负结果；F3已用于开发观察。"),this);
+    QLabel *intro=new QLabel(utf("Viking Line 12：核对数据、比较接收道布局、重建缺失道并独立评分。"),this);
     intro->setWordWrap(true);layout->addWidget(intro);
     mBatchLabel=new QLabel(this);mBatchLabel->setWordWrap(true);layout->addWidget(mBatchLabel);
     QHBoxLayout *runBar=new QHBoxLayout;
     mScope=new QComboBox(this);mScope->setObjectName("workflowScope");
-    mScope->addItem(utf("全部实验"),"all");mScope->addItem(utf("基础实验"),"legacy");mScope->addItem(utf("公平预算与外部验证"),"closure");
+    mScope->addItem(utf("Viking v2 实测"),"viking");
     QString scope=QString::fromLocal8Bit(qgetenv("IRR_WORKFLOW_SCOPE"));
     int configuredScope=mScope->findData(scope);if(configuredScope>=0)mScope->setCurrentIndex(configuredScope);
     runBar->addWidget(mScope);

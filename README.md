@@ -1,54 +1,10 @@
-# 地震采样布局优化与缺失道恢复
+# Viking 海上地震接收道选择与缺失道重建
 
-当前研究采用用户于2026-11-08确认的适用条件范围。正向实测应用采用Poland、Viking和Garner Valley，Soda Lake作为指定采样与时间窗条件下的不适用案例。原5151—5171测区保留几何案例。
+项目使用 Viking Graben Line 12 的登记实测炮集，完成受约束选道、缺失道重建和独立评分。
 
-新增Garner Valley确认使用冻结模型，十二个新炮点全部优于零填充，共同隐藏道平均NMSE为0.897964；全部未观测道为0.890025，95%炮点重采样区间为[0.872467, 0.908321]。布局配对检验仍不支持Hybrid普遍优于其他搜索器。当前结果与工程验收汇总见[PROJECT_CLOSURE_REPORT.md](PROJECT_CLOSURE_REPORT.md)。
+- [完整项目说明](PROJECT_OVERVIEW.md)
+- [实测结果](results/viking_only/report.html)
+- [实验图件](figures/index.html)
+- [验收记录](results/viking_only/workflow.json)
 
-`python -B pipeline.py thesis --scope all`与Qt“全部实验”执行原始炮集恢复、Soda Lake局部时移复验、Poland模型迁移至Viking、Garner Valley原验证和十二个新震源的前瞻确认。新确认每个条件使用二十个布局种子，同时评分共同隐藏道与全部未观测道，按震源聚合置信区间及配对检验。[完整应用报告](results/latest/field_applications/report/report.html)
-
-`python -B pipeline.py applications --verify`复核完整应用阶段，`python -B pipeline.py closure-status`核对当前范围。机器记录以`results/latest/project_current_closure.json`为准。历史v2要求Soda Lake获得稳定恢复收益，其失败记录继续保存在`recovery_project_closure.json`。新范围要求正向应用、适用边界报告、独立复算和Qt证据共同通过。原测区波形、物理标定、成像、费用及另一台机器认证为可选扩展。
-
-恢复有效性和布局贡献分别实测。布局使用实际坐标上的Fourier Gram互干度，恢复采用几何感知时移预测与开发炮回归。旧曲波单尺度接口属于历史兼容协议。项目结论限定为按协议测得的适用条件。[研究范围](RESEARCH_SCOPE.md)
-
-2026-11-05代码审查修复见[HARDENING_REPORT.md](HARDENING_REPORT.md)。默认`thesis --scope all`和Qt“全部实验”统一执行基础与补充验证；`legacy`仅执行基础阶段，`closure`仅执行公平预算及Parihaka复验。运行范围与结果批次分别显示，重复执行不会产生新的未见工区身份。
-
-当前研究是模拟退火与离散局部交换搜索的地震采样布局及缺失道恢复评价。包含自适应切换、预算回收、最大间距约束和先导道加权；旧CG接口名称仅为兼容，不能称为标准共轭梯度算法。开题中的多模态CNN/GCN设想不属于当前已实现或已验证的研究范围。不生成论文稿件。
-
-第二轮完善、跨块空间复验与复现包说明见[COMPLETION_REPORT.md](COMPLETION_REPORT.md)。用户要求保留本地修改，不进行Git提交。当前批次由`results/active.txt`确定，旧修复记录中的固定批次名仅对应当时版本。
-
-2026-11-04新增公平预算随机搜索对照、Parihaka前瞻外部验证和独立Python环境复现。结果与验收见[CLOSURE_REPORT.md](CLOSURE_REPORT.md)，研究问题、结论与尚缺输入的验收要求见[RESEARCH_SCOPE.md](RESEARCH_SCOPE.md)。历史5148例与新增验证分开保存，不把重复计算计为新增独立样本。
-
-## 启动与当前实验
-
-双击 `output/runtime_current/IrrGeometryDesign.exe`，或运行 `python -B pipeline.py run`。进入“空间优化与科研试验 → 毕业实验与结果图库”，填写Python3.12解释器，点击“运行 / 核验完整实验”。并行数1—16只控制执行并发，不改变冻结参数。
-
-`python -B pipeline.py thesis --workers 16` 运行相同完整流程，包括原有对照、贡献归因、20结构补充实验、Stratton/Volve新增工区和二维空间波形验证。每阶段失败立即停止；原生调用失败的命令、输入哈希和原始日志另存于 `results/failures`，临时测试目录清理后仍可诊断。不会自动重试失败的科学计算。
-
-完整流程还包含两工区12个空间块、24个空间—时间块的1296例扩展，以及结构族/噪声/恢复器分层的适用条件报告。扩展工区此前已访问，报告不会重新宣称未见验证。
-
-当前结果目录由 `results/active.txt` 指向。源码或程序身份改变时创建新批次；新批次完整通过后自动删除其余结果批次，每次只保留最后一版。失败运行停止并保留诊断，直到下一版成功。仅验收入口变化时，可通过显式计算源码归档核对复用既有结果；算法、协议、程序及输入输出仍须一致，计算与验收源码身份分别记录。图件位于本轮独立的 `figures/research/runs/<身份>`，Qt在流程通过后读取 `figures/current.tsv`。网页图库的报告链接包含布局、恢复、幅度系数贡献及补充验证结果。
-
-图库数量、批次和报告入口由`figures/current.catalog.json`统一登记。完整范围包含19图和7个报告入口，新增震源统计及布局配对效果。原生二维固定前缀Hybrid与一维Adaptive分别评价。
-
-按用户2026-11-05的要求，旧结果批次已由最新版本替代。当前唯一结果位于 `results/latest`；旧文档中的固定路径属于历史记录。必要的计算源码归档、原始清单、路径迁移登记和9张回归对照表随最新版本保存，原科学数值和检验家族保持原协议。
-
-## 冻结协议与补充验证
-
-- 历史合成搜索：N=128，38/64/90道，200/600评价预算，20个配对掩码种子。历史恢复以6个结构模板聚合噪声和种子重复。6模板、24项精确双侧检验的设计不能跨过Holm首阈值，报告明确这一限制。
-- 新合成协议：20个分别固定种子的结构实现、5个结构族、2档噪声、2个掩码种子、3档保留数。主要比较预先限定为Adaptive对Jitter及SA_Budget的内层选择恢复，共6项；固定恢复的6项比较单列为次要家族。结构实现不是独立实测工区。
-- Viking：3炮、3窗、3个共同隐藏集、3个种子、36/60/84道、300评价预算。12个先导道计入保留数，2个内层验证分组始终保留先导观测。
-- F3：沿用历史方案的已见资料重复迁移。重算不恢复未见测试身份；相邻剖面不是独立工区。
-- 新工区：Stratton和Volve的完整SEG-Y卷，先冻结协议再读取波形。按头字段排序预选3个剖面，统一120道及样点[512,768)，不按结果换窗。Teapot地址拒绝访问，读取Volve波形前登记了仅涉及可用性的替换修订；算法、阈值和选窗规则不变。
-- 二维波形：同一Stratton体的16×16空间网格、128个时间样点，76/128/179道、3个种子。二维Fourier目标搜索后用固定三维Fourier/FISTA恢复，检查共同隐藏位置、观测投影、显式Gram和隐藏值隔离。它与Stratton剖面实验仍算同一个工区。
-
-基础与补充协议见 `src/research/experiments/*protocol.json` 及 `confirmation_amendment.json`；实际执行参数以本轮各阶段的 `frozen_plan.json`、`protocol.json`和manifest为准。候选及幅度系数只使用内层观测；外层H不用于调参、换窗、选案例或删除负结果。
-
-## 结果解释与交付
-
-布局效果在相同恢复器下配对比较，恢复器和幅度系数的影响另表分解。负SNR、线性/f-k强基线及不显著结果均保留；不预设混合搜索一定最好。
-
-原9072点SPS测区目前没有对应实测波形（用户于2026-11-03确认），该测区仍只支持几何分析，属于可选扩展，不再阻塞本项目公开实测恢复的闭环。Stratton空间波形验证不能替代这份缺失证据。当前不宣称实际现场采集降本、物理保幅或下游成像改善。
-
-原始数据、逐案例预测与审计文件被Git忽略，单独克隆源码不能恢复本机留存证据。应随交付保存输入来源/许可、冻结协议、当前批次、匹配程序及源码身份。跨文件系统复制历史硬链接结果时，占用可能增加。
-
-目录职责和历史验收见 `ACCEPTANCE.md`；当前操作见 `RUNNING.md`；早期修复和证据缺口见 `REPAIR_REPORT.md`。7页历史汇报的正式工具重建版本位于 `output/reports/研究进展汇报_工具复现版.pptx`，原始开题、中期和既有汇报继续保留。
+在本目录运行 `python -B pipeline.py run` 打开 Qt 程序，或运行 `python -B pipeline.py closure-status` 核对活动批次。重算实验使用 `python -B pipeline.py thesis --scope viking --out results/viking_replay`。

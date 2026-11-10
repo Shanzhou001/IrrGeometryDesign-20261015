@@ -23,20 +23,20 @@ def main():
     viking.add_argument('arguments', nargs=argparse.REMAINDER)
     viking_v2 = commands.add_parser('viking-v2', help='run pilot-assisted recovery, coverage and multi-window/hidden-set experiments')
     viking_v2.add_argument('arguments', nargs=argparse.REMAINDER)
+    commands.add_parser('thesis', help='run or verify the full Viking-only experiment')
+    commands.add_parser('closure-status', help='check the accepted Viking-only result batch')
     commands.add_parser('figures', help='refresh the image gallery without rerunning experiments')
     module = commands.add_parser('module', help='run a research module with its own arguments')
     module.add_argument('name', help='for example research.validation.audit_numerics')
     module.add_argument('arguments', nargs=argparse.REMAINDER)
     arguments=sys.argv[1:]
-    if arguments[:1] and arguments[0] in ('check','viking','viking-v2','thesis','field','field-v2','original-site','closure-status','applications'):
+    if arguments[:1] and arguments[0] in ('check','viking','viking-v2','thesis','closure-status'):
         target = {'check':'research.validation.run_audit_checks', 'viking':'research.experiments.viking_study',
-                  'viking-v2':'research.experiments.viking_v2', 'thesis':'research.experiments.thesis_workflow',
-                  'field':'research.experiments.mapped_field', 'field-v2':'research.experiments.field_recovery',
-                  'applications':'research.experiments.application_suite',
-                  'original-site':'research.validation.original_site',
-                  'closure-status':'research.validation.project_closure'}[arguments[0]]
+                  'viking-v2':'research.experiments.viking_v2', 'thesis':'research.experiments.viking_workflow',
+                  'closure-status':'research.experiments.viking_workflow'}[arguments[0]]
         forwarded=arguments[1:]
         if forwarded[:1]==['--']:forwarded=forwarded[1:]
+        if arguments[0]=='closure-status':forwarded=['status',*forwarded]
         arguments=['module',target,*forwarded]
     args = parser.parse_args(arguments)
 
